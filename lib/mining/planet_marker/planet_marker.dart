@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/mining/models/point.dart';
 
 part 'planet_marker.freezed.dart';
 
@@ -23,6 +24,8 @@ class PlanetMarker with _$PlanetMarker {
   const PlanetMarker._();
 
   const factory PlanetMarker(double x, double y) = _PlanetMarker;
+
+  PlanetPoint get planetPoint => PlanetPoint(x.floor(), y.floor(), 0);
 }
 
 class PlanetMarkerWidget extends HookConsumerWidget {

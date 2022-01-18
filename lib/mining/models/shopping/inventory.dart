@@ -1,23 +1,29 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/mixins/void_stream_provider_mixin.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'inventory.freezed.dart';
 
-final inventoryProvider = Provider<Inventory>((ref) {
-  return Inventory();
+final inventoryStateProvider =
+    StateNotifierProvider<InventoryController, Inventory>((ref) {
+  return InventoryController(const Inventory(100));
 });
 
-class Inventory with VoidChangeStreamAndStreamProvider {
-  int _iron = 100;
-  int get iron => _iron;
+class InventoryController extends StateNotifier<Inventory> {
+  InventoryController(Inventory state) : super(state);
+  int get iron => state.iron;
 
   void addIron(int amount) {
-    notifyUpdate();
-    _iron += amount;
+    state = state.copyWith(iron: state.iron + amount);
   }
 
   void removeIron(int amount) {
-    notifyUpdate();
-    _iron -= amount;
+    state = state.copyWith(iron: state.iron - amount);
   }
 }
 
+@freezed
+class Inventory with _$Inventory {
+  const Inventory._();
+
+  const factory Inventory(int iron) = _Inventory;
+}

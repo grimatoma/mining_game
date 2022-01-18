@@ -11,7 +11,7 @@ import 'models/game_configs.dart';
 import 'models/point.dart';
 
 final gameConfigsProvider =
-    Provider<GameConfigs>((_) => const GameConfigs(10, 10, 1, 2));
+    Provider<GameConfigs>((_) => const GameConfigs(100, 30, 1, 2));
 
 final planetProvider = Provider<Planet>((ref) {
   final configs = ref.watch(gameConfigsProvider);
