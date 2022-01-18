@@ -1,0 +1,44 @@
+import 'dart:async';
+
+import 'package:flutter/widgets.dart';
+import 'package:mining_game/mining/mixins/void_stream_provider_mixin.dart';
+import 'package:mining_game/mining/models/mining/auto_miner.dart';
+import 'package:mining_game/mining/models/point.dart';
+import 'package:mining_game/mining/planet.dart';
+
+
+
+class PlanetTile with VoidChangeStreamAndStreamProvider {
+  AutoMiner? _autoMiner;
+  bool get hasAutoMiner => _autoMiner != null;
+  final Planet _planet;
+  final PlanetPoint point;
+  int iron;
+  bool _visible = false;
+  set visible(bool newVal) {
+    _visible = newVal;
+    notifyUpdate();
+  }
+  bool get visible => _visible;
+  final StreamController<void> _updateController = StreamController<void>.broadcast();
+  Stream<void> get stream => _updateController.stream;
+
+  PlanetTile(this.point, this._planet, [this.iron = 0]);
+
+  int dig(int strength) {
+    notifyUpdate();
+    return _planet.dig(point, strength);
+  }
+
+  int scanForResources(int radius) {
+    notifyUpdate();
+    return _planet.scanForResources(point, radius);
+  }
+
+  void addAutoMiner(AutoMiner autoMiner) {
+    notifyUpdate();
+    _autoMiner = autoMiner;
+  }
+
+  Color get color => _planet.tileColor(this);
+}

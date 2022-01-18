@@ -1,22 +1,25 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/mining/game_clock.dart';
 import 'package:mining_game/mining/mixins/void_stream_provider_mixin.dart';
-import 'package:mining_game/mining/models/auto_miner.dart';
+import 'package:mining_game/mining/models/event_manager/event_manager.dart';
+import 'package:mining_game/mining/models/mining/auto_miner.dart';
 import 'package:mining_game/mining/models/event_manager/game_event_manager.dart';
-import 'package:mining_game/mining/models/planet_tile.dart';
-import 'package:quiver/collection.dart';
+import 'package:mining_game/mining/models/mining/planet_tile.dart';
+import 'package:mining_game/mining/models/shopping/inventory.dart';
 
-import 'event_manager/event_manager.dart';
 
 final autoMiningManagerProvider = Provider<AutoMiningManager>((ref) {
-  return AutoMiningManager(ref.watch(gameEventManagerProvider));
+  return AutoMiningManager(ref.watch(gameEventManagerProvider), ref.watch(gameClockProvider), ref.watch(inventoryProvider));
 });
 
 /// Manges all auto miners and notifies when the miners collection changes.
 class AutoMiningManager with VoidChangeStreamAndStreamProvider {
   final EventStreamManager _eventStreamManager;
-  final miners = BiMap<PlanetTile, AutoMiner>();
+  final GameClock _gameClock;
+  final Inventory _inventory;
+  final miners = <PlanetTile, AutoMiner>{};
 
-  AutoMiningManager(this._eventStreamManager) {
+  AutoMiningManager(this._eventStreamManager, this._gameClock, this._inventory) {
     _eventStreamManager
         .streamForEventType<AutoMiningManagerEvent>()
         .listen((event) {
@@ -29,12 +32,22 @@ class AutoMiningManager with VoidChangeStreamAndStreamProvider {
           break;
       }
     });
+    _gameClock.schedulePeriodicAction(1, _processGameTick);
+  }
+  
+  void _processGameTick() {
+    for (final miner in miners.values) {
+      _inventory.addIron(miner.planetTile.dig(miner.damage));
+    }
   }
 
   void _newMiner(AutoMiningManagerEvent event) {
+    print('event rec');
     event = event as NewMinerEvent;
-    miners[event.planetTile] =
-        AutoMiner(damage: 1, planetTile: event.planetTile);
+    final planetTile = event.planetTile;
+    final newMiner = AutoMiner(damage: 1, planetTile: event.planetTile);
+    planetTile.addAutoMiner(newMiner);
+    miners[event.planetTile] = newMiner;
     notifyUpdate();
   }
 
