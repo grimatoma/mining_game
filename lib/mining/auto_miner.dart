@@ -1,6 +1,5 @@
-import 'package:mining_game/mining/mixins/void_stream_provider_mixin.dart';
-
-import '../planet/planet_tile.dart';
+import 'package:mining_game/mixins/void_stream_provider_mixin.dart';
+import 'package:mining_game/planet/planet_tile.dart';
 
 /// An auto miner who can mine at a certain location;
 class AutoMiner with VoidChangeStreamAndStreamProvider {

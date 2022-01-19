@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
-import 'package:mining_game/mining/mixins/void_stream_provider_mixin.dart';
-import 'package:mining_game/mining/models/mining/auto_miner.dart';
-import 'package:mining_game/mining/models/point.dart';
-import 'package:mining_game/mining/planet.dart';
+import 'package:mining_game/mining/auto_miner.dart';
+import 'package:mining_game/mixins/void_stream_provider_mixin.dart';
 
+import 'planet.dart';
+import 'point.dart';
 
 
 class PlanetTile with VoidChangeStreamAndStreamProvider {

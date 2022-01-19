@@ -1,12 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/game_clock.dart';
-import 'package:mining_game/mining/mixins/void_stream_provider_mixin.dart';
-import 'package:mining_game/mining/models/event_manager/event_manager.dart';
-import 'package:mining_game/mining/models/mining/auto_miner.dart';
-import 'package:mining_game/mining/models/event_manager/game_event_manager.dart';
-import 'package:mining_game/mining/models/planet/planet_tile.dart';
-import 'package:mining_game/mining/models/shopping/inventory.dart';
+import 'package:mining_game/event_manager/event_manager.dart';
+import 'package:mining_game/event_manager/game_event_manager.dart';
+import 'package:mining_game/game_management/game_clock.dart';
+import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/mixins/void_stream_provider_mixin.dart';
+import 'package:mining_game/planet/planet_tile.dart';
 
+import 'auto_miner.dart';
 final autoMiningManagerProvider = Provider<AutoMiningManager>((ref) {
   return AutoMiningManager(ref.watch(gameEventManagerProvider),
       ref.watch(gameClockProvider), ref.watch(inventoryStateProvider.notifier));
@@ -74,6 +74,7 @@ enum AutoMiningManagerEvents {
 }
 
 class NewMinerEvent extends AutoMiningManagerEvent {
+  @override
   final type = AutoMiningManagerEvents.NewMiner;
 
   final PlanetTile planetTile;
@@ -82,6 +83,7 @@ class NewMinerEvent extends AutoMiningManagerEvent {
 }
 
 class UpgradeMinerEvent extends AutoMiningManagerEvent {
+  @override
   final type = AutoMiningManagerEvents.UpgradeMiner;
 
   final PlanetTile planetTile;

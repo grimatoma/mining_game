@@ -15,5 +15,4 @@ mixin VoidChangeStreamAndStreamProvider {
   @protected
   @nonVirtual
   void notifyUpdate() => _updateController.add(null);
-
 }

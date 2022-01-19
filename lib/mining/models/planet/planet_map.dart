@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/mining/game_core_provider.dart';
-import 'package:mining_game/mining/models/mining/planet_tile.dart';
+import 'package:mining_game/mining/models/planet/planet_tile.dart';
 import 'package:mining_game/mining/models/point.dart';
 import 'package:mining_game/mining/models/shopping/inventory.dart';
 import 'package:mining_game/mining/models/shopping/store.dart';

@@ -4,14 +4,12 @@ import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/models/mining/planet_tile.dart';
+import 'package:mining_game/game_management/game_configs.dart';
+import 'package:mining_game/mixins/void_stream_provider_mixin.dart';
 
-import 'mixins/void_stream_provider_mixin.dart';
-import 'models/game_configs.dart';
-import 'models/point.dart';
-
-final gameConfigsProvider =
-    Provider<GameConfigs>((_) => const GameConfigs(100, 30, 1, 2));
+import 'generation/perline_noise.dart';
+import 'planet_tile.dart';
+import 'point.dart';
 
 final planetProvider = Provider<Planet>((ref) {
   final configs = ref.watch(gameConfigsProvider);
@@ -42,16 +40,18 @@ class Planet with VoidChangeStreamAndStreamProvider {
       : width = configs.width,
         height = configs.height,
         depth = configs.depth {
-    planetImage();
     const z = 0;
 
     // change to spare populating
     _planetMap = <PlanetPoint, PlanetTile>{};
     maxResourceSize = 0;
-    final random = Random(configs.seed);
+
+    final resourceMap =
+        executeNoise(configs.width, configs.height, configs.seed);
+
     for (var x = 0; x < configs.width; x++) {
       for (var y = 0; y < configs.height; y++) {
-        final resourceSize = random.nextInt(1000);
+        final resourceSize = _skew(resourceMap[x][y]);
         final p = PlanetPoint(x, y, z);
         planetMap[p] = PlanetTile(p, this, resourceSize);
         maxResourceSize =
@@ -60,55 +60,20 @@ class Planet with VoidChangeStreamAndStreamProvider {
     }
   }
 
+  int _skew(double i) {
+    const multiplier = 10000;
+    var out = i;
+    out = i * multiplier;
+    out = out.abs();
+    // Change to .35
+    out -= multiplier * .15;
+    out = max(0, out);
+
+    return out.toInt();
+  }
+
   PlanetTile getTile(PlanetPoint p) =>
       planetMap.putIfAbsent(p, () => PlanetTile(p, this, 0));
-
-  Uint8List planetImage() {
-    return Uint8List(0);
-    //  var pictureRecorder = PictureRecorder();
-    //  // add rect?
-    //  var canvas = Canvas(pictureRecorder);
-    //  final points = [
-    //    Offset(50, 100),
-    //    Offset(150, 75),
-    //    Offset(250, 250),
-    //    Offset(130, 200),
-    //    Offset(270, 100),
-    //  ];
-    //  final paint = Paint()
-    //    ..color = Colors.black
-    //    ..strokeWidth = 4
-    //    ..strokeCap = StrokeCap.round;
-    //  canvas.drawPoints(PointMode.points, points, paint);
-    //  // final image =  await ;
-    //  final image = pictureRecorder.endRecording();
-    //
-    //  planetImage2 = (await (await image.toImage(300, 300)).toByteData())!.buffer.asUint8List();
-    // notifyUpdate();
-
-    // var image = i.Image(2,1);
-    // image.setPixelRgba(0, 0, 255, 0, 0);
-    // image.setPixelRgba(1, 0, 0, 255, 0);
-    // // return image.getBytes();
-    //
-    // final i2 = Image.memory(image.getBytes());
-    //  var pictureRecorder = PictureRecorder();
-    //  // add rect?
-    //  var canvas = Canvas(pictureRecorder);
-    //  canvas.drawImage(i2, Offset.zero, Paint());
-    //
-    // // var png = i.encodePng(image);
-    //
-    // png.
-    // final c = Color.fromRGBO(5, 10, 150, 200);
-    // utf8.decode([c.value]);
-    // Color;
-    // return Uint8List.fromList([
-    // for (var x = 0; x < width; x++)
-    // for (var y = 0; y < height; y++)
-
-    // ]);
-  }
 
   int dig(PlanetPoint p, int strength) {
     final tile = planetMap[p];

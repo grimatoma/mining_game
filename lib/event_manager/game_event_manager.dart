@@ -1,6 +1,6 @@
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/models/event_manager/event_manager.dart';
+import 'event_manager.dart';
 
 
 

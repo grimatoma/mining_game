@@ -1,8 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/models/event_manager/game_event_manager.dart';
-import 'package:mining_game/mining/models/mining/auto_mining_manager.dart';
-import 'package:mining_game/mining/models/mining/planet_tile.dart';
-import 'package:mining_game/mining/models/shopping/inventory.dart';
+import 'package:mining_game/event_manager/game_event_manager.dart';
+import 'package:mining_game/mining/auto_mining_manager.dart';
+import 'package:mining_game/planet/planet_tile.dart';
+
+import 'inventory.dart';
 
 final storeProvider = Provider((ref) => Store(
     ref.watch(inventoryStateProvider.notifier),
