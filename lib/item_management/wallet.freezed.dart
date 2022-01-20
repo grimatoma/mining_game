@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'inventory.dart';
+part of 'wallet.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,42 +15,42 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$InventoryTearOff {
-  const _$InventoryTearOff();
+class _$ResourcesTearOff {
+  const _$ResourcesTearOff();
 
-  _Inventory call(int iron) {
-    return _Inventory(
-      iron,
+  _Resources call({int iron = 0}) {
+    return _Resources(
+      iron: iron,
     );
   }
 }
 
 /// @nodoc
-const $Inventory = _$InventoryTearOff();
+const $Resources = _$ResourcesTearOff();
 
 /// @nodoc
-mixin _$Inventory {
+mixin _$Resources {
   int get iron => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $InventoryCopyWith<Inventory> get copyWith =>
+  $ResourcesCopyWith<Resources> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $InventoryCopyWith<$Res> {
-  factory $InventoryCopyWith(Inventory value, $Res Function(Inventory) then) =
-      _$InventoryCopyWithImpl<$Res>;
+abstract class $ResourcesCopyWith<$Res> {
+  factory $ResourcesCopyWith(Resources value, $Res Function(Resources) then) =
+      _$ResourcesCopyWithImpl<$Res>;
   $Res call({int iron});
 }
 
 /// @nodoc
-class _$InventoryCopyWithImpl<$Res> implements $InventoryCopyWith<$Res> {
-  _$InventoryCopyWithImpl(this._value, this._then);
+class _$ResourcesCopyWithImpl<$Res> implements $ResourcesCopyWith<$Res> {
+  _$ResourcesCopyWithImpl(this._value, this._then);
 
-  final Inventory _value;
+  final Resources _value;
   // ignore: unused_field
-  final $Res Function(Inventory) _then;
+  final $Res Function(Resources) _then;
 
   @override
   $Res call({
@@ -66,29 +66,29 @@ class _$InventoryCopyWithImpl<$Res> implements $InventoryCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$InventoryCopyWith<$Res> implements $InventoryCopyWith<$Res> {
-  factory _$InventoryCopyWith(
-          _Inventory value, $Res Function(_Inventory) then) =
-      __$InventoryCopyWithImpl<$Res>;
+abstract class _$ResourcesCopyWith<$Res> implements $ResourcesCopyWith<$Res> {
+  factory _$ResourcesCopyWith(
+          _Resources value, $Res Function(_Resources) then) =
+      __$ResourcesCopyWithImpl<$Res>;
   @override
   $Res call({int iron});
 }
 
 /// @nodoc
-class __$InventoryCopyWithImpl<$Res> extends _$InventoryCopyWithImpl<$Res>
-    implements _$InventoryCopyWith<$Res> {
-  __$InventoryCopyWithImpl(_Inventory _value, $Res Function(_Inventory) _then)
-      : super(_value, (v) => _then(v as _Inventory));
+class __$ResourcesCopyWithImpl<$Res> extends _$ResourcesCopyWithImpl<$Res>
+    implements _$ResourcesCopyWith<$Res> {
+  __$ResourcesCopyWithImpl(_Resources _value, $Res Function(_Resources) _then)
+      : super(_value, (v) => _then(v as _Resources));
 
   @override
-  _Inventory get _value => super._value as _Inventory;
+  _Resources get _value => super._value as _Resources;
 
   @override
   $Res call({
     Object? iron = freezed,
   }) {
-    return _then(_Inventory(
-      iron == freezed
+    return _then(_Resources(
+      iron: iron == freezed
           ? _value.iron
           : iron // ignore: cast_nullable_to_non_nullable
               as int,
@@ -98,22 +98,23 @@ class __$InventoryCopyWithImpl<$Res> extends _$InventoryCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Inventory extends _Inventory {
-  const _$_Inventory(this.iron) : super._();
+class _$_Resources extends _Resources {
+  const _$_Resources({this.iron = 0}) : super._();
 
+  @JsonKey()
   @override
   final int iron;
 
   @override
   String toString() {
-    return 'Inventory(iron: $iron)';
+    return 'Resources(iron: $iron)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Inventory &&
+            other is _Resources &&
             const DeepCollectionEquality().equals(other.iron, iron));
   }
 
@@ -123,18 +124,18 @@ class _$_Inventory extends _Inventory {
 
   @JsonKey(ignore: true)
   @override
-  _$InventoryCopyWith<_Inventory> get copyWith =>
-      __$InventoryCopyWithImpl<_Inventory>(this, _$identity);
+  _$ResourcesCopyWith<_Resources> get copyWith =>
+      __$ResourcesCopyWithImpl<_Resources>(this, _$identity);
 }
 
-abstract class _Inventory extends Inventory {
-  const factory _Inventory(int iron) = _$_Inventory;
-  const _Inventory._() : super._();
+abstract class _Resources extends Resources {
+  const factory _Resources({int iron}) = _$_Resources;
+  const _Resources._() : super._();
 
   @override
   int get iron;
   @override
   @JsonKey(ignore: true)
-  _$InventoryCopyWith<_Inventory> get copyWith =>
+  _$ResourcesCopyWith<_Resources> get copyWith =>
       throw _privateConstructorUsedError;
 }

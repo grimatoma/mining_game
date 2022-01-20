@@ -33,10 +33,10 @@ class GameClock {
 
   void schedulePeriodicAction(int repeatAfterGameTicks, void Function() action) {
     void Function() self = () {};
-    final periodicAction = () {
+    void periodicAction() {
       action.call();
       scheduleAction(repeatAfterGameTicks, self);
-    };
+    }
     self = periodicAction;
     scheduleAction(repeatAfterGameTicks, self);
   }

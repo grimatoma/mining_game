@@ -13,7 +13,6 @@ class PlanetMapPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    print('canvas equals? ${this.canvas == canvas} ${this.canvas}  $canvas');
     this.canvas = canvas;
     // Define a paint object
 

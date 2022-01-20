@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/widgets.dart';
@@ -83,9 +82,9 @@ class Planet with VoidChangeStreamAndStreamProvider {
     return oldIron - tile.iron;
   }
 
-  int scanForResources(PlanetPoint p, int radius) {
+  void scanForResources(PlanetPoint p, int radius) {
     notifyUpdate();
-    return _resourceValue(_scan(p, radius));
+    _resourceValue(_scan(p, radius));
   }
 
   List<PlanetPoint> _scan(PlanetPoint p, int radius) {

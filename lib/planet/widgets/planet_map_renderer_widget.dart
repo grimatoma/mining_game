@@ -20,7 +20,6 @@ class PlanetMapRenderer extends HookConsumerWidget {
         child: GestureDetector(
           onTapDown: (details) {
             final position = details.localPosition;
-            print('x${position.dx.floor()},y${position.dy.floor()}');
             ref
                 .read(planetMarkerProvider.notifier)
                 .updateMarker(details.localPosition);

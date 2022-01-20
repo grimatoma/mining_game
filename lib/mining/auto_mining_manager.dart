@@ -2,21 +2,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/event_manager.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
-import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/item_management/wallet.dart';
 import 'package:mining_game/mixins/void_stream_provider_mixin.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 
 import 'auto_miner.dart';
+
 final autoMiningManagerProvider = Provider<AutoMiningManager>((ref) {
   return AutoMiningManager(ref.watch(gameEventManagerProvider),
-      ref.watch(gameClockProvider), ref.watch(inventoryStateProvider.notifier));
+      ref.watch(gameClockProvider), ref.watch(walletStateProvider.notifier));
 });
 
 /// Manges all auto miners and notifies when the miners collection changes.
 class AutoMiningManager with VoidChangeStreamAndStreamProvider {
   final EventStreamManager _eventStreamManager;
   final GameClock _gameClock;
-  final InventoryController _inventory;
+  final WalletController _inventory;
   final miners = <PlanetTile, AutoMiner>{};
 
   AutoMiningManager(
@@ -38,12 +39,11 @@ class AutoMiningManager with VoidChangeStreamAndStreamProvider {
 
   void _processGameTick() {
     for (final miner in miners.values) {
-      _inventory.addIron(miner.planetTile.dig(miner.damage));
+      _inventory.add(miner.planetTile.dig(miner.damage));
     }
   }
 
   void _newMiner(AutoMiningManagerEvent event) {
-    print('event rec');
     event = event as NewMinerEvent;
     final planetTile = event.planetTile;
     final newMiner = AutoMiner(damage: 1, planetTile: event.planetTile);
