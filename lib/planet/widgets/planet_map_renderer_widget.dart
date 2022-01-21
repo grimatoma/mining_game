@@ -10,8 +10,7 @@ class PlanetMapRenderer extends HookConsumerWidget {
   const PlanetMapRenderer({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final planet = ref.watch(planetProvider);
-    ref.watch(planet.streamProvider);
+    final planet = ref.watch(planetControllerProvider);
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * (1 - .65),
@@ -21,7 +20,7 @@ class PlanetMapRenderer extends HookConsumerWidget {
           onTapDown: (details) {
             final position = details.localPosition;
             ref
-                .read(planetMarkerProvider.notifier)
+                .read(planetMarkerControllerProvider.notifier)
                 .updateMarker(details.localPosition);
           },
           child: Stack(children: [

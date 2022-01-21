@@ -6,7 +6,7 @@ class PlanetMarkerWidget extends HookConsumerWidget {
   const PlanetMarkerWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var marker = ref.watch(planetMarkerProvider);
+    var marker = ref.watch(planetMarkerControllerProvider);
     return Positioned(
         left: marker.x,
         top: marker.y,

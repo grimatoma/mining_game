@@ -6,44 +6,45 @@ import 'package:mining_game/item_management/items.dart';
 
 import 'wallet.dart';
 
-final storeStateProvider =
-    StateNotifierProvider<Store, BuiltList<ShopItem>>((ref) => Store(
-        ref.watch(walletStateProvider.notifier),
-        ref.watch(inventoryStateProvider.notifier),
-        ref.watch(gameEventManagerProvider),
-        [
-          const ShopItem(
-              item: Miner(
-                  id: 1,
-                  name: 'Junk Miner',
-                  description:
-                      'Salavaged from a garage sale. Barely functional and guzzles gas',
-                  radius: 1,
-                  depth: 1,
-                  damage: 1,
-                  hopperSize: 50,
-                  fuelConsumption: 5),
-              cost: Resources(iron: 50)),
-          const ShopItem(
-              item: Miner(
-                  id: 2,
-                  name: 'Basic Miner',
-                  description: 'Generic off the shelf miner',
-                  radius: 2,
-                  depth: 1,
-                  damage: 2,
-                  hopperSize: 100,
-                  fuelConsumption: 5),
-              cost: Resources(iron: 250))
-        ].build()));
+final storeControllerProvider =
+    StateNotifierProvider<StoreController, BuiltList<ShopItem>>(
+        (ref) => StoreController(
+            ref.watch(walletControllerProvider.notifier),
+            ref.watch(inventoryProvider.notifier),
+            ref.watch(gameEventManagerProvider),
+            [
+              const ShopItem(
+                  item: Miner(
+                      id: 1,
+                      name: 'Junk Miner',
+                      description:
+                          'Salavaged from a garage sale. Barely functional and guzzles gas',
+                      radius: 1,
+                      depth: 1,
+                      damage: 1,
+                      hopperSize: 50,
+                      fuelConsumption: 5),
+                  cost: Resources(iron: 50)),
+              const ShopItem(
+                  item: Miner(
+                      id: 2,
+                      name: 'Basic Miner',
+                      description: 'Generic off the shelf miner',
+                      radius: 2,
+                      depth: 1,
+                      damage: 2,
+                      hopperSize: 100,
+                      fuelConsumption: 5),
+                  cost: Resources(iron: 250))
+            ].build()));
 
-class Store extends StateNotifier<BuiltList<ShopItem>> {
+class StoreController extends StateNotifier<BuiltList<ShopItem>> {
   final WalletController _wallet;
   final InventoryController _inventory;
   final GameEventManager _gameEventManager;
   BuiltList<ShopItem> get storeItems => state;
 
-  Store(this._wallet, this._inventory, this._gameEventManager,
+  StoreController(this._wallet, this._inventory, this._gameEventManager,
       BuiltList<ShopItem> items)
       : super(items);
 

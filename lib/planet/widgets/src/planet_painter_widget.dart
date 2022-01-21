@@ -16,10 +16,12 @@ class PlanetMapPainter extends CustomPainter {
     this.canvas = canvas;
     // Define a paint object
 
-    Paint getPaint(PlanetTile planetTile) => Paint()
+    Paint getPaint(PlanetTile? planetTile) => Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0
-      ..color = planetTile.visible ? planetTile.color : Colors.grey;
+      ..color = (planetTile != null && planetTile.visible)
+          ? planetTile.color
+          : Colors.grey;
 
     // V1 which is iterate. Try v2 where all tiles are stored by their resource size? THAT SOUNDS REALLY STUPID
 

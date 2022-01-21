@@ -98,7 +98,7 @@ class __$ResourcesCopyWithImpl<$Res> extends _$ResourcesCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Resources extends _Resources {
+class _$_Resources extends _Resources with DiagnosticableTreeMixin {
   const _$_Resources({this.iron = 0}) : super._();
 
   @JsonKey()
@@ -106,8 +106,16 @@ class _$_Resources extends _Resources {
   final int iron;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Resources(iron: $iron)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Resources'))
+      ..add(DiagnosticsProperty('iron', iron));
   }
 
   @override

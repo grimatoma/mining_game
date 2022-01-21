@@ -5,7 +5,7 @@ import 'package:mining_game/planet/point.dart';
 
 part 'planet_marker.freezed.dart';
 
-final planetMarkerProvider =
+final planetMarkerControllerProvider =
     StateNotifierProvider<PlanetMarkerController, PlanetMarker>((ref) {
   return PlanetMarkerController(const PlanetMarker(-1, -1));
 });

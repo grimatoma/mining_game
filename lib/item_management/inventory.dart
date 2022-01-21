@@ -3,13 +3,25 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'items.dart';
 
-final inventoryStateProvider =
-    StateNotifierProvider<InventoryController, BuiltMap<Item, int>>((ref) {
-  return InventoryController(BuiltMap<Item, int>());
+final inventoryProvider =
+    StateNotifierProvider<InventoryController, Inventory>((ref) {
+  return InventoryController(Inventory._empty());
 });
 
-class InventoryController extends StateNotifier<BuiltMap<Item, int>> {
-  InventoryController(BuiltMap<Item, int> state) : super(state);
+class Inventory {
+  final BuiltMap<Item, int> items;
+
+  Inventory(this.items);
+  Inventory._empty() : items = BuiltMap(<Item, int>{});
+
+  Inventory rebuild(Function(MapBuilder<Item, int>) updates) =>
+      Inventory(items.rebuild(updates));
+
+  int operator [](ItemType key) => items[key] ?? 0;
+}
+
+class InventoryController extends StateNotifier<Inventory> {
+  InventoryController(Inventory state) : super(state);
 
   void addItem(Item item) {
     state = state.rebuild((p0) => p0.putIfAbsent(item, () => 1));
@@ -19,7 +31,7 @@ class InventoryController extends StateNotifier<BuiltMap<Item, int>> {
   ///
   /// If none are in the inventory false will be returned.
   bool removeItem(Item item) {
-    final count = state[item];
+    final count = state.items[item];
     if (count == null) return false;
     state = state.rebuild((p0) {
       final newVal = count - 1;

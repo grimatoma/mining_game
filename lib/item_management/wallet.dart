@@ -1,9 +1,13 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+// ignore: unused_import
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'wallet.freezed.dart';
 
-final walletStateProvider =
+final walletControllerProvider =
     StateNotifierProvider<WalletController, Resources>((ref) {
   return WalletController(const Resources(iron: 100));
 });
@@ -18,6 +22,10 @@ class WalletController extends StateNotifier<Resources> {
   void remove(Resources resources) => state = state - resources;
 }
 
+enum ResourceType {
+  IRON,
+}
+
 @freezed
 class Resources with _$Resources {
   const Resources._();
@@ -29,4 +37,9 @@ class Resources with _$Resources {
   Resources operator -(Resources other) => copyWith(iron: iron - other.iron);
 
   Resources operator +(Resources other) => copyWith(iron: iron + other.iron);
+
+  Resources maxCanBeRemoved(Resources other) =>
+      Resources(iron: minValue(iron, other.iron));
+
+  int minValue(int i, int b) => min(i, b);
 }
