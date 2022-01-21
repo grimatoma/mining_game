@@ -3,8 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_marker.dart';
 import 'package:mining_game/planet/widgets/src/planet_marker_widget.dart';
-
-import 'src/planet_painter_widget.dart';
+import 'package:mining_game/planet/widgets/src/planet_painter_widget.dart';
 
 class PlanetMapRenderer extends HookConsumerWidget {
   const PlanetMapRenderer({Key? key}) : super(key: key);
@@ -18,7 +17,6 @@ class PlanetMapRenderer extends HookConsumerWidget {
         fit: BoxFit.fill,
         child: GestureDetector(
           onTapDown: (details) {
-            final position = details.localPosition;
             ref
                 .read(planetMarkerControllerProvider.notifier)
                 .updateMarker(details.localPosition);
@@ -29,6 +27,7 @@ class PlanetMapRenderer extends HookConsumerWidget {
                 height: planet.height.toDouble(),
                 color: Colors.yellow,
                 child: CustomPaint(painter: PlanetMapPainter(planet))),
+            const MinerLayerWidget(),
             const PlanetMarkerWidget()
           ]),
         ),

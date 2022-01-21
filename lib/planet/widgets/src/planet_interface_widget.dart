@@ -47,7 +47,9 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                 .read(planetControllerProvider.notifier)
                 .scanForResources(selectedTile.point, 1),
             child: const Text('scan')),
-      if (availableMiners.isNotEmpty && selectedTile.visible)
+      if (availableMiners.isNotEmpty &&
+          selectedTile.visible &&
+          !ref.watch(miningControllerProvider).miners.containsKey(selectedTile))
         Row(
           children: [
             const Text('Select Miner to install:'),

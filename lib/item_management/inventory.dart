@@ -3,9 +3,39 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'items.dart';
 
+final startingInventoryProvider = Provider<BuiltMap<Item, int>>((ref) => {
+      const Miner(
+          id: 3,
+          name: 'Test Miner 3',
+          description: 'this is the third miner',
+          radius: 1,
+          depth: 1,
+          damage: 1,
+          hopperSize: 50,
+          fuelConsumption: 5): 1,
+      const Miner(
+          id: 4,
+          name: 'Test Miner 4',
+          description: 'this is the 4 miner',
+          radius: 1,
+          depth: 1,
+          damage: 1,
+          hopperSize: 50,
+          fuelConsumption: 5): 2,
+      const Miner(
+          id: 5,
+          name: 'Test Miner 5',
+          description: 'this is the 5 miner',
+          radius: 1,
+          depth: 1,
+          damage: 1,
+          hopperSize: 50,
+          fuelConsumption: 5): 3,
+    }.build());
+
 final inventoryProvider =
     StateNotifierProvider<InventoryController, Inventory>((ref) {
-  return InventoryController(Inventory._empty());
+  return InventoryController(Inventory(ref.watch(startingInventoryProvider)));
 });
 
 class Inventory {
