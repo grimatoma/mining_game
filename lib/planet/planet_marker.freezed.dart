@@ -15,59 +15,78 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$PlanetMarkerTearOff {
-  const _$PlanetMarkerTearOff();
+class _$PlanetScreenInfoTearOff {
+  const _$PlanetScreenInfoTearOff();
 
-  _PlanetMarker call(double x, double y) {
+  _PlanetMarker call(
+      {required int planetX,
+      required int planetY,
+      required double xScale,
+      required double yScale}) {
     return _PlanetMarker(
-      x,
-      y,
+      planetX: planetX,
+      planetY: planetY,
+      xScale: xScale,
+      yScale: yScale,
     );
   }
 }
 
 /// @nodoc
-const $PlanetMarker = _$PlanetMarkerTearOff();
+const $PlanetScreenInfo = _$PlanetScreenInfoTearOff();
 
 /// @nodoc
-mixin _$PlanetMarker {
-  double get x => throw _privateConstructorUsedError;
-  double get y => throw _privateConstructorUsedError;
+mixin _$PlanetScreenInfo {
+  int get planetX => throw _privateConstructorUsedError;
+  int get planetY => throw _privateConstructorUsedError;
+  double get xScale => throw _privateConstructorUsedError;
+  double get yScale => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $PlanetMarkerCopyWith<PlanetMarker> get copyWith =>
+  $PlanetScreenInfoCopyWith<PlanetScreenInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $PlanetMarkerCopyWith<$Res> {
-  factory $PlanetMarkerCopyWith(
-          PlanetMarker value, $Res Function(PlanetMarker) then) =
-      _$PlanetMarkerCopyWithImpl<$Res>;
-  $Res call({double x, double y});
+abstract class $PlanetScreenInfoCopyWith<$Res> {
+  factory $PlanetScreenInfoCopyWith(
+          PlanetScreenInfo value, $Res Function(PlanetScreenInfo) then) =
+      _$PlanetScreenInfoCopyWithImpl<$Res>;
+  $Res call({int planetX, int planetY, double xScale, double yScale});
 }
 
 /// @nodoc
-class _$PlanetMarkerCopyWithImpl<$Res> implements $PlanetMarkerCopyWith<$Res> {
-  _$PlanetMarkerCopyWithImpl(this._value, this._then);
+class _$PlanetScreenInfoCopyWithImpl<$Res>
+    implements $PlanetScreenInfoCopyWith<$Res> {
+  _$PlanetScreenInfoCopyWithImpl(this._value, this._then);
 
-  final PlanetMarker _value;
+  final PlanetScreenInfo _value;
   // ignore: unused_field
-  final $Res Function(PlanetMarker) _then;
+  final $Res Function(PlanetScreenInfo) _then;
 
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
+    Object? planetX = freezed,
+    Object? planetY = freezed,
+    Object? xScale = freezed,
+    Object? yScale = freezed,
   }) {
     return _then(_value.copyWith(
-      x: x == freezed
-          ? _value.x
-          : x // ignore: cast_nullable_to_non_nullable
+      planetX: planetX == freezed
+          ? _value.planetX
+          : planetX // ignore: cast_nullable_to_non_nullable
+              as int,
+      planetY: planetY == freezed
+          ? _value.planetY
+          : planetY // ignore: cast_nullable_to_non_nullable
+              as int,
+      xScale: xScale == freezed
+          ? _value.xScale
+          : xScale // ignore: cast_nullable_to_non_nullable
               as double,
-      y: y == freezed
-          ? _value.y
-          : y // ignore: cast_nullable_to_non_nullable
+      yScale: yScale == freezed
+          ? _value.yScale
+          : yScale // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }
@@ -75,16 +94,17 @@ class _$PlanetMarkerCopyWithImpl<$Res> implements $PlanetMarkerCopyWith<$Res> {
 
 /// @nodoc
 abstract class _$PlanetMarkerCopyWith<$Res>
-    implements $PlanetMarkerCopyWith<$Res> {
+    implements $PlanetScreenInfoCopyWith<$Res> {
   factory _$PlanetMarkerCopyWith(
           _PlanetMarker value, $Res Function(_PlanetMarker) then) =
       __$PlanetMarkerCopyWithImpl<$Res>;
   @override
-  $Res call({double x, double y});
+  $Res call({int planetX, int planetY, double xScale, double yScale});
 }
 
 /// @nodoc
-class __$PlanetMarkerCopyWithImpl<$Res> extends _$PlanetMarkerCopyWithImpl<$Res>
+class __$PlanetMarkerCopyWithImpl<$Res>
+    extends _$PlanetScreenInfoCopyWithImpl<$Res>
     implements _$PlanetMarkerCopyWith<$Res> {
   __$PlanetMarkerCopyWithImpl(
       _PlanetMarker _value, $Res Function(_PlanetMarker) _then)
@@ -95,17 +115,27 @@ class __$PlanetMarkerCopyWithImpl<$Res> extends _$PlanetMarkerCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
+    Object? planetX = freezed,
+    Object? planetY = freezed,
+    Object? xScale = freezed,
+    Object? yScale = freezed,
   }) {
     return _then(_PlanetMarker(
-      x == freezed
-          ? _value.x
-          : x // ignore: cast_nullable_to_non_nullable
+      planetX: planetX == freezed
+          ? _value.planetX
+          : planetX // ignore: cast_nullable_to_non_nullable
+              as int,
+      planetY: planetY == freezed
+          ? _value.planetY
+          : planetY // ignore: cast_nullable_to_non_nullable
+              as int,
+      xScale: xScale == freezed
+          ? _value.xScale
+          : xScale // ignore: cast_nullable_to_non_nullable
               as double,
-      y == freezed
-          ? _value.y
-          : y // ignore: cast_nullable_to_non_nullable
+      yScale: yScale == freezed
+          ? _value.yScale
+          : yScale // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }
@@ -114,16 +144,25 @@ class __$PlanetMarkerCopyWithImpl<$Res> extends _$PlanetMarkerCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_PlanetMarker extends _PlanetMarker {
-  const _$_PlanetMarker(this.x, this.y) : super._();
+  const _$_PlanetMarker(
+      {required this.planetX,
+      required this.planetY,
+      required this.xScale,
+      required this.yScale})
+      : super._();
 
   @override
-  final double x;
+  final int planetX;
   @override
-  final double y;
+  final int planetY;
+  @override
+  final double xScale;
+  @override
+  final double yScale;
 
   @override
   String toString() {
-    return 'PlanetMarker(x: $x, y: $y)';
+    return 'PlanetScreenInfo(planetX: $planetX, planetY: $planetY, xScale: $xScale, yScale: $yScale)';
   }
 
   @override
@@ -131,15 +170,19 @@ class _$_PlanetMarker extends _PlanetMarker {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _PlanetMarker &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y));
+            const DeepCollectionEquality().equals(other.planetX, planetX) &&
+            const DeepCollectionEquality().equals(other.planetY, planetY) &&
+            const DeepCollectionEquality().equals(other.xScale, xScale) &&
+            const DeepCollectionEquality().equals(other.yScale, yScale));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y));
+      const DeepCollectionEquality().hash(planetX),
+      const DeepCollectionEquality().hash(planetY),
+      const DeepCollectionEquality().hash(xScale),
+      const DeepCollectionEquality().hash(yScale));
 
   @JsonKey(ignore: true)
   @override
@@ -147,14 +190,22 @@ class _$_PlanetMarker extends _PlanetMarker {
       __$PlanetMarkerCopyWithImpl<_PlanetMarker>(this, _$identity);
 }
 
-abstract class _PlanetMarker extends PlanetMarker {
-  const factory _PlanetMarker(double x, double y) = _$_PlanetMarker;
+abstract class _PlanetMarker extends PlanetScreenInfo {
+  const factory _PlanetMarker(
+      {required int planetX,
+      required int planetY,
+      required double xScale,
+      required double yScale}) = _$_PlanetMarker;
   const _PlanetMarker._() : super._();
 
   @override
-  double get x;
+  int get planetX;
   @override
-  double get y;
+  int get planetY;
+  @override
+  double get xScale;
+  @override
+  double get yScale;
   @override
   @JsonKey(ignore: true)
   _$PlanetMarkerCopyWith<_PlanetMarker> get copyWith =>

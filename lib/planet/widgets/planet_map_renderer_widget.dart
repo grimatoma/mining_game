@@ -10,27 +10,37 @@ class PlanetMapRenderer extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final planet = ref.watch(planetControllerProvider);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height * (1 - .65);
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * (1 - .65),
-      child: FittedBox(
-        fit: BoxFit.fill,
-        child: GestureDetector(
-          onTapDown: (details) {
-            ref
-                .read(planetMarkerControllerProvider.notifier)
-                .updateMarker(details.localPosition);
-          },
-          child: Stack(children: [
-            Container(
-                width: planet.width.toDouble(),
-                height: planet.height.toDouble(),
-                color: Colors.yellow,
-                child: CustomPaint(painter: PlanetMapPainter(planet))),
-            const MinerLayerWidget(),
-            const PlanetMarkerWidget()
-          ]),
-        ),
+      width: screenWidth,
+      height: screenHeight,
+      child: GestureDetector(
+        onTapDown: (details) {
+          ref.read(planetScreenInfoControllerProvider.notifier).updateMarker(
+                pointerOffset: details.localPosition,
+                planetHeight: planet.height,
+                planetWidth: planet.width,
+                screenHeight: screenHeight,
+                screenWidth: screenWidth,
+              );
+        },
+        child: Stack(children: [
+          SizedBox(
+            width: screenWidth,
+            height: screenHeight,
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Container(
+                  width: planet.width.toDouble(),
+                  height: planet.height.toDouble(),
+                  color: Colors.yellow,
+                  child: CustomPaint(painter: PlanetMapPainter(planet))),
+            ),
+          ),
+          MinerLayerWidget(screenWidth, screenHeight),
+          const PlanetMarkerWidget(),
+        ]),
       ),
     );
   }

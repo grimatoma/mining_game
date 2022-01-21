@@ -1,46 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/mining/auto_mining_manager.dart';
-import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_marker.dart';
 
 class PlanetMarkerWidget extends HookConsumerWidget {
   const PlanetMarkerWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var marker = ref.watch(planetMarkerControllerProvider);
+    final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
+    final cursorLocation = planetScreenInfo.cursorLocationScreen;
     return Positioned(
-        left: marker.x,
-        top: marker.y,
+        left: cursorLocation.dx + planetScreenInfo.xScale * 0.35,
+        top: cursorLocation.dy + planetScreenInfo.yScale * 0.35,
         child: Container(
-          width: 1,
-          height: 1,
+          width: 0.3 * planetScreenInfo.xScale,
+          height: 0.3 * planetScreenInfo.yScale,
           color: Colors.blue,
         ));
   }
 }
 
 class MinerLayerWidget extends HookConsumerWidget {
-  const MinerLayerWidget({
+  final double screenWidth;
+  final double screenHeight;
+  const MinerLayerWidget(
+    this.screenWidth,
+    this.screenHeight, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
     return SizedBox(
-      width: ref.watch(planetControllerProvider).width.toDouble(),
-      height: ref.watch(planetControllerProvider).height.toDouble(),
+      width: screenWidth,
+      height: screenHeight,
       child: Stack(
+        fit: StackFit.expand,
         children: [
           for (final miner in ref.watch(miningControllerProvider).miners.values)
             Positioned(
-                left: miner.planetTile.point.x.toDouble() + 0.25,
-                top: miner.planetTile.point.y.toDouble() + 0.25,
+                left:
+                    planetScreenInfo.screenLocation(miner.planetTile.point).dx +
+                        0.25 * planetScreenInfo.xScale,
+                top:
+                    planetScreenInfo.screenLocation(miner.planetTile.point).dy +
+                        0.25 * planetScreenInfo.yScale,
                 child: Container(
-                  width: .5,
-                  height: .5,
+                  width: 0.5 * planetScreenInfo.xScale,
+                  height: 0.5 * planetScreenInfo.yScale,
                   color: Colors.green,
-                  // child: Text(miner.miner.name),
+                  child: Text(miner.miner.name,
+                      style: const TextStyle(fontSize: 6)),
                 ))
         ],
       ),

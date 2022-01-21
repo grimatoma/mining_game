@@ -28,9 +28,8 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final availableMiners = ref.watch(availableMinersProvider);
-    final selectedTile = ref
-        .watch(planetControllerProvider)
-        .getTile(ref.watch(planetMarkerControllerProvider).planetPoint);
+    final selectedTile = ref.watch(planetControllerProvider).getTile(
+        ref.watch(planetScreenInfoControllerProvider).cursorPlanetPoint);
     if (selectedTile == null || !selectedTile.isValid) {
       return const Scaffold(body: Text('Select a location on the map'));
     }

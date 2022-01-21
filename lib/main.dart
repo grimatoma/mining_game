@@ -98,8 +98,10 @@ class PlanetPageWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Planet'),
+      ),
       body: SizedBox(
-        height: MediaQuery.of(context).size.height,
         child: Column(children: const [
           StatusBarWidget(),
           PlanetMapRenderer(),
