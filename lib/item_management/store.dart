@@ -1,77 +1,81 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/items.dart';
 
 import 'wallet.dart';
 
-final storeControllerProvider =
-    StateNotifierProvider<StoreController, BuiltList<ShopItem>>(
+final storeListingsControllerProvider =
+    StateNotifierProvider<StoreController, StoreListings>(
         (ref) => StoreController(
             ref.watch(walletControllerProvider.notifier),
             ref.watch(inventoryProvider.notifier),
-            ref.watch(gameEventManagerProvider),
-            [
-              const ShopItem(
-                  item: Miner(
-                      id: 1,
-                      name: 'Junk Miner',
-                      description:
-                          'Salavaged from a garage sale. Barely functional and guzzles gas',
-                      radius: 1,
-                      depth: 1,
-                      damage: 1,
-                      hopperSize: 50,
-                      fuelConsumption: 5),
-                  cost: Resources(iron: 50)),
-              const ShopItem(
-                  item: Miner(
-                      id: 2,
-                      name: 'Basic Miner',
-                      description: 'Generic off the shelf miner',
-                      radius: 2,
-                      depth: 1,
-                      damage: 2,
-                      hopperSize: 100,
-                      fuelConsumption: 5),
-                  cost: Resources(iron: 250))
-            ].build()));
+            StoreListings([
+              const InstantiatableItemShopListing(
+                  itemId: ItemId(4), cost: Resources(iron: 50)),
+              // const ItemInstanceShopListing(
+              //     instanceId: InstanceId(5), cost: Resources(iron: 50)),
+              // const ItemInstanceShopListing(
+              //     instanceId: InstanceId(6), cost: Resources(iron: 250))
+            ].build())));
 
-class StoreController extends StateNotifier<BuiltList<ShopItem>> {
+class StoreListings {
+  final BuiltList<ShopListing> items;
+
+  StoreListings(this.items);
+
+  StoreListings rebuild(Function(ListBuilder<ShopListing>) updates) =>
+      StoreListings(items.rebuild(updates));
+}
+
+class StoreController extends StateNotifier<StoreListings> {
   final WalletController _wallet;
   final InventoryController _inventory;
-  final GameEventManager _gameEventManager;
-  BuiltList<ShopItem> get storeItems => state;
+  StoreListings get store => state;
+  set store(StoreListings store) => state = store;
 
-  StoreController(this._wallet, this._inventory, this._gameEventManager,
-      BuiltList<ShopItem> items)
-      : super(items);
+  StoreController(this._wallet, this._inventory, StoreListings store)
+      : super(store);
 
-  bool canBuyItem(ShopItem item) => _wallet.canRemove(item.cost);
-  bool buyItem(ShopItem shopItem) {
-    if (_wallet.canRemove(shopItem.cost)) {
-      _wallet.remove(shopItem.cost);
-      state = state.rebuild((p0) => p0.remove(shopItem));
-      _inventory.addItem(shopItem.item);
+  bool canBuyItem(ShopListing listing) => _wallet.canRemove(listing.cost);
+  bool buyItem(ShopListing listing) {
+    if (_wallet.canRemove(listing.cost)) {
+      _wallet.remove(listing.cost);
+      state = state.rebuild((p0) => p0.remove(listing));
 
-      _gameEventManager.addEvent(PurchasedItemEvent(shopItem));
+      if (listing is ItemInstanceShopListing) {
+        _inventory.addItemInstance(listing.item);
+      } else {
+        print('TYPE UNKNOWN FOR SHOP!');
+      }
+      // } else (listing is InstantiatableItemShopListing) {
+      //   // ItemDatabas
+      //   int e = 2;
+      // }
+      // // switch (listing.runtimeType) {
+      //   case ItemInstanceShopListing:
+      //
+      //     break;
+      //   default:
+      //     print('TYPE UNKNOWN FOR SHOP!');
+      // }
+      // _gameEventManager.addEvent(PurchasedItemEvent(listing));
       return true;
     }
     return false;
   }
 }
 
-enum StoreEvents {
-  PURCHASED_ITEM,
-}
-
-class PurchasedItemEvent extends GameEvent<StoreEvents> {
-  PurchasedItemEvent(this.shopItem) : item = shopItem.item;
-
-  @override
-  StoreEvents get type => StoreEvents.PURCHASED_ITEM;
-
-  final ShopItem shopItem;
-  final Item item;
-}
+// enum StoreEvents {
+//   PURCHASED_ITEM,
+// }
+//
+// class PurchasedItemEvent extends GameEvent<StoreEvents> {
+//   PurchasedItemEvent(this.shopItem) : item = shopItem.item;
+//
+//   @override
+//   StoreEvents get type => StoreEvents.PURCHASED_ITEM;
+//
+//   final InstantiatableShopItem shopItem;
+//   final ItemBase item;
+// }

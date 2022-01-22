@@ -10,11 +10,9 @@ import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
 
-import 'auto_miner.dart';
-
-final miningControllerProvider =
-    StateNotifierProvider<MiningController, ActiveAutoMiners>((ref) {
-  return MiningController(
+final activeMinersControllerProvider =
+    StateNotifierProvider<ActiveMinersController, ActiveMiners>((ref) {
+  return ActiveMinersController(
       ref.watch(gameEventManagerProvider),
       ref.watch(gameClockProvider),
       ref.watch(walletControllerProvider.notifier),
@@ -22,32 +20,32 @@ final miningControllerProvider =
       ref.watch(inventoryProvider.notifier));
 });
 
-class ActiveAutoMiners {
-  final BuiltMap<PlanetTile, AutoMiner> miners;
+class ActiveMiners {
+  final BuiltMap<PlanetTile, MinerInstance> miners;
 
-  const ActiveAutoMiners(this.miners);
-  ActiveAutoMiners._empty() : miners = BuiltMap();
+  const ActiveMiners(this.miners);
+  ActiveMiners._empty() : miners = BuiltMap();
 
-  ActiveAutoMiners rebuild(
-          Function(MapBuilder<PlanetTile, AutoMiner>) updates) =>
-      ActiveAutoMiners(miners.rebuild(updates));
+  ActiveMiners rebuild(
+          Function(MapBuilder<PlanetTile, MinerInstance>) updates) =>
+      ActiveMiners(miners.rebuild(updates));
 }
 
 /// Manges all auto miners and notifies when the miners collection changes.
-class MiningController extends StateNotifier<ActiveAutoMiners> {
+class ActiveMinersController extends StateNotifier<ActiveMiners> {
   final EventStreamManager _eventStreamManager;
   final PlanetController _planetController;
   final GameClock _gameClock;
   final WalletController _walletController;
   final InventoryController _inventoryController;
 
-  ActiveAutoMiners get activeAutoMiners => state;
-  set activeAutoMiners(ActiveAutoMiners activeAutoMiners) =>
+  ActiveMiners get activeAutoMiners => state;
+  set activeAutoMiners(ActiveMiners activeAutoMiners) =>
       state = activeAutoMiners;
 
-  MiningController(this._eventStreamManager, this._gameClock,
+  ActiveMinersController(this._eventStreamManager, this._gameClock,
       this._walletController, this._planetController, this._inventoryController)
-      : super(ActiveAutoMiners._empty()) {
+      : super(ActiveMiners._empty()) {
     _eventStreamManager
         .streamForEventType<AutoMiningManagerEvent>()
         .listen((event) {
@@ -67,9 +65,9 @@ class MiningController extends StateNotifier<ActiveAutoMiners> {
   }
 
   void _processGameTick() {
-    for (final miner in activeAutoMiners.miners.values) {
-      dig(miner.planetTile.point, Resources(iron: miner.damage));
-    }
+    activeAutoMiners.miners.forEach((tile, miner) {
+      dig(tile.point, Resources(iron: miner.item?.damage ?? 0));
+    });
   }
 
   void dig(PlanetPoint point, Resources damage) {
@@ -79,19 +77,17 @@ class MiningController extends StateNotifier<ActiveAutoMiners> {
   void _installMiner(AutoMiningManagerEvent event) {
     event as InstallAutoMinerEvent;
 
-    if (_inventoryController.removeItem(event.miner)) {
-      final newMiner = AutoMiner.fromMinerItem(event.miner, event.planetTile);
-
+    if (_inventoryController.removeItemInstance(event.miner)) {
       activeAutoMiners =
-          activeAutoMiners.rebuild((p0) => p0[event.planetTile] = newMiner);
+          activeAutoMiners.rebuild((p0) => p0[event.planetTile] = event.miner);
     }
   }
 
   void _storeMiner(AutoMiningManagerEvent event) {
     event as StoreMinerEvent;
 
-    activeAutoMiners = activeAutoMiners.rebuild(
-        (p0) => p0.removeWhere((key, value) => value.miner == event.miner));
+    activeAutoMiners = activeAutoMiners
+        .rebuild((p0) => p0.removeWhere((_, miner) => miner == event.miner));
   }
 
   // void _upgradeMiner(AutoMiningManagerEvent event) {
@@ -122,7 +118,7 @@ class InstallAutoMinerEvent extends AutoMiningManagerEvent {
   final type = AutoMiningManagerEvents.INSTALL_AUTO_MINER;
 
   final PlanetTile planetTile;
-  final Miner miner;
+  final MinerInstance miner;
 
   InstallAutoMinerEvent({required this.miner, required this.planetTile});
 }
@@ -131,7 +127,7 @@ class StoreMinerEvent extends AutoMiningManagerEvent {
   @override
   final type = AutoMiningManagerEvents.STORE_MINER;
 
-  final Miner miner;
+  final MinerInstance miner;
 
   StoreMinerEvent(this.miner);
 }

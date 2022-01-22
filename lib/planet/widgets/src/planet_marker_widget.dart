@@ -32,25 +32,25 @@ class MinerLayerWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
+    final activeMiners = ref.watch(activeMinersControllerProvider);
     return SizedBox(
       width: screenWidth,
       height: screenHeight,
       child: Stack(
         fit: StackFit.expand,
         children: [
-          for (final miner in ref.watch(miningControllerProvider).miners.values)
+          for (final planetTile in activeMiners.miners.keys)
             Positioned(
-                left:
-                    planetScreenInfo.screenLocation(miner.planetTile.point).dx +
-                        0.25 * planetScreenInfo.xScale,
-                top:
-                    planetScreenInfo.screenLocation(miner.planetTile.point).dy +
-                        0.25 * planetScreenInfo.yScale,
+                left: planetScreenInfo.screenLocation(planetTile.point).dx +
+                    0.25 * planetScreenInfo.xScale,
+                top: planetScreenInfo.screenLocation(planetTile.point).dy +
+                    0.25 * planetScreenInfo.yScale,
                 child: Container(
                   width: 0.5 * planetScreenInfo.xScale,
                   height: 0.5 * planetScreenInfo.yScale,
                   color: Colors.green,
-                  child: Text(miner.miner.name,
+                  child: Text(
+                      activeMiners.miners[planetTile]?.item?.name ?? 'BAD',
                       style: const TextStyle(fontSize: 6)),
                 ))
         ],

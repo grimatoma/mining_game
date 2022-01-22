@@ -9,19 +9,17 @@ import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_marker.dart';
 
 final selectedMinerFromDropdownProvider =
-    StateProvider.autoDispose<Miner?>((ref) {
+    StateProvider.autoDispose<MinerInstance?>((ref) {
   final availableMiners = ref.watch(availableMinersProvider);
   if (availableMiners.isNotEmpty) return availableMiners.first;
   return null;
 });
-final availableMinersProvider = Provider.autoDispose<List<Miner>>((ref) => ref
-    .watch(inventoryProvider)
-    .items
-    .keys
-    .where((item) => item.itemType == ItemType.MINER)
-    .toList(growable: false)
-    .whereType<Miner>()
-    .toList(growable: false));
+final availableMinersProvider = Provider.autoDispose<List<MinerInstance>>(
+    (ref) => ref
+        .watch(inventoryProvider)
+        .itemInstances
+        .whereType<MinerInstance>()
+        .toList(growable: false));
 
 class PlanetInterfaceWidget extends HookConsumerWidget {
   const PlanetInterfaceWidget({Key? key}) : super(key: key);
@@ -37,7 +35,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
       Text('Selected Location: ${selectedTile.point.toString()}'),
       TextButton(
           onPressed: () => ref
-              .read(miningControllerProvider.notifier)
+              .read(activeMinersControllerProvider.notifier)
               .dig(selectedTile.point, const Resources(iron: 1)),
           child: const Text('dig')),
       if (!selectedTile.visible)
@@ -48,22 +46,26 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
             child: const Text('scan')),
       if (availableMiners.isNotEmpty &&
           selectedTile.visible &&
-          !ref.watch(miningControllerProvider).miners.containsKey(selectedTile))
+          !ref
+              .watch(activeMinersControllerProvider)
+              .miners
+              .containsKey(selectedTile))
         Row(
           children: [
             const Text('Select Miner to install:'),
-            DropdownButton<Miner>(
+            DropdownButton<MinerInstance>(
                 value: ref.watch(selectedMinerFromDropdownProvider),
                 underline: Container(
                   height: 2,
                   color: Colors.deepPurpleAccent,
                 ),
                 items: availableMiners
-                    .map<DropdownMenuItem<Miner>>((value) =>
-                        DropdownMenuItem<Miner>(
-                            child: Text(value.name), value: value))
+                    .map<DropdownMenuItem<MinerInstance>>((value) =>
+                        DropdownMenuItem<MinerInstance>(
+                            child: Text(value.item?.name ?? 'BAD'),
+                            value: value))
                     .toList(growable: false),
-                onChanged: (Miner? newVal) {
+                onChanged: (MinerInstance? newVal) {
                   ref.read(selectedMinerFromDropdownProvider.notifier).state =
                       newVal;
                 }),
