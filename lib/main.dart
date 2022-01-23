@@ -3,16 +3,46 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/item_management/items/metadata/item_instance.dart';
+import 'package:mining_game/item_management/items/metadata/item_proto.dart';
+import 'package:mining_game/item_management/items/miner.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/item_management/store/shop_listings.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/item_management/wallet.dart';
+import 'package:mining_game/planet/planet_tile.dart';
+import 'package:mining_game/planet/point.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget.dart';
 import 'package:mining_game/planet/widgets/src/planet_interface_widget.dart';
 
+// Can be generated automatically
+// class BuiltMapAdapter<KeyT, ValueT>
+//     extends TypeAdapter<BuiltMap<KeyT, ValueT>> {
+//   @override
+//   final typeId = 0;
+//
+//   @override
+//   BuiltMap<KeyT, ValueT> read(BinaryReader reader) {
+//     return BuiltMap(reader.read()) as BuiltMap<KeyT, ValueT>;
+//   }
+//
+//   @override
+//   void write(BinaryWriter writer, BuiltMap<KeyT, ValueT> obj) {
+//     writer.write(obj.toMap());
+//   }
+// }
+
 void main() async {
   await Hive.initFlutter();
-  // ItemDatabaseManager().initDatabase();
+  Hive.registerAdapter(MinerInstanceAdapter());
+  Hive.registerAdapter(MinerProtoAdapter());
+  Hive.registerAdapter(ResourcesAdapter());
+  Hive.registerAdapter(ResourceContainerAdapter2());
+  Hive.registerAdapter(InstanceIdAdapter());
+  Hive.registerAdapter(ItemIdAdapter());
+  Hive.registerAdapter(PlanetTileAdapter());
+  Hive.registerAdapter(PlanetPointAdapter());
+  // Hive.registerAdapter(BuiltMapAdapter<Resources, int>());
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
 }
 

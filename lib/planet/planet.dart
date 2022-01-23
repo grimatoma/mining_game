@@ -118,7 +118,6 @@ class PlanetController extends StateNotifier<Planet> {
         final p = PlanetPoint(x, y, z);
         planetMap[p] = PlanetTile(
             point: p,
-            controller: this,
             resources:
                 ResourceContainer({Resources.iron: resourceSize}.build()),
             visible: false);

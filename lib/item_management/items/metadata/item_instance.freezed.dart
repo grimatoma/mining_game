@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$InstanceIdTearOff {
   const _$InstanceIdTearOff();
 
-  _InstanceId call(int id) {
+  _InstanceId call(@HiveField(0) int id) {
     return _InstanceId(
       id,
     );
@@ -30,6 +30,7 @@ const $InstanceId = _$InstanceIdTearOff();
 
 /// @nodoc
 mixin _$InstanceId {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -42,7 +43,7 @@ abstract class $InstanceIdCopyWith<$Res> {
   factory $InstanceIdCopyWith(
           InstanceId value, $Res Function(InstanceId) then) =
       _$InstanceIdCopyWithImpl<$Res>;
-  $Res call({int id});
+  $Res call({@HiveField(0) int id});
 }
 
 /// @nodoc
@@ -72,7 +73,7 @@ abstract class _$InstanceIdCopyWith<$Res> implements $InstanceIdCopyWith<$Res> {
           _InstanceId value, $Res Function(_InstanceId) then) =
       __$InstanceIdCopyWithImpl<$Res>;
   @override
-  $Res call({int id});
+  $Res call({@HiveField(0) int id});
 }
 
 /// @nodoc
@@ -100,10 +101,12 @@ class __$InstanceIdCopyWithImpl<$Res> extends _$InstanceIdCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_InstanceId implements _InstanceId {
-  const _$_InstanceId(this.id);
+@HiveType(typeId: 15, adapterName: 'InstanceIdAdapter')
+class _$_InstanceId extends _InstanceId {
+  const _$_InstanceId(@HiveField(0) this.id) : super._();
 
   @override
+  @HiveField(0)
   final int id;
 
   @override
@@ -129,10 +132,12 @@ class _$_InstanceId implements _InstanceId {
       __$InstanceIdCopyWithImpl<_InstanceId>(this, _$identity);
 }
 
-abstract class _InstanceId implements InstanceId {
-  const factory _InstanceId(int id) = _$_InstanceId;
+abstract class _InstanceId extends InstanceId {
+  const factory _InstanceId(@HiveField(0) int id) = _$_InstanceId;
+  const _InstanceId._() : super._();
 
   @override
+  @HiveField(0)
   int get id;
   @override
   @JsonKey(ignore: true)

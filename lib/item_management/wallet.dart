@@ -1,14 +1,37 @@
-import 'package:built_collection/src/map.dart';
+import 'package:built_collection/built_collection.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/persistence.dart';
 
 final walletControllerProvider =
     StateNotifierProvider<WalletController, ResourceContainer>((ref) {
-  return WalletController(ResourceContainer({Resources.iron: 123}.build()));
+  return WalletController(ref.watch(dataStorageControllerProvider));
 });
 
 class WalletController extends StateNotifier<ResourceContainer> {
-  WalletController(ResourceContainer state) : super(state);
+  WalletController(DataStorageController controller)
+      : super(ResourceContainer(BuiltMap())) {
+    void loadInitialData() async {
+      final loadedBox = await Hive.openBox(DatabaseName.wallet5.name);
+      state = ResourceContainer({
+        for (String val in loadedBox.keys)
+          getType(val): loadedBox.get(val, defaultValue: 256) as int,
+      }.build());
+    }
+
+    void updateBox() async {
+      final loadedBox = await Hive.openBox(DatabaseName.wallet5.name);
+      stream.listen((storedResources) {
+        for (final resource in Resources.values) {
+          loadedBox.put(resource.name, storedResources.resources[resource]);
+        }
+      });
+    }
+
+    loadInitialData();
+    updateBox();
+  }
 
   ResourceContainer get resources => state;
 

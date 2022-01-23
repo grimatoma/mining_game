@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ItemIdTearOff {
   const _$ItemIdTearOff();
 
-  _ItemId call(String id) {
+  _ItemId call(@HiveField(0) String id) {
     return _ItemId(
       id,
     );
@@ -30,6 +30,7 @@ const $ItemId = _$ItemIdTearOff();
 
 /// @nodoc
 mixin _$ItemId {
+  @HiveField(0)
   String get id => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -40,7 +41,7 @@ mixin _$ItemId {
 abstract class $ItemIdCopyWith<$Res> {
   factory $ItemIdCopyWith(ItemId value, $Res Function(ItemId) then) =
       _$ItemIdCopyWithImpl<$Res>;
-  $Res call({String id});
+  $Res call({@HiveField(0) String id});
 }
 
 /// @nodoc
@@ -69,7 +70,7 @@ abstract class _$ItemIdCopyWith<$Res> implements $ItemIdCopyWith<$Res> {
   factory _$ItemIdCopyWith(_ItemId value, $Res Function(_ItemId) then) =
       __$ItemIdCopyWithImpl<$Res>;
   @override
-  $Res call({String id});
+  $Res call({@HiveField(0) String id});
 }
 
 /// @nodoc
@@ -96,10 +97,12 @@ class __$ItemIdCopyWithImpl<$Res> extends _$ItemIdCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: 16, adapterName: 'ItemIdAdapter')
 class _$_ItemId implements _ItemId {
-  const _$_ItemId(this.id);
+  const _$_ItemId(@HiveField(0) this.id);
 
   @override
+  @HiveField(0)
   final String id;
 
   @override
@@ -126,9 +129,10 @@ class _$_ItemId implements _ItemId {
 }
 
 abstract class _ItemId implements ItemId {
-  const factory _ItemId(String id) = _$_ItemId;
+  const factory _ItemId(@HiveField(0) String id) = _$_ItemId;
 
   @override
+  @HiveField(0)
   String get id;
   @override
   @JsonKey(ignore: true)

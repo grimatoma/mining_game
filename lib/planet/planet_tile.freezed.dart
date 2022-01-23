@@ -19,13 +19,11 @@ class _$PlanetTileTearOff {
   const _$PlanetTileTearOff();
 
   _PlanetTile call(
-      {required PlanetPoint point,
-      required PlanetController controller,
-      required ResourceContainer resources,
-      required bool visible}) {
+      {@HiveField(0) required PlanetPoint point,
+      @HiveField(1) required ResourceContainer resources,
+      @HiveField(2) required bool visible}) {
     return _PlanetTile(
       point: point,
-      controller: controller,
       resources: resources,
       visible: visible,
     );
@@ -37,9 +35,11 @@ const $PlanetTile = _$PlanetTileTearOff();
 
 /// @nodoc
 mixin _$PlanetTile {
+  @HiveField(0)
   PlanetPoint get point => throw _privateConstructorUsedError;
-  PlanetController get controller => throw _privateConstructorUsedError;
+  @HiveField(1)
   ResourceContainer get resources => throw _privateConstructorUsedError;
+  @HiveField(2)
   bool get visible => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -53,10 +53,9 @@ abstract class $PlanetTileCopyWith<$Res> {
           PlanetTile value, $Res Function(PlanetTile) then) =
       _$PlanetTileCopyWithImpl<$Res>;
   $Res call(
-      {PlanetPoint point,
-      PlanetController controller,
-      ResourceContainer resources,
-      bool visible});
+      {@HiveField(0) PlanetPoint point,
+      @HiveField(1) ResourceContainer resources,
+      @HiveField(2) bool visible});
 
   $PlanetPointCopyWith<$Res> get point;
   $ResourceContainerCopyWith<$Res> get resources;
@@ -73,7 +72,6 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
   @override
   $Res call({
     Object? point = freezed,
-    Object? controller = freezed,
     Object? resources = freezed,
     Object? visible = freezed,
   }) {
@@ -82,10 +80,6 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
               as PlanetPoint,
-      controller: controller == freezed
-          ? _value.controller
-          : controller // ignore: cast_nullable_to_non_nullable
-              as PlanetController,
       resources: resources == freezed
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
@@ -119,10 +113,9 @@ abstract class _$PlanetTileCopyWith<$Res> implements $PlanetTileCopyWith<$Res> {
       __$PlanetTileCopyWithImpl<$Res>;
   @override
   $Res call(
-      {PlanetPoint point,
-      PlanetController controller,
-      ResourceContainer resources,
-      bool visible});
+      {@HiveField(0) PlanetPoint point,
+      @HiveField(1) ResourceContainer resources,
+      @HiveField(2) bool visible});
 
   @override
   $PlanetPointCopyWith<$Res> get point;
@@ -143,7 +136,6 @@ class __$PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
   @override
   $Res call({
     Object? point = freezed,
-    Object? controller = freezed,
     Object? resources = freezed,
     Object? visible = freezed,
   }) {
@@ -152,10 +144,6 @@ class __$PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
               as PlanetPoint,
-      controller: controller == freezed
-          ? _value.controller
-          : controller // ignore: cast_nullable_to_non_nullable
-              as PlanetController,
       resources: resources == freezed
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
@@ -170,26 +158,27 @@ class __$PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: 17, adapterName: 'PlanetTileAdapter')
 class _$_PlanetTile extends _PlanetTile {
   _$_PlanetTile(
-      {required this.point,
-      required this.controller,
-      required this.resources,
-      required this.visible})
+      {@HiveField(0) required this.point,
+      @HiveField(1) required this.resources,
+      @HiveField(2) required this.visible})
       : super._();
 
   @override
+  @HiveField(0)
   final PlanetPoint point;
   @override
-  final PlanetController controller;
-  @override
+  @HiveField(1)
   final ResourceContainer resources;
   @override
+  @HiveField(2)
   final bool visible;
 
   @override
   String toString() {
-    return 'PlanetTile(point: $point, controller: $controller, resources: $resources, visible: $visible)';
+    return 'PlanetTile(point: $point, resources: $resources, visible: $visible)';
   }
 
   @override
@@ -198,8 +187,6 @@ class _$_PlanetTile extends _PlanetTile {
         (other.runtimeType == runtimeType &&
             other is _PlanetTile &&
             const DeepCollectionEquality().equals(other.point, point) &&
-            const DeepCollectionEquality()
-                .equals(other.controller, controller) &&
             const DeepCollectionEquality().equals(other.resources, resources) &&
             const DeepCollectionEquality().equals(other.visible, visible));
   }
@@ -208,7 +195,6 @@ class _$_PlanetTile extends _PlanetTile {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(point),
-      const DeepCollectionEquality().hash(controller),
       const DeepCollectionEquality().hash(resources),
       const DeepCollectionEquality().hash(visible));
 
@@ -220,19 +206,19 @@ class _$_PlanetTile extends _PlanetTile {
 
 abstract class _PlanetTile extends PlanetTile {
   factory _PlanetTile(
-      {required PlanetPoint point,
-      required PlanetController controller,
-      required ResourceContainer resources,
-      required bool visible}) = _$_PlanetTile;
+      {@HiveField(0) required PlanetPoint point,
+      @HiveField(1) required ResourceContainer resources,
+      @HiveField(2) required bool visible}) = _$_PlanetTile;
   _PlanetTile._() : super._();
 
   @override
+  @HiveField(0)
   PlanetPoint get point;
   @override
-  PlanetController get controller;
-  @override
+  @HiveField(1)
   ResourceContainer get resources;
   @override
+  @HiveField(2)
   bool get visible;
   @override
   @JsonKey(ignore: true)

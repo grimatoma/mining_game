@@ -1,8 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive/hive.dart';
 
 import 'item_proto.dart';
 
 part 'item_instance.freezed.dart';
+part 'item_instance.g.dart';
 
 abstract class Creatable<SelfT, InstanceT> {
   InstanceT create(InstanceId id);
@@ -10,9 +12,10 @@ abstract class Creatable<SelfT, InstanceT> {
 
 @freezed
 class InstanceId with _$InstanceId {
-  // const ItemId._();
+  const InstanceId._();
 
-  const factory InstanceId(int id) = _InstanceId;
+  @HiveType(typeId: 15, adapterName: 'InstanceIdAdapter')
+  const factory InstanceId(@HiveField(0) int id) = _InstanceId;
 }
 
 abstract class ItemInstance<ProtoT extends ItemProto> {

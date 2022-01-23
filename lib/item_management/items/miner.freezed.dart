@@ -19,14 +19,14 @@ class _$MinerProtoTearOff {
   const _$MinerProtoTearOff();
 
   _MinerProto call(
-      {required ItemId itemId,
-      required String name,
-      required String description,
-      required int radius,
-      required int depth,
-      required int baseDamage,
-      required int hopperSize,
-      required int fuelConsumption}) {
+      {@HiveField(1) required ItemId itemId,
+      @HiveField(2) required String name,
+      @HiveField(3) required String description,
+      @HiveField(4) required int radius,
+      @HiveField(5) required int depth,
+      @HiveField(6) required int baseDamage,
+      @HiveField(7) required int hopperSize,
+      @HiveField(8) required int fuelConsumption}) {
     return _MinerProto(
       itemId: itemId,
       name: name,
@@ -45,13 +45,21 @@ const $MinerProto = _$MinerProtoTearOff();
 
 /// @nodoc
 mixin _$MinerProto {
+  @HiveField(1)
   ItemId get itemId => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(3)
   String get description => throw _privateConstructorUsedError;
+  @HiveField(4)
   int get radius => throw _privateConstructorUsedError;
+  @HiveField(5)
   int get depth => throw _privateConstructorUsedError;
+  @HiveField(6)
   int get baseDamage => throw _privateConstructorUsedError;
+  @HiveField(7)
   int get hopperSize => throw _privateConstructorUsedError;
+  @HiveField(8)
   int get fuelConsumption => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -65,14 +73,14 @@ abstract class $MinerProtoCopyWith<$Res> {
           MinerProto value, $Res Function(MinerProto) then) =
       _$MinerProtoCopyWithImpl<$Res>;
   $Res call(
-      {ItemId itemId,
-      String name,
-      String description,
-      int radius,
-      int depth,
-      int baseDamage,
-      int hopperSize,
-      int fuelConsumption});
+      {@HiveField(1) ItemId itemId,
+      @HiveField(2) String name,
+      @HiveField(3) String description,
+      @HiveField(4) int radius,
+      @HiveField(5) int depth,
+      @HiveField(6) int baseDamage,
+      @HiveField(7) int hopperSize,
+      @HiveField(8) int fuelConsumption});
 
   $ItemIdCopyWith<$Res> get itemId;
 }
@@ -147,14 +155,14 @@ abstract class _$MinerProtoCopyWith<$Res> implements $MinerProtoCopyWith<$Res> {
       __$MinerProtoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {ItemId itemId,
-      String name,
-      String description,
-      int radius,
-      int depth,
-      int baseDamage,
-      int hopperSize,
-      int fuelConsumption});
+      {@HiveField(1) ItemId itemId,
+      @HiveField(2) String name,
+      @HiveField(3) String description,
+      @HiveField(4) int radius,
+      @HiveField(5) int depth,
+      @HiveField(6) int baseDamage,
+      @HiveField(7) int hopperSize,
+      @HiveField(8) int fuelConsumption});
 
   @override
   $ItemIdCopyWith<$Res> get itemId;
@@ -220,33 +228,42 @@ class __$MinerProtoCopyWithImpl<$Res> extends _$MinerProtoCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: 11, adapterName: 'MinerProtoAdapter')
 class _$_MinerProto extends _MinerProto {
   const _$_MinerProto(
-      {required this.itemId,
-      required this.name,
-      required this.description,
-      required this.radius,
-      required this.depth,
-      required this.baseDamage,
-      required this.hopperSize,
-      required this.fuelConsumption})
+      {@HiveField(1) required this.itemId,
+      @HiveField(2) required this.name,
+      @HiveField(3) required this.description,
+      @HiveField(4) required this.radius,
+      @HiveField(5) required this.depth,
+      @HiveField(6) required this.baseDamage,
+      @HiveField(7) required this.hopperSize,
+      @HiveField(8) required this.fuelConsumption})
       : super._();
 
   @override
+  @HiveField(1)
   final ItemId itemId;
   @override
+  @HiveField(2)
   final String name;
   @override
+  @HiveField(3)
   final String description;
   @override
+  @HiveField(4)
   final int radius;
   @override
+  @HiveField(5)
   final int depth;
   @override
+  @HiveField(6)
   final int baseDamage;
   @override
+  @HiveField(7)
   final int hopperSize;
   @override
+  @HiveField(8)
   final int fuelConsumption;
 
   @override
@@ -293,31 +310,39 @@ class _$_MinerProto extends _MinerProto {
 
 abstract class _MinerProto extends MinerProto {
   const factory _MinerProto(
-      {required ItemId itemId,
-      required String name,
-      required String description,
-      required int radius,
-      required int depth,
-      required int baseDamage,
-      required int hopperSize,
-      required int fuelConsumption}) = _$_MinerProto;
+      {@HiveField(1) required ItemId itemId,
+      @HiveField(2) required String name,
+      @HiveField(3) required String description,
+      @HiveField(4) required int radius,
+      @HiveField(5) required int depth,
+      @HiveField(6) required int baseDamage,
+      @HiveField(7) required int hopperSize,
+      @HiveField(8) required int fuelConsumption}) = _$_MinerProto;
   const _MinerProto._() : super._();
 
   @override
+  @HiveField(1)
   ItemId get itemId;
   @override
+  @HiveField(2)
   String get name;
   @override
+  @HiveField(3)
   String get description;
   @override
+  @HiveField(4)
   int get radius;
   @override
+  @HiveField(5)
   int get depth;
   @override
+  @HiveField(6)
   int get baseDamage;
   @override
+  @HiveField(7)
   int get hopperSize;
   @override
+  @HiveField(8)
   int get fuelConsumption;
   @override
   @JsonKey(ignore: true)
@@ -330,10 +355,10 @@ class _$MinerInstanceTearOff {
   const _$MinerInstanceTearOff();
 
   _MinerInstance call(
-      {required MinerProto proto,
-      @HiveField(1) required InstanceId instanceId,
+      {@HiveField(1) required MinerProto proto,
+      @HiveField(2) required InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      PlanetTile? planetTile}) {
+      @HiveField(4) PlanetTile? planetTile}) {
     return _MinerInstance(
       proto: proto,
       instanceId: instanceId,
@@ -348,11 +373,13 @@ const $MinerInstance = _$MinerInstanceTearOff();
 
 /// @nodoc
 mixin _$MinerInstance {
-  MinerProto get proto => throw _privateConstructorUsedError;
   @HiveField(1)
+  MinerProto get proto => throw _privateConstructorUsedError;
+  @HiveField(2)
   InstanceId get instanceId => throw _privateConstructorUsedError;
   @HiveField(3)
   ItemId? get drillItemId => throw _privateConstructorUsedError;
+  @HiveField(4)
   PlanetTile? get planetTile => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -366,10 +393,10 @@ abstract class $MinerInstanceCopyWith<$Res> {
           MinerInstance value, $Res Function(MinerInstance) then) =
       _$MinerInstanceCopyWithImpl<$Res>;
   $Res call(
-      {MinerProto proto,
-      @HiveField(1) InstanceId instanceId,
+      {@HiveField(1) MinerProto proto,
+      @HiveField(2) InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      PlanetTile? planetTile});
+      @HiveField(4) PlanetTile? planetTile});
 
   $MinerProtoCopyWith<$Res> get proto;
   $InstanceIdCopyWith<$Res> get instanceId;
@@ -458,10 +485,10 @@ abstract class _$MinerInstanceCopyWith<$Res>
       __$MinerInstanceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {MinerProto proto,
-      @HiveField(1) InstanceId instanceId,
+      {@HiveField(1) MinerProto proto,
+      @HiveField(2) InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      PlanetTile? planetTile});
+      @HiveField(4) PlanetTile? planetTile});
 
   @override
   $MinerProtoCopyWith<$Res> get proto;
@@ -514,22 +541,25 @@ class __$MinerInstanceCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
 class _$_MinerInstance implements _MinerInstance {
   const _$_MinerInstance(
-      {required this.proto,
-      @HiveField(1) required this.instanceId,
+      {@HiveField(1) required this.proto,
+      @HiveField(2) required this.instanceId,
       @HiveField(3) this.drillItemId,
-      this.planetTile});
+      @HiveField(4) this.planetTile});
 
   @override
+  @HiveField(1)
   final MinerProto proto;
   @override
-  @HiveField(1)
+  @HiveField(2)
   final InstanceId instanceId;
   @override
   @HiveField(3)
   final ItemId? drillItemId;
   @override
+  @HiveField(4)
   final PlanetTile? planetTile;
 
   @override
@@ -567,20 +597,22 @@ class _$_MinerInstance implements _MinerInstance {
 
 abstract class _MinerInstance implements MinerInstance {
   const factory _MinerInstance(
-      {required MinerProto proto,
-      @HiveField(1) required InstanceId instanceId,
+      {@HiveField(1) required MinerProto proto,
+      @HiveField(2) required InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      PlanetTile? planetTile}) = _$_MinerInstance;
+      @HiveField(4) PlanetTile? planetTile}) = _$_MinerInstance;
 
   @override
+  @HiveField(1)
   MinerProto get proto;
   @override
-  @HiveField(1)
+  @HiveField(2)
   InstanceId get instanceId;
   @override
   @HiveField(3)
   ItemId? get drillItemId;
   @override
+  @HiveField(4)
   PlanetTile? get planetTile;
   @override
   @JsonKey(ignore: true)

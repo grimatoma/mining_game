@@ -1,4 +1,5 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/event_manager.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
@@ -7,6 +8,7 @@ import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/items/miner.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/item_management/wallet.dart';
+import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
@@ -18,7 +20,8 @@ final activeMinersControllerProvider =
       ref.watch(gameClockProvider),
       ref.watch(walletControllerProvider.notifier),
       ref.watch(planetControllerProvider.notifier),
-      ref.watch(inventoryProvider.notifier));
+      ref.watch(inventoryProvider.notifier),
+      ref.watch(dataStorageControllerProvider));
 });
 
 class ActiveMiners {
@@ -44,21 +47,48 @@ class ActiveMinersController extends StateNotifier<ActiveMiners> {
   set activeAutoMiners(ActiveMiners activeAutoMiners) =>
       state = activeAutoMiners;
 
-  ActiveMinersController(this._eventStreamManager, this._gameClock,
-      this._walletController, this._planetController, this._inventoryController)
+  ActiveMinersController(
+      this._eventStreamManager,
+      this._gameClock,
+      this._walletController,
+      this._planetController,
+      this._inventoryController,
+      DataStorageController controller)
       : super(ActiveMiners._empty()) {
+    void loadInitialData() async {
+      final loadedBox =
+          await Hive.openBox<MinerInstance>(DatabaseName.installedMiners5.name);
+      final ff = loadedBox.values;
+      for (final miner in loadedBox.values) {
+        _addMiner(miner);
+      }
+    }
+
+    void updateBox() async {
+      final loadedBox =
+          await Hive.openBox<MinerInstance>(DatabaseName.installedMiners5.name);
+      stream.listen((event) {
+        for (final miner in event.miners.values) {
+          loadedBox.put(miner.instanceId.id, miner);
+        }
+      });
+    }
+
+    loadInitialData();
+    updateBox();
+
     _eventStreamManager
         .streamForEventType<AutoMiningManagerEvent>()
         .listen((event) {
       switch (event.type) {
         case AutoMiningManagerEvents.INSTALL_AUTO_MINER:
-          _installMiner(event);
+          _installMinerEvent(event);
           break;
         // case AutoMiningManagerEvents.UPGRADE_MINER:
         //   _upgradeMiner(event);
         //   break;
         case AutoMiningManagerEvents.STORE_MINER:
-          _storeMiner(event);
+          _storeMinerEvent(event);
           break;
       }
     });
@@ -76,16 +106,23 @@ class ActiveMinersController extends StateNotifier<ActiveMiners> {
     _walletController.add(_planetController.dig(point, damage));
   }
 
-  void _installMiner(AutoMiningManagerEvent event) {
+  void _installMinerEvent(AutoMiningManagerEvent event) {
     event as InstallAutoMinerEvent;
 
     if (_inventoryController.removeItemInstance(event.miner)) {
-      activeAutoMiners =
-          activeAutoMiners.rebuild((p0) => p0[event.planetTile] = event.miner);
+      _addMiner(event.miner, event.planetTile);
     }
   }
 
-  void _storeMiner(AutoMiningManagerEvent event) {
+  void _addMiner(MinerInstance minerInstance, [PlanetTile? tile]) {
+    final newMiner = minerInstance.copyWith(planetTile: tile);
+    final planetTile = tile ?? (minerInstance.planetTile as PlanetTile);
+
+    activeAutoMiners =
+        activeAutoMiners.rebuild((p0) => p0[planetTile] = newMiner);
+  }
+
+  void _storeMinerEvent(AutoMiningManagerEvent event) {
     event as StoreMinerEvent;
 
     activeAutoMiners = activeAutoMiners

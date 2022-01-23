@@ -22,7 +22,8 @@ PlanetPoint _$PlanetPointFromJson(Map<String, dynamic> json) {
 class _$PlanetPointTearOff {
   const _$PlanetPointTearOff();
 
-  _PlanetPoint call(int x, int y, int z) {
+  _PlanetPoint call(
+      @HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z) {
     return _PlanetPoint(
       x,
       y,
@@ -40,8 +41,11 @@ const $PlanetPoint = _$PlanetPointTearOff();
 
 /// @nodoc
 mixin _$PlanetPoint {
+  @HiveField(0)
   int get x => throw _privateConstructorUsedError;
+  @HiveField(1)
   int get y => throw _privateConstructorUsedError;
+  @HiveField(2)
   int get z => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,7 +59,7 @@ abstract class $PlanetPointCopyWith<$Res> {
   factory $PlanetPointCopyWith(
           PlanetPoint value, $Res Function(PlanetPoint) then) =
       _$PlanetPointCopyWithImpl<$Res>;
-  $Res call({int x, int y, int z});
+  $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
 
 /// @nodoc
@@ -96,7 +100,7 @@ abstract class _$PlanetPointCopyWith<$Res>
           _PlanetPoint value, $Res Function(_PlanetPoint) then) =
       __$PlanetPointCopyWithImpl<$Res>;
   @override
-  $Res call({int x, int y, int z});
+  $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
 
 /// @nodoc
@@ -134,17 +138,23 @@ class __$PlanetPointCopyWithImpl<$Res> extends _$PlanetPointCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: 18, adapterName: 'PlanetPointAdapter')
 class _$_PlanetPoint extends _PlanetPoint {
-  const _$_PlanetPoint(this.x, this.y, this.z) : super._();
+  const _$_PlanetPoint(
+      @HiveField(0) this.x, @HiveField(1) this.y, @HiveField(2) this.z)
+      : super._();
 
   factory _$_PlanetPoint.fromJson(Map<String, dynamic> json) =>
       _$$_PlanetPointFromJson(json);
 
   @override
+  @HiveField(0)
   final int x;
   @override
+  @HiveField(1)
   final int y;
   @override
+  @HiveField(2)
   final int z;
 
   @override
@@ -176,17 +186,22 @@ class _$_PlanetPoint extends _PlanetPoint {
 }
 
 abstract class _PlanetPoint extends PlanetPoint {
-  const factory _PlanetPoint(int x, int y, int z) = _$_PlanetPoint;
+  const factory _PlanetPoint(
+          @HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z) =
+      _$_PlanetPoint;
   const _PlanetPoint._() : super._();
 
   factory _PlanetPoint.fromJson(Map<String, dynamic> json) =
       _$_PlanetPoint.fromJson;
 
   @override
+  @HiveField(0)
   int get x;
   @override
+  @HiveField(1)
   int get y;
   @override
+  @HiveField(2)
   int get z;
   @override
   @JsonKey(ignore: true)

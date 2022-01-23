@@ -20,7 +20,7 @@ class PlanetMapPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0
       ..color = (planetTile != null && planetTile.visible)
-          ? planetTile.color
+          ? _planet.tileColor(planetTile)
           : Colors.grey;
 
     // V1 which is iterate. Try v2 where all tiles are stored by their resource size? THAT SOUNDS REALLY STUPID
@@ -37,7 +37,6 @@ class PlanetMapPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    print('repaint');
     return true;
   }
 }

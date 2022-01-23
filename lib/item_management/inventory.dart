@@ -1,73 +1,65 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/item_database.dart';
-import 'package:mining_game/item_management/items/metadata/item_attributes.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
-import 'package:mining_game/item_management/items/metadata/item_proto.dart';
+import 'package:mining_game/persistence.dart';
 
-final startingInventoryProvider = Provider<Inventory>((ref) => Inventory(
-        itemInstances: <ItemInstance>{
-      ItemDatabaseManager.createInstance(const ItemId('junkMiner')),
-      ItemDatabaseManager.createInstance(const ItemId('basicMiner'))
-    }.build()));
+// final startingInventoryProvider = Provider<Inventory>((ref) => Inventory(
+//         itemInstances: <ItemInstance>{
+//       ItemDatabaseManager.createInstance(const ItemId('junkMiner')),
+//       ItemDatabaseManager.createInstance(const ItemId('basicMiner'))
+//     }.build()));
 
 final inventoryProvider =
     StateNotifierProvider<InventoryController, Inventory>((ref) {
-  return InventoryController(ref.watch(startingInventoryProvider));
+  return InventoryController(ref.watch(dataStorageControllerProvider));
 });
 
 class Inventory {
   final BuiltSet<ItemInstance> itemInstances;
-  // final BuiltMap<StackableItemDefinition, int> simpleItems;
 
   Inventory({required this.itemInstances});
+  Inventory._empty() : itemInstances = BuiltSet();
 
-  Inventory rebuild(
-      {Function(SetBuilder<ItemInstance>)? itemInstancesUpdates,
-      Function(MapBuilder<StackableItemDefinition, int>)? simpleItemUpdates}) {
+  Inventory rebuild(Function(SetBuilder<ItemInstance>) itemInstancesUpdates) {
     return Inventory(
-        itemInstances: itemInstancesUpdates != null
-            ? itemInstances.rebuild(itemInstancesUpdates)
-            : itemInstances);
-    // simpleItems: simpleItemUpdates != null
-    //     ? simpleItems.rebuild(simpleItemUpdates)
-    //     : simpleItems);
+        itemInstances: itemInstances.rebuild(itemInstancesUpdates));
   }
-
-  // BuiltSet<TypeT> getInstancesWithType<TypeT extends ItemType>() =>
-  //     itemInstances.whereType<TypeT>().toSet().build();
 }
 
 class InventoryController extends StateNotifier<Inventory> {
-  InventoryController(Inventory state) : super(state);
+  InventoryController(DataStorageController controller)
+      : super(Inventory._empty()) {
+    void loadInitialData() async {
+      final loadedBox =
+          await Hive.openBox<ItemInstance>(DatabaseName.inventory5.name);
+      state = Inventory(
+          itemInstances: {
+        for (final val in loadedBox.values) val,
+      }.toBuiltSet());
+    }
 
-  // void addSimpleItem(StackableItemDefinition item) {
-  //   state =
-  //       state.rebuild(simpleItemUpdates: (p0) => p0.putIfAbsent(item, () => 1));
-  // }
+    void updateBox() async {
+      final loadedBox =
+          await Hive.openBox<ItemInstance>(DatabaseName.inventory5.name);
+      stream.listen((inventory) {
+        for (final item in inventory.itemInstances) {
+          loadedBox.put(item.instanceId.id, item);
+        }
+      });
+    }
 
-  void addItemInstance(ItemInstance item) {
-    state = state.rebuild(itemInstancesUpdates: (p0) => p0.add(item));
+    loadInitialData();
+    updateBox();
   }
 
-  // /// Attempts to remove the item from the inventory.
-  // ///
-  // /// If none are in the inventory false will be returned.
-  // bool removeSimpleItem(StackableItemDefinition item) {
-  //   final count = state.simpleItems[item];
-  //   if (count == null) return false;
-  //   state = state.rebuild(simpleItemUpdates: (p0) {
-  //     final newVal = count - 1;
-  //     // Remove from index if none exist.
-  //     if (newVal <= 0) return p0.remove(item);
-  //     return p0[item] = count - 1;
-  //   });
-  //   return true;
-  // }
+  void addItemInstance(ItemInstance item) {
+    state = state.rebuild((p0) => p0.add(item));
+  }
 
   bool removeItemInstance(ItemInstance item) {
     if (!state.itemInstances.contains(item)) return false;
-    state = state.rebuild(itemInstancesUpdates: (p0) => p0.remove(item));
+    state = state.rebuild((p0) => p0.remove(item));
     return true;
   }
 }

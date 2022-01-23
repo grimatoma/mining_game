@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ResourceContainerTearOff {
   const _$ResourceContainerTearOff();
 
-  _ResourceContainer call(BuiltMap<Resources, int> resources) {
+  _ResourceContainer call(@HiveField(1) BuiltMap<Resources, int> resources) {
     return _ResourceContainer(
       resources,
     );
@@ -30,6 +30,7 @@ const $ResourceContainer = _$ResourceContainerTearOff();
 
 /// @nodoc
 mixin _$ResourceContainer {
+  @HiveField(1)
   BuiltMap<Resources, int> get resources => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -42,7 +43,7 @@ abstract class $ResourceContainerCopyWith<$Res> {
   factory $ResourceContainerCopyWith(
           ResourceContainer value, $Res Function(ResourceContainer) then) =
       _$ResourceContainerCopyWithImpl<$Res>;
-  $Res call({BuiltMap<Resources, int> resources});
+  $Res call({@HiveField(1) BuiltMap<Resources, int> resources});
 }
 
 /// @nodoc
@@ -74,7 +75,7 @@ abstract class _$ResourceContainerCopyWith<$Res>
           _ResourceContainer value, $Res Function(_ResourceContainer) then) =
       __$ResourceContainerCopyWithImpl<$Res>;
   @override
-  $Res call({BuiltMap<Resources, int> resources});
+  $Res call({@HiveField(1) BuiltMap<Resources, int> resources});
 }
 
 /// @nodoc
@@ -103,10 +104,12 @@ class __$ResourceContainerCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: 12, adapterName: 'ResourceContainerAdapter')
 class _$_ResourceContainer extends _ResourceContainer {
-  const _$_ResourceContainer(this.resources) : super._();
+  const _$_ResourceContainer(@HiveField(1) this.resources) : super._();
 
   @override
+  @HiveField(1)
   final BuiltMap<Resources, int> resources;
 
   @override
@@ -133,11 +136,12 @@ class _$_ResourceContainer extends _ResourceContainer {
 }
 
 abstract class _ResourceContainer extends ResourceContainer {
-  const factory _ResourceContainer(BuiltMap<Resources, int> resources) =
-      _$_ResourceContainer;
+  const factory _ResourceContainer(
+      @HiveField(1) BuiltMap<Resources, int> resources) = _$_ResourceContainer;
   const _ResourceContainer._() : super._();
 
   @override
+  @HiveField(1)
   BuiltMap<Resources, int> get resources;
   @override
   @JsonKey(ignore: true)

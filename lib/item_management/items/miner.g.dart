@@ -1,0 +1,105 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'miner.dart';
+
+// **************************************************************************
+// TypeAdapterGenerator
+// **************************************************************************
+
+class MinerProtoAdapter extends TypeAdapter<_$_MinerProto> {
+  @override
+  final int typeId = 11;
+
+  @override
+  _$_MinerProto read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$_MinerProto(
+      itemId: fields[1] as ItemId,
+      name: fields[2] as String,
+      description: fields[3] as String,
+      radius: fields[4] as int,
+      depth: fields[5] as int,
+      baseDamage: fields[6] as int,
+      hopperSize: fields[7] as int,
+      fuelConsumption: fields[8] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$_MinerProto obj) {
+    writer
+      ..writeByte(8)
+      ..writeByte(1)
+      ..write(obj.itemId)
+      ..writeByte(2)
+      ..write(obj.name)
+      ..writeByte(3)
+      ..write(obj.description)
+      ..writeByte(4)
+      ..write(obj.radius)
+      ..writeByte(5)
+      ..write(obj.depth)
+      ..writeByte(6)
+      ..write(obj.baseDamage)
+      ..writeByte(7)
+      ..write(obj.hopperSize)
+      ..writeByte(8)
+      ..write(obj.fuelConsumption);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MinerProtoAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
+  @override
+  final int typeId = 10;
+
+  @override
+  _$_MinerInstance read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$_MinerInstance(
+      proto: fields[1] as MinerProto,
+      instanceId: fields[2] as InstanceId,
+      drillItemId: fields[3] as ItemId?,
+      planetTile: fields[4] as PlanetTile?,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$_MinerInstance obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(1)
+      ..write(obj.proto)
+      ..writeByte(2)
+      ..write(obj.instanceId)
+      ..writeByte(3)
+      ..write(obj.drillItemId)
+      ..writeByte(4)
+      ..write(obj.planetTile);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MinerInstanceAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}

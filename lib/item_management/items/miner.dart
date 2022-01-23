@@ -8,6 +8,7 @@ import 'metadata/item_proto.dart';
 import 'metadata/item_types.dart';
 
 part 'miner.freezed.dart';
+part 'miner.g.dart';
 
 @freezed
 class MinerProto extends ItemProto
@@ -17,15 +18,16 @@ class MinerProto extends ItemProto
         EquipmentItemType,
         Creatable<MinerProto, MinerInstance> {
   const MinerProto._();
+  @HiveType(typeId: 11, adapterName: 'MinerProtoAdapter')
   const factory MinerProto(
-      {required ItemId itemId,
-      required String name,
-      required String description,
-      required int radius,
-      required int depth,
-      required int baseDamage,
-      required int hopperSize,
-      required int fuelConsumption}) = _MinerProto;
+      {@HiveField(1) required ItemId itemId,
+      @HiveField(2) required String name,
+      @HiveField(3) required String description,
+      @HiveField(4) required int radius,
+      @HiveField(5) required int depth,
+      @HiveField(6) required int baseDamage,
+      @HiveField(7) required int hopperSize,
+      @HiveField(8) required int fuelConsumption}) = _MinerProto;
 
   @override
   MinerInstance create(InstanceId id) =>
@@ -34,10 +36,11 @@ class MinerProto extends ItemProto
 
 @freezed
 class MinerInstance extends ItemInstance<MinerProto> with _$MinerInstance {
+  @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
   const factory MinerInstance({
-    required MinerProto proto,
-    @HiveField(1) required InstanceId instanceId,
+    @HiveField(1) required MinerProto proto,
+    @HiveField(2) required InstanceId instanceId,
     @HiveField(3) ItemId? drillItemId,
-    PlanetTile? planetTile,
+    @HiveField(4) PlanetTile? planetTile,
   }) = _MinerInstance;
 }
