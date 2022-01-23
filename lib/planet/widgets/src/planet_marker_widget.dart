@@ -38,22 +38,20 @@ class MinerLayerWidget extends HookConsumerWidget {
       height: screenHeight,
       child: Stack(
         fit: StackFit.expand,
-        children: [
-          for (final planetTile in activeMiners.miners.keys)
-            Positioned(
-                left: planetScreenInfo.screenLocation(planetTile.point).dx +
+        children: activeMiners.miners.entries
+            .map((entry) => Positioned(
+                left: planetScreenInfo.screenLocation(entry.key.point).dx +
                     0.25 * planetScreenInfo.xScale,
-                top: planetScreenInfo.screenLocation(planetTile.point).dy +
+                top: planetScreenInfo.screenLocation(entry.key.point).dy +
                     0.25 * planetScreenInfo.yScale,
                 child: Container(
                   width: 0.5 * planetScreenInfo.xScale,
                   height: 0.5 * planetScreenInfo.yScale,
                   color: Colors.green,
-                  child: Text(
-                      activeMiners.miners[planetTile]?.item?.name ?? 'BAD',
+                  child: Text(entry.value.proto.name,
                       style: const TextStyle(fontSize: 6)),
-                ))
-        ],
+                )))
+            .toList(growable: false),
       ),
     );
   }

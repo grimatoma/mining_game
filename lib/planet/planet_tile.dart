@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/item_management/wallet.dart';
+import 'package:mining_game/item_management/resources/resources.dart';
 
 import 'planet.dart';
 import 'point.dart';
@@ -14,7 +14,7 @@ class PlanetTile with _$PlanetTile {
   factory PlanetTile(
       {required PlanetPoint point,
       required PlanetController controller,
-      required Resources resources,
+      required ResourceContainer resources,
       required bool visible}) = _PlanetTile;
 
   bool get isValid => point.isNotNegative;

@@ -1,18 +1,22 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/items.dart';
+import 'package:mining_game/item_management/item_database.dart';
+import 'package:mining_game/item_management/items/metadata/item_proto.dart';
+import 'package:mining_game/item_management/resources/resources.dart';
 
-import 'wallet.dart';
+import '../wallet.dart';
+import 'shop_listings.dart';
 
 final storeListingsControllerProvider =
     StateNotifierProvider<StoreController, StoreListings>(
         (ref) => StoreController(
             ref.watch(walletControllerProvider.notifier),
             ref.watch(inventoryProvider.notifier),
-            StoreListings([
-              const InstantiatableItemShopListing(
-                  itemId: ItemId(4), cost: Resources(iron: 50)),
+            StoreListings(<ShopListing>[
+              ItemProtoShopListing(
+                  itemId: const ItemId('junkMiner'),
+                  cost: ResourceContainer({Resources.iron: 50}.build())),
               // const ItemInstanceShopListing(
               //     instanceId: InstanceId(5), cost: Resources(iron: 50)),
               // const ItemInstanceShopListing(
@@ -20,12 +24,12 @@ final storeListingsControllerProvider =
             ].build())));
 
 class StoreListings {
-  final BuiltList<ShopListing> items;
+  final BuiltList<ShopListing> listings;
 
-  StoreListings(this.items);
+  StoreListings(this.listings);
 
   StoreListings rebuild(Function(ListBuilder<ShopListing>) updates) =>
-      StoreListings(items.rebuild(updates));
+      StoreListings(listings.rebuild(updates));
 }
 
 class StoreController extends StateNotifier<StoreListings> {
@@ -43,8 +47,9 @@ class StoreController extends StateNotifier<StoreListings> {
       _wallet.remove(listing.cost);
       state = state.rebuild((p0) => p0.remove(listing));
 
-      if (listing is ItemInstanceShopListing) {
-        _inventory.addItemInstance(listing.item);
+      if (listing is ItemProtoShopListing) {
+        _inventory.addItemInstance(
+            ItemDatabaseManager.createInstance(listing.itemId));
       } else {
         print('TYPE UNKNOWN FOR SHOP!');
       }

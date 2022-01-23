@@ -3,16 +3,16 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/item_database.dart';
-import 'package:mining_game/item_management/items.dart';
-import 'package:mining_game/item_management/store.dart';
+import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/item_management/store/shop_listings.dart';
+import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/item_management/wallet.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget.dart';
 import 'package:mining_game/planet/widgets/src/planet_interface_widget.dart';
 
 void main() async {
   await Hive.initFlutter();
-  ItemDatabaseManager().initDatabase();
+  // ItemDatabaseManager().initDatabase();
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
 }
 
@@ -145,8 +145,8 @@ class StoreMenuWidget extends HookConsumerWidget {
           const StatusBarWidget(),
           ListView.separated(
             shrinkWrap: true,
-            itemBuilder: (_, index) => _shopItem(storeListings.items[index]),
-            itemCount: storeListings.items.length,
+            itemBuilder: (_, index) => _shopItem(storeListings.listings[index]),
+            itemCount: storeListings.listings.length,
             separatorBuilder: (_, __) => const Divider(),
           ),
         ],
@@ -163,59 +163,30 @@ class InventoryMenuWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final inventory = ref.watch(inventoryProvider);
-    final simpleItemKeys = inventory.simpleItems.keys.toList();
+    // final simpleItemKeys = inventory.simpleItems.keys.toList();
     final itemInstances = inventory.itemInstances.toList();
 
     return Column(
       children: [
         const StatusBarWidget(),
         Flexible(
-          child: Column(
-            children: [
-              const Text('Item Instances'),
-              ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  final item = itemInstances[index].item;
-                  return Table(
-                    children: [
-                      TableRow(children: [
-                        const Text('Name'),
-                        Text(item?.name ?? 'ERROR')
-                      ]),
-                      TableRow(children: [
-                        const Text('Description'),
-                        Text(item?.description ?? 'sss')
-                      ]),
-                    ],
-                  );
-                },
-                itemCount: inventory.itemInstances.length,
-                separatorBuilder: (_, __) => const Divider(),
-              ),
-              const Text('Simple Items'),
-              ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  final item = simpleItemKeys[index];
-                  return Table(
-                    children: [
-                      TableRow(children: [const Text('Name'), Text(item.name)]),
-                      TableRow(children: [
-                        const Text('Description'),
-                        Text(item.description)
-                      ]),
-                      TableRow(children: [
-                        const Text('Amount'),
-                        Text(inventory.simpleItems[item].toString())
-                      ]),
-                    ],
-                  );
-                },
-                itemCount: inventory.simpleItems.length,
-                separatorBuilder: (_, __) => const Divider(),
-              ),
-            ],
+          child: ListView.separated(
+            shrinkWrap: true,
+            itemBuilder: (_, index) {
+              final item = itemInstances[index];
+              return Table(
+                children: [
+                  TableRow(
+                      children: [const Text('Name'), Text(item.proto.name)]),
+                  TableRow(children: [
+                    const Text('Description'),
+                    Text(item.proto.description)
+                  ]),
+                ],
+              );
+            },
+            itemCount: inventory.itemInstances.length,
+            separatorBuilder: (_, __) => const Divider(),
           ),
         ),
       ],
@@ -233,7 +204,10 @@ class StatusBarWidget extends HookConsumerWidget {
     final wallet = ref.watch(walletControllerProvider);
     return Table(
       children: [
-        TableRow(children: [const Text('Iron'), Text(wallet.iron.toString())]),
+        TableRow(children: [
+          const Text('Iron'),
+          Text(wallet.get(Resources.iron).toString())
+        ]),
       ],
     );
   }

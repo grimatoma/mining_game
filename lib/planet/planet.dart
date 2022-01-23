@@ -5,7 +5,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
-import 'package:mining_game/item_management/wallet.dart';
+import 'package:mining_game/item_management/resources/resources.dart';
 
 import 'generation/perline_noise.dart';
 import 'planet_tile.dart';
@@ -62,7 +62,12 @@ class Planet {
 
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
-      min(255, (255 * planetTile.resources.iron / maxResourceSize)).toInt(),
+      min(
+              255,
+              (255 *
+                  planetTile.resources.get(Resources.iron) /
+                  maxResourceSize))
+          .toInt(),
       0,
       0);
 
@@ -114,7 +119,8 @@ class PlanetController extends StateNotifier<Planet> {
         planetMap[p] = PlanetTile(
             point: p,
             controller: this,
-            resources: Resources(iron: resourceSize),
+            resources:
+                ResourceContainer({Resources.iron: resourceSize}.build()),
             visible: false);
         maxResourceSize =
             maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
@@ -124,9 +130,9 @@ class PlanetController extends StateNotifier<Planet> {
         configs: configs, maxResources: maxResourceSize, map: planetMap);
   }
 
-  Resources dig(PlanetPoint p, Resources damage) {
+  ResourceContainer dig(PlanetPoint p, ResourceContainer damage) {
     final tile = planet.map[p];
-    if (tile == null) return const Resources();
+    if (tile == null) return ResourceContainer(BuiltMap());
 
     final resolvedDamage = tile.resources.maxCanBeRemoved(damage);
     planet = planet.rebuild((p0) {
@@ -166,7 +172,11 @@ class PlanetController extends StateNotifier<Planet> {
 
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
-      min(255, (255 * planetTile.resources.iron / planet.maxResourceSize))
+      min(
+              255,
+              (255 *
+                  planetTile.resources.get(Resources.iron) /
+                  planet.maxResourceSize))
           .toInt(),
       0,
       0);

@@ -21,7 +21,7 @@ class _$PlanetTileTearOff {
   _PlanetTile call(
       {required PlanetPoint point,
       required PlanetController controller,
-      required Resources resources,
+      required ResourceContainer resources,
       required bool visible}) {
     return _PlanetTile(
       point: point,
@@ -39,7 +39,7 @@ const $PlanetTile = _$PlanetTileTearOff();
 mixin _$PlanetTile {
   PlanetPoint get point => throw _privateConstructorUsedError;
   PlanetController get controller => throw _privateConstructorUsedError;
-  Resources get resources => throw _privateConstructorUsedError;
+  ResourceContainer get resources => throw _privateConstructorUsedError;
   bool get visible => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -55,11 +55,11 @@ abstract class $PlanetTileCopyWith<$Res> {
   $Res call(
       {PlanetPoint point,
       PlanetController controller,
-      Resources resources,
+      ResourceContainer resources,
       bool visible});
 
   $PlanetPointCopyWith<$Res> get point;
-  $ResourcesCopyWith<$Res> get resources;
+  $ResourceContainerCopyWith<$Res> get resources;
 }
 
 /// @nodoc
@@ -89,7 +89,7 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
       resources: resources == freezed
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
-              as Resources,
+              as ResourceContainer,
       visible: visible == freezed
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
@@ -105,8 +105,8 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
   }
 
   @override
-  $ResourcesCopyWith<$Res> get resources {
-    return $ResourcesCopyWith<$Res>(_value.resources, (value) {
+  $ResourceContainerCopyWith<$Res> get resources {
+    return $ResourceContainerCopyWith<$Res>(_value.resources, (value) {
       return _then(_value.copyWith(resources: value));
     });
   }
@@ -121,13 +121,13 @@ abstract class _$PlanetTileCopyWith<$Res> implements $PlanetTileCopyWith<$Res> {
   $Res call(
       {PlanetPoint point,
       PlanetController controller,
-      Resources resources,
+      ResourceContainer resources,
       bool visible});
 
   @override
   $PlanetPointCopyWith<$Res> get point;
   @override
-  $ResourcesCopyWith<$Res> get resources;
+  $ResourceContainerCopyWith<$Res> get resources;
 }
 
 /// @nodoc
@@ -159,7 +159,7 @@ class __$PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
       resources: resources == freezed
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
-              as Resources,
+              as ResourceContainer,
       visible: visible == freezed
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
@@ -183,7 +183,7 @@ class _$_PlanetTile extends _PlanetTile {
   @override
   final PlanetController controller;
   @override
-  final Resources resources;
+  final ResourceContainer resources;
   @override
   final bool visible;
 
@@ -222,7 +222,7 @@ abstract class _PlanetTile extends PlanetTile {
   factory _PlanetTile(
       {required PlanetPoint point,
       required PlanetController controller,
-      required Resources resources,
+      required ResourceContainer resources,
       required bool visible}) = _$_PlanetTile;
   _PlanetTile._() : super._();
 
@@ -231,7 +231,7 @@ abstract class _PlanetTile extends PlanetTile {
   @override
   PlanetController get controller;
   @override
-  Resources get resources;
+  ResourceContainer get resources;
   @override
   bool get visible;
   @override

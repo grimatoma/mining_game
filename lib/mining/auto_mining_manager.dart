@@ -4,7 +4,8 @@ import 'package:mining_game/event_manager/event_manager.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
 import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/items.dart';
+import 'package:mining_game/item_management/items/miner.dart';
+import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/item_management/wallet.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
@@ -66,11 +67,12 @@ class ActiveMinersController extends StateNotifier<ActiveMiners> {
 
   void _processGameTick() {
     activeAutoMiners.miners.forEach((tile, miner) {
-      dig(tile.point, Resources(iron: miner.item?.damage ?? 0));
+      dig(tile.point,
+          ResourceContainer({Resources.iron: miner.proto.baseDamage}.build()));
     });
   }
 
-  void dig(PlanetPoint point, Resources damage) {
+  void dig(PlanetPoint point, ResourceContainer damage) {
     _walletController.add(_planetController.dig(point, damage));
   }
 
