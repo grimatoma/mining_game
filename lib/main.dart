@@ -11,6 +11,7 @@ import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/item_management/store/shop_listings.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/item_management/wallet.dart';
+import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
@@ -87,6 +88,15 @@ class MainMenuWidget extends HookConsumerWidget {
               builder: (context) => const InventoryMenuWidget()),
           const Center(child: Text('Garage Coming Soon!')),
           const Center(child: Text('Crafting Coming Soon!')),
+          TextButton(
+              onPressed: () {
+                for (final database in DatabaseName.values) {
+                  Hive.deleteBoxFromDisk(database.name);
+                }
+              },
+              child: const Center(
+                  child: Text(
+                      'Clear game state\n(This will reset the game[For testing])\nReload game after clicking to take effect'))),
         ],
       ),
     );

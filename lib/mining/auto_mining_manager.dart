@@ -56,16 +56,16 @@ class ActiveMinersController extends StateNotifier<ActiveMiners> {
       DataStorageController controller)
       : super(ActiveMiners._empty()) {
     void loadInitialData() async {
-      final loadedBox = await Hive.openBox<MinerInstance>(
-          DatabaseName.installedMiners1025dcl.name);
+      final loadedBox =
+          await Hive.openBox<MinerInstance>(DatabaseName.installedMiners.name);
       for (final miner in loadedBox.values) {
         _addMiner(miner);
       }
     }
 
     void updateBox() async {
-      final loadedBox = await Hive.openBox<MinerInstance>(
-          DatabaseName.installedMiners1025dcl.name);
+      final loadedBox =
+          await Hive.openBox<MinerInstance>(DatabaseName.installedMiners.name);
       stream.listen((event) {
         loadedBox.clear();
         for (final miner in event.miners.values) {

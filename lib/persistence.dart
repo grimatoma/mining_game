@@ -4,10 +4,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
 
 enum DatabaseName {
-  inventory105ssl,
-  wallet1045selk,
-  installedMiners1025dcl,
-  planet2225fgsk,
+  inventory,
+  wallet,
+  installedMiners,
+  planet,
 }
 
 final dataStorageControllerProvider =

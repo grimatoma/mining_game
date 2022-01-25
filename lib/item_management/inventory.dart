@@ -33,7 +33,7 @@ class InventoryController extends StateNotifier<Inventory> {
       : super(Inventory._empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<ItemInstance>(DatabaseName.inventory105ssl.name);
+          await Hive.openBox<ItemInstance>(DatabaseName.inventory.name);
       state = Inventory(
           itemInstances: {
         for (final val in loadedBox.values) val.instanceId: val,
@@ -42,7 +42,7 @@ class InventoryController extends StateNotifier<Inventory> {
 
     void updateBox() async {
       final loadedBox =
-          await Hive.openBox<ItemInstance>(DatabaseName.inventory105ssl.name);
+          await Hive.openBox<ItemInstance>(DatabaseName.inventory.name);
       stream.listen((inventory) {
         loadedBox.clear();
         for (final item in inventory.itemInstances.values) {
