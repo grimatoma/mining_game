@@ -44,21 +44,6 @@ Resources getType(String s) {
 //   }) = _Resource;
 // }
 
-class ResourceContainerAdapter2 extends TypeAdapter<ResourceContainer> {
-  @override
-  final typeId = 0;
-
-  @override
-  ResourceContainer read(BinaryReader reader) {
-    return ResourceContainer(BuiltMap.from(reader.read()));
-  }
-
-  @override
-  void write(BinaryWriter writer, ResourceContainer obj) {
-    writer.write(obj.resources.toMap());
-  }
-}
-
 @freezed
 class ResourceContainer with _$ResourceContainer {
   const ResourceContainer._();
@@ -99,4 +84,13 @@ class ResourceContainer with _$ResourceContainer {
               min(get(resourceType), other.get(resourceType));
         }
       }));
+
+  @override
+  String toString() {
+    var s = <String>[];
+    resources.forEach((resource, amount) {
+      s.add('${resource.name}: $amount');
+    });
+    return s.join('\n');
+  }
 }

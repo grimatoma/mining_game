@@ -38,15 +38,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  english_words: ^4.0.0
+#  english_words: ^4.0.0
   hive: ^2.0.5
   hive_flutter: ^1.1.0
-  drift: ^1.2.0
-  fast_immutable_collections: ^7.1.2
+#  drift: ^1.2.0
+#  fast_immutable_collections: ^7.1.2
   freezed: ^1.1.1
   built_collection: ^5.1.1
   quiver: ^3.0.1+1
-  image: ^3.1.1
+#  image: ^3.1.1
   fast_noise: ^1.0.1
   built_value: ^8.1.4
   json_serializable: ^6.1.4

@@ -9,11 +9,6 @@ class PlanetMarkerWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
     final cursorLocation = planetScreenInfo.cursorLocationScreen;
-    if (planetScreenInfo == emptyPlanetScreenInfo ||
-        cursorLocation.dx < 0 ||
-        cursorLocation.dy < 0) {
-      return Container();
-    }
     return Positioned(
         left: cursorLocation.dx + planetScreenInfo.xScale * 0.35,
         top: cursorLocation.dy + planetScreenInfo.yScale * 0.35,

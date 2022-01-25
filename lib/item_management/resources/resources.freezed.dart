@@ -113,11 +113,6 @@ class _$_ResourceContainer extends _ResourceContainer {
   final BuiltMap<Resources, int> resources;
 
   @override
-  String toString() {
-    return 'ResourceContainer(resources: $resources)';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&

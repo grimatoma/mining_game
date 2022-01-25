@@ -16,13 +16,19 @@ final storeListingsControllerProvider =
             StoreListings(<ShopListing>[
               ItemProtoShopListing(
                   itemId: const ItemId('junkMiner'),
-                  cost: ResourceContainer({Resources.iron: 1}.build())),
+                  cost: ResourceContainer({Resources.iron: 5}.build())),
               ItemProtoShopListing(
-                  itemId: const ItemId('junkMiner'),
-                  cost: ResourceContainer({Resources.iron: 1}.build())),
+                  itemId: const ItemId('basicMiner'),
+                  cost: ResourceContainer({Resources.iron: 50}.build())),
               ItemProtoShopListing(
-                  itemId: const ItemId('junkMiner'),
-                  cost: ResourceContainer({Resources.iron: 1}.build())),
+                  itemId: const ItemId('testMiner3'),
+                  cost: ResourceContainer({Resources.iron: 100}.build())),
+              ItemProtoShopListing(
+                  itemId: const ItemId('testMiner4'),
+                  cost: ResourceContainer({Resources.iron: 25}.build())),
+              ItemProtoShopListing(
+                  itemId: const ItemId('testMiner5'),
+                  cost: ResourceContainer({Resources.iron: 250}.build())),
               // const ItemInstanceShopListing(
               //     instanceId: InstanceId(5), cost: Resources(iron: 50)),
               // const ItemInstanceShopListing(

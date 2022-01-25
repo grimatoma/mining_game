@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/item_management/item_database.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
 import 'package:mining_game/item_management/items/metadata/item_proto.dart';
 import 'package:mining_game/item_management/items/miner.dart';
@@ -39,15 +39,13 @@ void main() async {
   Hive.registerAdapter(MinerInstanceAdapter());
   Hive.registerAdapter(MinerProtoAdapter());
   Hive.registerAdapter(ResourcesAdapter());
-  Hive.registerAdapter(ResourceContainerAdapter2());
+  Hive.registerAdapter(ResourceContainerAdapter());
+  Hive.registerAdapter(BuiltMapAdapter<Resources, int>(32));
   Hive.registerAdapter(InstanceIdAdapter());
   Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(PlanetTileAdapter());
   Hive.registerAdapter(PlanetPointAdapter());
   Hive.registerAdapter(PlanetAdapter());
-  // final documentsDirectory =
-  //     await Path_Provider.getApplicationDocumentsDirectory();
-  // Hive.init(documentsDirectory.path);
   await Hive.initFlutter();
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
 }
@@ -160,21 +158,41 @@ class StoreMenuWidget extends HookConsumerWidget {
         ref.watch(storeListingsControllerProvider.notifier);
     final storeListings = ref.watch(storeListingsControllerProvider);
 
-    Widget _shopItem(ShopListing listing) => _ActionMenuItem(
-        text: '${listing.toString()}  ${listing.cost}',
-        onPressed: () {
-          final storeController =
-              ref.read(storeListingsControllerProvider.notifier);
-          if (!storeController.canBuyItem(listing)) return;
-          storeController.buyItem(listing);
-        },
-        background: storeListingsController.canBuyItem(listing)
-            ? Colors.white
-            : Colors.grey);
+    Widget _shopItem(ShopListing listing) {
+      if (listing is ItemProtoShopListing) {
+        final item = ItemDatabaseManager.itemProtos[listing.itemId.id];
+        if (item == null) {
+          return Text('item ${listing.itemId} not found');
+        }
+        return _ActionMenuItem(
+            text:
+                'Name: ${item.name}\nDescription: ${item.description}\nCost ${listing.cost}',
+            onPressed: () {
+              final storeController =
+                  ref.read(storeListingsControllerProvider.notifier);
+              if (!storeController.canBuyItem(listing)) return;
+              storeController.buyItem(listing);
+            },
+            background: storeListingsController.canBuyItem(listing)
+                ? Colors.white
+                : Colors.grey);
+      }
+      return _ActionMenuItem(
+          text: '${listing.toString()}  ${listing.cost}',
+          onPressed: () {
+            final storeController =
+                ref.read(storeListingsControllerProvider.notifier);
+            if (!storeController.canBuyItem(listing)) return;
+            storeController.buyItem(listing);
+          },
+          background: storeListingsController.canBuyItem(listing)
+              ? Colors.white
+              : Colors.grey);
+    }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Inventory'),
+        title: const Text('Store'),
       ),
       body: Column(
         children: [
@@ -202,30 +220,35 @@ class InventoryMenuWidget extends HookConsumerWidget {
     // final simpleItemKeys = inventory.simpleItems.keys.toList();
     final itemInstances = inventory.itemInstances.values.toList();
 
-    return Column(
-      children: [
-        const StatusBarWidget(),
-        Flexible(
-          child: ListView.separated(
-            shrinkWrap: true,
-            itemBuilder: (_, index) {
-              final item = itemInstances[index];
-              return Table(
-                children: [
-                  TableRow(
-                      children: [const Text('Name'), Text(item.proto.name)]),
-                  TableRow(children: [
-                    const Text('Description'),
-                    Text(item.instanceId.toString())
-                  ]),
-                ],
-              );
-            },
-            itemCount: inventory.itemInstances.length,
-            separatorBuilder: (_, __) => const Divider(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Inventory'),
+      ),
+      body: Column(
+        children: [
+          const StatusBarWidget(),
+          Flexible(
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (_, index) {
+                final item = itemInstances[index];
+                return Table(
+                  children: [
+                    TableRow(
+                        children: [const Text('Name'), Text(item.proto.name)]),
+                    TableRow(children: [
+                      const Text('Description'),
+                      Text(item.proto.description)
+                    ]),
+                  ],
+                );
+              },
+              itemCount: inventory.itemInstances.length,
+              separatorBuilder: (_, __) => const Divider(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

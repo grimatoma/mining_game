@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
-import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
 
 import 'metadata/item_attributes.dart';
