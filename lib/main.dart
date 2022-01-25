@@ -18,23 +18,6 @@ import 'package:mining_game/planet/point.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget.dart';
 import 'package:mining_game/planet/widgets/src/planet_interface_widget.dart';
 
-// Can be generated automatically
-// class BuiltMapAdapter<KeyT, ValueT>
-//     extends TypeAdapter<BuiltMap<KeyT, ValueT>> {
-//   @override
-//   final typeId = 0;
-//
-//   @override
-//   BuiltMap<KeyT, ValueT> read(BinaryReader reader) {
-//     return BuiltMap(reader.read()) as BuiltMap<KeyT, ValueT>;
-//   }
-//
-//   @override
-//   void write(BinaryWriter writer, BuiltMap<KeyT, ValueT> obj) {
-//     writer.write(obj.toMap());
-//   }
-// }
-
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerInstanceAdapter());
@@ -185,7 +168,7 @@ class StoreMenuWidget extends HookConsumerWidget {
             },
             background: storeListingsController.canBuyItem(listing)
                 ? Colors.white
-                : Colors.grey);
+                : Colors.redAccent);
       }
       return _ActionMenuItem(
           text: '${listing.toString()}  ${listing.cost}',
@@ -197,7 +180,7 @@ class StoreMenuWidget extends HookConsumerWidget {
           },
           background: storeListingsController.canBuyItem(listing)
               ? Colors.white
-              : Colors.grey);
+              : Colors.redAccent);
     }
 
     return Scaffold(
@@ -227,7 +210,6 @@ class InventoryMenuWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final inventory = ref.watch(inventoryProvider);
-    // final simpleItemKeys = inventory.simpleItems.keys.toList();
     final itemInstances = inventory.itemInstances.values.toList();
 
     return Scaffold(
@@ -273,10 +255,7 @@ class StatusBarWidget extends HookConsumerWidget {
     final wallet = ref.watch(walletControllerProvider);
     return Table(
       children: [
-        TableRow(children: [
-          const Text('Iron'),
-          Text(wallet.get(Resources.iron).toString())
-        ]),
+        TableRow(children: [Text(wallet.toString())]),
       ],
     );
   }
