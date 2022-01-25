@@ -1,12 +1,13 @@
+import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
-// import 'package:path_provider/path_provider.dart'
 
 enum DatabaseName {
-  inventory5,
-  wallet5,
-  installedMiners5,
+  inventory105ssl,
+  wallet1045selk,
+  installedMiners1025dcl,
+  planet2225fgsk,
 }
 
 final dataStorageControllerProvider =
@@ -23,7 +24,7 @@ class DataStorageConnector<StoreTypeT extends ItemInstance> {
       DatabaseName databaseName, Stream<Iterable<StoreTypeT>> stream) {
     stream.listen((items) {
       for (final item in items) {
-        box.put(item.instanceId.id, item);
+        box.put(item.instanceId.toString(), item);
       }
     });
     return retrieve();

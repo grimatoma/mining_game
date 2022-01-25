@@ -19,6 +19,7 @@ final availableMinersProvider = Provider.autoDispose<List<MinerInstance>>(
     (ref) => ref
         .watch(inventoryProvider)
         .itemInstances
+        .values
         .whereType<MinerInstance>()
         .toList(growable: false));
 
@@ -77,7 +78,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                   if (selectedMiner == null) return;
                   ref.read(gameEventManagerProvider).addEvent(
                       InstallAutoMinerEvent(
-                          miner: selectedMiner, planetTile: selectedTile));
+                          miner: selectedMiner, point: selectedTile.point));
                 },
                 child: const Text('install')),
           ],

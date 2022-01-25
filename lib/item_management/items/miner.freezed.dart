@@ -358,12 +358,12 @@ class _$MinerInstanceTearOff {
       {@HiveField(1) required MinerProto proto,
       @HiveField(2) required InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      @HiveField(4) PlanetTile? planetTile}) {
+      @HiveField(4) PlanetPoint? planetPoint}) {
     return _MinerInstance(
       proto: proto,
       instanceId: instanceId,
       drillItemId: drillItemId,
-      planetTile: planetTile,
+      planetPoint: planetPoint,
     );
   }
 }
@@ -380,7 +380,7 @@ mixin _$MinerInstance {
   @HiveField(3)
   ItemId? get drillItemId => throw _privateConstructorUsedError;
   @HiveField(4)
-  PlanetTile? get planetTile => throw _privateConstructorUsedError;
+  PlanetPoint? get planetPoint => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MinerInstanceCopyWith<MinerInstance> get copyWith =>
@@ -396,12 +396,11 @@ abstract class $MinerInstanceCopyWith<$Res> {
       {@HiveField(1) MinerProto proto,
       @HiveField(2) InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      @HiveField(4) PlanetTile? planetTile});
+      @HiveField(4) PlanetPoint? planetPoint});
 
   $MinerProtoCopyWith<$Res> get proto;
-  $InstanceIdCopyWith<$Res> get instanceId;
   $ItemIdCopyWith<$Res>? get drillItemId;
-  $PlanetTileCopyWith<$Res>? get planetTile;
+  $PlanetPointCopyWith<$Res>? get planetPoint;
 }
 
 /// @nodoc
@@ -418,7 +417,7 @@ class _$MinerInstanceCopyWithImpl<$Res>
     Object? proto = freezed,
     Object? instanceId = freezed,
     Object? drillItemId = freezed,
-    Object? planetTile = freezed,
+    Object? planetPoint = freezed,
   }) {
     return _then(_value.copyWith(
       proto: proto == freezed
@@ -433,10 +432,10 @@ class _$MinerInstanceCopyWithImpl<$Res>
           ? _value.drillItemId
           : drillItemId // ignore: cast_nullable_to_non_nullable
               as ItemId?,
-      planetTile: planetTile == freezed
-          ? _value.planetTile
-          : planetTile // ignore: cast_nullable_to_non_nullable
-              as PlanetTile?,
+      planetPoint: planetPoint == freezed
+          ? _value.planetPoint
+          : planetPoint // ignore: cast_nullable_to_non_nullable
+              as PlanetPoint?,
     ));
   }
 
@@ -444,13 +443,6 @@ class _$MinerInstanceCopyWithImpl<$Res>
   $MinerProtoCopyWith<$Res> get proto {
     return $MinerProtoCopyWith<$Res>(_value.proto, (value) {
       return _then(_value.copyWith(proto: value));
-    });
-  }
-
-  @override
-  $InstanceIdCopyWith<$Res> get instanceId {
-    return $InstanceIdCopyWith<$Res>(_value.instanceId, (value) {
-      return _then(_value.copyWith(instanceId: value));
     });
   }
 
@@ -466,13 +458,13 @@ class _$MinerInstanceCopyWithImpl<$Res>
   }
 
   @override
-  $PlanetTileCopyWith<$Res>? get planetTile {
-    if (_value.planetTile == null) {
+  $PlanetPointCopyWith<$Res>? get planetPoint {
+    if (_value.planetPoint == null) {
       return null;
     }
 
-    return $PlanetTileCopyWith<$Res>(_value.planetTile!, (value) {
-      return _then(_value.copyWith(planetTile: value));
+    return $PlanetPointCopyWith<$Res>(_value.planetPoint!, (value) {
+      return _then(_value.copyWith(planetPoint: value));
     });
   }
 }
@@ -488,16 +480,14 @@ abstract class _$MinerInstanceCopyWith<$Res>
       {@HiveField(1) MinerProto proto,
       @HiveField(2) InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      @HiveField(4) PlanetTile? planetTile});
+      @HiveField(4) PlanetPoint? planetPoint});
 
   @override
   $MinerProtoCopyWith<$Res> get proto;
   @override
-  $InstanceIdCopyWith<$Res> get instanceId;
-  @override
   $ItemIdCopyWith<$Res>? get drillItemId;
   @override
-  $PlanetTileCopyWith<$Res>? get planetTile;
+  $PlanetPointCopyWith<$Res>? get planetPoint;
 }
 
 /// @nodoc
@@ -516,7 +506,7 @@ class __$MinerInstanceCopyWithImpl<$Res>
     Object? proto = freezed,
     Object? instanceId = freezed,
     Object? drillItemId = freezed,
-    Object? planetTile = freezed,
+    Object? planetPoint = freezed,
   }) {
     return _then(_MinerInstance(
       proto: proto == freezed
@@ -531,10 +521,10 @@ class __$MinerInstanceCopyWithImpl<$Res>
           ? _value.drillItemId
           : drillItemId // ignore: cast_nullable_to_non_nullable
               as ItemId?,
-      planetTile: planetTile == freezed
-          ? _value.planetTile
-          : planetTile // ignore: cast_nullable_to_non_nullable
-              as PlanetTile?,
+      planetPoint: planetPoint == freezed
+          ? _value.planetPoint
+          : planetPoint // ignore: cast_nullable_to_non_nullable
+              as PlanetPoint?,
     ));
   }
 }
@@ -547,7 +537,7 @@ class _$_MinerInstance implements _MinerInstance {
       {@HiveField(1) required this.proto,
       @HiveField(2) required this.instanceId,
       @HiveField(3) this.drillItemId,
-      @HiveField(4) this.planetTile});
+      @HiveField(4) this.planetPoint});
 
   @override
   @HiveField(1)
@@ -560,11 +550,11 @@ class _$_MinerInstance implements _MinerInstance {
   final ItemId? drillItemId;
   @override
   @HiveField(4)
-  final PlanetTile? planetTile;
+  final PlanetPoint? planetPoint;
 
   @override
   String toString() {
-    return 'MinerInstance(proto: $proto, instanceId: $instanceId, drillItemId: $drillItemId, planetTile: $planetTile)';
+    return 'MinerInstance(proto: $proto, instanceId: $instanceId, drillItemId: $drillItemId, planetPoint: $planetPoint)';
   }
 
   @override
@@ -578,7 +568,7 @@ class _$_MinerInstance implements _MinerInstance {
             const DeepCollectionEquality()
                 .equals(other.drillItemId, drillItemId) &&
             const DeepCollectionEquality()
-                .equals(other.planetTile, planetTile));
+                .equals(other.planetPoint, planetPoint));
   }
 
   @override
@@ -587,7 +577,7 @@ class _$_MinerInstance implements _MinerInstance {
       const DeepCollectionEquality().hash(proto),
       const DeepCollectionEquality().hash(instanceId),
       const DeepCollectionEquality().hash(drillItemId),
-      const DeepCollectionEquality().hash(planetTile));
+      const DeepCollectionEquality().hash(planetPoint));
 
   @JsonKey(ignore: true)
   @override
@@ -600,7 +590,7 @@ abstract class _MinerInstance implements MinerInstance {
       {@HiveField(1) required MinerProto proto,
       @HiveField(2) required InstanceId instanceId,
       @HiveField(3) ItemId? drillItemId,
-      @HiveField(4) PlanetTile? planetTile}) = _$_MinerInstance;
+      @HiveField(4) PlanetPoint? planetPoint}) = _$_MinerInstance;
 
   @override
   @HiveField(1)
@@ -613,7 +603,7 @@ abstract class _MinerInstance implements MinerInstance {
   ItemId? get drillItemId;
   @override
   @HiveField(4)
-  PlanetTile? get planetTile;
+  PlanetPoint? get planetPoint;
   @override
   @JsonKey(ignore: true)
   _$MinerInstanceCopyWith<_MinerInstance> get copyWith =>

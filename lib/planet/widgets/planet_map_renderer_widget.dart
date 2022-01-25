@@ -12,6 +12,17 @@ class PlanetMapRenderer extends HookConsumerWidget {
     final planet = ref.watch(planetControllerProvider);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height * (1 - .65);
+    if (ref.read(planetScreenInfoControllerProvider) == emptyPlanetScreenInfo) {
+      Future.delayed(Duration.zero, () {
+        ref.read(planetScreenInfoControllerProvider.notifier).updateMarker(
+              pointerOffset: const Offset(-1, -1),
+              planetHeight: -1,
+              planetWidth: -1,
+              screenHeight: screenHeight,
+              screenWidth: screenWidth,
+            );
+      });
+    }
     return SizedBox(
       width: screenWidth,
       height: screenHeight,

@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
@@ -18,8 +17,10 @@ part 'resources.g.dart';
 @HiveType(typeId: 13)
 enum Resources {
   @HiveField(0)
+  // @JsonValue(0)
   iron,
   @HiveField(1)
+  // @JsonValue(1)
   copper,
 }
 
@@ -66,8 +67,11 @@ class ResourceContainer with _$ResourceContainer {
   const factory ResourceContainer(
       @HiveField(1) BuiltMap<Resources, int> resources) = _ResourceContainer;
 
-  // static ResourceContainer create(Map<Resources, int> resources) =>
-  //     ResourceContainer(resources.build());
+  // factory ResourceContainer.fromJson(Map<String, dynamic> json) =>
+  //     _$ResourceContainerFromJson(json);
+
+  static ResourceContainer create(Map<Resources, int> resources) =>
+      ResourceContainer(resources.build());
 
   bool get hasNegative => resources.values.any((element) => element < 0);
 

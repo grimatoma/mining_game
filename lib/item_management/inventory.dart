@@ -16,12 +16,13 @@ final inventoryProvider =
 });
 
 class Inventory {
-  final BuiltSet<ItemInstance> itemInstances;
+  final BuiltMap<InstanceId, ItemInstance> itemInstances;
 
   Inventory({required this.itemInstances});
-  Inventory._empty() : itemInstances = BuiltSet();
+  Inventory._empty() : itemInstances = BuiltMap();
 
-  Inventory rebuild(Function(SetBuilder<ItemInstance>) itemInstancesUpdates) {
+  Inventory rebuild(
+      Function(MapBuilder<InstanceId, ItemInstance>) itemInstancesUpdates) {
     return Inventory(
         itemInstances: itemInstances.rebuild(itemInstancesUpdates));
   }
@@ -32,19 +33,20 @@ class InventoryController extends StateNotifier<Inventory> {
       : super(Inventory._empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<ItemInstance>(DatabaseName.inventory5.name);
+          await Hive.openBox<ItemInstance>(DatabaseName.inventory105ssl.name);
       state = Inventory(
           itemInstances: {
-        for (final val in loadedBox.values) val,
-      }.toBuiltSet());
+        for (final val in loadedBox.values) val.instanceId: val,
+      }.build());
     }
 
     void updateBox() async {
       final loadedBox =
-          await Hive.openBox<ItemInstance>(DatabaseName.inventory5.name);
+          await Hive.openBox<ItemInstance>(DatabaseName.inventory105ssl.name);
       stream.listen((inventory) {
-        for (final item in inventory.itemInstances) {
-          loadedBox.put(item.instanceId.id, item);
+        loadedBox.clear();
+        for (final item in inventory.itemInstances.values) {
+          loadedBox.put(item.instanceId.toString(), item);
         }
       });
     }
@@ -54,12 +56,12 @@ class InventoryController extends StateNotifier<Inventory> {
   }
 
   void addItemInstance(ItemInstance item) {
-    state = state.rebuild((p0) => p0.add(item));
+    state = state.rebuild((p0) => p0[item.instanceId] = item);
   }
 
   bool removeItemInstance(ItemInstance item) {
-    if (!state.itemInstances.contains(item)) return false;
-    state = state.rebuild((p0) => p0.remove(item));
+    if (!state.itemInstances.containsKey(item.instanceId)) return false;
+    state = state.rebuild((p0) => p0.remove(item.instanceId));
     return true;
   }
 }

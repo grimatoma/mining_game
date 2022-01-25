@@ -5,10 +5,12 @@ import 'package:mining_game/planet/point.dart';
 
 part 'planet_marker.freezed.dart';
 
+const emptyPlanetScreenInfo =
+    PlanetScreenInfo(planetX: -1, planetY: -1, xScale: 1, yScale: 1);
+
 final planetScreenInfoControllerProvider =
     StateNotifierProvider<PlanetScreenController, PlanetScreenInfo>((ref) {
-  return PlanetScreenController(
-      const PlanetScreenInfo(planetX: -1, planetY: -1, xScale: 1, yScale: 1));
+  return PlanetScreenController(emptyPlanetScreenInfo);
 });
 
 class PlanetScreenController extends StateNotifier<PlanetScreenInfo> {

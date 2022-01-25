@@ -17,5 +17,8 @@ class PlanetTile with _$PlanetTile {
       @HiveField(1) required ResourceContainer resources,
       @HiveField(2) required bool visible}) = _PlanetTile;
 
+  // factory PlanetTile.fromJson(Map<String, dynamic> json) =>
+  //     _$PlanetTileFromJson(json);
+
   bool get isValid => point.isNotNegative;
 }

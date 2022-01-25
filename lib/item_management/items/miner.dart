@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:mining_game/planet/planet_tile.dart';
+import 'package:mining_game/planet/point.dart';
 
 import 'metadata/item_attributes.dart';
 import 'metadata/item_instance.dart';
@@ -41,6 +42,6 @@ class MinerInstance extends ItemInstance<MinerProto> with _$MinerInstance {
     @HiveField(1) required MinerProto proto,
     @HiveField(2) required InstanceId instanceId,
     @HiveField(3) ItemId? drillItemId,
-    @HiveField(4) PlanetTile? planetTile,
+    @HiveField(4) PlanetPoint? planetPoint,
   }) = _MinerInstance;
 }

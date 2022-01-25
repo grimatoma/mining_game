@@ -13,7 +13,7 @@ class WalletController extends StateNotifier<ResourceContainer> {
   WalletController(DataStorageController controller)
       : super(ResourceContainer(BuiltMap())) {
     void loadInitialData() async {
-      final loadedBox = await Hive.openBox(DatabaseName.wallet5.name);
+      final loadedBox = await Hive.openBox(DatabaseName.wallet1045selk.name);
       state = ResourceContainer({
         for (String val in loadedBox.keys)
           getType(val): loadedBox.get(val, defaultValue: 256) as int,
@@ -21,8 +21,9 @@ class WalletController extends StateNotifier<ResourceContainer> {
     }
 
     void updateBox() async {
-      final loadedBox = await Hive.openBox(DatabaseName.wallet5.name);
+      final loadedBox = await Hive.openBox(DatabaseName.wallet1045selk.name);
       stream.listen((storedResources) {
+        loadedBox.clear();
         for (final resource in Resources.values) {
           loadedBox.put(resource.name, storedResources.resources[resource]);
         }

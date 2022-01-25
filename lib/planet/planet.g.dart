@@ -1,32 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'item_instance.dart';
+part of 'planet.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class InstanceIdAdapter extends TypeAdapter<_$_InstanceId> {
+class PlanetAdapter extends TypeAdapter<Planet> {
   @override
-  final int typeId = 15;
+  final int typeId = 25;
 
   @override
-  _$_InstanceId read(BinaryReader reader) {
+  Planet read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_InstanceId(
-      fields[0] as int,
+    return Planet(
+      maxResourceSize: fields[0] as int,
+      width: fields[1] as int,
+      height: fields[2] as int,
+      depth: fields[3] as int,
+      map: fields[4] as BuiltMap<PlanetPoint, PlanetTile>,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_InstanceId obj) {
+  void write(BinaryWriter writer, Planet obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.id);
+      ..write(obj.maxResourceSize)
+      ..writeByte(1)
+      ..write(obj.width)
+      ..writeByte(2)
+      ..write(obj.height)
+      ..writeByte(3)
+      ..write(obj.depth)
+      ..writeByte(4)
+      ..write(obj.map);
   }
 
   @override
@@ -35,7 +47,7 @@ class InstanceIdAdapter extends TypeAdapter<_$_InstanceId> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is InstanceIdAdapter &&
+      other is PlanetAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

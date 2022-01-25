@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
@@ -10,6 +11,7 @@ import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/item_management/store/shop_listings.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/item_management/wallet.dart';
+import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget.dart';
@@ -33,7 +35,7 @@ import 'package:mining_game/planet/widgets/src/planet_interface_widget.dart';
 // }
 
 void main() async {
-  await Hive.initFlutter();
+  Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerInstanceAdapter());
   Hive.registerAdapter(MinerProtoAdapter());
   Hive.registerAdapter(ResourcesAdapter());
@@ -42,7 +44,11 @@ void main() async {
   Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(PlanetTileAdapter());
   Hive.registerAdapter(PlanetPointAdapter());
-  // Hive.registerAdapter(BuiltMapAdapter<Resources, int>());
+  Hive.registerAdapter(PlanetAdapter());
+  // final documentsDirectory =
+  //     await Path_Provider.getApplicationDocumentsDirectory();
+  // Hive.init(documentsDirectory.path);
+  await Hive.initFlutter();
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
 }
 
@@ -194,7 +200,7 @@ class InventoryMenuWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final inventory = ref.watch(inventoryProvider);
     // final simpleItemKeys = inventory.simpleItems.keys.toList();
-    final itemInstances = inventory.itemInstances.toList();
+    final itemInstances = inventory.itemInstances.values.toList();
 
     return Column(
       children: [
@@ -210,7 +216,7 @@ class InventoryMenuWidget extends HookConsumerWidget {
                       children: [const Text('Name'), Text(item.proto.name)]),
                   TableRow(children: [
                     const Text('Description'),
-                    Text(item.proto.description)
+                    Text(item.instanceId.toString())
                   ]),
                 ],
               );

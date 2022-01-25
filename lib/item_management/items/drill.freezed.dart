@@ -259,7 +259,6 @@ abstract class $DrillInstanceCopyWith<$Res> {
   $Res call({DrillProto proto, @HiveField(1) InstanceId instanceId});
 
   $DrillProtoCopyWith<$Res> get proto;
-  $InstanceIdCopyWith<$Res> get instanceId;
 }
 
 /// @nodoc
@@ -294,13 +293,6 @@ class _$DrillInstanceCopyWithImpl<$Res>
       return _then(_value.copyWith(proto: value));
     });
   }
-
-  @override
-  $InstanceIdCopyWith<$Res> get instanceId {
-    return $InstanceIdCopyWith<$Res>(_value.instanceId, (value) {
-      return _then(_value.copyWith(instanceId: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -314,8 +306,6 @@ abstract class _$DrillInstanceCopyWith<$Res>
 
   @override
   $DrillProtoCopyWith<$Res> get proto;
-  @override
-  $InstanceIdCopyWith<$Res> get instanceId;
 }
 
 /// @nodoc

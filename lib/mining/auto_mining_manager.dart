@@ -25,13 +25,13 @@ final activeMinersControllerProvider =
 });
 
 class ActiveMiners {
-  final BuiltMap<PlanetTile, MinerInstance> miners;
+  final BuiltMap<PlanetPoint, MinerInstance> miners;
 
   const ActiveMiners(this.miners);
   ActiveMiners._empty() : miners = BuiltMap();
 
   ActiveMiners rebuild(
-          Function(MapBuilder<PlanetTile, MinerInstance>) updates) =>
+          Function(MapBuilder<PlanetPoint, MinerInstance>) updates) =>
       ActiveMiners(miners.rebuild(updates));
 }
 
@@ -56,20 +56,20 @@ class ActiveMinersController extends StateNotifier<ActiveMiners> {
       DataStorageController controller)
       : super(ActiveMiners._empty()) {
     void loadInitialData() async {
-      final loadedBox =
-          await Hive.openBox<MinerInstance>(DatabaseName.installedMiners5.name);
-      final ff = loadedBox.values;
+      final loadedBox = await Hive.openBox<MinerInstance>(
+          DatabaseName.installedMiners1025dcl.name);
       for (final miner in loadedBox.values) {
         _addMiner(miner);
       }
     }
 
     void updateBox() async {
-      final loadedBox =
-          await Hive.openBox<MinerInstance>(DatabaseName.installedMiners5.name);
+      final loadedBox = await Hive.openBox<MinerInstance>(
+          DatabaseName.installedMiners1025dcl.name);
       stream.listen((event) {
+        loadedBox.clear();
         for (final miner in event.miners.values) {
-          loadedBox.put(miner.instanceId.id, miner);
+          loadedBox.put(miner.instanceId.toString(), miner);
         }
       });
     }
@@ -96,8 +96,8 @@ class ActiveMinersController extends StateNotifier<ActiveMiners> {
   }
 
   void _processGameTick() {
-    activeAutoMiners.miners.forEach((tile, miner) {
-      dig(tile.point,
+    activeAutoMiners.miners.forEach((point, miner) {
+      dig(point,
           ResourceContainer({Resources.iron: miner.proto.baseDamage}.build()));
     });
   }
@@ -110,16 +110,16 @@ class ActiveMinersController extends StateNotifier<ActiveMiners> {
     event as InstallAutoMinerEvent;
 
     if (_inventoryController.removeItemInstance(event.miner)) {
-      _addMiner(event.miner, event.planetTile);
+      _addMiner(event.miner, event.point);
     }
   }
 
-  void _addMiner(MinerInstance minerInstance, [PlanetTile? tile]) {
-    final newMiner = minerInstance.copyWith(planetTile: tile);
-    final planetTile = tile ?? (minerInstance.planetTile as PlanetTile);
+  void _addMiner(MinerInstance minerInstance, [PlanetPoint? point]) {
+    final newMiner = minerInstance.copyWith(planetPoint: point);
+    final resolvedPoint = point ?? (minerInstance.planetPoint as PlanetPoint);
 
     activeAutoMiners =
-        activeAutoMiners.rebuild((p0) => p0[planetTile] = newMiner);
+        activeAutoMiners.rebuild((p0) => p0[resolvedPoint] = newMiner);
   }
 
   void _storeMinerEvent(AutoMiningManagerEvent event) {
@@ -156,10 +156,10 @@ class InstallAutoMinerEvent extends AutoMiningManagerEvent {
   @override
   final type = AutoMiningManagerEvents.INSTALL_AUTO_MINER;
 
-  final PlanetTile planetTile;
+  final PlanetPoint point;
   final MinerInstance miner;
 
-  InstallAutoMinerEvent({required this.miner, required this.planetTile});
+  InstallAutoMinerEvent({required this.miner, required this.point});
 }
 
 class StoreMinerEvent extends AutoMiningManagerEvent {

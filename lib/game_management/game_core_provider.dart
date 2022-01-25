@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/auto_mining_manager.dart';
+import 'package:mining_game/game_management/game_clock.dart';
 
 final gameCoreProvider = Provider<void>((ref) {
-  ref.watch(activeMinersControllerProvider);
+  ref.watch(gameClockProvider);
 });

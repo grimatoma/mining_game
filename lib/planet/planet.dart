@@ -3,13 +3,17 @@ import 'dart:ui';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/persistence.dart';
 
 import 'generation/perline_noise.dart';
 import 'planet_tile.dart';
 import 'point.dart';
+
+part 'planet.g.dart';
 
 final planetControllerProvider =
     StateNotifierProvider<PlanetController, Planet>((ref) {
@@ -17,33 +21,64 @@ final planetControllerProvider =
   return PlanetController(configs: configs);
 });
 
-// final planetMapProvider = Provider<BuiltMap<Point, PlanetTile>>((ref) {
-//   return ref.watch(resourceMapProvider).planetMap;
-// });
-// final planetControllerProvider =
-//     StateProvider((ref) => PlanetController(ref.watch(resourceMapProvider)));
+class BuiltMapAdapter<KeyT, ValueT>
+    extends TypeAdapter<BuiltMap<KeyT, ValueT>> {
+  @override
+  final int typeId;
 
-// class PlanetController extends StateNotifier<Planet> {
-//   final Planet planet;
+  BuiltMapAdapter(this.typeId);
 
-//   PlanetController(this.planet) : super(planet);
-// }
+  @override
+  BuiltMap<KeyT, ValueT> read(BinaryReader reader) {
+    return BuiltMap(Map.from(reader.readMap()));
+  }
 
+  @override
+  void write(BinaryWriter writer, BuiltMap<KeyT, ValueT> obj) {
+    writer.writeMap(obj.toMap());
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BuiltMapAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+// @JsonSerializable()
+@HiveType(typeId: 25)
 class Planet {
+  @HiveField(0)
   final int maxResourceSize;
+  @HiveField(1)
   final int width;
+  @HiveField(2)
   final int height;
+  @HiveField(3)
   final int depth;
-  BuiltMap<PlanetPoint, PlanetTile> get map => _map;
-  final BuiltMap<PlanetPoint, PlanetTile> _map;
+  @HiveField(4)
+  final BuiltMap<PlanetPoint, PlanetTile> map;
 
+  // factory Planet.fromJson(Map<String, dynamic> json) => _$Planet(json);
+  //
+  // Map<String, dynamic> toJson() => _$PlanetToJson(this);
+
+  Planet(
+      {required this.maxResourceSize,
+      required this.width,
+      required this.height,
+      required this.depth,
+      required this.map});
   Planet._rebuilt(
       {required this.maxResourceSize,
       required this.width,
       required this.height,
       required this.depth,
-      required BuiltMap<PlanetPoint, PlanetTile> map})
-      : _map = map;
+      required this.map});
   Planet._newPlanet(
       {required GameConfigs configs,
       required int maxResources,
@@ -52,13 +87,13 @@ class Planet {
         height = configs.height,
         depth = configs.depth,
         maxResourceSize = maxResources,
-        _map = map.build().rebuild((p0) => null);
+        map = map.build().rebuild((p0) => null);
   Planet._empty()
       : maxResourceSize = 0,
         width = 0,
         height = 0,
         depth = 0,
-        _map = BuiltMap();
+        map = BuiltMap();
 
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
@@ -83,11 +118,32 @@ class Planet {
 }
 
 class PlanetController extends StateNotifier<Planet> {
+  static const databaseKey = 'planet';
   Planet get planet => state;
   set planet(Planet planet) => state = planet;
 
   PlanetController({required GameConfigs configs}) : super(Planet._empty()) {
-    planet = _generatePlanet(configs);
+    void loadInitialData() async {
+      final loadedBox =
+          await Hive.openBox<Planet>(DatabaseName.planet2225fgsk.name);
+      final loadedPlanet = loadedBox.get(databaseKey);
+      if (loadedPlanet == null) {
+        planet = _generatePlanet(configs);
+      } else {
+        planet = loadedPlanet;
+      }
+    }
+
+    void updateBox() async {
+      final loadedBox =
+          await Hive.openBox<Planet>(DatabaseName.planet2225fgsk.name);
+      stream.listen((event) {
+        loadedBox.put(databaseKey, planet);
+      });
+    }
+
+    loadInitialData();
+    updateBox();
   }
 
   Planet _generatePlanet(GameConfigs configs) {

@@ -75,7 +75,7 @@ class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
       proto: fields[1] as MinerProto,
       instanceId: fields[2] as InstanceId,
       drillItemId: fields[3] as ItemId?,
-      planetTile: fields[4] as PlanetTile?,
+      planetPoint: fields[4] as PlanetPoint?,
     );
   }
 
@@ -90,7 +90,7 @@ class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
       ..writeByte(3)
       ..write(obj.drillItemId)
       ..writeByte(4)
-      ..write(obj.planetTile);
+      ..write(obj.planetPoint);
   }
 
   @override

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
 import 'package:mining_game/item_management/items/metadata/item_proto.dart';
 import 'package:mining_game/item_management/items/miner.dart';
@@ -61,77 +59,9 @@ class ItemDatabaseManager {
     //     itemId: ItemId(1002), name: 'Copper', description: 'Is that a Penny?'),
   };
 
-  static InstanceId generateInstanceId() =>
-      InstanceId(Random().nextDouble().toInt());
-
   static ItemInstanceT createInstance<ItemInstanceT>(ItemId id) {
     final item = itemProtos[id.id];
     return (item as Creatable<dynamic, ItemInstanceT>)
-        .create(generateInstanceId());
+        .create(InstanceId.generate());
   }
 }
-// static const _instances = [
-//     MinerInstance(instanceId: InstanceId(1), itemId: ItemId(1), potato: 20),
-//     MinerInstance(instanceId: InstanceId(2), itemId: ItemId(2)),
-//     MinerInstance(instanceId: InstanceId(3), itemId: ItemId(3)),
-//     MinerInstance(instanceId: InstanceId(4), itemId: ItemId(4)),
-//     MinerInstance(instanceId: InstanceId(5), itemId: ItemId(5)),
-//     MinerInstance(instanceId: InstanceId(6), itemId: ItemId(2)),
-//   ];
-//
-//   static final BuiltMap<ItemId, ItemProto> itemListing =
-//       {for (final item in _items) item.itemId: item}.build();
-//   static final BuiltMap<InstanceId, ItemInstance> itemInstances =
-//       {for (final item in _instances) item.instanceId: item}.build();
-//
-//   late Box _itemInstancesBox;
-//
-//   void initDatabase() async {
-//     String message;
-//     if (window.localStorage.containsKey('my-key')) {
-//       message = 'from storage ${window.localStorage['my-key']}';
-//     } else {
-//       window.localStorage['my-key'] = "Hello World";
-//       message = 'New added Message ${window.localStorage['my-key']}';
-//     }
-//     print(message);
-//
-//     Hive.registerAdapter(TestIdAdapter());
-//     Hive.registerAdapter(TestInnerIdAdapter());
-//     print('Exists :${await Hive.boxExists('test')}}');
-//     _itemInstancesBox = await Hive.openBox('test');
-//     print('contents : ${_itemInstancesBox.values}');
-//     var i2 = _itemInstancesBox.get(691);
-//     const i1 = TestId(691, TestInnerId('Potato'));
-//     _itemInstancesBox.put(i1.id, i1);
-//     await _itemInstancesBox.flush();
-//
-//     print(i1);
-//     print(i2);
-//
-//     // i2.instanceId;
-//
-//     int i = 4;
-//   }
-//
-//   static ItemInstance<UpgradableItem> getItemInstance(InstanceId id) {
-//     return itemInstances[id]!;
-//   }
-//
-//   static InstanceId registerInstance(ItemId itemId) {
-//     return const InstanceId(1);
-//   }
-// }
-//
-// @freezed
-// class TestId with _$TestId {
-//   @HiveType(typeId: 11, adapterName: 'TestIdAdapter')
-//   const factory TestId(@HiveField(1) int id, @HiveField(2) TestInnerId name) =
-//       _TestId;
-// }
-//
-// @freezed
-// class TestInnerId with _$TestInnerId {
-//   @HiveType(typeId: 12, adapterName: 'TestInnerIdAdapter')
-//   const factory TestInnerId(@HiveField(1) String name) = _TestInnerId;
-// }

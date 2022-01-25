@@ -279,7 +279,6 @@ abstract class $ScannerInstanceCopyWith<$Res> {
   $Res call({ScannerProto proto, @HiveField(1) InstanceId instanceId});
 
   $ScannerProtoCopyWith<$Res> get proto;
-  $InstanceIdCopyWith<$Res> get instanceId;
 }
 
 /// @nodoc
@@ -314,13 +313,6 @@ class _$ScannerInstanceCopyWithImpl<$Res>
       return _then(_value.copyWith(proto: value));
     });
   }
-
-  @override
-  $InstanceIdCopyWith<$Res> get instanceId {
-    return $InstanceIdCopyWith<$Res>(_value.instanceId, (value) {
-      return _then(_value.copyWith(instanceId: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -334,8 +326,6 @@ abstract class _$ScannerInstanceCopyWith<$Res>
 
   @override
   $ScannerProtoCopyWith<$Res> get proto;
-  @override
-  $InstanceIdCopyWith<$Res> get instanceId;
 }
 
 /// @nodoc
