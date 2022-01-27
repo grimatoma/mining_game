@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
-import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/item_management/resources/resource_container.dart';
 
 import 'point.dart';
 

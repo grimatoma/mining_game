@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
@@ -7,90 +5,38 @@ import 'package:hive/hive.dart';
 part 'resources.freezed.dart';
 part 'resources.g.dart';
 
-// final resourceTypes = {
-//   const Resource(
-//       name: 'Iron',
-//       description: "Iron-cha sad that you didn't start with digging gold?"),
-//   const Resource(name: 'Copper', description: 'Is that a Penny?'),
-// }.build();
+final resourceTypes = {
+  Resource.iron: const ResourceDetails(
+      name: 'Iron',
+      description: "Iron-cha sad that you didn't start with digging gold?"),
+  Resource.copper:
+      const ResourceDetails(name: 'Copper', description: 'Is that a Penny?'),
+}.build();
 
 @HiveType(typeId: 13)
-enum Resources {
+enum Resource {
   @HiveField(0)
-  // @JsonValue(0)
   iron,
   @HiveField(1)
-  // @JsonValue(1)
   copper,
 }
 
-Resources getType(String s) {
+Resource getType(String s) {
   switch (s) {
     case 'iron':
-      return Resources.iron;
+      return Resource.iron;
     case 'copper':
-      return Resources.copper;
+      return Resource.copper;
   }
   throw Exception('Need to define the type for enum');
 }
 
-// @freezed
-// class Resource with _$Resource {
-//   const Resource._();
-//
-//   const factory Resource({
-//     required String name,
-//     required String description,
-//   }) = _Resource;
-// }
-
 @freezed
-class ResourceContainer with _$ResourceContainer {
-  const ResourceContainer._();
+class ResourceDetails with _$ResourceDetails {
+  const ResourceDetails._();
 
-  @HiveType(typeId: 12, adapterName: 'ResourceContainerAdapter')
-  const factory ResourceContainer(
-      @HiveField(1) BuiltMap<Resources, int> resources) = _ResourceContainer;
-
-  // factory ResourceContainer.fromJson(Map<String, dynamic> json) =>
-  //     _$ResourceContainerFromJson(json);
-
-  static ResourceContainer create(Map<Resources, int> resources) =>
-      ResourceContainer(resources.build());
-
-  bool get hasNegative => resources.values.any((element) => element < 0);
-
-  int get(Resources resource) => resources[resource] ?? 0;
-
-  ResourceContainer operator -(ResourceContainer other) =>
-      ResourceContainer(resources.rebuild((builder) {
-        for (final resourceType in Resources.values) {
-          builder[resourceType] = get(resourceType) - other.get(resourceType);
-        }
-        return builder;
-      }));
-
-  ResourceContainer operator +(ResourceContainer other) =>
-      ResourceContainer(resources.rebuild((builder) {
-        for (final resourceType in Resources.values) {
-          builder[resourceType] = get(resourceType) + other.get(resourceType);
-        }
-        return builder;
-      }));
-  ResourceContainer maxCanBeRemoved(ResourceContainer other) =>
-      ResourceContainer(BuiltMap<Resources, int>.build((builder) {
-        for (final resourceType in Resources.values) {
-          builder[resourceType] =
-              min(get(resourceType), other.get(resourceType));
-        }
-      }));
-
-  @override
-  String toString() {
-    var s = <String>[];
-    resources.forEach((resource, amount) {
-      s.add('${resource.name}: $amount');
-    });
-    return s.join('\n');
-  }
+  const factory ResourceDetails({
+    required String name,
+    required String description,
+  }) = _ResourceDetails;
 }

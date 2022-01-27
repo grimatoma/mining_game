@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/items/miner.dart';
+import 'package:mining_game/item_management/resources/resource_container.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/mining/auto_mining_manager.dart';
 import 'package:mining_game/planet/planet.dart';
@@ -39,7 +40,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
           onPressed: () => ref
               .read(activeMinersControllerProvider.notifier)
               .dig(selectedTile.point,
-                  ResourceContainer({Resources.iron: 1}.build())),
+                  ResourceContainer({Resource.iron: 1}.build())),
           child: const Text('dig')),
       if (!selectedTile.visible)
         TextButton(
@@ -84,7 +85,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
           ],
         ),
       Text(
-          'Resources left at location: ${selectedTile.visible ? selectedTile.resources.get(Resources.iron).toString() : 'Unknown'}'),
+          'Resources left at location: ${selectedTile.visible ? selectedTile.resources.get(Resource.iron).toString() : 'Unknown'}'),
 
       // if (!planetTile.hasAutoMiner)
       //   TextButton(

@@ -16,7 +16,7 @@ class MinerProto extends ItemProto
     implements
         UpgradableItem,
         EquipmentItemType,
-        Creatable<MinerProto, MinerInstance> {
+        InstantiatableItem<MinerProto, MinerInstance> {
   const MinerProto._();
   @HiveType(typeId: 11, adapterName: 'MinerProtoAdapter')
   const factory MinerProto(
@@ -30,7 +30,7 @@ class MinerProto extends ItemProto
       @HiveField(8) required int fuelConsumption}) = _MinerProto;
 
   @override
-  MinerInstance create(InstanceId id) =>
+  MinerInstance instantiate(InstanceId id) =>
       MinerInstance(proto: this, instanceId: id);
 }
 

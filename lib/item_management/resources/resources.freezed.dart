@@ -15,131 +15,153 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$ResourceContainerTearOff {
-  const _$ResourceContainerTearOff();
+class _$ResourceDetailsTearOff {
+  const _$ResourceDetailsTearOff();
 
-  _ResourceContainer call(@HiveField(1) BuiltMap<Resources, int> resources) {
-    return _ResourceContainer(
-      resources,
+  _ResourceDetails call({required String name, required String description}) {
+    return _ResourceDetails(
+      name: name,
+      description: description,
     );
   }
 }
 
 /// @nodoc
-const $ResourceContainer = _$ResourceContainerTearOff();
+const $ResourceDetails = _$ResourceDetailsTearOff();
 
 /// @nodoc
-mixin _$ResourceContainer {
-  @HiveField(1)
-  BuiltMap<Resources, int> get resources => throw _privateConstructorUsedError;
+mixin _$ResourceDetails {
+  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ResourceContainerCopyWith<ResourceContainer> get copyWith =>
+  $ResourceDetailsCopyWith<ResourceDetails> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ResourceContainerCopyWith<$Res> {
-  factory $ResourceContainerCopyWith(
-          ResourceContainer value, $Res Function(ResourceContainer) then) =
-      _$ResourceContainerCopyWithImpl<$Res>;
-  $Res call({@HiveField(1) BuiltMap<Resources, int> resources});
+abstract class $ResourceDetailsCopyWith<$Res> {
+  factory $ResourceDetailsCopyWith(
+          ResourceDetails value, $Res Function(ResourceDetails) then) =
+      _$ResourceDetailsCopyWithImpl<$Res>;
+  $Res call({String name, String description});
 }
 
 /// @nodoc
-class _$ResourceContainerCopyWithImpl<$Res>
-    implements $ResourceContainerCopyWith<$Res> {
-  _$ResourceContainerCopyWithImpl(this._value, this._then);
+class _$ResourceDetailsCopyWithImpl<$Res>
+    implements $ResourceDetailsCopyWith<$Res> {
+  _$ResourceDetailsCopyWithImpl(this._value, this._then);
 
-  final ResourceContainer _value;
+  final ResourceDetails _value;
   // ignore: unused_field
-  final $Res Function(ResourceContainer) _then;
+  final $Res Function(ResourceDetails) _then;
 
   @override
   $Res call({
-    Object? resources = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
-      resources: resources == freezed
-          ? _value.resources
-          : resources // ignore: cast_nullable_to_non_nullable
-              as BuiltMap<Resources, int>,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
-abstract class _$ResourceContainerCopyWith<$Res>
-    implements $ResourceContainerCopyWith<$Res> {
-  factory _$ResourceContainerCopyWith(
-          _ResourceContainer value, $Res Function(_ResourceContainer) then) =
-      __$ResourceContainerCopyWithImpl<$Res>;
+abstract class _$ResourceDetailsCopyWith<$Res>
+    implements $ResourceDetailsCopyWith<$Res> {
+  factory _$ResourceDetailsCopyWith(
+          _ResourceDetails value, $Res Function(_ResourceDetails) then) =
+      __$ResourceDetailsCopyWithImpl<$Res>;
   @override
-  $Res call({@HiveField(1) BuiltMap<Resources, int> resources});
+  $Res call({String name, String description});
 }
 
 /// @nodoc
-class __$ResourceContainerCopyWithImpl<$Res>
-    extends _$ResourceContainerCopyWithImpl<$Res>
-    implements _$ResourceContainerCopyWith<$Res> {
-  __$ResourceContainerCopyWithImpl(
-      _ResourceContainer _value, $Res Function(_ResourceContainer) _then)
-      : super(_value, (v) => _then(v as _ResourceContainer));
+class __$ResourceDetailsCopyWithImpl<$Res>
+    extends _$ResourceDetailsCopyWithImpl<$Res>
+    implements _$ResourceDetailsCopyWith<$Res> {
+  __$ResourceDetailsCopyWithImpl(
+      _ResourceDetails _value, $Res Function(_ResourceDetails) _then)
+      : super(_value, (v) => _then(v as _ResourceDetails));
 
   @override
-  _ResourceContainer get _value => super._value as _ResourceContainer;
+  _ResourceDetails get _value => super._value as _ResourceDetails;
 
   @override
   $Res call({
-    Object? resources = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
   }) {
-    return _then(_ResourceContainer(
-      resources == freezed
-          ? _value.resources
-          : resources // ignore: cast_nullable_to_non_nullable
-              as BuiltMap<Resources, int>,
+    return _then(_ResourceDetails(
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
 
-@HiveType(typeId: 12, adapterName: 'ResourceContainerAdapter')
-class _$_ResourceContainer extends _ResourceContainer {
-  const _$_ResourceContainer(@HiveField(1) this.resources) : super._();
+class _$_ResourceDetails extends _ResourceDetails {
+  const _$_ResourceDetails({required this.name, required this.description})
+      : super._();
 
   @override
-  @HiveField(1)
-  final BuiltMap<Resources, int> resources;
+  final String name;
+  @override
+  final String description;
+
+  @override
+  String toString() {
+    return 'ResourceDetails(name: $name, description: $description)';
+  }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _ResourceContainer &&
-            const DeepCollectionEquality().equals(other.resources, resources));
+            other is _ResourceDetails &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(resources));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(description));
 
   @JsonKey(ignore: true)
   @override
-  _$ResourceContainerCopyWith<_ResourceContainer> get copyWith =>
-      __$ResourceContainerCopyWithImpl<_ResourceContainer>(this, _$identity);
+  _$ResourceDetailsCopyWith<_ResourceDetails> get copyWith =>
+      __$ResourceDetailsCopyWithImpl<_ResourceDetails>(this, _$identity);
 }
 
-abstract class _ResourceContainer extends ResourceContainer {
-  const factory _ResourceContainer(
-      @HiveField(1) BuiltMap<Resources, int> resources) = _$_ResourceContainer;
-  const _ResourceContainer._() : super._();
+abstract class _ResourceDetails extends ResourceDetails {
+  const factory _ResourceDetails(
+      {required String name, required String description}) = _$_ResourceDetails;
+  const _ResourceDetails._() : super._();
 
   @override
-  @HiveField(1)
-  BuiltMap<Resources, int> get resources;
+  String get name;
+  @override
+  String get description;
   @override
   @JsonKey(ignore: true)
-  _$ResourceContainerCopyWith<_ResourceContainer> get copyWith =>
+  _$ResourceDetailsCopyWith<_ResourceDetails> get copyWith =>
       throw _privateConstructorUsedError;
 }

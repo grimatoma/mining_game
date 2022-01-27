@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
+import 'package:mining_game/item_management/resources/resource_container.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/persistence.dart';
 
@@ -97,11 +98,8 @@ class Planet {
 
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
-      min(
-              255,
-              (255 *
-                  planetTile.resources.get(Resources.iron) /
-                  maxResourceSize))
+      min(255,
+              (255 * planetTile.resources.get(Resource.iron) / maxResourceSize))
           .toInt(),
       0,
       0);
@@ -172,8 +170,7 @@ class PlanetController extends StateNotifier<Planet> {
         final p = PlanetPoint(x, y, z);
         planetMap[p] = PlanetTile(
             point: p,
-            resources:
-                ResourceContainer({Resources.iron: resourceSize}.build()),
+            resources: ResourceContainer({Resource.iron: resourceSize}.build()),
             visible: false);
         maxResourceSize =
             maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
@@ -228,7 +225,7 @@ class PlanetController extends StateNotifier<Planet> {
       min(
               255,
               (255 *
-                  planetTile.resources.get(Resources.iron) /
+                  planetTile.resources.get(Resource.iron) /
                   planet.maxResourceSize))
           .toInt(),
       0,

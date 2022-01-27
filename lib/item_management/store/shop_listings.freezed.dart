@@ -19,10 +19,13 @@ class _$ItemProtoShopListingTearOff {
   const _$ItemProtoShopListingTearOff();
 
   _ItemProtoShopListing call(
-      {required ItemId itemId, required ResourceContainer cost}) {
+      {required ItemId itemId,
+      required ResourceContainer cost,
+      bool consumable = true}) {
     return _ItemProtoShopListing(
       itemId: itemId,
       cost: cost,
+      consumable: consumable,
     );
   }
 }
@@ -34,6 +37,7 @@ const $ItemProtoShopListing = _$ItemProtoShopListingTearOff();
 mixin _$ItemProtoShopListing {
   ItemId get itemId => throw _privateConstructorUsedError;
   ResourceContainer get cost => throw _privateConstructorUsedError;
+  bool get consumable => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ItemProtoShopListingCopyWith<ItemProtoShopListing> get copyWith =>
@@ -45,7 +49,7 @@ abstract class $ItemProtoShopListingCopyWith<$Res> {
   factory $ItemProtoShopListingCopyWith(ItemProtoShopListing value,
           $Res Function(ItemProtoShopListing) then) =
       _$ItemProtoShopListingCopyWithImpl<$Res>;
-  $Res call({ItemId itemId, ResourceContainer cost});
+  $Res call({ItemId itemId, ResourceContainer cost, bool consumable});
 
   $ItemIdCopyWith<$Res> get itemId;
   $ResourceContainerCopyWith<$Res> get cost;
@@ -64,6 +68,7 @@ class _$ItemProtoShopListingCopyWithImpl<$Res>
   $Res call({
     Object? itemId = freezed,
     Object? cost = freezed,
+    Object? consumable = freezed,
   }) {
     return _then(_value.copyWith(
       itemId: itemId == freezed
@@ -74,6 +79,10 @@ class _$ItemProtoShopListingCopyWithImpl<$Res>
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ResourceContainer,
+      consumable: consumable == freezed
+          ? _value.consumable
+          : consumable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 
@@ -99,7 +108,7 @@ abstract class _$ItemProtoShopListingCopyWith<$Res>
           $Res Function(_ItemProtoShopListing) then) =
       __$ItemProtoShopListingCopyWithImpl<$Res>;
   @override
-  $Res call({ItemId itemId, ResourceContainer cost});
+  $Res call({ItemId itemId, ResourceContainer cost, bool consumable});
 
   @override
   $ItemIdCopyWith<$Res> get itemId;
@@ -122,6 +131,7 @@ class __$ItemProtoShopListingCopyWithImpl<$Res>
   $Res call({
     Object? itemId = freezed,
     Object? cost = freezed,
+    Object? consumable = freezed,
   }) {
     return _then(_ItemProtoShopListing(
       itemId: itemId == freezed
@@ -132,6 +142,10 @@ class __$ItemProtoShopListingCopyWithImpl<$Res>
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ResourceContainer,
+      consumable: consumable == freezed
+          ? _value.consumable
+          : consumable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -139,17 +153,21 @@ class __$ItemProtoShopListingCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ItemProtoShopListing extends _ItemProtoShopListing {
-  const _$_ItemProtoShopListing({required this.itemId, required this.cost})
+  const _$_ItemProtoShopListing(
+      {required this.itemId, required this.cost, this.consumable = true})
       : super._();
 
   @override
   final ItemId itemId;
   @override
   final ResourceContainer cost;
+  @JsonKey()
+  @override
+  final bool consumable;
 
   @override
   String toString() {
-    return 'ItemProtoShopListing(itemId: $itemId, cost: $cost)';
+    return 'ItemProtoShopListing(itemId: $itemId, cost: $cost, consumable: $consumable)';
   }
 
   @override
@@ -158,14 +176,17 @@ class _$_ItemProtoShopListing extends _ItemProtoShopListing {
         (other.runtimeType == runtimeType &&
             other is _ItemProtoShopListing &&
             const DeepCollectionEquality().equals(other.itemId, itemId) &&
-            const DeepCollectionEquality().equals(other.cost, cost));
+            const DeepCollectionEquality().equals(other.cost, cost) &&
+            const DeepCollectionEquality()
+                .equals(other.consumable, consumable));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(itemId),
-      const DeepCollectionEquality().hash(cost));
+      const DeepCollectionEquality().hash(cost),
+      const DeepCollectionEquality().hash(consumable));
 
   @JsonKey(ignore: true)
   @override
@@ -177,13 +198,16 @@ class _$_ItemProtoShopListing extends _ItemProtoShopListing {
 abstract class _ItemProtoShopListing extends ItemProtoShopListing {
   const factory _ItemProtoShopListing(
       {required ItemId itemId,
-      required ResourceContainer cost}) = _$_ItemProtoShopListing;
+      required ResourceContainer cost,
+      bool consumable}) = _$_ItemProtoShopListing;
   const _ItemProtoShopListing._() : super._();
 
   @override
   ItemId get itemId;
   @override
   ResourceContainer get cost;
+  @override
+  bool get consumable;
   @override
   @JsonKey(ignore: true)
   _$ItemProtoShopListingCopyWith<_ItemProtoShopListing> get copyWith =>
@@ -195,13 +219,15 @@ class _$ItemStackShopListingTearOff {
   const _$ItemStackShopListingTearOff();
 
   _ItemStackShopListing call(
-      {required StackableItemDefinition item,
+      {required ItemId itemId,
       required int quantity,
-      required ResourceContainer cost}) {
+      required ResourceContainer cost,
+      bool consumable = true}) {
     return _ItemStackShopListing(
-      item: item,
+      itemId: itemId,
       quantity: quantity,
       cost: cost,
+      consumable: consumable,
     );
   }
 }
@@ -211,9 +237,10 @@ const $ItemStackShopListing = _$ItemStackShopListingTearOff();
 
 /// @nodoc
 mixin _$ItemStackShopListing {
-  StackableItemDefinition get item => throw _privateConstructorUsedError;
+  ItemId get itemId => throw _privateConstructorUsedError;
   int get quantity => throw _privateConstructorUsedError;
   ResourceContainer get cost => throw _privateConstructorUsedError;
+  bool get consumable => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ItemStackShopListingCopyWith<ItemStackShopListing> get copyWith =>
@@ -226,8 +253,9 @@ abstract class $ItemStackShopListingCopyWith<$Res> {
           $Res Function(ItemStackShopListing) then) =
       _$ItemStackShopListingCopyWithImpl<$Res>;
   $Res call(
-      {StackableItemDefinition item, int quantity, ResourceContainer cost});
+      {ItemId itemId, int quantity, ResourceContainer cost, bool consumable});
 
+  $ItemIdCopyWith<$Res> get itemId;
   $ResourceContainerCopyWith<$Res> get cost;
 }
 
@@ -242,15 +270,16 @@ class _$ItemStackShopListingCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? item = freezed,
+    Object? itemId = freezed,
     Object? quantity = freezed,
     Object? cost = freezed,
+    Object? consumable = freezed,
   }) {
     return _then(_value.copyWith(
-      item: item == freezed
-          ? _value.item
-          : item // ignore: cast_nullable_to_non_nullable
-              as StackableItemDefinition,
+      itemId: itemId == freezed
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as ItemId,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -259,7 +288,18 @@ class _$ItemStackShopListingCopyWithImpl<$Res>
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ResourceContainer,
+      consumable: consumable == freezed
+          ? _value.consumable
+          : consumable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
+  }
+
+  @override
+  $ItemIdCopyWith<$Res> get itemId {
+    return $ItemIdCopyWith<$Res>(_value.itemId, (value) {
+      return _then(_value.copyWith(itemId: value));
+    });
   }
 
   @override
@@ -278,8 +318,10 @@ abstract class _$ItemStackShopListingCopyWith<$Res>
       __$ItemStackShopListingCopyWithImpl<$Res>;
   @override
   $Res call(
-      {StackableItemDefinition item, int quantity, ResourceContainer cost});
+      {ItemId itemId, int quantity, ResourceContainer cost, bool consumable});
 
+  @override
+  $ItemIdCopyWith<$Res> get itemId;
   @override
   $ResourceContainerCopyWith<$Res> get cost;
 }
@@ -297,15 +339,16 @@ class __$ItemStackShopListingCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? item = freezed,
+    Object? itemId = freezed,
     Object? quantity = freezed,
     Object? cost = freezed,
+    Object? consumable = freezed,
   }) {
     return _then(_ItemStackShopListing(
-      item: item == freezed
-          ? _value.item
-          : item // ignore: cast_nullable_to_non_nullable
-              as StackableItemDefinition,
+      itemId: itemId == freezed
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as ItemId,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
@@ -314,6 +357,10 @@ class __$ItemStackShopListingCopyWithImpl<$Res>
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ResourceContainer,
+      consumable: consumable == freezed
+          ? _value.consumable
+          : consumable // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -322,19 +369,25 @@ class __$ItemStackShopListingCopyWithImpl<$Res>
 
 class _$_ItemStackShopListing extends _ItemStackShopListing {
   const _$_ItemStackShopListing(
-      {required this.item, required this.quantity, required this.cost})
+      {required this.itemId,
+      required this.quantity,
+      required this.cost,
+      this.consumable = true})
       : super._();
 
   @override
-  final StackableItemDefinition item;
+  final ItemId itemId;
   @override
   final int quantity;
   @override
   final ResourceContainer cost;
+  @JsonKey()
+  @override
+  final bool consumable;
 
   @override
   String toString() {
-    return 'ItemStackShopListing(item: $item, quantity: $quantity, cost: $cost)';
+    return 'ItemStackShopListing(itemId: $itemId, quantity: $quantity, cost: $cost, consumable: $consumable)';
   }
 
   @override
@@ -342,17 +395,20 @@ class _$_ItemStackShopListing extends _ItemStackShopListing {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ItemStackShopListing &&
-            const DeepCollectionEquality().equals(other.item, item) &&
+            const DeepCollectionEquality().equals(other.itemId, itemId) &&
             const DeepCollectionEquality().equals(other.quantity, quantity) &&
-            const DeepCollectionEquality().equals(other.cost, cost));
+            const DeepCollectionEquality().equals(other.cost, cost) &&
+            const DeepCollectionEquality()
+                .equals(other.consumable, consumable));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(item),
+      const DeepCollectionEquality().hash(itemId),
       const DeepCollectionEquality().hash(quantity),
-      const DeepCollectionEquality().hash(cost));
+      const DeepCollectionEquality().hash(cost),
+      const DeepCollectionEquality().hash(consumable));
 
   @JsonKey(ignore: true)
   @override
@@ -363,17 +419,20 @@ class _$_ItemStackShopListing extends _ItemStackShopListing {
 
 abstract class _ItemStackShopListing extends ItemStackShopListing {
   const factory _ItemStackShopListing(
-      {required StackableItemDefinition item,
+      {required ItemId itemId,
       required int quantity,
-      required ResourceContainer cost}) = _$_ItemStackShopListing;
+      required ResourceContainer cost,
+      bool consumable}) = _$_ItemStackShopListing;
   const _ItemStackShopListing._() : super._();
 
   @override
-  StackableItemDefinition get item;
+  ItemId get itemId;
   @override
   int get quantity;
   @override
   ResourceContainer get cost;
+  @override
+  bool get consumable;
   @override
   @JsonKey(ignore: true)
   _$ItemStackShopListingCopyWith<_ItemStackShopListing> get copyWith =>

@@ -1,12 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/item_management/items/metadata/item_attributes.dart';
 import 'package:mining_game/item_management/items/metadata/item_proto.dart';
-import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/item_management/resources/resource_container.dart';
 
 part 'shop_listings.freezed.dart';
 
 abstract class ShopListing {
   ResourceContainer get cost;
+  bool get consumable;
   const ShopListing();
 }
 
@@ -28,7 +28,8 @@ class ItemProtoShopListing extends ShopListing with _$ItemProtoShopListing {
 
   const factory ItemProtoShopListing(
       {required ItemId itemId,
-      required ResourceContainer cost}) = _ItemProtoShopListing;
+      required ResourceContainer cost,
+      @Default(true) bool consumable}) = _ItemProtoShopListing;
 }
 
 @freezed
@@ -36,7 +37,8 @@ class ItemStackShopListing extends ShopListing with _$ItemStackShopListing {
   const ItemStackShopListing._();
 
   const factory ItemStackShopListing(
-      {required StackableItemDefinition item,
+      {required ItemId itemId,
       required int quantity,
-      required ResourceContainer cost}) = _ItemStackShopListing;
+      required ResourceContainer cost,
+      @Default(true) bool consumable}) = _ItemStackShopListing;
 }
