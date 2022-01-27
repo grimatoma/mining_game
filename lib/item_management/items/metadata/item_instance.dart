@@ -4,10 +4,6 @@ import 'package:hive/hive.dart';
 
 import 'item_proto.dart';
 
-abstract class Creatable<SelfT, InstanceT> {
-  InstanceT create(InstanceId id);
-}
-
 class InstanceId {
   final String _guid;
 

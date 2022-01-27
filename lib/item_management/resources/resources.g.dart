@@ -6,29 +6,29 @@ part of 'resources.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ResourcesAdapter extends TypeAdapter<Resources> {
+class ResourceAdapter extends TypeAdapter<Resource> {
   @override
   final int typeId = 13;
 
   @override
-  Resources read(BinaryReader reader) {
+  Resource read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return Resources.iron;
+        return Resource.iron;
       case 1:
-        return Resources.copper;
+        return Resource.copper;
       default:
-        return Resources.iron;
+        return Resource.iron;
     }
   }
 
   @override
-  void write(BinaryWriter writer, Resources obj) {
+  void write(BinaryWriter writer, Resource obj) {
     switch (obj) {
-      case Resources.iron:
+      case Resource.iron:
         writer.writeByte(0);
         break;
-      case Resources.copper:
+      case Resource.copper:
         writer.writeByte(1);
         break;
     }
@@ -40,41 +40,7 @@ class ResourcesAdapter extends TypeAdapter<Resources> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ResourcesAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class ResourceContainerAdapter extends TypeAdapter<_$_ResourceContainer> {
-  @override
-  final int typeId = 12;
-
-  @override
-  _$_ResourceContainer read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return _$_ResourceContainer(
-      fields[1] as BuiltMap<Resources, int>,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, _$_ResourceContainer obj) {
-    writer
-      ..writeByte(1)
-      ..writeByte(1)
-      ..write(obj.resources);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ResourceContainerAdapter &&
+      other is ResourceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

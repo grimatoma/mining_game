@@ -59,9 +59,19 @@ class InventoryController extends StateNotifier<Inventory> {
     state = state.rebuild((p0) => p0[item.instanceId] = item);
   }
 
+  void addItemInstances(List<ItemInstance> items) {
+    state = state.rebuild(
+        (p0) => p0.addAll({for (final item in items) item.instanceId: item}));
+  }
+
   bool removeItemInstance(ItemInstance item) {
     if (!state.itemInstances.containsKey(item.instanceId)) return false;
     state = state.rebuild((p0) => p0.remove(item.instanceId));
     return true;
+  }
+
+  void removeItemInstances(List<ItemInstance> items) {
+    state = state
+        .rebuild((p0) => p0.removeWhere((_, value) => items.contains(value)));
   }
 }

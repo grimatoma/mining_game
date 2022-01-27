@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/item_management/resources/resource_container.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/persistence.dart';
 
@@ -24,7 +25,7 @@ class WalletController extends StateNotifier<ResourceContainer> {
       final loadedBox = await Hive.openBox(DatabaseName.wallet.name);
       stream.listen((storedResources) {
         loadedBox.clear();
-        for (final resource in Resources.values) {
+        for (final resource in Resource.values) {
           loadedBox.put(resource.name, storedResources.resources[resource]);
         }
       });
