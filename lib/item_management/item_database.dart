@@ -74,13 +74,13 @@ class ItemDatabaseManager {
         .instantiate(InstanceId.generate());
   }
 
-  static StackInstance<ProtoT> createItemStack<ProtoT extends ItemProto>(
-      ItemId id, int quantity) {
-    assert(ProtoT is StackableItemDefinition,
-        'Must only create stacks of stackable Items!');
-    return StackInstance(
-        proto: getItemProto<ProtoT>(id),
-        instanceId: InstanceId.generate(),
-        quantity: quantity);
-  }
+  // static StackInstance<ProtoT> createItemStack<ProtoT extends ItemProto>(
+  //     ItemId id, int quantity) {
+  //   assert(ProtoT is StackableItemDefinition,
+  //       'Must only create stacks of stackable Items!');
+  //   return StackInstance(
+  //       proto: getItemProto<ProtoT>(id),
+  //       instanceId: InstanceId.generate(),
+  //       quantity: quantity);
+  // }
 }

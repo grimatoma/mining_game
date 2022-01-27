@@ -1,11 +1,7 @@
-import 'dart:math';
-
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/item_database.dart';
-import 'package:mining_game/item_management/items/metadata/item_attributes.dart';
-import 'package:mining_game/item_management/items/metadata/item_instance.dart';
 import 'package:mining_game/item_management/items/metadata/item_proto.dart';
 import 'package:mining_game/item_management/resources/resource_container.dart';
 import 'package:mining_game/item_management/resources/resources.dart';
@@ -73,30 +69,30 @@ class StoreController extends StateNotifier<StoreListings> {
       if (listing is ItemProtoShopListing) {
         _inventory.addItemInstance(
             ItemDatabaseManager.createInstance(listing.itemId));
-      }
-      if (listing is ItemStackShopListing) {
-        final itemProto = ItemDatabaseManager.getItemProto(listing.itemId);
-        final existingStacks = _inventory.state.itemInstances.values
-            .whereType<StackInstance>()
-            .where((element) => element.proto == itemProto)
-            .toList(growable: false);
-        var quantity = listing.quantity;
-        if (existingStacks.isNotEmpty) {
-          quantity += existingStacks.fold<int>(
-              0, (prev, element) => prev + element.quantity);
-        }
-
-        final maxStackSize =
-            (itemProto as StackableItemDefinition).maxStackSize;
-        final newItemsToAdd = <ItemInstance>[];
-        while (quantity > 0) {
-          final stackQuantity = min(maxStackSize, quantity);
-          newItemsToAdd.add(ItemDatabaseManager.createItemStack(
-              listing.itemId, stackQuantity));
-          quantity -= stackQuantity;
-        }
-        _inventory.removeItemInstances(existingStacks);
-        _inventory.addItemInstances(newItemsToAdd);
+        // }
+        // if (listing is ItemStackShopListing) {
+        //   final itemProto = ItemDatabaseManager.getItemProto(listing.itemId);
+        //   final existingStacks = _inventory.state.itemInstances.values
+        //       .whereType<StackInstance>()
+        //       .where((element) => element.proto == itemProto)
+        //       .toList(growable: false);
+        //   var quantity = listing.quantity;
+        //   if (existingStacks.isNotEmpty) {
+        //     quantity += existingStacks.fold<int>(
+        //         0, (prev, element) => prev + element.quantity);
+        //   }
+        //
+        //   final maxStackSize =
+        //       (itemProto as StackableItemDefinition).maxStackSize;
+        //   final newItemsToAdd = <ItemInstance>[];
+        //   while (quantity > 0) {
+        //     final stackQuantity = min(maxStackSize, quantity);
+        //     newItemsToAdd.add(ItemDatabaseManager.createItemStack(
+        //         listing.itemId, stackQuantity));
+        //     quantity -= stackQuantity;
+        //   }
+        //   _inventory.removeItemInstances(existingStacks);
+        //   _inventory.addItemInstances(newItemsToAdd);
       } else {
         print('TYPE UNKNOWN FOR SHOP!');
       }

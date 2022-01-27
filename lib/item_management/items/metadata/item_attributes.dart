@@ -1,10 +1,7 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
-import 'package:mining_game/item_management/items/metadata/item_proto.dart';
 
-part 'item_attributes.freezed.dart';
-part 'item_attributes.g.dart';
+// part 'item_attributes.freezed.dart';
+// part 'item_attributes.g.dart';
 
 /// Base class for an attribute for an item.
 abstract class ItemAttribute {
@@ -28,15 +25,15 @@ abstract class StackableItemDefinition extends ItemAttribute {
   int get maxStackSize;
 }
 
-/// An instance of a stackable item.
-@freezed
-class StackInstance<StackTypeDefinition extends ItemProto>
-    extends ItemInstance<StackTypeDefinition> with _$StackInstance {
-  const StackInstance._();
-
-  @HiveType(typeId: 32, adapterName: 'MinerInstanceAdapter')
-  const factory StackInstance(
-      {@HiveField(0) required StackTypeDefinition proto,
-      @HiveField(1) required InstanceId instanceId,
-      @HiveField(2) required int quantity}) = _StackInstance;
-}
+// /// An instance of a stackable item.
+// @freezed
+// class StackInstance<StackTypeDefinition extends ItemProto>
+//     extends ItemInstance<StackTypeDefinition> with _$StackInstance {
+//   const StackInstance._();
+//
+//   @HiveType(typeId: 32, adapterName: 'MinerInstanceAdapter')
+//   const factory StackInstance(
+//       {@HiveField(0) required StackTypeDefinition proto,
+//       @HiveField(1) required InstanceId instanceId,
+//       @HiveField(2) required int quantity}) = _StackInstance;
+// }

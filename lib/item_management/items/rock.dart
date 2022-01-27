@@ -1,8 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 import 'package:mining_game/item_management/items/metadata/item_attributes.dart';
 
-import 'metadata/item_instance.dart';
 import 'metadata/item_proto.dart';
 
 part 'rock.freezed.dart';
