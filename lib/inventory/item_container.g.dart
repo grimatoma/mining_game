@@ -1,38 +1,32 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'planet_tile.dart';
+part of 'item_container.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PlanetTileAdapter extends TypeAdapter<_$_PlanetTile> {
+class ItemContainerAdapter extends TypeAdapter<ItemContainer> {
   @override
-  final int typeId = 17;
+  final int typeId = 35;
 
   @override
-  _$_PlanetTile read(BinaryReader reader) {
+  ItemContainer read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_PlanetTile(
-      point: fields[0] as PlanetPoint,
-      resources: fields[1] as ItemContainer,
-      visible: fields[2] as bool,
+    return ItemContainer(
+      fields[0] as BuiltMap<ItemKey, int>,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_PlanetTile obj) {
+  void write(BinaryWriter writer, ItemContainer obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.point)
       ..writeByte(1)
-      ..write(obj.resources)
-      ..writeByte(2)
-      ..write(obj.visible);
+      ..writeByte(0)
+      ..write(obj.items);
   }
 
   @override
@@ -41,7 +35,7 @@ class PlanetTileAdapter extends TypeAdapter<_$_PlanetTile> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PlanetTileAdapter &&
+      other is ItemContainerAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

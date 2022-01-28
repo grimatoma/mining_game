@@ -1,23 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'miner.dart';
+part of 'auto_mining_manager.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MinerProtoAdapter extends TypeAdapter<_$_MinerProto> {
+class MinerProtoAdapter extends TypeAdapter<_$_MinerDefinition> {
   @override
   final int typeId = 11;
 
   @override
-  _$_MinerProto read(BinaryReader reader) {
+  _$_MinerDefinition read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_MinerProto(
-      itemId: fields[1] as ItemId,
+    return _$_MinerDefinition(
       name: fields[2] as String,
       description: fields[3] as String,
       radius: fields[4] as int,
@@ -29,11 +28,9 @@ class MinerProtoAdapter extends TypeAdapter<_$_MinerProto> {
   }
 
   @override
-  void write(BinaryWriter writer, _$_MinerProto obj) {
+  void write(BinaryWriter writer, _$_MinerDefinition obj) {
     writer
-      ..writeByte(8)
-      ..writeByte(1)
-      ..write(obj.itemId)
+      ..writeByte(7)
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
@@ -61,35 +58,32 @@ class MinerProtoAdapter extends TypeAdapter<_$_MinerProto> {
           typeId == other.typeId;
 }
 
-class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
+class MinerInstanceAdapter extends TypeAdapter<_$_StoredMinerInstance> {
   @override
   final int typeId = 10;
 
   @override
-  _$_MinerInstance read(BinaryReader reader) {
+  _$_StoredMinerInstance read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_MinerInstance(
-      proto: fields[1] as MinerProto,
-      instanceId: fields[2] as InstanceId,
-      drillItemId: fields[3] as ItemId?,
-      planetPoint: fields[4] as PlanetPoint?,
+    return _$_StoredMinerInstance(
+      proto: fields[1] as MinerDefinition,
+      drillItemId: fields[2] as ItemId?,
+      planetPoint: fields[3] as PlanetPoint?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_MinerInstance obj) {
+  void write(BinaryWriter writer, _$_StoredMinerInstance obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(3)
       ..writeByte(1)
       ..write(obj.proto)
       ..writeByte(2)
-      ..write(obj.instanceId)
-      ..writeByte(3)
       ..write(obj.drillItemId)
-      ..writeByte(4)
+      ..writeByte(3)
       ..write(obj.planetPoint);
   }
 
