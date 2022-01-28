@@ -1,35 +1,45 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'resources.dart';
+part of 'item_directory.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ResourceAdapter extends TypeAdapter<Resource> {
+class ItemKeyAdapter extends TypeAdapter<ItemKey> {
   @override
-  final int typeId = 13;
+  final int typeId = 36;
 
   @override
-  Resource read(BinaryReader reader) {
+  ItemKey read(BinaryReader reader) {
     switch (reader.readByte()) {
       case 0:
-        return Resource.iron;
+        return ItemKey.ROCK;
       case 1:
-        return Resource.copper;
+        return ItemKey.SHARP_ROCK;
+      case 2:
+        return ItemKey.IRON;
+      case 3:
+        return ItemKey.COPPER;
       default:
-        return Resource.iron;
+        return ItemKey.ROCK;
     }
   }
 
   @override
-  void write(BinaryWriter writer, Resource obj) {
+  void write(BinaryWriter writer, ItemKey obj) {
     switch (obj) {
-      case Resource.iron:
+      case ItemKey.ROCK:
         writer.writeByte(0);
         break;
-      case Resource.copper:
+      case ItemKey.SHARP_ROCK:
         writer.writeByte(1);
+        break;
+      case ItemKey.IRON:
+        writer.writeByte(2);
+        break;
+      case ItemKey.COPPER:
+        writer.writeByte(3);
         break;
     }
   }
@@ -40,7 +50,7 @@ class ResourceAdapter extends TypeAdapter<Resource> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ResourceAdapter &&
+      other is ItemKeyAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

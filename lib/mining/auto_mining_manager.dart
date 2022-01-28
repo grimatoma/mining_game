@@ -6,6 +6,7 @@ import 'package:mining_game/event_manager/event_manager.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
 import 'package:mining_game/inventory/inventory.dart';
+import 'package:mining_game/inventory/item_container.dart';
 import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/item_management/items/metadata/item_proto.dart';
 import 'package:mining_game/persistence.dart';

@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
-import 'package:mining_game/inventory/inventory.dart';
+import 'package:mining_game/inventory/item_container.dart';
 import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/persistence.dart';
 

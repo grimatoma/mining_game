@@ -3,10 +3,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/inventory/inventory.dart';
+import 'package:mining_game/inventory/item_container.dart';
 import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
 import 'package:mining_game/item_management/items/metadata/item_proto.dart';
-import 'package:mining_game/item_management/resources/resources.dart';
 import 'package:mining_game/item_management/store/shop_listings.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/persistence.dart';
@@ -20,9 +20,9 @@ void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   // Hive.registerAdapter(MinerInstanceAdapter());
   // Hive.registerAdapter(MinerProtoAdapter());
-  Hive.registerAdapter(ResourceAdapter());
-  // Hive.registerAdapter(ResourceContainerAdapter());
-  Hive.registerAdapter(BuiltMapAdapter<Resource, int>(32));
+  Hive.registerAdapter(ItemContainerAdapter());
+  Hive.registerAdapter(ItemKeyAdapter());
+  Hive.registerAdapter(BuiltMapAdapter<ItemKey, int>(32));
   Hive.registerAdapter(InstanceIdAdapter());
   Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(PlanetTileAdapter());
@@ -245,7 +245,7 @@ class InventoryMenuWidget extends HookConsumerWidget {
                     ]),
                     TableRow(children: [
                       const Text('Amount'),
-                      Text(inventory.items[item].toString())
+                      Text(inventory.items[itemKeys[index]].toString())
                     ]),
                   ],
                 );

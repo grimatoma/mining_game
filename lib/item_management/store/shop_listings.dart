@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/inventory/inventory.dart';
+import 'package:mining_game/inventory/item_container.dart';
 import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/mining/auto_mining_manager.dart';
 
