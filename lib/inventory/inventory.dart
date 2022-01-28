@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -5,31 +7,71 @@ import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/persistence.dart';
 
 final inventoryProvider =
-    StateNotifierProvider<InventoryController, Inventory>((ref) {
-  return InventoryController(ref.watch(dataStorageControllerProvider),
+    StateNotifierProvider<InventoryStateController, ItemContainer>((ref) {
+  return InventoryStateController(ref.watch(dataStorageControllerProvider),
       ref.watch(itemDirectoryProvider));
 });
 
-class Inventory {
-  final BuiltMap<ItemKey, int> itemInstances;
+class ItemContainer {
+  final BuiltMap<ItemKey, int> items;
 
-  Inventory({required this.itemInstances});
-  Inventory._empty() : itemInstances = BuiltMap();
+  ItemContainer(this.items);
+  factory ItemContainer.create(Map<ItemKey, int> items) =>
+      ItemContainer(items.build());
+  factory ItemContainer.single(ItemKey key, int quantity) =>
+      ItemContainer({key: quantity}.build());
+  ItemContainer._empty() : items = BuiltMap();
 
-  Inventory rebuild(Function(MapBuilder<ItemKey, int>) itemInstancesUpdates) {
-    return Inventory(
-        itemInstances: itemInstances.rebuild(itemInstancesUpdates));
+  ItemContainer _rebuild(
+      Function(MapBuilder<ItemKey, int>) itemInstancesUpdates) {
+    return ItemContainer(items.rebuild(itemInstancesUpdates));
+  }
+
+  bool get hasNegative => items.values.any((element) => element < 0);
+
+  int get(ItemKey itemKey) => items[itemKey] ?? 0;
+
+  ItemContainer operator -(ItemContainer other) =>
+      ItemContainer(items.rebuild((builder) {
+        for (final entry in other.items.entries) {
+          builder[entry.key] = get(entry.key) - entry.value;
+        }
+        return builder;
+      }));
+
+  ItemContainer operator +(ItemContainer other) =>
+      ItemContainer(items.rebuild((builder) {
+        for (final entry in other.items.entries) {
+          builder[entry.key] = get(entry.key) + entry.value;
+        }
+        return builder;
+      }));
+
+  ItemContainer maxCanBeRemoved(ItemContainer other) =>
+      ItemContainer(BuiltMap.build((builder) {
+        for (final entries in other.items.entries) {
+          builder[entries.key] = min(get(entries.key), entries.value);
+        }
+      }));
+
+  @override
+  String toString() {
+    var s = <String>[];
+    for (var entry in items.entries) {
+      s.add('${entry.key.name}: ${entry.value}');
+    }
+    return s.join('\n');
   }
 }
 
-class InventoryController extends StateNotifier<Inventory> {
+class InventoryStateController extends StateNotifier<ItemContainer> {
   final ItemDirectory _itemDirectory;
-  InventoryController(DataStorageController controller, this._itemDirectory)
-      : super(Inventory._empty()) {
+  InventoryStateController(
+      DataStorageController controller, this._itemDirectory)
+      : super(ItemContainer._empty()) {
     void loadInitialData() async {
-      final loadedBox = await Hive.openBox<int>(DatabaseName.inventory.name);
-      state = Inventory(
-          itemInstances: {
+      final loadedBox = await Hive.openBox<int>(DatabaseName.inventory0.name);
+      state = ItemContainer({
         for (final val in loadedBox.keys)
           _itemDirectory.getKey(val): loadedBox.get(val) ?? 0,
       }.build());
@@ -38,93 +80,46 @@ class InventoryController extends StateNotifier<Inventory> {
     loadInitialData();
   }
 
-  void addItem(ItemKey key, int quantity) => addItems({key: quantity});
+  void addItem(ItemKey key, int quantity) =>
+      add(ItemContainer.single(key, quantity));
 
-  void addItems(Map<ItemKey, int> items) async {
-    final existingItems = state.itemInstances;
+  void add(ItemContainer container) async {
+    final items = container.items;
+    final existingItems = state.items;
     final mappedItems = {
       for (final entry in items.entries)
         entry.key: (existingItems[entry.key] ?? 0) + entry.value,
     };
 
-    state = state.rebuild((p0) => p0.addAll(mappedItems));
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory.name);
+    state = state._rebuild((p0) => p0.addAll(mappedItems));
+    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory0.name);
     loadedBox
         .putAll(mappedItems.map((key, value) => MapEntry(key.name, value)));
   }
 
-  void removeItem(ItemKey key, int quantity) => removeItems({key: quantity});
+  int get(ItemKey key) => state.items[key.name] ?? 0;
 
-  /// This should be redone to be generic and seperate from the state provider.
-  /// Instead rebuild this as a thing to keep a BuiltMap in sync with the Box
-  ///
-  /// And then make one for list and maybe a set
-  /// Then these can be reused as the internal state management and syncing for all states.
-  /// Larger Stateproviders can optionally merge multiple of these objects into one or ideally
-  /// we keep these states split unless they really should be together like a planet.
-  /// But for example certain things only care about the planets width so why also
-  /// give it updates on EACH tiles resource changes
-  void removeItems(Map<ItemKey, int> items) async {
-    final existingItems = state.itemInstances;
+  bool canRemove(ItemContainer container) =>
+      container.items.entries.any((entry) => get(entry.key) - entry.value >= 0);
+
+  void remove(ItemContainer container) async {
     final mappedItems = {
-      for (final entry in items.entries)
-        entry.key: (existingItems[entry.key] ?? 0) - entry.value,
+      for (final entry in container.items.entries)
+        entry.key: get(entry.key) - entry.value,
     };
     final itemUpdates = mappedItems.entries.where((entry) => entry.value > 0);
     final itemRemovals = mappedItems.entries.where((entry) => entry.value <= 0);
 
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory.name);
+    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory0.name);
 
-    state = state.rebuild((p0) {
+    state = state._rebuild((p0) {
       p0.addEntries(itemUpdates);
       for (final itemEntry in itemRemovals) {
         p0.remove(itemEntry.key);
       }
       loadedBox
           .putAll({for (var entry in itemUpdates) entry.key.name: entry.value});
-      loadedBox.deleteAll(itemRemovals.map((e) => e.key));
+      loadedBox.deleteAll(itemRemovals.map((e) => e.key.name));
     });
   }
 }
-
-// class BasicListInventoryState<T> {
-//   final BuiltList<T> items; // SET?
-//
-//   BasicListInventoryState(this.items);
-//   BasicListInventoryState._empty() : items = BuiltList();
-//
-//   BasicListInventoryState<T> rebuild(Function(ListBuilder<T>) updates) =>
-//       BasicListInventoryState<T>(items.rebuild(updates));
-// }
-//
-// class BasicInternalListInventory<T> {
-//   BasicListInventoryState<T> _state;
-//   final streamController =
-//       StreamController<BasicListInventoryState<T>>.broadcast();
-//
-//   StreamProvider<BasicListInventoryState<T>> get streamProvider =>
-//       StateProvider.autoDispose<BasicListInventoryState<T>>(
-//           (ref) => streamProvider.stream);
-//
-//   BasicInternalListInventory(BasicListInventoryState<T> state) : _state = state;
-//
-//   void addItem(T t) {
-//     _state = _state.rebuild((p0) => p0.add(t));
-//   }
-//   // void addItem
-//
-//   bool removeItem(T t) {
-//     var isSuccess = false;
-//     _state = _state.rebuild((p0) {
-//       isSuccess = p0.remove(t);
-//       return p0;
-//     });
-//     return isSuccess;
-//   }
-// }
-//
-// class Scanner {}
-//
-// class ScannerManager extends BasicInternalListInventory<Scanner> {
-//   ScannerManager(BasicListInventoryState<Scanner> state) : super(state);
-// }

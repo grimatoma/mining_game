@@ -7,7 +7,7 @@ part 'items.dart';
 final itemDirectoryProvider = Provider<ItemDirectory>((ref) => ItemDirectory());
 
 class ItemDirectory {
-  final BuiltMap<ItemKey, ItemDefinition> _items;
+  final BuiltMap<ItemKey, BaseItemDefinition> _items;
   final BuiltMap<String, ItemKey> _keys;
 
   ItemDirectory()
@@ -24,5 +24,5 @@ class ItemDirectory {
   }
 
   ItemKey getKey(String s) => _keys[s]!;
-  ItemDefinition getItemDefinition(ItemKey key) => _items[key]!;
+  BaseItemDefinition getItemDefinition(ItemKey key) => _items[key]!;
 }

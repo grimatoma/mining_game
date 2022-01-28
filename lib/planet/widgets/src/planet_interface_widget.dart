@@ -1,11 +1,8 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/items/miner.dart';
-import 'package:mining_game/item_management/resources/resource_container.dart';
-import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/inventory/inventory.dart';
+import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/mining/auto_mining_manager.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_marker.dart';
@@ -19,7 +16,7 @@ final selectedMinerFromDropdownProvider =
 final availableMinersProvider = Provider.autoDispose<List<MinerInstance>>(
     (ref) => ref
         .watch(inventoryProvider)
-        .itemInstances
+        .items
         .values
         .whereType<MinerInstance>()
         .toList(growable: false));
@@ -39,8 +36,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
       TextButton(
           onPressed: () => ref
               .read(activeMinersControllerProvider.notifier)
-              .dig(selectedTile.point,
-                  ResourceContainer({Resource.iron: 1}.build())),
+              .dig(selectedTile.point, ItemContainer.single(ItemKey.IRON, 1)),
           child: const Text('dig')),
       if (!selectedTile.visible)
         TextButton(
@@ -52,7 +48,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
           selectedTile.visible &&
           !ref
               .watch(activeMinersControllerProvider)
-              .miners
+              .active
               .containsKey(selectedTile))
         Row(
           children: [
@@ -85,7 +81,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
           ],
         ),
       Text(
-          'Resources left at location: ${selectedTile.visible ? selectedTile.resources.get(Resource.iron).toString() : 'Unknown'}'),
+          'Resources left at location: ${selectedTile.visible ? selectedTile.resources.toString() : 'Unknown'}'),
 
       // if (!planetTile.hasAutoMiner)
       //   TextButton(

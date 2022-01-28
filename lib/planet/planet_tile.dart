@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
-import 'package:mining_game/item_management/resources/resource_container.dart';
+import 'package:mining_game/inventory/inventory.dart';
 
 import 'point.dart';
 
@@ -14,7 +14,7 @@ class PlanetTile with _$PlanetTile {
   @HiveType(typeId: 17, adapterName: 'PlanetTileAdapter')
   factory PlanetTile(
       {@HiveField(0) required PlanetPoint point,
-      @HiveField(1) required ResourceContainer resources,
+      @HiveField(1) required ItemContainer resources,
       @HiveField(2) required bool visible}) = _PlanetTile;
 
   // factory PlanetTile.fromJson(Map<String, dynamic> json) =>

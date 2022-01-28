@@ -20,7 +20,7 @@ class _$PlanetTileTearOff {
 
   _PlanetTile call(
       {@HiveField(0) required PlanetPoint point,
-      @HiveField(1) required ResourceContainer resources,
+      @HiveField(1) required ItemContainer resources,
       @HiveField(2) required bool visible}) {
     return _PlanetTile(
       point: point,
@@ -38,7 +38,7 @@ mixin _$PlanetTile {
   @HiveField(0)
   PlanetPoint get point => throw _privateConstructorUsedError;
   @HiveField(1)
-  ResourceContainer get resources => throw _privateConstructorUsedError;
+  ItemContainer get resources => throw _privateConstructorUsedError;
   @HiveField(2)
   bool get visible => throw _privateConstructorUsedError;
 
@@ -54,11 +54,10 @@ abstract class $PlanetTileCopyWith<$Res> {
       _$PlanetTileCopyWithImpl<$Res>;
   $Res call(
       {@HiveField(0) PlanetPoint point,
-      @HiveField(1) ResourceContainer resources,
+      @HiveField(1) ItemContainer resources,
       @HiveField(2) bool visible});
 
   $PlanetPointCopyWith<$Res> get point;
-  $ResourceContainerCopyWith<$Res> get resources;
 }
 
 /// @nodoc
@@ -83,7 +82,7 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
       resources: resources == freezed
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
-              as ResourceContainer,
+              as ItemContainer,
       visible: visible == freezed
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
@@ -97,13 +96,6 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
       return _then(_value.copyWith(point: value));
     });
   }
-
-  @override
-  $ResourceContainerCopyWith<$Res> get resources {
-    return $ResourceContainerCopyWith<$Res>(_value.resources, (value) {
-      return _then(_value.copyWith(resources: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -114,13 +106,11 @@ abstract class _$PlanetTileCopyWith<$Res> implements $PlanetTileCopyWith<$Res> {
   @override
   $Res call(
       {@HiveField(0) PlanetPoint point,
-      @HiveField(1) ResourceContainer resources,
+      @HiveField(1) ItemContainer resources,
       @HiveField(2) bool visible});
 
   @override
   $PlanetPointCopyWith<$Res> get point;
-  @override
-  $ResourceContainerCopyWith<$Res> get resources;
 }
 
 /// @nodoc
@@ -147,7 +137,7 @@ class __$PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
       resources: resources == freezed
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
-              as ResourceContainer,
+              as ItemContainer,
       visible: visible == freezed
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
@@ -171,7 +161,7 @@ class _$_PlanetTile extends _PlanetTile {
   final PlanetPoint point;
   @override
   @HiveField(1)
-  final ResourceContainer resources;
+  final ItemContainer resources;
   @override
   @HiveField(2)
   final bool visible;
@@ -207,7 +197,7 @@ class _$_PlanetTile extends _PlanetTile {
 abstract class _PlanetTile extends PlanetTile {
   factory _PlanetTile(
       {@HiveField(0) required PlanetPoint point,
-      @HiveField(1) required ResourceContainer resources,
+      @HiveField(1) required ItemContainer resources,
       @HiveField(2) required bool visible}) = _$_PlanetTile;
   _PlanetTile._() : super._();
 
@@ -216,7 +206,7 @@ abstract class _PlanetTile extends PlanetTile {
   PlanetPoint get point;
   @override
   @HiveField(1)
-  ResourceContainer get resources;
+  ItemContainer get resources;
   @override
   @HiveField(2)
   bool get visible;

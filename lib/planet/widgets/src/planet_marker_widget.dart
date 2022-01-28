@@ -38,7 +38,7 @@ class MinerLayerWidget extends HookConsumerWidget {
       height: screenHeight,
       child: Stack(
         fit: StackFit.expand,
-        children: activeMiners.miners.entries
+        children: activeMiners.active.entries
             .map((entry) => Positioned(
                 left: planetScreenInfo.screenLocation(entry.key).dx +
                     0.25 * planetScreenInfo.xScale,

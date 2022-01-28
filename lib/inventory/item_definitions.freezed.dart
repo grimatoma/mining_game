@@ -212,3 +212,171 @@ abstract class _Sword implements Sword {
   @JsonKey(ignore: true)
   _$SwordCopyWith<_Sword> get copyWith => throw _privateConstructorUsedError;
 }
+
+/// @nodoc
+class _$ResourceTearOff {
+  const _$ResourceTearOff();
+
+  _Resource call(
+      {required ItemKey itemKey,
+      required String name,
+      required String description}) {
+    return _Resource(
+      itemKey: itemKey,
+      name: name,
+      description: description,
+    );
+  }
+}
+
+/// @nodoc
+const $Resource = _$ResourceTearOff();
+
+/// @nodoc
+mixin _$Resource {
+  ItemKey get itemKey => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ResourceCopyWith<Resource> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ResourceCopyWith<$Res> {
+  factory $ResourceCopyWith(Resource value, $Res Function(Resource) then) =
+      _$ResourceCopyWithImpl<$Res>;
+  $Res call({ItemKey itemKey, String name, String description});
+}
+
+/// @nodoc
+class _$ResourceCopyWithImpl<$Res> implements $ResourceCopyWith<$Res> {
+  _$ResourceCopyWithImpl(this._value, this._then);
+
+  final Resource _value;
+  // ignore: unused_field
+  final $Res Function(Resource) _then;
+
+  @override
+  $Res call({
+    Object? itemKey = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      itemKey: itemKey == freezed
+          ? _value.itemKey
+          : itemKey // ignore: cast_nullable_to_non_nullable
+              as ItemKey,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$ResourceCopyWith<$Res> implements $ResourceCopyWith<$Res> {
+  factory _$ResourceCopyWith(_Resource value, $Res Function(_Resource) then) =
+      __$ResourceCopyWithImpl<$Res>;
+  @override
+  $Res call({ItemKey itemKey, String name, String description});
+}
+
+/// @nodoc
+class __$ResourceCopyWithImpl<$Res> extends _$ResourceCopyWithImpl<$Res>
+    implements _$ResourceCopyWith<$Res> {
+  __$ResourceCopyWithImpl(_Resource _value, $Res Function(_Resource) _then)
+      : super(_value, (v) => _then(v as _Resource));
+
+  @override
+  _Resource get _value => super._value as _Resource;
+
+  @override
+  $Res call({
+    Object? itemKey = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_Resource(
+      itemKey: itemKey == freezed
+          ? _value.itemKey
+          : itemKey // ignore: cast_nullable_to_non_nullable
+              as ItemKey,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Resource implements _Resource {
+  const _$_Resource(
+      {required this.itemKey, required this.name, required this.description});
+
+  @override
+  final ItemKey itemKey;
+  @override
+  final String name;
+  @override
+  final String description;
+
+  @override
+  String toString() {
+    return 'Resource(itemKey: $itemKey, name: $name, description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Resource &&
+            const DeepCollectionEquality().equals(other.itemKey, itemKey) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(itemKey),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(description));
+
+  @JsonKey(ignore: true)
+  @override
+  _$ResourceCopyWith<_Resource> get copyWith =>
+      __$ResourceCopyWithImpl<_Resource>(this, _$identity);
+}
+
+abstract class _Resource implements Resource {
+  const factory _Resource(
+      {required ItemKey itemKey,
+      required String name,
+      required String description}) = _$_Resource;
+
+  @override
+  ItemKey get itemKey;
+  @override
+  String get name;
+  @override
+  String get description;
+  @override
+  @JsonKey(ignore: true)
+  _$ResourceCopyWith<_Resource> get copyWith =>
+      throw _privateConstructorUsedError;
+}

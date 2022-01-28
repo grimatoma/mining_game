@@ -1,44 +1,76 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/item_database.dart';
-import 'package:mining_game/item_management/items/metadata/item_proto.dart';
-import 'package:mining_game/item_management/resources/resource_container.dart';
-import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/event_manager/game_event_manager.dart';
+import 'package:mining_game/inventory/inventory.dart';
+import 'package:mining_game/inventory/item_directory.dart';
+import 'package:mining_game/mining/auto_mining_manager.dart';
 
-import '../wallet.dart';
 import 'shop_listings.dart';
 
 final storeListingsControllerProvider =
     StateNotifierProvider<StoreController, StoreListings>(
         (ref) => StoreController(
-            ref.watch(walletControllerProvider.notifier),
             ref.watch(inventoryProvider.notifier),
+            ref.watch(gameEventManagerProvider),
             StoreListings(<ShopListing>[
-              ItemProtoShopListing(
-                  itemId: const ItemId('junkMiner'),
-                  cost: ResourceContainer({Resource.iron: 5}.build())),
-              ItemProtoShopListing(
-                  itemId: const ItemId('basicMiner'),
-                  cost: ResourceContainer({Resource.iron: 50}.build())),
-              ItemProtoShopListing(
-                  itemId: const ItemId('testMiner3'),
-                  cost: ResourceContainer({Resource.iron: 100}.build())),
-              ItemProtoShopListing(
-                  itemId: const ItemId('testMiner4'),
-                  cost: ResourceContainer({Resource.iron: 25}.build())),
-              ItemProtoShopListing(
-                  itemId: const ItemId('testMiner5'),
-                  cost: ResourceContainer({Resource.iron: 250}.build())),
               ItemStackShopListing(
-                  itemId: const ItemId('rock'),
+                  itemKey: ItemKey.ROCK,
                   quantity: 5,
-                  cost: ResourceContainer(BuiltMap()),
+                  cost: ItemContainer.create({}),
                   consumable: false),
-              // const ItemInstanceShopListing(
-              //     instanceId: InstanceId(5), cost: Resources(iron: 50)),
-              // const ItemInstanceShopListing(
-              //     instanceId: InstanceId(6), cost: Resources(iron: 250))
+              MinerShopListing(
+                  cost: ItemContainer.create({ItemKey.IRON: 5}),
+                  definition: const MinerDefinition(
+                    name: 'Junk Miner',
+                    description:
+                        'Salvaged from a garage sale. Barely functional and guzzles gas',
+                    radius: 1,
+                    depth: 1,
+                    baseDamage: 1,
+                    hopperSize: 50,
+                    fuelConsumption: 5,
+                  )),
+              MinerShopListing(
+                  cost: ItemContainer.create({ItemKey.IRON: 5}),
+                  definition: const MinerDefinition(
+                      name: 'Basic Miner',
+                      description: 'Generic off the shelf miner',
+                      radius: 2,
+                      depth: 1,
+                      baseDamage: 2,
+                      hopperSize: 100,
+                      fuelConsumption: 5)),
+              MinerShopListing(
+                  cost: ItemContainer.create({ItemKey.IRON: 5}),
+                  definition: const MinerDefinition(
+                      name: 'Test Miner 3',
+                      description: 'this is the third miner',
+                      radius: 1,
+                      depth: 1,
+                      baseDamage: 1,
+                      hopperSize: 50,
+                      fuelConsumption: 5)),
+              MinerShopListing(
+                  cost: ItemContainer.create({ItemKey.IRON: 5}),
+                  definition: const MinerDefinition(
+                      name: 'Test Miner 4',
+                      description: 'this is the 4 miner',
+                      radius: 1,
+                      depth: 1,
+                      baseDamage: 1,
+                      hopperSize: 50,
+                      fuelConsumption: 5)),
+              MinerShopListing(
+                  cost: ItemContainer.create({ItemKey.IRON: 5}),
+                  definition: const MinerDefinition(
+                    name: 'Test Miner 5',
+                    description: 'this is the 5 miner',
+                    radius: 1,
+                    depth: 1,
+                    baseDamage: 1,
+                    hopperSize: 50,
+                    fuelConsumption: 5,
+                  )),
             ].build())));
 
 class StoreListings {
@@ -51,63 +83,32 @@ class StoreListings {
 }
 
 class StoreController extends StateNotifier<StoreListings> {
-  final WalletController _wallet;
-  final InventoryController _inventory;
+  final GameEventManager _gameEventManager;
+  final InventoryStateController _inventory;
   StoreListings get store => state;
   set store(StoreListings store) => state = store;
 
-  StoreController(this._wallet, this._inventory, StoreListings store)
-      : super(store);
+  StoreController(
+    this._inventory,
+    this._gameEventManager,
+    StoreListings store,
+  ) : super(store);
 
-  bool canBuyItem(ShopListing listing) => _wallet.canRemove(listing.cost);
+  bool canBuyItem(ShopListing listing) => _inventory.canRemove(listing.cost);
   bool buyItem(ShopListing listing) {
-    if (_wallet.canRemove(listing.cost)) {
-      _wallet.remove(listing.cost);
+    if (_inventory.canRemove(listing.cost)) {
+      _inventory.remove(listing.cost);
       if (listing.consumable) {
         state = state.rebuild((p0) => p0.remove(listing));
       }
-      if (listing is ItemProtoShopListing) {
-        _inventory.addItemInstance(
-            ItemDatabaseManager.createInstance(listing.itemId));
-        // }
-        // if (listing is ItemStackShopListing) {
-        //   final itemProto = ItemDatabaseManager.getItemProto(listing.itemId);
-        //   final existingStacks = _inventory.state.itemInstances.values
-        //       .whereType<StackInstance>()
-        //       .where((element) => element.proto == itemProto)
-        //       .toList(growable: false);
-        //   var quantity = listing.quantity;
-        //   if (existingStacks.isNotEmpty) {
-        //     quantity += existingStacks.fold<int>(
-        //         0, (prev, element) => prev + element.quantity);
-        //   }
-        //
-        //   final maxStackSize =
-        //       (itemProto as StackableItemDefinition).maxStackSize;
-        //   final newItemsToAdd = <ItemInstance>[];
-        //   while (quantity > 0) {
-        //     final stackQuantity = min(maxStackSize, quantity);
-        //     newItemsToAdd.add(ItemDatabaseManager.createItemStack(
-        //         listing.itemId, stackQuantity));
-        //     quantity -= stackQuantity;
-        //   }
-        //   _inventory.removeItemInstances(existingStacks);
-        //   _inventory.addItemInstances(newItemsToAdd);
+      if (listing is ItemStackShopListing) {
+        _inventory.addItem(listing.itemKey, listing.quantity);
+      } else if (listing is MinerShopListing) {
+        _gameEventManager.addEvent(CreateMinerEvent(listing.definition));
       } else {
         print('TYPE UNKNOWN FOR SHOP!');
       }
-      // } else (listing is InstantiatableItemShopListing) {
-      //   // ItemDatabas
-      //   int e = 2;
-      // }
-      // // switch (listing.runtimeType) {
-      //   case ItemInstanceShopListing:
-      //
-      //     break;
-      //   default:
-      //     print('TYPE UNKNOWN FOR SHOP!');
-      // }
-      // _gameEventManager.addEvent(PurchasedItemEvent(listing));
+
       return true;
     }
     return false;

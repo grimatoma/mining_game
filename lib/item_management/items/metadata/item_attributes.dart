@@ -1,5 +1,3 @@
-import 'package:mining_game/item_management/items/metadata/item_instance.dart';
-
 // part 'item_attributes.freezed.dart';
 // part 'item_attributes.g.dart';
 
@@ -8,12 +6,12 @@ abstract class ItemAttribute {
   const ItemAttribute();
 }
 
-/// An item that is instantiatable.
-///
-/// An instance of this item can exist.
-abstract class InstantiatableItem<SelfT, InstanceT> extends ItemAttribute {
-  InstanceT instantiate(InstanceId id);
-}
+// /// An item that is instantiatable.
+// ///
+// /// An instance of this item can exist.
+// abstract class InstantiatableItem<InstanceT> extends ItemAttribute {
+//   InstanceT instantiate(InstanceId id);
+// }
 
 /// An item that has the ability to be upgraded with levels.
 abstract class UpgradableItem extends ItemAttribute {

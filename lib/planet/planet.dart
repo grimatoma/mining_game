@@ -6,8 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
-import 'package:mining_game/item_management/resources/resource_container.dart';
-import 'package:mining_game/item_management/resources/resources.dart';
+import 'package:mining_game/inventory/inventory.dart';
+import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/persistence.dart';
 
 import 'generation/perline_noise.dart';
@@ -98,8 +98,7 @@ class Planet {
 
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
-      min(255,
-              (255 * planetTile.resources.get(Resource.iron) / maxResourceSize))
+      min(255, (255 * planetTile.resources.get(ItemKey.IRON) / maxResourceSize))
           .toInt(),
       0,
       0);
@@ -122,7 +121,7 @@ class PlanetController extends StateNotifier<Planet> {
 
   PlanetController({required GameConfigs configs}) : super(Planet._empty()) {
     void loadInitialData() async {
-      final loadedBox = await Hive.openBox<Planet>(DatabaseName.planet.name);
+      final loadedBox = await Hive.openBox<Planet>(DatabaseName.planet0.name);
       final loadedPlanet = loadedBox.get(databaseKey);
       if (loadedPlanet == null) {
         planet = _generatePlanet(configs);
@@ -132,7 +131,7 @@ class PlanetController extends StateNotifier<Planet> {
     }
 
     void updateBox() async {
-      final loadedBox = await Hive.openBox<Planet>(DatabaseName.planet.name);
+      final loadedBox = await Hive.openBox<Planet>(DatabaseName.planet0.name);
       stream.listen((event) {
         loadedBox.put(databaseKey, planet);
       });
@@ -170,7 +169,7 @@ class PlanetController extends StateNotifier<Planet> {
         final p = PlanetPoint(x, y, z);
         planetMap[p] = PlanetTile(
             point: p,
-            resources: ResourceContainer({Resource.iron: resourceSize}.build()),
+            resources: ItemContainer.single(ItemKey.IRON, resourceSize),
             visible: false);
         maxResourceSize =
             maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
@@ -180,9 +179,9 @@ class PlanetController extends StateNotifier<Planet> {
         configs: configs, maxResources: maxResourceSize, map: planetMap);
   }
 
-  ResourceContainer dig(PlanetPoint p, ResourceContainer damage) {
+  ItemContainer dig(PlanetPoint p, ItemContainer damage) {
     final tile = planet.map[p];
-    if (tile == null) return ResourceContainer(BuiltMap());
+    if (tile == null) return ItemContainer(BuiltMap());
 
     final resolvedDamage = tile.resources.maxCanBeRemoved(damage);
     planet = planet.rebuild((p0) {
@@ -225,7 +224,7 @@ class PlanetController extends StateNotifier<Planet> {
       min(
               255,
               (255 *
-                  planetTile.resources.get(Resource.iron) /
+                  planetTile.resources.get(ItemKey.IRON) /
                   planet.maxResourceSize))
           .toInt(),
       0,

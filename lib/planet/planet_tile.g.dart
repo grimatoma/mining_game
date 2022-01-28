@@ -18,7 +18,7 @@ class PlanetTileAdapter extends TypeAdapter<_$_PlanetTile> {
     };
     return _$_PlanetTile(
       point: fields[0] as PlanetPoint,
-      resources: fields[1] as ResourceContainer,
+      resources: fields[1] as ItemContainer,
       visible: fields[2] as bool,
     );
   }

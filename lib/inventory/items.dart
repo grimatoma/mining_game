@@ -1,14 +1,16 @@
 part of 'item_directory.dart';
 
 enum ItemKey {
-  BLACK_ROCK,
+  ROCK,
   SHARP_ROCK,
-  BANANA,
+  // BANANA,
+  IRON,
+  COPPER,
 }
 
-final _itemDatabase = <ItemDefinition>[
+final _itemDatabase = <BaseItemDefinition>[
   Sword(
-      itemKey: ItemKey.BLACK_ROCK,
+      itemKey: ItemKey.ROCK,
       name: 'Black Rock',
       description: 'Often found in dark caves',
       attributes: BuiltMap()),
@@ -19,4 +21,14 @@ final _itemDatabase = <ItemDefinition>[
       attributes: {
         WeaponAttributes.SHARP: 10.0,
       }.build()),
+  const Resource(
+    itemKey: ItemKey.IRON,
+    name: 'Iron',
+    description: 'iron',
+  ),
+  const Resource(
+    itemKey: ItemKey.COPPER,
+    name: 'Copper',
+    description: 'copper',
+  ),
 ];
