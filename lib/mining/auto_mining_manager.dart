@@ -64,6 +64,7 @@ class MinersController extends StateNotifier<Miners> {
   final InventoryStateController _inventoryController;
 
   Miners get activeAutoMiners => state;
+
   set activeAutoMiners(Miners activeAutoMiners) => state = activeAutoMiners;
 
   MinersController(this._eventStreamManager, this._gameClock,
@@ -110,14 +111,18 @@ class MinersController extends StateNotifier<Miners> {
         case AutoMiningManagerEvents.INSTALL_AUTO_MINER:
           _installMinerEvent(event);
           break;
-        case AutoMiningManagerEvents.ATTACH_DRILL:
-          _attachDrill(event);
-          break;
+
         case AutoMiningManagerEvents.STORE_MINER:
           _storeMinerEvent(event);
           break;
         case AutoMiningManagerEvents.CREATE_MINER:
           _createMiner(event);
+          break;
+        case AutoMiningManagerEvents.DRILL_ATTACH:
+          _drillAttach(event);
+          break;
+        case AutoMiningManagerEvents.DRILL_REMOVE:
+          _drillRemove(event);
           break;
       }
     });
@@ -166,31 +171,27 @@ class MinersController extends StateNotifier<Miners> {
             definition: miner.definition, drillItemId: miner.drillItemId)));
   }
 
-  void _attachDrill(AutoMiningManagerEvent event) {
-    event as AttachDrillEvent;
-    final miner = event.miner;
+  void _drillAttach(AutoMiningManagerEvent event) {
+    event as DrillAttachEvent;
+    _updateMinerWithDrill(event.miner, ItemKey.TEST_DRILL);
+  }
 
+  void _drillRemove(AutoMiningManagerEvent event) {
+    event as DrillRemoveEvent;
+    _updateMinerWithDrill(event.miner, null);
+  }
+
+  void _updateMinerWithDrill(MinerInstance miner, ItemKey? drill) {
     if (miner is ActiveMinerInstance) {
       activeAutoMiners = activeAutoMiners.rebuild(
-          activeMinerUpdates: (p0) => p0[miner.planetPoint] =
-              miner.copyWith(drillItemId: ItemKey.TEST_DRILL));
+          activeMinerUpdates: (p0) =>
+              p0[miner.planetPoint] = miner.copyWith(drillItemId: drill));
     } else if (miner is StoredMinerInstance) {
       activeAutoMiners = activeAutoMiners.rebuild(
           storedMinerUpdates: (p0) => p0
             ..remove(miner)
-            ..add(miner.copyWith(drillItemId: ItemKey.TEST_DRILL)));
+            ..add(miner.copyWith(drillItemId: drill)));
     }
-    // event.miner.when(stored: (def, key) {
-    //   return '';
-    // }, active: (def, key, _, _) {
-    //   return '';
-    // });
-    // activeAutoMiners = activeAutoMiners.rebuild(
-    //     activeMinerUpdates: (p0) => activeAutoMiners.active.containsValue(event.miner) ? p0
-    //         p0.removeWhere((_, miner) => miner == eventMiner),
-    //     storedMinerUpdates: (p0) => p0.add(MinerInstance.stored(
-    //         definition: eventMiner.definition,
-    //         drillItemId: eventMiner.drillItemId)));
   }
 
   bool hasMiner(PlanetTile planetTile) =>
@@ -205,9 +206,10 @@ abstract class AutoMiningManagerEvent
 
 enum AutoMiningManagerEvents {
   INSTALL_AUTO_MINER,
-  ATTACH_DRILL,
+  DRILL_ATTACH,
   STORE_MINER,
-  CREATE_MINER
+  CREATE_MINER,
+  DRILL_REMOVE,
 }
 
 class CreateMinerEvent extends AutoMiningManagerEvent {
@@ -238,13 +240,22 @@ class StoreMinerEvent extends AutoMiningManagerEvent {
   StoreMinerEvent({required this.miner});
 }
 
-class AttachDrillEvent extends AutoMiningManagerEvent {
+class DrillAttachEvent extends AutoMiningManagerEvent {
   @override
-  final type = AutoMiningManagerEvents.ATTACH_DRILL;
+  final type = AutoMiningManagerEvents.DRILL_ATTACH;
 
   final MinerInstance miner;
 
-  AttachDrillEvent({required this.miner});
+  DrillAttachEvent({required this.miner});
+}
+
+class DrillRemoveEvent extends AutoMiningManagerEvent {
+  @override
+  final type = AutoMiningManagerEvents.DRILL_REMOVE;
+
+  final MinerInstance miner;
+
+  DrillRemoveEvent({required this.miner});
 }
 
 @freezed
@@ -285,15 +296,11 @@ mixin ActiveMinerMethods {
   ItemKey? get drillItemId;
 
   int get baseDamage => definition.baseDamage + drillDamage;
-
-  int get drillDamage => drillItemId != null
-      ? ItemDirectory.directory
-              .getDefinition<DrillDefinition>(drillItemId!)
-              ?.damage ??
-          0
-      : 0;
-
+  int get drillDamage => drill?.damage ?? 0;
   int get totalDamage => baseDamage + drillDamage;
 
   bool get hasDrill => drillItemId != null;
+  DrillDefinition? get drill => drillItemId != null
+      ? ItemDirectory.directory.getDefinition<DrillDefinition>(drillItemId!)
+      : null;
 }

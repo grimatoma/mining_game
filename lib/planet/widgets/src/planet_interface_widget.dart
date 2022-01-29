@@ -103,8 +103,13 @@ class ActiveMinersWidget extends HookConsumerWidget {
               children: [
                 TableRow(children: [Text(miner.definition.name)]),
                 TableRow(children: [Text('Location ${miner.planetPoint}')]),
-                TableRow(children: [Text('Base damage ${miner.baseDamage}')]),
-                TableRow(children: [Text('Drill damage ${miner.drillItemId}')]),
+                if (miner.hasDrill) ...[
+                  TableRow(
+                      children: [Text('Drill type: ${miner.drill?.name}')]),
+                  TableRow(children: [Text('Base damage ${miner.baseDamage}')]),
+                  TableRow(
+                      children: [Text('Drill damage ${miner.drillDamage}')]),
+                ],
                 TableRow(children: [Text('Total damage ${miner.totalDamage}')]),
                 const TableRow(children: [Text('Inventory 23/100')]),
                 const TableRow(children: [Text('picture of resource')]),
@@ -114,9 +119,19 @@ class ActiveMinersWidget extends HookConsumerWidget {
                         onPressed: () {
                           ref
                               .read(gameEventManagerProvider)
-                              .addEvent(AttachDrillEvent(miner: miner));
+                              .addEvent(DrillAttachEvent(miner: miner));
                         },
                         child: const Text('Attach drill'))
+                  ]),
+                if (miner.hasDrill)
+                  TableRow(children: [
+                    TextButton(
+                        onPressed: () {
+                          ref
+                              .read(gameEventManagerProvider)
+                              .addEvent(DrillRemoveEvent(miner: miner));
+                        },
+                        child: const Text('Remove drill'))
                   ]),
                 TableRow(children: [
                   TextButton(
