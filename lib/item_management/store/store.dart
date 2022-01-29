@@ -28,7 +28,7 @@ final storeListingsControllerProvider =
                     radius: 1,
                     depth: 1,
                     baseDamage: 1,
-                    hopperSize: 50,
+                    baseHopperSize: 50,
                     fuelConsumption: 5,
                   )),
               MinerShopListing(
@@ -39,7 +39,7 @@ final storeListingsControllerProvider =
                       radius: 2,
                       depth: 1,
                       baseDamage: 2,
-                      hopperSize: 100,
+                      baseHopperSize: 100,
                       fuelConsumption: 5)),
               MinerShopListing(
                   cost: ItemContainer.create({ItemKey.IRON: 5}),
@@ -49,7 +49,7 @@ final storeListingsControllerProvider =
                       radius: 1,
                       depth: 1,
                       baseDamage: 1,
-                      hopperSize: 50,
+                      baseHopperSize: 50,
                       fuelConsumption: 5)),
               MinerShopListing(
                   cost: ItemContainer.create({ItemKey.IRON: 5}),
@@ -59,7 +59,7 @@ final storeListingsControllerProvider =
                       radius: 1,
                       depth: 1,
                       baseDamage: 1,
-                      hopperSize: 50,
+                      baseHopperSize: 50,
                       fuelConsumption: 5)),
               MinerShopListing(
                   cost: ItemContainer.create({ItemKey.IRON: 5}),
@@ -69,7 +69,7 @@ final storeListingsControllerProvider =
                     radius: 1,
                     depth: 1,
                     baseDamage: 1,
-                    hopperSize: 50,
+                    baseHopperSize: 50,
                     fuelConsumption: 5,
                   )),
             ].build())));

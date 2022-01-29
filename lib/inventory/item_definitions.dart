@@ -5,9 +5,16 @@ import 'package:mining_game/inventory/item_directory.dart';
 part 'item_definitions.freezed.dart';
 
 abstract class BaseItemDefinition {
-  ItemKey get itemKey;
+  const BaseItemDefinition();
+
   String get name;
   String get description;
+}
+
+abstract class BaseItemForDirectory extends BaseItemDefinition {
+  const BaseItemForDirectory();
+
+  ItemKey get itemKey;
 }
 
 abstract class ShowInWallet {}
@@ -21,20 +28,21 @@ enum WeaponAttributes {
 }
 
 @freezed
-class Sword extends BaseItemDefinition with _$Sword {
-  const factory Sword(
-      {required ItemKey itemKey,
-      required String name,
-      required String description,
-      required BuiltMap<WeaponAttributes, double> attributes}) = _Sword;
+class SwordDefinition extends BaseItemForDirectory with _$SwordDefinition {
+  const factory SwordDefinition(
+          {required ItemKey itemKey,
+          required String name,
+          required String description,
+          required BuiltMap<WeaponAttributes, double> attributes}) =
+      _SwordDefinition;
 }
 
 @freezed
-class Resource extends BaseItemDefinition
-    with _$Resource
+class ResourceDefinition extends BaseItemForDirectory
+    with _$ResourceDefinition
     implements ShowInWallet, HideInInventory {
-  const factory Resource(
+  const factory ResourceDefinition(
       {required ItemKey itemKey,
       required String name,
-      required String description}) = _Resource;
+      required String description}) = _ResourceDefinition;
 }

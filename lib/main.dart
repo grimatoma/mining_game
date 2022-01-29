@@ -8,7 +8,6 @@ import 'package:mining_game/inventory/item_container.dart';
 import 'package:mining_game/inventory/item_definitions.dart';
 import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
-import 'package:mining_game/item_management/items/metadata/item_proto.dart';
 import 'package:mining_game/item_management/store/shop_listings.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/mining/auto_mining_manager.dart';
@@ -28,7 +27,7 @@ void main() async {
   Hive.registerAdapter(ItemKeyAdapter());
   Hive.registerAdapter(BuiltMapAdapter<ItemKey, int>(32));
   Hive.registerAdapter(InstanceIdAdapter());
-  Hive.registerAdapter(ItemIdAdapter());
+  // Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(PlanetTileAdapter());
   Hive.registerAdapter(PlanetPointAdapter());
   Hive.registerAdapter(PlanetAdapter());
@@ -273,7 +272,7 @@ class InventoryMenuWidget extends HookConsumerWidget {
                   shrinkWrap: true,
                   itemBuilder: (_, index) {
                     final miner = storedMiners[index];
-                    final definition = miner.proto;
+                    final definition = miner.definition;
                     return Table(
                       children: [
                         TableRow(children: [

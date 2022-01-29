@@ -1,5 +1,5 @@
-abstract class ItemType {}
-
-abstract class EquipmentItemType extends ItemType {}
-
-abstract class AttachmentItemType extends ItemType {}
+// abstract class ItemType {}
+//
+// abstract class EquipmentItemType extends ItemType {}
+//
+// abstract class AttachmentItemType extends ItemType {}

@@ -19,13 +19,13 @@ class _$ScannerProtoTearOff {
   const _$ScannerProtoTearOff();
 
   _Scanner call(
-      {required ItemId itemId,
+      {required ItemKey itemKey,
       required String name,
       required String description,
       required int radius,
       required int depth}) {
     return _Scanner(
-      itemId: itemId,
+      itemKey: itemKey,
       name: name,
       description: description,
       radius: radius,
@@ -39,7 +39,7 @@ const $ScannerProto = _$ScannerProtoTearOff();
 
 /// @nodoc
 mixin _$ScannerProto {
-  ItemId get itemId => throw _privateConstructorUsedError;
+  ItemKey get itemKey => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   int get radius => throw _privateConstructorUsedError;
@@ -56,9 +56,11 @@ abstract class $ScannerProtoCopyWith<$Res> {
           ScannerProto value, $Res Function(ScannerProto) then) =
       _$ScannerProtoCopyWithImpl<$Res>;
   $Res call(
-      {ItemId itemId, String name, String description, int radius, int depth});
-
-  $ItemIdCopyWith<$Res> get itemId;
+      {ItemKey itemKey,
+      String name,
+      String description,
+      int radius,
+      int depth});
 }
 
 /// @nodoc
@@ -71,17 +73,17 @@ class _$ScannerProtoCopyWithImpl<$Res> implements $ScannerProtoCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? itemId = freezed,
+    Object? itemKey = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? radius = freezed,
     Object? depth = freezed,
   }) {
     return _then(_value.copyWith(
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemId,
+      itemKey: itemKey == freezed
+          ? _value.itemKey
+          : itemKey // ignore: cast_nullable_to_non_nullable
+              as ItemKey,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -100,13 +102,6 @@ class _$ScannerProtoCopyWithImpl<$Res> implements $ScannerProtoCopyWith<$Res> {
               as int,
     ));
   }
-
-  @override
-  $ItemIdCopyWith<$Res> get itemId {
-    return $ItemIdCopyWith<$Res>(_value.itemId, (value) {
-      return _then(_value.copyWith(itemId: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -115,10 +110,11 @@ abstract class _$ScannerCopyWith<$Res> implements $ScannerProtoCopyWith<$Res> {
       __$ScannerCopyWithImpl<$Res>;
   @override
   $Res call(
-      {ItemId itemId, String name, String description, int radius, int depth});
-
-  @override
-  $ItemIdCopyWith<$Res> get itemId;
+      {ItemKey itemKey,
+      String name,
+      String description,
+      int radius,
+      int depth});
 }
 
 /// @nodoc
@@ -132,17 +128,17 @@ class __$ScannerCopyWithImpl<$Res> extends _$ScannerProtoCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? itemId = freezed,
+    Object? itemKey = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? radius = freezed,
     Object? depth = freezed,
   }) {
     return _then(_Scanner(
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemId,
+      itemKey: itemKey == freezed
+          ? _value.itemKey
+          : itemKey // ignore: cast_nullable_to_non_nullable
+              as ItemKey,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -167,7 +163,7 @@ class __$ScannerCopyWithImpl<$Res> extends _$ScannerProtoCopyWithImpl<$Res>
 
 class _$_Scanner extends _Scanner {
   const _$_Scanner(
-      {required this.itemId,
+      {required this.itemKey,
       required this.name,
       required this.description,
       required this.radius,
@@ -175,7 +171,7 @@ class _$_Scanner extends _Scanner {
       : super._();
 
   @override
-  final ItemId itemId;
+  final ItemKey itemKey;
   @override
   final String name;
   @override
@@ -187,7 +183,7 @@ class _$_Scanner extends _Scanner {
 
   @override
   String toString() {
-    return 'ScannerProto(itemId: $itemId, name: $name, description: $description, radius: $radius, depth: $depth)';
+    return 'ScannerProto(itemKey: $itemKey, name: $name, description: $description, radius: $radius, depth: $depth)';
   }
 
   @override
@@ -195,7 +191,7 @@ class _$_Scanner extends _Scanner {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Scanner &&
-            const DeepCollectionEquality().equals(other.itemId, itemId) &&
+            const DeepCollectionEquality().equals(other.itemKey, itemKey) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
@@ -206,7 +202,7 @@ class _$_Scanner extends _Scanner {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(itemId),
+      const DeepCollectionEquality().hash(itemKey),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(radius),
@@ -220,7 +216,7 @@ class _$_Scanner extends _Scanner {
 
 abstract class _Scanner extends ScannerProto {
   const factory _Scanner(
-      {required ItemId itemId,
+      {required ItemKey itemKey,
       required String name,
       required String description,
       required int radius,
@@ -228,7 +224,7 @@ abstract class _Scanner extends ScannerProto {
   const _Scanner._() : super._();
 
   @override
-  ItemId get itemId;
+  ItemKey get itemKey;
   @override
   String get name;
   @override
@@ -247,12 +243,9 @@ abstract class _Scanner extends ScannerProto {
 class _$ScannerInstanceTearOff {
   const _$ScannerInstanceTearOff();
 
-  _ScannerInstance call(
-      {required ScannerProto proto,
-      @HiveField(1) required InstanceId instanceId}) {
+  _ScannerInstance call({required ScannerProto definition}) {
     return _ScannerInstance(
-      proto: proto,
-      instanceId: instanceId,
+      definition: definition,
     );
   }
 }
@@ -262,9 +255,7 @@ const $ScannerInstance = _$ScannerInstanceTearOff();
 
 /// @nodoc
 mixin _$ScannerInstance {
-  ScannerProto get proto => throw _privateConstructorUsedError;
-  @HiveField(1)
-  InstanceId get instanceId => throw _privateConstructorUsedError;
+  ScannerProto get definition => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ScannerInstanceCopyWith<ScannerInstance> get copyWith =>
@@ -276,9 +267,9 @@ abstract class $ScannerInstanceCopyWith<$Res> {
   factory $ScannerInstanceCopyWith(
           ScannerInstance value, $Res Function(ScannerInstance) then) =
       _$ScannerInstanceCopyWithImpl<$Res>;
-  $Res call({ScannerProto proto, @HiveField(1) InstanceId instanceId});
+  $Res call({ScannerProto definition});
 
-  $ScannerProtoCopyWith<$Res> get proto;
+  $ScannerProtoCopyWith<$Res> get definition;
 }
 
 /// @nodoc
@@ -292,25 +283,20 @@ class _$ScannerInstanceCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? proto = freezed,
-    Object? instanceId = freezed,
+    Object? definition = freezed,
   }) {
     return _then(_value.copyWith(
-      proto: proto == freezed
-          ? _value.proto
-          : proto // ignore: cast_nullable_to_non_nullable
+      definition: definition == freezed
+          ? _value.definition
+          : definition // ignore: cast_nullable_to_non_nullable
               as ScannerProto,
-      instanceId: instanceId == freezed
-          ? _value.instanceId
-          : instanceId // ignore: cast_nullable_to_non_nullable
-              as InstanceId,
     ));
   }
 
   @override
-  $ScannerProtoCopyWith<$Res> get proto {
-    return $ScannerProtoCopyWith<$Res>(_value.proto, (value) {
-      return _then(_value.copyWith(proto: value));
+  $ScannerProtoCopyWith<$Res> get definition {
+    return $ScannerProtoCopyWith<$Res>(_value.definition, (value) {
+      return _then(_value.copyWith(definition: value));
     });
   }
 }
@@ -322,10 +308,10 @@ abstract class _$ScannerInstanceCopyWith<$Res>
           _ScannerInstance value, $Res Function(_ScannerInstance) then) =
       __$ScannerInstanceCopyWithImpl<$Res>;
   @override
-  $Res call({ScannerProto proto, @HiveField(1) InstanceId instanceId});
+  $Res call({ScannerProto definition});
 
   @override
-  $ScannerProtoCopyWith<$Res> get proto;
+  $ScannerProtoCopyWith<$Res> get definition;
 }
 
 /// @nodoc
@@ -341,18 +327,13 @@ class __$ScannerInstanceCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? proto = freezed,
-    Object? instanceId = freezed,
+    Object? definition = freezed,
   }) {
     return _then(_ScannerInstance(
-      proto: proto == freezed
-          ? _value.proto
-          : proto // ignore: cast_nullable_to_non_nullable
+      definition: definition == freezed
+          ? _value.definition
+          : definition // ignore: cast_nullable_to_non_nullable
               as ScannerProto,
-      instanceId: instanceId == freezed
-          ? _value.instanceId
-          : instanceId // ignore: cast_nullable_to_non_nullable
-              as InstanceId,
     ));
   }
 }
@@ -360,18 +341,14 @@ class __$ScannerInstanceCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ScannerInstance implements _ScannerInstance {
-  const _$_ScannerInstance(
-      {required this.proto, @HiveField(1) required this.instanceId});
+  const _$_ScannerInstance({required this.definition});
 
   @override
-  final ScannerProto proto;
-  @override
-  @HiveField(1)
-  final InstanceId instanceId;
+  final ScannerProto definition;
 
   @override
   String toString() {
-    return 'ScannerInstance(proto: $proto, instanceId: $instanceId)';
+    return 'ScannerInstance(definition: $definition)';
   }
 
   @override
@@ -379,16 +356,13 @@ class _$_ScannerInstance implements _ScannerInstance {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ScannerInstance &&
-            const DeepCollectionEquality().equals(other.proto, proto) &&
             const DeepCollectionEquality()
-                .equals(other.instanceId, instanceId));
+                .equals(other.definition, definition));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(proto),
-      const DeepCollectionEquality().hash(instanceId));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(definition));
 
   @JsonKey(ignore: true)
   @override
@@ -397,15 +371,11 @@ class _$_ScannerInstance implements _ScannerInstance {
 }
 
 abstract class _ScannerInstance implements ScannerInstance {
-  const factory _ScannerInstance(
-      {required ScannerProto proto,
-      @HiveField(1) required InstanceId instanceId}) = _$_ScannerInstance;
+  const factory _ScannerInstance({required ScannerProto definition}) =
+      _$_ScannerInstance;
 
   @override
-  ScannerProto get proto;
-  @override
-  @HiveField(1)
-  InstanceId get instanceId;
+  ScannerProto get definition;
   @override
   @JsonKey(ignore: true)
   _$ScannerInstanceCopyWith<_ScannerInstance> get copyWith =>

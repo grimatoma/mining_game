@@ -15,15 +15,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$SwordTearOff {
-  const _$SwordTearOff();
+class _$SwordDefinitionTearOff {
+  const _$SwordDefinitionTearOff();
 
-  _Sword call(
+  _SwordDefinition call(
       {required ItemKey itemKey,
       required String name,
       required String description,
       required BuiltMap<WeaponAttributes, double> attributes}) {
-    return _Sword(
+    return _SwordDefinition(
       itemKey: itemKey,
       name: name,
       description: description,
@@ -33,10 +33,10 @@ class _$SwordTearOff {
 }
 
 /// @nodoc
-const $Sword = _$SwordTearOff();
+const $SwordDefinition = _$SwordDefinitionTearOff();
 
 /// @nodoc
-mixin _$Sword {
+mixin _$SwordDefinition {
   ItemKey get itemKey => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
@@ -44,13 +44,15 @@ mixin _$Sword {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $SwordCopyWith<Sword> get copyWith => throw _privateConstructorUsedError;
+  $SwordDefinitionCopyWith<SwordDefinition> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SwordCopyWith<$Res> {
-  factory $SwordCopyWith(Sword value, $Res Function(Sword) then) =
-      _$SwordCopyWithImpl<$Res>;
+abstract class $SwordDefinitionCopyWith<$Res> {
+  factory $SwordDefinitionCopyWith(
+          SwordDefinition value, $Res Function(SwordDefinition) then) =
+      _$SwordDefinitionCopyWithImpl<$Res>;
   $Res call(
       {ItemKey itemKey,
       String name,
@@ -59,12 +61,13 @@ abstract class $SwordCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$SwordCopyWithImpl<$Res> implements $SwordCopyWith<$Res> {
-  _$SwordCopyWithImpl(this._value, this._then);
+class _$SwordDefinitionCopyWithImpl<$Res>
+    implements $SwordDefinitionCopyWith<$Res> {
+  _$SwordDefinitionCopyWithImpl(this._value, this._then);
 
-  final Sword _value;
+  final SwordDefinition _value;
   // ignore: unused_field
-  final $Res Function(Sword) _then;
+  final $Res Function(SwordDefinition) _then;
 
   @override
   $Res call({
@@ -95,9 +98,11 @@ class _$SwordCopyWithImpl<$Res> implements $SwordCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$SwordCopyWith<$Res> implements $SwordCopyWith<$Res> {
-  factory _$SwordCopyWith(_Sword value, $Res Function(_Sword) then) =
-      __$SwordCopyWithImpl<$Res>;
+abstract class _$SwordDefinitionCopyWith<$Res>
+    implements $SwordDefinitionCopyWith<$Res> {
+  factory _$SwordDefinitionCopyWith(
+          _SwordDefinition value, $Res Function(_SwordDefinition) then) =
+      __$SwordDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
       {ItemKey itemKey,
@@ -107,13 +112,15 @@ abstract class _$SwordCopyWith<$Res> implements $SwordCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$SwordCopyWithImpl<$Res> extends _$SwordCopyWithImpl<$Res>
-    implements _$SwordCopyWith<$Res> {
-  __$SwordCopyWithImpl(_Sword _value, $Res Function(_Sword) _then)
-      : super(_value, (v) => _then(v as _Sword));
+class __$SwordDefinitionCopyWithImpl<$Res>
+    extends _$SwordDefinitionCopyWithImpl<$Res>
+    implements _$SwordDefinitionCopyWith<$Res> {
+  __$SwordDefinitionCopyWithImpl(
+      _SwordDefinition _value, $Res Function(_SwordDefinition) _then)
+      : super(_value, (v) => _then(v as _SwordDefinition));
 
   @override
-  _Sword get _value => super._value as _Sword;
+  _SwordDefinition get _value => super._value as _SwordDefinition;
 
   @override
   $Res call({
@@ -122,7 +129,7 @@ class __$SwordCopyWithImpl<$Res> extends _$SwordCopyWithImpl<$Res>
     Object? description = freezed,
     Object? attributes = freezed,
   }) {
-    return _then(_Sword(
+    return _then(_SwordDefinition(
       itemKey: itemKey == freezed
           ? _value.itemKey
           : itemKey // ignore: cast_nullable_to_non_nullable
@@ -145,8 +152,8 @@ class __$SwordCopyWithImpl<$Res> extends _$SwordCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Sword implements _Sword {
-  const _$_Sword(
+class _$_SwordDefinition implements _SwordDefinition {
+  const _$_SwordDefinition(
       {required this.itemKey,
       required this.name,
       required this.description,
@@ -163,14 +170,14 @@ class _$_Sword implements _Sword {
 
   @override
   String toString() {
-    return 'Sword(itemKey: $itemKey, name: $name, description: $description, attributes: $attributes)';
+    return 'SwordDefinition(itemKey: $itemKey, name: $name, description: $description, attributes: $attributes)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Sword &&
+            other is _SwordDefinition &&
             const DeepCollectionEquality().equals(other.itemKey, itemKey) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
@@ -189,16 +196,17 @@ class _$_Sword implements _Sword {
 
   @JsonKey(ignore: true)
   @override
-  _$SwordCopyWith<_Sword> get copyWith =>
-      __$SwordCopyWithImpl<_Sword>(this, _$identity);
+  _$SwordDefinitionCopyWith<_SwordDefinition> get copyWith =>
+      __$SwordDefinitionCopyWithImpl<_SwordDefinition>(this, _$identity);
 }
 
-abstract class _Sword implements Sword {
-  const factory _Sword(
-      {required ItemKey itemKey,
-      required String name,
-      required String description,
-      required BuiltMap<WeaponAttributes, double> attributes}) = _$_Sword;
+abstract class _SwordDefinition implements SwordDefinition {
+  const factory _SwordDefinition(
+          {required ItemKey itemKey,
+          required String name,
+          required String description,
+          required BuiltMap<WeaponAttributes, double> attributes}) =
+      _$_SwordDefinition;
 
   @override
   ItemKey get itemKey;
@@ -210,18 +218,19 @@ abstract class _Sword implements Sword {
   BuiltMap<WeaponAttributes, double> get attributes;
   @override
   @JsonKey(ignore: true)
-  _$SwordCopyWith<_Sword> get copyWith => throw _privateConstructorUsedError;
+  _$SwordDefinitionCopyWith<_SwordDefinition> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class _$ResourceTearOff {
-  const _$ResourceTearOff();
+class _$ResourceDefinitionTearOff {
+  const _$ResourceDefinitionTearOff();
 
-  _Resource call(
+  _ResourceDefinition call(
       {required ItemKey itemKey,
       required String name,
       required String description}) {
-    return _Resource(
+    return _ResourceDefinition(
       itemKey: itemKey,
       name: name,
       description: description,
@@ -230,33 +239,35 @@ class _$ResourceTearOff {
 }
 
 /// @nodoc
-const $Resource = _$ResourceTearOff();
+const $ResourceDefinition = _$ResourceDefinitionTearOff();
 
 /// @nodoc
-mixin _$Resource {
+mixin _$ResourceDefinition {
   ItemKey get itemKey => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $ResourceCopyWith<Resource> get copyWith =>
+  $ResourceDefinitionCopyWith<ResourceDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ResourceCopyWith<$Res> {
-  factory $ResourceCopyWith(Resource value, $Res Function(Resource) then) =
-      _$ResourceCopyWithImpl<$Res>;
+abstract class $ResourceDefinitionCopyWith<$Res> {
+  factory $ResourceDefinitionCopyWith(
+          ResourceDefinition value, $Res Function(ResourceDefinition) then) =
+      _$ResourceDefinitionCopyWithImpl<$Res>;
   $Res call({ItemKey itemKey, String name, String description});
 }
 
 /// @nodoc
-class _$ResourceCopyWithImpl<$Res> implements $ResourceCopyWith<$Res> {
-  _$ResourceCopyWithImpl(this._value, this._then);
+class _$ResourceDefinitionCopyWithImpl<$Res>
+    implements $ResourceDefinitionCopyWith<$Res> {
+  _$ResourceDefinitionCopyWithImpl(this._value, this._then);
 
-  final Resource _value;
+  final ResourceDefinition _value;
   // ignore: unused_field
-  final $Res Function(Resource) _then;
+  final $Res Function(ResourceDefinition) _then;
 
   @override
   $Res call({
@@ -282,21 +293,25 @@ class _$ResourceCopyWithImpl<$Res> implements $ResourceCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$ResourceCopyWith<$Res> implements $ResourceCopyWith<$Res> {
-  factory _$ResourceCopyWith(_Resource value, $Res Function(_Resource) then) =
-      __$ResourceCopyWithImpl<$Res>;
+abstract class _$ResourceDefinitionCopyWith<$Res>
+    implements $ResourceDefinitionCopyWith<$Res> {
+  factory _$ResourceDefinitionCopyWith(
+          _ResourceDefinition value, $Res Function(_ResourceDefinition) then) =
+      __$ResourceDefinitionCopyWithImpl<$Res>;
   @override
   $Res call({ItemKey itemKey, String name, String description});
 }
 
 /// @nodoc
-class __$ResourceCopyWithImpl<$Res> extends _$ResourceCopyWithImpl<$Res>
-    implements _$ResourceCopyWith<$Res> {
-  __$ResourceCopyWithImpl(_Resource _value, $Res Function(_Resource) _then)
-      : super(_value, (v) => _then(v as _Resource));
+class __$ResourceDefinitionCopyWithImpl<$Res>
+    extends _$ResourceDefinitionCopyWithImpl<$Res>
+    implements _$ResourceDefinitionCopyWith<$Res> {
+  __$ResourceDefinitionCopyWithImpl(
+      _ResourceDefinition _value, $Res Function(_ResourceDefinition) _then)
+      : super(_value, (v) => _then(v as _ResourceDefinition));
 
   @override
-  _Resource get _value => super._value as _Resource;
+  _ResourceDefinition get _value => super._value as _ResourceDefinition;
 
   @override
   $Res call({
@@ -304,7 +319,7 @@ class __$ResourceCopyWithImpl<$Res> extends _$ResourceCopyWithImpl<$Res>
     Object? name = freezed,
     Object? description = freezed,
   }) {
-    return _then(_Resource(
+    return _then(_ResourceDefinition(
       itemKey: itemKey == freezed
           ? _value.itemKey
           : itemKey // ignore: cast_nullable_to_non_nullable
@@ -323,8 +338,8 @@ class __$ResourceCopyWithImpl<$Res> extends _$ResourceCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Resource implements _Resource {
-  const _$_Resource(
+class _$_ResourceDefinition implements _ResourceDefinition {
+  const _$_ResourceDefinition(
       {required this.itemKey, required this.name, required this.description});
 
   @override
@@ -336,14 +351,14 @@ class _$_Resource implements _Resource {
 
   @override
   String toString() {
-    return 'Resource(itemKey: $itemKey, name: $name, description: $description)';
+    return 'ResourceDefinition(itemKey: $itemKey, name: $name, description: $description)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Resource &&
+            other is _ResourceDefinition &&
             const DeepCollectionEquality().equals(other.itemKey, itemKey) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
@@ -359,15 +374,15 @@ class _$_Resource implements _Resource {
 
   @JsonKey(ignore: true)
   @override
-  _$ResourceCopyWith<_Resource> get copyWith =>
-      __$ResourceCopyWithImpl<_Resource>(this, _$identity);
+  _$ResourceDefinitionCopyWith<_ResourceDefinition> get copyWith =>
+      __$ResourceDefinitionCopyWithImpl<_ResourceDefinition>(this, _$identity);
 }
 
-abstract class _Resource implements Resource {
-  const factory _Resource(
+abstract class _ResourceDefinition implements ResourceDefinition {
+  const factory _ResourceDefinition(
       {required ItemKey itemKey,
       required String name,
-      required String description}) = _$_Resource;
+      required String description}) = _$_ResourceDefinition;
 
   @override
   ItemKey get itemKey;
@@ -377,6 +392,6 @@ abstract class _Resource implements Resource {
   String get description;
   @override
   @JsonKey(ignore: true)
-  _$ResourceCopyWith<_Resource> get copyWith =>
+  _$ResourceDefinitionCopyWith<_ResourceDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }

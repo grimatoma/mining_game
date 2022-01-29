@@ -2,8 +2,6 @@ import 'dart:math';
 
 import 'package:hive/hive.dart';
 
-import 'item_proto.dart';
-
 class InstanceId {
   final String _guid;
 
@@ -24,15 +22,14 @@ class InstanceId {
   String toString() => _guid;
 }
 
-abstract class ItemInstance<ProtoT extends ItemProto> {
-  InstanceId get instanceId;
-  ProtoT get proto;
-  const ItemInstance();
-
-  factory ItemInstance.create(ProtoT proto, InstanceId id) {
-    throw 'Must overwrite this class';
-  }
-}
+// abstract class ItemInstance<DefinitionT extends ItemProto> {
+//   DefinitionT get proto;
+//   const ItemInstance();
+//
+//   factory ItemInstance.create(DefinitionT proto, InstanceId id) {
+//     throw 'Must overwrite this class';
+//   }
+// }
 
 String get _generateId {
   Random random = Random(DateTime.now().millisecond);

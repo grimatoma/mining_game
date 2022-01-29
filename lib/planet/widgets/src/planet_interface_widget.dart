@@ -58,7 +58,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                 items: availableMiners
                     .map<DropdownMenuItem<StoredMinerInstance>>((value) =>
                         DropdownMenuItem<StoredMinerInstance>(
-                            child: Text(value.proto.name), value: value))
+                            child: Text(value.definition.name), value: value))
                     .toList(growable: false),
                 onChanged: (StoredMinerInstance? newVal) {
                   ref.read(selectedMinerFromDropdownProvider.notifier).state =
@@ -101,10 +101,32 @@ class ActiveMinersWidget extends HookConsumerWidget {
             final miner = miners[index];
             return Table(
               children: [
-                TableRow(children: [Text(miner.proto.name)]),
+                TableRow(children: [Text(miner.definition.name)]),
                 TableRow(children: [Text('Location ${miner.planetPoint}')]),
+                TableRow(children: [Text('Base damage ${miner.baseDamage}')]),
+                TableRow(children: [Text('Drill damage ${miner.drillItemId}')]),
+                TableRow(children: [Text('Total damage ${miner.totalDamage}')]),
                 const TableRow(children: [Text('Inventory 23/100')]),
                 const TableRow(children: [Text('picture of resource')]),
+                if (!miner.hasDrill)
+                  TableRow(children: [
+                    TextButton(
+                        onPressed: () {
+                          ref
+                              .read(gameEventManagerProvider)
+                              .addEvent(AttachDrillEvent(miner: miner));
+                        },
+                        child: const Text('Attach drill'))
+                  ]),
+                TableRow(children: [
+                  TextButton(
+                      onPressed: () {
+                        ref
+                            .read(gameEventManagerProvider)
+                            .addEvent(StoreMinerEvent(miner: miner));
+                      },
+                      child: const Text('Store Miner'))
+                ]),
               ],
             );
           },

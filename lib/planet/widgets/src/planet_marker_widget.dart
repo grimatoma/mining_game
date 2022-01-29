@@ -48,7 +48,7 @@ class MinerLayerWidget extends HookConsumerWidget {
                   width: 0.5 * planetScreenInfo.xScale,
                   height: 0.5 * planetScreenInfo.yScale,
                   color: Colors.green,
-                  child: Text(entry.value.proto.name,
+                  child: Text(entry.value.definition.name,
                       style: const TextStyle(fontSize: 6)),
                 )))
             .toList(growable: false),

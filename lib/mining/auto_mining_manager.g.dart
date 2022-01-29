@@ -22,7 +22,7 @@ class MinerDefinitionAdapter extends TypeAdapter<_$_MinerDefinition> {
       radius: fields[4] as int,
       depth: fields[5] as int,
       baseDamage: fields[6] as int,
-      hopperSize: fields[7] as int,
+      baseHopperSize: fields[7] as int,
       fuelConsumption: fields[8] as int,
     );
   }
@@ -42,7 +42,7 @@ class MinerDefinitionAdapter extends TypeAdapter<_$_MinerDefinition> {
       ..writeByte(6)
       ..write(obj.baseDamage)
       ..writeByte(7)
-      ..write(obj.hopperSize)
+      ..write(obj.baseHopperSize)
       ..writeByte(8)
       ..write(obj.fuelConsumption);
   }
@@ -69,8 +69,8 @@ class StoredMinerInstanceAdapter extends TypeAdapter<_$StoredMinerInstance> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$StoredMinerInstance(
-      proto: fields[1] as MinerDefinition,
-      drillItemId: fields[2] as ItemId?,
+      definition: fields[1] as MinerDefinition,
+      drillItemId: fields[2] as ItemKey?,
     );
   }
 
@@ -79,7 +79,7 @@ class StoredMinerInstanceAdapter extends TypeAdapter<_$StoredMinerInstance> {
     writer
       ..writeByte(2)
       ..writeByte(1)
-      ..write(obj.proto)
+      ..write(obj.definition)
       ..writeByte(2)
       ..write(obj.drillItemId);
   }
@@ -106,8 +106,8 @@ class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$ActiveMinerInstance(
-      proto: fields[1] as MinerDefinition,
-      drillItemId: fields[2] as ItemId?,
+      definition: fields[1] as MinerDefinition,
+      drillItemId: fields[2] as ItemKey?,
       planetPoint: fields[3] as PlanetPoint,
       inventory: fields[4] as ItemContainer,
     );
@@ -118,7 +118,7 @@ class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
     writer
       ..writeByte(4)
       ..writeByte(1)
-      ..write(obj.proto)
+      ..write(obj.definition)
       ..writeByte(2)
       ..write(obj.drillItemId)
       ..writeByte(3)

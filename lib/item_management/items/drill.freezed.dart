@@ -15,68 +15,67 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-class _$DrillProtoTearOff {
-  const _$DrillProtoTearOff();
+class _$DrillDefinitionTearOff {
+  const _$DrillDefinitionTearOff();
 
-  _DrillProto call(
-      {required ItemId itemId,
+  _DrillDefinition call(
+      {required ItemKey itemKey,
       required String name,
       required String description,
-      required int baseDamage}) {
-    return _DrillProto(
-      itemId: itemId,
+      required int damage}) {
+    return _DrillDefinition(
+      itemKey: itemKey,
       name: name,
       description: description,
-      baseDamage: baseDamage,
+      damage: damage,
     );
   }
 }
 
 /// @nodoc
-const $DrillProto = _$DrillProtoTearOff();
+const $DrillDefinition = _$DrillDefinitionTearOff();
 
 /// @nodoc
-mixin _$DrillProto {
-  ItemId get itemId => throw _privateConstructorUsedError;
+mixin _$DrillDefinition {
+  ItemKey get itemKey => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  int get baseDamage => throw _privateConstructorUsedError;
+  int get damage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $DrillProtoCopyWith<DrillProto> get copyWith =>
+  $DrillDefinitionCopyWith<DrillDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DrillProtoCopyWith<$Res> {
-  factory $DrillProtoCopyWith(
-          DrillProto value, $Res Function(DrillProto) then) =
-      _$DrillProtoCopyWithImpl<$Res>;
-  $Res call({ItemId itemId, String name, String description, int baseDamage});
-
-  $ItemIdCopyWith<$Res> get itemId;
+abstract class $DrillDefinitionCopyWith<$Res> {
+  factory $DrillDefinitionCopyWith(
+          DrillDefinition value, $Res Function(DrillDefinition) then) =
+      _$DrillDefinitionCopyWithImpl<$Res>;
+  $Res call({ItemKey itemKey, String name, String description, int damage});
 }
 
 /// @nodoc
-class _$DrillProtoCopyWithImpl<$Res> implements $DrillProtoCopyWith<$Res> {
-  _$DrillProtoCopyWithImpl(this._value, this._then);
+class _$DrillDefinitionCopyWithImpl<$Res>
+    implements $DrillDefinitionCopyWith<$Res> {
+  _$DrillDefinitionCopyWithImpl(this._value, this._then);
 
-  final DrillProto _value;
+  final DrillDefinition _value;
   // ignore: unused_field
-  final $Res Function(DrillProto) _then;
+  final $Res Function(DrillDefinition) _then;
 
   @override
   $Res call({
-    Object? itemId = freezed,
+    Object? itemKey = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? baseDamage = freezed,
+    Object? damage = freezed,
   }) {
     return _then(_value.copyWith(
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemId,
+      itemKey: itemKey == freezed
+          ? _value.itemKey
+          : itemKey // ignore: cast_nullable_to_non_nullable
+              as ItemKey,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -85,55 +84,47 @@ class _$DrillProtoCopyWithImpl<$Res> implements $DrillProtoCopyWith<$Res> {
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      baseDamage: baseDamage == freezed
-          ? _value.baseDamage
-          : baseDamage // ignore: cast_nullable_to_non_nullable
+      damage: damage == freezed
+          ? _value.damage
+          : damage // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
-
-  @override
-  $ItemIdCopyWith<$Res> get itemId {
-    return $ItemIdCopyWith<$Res>(_value.itemId, (value) {
-      return _then(_value.copyWith(itemId: value));
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$DrillProtoCopyWith<$Res> implements $DrillProtoCopyWith<$Res> {
-  factory _$DrillProtoCopyWith(
-          _DrillProto value, $Res Function(_DrillProto) then) =
-      __$DrillProtoCopyWithImpl<$Res>;
+abstract class _$DrillDefinitionCopyWith<$Res>
+    implements $DrillDefinitionCopyWith<$Res> {
+  factory _$DrillDefinitionCopyWith(
+          _DrillDefinition value, $Res Function(_DrillDefinition) then) =
+      __$DrillDefinitionCopyWithImpl<$Res>;
   @override
-  $Res call({ItemId itemId, String name, String description, int baseDamage});
-
-  @override
-  $ItemIdCopyWith<$Res> get itemId;
+  $Res call({ItemKey itemKey, String name, String description, int damage});
 }
 
 /// @nodoc
-class __$DrillProtoCopyWithImpl<$Res> extends _$DrillProtoCopyWithImpl<$Res>
-    implements _$DrillProtoCopyWith<$Res> {
-  __$DrillProtoCopyWithImpl(
-      _DrillProto _value, $Res Function(_DrillProto) _then)
-      : super(_value, (v) => _then(v as _DrillProto));
+class __$DrillDefinitionCopyWithImpl<$Res>
+    extends _$DrillDefinitionCopyWithImpl<$Res>
+    implements _$DrillDefinitionCopyWith<$Res> {
+  __$DrillDefinitionCopyWithImpl(
+      _DrillDefinition _value, $Res Function(_DrillDefinition) _then)
+      : super(_value, (v) => _then(v as _DrillDefinition));
 
   @override
-  _DrillProto get _value => super._value as _DrillProto;
+  _DrillDefinition get _value => super._value as _DrillDefinition;
 
   @override
   $Res call({
-    Object? itemId = freezed,
+    Object? itemKey = freezed,
     Object? name = freezed,
     Object? description = freezed,
-    Object? baseDamage = freezed,
+    Object? damage = freezed,
   }) {
-    return _then(_DrillProto(
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemId,
+    return _then(_DrillDefinition(
+      itemKey: itemKey == freezed
+          ? _value.itemKey
+          : itemKey // ignore: cast_nullable_to_non_nullable
+              as ItemKey,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -142,9 +133,9 @@ class __$DrillProtoCopyWithImpl<$Res> extends _$DrillProtoCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      baseDamage: baseDamage == freezed
-          ? _value.baseDamage
-          : baseDamage // ignore: cast_nullable_to_non_nullable
+      damage: damage == freezed
+          ? _value.damage
+          : damage // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -152,242 +143,70 @@ class __$DrillProtoCopyWithImpl<$Res> extends _$DrillProtoCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DrillProto extends _DrillProto {
-  const _$_DrillProto(
-      {required this.itemId,
+class _$_DrillDefinition implements _DrillDefinition {
+  const _$_DrillDefinition(
+      {required this.itemKey,
       required this.name,
       required this.description,
-      required this.baseDamage})
-      : super._();
+      required this.damage});
 
   @override
-  final ItemId itemId;
+  final ItemKey itemKey;
   @override
   final String name;
   @override
   final String description;
   @override
-  final int baseDamage;
+  final int damage;
 
   @override
   String toString() {
-    return 'DrillProto(itemId: $itemId, name: $name, description: $description, baseDamage: $baseDamage)';
+    return 'DrillDefinition(itemKey: $itemKey, name: $name, description: $description, damage: $damage)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _DrillProto &&
-            const DeepCollectionEquality().equals(other.itemId, itemId) &&
+            other is _DrillDefinition &&
+            const DeepCollectionEquality().equals(other.itemKey, itemKey) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.baseDamage, baseDamage));
+            const DeepCollectionEquality().equals(other.damage, damage));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(itemId),
+      const DeepCollectionEquality().hash(itemKey),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(baseDamage));
+      const DeepCollectionEquality().hash(damage));
 
   @JsonKey(ignore: true)
   @override
-  _$DrillProtoCopyWith<_DrillProto> get copyWith =>
-      __$DrillProtoCopyWithImpl<_DrillProto>(this, _$identity);
+  _$DrillDefinitionCopyWith<_DrillDefinition> get copyWith =>
+      __$DrillDefinitionCopyWithImpl<_DrillDefinition>(this, _$identity);
 }
 
-abstract class _DrillProto extends DrillProto {
-  const factory _DrillProto(
-      {required ItemId itemId,
+abstract class _DrillDefinition implements DrillDefinition {
+  const factory _DrillDefinition(
+      {required ItemKey itemKey,
       required String name,
       required String description,
-      required int baseDamage}) = _$_DrillProto;
-  const _DrillProto._() : super._();
+      required int damage}) = _$_DrillDefinition;
 
   @override
-  ItemId get itemId;
+  ItemKey get itemKey;
   @override
   String get name;
   @override
   String get description;
   @override
-  int get baseDamage;
+  int get damage;
   @override
   @JsonKey(ignore: true)
-  _$DrillProtoCopyWith<_DrillProto> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-class _$DrillInstanceTearOff {
-  const _$DrillInstanceTearOff();
-
-  _DrillInstance call(
-      {required DrillProto proto,
-      @HiveField(1) required InstanceId instanceId}) {
-    return _DrillInstance(
-      proto: proto,
-      instanceId: instanceId,
-    );
-  }
-}
-
-/// @nodoc
-const $DrillInstance = _$DrillInstanceTearOff();
-
-/// @nodoc
-mixin _$DrillInstance {
-  DrillProto get proto => throw _privateConstructorUsedError;
-  @HiveField(1)
-  InstanceId get instanceId => throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $DrillInstanceCopyWith<DrillInstance> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $DrillInstanceCopyWith<$Res> {
-  factory $DrillInstanceCopyWith(
-          DrillInstance value, $Res Function(DrillInstance) then) =
-      _$DrillInstanceCopyWithImpl<$Res>;
-  $Res call({DrillProto proto, @HiveField(1) InstanceId instanceId});
-
-  $DrillProtoCopyWith<$Res> get proto;
-}
-
-/// @nodoc
-class _$DrillInstanceCopyWithImpl<$Res>
-    implements $DrillInstanceCopyWith<$Res> {
-  _$DrillInstanceCopyWithImpl(this._value, this._then);
-
-  final DrillInstance _value;
-  // ignore: unused_field
-  final $Res Function(DrillInstance) _then;
-
-  @override
-  $Res call({
-    Object? proto = freezed,
-    Object? instanceId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      proto: proto == freezed
-          ? _value.proto
-          : proto // ignore: cast_nullable_to_non_nullable
-              as DrillProto,
-      instanceId: instanceId == freezed
-          ? _value.instanceId
-          : instanceId // ignore: cast_nullable_to_non_nullable
-              as InstanceId,
-    ));
-  }
-
-  @override
-  $DrillProtoCopyWith<$Res> get proto {
-    return $DrillProtoCopyWith<$Res>(_value.proto, (value) {
-      return _then(_value.copyWith(proto: value));
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$DrillInstanceCopyWith<$Res>
-    implements $DrillInstanceCopyWith<$Res> {
-  factory _$DrillInstanceCopyWith(
-          _DrillInstance value, $Res Function(_DrillInstance) then) =
-      __$DrillInstanceCopyWithImpl<$Res>;
-  @override
-  $Res call({DrillProto proto, @HiveField(1) InstanceId instanceId});
-
-  @override
-  $DrillProtoCopyWith<$Res> get proto;
-}
-
-/// @nodoc
-class __$DrillInstanceCopyWithImpl<$Res>
-    extends _$DrillInstanceCopyWithImpl<$Res>
-    implements _$DrillInstanceCopyWith<$Res> {
-  __$DrillInstanceCopyWithImpl(
-      _DrillInstance _value, $Res Function(_DrillInstance) _then)
-      : super(_value, (v) => _then(v as _DrillInstance));
-
-  @override
-  _DrillInstance get _value => super._value as _DrillInstance;
-
-  @override
-  $Res call({
-    Object? proto = freezed,
-    Object? instanceId = freezed,
-  }) {
-    return _then(_DrillInstance(
-      proto: proto == freezed
-          ? _value.proto
-          : proto // ignore: cast_nullable_to_non_nullable
-              as DrillProto,
-      instanceId: instanceId == freezed
-          ? _value.instanceId
-          : instanceId // ignore: cast_nullable_to_non_nullable
-              as InstanceId,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_DrillInstance implements _DrillInstance {
-  const _$_DrillInstance(
-      {required this.proto, @HiveField(1) required this.instanceId});
-
-  @override
-  final DrillProto proto;
-  @override
-  @HiveField(1)
-  final InstanceId instanceId;
-
-  @override
-  String toString() {
-    return 'DrillInstance(proto: $proto, instanceId: $instanceId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _DrillInstance &&
-            const DeepCollectionEquality().equals(other.proto, proto) &&
-            const DeepCollectionEquality()
-                .equals(other.instanceId, instanceId));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(proto),
-      const DeepCollectionEquality().hash(instanceId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$DrillInstanceCopyWith<_DrillInstance> get copyWith =>
-      __$DrillInstanceCopyWithImpl<_DrillInstance>(this, _$identity);
-}
-
-abstract class _DrillInstance implements DrillInstance {
-  const factory _DrillInstance(
-      {required DrillProto proto,
-      @HiveField(1) required InstanceId instanceId}) = _$_DrillInstance;
-
-  @override
-  DrillProto get proto;
-  @override
-  @HiveField(1)
-  InstanceId get instanceId;
-  @override
-  @JsonKey(ignore: true)
-  _$DrillInstanceCopyWith<_DrillInstance> get copyWith =>
+  _$DrillDefinitionCopyWith<_DrillDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }

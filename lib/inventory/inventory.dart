@@ -8,15 +8,12 @@ import 'item_container.dart';
 
 final inventoryStateProvider =
     StateNotifierProvider<InventoryStateController, ItemContainer>((ref) {
-  return InventoryStateController(ref.watch(dataStorageControllerProvider),
-      ref.watch(itemDirectoryProvider));
+  return InventoryStateController(ref.watch(itemDirectoryProvider));
 });
 
 class InventoryStateController extends StateNotifier<ItemContainer> {
   final ItemDirectory _itemDirectory;
-  InventoryStateController(
-      DataStorageController controller, this._itemDirectory)
-      : super(ItemContainer.empty()) {
+  InventoryStateController(this._itemDirectory) : super(ItemContainer.empty()) {
     void loadInitialData() async {
       final loadedBox = await Hive.openBox<int>(DatabaseName.inventory0.name);
       state = ItemContainer({

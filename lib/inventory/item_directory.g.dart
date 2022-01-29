@@ -21,6 +21,8 @@ class ItemKeyAdapter extends TypeAdapter<ItemKey> {
         return ItemKey.IRON;
       case 3:
         return ItemKey.COPPER;
+      case 4:
+        return ItemKey.TEST_DRILL;
       default:
         return ItemKey.ROCK;
     }
@@ -40,6 +42,9 @@ class ItemKeyAdapter extends TypeAdapter<ItemKey> {
         break;
       case ItemKey.COPPER:
         writer.writeByte(3);
+        break;
+      case ItemKey.TEST_DRILL:
+        writer.writeByte(4);
         break;
     }
   }
