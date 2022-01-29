@@ -25,7 +25,8 @@ class ItemDirectory {
   }
 
   ItemKey getKey(String s) => _keys[s]!;
-  BaseItemDefinition getItemDefinition(ItemKey key) => _items[key]!;
+
+  BaseItemDefinition operator [](ItemKey key) => _items[key]!;
 }
 
 @HiveType(typeId: 36)

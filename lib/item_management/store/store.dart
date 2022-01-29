@@ -11,13 +11,13 @@ import 'shop_listings.dart';
 final storeListingsControllerProvider =
     StateNotifierProvider<StoreController, StoreListings>(
         (ref) => StoreController(
-            ref.watch(inventoryProvider.notifier),
+            ref.watch(inventoryStateProvider.notifier),
             ref.watch(gameEventManagerProvider),
             StoreListings(<ShopListing>[
               ItemStackShopListing(
                   itemKey: ItemKey.ROCK,
                   quantity: 5,
-                  cost: ItemContainer.create({}),
+                  cost: ItemContainer.create({ItemKey.IRON: 1}),
                   consumable: false),
               MinerShopListing(
                   cost: ItemContainer.create({ItemKey.IRON: 5}),

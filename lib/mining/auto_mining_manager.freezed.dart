@@ -203,7 +203,7 @@ class __$MinerDefinitionCopyWithImpl<$Res>
 
 /// @nodoc
 
-@HiveType(typeId: 11, adapterName: 'MinerProtoAdapter')
+@HiveType(typeId: 11, adapterName: 'MinerDefinitionAdapter')
 class _$_MinerDefinition extends _MinerDefinition {
   const _$_MinerDefinition(
       {@HiveField(2) required this.name,
@@ -319,22 +319,25 @@ abstract class _MinerDefinition extends MinerDefinition {
 class _$MinerInstanceTearOff {
   const _$MinerInstanceTearOff();
 
-  _MinerInstance doNotUse(
-      {required MinerDefinition proto, ItemId? drillItemId}) {
-    return _MinerInstance(
+  StoredMinerInstance stored(
+      {@HiveField(1) required MinerDefinition proto,
+      @HiveField(2) ItemId? drillItemId}) {
+    return StoredMinerInstance(
       proto: proto,
       drillItemId: drillItemId,
     );
   }
 
-  _StoredMinerInstance stored(
+  ActiveMinerInstance active(
       {@HiveField(1) required MinerDefinition proto,
       @HiveField(2) ItemId? drillItemId,
-      @HiveField(3) PlanetPoint? planetPoint}) {
-    return _StoredMinerInstance(
+      @HiveField(3) required PlanetPoint planetPoint,
+      @HiveField(4) required ItemContainer inventory}) {
+    return ActiveMinerInstance(
       proto: proto,
       drillItemId: drillItemId,
       planetPoint: planetPoint,
+      inventory: inventory,
     );
   }
 }
@@ -344,57 +347,67 @@ const $MinerInstance = _$MinerInstanceTearOff();
 
 /// @nodoc
 mixin _$MinerInstance {
+  @HiveField(1)
   MinerDefinition get proto => throw _privateConstructorUsedError;
+  @HiveField(2)
   ItemId? get drillItemId => throw _privateConstructorUsedError;
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MinerDefinition proto, ItemId? drillItemId)
-        doNotUse,
+    required TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)
+        stored,
     required TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)
+        active,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(MinerDefinition proto, ItemId? drillItemId)? doNotUse,
+    TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)?
+        stored,
     TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)?
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)?
+        active,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MinerDefinition proto, ItemId? drillItemId)? doNotUse,
+    TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)?
+        stored,
     TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)?
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)?
+        active,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_MinerInstance value) doNotUse,
-    required TResult Function(_StoredMinerInstance value) stored,
+    required TResult Function(StoredMinerInstance value) stored,
+    required TResult Function(ActiveMinerInstance value) active,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_MinerInstance value)? doNotUse,
-    TResult Function(_StoredMinerInstance value)? stored,
+    TResult Function(StoredMinerInstance value)? stored,
+    TResult Function(ActiveMinerInstance value)? active,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_MinerInstance value)? doNotUse,
-    TResult Function(_StoredMinerInstance value)? stored,
+    TResult Function(StoredMinerInstance value)? stored,
+    TResult Function(ActiveMinerInstance value)? active,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -409,7 +422,8 @@ abstract class $MinerInstanceCopyWith<$Res> {
   factory $MinerInstanceCopyWith(
           MinerInstance value, $Res Function(MinerInstance) then) =
       _$MinerInstanceCopyWithImpl<$Res>;
-  $Res call({MinerDefinition proto, ItemId? drillItemId});
+  $Res call(
+      {@HiveField(1) MinerDefinition proto, @HiveField(2) ItemId? drillItemId});
 
   $MinerDefinitionCopyWith<$Res> get proto;
   $ItemIdCopyWith<$Res>? get drillItemId;
@@ -461,13 +475,14 @@ class _$MinerInstanceCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$MinerInstanceCopyWith<$Res>
+abstract class $StoredMinerInstanceCopyWith<$Res>
     implements $MinerInstanceCopyWith<$Res> {
-  factory _$MinerInstanceCopyWith(
-          _MinerInstance value, $Res Function(_MinerInstance) then) =
-      __$MinerInstanceCopyWithImpl<$Res>;
+  factory $StoredMinerInstanceCopyWith(
+          StoredMinerInstance value, $Res Function(StoredMinerInstance) then) =
+      _$StoredMinerInstanceCopyWithImpl<$Res>;
   @override
-  $Res call({MinerDefinition proto, ItemId? drillItemId});
+  $Res call(
+      {@HiveField(1) MinerDefinition proto, @HiveField(2) ItemId? drillItemId});
 
   @override
   $MinerDefinitionCopyWith<$Res> get proto;
@@ -476,22 +491,22 @@ abstract class _$MinerInstanceCopyWith<$Res>
 }
 
 /// @nodoc
-class __$MinerInstanceCopyWithImpl<$Res>
+class _$StoredMinerInstanceCopyWithImpl<$Res>
     extends _$MinerInstanceCopyWithImpl<$Res>
-    implements _$MinerInstanceCopyWith<$Res> {
-  __$MinerInstanceCopyWithImpl(
-      _MinerInstance _value, $Res Function(_MinerInstance) _then)
-      : super(_value, (v) => _then(v as _MinerInstance));
+    implements $StoredMinerInstanceCopyWith<$Res> {
+  _$StoredMinerInstanceCopyWithImpl(
+      StoredMinerInstance _value, $Res Function(StoredMinerInstance) _then)
+      : super(_value, (v) => _then(v as StoredMinerInstance));
 
   @override
-  _MinerInstance get _value => super._value as _MinerInstance;
+  StoredMinerInstance get _value => super._value as StoredMinerInstance;
 
   @override
   $Res call({
     Object? proto = freezed,
     Object? drillItemId = freezed,
   }) {
-    return _then(_MinerInstance(
+    return _then(StoredMinerInstance(
       proto: proto == freezed
           ? _value.proto
           : proto // ignore: cast_nullable_to_non_nullable
@@ -506,24 +521,28 @@ class __$MinerInstanceCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MinerInstance implements _MinerInstance {
-  const _$_MinerInstance({required this.proto, this.drillItemId});
+@HiveType(typeId: 10, adapterName: 'StoredMinerInstanceAdapter')
+class _$StoredMinerInstance implements StoredMinerInstance {
+  const _$StoredMinerInstance(
+      {@HiveField(1) required this.proto, @HiveField(2) this.drillItemId});
 
   @override
+  @HiveField(1)
   final MinerDefinition proto;
   @override
+  @HiveField(2)
   final ItemId? drillItemId;
 
   @override
   String toString() {
-    return 'MinerInstance.doNotUse(proto: $proto, drillItemId: $drillItemId)';
+    return 'MinerInstance.stored(proto: $proto, drillItemId: $drillItemId)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _MinerInstance &&
+            other is StoredMinerInstance &&
             const DeepCollectionEquality().equals(other.proto, proto) &&
             const DeepCollectionEquality()
                 .equals(other.drillItemId, drillItemId));
@@ -537,49 +556,57 @@ class _$_MinerInstance implements _MinerInstance {
 
   @JsonKey(ignore: true)
   @override
-  _$MinerInstanceCopyWith<_MinerInstance> get copyWith =>
-      __$MinerInstanceCopyWithImpl<_MinerInstance>(this, _$identity);
+  $StoredMinerInstanceCopyWith<StoredMinerInstance> get copyWith =>
+      _$StoredMinerInstanceCopyWithImpl<StoredMinerInstance>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MinerDefinition proto, ItemId? drillItemId)
-        doNotUse,
+    required TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)
+        stored,
     required TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)
+        active,
   }) {
-    return doNotUse(proto, drillItemId);
+    return stored(proto, drillItemId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(MinerDefinition proto, ItemId? drillItemId)? doNotUse,
+    TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)?
+        stored,
     TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)?
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)?
+        active,
   }) {
-    return doNotUse?.call(proto, drillItemId);
+    return stored?.call(proto, drillItemId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MinerDefinition proto, ItemId? drillItemId)? doNotUse,
+    TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)?
+        stored,
     TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)?
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)?
+        active,
     required TResult orElse(),
   }) {
-    if (doNotUse != null) {
-      return doNotUse(proto, drillItemId);
+    if (stored != null) {
+      return stored(proto, drillItemId);
     }
     return orElse();
   }
@@ -587,86 +614,91 @@ class _$_MinerInstance implements _MinerInstance {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_MinerInstance value) doNotUse,
-    required TResult Function(_StoredMinerInstance value) stored,
+    required TResult Function(StoredMinerInstance value) stored,
+    required TResult Function(ActiveMinerInstance value) active,
   }) {
-    return doNotUse(this);
+    return stored(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_MinerInstance value)? doNotUse,
-    TResult Function(_StoredMinerInstance value)? stored,
+    TResult Function(StoredMinerInstance value)? stored,
+    TResult Function(ActiveMinerInstance value)? active,
   }) {
-    return doNotUse?.call(this);
+    return stored?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_MinerInstance value)? doNotUse,
-    TResult Function(_StoredMinerInstance value)? stored,
+    TResult Function(StoredMinerInstance value)? stored,
+    TResult Function(ActiveMinerInstance value)? active,
     required TResult orElse(),
   }) {
-    if (doNotUse != null) {
-      return doNotUse(this);
+    if (stored != null) {
+      return stored(this);
     }
     return orElse();
   }
 }
 
-abstract class _MinerInstance implements MinerInstance {
-  const factory _MinerInstance(
-      {required MinerDefinition proto, ItemId? drillItemId}) = _$_MinerInstance;
+abstract class StoredMinerInstance implements MinerInstance {
+  const factory StoredMinerInstance(
+      {@HiveField(1) required MinerDefinition proto,
+      @HiveField(2) ItemId? drillItemId}) = _$StoredMinerInstance;
 
   @override
+  @HiveField(1)
   MinerDefinition get proto;
   @override
+  @HiveField(2)
   ItemId? get drillItemId;
   @override
   @JsonKey(ignore: true)
-  _$MinerInstanceCopyWith<_MinerInstance> get copyWith =>
+  $StoredMinerInstanceCopyWith<StoredMinerInstance> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$StoredMinerInstanceCopyWith<$Res>
+abstract class $ActiveMinerInstanceCopyWith<$Res>
     implements $MinerInstanceCopyWith<$Res> {
-  factory _$StoredMinerInstanceCopyWith(_StoredMinerInstance value,
-          $Res Function(_StoredMinerInstance) then) =
-      __$StoredMinerInstanceCopyWithImpl<$Res>;
+  factory $ActiveMinerInstanceCopyWith(
+          ActiveMinerInstance value, $Res Function(ActiveMinerInstance) then) =
+      _$ActiveMinerInstanceCopyWithImpl<$Res>;
   @override
   $Res call(
       {@HiveField(1) MinerDefinition proto,
       @HiveField(2) ItemId? drillItemId,
-      @HiveField(3) PlanetPoint? planetPoint});
+      @HiveField(3) PlanetPoint planetPoint,
+      @HiveField(4) ItemContainer inventory});
 
   @override
   $MinerDefinitionCopyWith<$Res> get proto;
   @override
   $ItemIdCopyWith<$Res>? get drillItemId;
-  $PlanetPointCopyWith<$Res>? get planetPoint;
+  $PlanetPointCopyWith<$Res> get planetPoint;
 }
 
 /// @nodoc
-class __$StoredMinerInstanceCopyWithImpl<$Res>
+class _$ActiveMinerInstanceCopyWithImpl<$Res>
     extends _$MinerInstanceCopyWithImpl<$Res>
-    implements _$StoredMinerInstanceCopyWith<$Res> {
-  __$StoredMinerInstanceCopyWithImpl(
-      _StoredMinerInstance _value, $Res Function(_StoredMinerInstance) _then)
-      : super(_value, (v) => _then(v as _StoredMinerInstance));
+    implements $ActiveMinerInstanceCopyWith<$Res> {
+  _$ActiveMinerInstanceCopyWithImpl(
+      ActiveMinerInstance _value, $Res Function(ActiveMinerInstance) _then)
+      : super(_value, (v) => _then(v as ActiveMinerInstance));
 
   @override
-  _StoredMinerInstance get _value => super._value as _StoredMinerInstance;
+  ActiveMinerInstance get _value => super._value as ActiveMinerInstance;
 
   @override
   $Res call({
     Object? proto = freezed,
     Object? drillItemId = freezed,
     Object? planetPoint = freezed,
+    Object? inventory = freezed,
   }) {
-    return _then(_StoredMinerInstance(
+    return _then(ActiveMinerInstance(
       proto: proto == freezed
           ? _value.proto
           : proto // ignore: cast_nullable_to_non_nullable
@@ -678,17 +710,17 @@ class __$StoredMinerInstanceCopyWithImpl<$Res>
       planetPoint: planetPoint == freezed
           ? _value.planetPoint
           : planetPoint // ignore: cast_nullable_to_non_nullable
-              as PlanetPoint?,
+              as PlanetPoint,
+      inventory: inventory == freezed
+          ? _value.inventory
+          : inventory // ignore: cast_nullable_to_non_nullable
+              as ItemContainer,
     ));
   }
 
   @override
-  $PlanetPointCopyWith<$Res>? get planetPoint {
-    if (_value.planetPoint == null) {
-      return null;
-    }
-
-    return $PlanetPointCopyWith<$Res>(_value.planetPoint!, (value) {
+  $PlanetPointCopyWith<$Res> get planetPoint {
+    return $PlanetPointCopyWith<$Res>(_value.planetPoint, (value) {
       return _then(_value.copyWith(planetPoint: value));
     });
   }
@@ -696,12 +728,13 @@ class __$StoredMinerInstanceCopyWithImpl<$Res>
 
 /// @nodoc
 
-@HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
-class _$_StoredMinerInstance implements _StoredMinerInstance {
-  const _$_StoredMinerInstance(
+@HiveType(typeId: 37, adapterName: 'ActiveMinerInstanceAdapter')
+class _$ActiveMinerInstance implements ActiveMinerInstance {
+  const _$ActiveMinerInstance(
       {@HiveField(1) required this.proto,
       @HiveField(2) this.drillItemId,
-      @HiveField(3) this.planetPoint});
+      @HiveField(3) required this.planetPoint,
+      @HiveField(4) required this.inventory});
 
   @override
   @HiveField(1)
@@ -711,23 +744,27 @@ class _$_StoredMinerInstance implements _StoredMinerInstance {
   final ItemId? drillItemId;
   @override
   @HiveField(3)
-  final PlanetPoint? planetPoint;
+  final PlanetPoint planetPoint;
+  @override
+  @HiveField(4)
+  final ItemContainer inventory;
 
   @override
   String toString() {
-    return 'MinerInstance.stored(proto: $proto, drillItemId: $drillItemId, planetPoint: $planetPoint)';
+    return 'MinerInstance.active(proto: $proto, drillItemId: $drillItemId, planetPoint: $planetPoint, inventory: $inventory)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _StoredMinerInstance &&
+            other is ActiveMinerInstance &&
             const DeepCollectionEquality().equals(other.proto, proto) &&
             const DeepCollectionEquality()
                 .equals(other.drillItemId, drillItemId) &&
             const DeepCollectionEquality()
-                .equals(other.planetPoint, planetPoint));
+                .equals(other.planetPoint, planetPoint) &&
+            const DeepCollectionEquality().equals(other.inventory, inventory));
   }
 
   @override
@@ -735,54 +772,62 @@ class _$_StoredMinerInstance implements _StoredMinerInstance {
       runtimeType,
       const DeepCollectionEquality().hash(proto),
       const DeepCollectionEquality().hash(drillItemId),
-      const DeepCollectionEquality().hash(planetPoint));
+      const DeepCollectionEquality().hash(planetPoint),
+      const DeepCollectionEquality().hash(inventory));
 
   @JsonKey(ignore: true)
   @override
-  _$StoredMinerInstanceCopyWith<_StoredMinerInstance> get copyWith =>
-      __$StoredMinerInstanceCopyWithImpl<_StoredMinerInstance>(
-          this, _$identity);
+  $ActiveMinerInstanceCopyWith<ActiveMinerInstance> get copyWith =>
+      _$ActiveMinerInstanceCopyWithImpl<ActiveMinerInstance>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(MinerDefinition proto, ItemId? drillItemId)
-        doNotUse,
+    required TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)
+        stored,
     required TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)
+        active,
   }) {
-    return stored(proto, drillItemId, planetPoint);
+    return active(proto, drillItemId, planetPoint, inventory);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(MinerDefinition proto, ItemId? drillItemId)? doNotUse,
+    TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)?
+        stored,
     TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)?
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)?
+        active,
   }) {
-    return stored?.call(proto, drillItemId, planetPoint);
+    return active?.call(proto, drillItemId, planetPoint, inventory);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(MinerDefinition proto, ItemId? drillItemId)? doNotUse,
+    TResult Function(@HiveField(1) MinerDefinition proto,
+            @HiveField(2) ItemId? drillItemId)?
+        stored,
     TResult Function(
             @HiveField(1) MinerDefinition proto,
             @HiveField(2) ItemId? drillItemId,
-            @HiveField(3) PlanetPoint? planetPoint)?
-        stored,
+            @HiveField(3) PlanetPoint planetPoint,
+            @HiveField(4) ItemContainer inventory)?
+        active,
     required TResult orElse(),
   }) {
-    if (stored != null) {
-      return stored(proto, drillItemId, planetPoint);
+    if (active != null) {
+      return active(proto, drillItemId, planetPoint, inventory);
     }
     return orElse();
   }
@@ -790,40 +835,41 @@ class _$_StoredMinerInstance implements _StoredMinerInstance {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_MinerInstance value) doNotUse,
-    required TResult Function(_StoredMinerInstance value) stored,
+    required TResult Function(StoredMinerInstance value) stored,
+    required TResult Function(ActiveMinerInstance value) active,
   }) {
-    return stored(this);
+    return active(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(_MinerInstance value)? doNotUse,
-    TResult Function(_StoredMinerInstance value)? stored,
+    TResult Function(StoredMinerInstance value)? stored,
+    TResult Function(ActiveMinerInstance value)? active,
   }) {
-    return stored?.call(this);
+    return active?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_MinerInstance value)? doNotUse,
-    TResult Function(_StoredMinerInstance value)? stored,
+    TResult Function(StoredMinerInstance value)? stored,
+    TResult Function(ActiveMinerInstance value)? active,
     required TResult orElse(),
   }) {
-    if (stored != null) {
-      return stored(this);
+    if (active != null) {
+      return active(this);
     }
     return orElse();
   }
 }
 
-abstract class _StoredMinerInstance implements MinerInstance {
-  const factory _StoredMinerInstance(
+abstract class ActiveMinerInstance implements MinerInstance {
+  const factory ActiveMinerInstance(
       {@HiveField(1) required MinerDefinition proto,
       @HiveField(2) ItemId? drillItemId,
-      @HiveField(3) PlanetPoint? planetPoint}) = _$_StoredMinerInstance;
+      @HiveField(3) required PlanetPoint planetPoint,
+      @HiveField(4) required ItemContainer inventory}) = _$ActiveMinerInstance;
 
   @override
   @HiveField(1)
@@ -832,9 +878,11 @@ abstract class _StoredMinerInstance implements MinerInstance {
   @HiveField(2)
   ItemId? get drillItemId;
   @HiveField(3)
-  PlanetPoint? get planetPoint;
+  PlanetPoint get planetPoint;
+  @HiveField(4)
+  ItemContainer get inventory;
   @override
   @JsonKey(ignore: true)
-  _$StoredMinerInstanceCopyWith<_StoredMinerInstance> get copyWith =>
+  $ActiveMinerInstanceCopyWith<ActiveMinerInstance> get copyWith =>
       throw _privateConstructorUsedError;
 }
