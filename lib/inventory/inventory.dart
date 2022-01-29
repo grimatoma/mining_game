@@ -6,7 +6,7 @@ import 'package:mining_game/persistence.dart';
 
 import 'item_container.dart';
 
-final inventoryProvider =
+final inventoryStateProvider =
     StateNotifierProvider<InventoryStateController, ItemContainer>((ref) {
   return InventoryStateController(ref.watch(dataStorageControllerProvider),
       ref.watch(itemDirectoryProvider));

@@ -10,7 +10,9 @@ abstract class BaseItemDefinition {
   String get description;
 }
 
-abstract class ItemAttribute {}
+abstract class ShowInWallet {}
+
+abstract class HideInInventory {}
 
 enum WeaponAttributes {
   SHARP,
@@ -28,7 +30,9 @@ class Sword extends BaseItemDefinition with _$Sword {
 }
 
 @freezed
-class Resource extends BaseItemDefinition with _$Resource {
+class Resource extends BaseItemDefinition
+    with _$Resource
+    implements ShowInWallet, HideInInventory {
   const factory Resource(
       {required ItemKey itemKey,
       required String name,

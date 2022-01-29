@@ -22,34 +22,6 @@ final planetControllerProvider =
   return PlanetController(configs: configs);
 });
 
-class BuiltMapAdapter<KeyT, ValueT>
-    extends TypeAdapter<BuiltMap<KeyT, ValueT>> {
-  @override
-  final int typeId;
-
-  BuiltMapAdapter(this.typeId);
-
-  @override
-  BuiltMap<KeyT, ValueT> read(BinaryReader reader) {
-    return BuiltMap(Map.from(reader.readMap()));
-  }
-
-  @override
-  void write(BinaryWriter writer, BuiltMap<KeyT, ValueT> obj) {
-    writer.writeMap(obj.toMap());
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is BuiltMapAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 // @JsonSerializable()
 @HiveType(typeId: 25)
 class Planet {
@@ -63,10 +35,6 @@ class Planet {
   final int depth;
   @HiveField(4)
   final BuiltMap<PlanetPoint, PlanetTile> map;
-
-  // factory Planet.fromJson(Map<String, dynamic> json) => _$Planet(json);
-  //
-  // Map<String, dynamic> toJson() => _$PlanetToJson(this);
 
   Planet(
       {required this.maxResourceSize,

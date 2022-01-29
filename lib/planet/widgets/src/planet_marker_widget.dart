@@ -32,7 +32,7 @@ class MinerLayerWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
-    final activeMiners = ref.watch(activeMinersControllerProvider);
+    final activeMiners = ref.watch(minersControllerProvider);
     return SizedBox(
       width: screenWidth,
       height: screenHeight,

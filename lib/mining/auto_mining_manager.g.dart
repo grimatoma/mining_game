@@ -6,7 +6,7 @@ part of 'auto_mining_manager.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MinerProtoAdapter extends TypeAdapter<_$_MinerDefinition> {
+class MinerDefinitionAdapter extends TypeAdapter<_$_MinerDefinition> {
   @override
   final int typeId = 11;
 
@@ -53,38 +53,35 @@ class MinerProtoAdapter extends TypeAdapter<_$_MinerDefinition> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MinerProtoAdapter &&
+      other is MinerDefinitionAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class MinerInstanceAdapter extends TypeAdapter<_$_StoredMinerInstance> {
+class StoredMinerInstanceAdapter extends TypeAdapter<_$StoredMinerInstance> {
   @override
   final int typeId = 10;
 
   @override
-  _$_StoredMinerInstance read(BinaryReader reader) {
+  _$StoredMinerInstance read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$_StoredMinerInstance(
+    return _$StoredMinerInstance(
       proto: fields[1] as MinerDefinition,
       drillItemId: fields[2] as ItemId?,
-      planetPoint: fields[3] as PlanetPoint?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$_StoredMinerInstance obj) {
+  void write(BinaryWriter writer, _$StoredMinerInstance obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(2)
       ..writeByte(1)
       ..write(obj.proto)
       ..writeByte(2)
-      ..write(obj.drillItemId)
-      ..writeByte(3)
-      ..write(obj.planetPoint);
+      ..write(obj.drillItemId);
   }
 
   @override
@@ -93,7 +90,50 @@ class MinerInstanceAdapter extends TypeAdapter<_$_StoredMinerInstance> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MinerInstanceAdapter &&
+      other is StoredMinerInstanceAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
+  @override
+  final int typeId = 37;
+
+  @override
+  _$ActiveMinerInstance read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$ActiveMinerInstance(
+      proto: fields[1] as MinerDefinition,
+      drillItemId: fields[2] as ItemId?,
+      planetPoint: fields[3] as PlanetPoint,
+      inventory: fields[4] as ItemContainer,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$ActiveMinerInstance obj) {
+    writer
+      ..writeByte(4)
+      ..writeByte(1)
+      ..write(obj.proto)
+      ..writeByte(2)
+      ..write(obj.drillItemId)
+      ..writeByte(3)
+      ..write(obj.planetPoint)
+      ..writeByte(4)
+      ..write(obj.inventory);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ActiveMinerInstanceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

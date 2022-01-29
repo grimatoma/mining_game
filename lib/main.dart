@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/adapters.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/inventory/inventory.dart';
 import 'package:mining_game/inventory/item_container.dart';
+import 'package:mining_game/inventory/item_definitions.dart';
 import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/item_management/items/metadata/item_instance.dart';
 import 'package:mining_game/item_management/items/metadata/item_proto.dart';
 import 'package:mining_game/item_management/store/shop_listings.dart';
 import 'package:mining_game/item_management/store/store.dart';
+import 'package:mining_game/mining/auto_mining_manager.dart';
 import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
@@ -18,8 +21,9 @@ import 'package:mining_game/planet/widgets/src/planet_interface_widget.dart';
 
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
-  // Hive.registerAdapter(MinerInstanceAdapter());
-  // Hive.registerAdapter(MinerProtoAdapter());
+  Hive.registerAdapter(MinerDefinitionAdapter());
+  Hive.registerAdapter(ActiveMinerInstanceAdapter());
+  Hive.registerAdapter(StoredMinerInstanceAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemKeyAdapter());
   Hive.registerAdapter(BuiltMapAdapter<ItemKey, int>(32));
@@ -76,8 +80,9 @@ class MainMenuWidget extends HookConsumerWidget {
                 }
               },
               child: const Center(
-                  child: Text(
-                      'Clear game state\n(This will reset the game[For testing])\nReload game after clicking to take effect'))),
+                  child: Text('Clear game state\n(This will reset the '
+                      'game[For testing])\nReload game after clicking '
+                      'to take effect'))),
         ],
       ),
     );
@@ -145,6 +150,8 @@ class StoreMenuWidget extends HookConsumerWidget {
   const StoreMenuWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Listen to changes in money (For failed purchases);
+    ref.watch(inventoryStateProvider);
     final storeListingsController =
         ref.watch(storeListingsControllerProvider.notifier);
     final storeListings = ref.watch(storeListingsControllerProvider);
@@ -154,8 +161,8 @@ class StoreMenuWidget extends HookConsumerWidget {
       if (listing is MinerShopListing) {
         final definition = listing.definition;
         return _ActionMenuItem(
-            text:
-                'Name: ${definition.name}\nDescription: ${definition.description}\nCost ${listing.cost}',
+            text: 'Name: ${definition.name}\nDescription: '
+                '${definition.description}\nCost ${listing.cost}',
             onPressed: () {
               final storeController =
                   ref.read(storeListingsControllerProvider.notifier);
@@ -166,10 +173,10 @@ class StoreMenuWidget extends HookConsumerWidget {
                 ? Colors.white
                 : Colors.redAccent);
       } else if (listing is ItemStackShopListing) {
-        final item = itemDirectory.getItemDefinition(listing.itemKey);
+        final item = itemDirectory[listing.itemKey];
         return _ActionMenuItem(
-            text:
-                'Name: ${item.name}\nDescription: ${item.description}\nCost ${listing.cost}\nAmount ${listing.quantity}',
+            text: 'Name: ${item.name}\nDescription: ${item.description}\nCost '
+                '${listing.cost}\nAmount ${listing.quantity}',
             onPressed: () {
               final storeController =
                   ref.read(storeListingsControllerProvider.notifier);
@@ -220,9 +227,13 @@ class InventoryMenuWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final inventory = ref.watch(inventoryProvider);
+    final inventory = ref.watch(inventoryStateProvider);
     final itemDirectory = ref.watch(itemDirectoryProvider);
-    final itemKeys = inventory.items.keys.toList();
+    final itemKeys = inventory.items.keys
+        .where((key) => itemDirectory[key] is! HideInInventory)
+        .toList();
+
+    final storedMiners = ref.watch(minersControllerProvider).storage;
 
     return Scaffold(
       appBar: AppBar(
@@ -232,26 +243,58 @@ class InventoryMenuWidget extends HookConsumerWidget {
         children: [
           const StatusBarWidget(),
           Flexible(
-            child: ListView.separated(
-              shrinkWrap: true,
-              itemBuilder: (_, index) {
-                final item = itemDirectory.getItemDefinition(itemKeys[index]);
-                return Table(
-                  children: [
-                    TableRow(children: [const Text('Name'), Text(item.name)]),
-                    TableRow(children: [
-                      const Text('Description'),
-                      Text(item.description)
-                    ]),
-                    TableRow(children: [
-                      const Text('Amount'),
-                      Text(inventory.items[itemKeys[index]].toString())
-                    ]),
-                  ],
-                );
-              },
-              itemCount: inventory.items.length,
-              separatorBuilder: (_, __) => const Divider(),
+            child: Column(
+              children: [
+                const Text('Items'),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (_, index) {
+                    final item = itemDirectory[itemKeys[index]];
+                    return Table(
+                      children: [
+                        TableRow(
+                            children: [const Text('Name'), Text(item.name)]),
+                        TableRow(children: [
+                          const Text('Description'),
+                          Text(item.description)
+                        ]),
+                        TableRow(children: [
+                          const Text('Amount'),
+                          Text(inventory.items[itemKeys[index]].toString())
+                        ]),
+                      ],
+                    );
+                  },
+                  itemCount: itemKeys.length,
+                  separatorBuilder: (_, __) => const Divider(),
+                ),
+                const Text('Miners'),
+                ListView.separated(
+                  shrinkWrap: true,
+                  itemBuilder: (_, index) {
+                    final miner = storedMiners[index];
+                    final definition = miner.proto;
+                    return Table(
+                      children: [
+                        TableRow(children: [
+                          const Text('Name'),
+                          Text(definition.name)
+                        ]),
+                        TableRow(children: [
+                          const Text('Description'),
+                          Text(definition.description)
+                        ]),
+                        TableRow(children: [
+                          const Text('Damage'),
+                          Text(definition.baseDamage.toString())
+                        ]),
+                      ],
+                    );
+                  },
+                  itemCount: storedMiners.length,
+                  separatorBuilder: (_, __) => const Divider(),
+                ),
+              ],
             ),
           ),
         ],
@@ -267,13 +310,19 @@ class StatusBarWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final inventory = ref.watch(inventoryProvider);
+    final itemDirectory = ref.watch(itemDirectoryProvider);
+    final itemEntry = ref
+        .watch(inventoryStateProvider)
+        .items
+        .entries
+        .where((element) => itemDirectory[element.key] is ShowInWallet);
     return Table(
       children: [
-        TableRow(children: [
-          const Text('Iron: '),
-          Text(inventory.get(ItemKey.IRON).toString())
-        ]),
+        for (final item in itemEntry)
+          TableRow(children: [
+            Text(itemDirectory[item.key].name),
+            Text(item.value.toString()),
+          ]),
       ],
     );
   }
