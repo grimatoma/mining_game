@@ -22,15 +22,6 @@ class InstanceId {
   String toString() => _guid;
 }
 
-// abstract class ItemInstance<DefinitionT extends ItemProto> {
-//   DefinitionT get proto;
-//   const ItemInstance();
-//
-//   factory ItemInstance.create(DefinitionT proto, InstanceId id) {
-//     throw 'Must overwrite this class';
-//   }
-// }
-
 String get _generateId {
   Random random = Random(DateTime.now().millisecond);
 

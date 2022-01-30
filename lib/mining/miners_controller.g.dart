@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'auto_mining_manager.dart';
+part of 'miners_controller.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
-import 'package:mining_game/inventory/item_directory.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 
 part 'item_container.g.dart';
 
@@ -45,9 +45,9 @@ class ItemContainer {
         return builder;
       }));
 
-  ItemContainer maxCanBeRemoved(ItemContainer other) =>
+  ItemContainer maxCanBeRemoved(ItemContainer attemptedRemoveAmount) =>
       ItemContainer(BuiltMap.build((builder) {
-        for (final entries in other.items.entries) {
+        for (final entries in attemptedRemoveAmount.items.entries) {
           builder[entries.key] = min(get(entries.key), entries.value);
         }
       }));

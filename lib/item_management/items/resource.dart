@@ -2,13 +2,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/item_management/item_definitions.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 
-part 'drill.freezed.dart';
+part 'resource.freezed.dart';
 
 @freezed
-class DrillDefinition extends BaseItemForDirectory with _$DrillDefinition {
-  const factory DrillDefinition(
+class ResourceDefinition extends BaseItemForDirectory
+    with _$ResourceDefinition
+    implements ShowInWallet, HideInInventory {
+  const factory ResourceDefinition(
       {required ItemKey itemKey,
       required String name,
-      required String description,
-      required int damage}) = _DrillDefinition;
+      required String description}) = _ResourceDefinition;
 }

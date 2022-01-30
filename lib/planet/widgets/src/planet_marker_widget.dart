@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/auto_mining_manager.dart';
+import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/planet/planet_marker.dart';
 
 class PlanetMarkerWidget extends HookConsumerWidget {

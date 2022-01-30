@@ -1,10 +1,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/inventory/item_directory.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/persistence.dart';
 
-import 'item_container.dart';
+import 'items/item_container.dart';
 
 final inventoryStateProvider =
     StateNotifierProvider<InventoryStateController, ItemContainer>((ref) {
@@ -15,7 +15,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
   final ItemDirectory _itemDirectory;
   InventoryStateController(this._itemDirectory) : super(ItemContainer.empty()) {
     void loadInitialData() async {
-      final loadedBox = await Hive.openBox<int>(DatabaseName.inventory0.name);
+      final loadedBox = await Hive.openBox<int>(DatabaseName.inventory.name);
       state = ItemContainer({
         for (final val in loadedBox.keys)
           _itemDirectory.getKey(val): loadedBox.get(val) ?? 0,
@@ -37,7 +37,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     };
 
     state = state.rebuild((p0) => p0.addAll(mappedItems));
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory0.name);
+    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory.name);
     loadedBox
         .putAll(mappedItems.map((key, value) => MapEntry(key.name, value)));
   }
@@ -63,7 +63,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     final itemUpdates = mappedItems.entries.where((entry) => entry.value > 0);
     final itemRemovals = mappedItems.entries.where((entry) => entry.value <= 0);
 
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory0.name);
+    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory.name);
 
     state = state.rebuild((p0) {
       p0.addEntries(itemUpdates);

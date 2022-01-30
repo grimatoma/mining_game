@@ -1,8 +1,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/inventory/item_definitions.dart';
+import 'package:mining_game/item_management/item_definitions.dart';
 import 'package:mining_game/item_management/items/drill.dart';
+import 'package:mining_game/item_management/items/resource.dart';
+import 'package:mining_game/item_management/items/sword.dart';
 
 part 'item_directory.g.dart';
 
@@ -41,7 +43,6 @@ enum ItemKey {
   ROCK,
   @HiveField(1)
   SHARP_ROCK,
-// BANANA,
   @HiveField(2)
   IRON,
   @HiveField(3)

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/planet/planet.dart';
+import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/planet_marker.dart';
 import 'package:mining_game/planet/widgets/src/planet_marker_widget.dart';
 import 'package:mining_game/planet/widgets/src/planet_painter_widget.dart';

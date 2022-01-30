@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';

@@ -3,14 +3,13 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/adapters.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
-import 'package:mining_game/inventory/inventory.dart';
-import 'package:mining_game/inventory/item_container.dart';
-import 'package:mining_game/inventory/item_definitions.dart';
-import 'package:mining_game/inventory/item_directory.dart';
-import 'package:mining_game/item_management/items/metadata/item_instance.dart';
-import 'package:mining_game/item_management/store/shop_listings.dart';
+import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/item_management/item_definitions.dart';
+import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
-import 'package:mining_game/mining/auto_mining_manager.dart';
+import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
@@ -26,8 +25,6 @@ void main() async {
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemKeyAdapter());
   Hive.registerAdapter(BuiltMapAdapter<ItemKey, int>(32));
-  Hive.registerAdapter(InstanceIdAdapter());
-  // Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(PlanetTileAdapter());
   Hive.registerAdapter(PlanetPointAdapter());
   Hive.registerAdapter(PlanetAdapter());
@@ -151,9 +148,8 @@ class StoreMenuWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen to changes in money (For failed purchases);
     ref.watch(inventoryStateProvider);
-    final storeListingsController =
-        ref.watch(storeListingsControllerProvider.notifier);
-    final storeListings = ref.watch(storeListingsControllerProvider);
+    final storeListingsController = ref.watch(storeControllerProvider.notifier);
+    final storeListings = ref.watch(storeControllerProvider);
     final itemDirectory = ref.watch(itemDirectoryProvider);
 
     Widget _shopItem(ShopListing listing) {
@@ -164,7 +160,7 @@ class StoreMenuWidget extends HookConsumerWidget {
                 '${definition.description}\nCost ${listing.cost}',
             onPressed: () {
               final storeController =
-                  ref.read(storeListingsControllerProvider.notifier);
+                  ref.read(storeControllerProvider.notifier);
               if (!storeController.canBuyItem(listing)) return;
               storeController.buyItem(listing);
             },
@@ -178,7 +174,7 @@ class StoreMenuWidget extends HookConsumerWidget {
                 '${listing.cost}\nAmount ${listing.quantity}',
             onPressed: () {
               final storeController =
-                  ref.read(storeListingsControllerProvider.notifier);
+                  ref.read(storeControllerProvider.notifier);
               if (!storeController.canBuyItem(listing)) return;
               storeController.buyItem(listing);
             },
@@ -190,8 +186,7 @@ class StoreMenuWidget extends HookConsumerWidget {
       return _ActionMenuItem(
           text: '${listing.toString()}  ${listing.cost}',
           onPressed: () {
-            final storeController =
-                ref.read(storeListingsControllerProvider.notifier);
+            final storeController = ref.read(storeControllerProvider.notifier);
             if (!storeController.canBuyItem(listing)) return;
             storeController.buyItem(listing);
           },

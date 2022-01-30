@@ -5,18 +5,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/event_manager.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
-import 'package:mining_game/inventory/inventory.dart';
-import 'package:mining_game/inventory/item_container.dart';
-import 'package:mining_game/inventory/item_definitions.dart';
-import 'package:mining_game/inventory/item_directory.dart';
+import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/item_management/item_definitions.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/drill.dart';
+import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence.dart';
-import 'package:mining_game/planet/planet.dart';
+import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
 
-part 'auto_mining_manager.freezed.dart';
-part 'auto_mining_manager.g.dart';
+part 'miners_controller.freezed.dart';
+part 'miners_controller.g.dart';
 
 final minersControllerProvider =
     StateNotifierProvider<MinersController, Miners>((ref) {
@@ -72,9 +72,9 @@ class MinersController extends StateNotifier<Miners> {
       : super(Miners._empty()) {
     void loadInitialData() async {
       final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
-          DatabaseName.installedMiners0.name);
+          DatabaseName.installedMiners.name);
       final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
-          DatabaseName.storedMiners0.name);
+          DatabaseName.storedMiners.name);
       state = state.rebuild(activeMinerUpdates: (builder) {
         for (final miner in installedMinersBox.values) {
           builder[miner.planetPoint] = miner;
@@ -88,9 +88,9 @@ class MinersController extends StateNotifier<Miners> {
 
     void updateBox() async {
       final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
-          DatabaseName.installedMiners0.name);
+          DatabaseName.installedMiners.name);
       final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
-          DatabaseName.storedMiners0.name);
+          DatabaseName.storedMiners.name);
       stream.listen((event) {
         installedMinersBox
           ..clear()
