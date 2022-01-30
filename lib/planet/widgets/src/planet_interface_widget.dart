@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
+import 'package:mining_game/inventory/inventory.dart';
 import 'package:mining_game/inventory/item_container.dart';
 import 'package:mining_game/inventory/item_directory.dart';
 import 'package:mining_game/mining/auto_mining_manager.dart';
@@ -33,9 +34,9 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
     return Column(children: [
       Text('Selected Location: ${selectedTile.point.toString()}'),
       TextButton(
-          onPressed: () => ref
-              .read(minersControllerProvider.notifier)
-              .dig(selectedTile.point, ItemContainer.single(ItemKey.IRON, 1)),
+          onPressed: () => ref.read(inventoryStateProvider.notifier).add(ref
+              .read(planetControllerProvider.notifier)
+              .dig(selectedTile.point, ItemContainer.single(ItemKey.IRON, 1))),
           child: const Text('dig')),
       if (!selectedTile.visible)
         TextButton(
@@ -111,15 +112,18 @@ class ActiveMinersWidget extends HookConsumerWidget {
                       children: [Text('Drill damage ${miner.drillDamage}')]),
                 ],
                 TableRow(children: [Text('Total damage ${miner.totalDamage}')]),
-                const TableRow(children: [Text('Inventory 23/100')]),
+                TableRow(children: [
+                  Text(
+                      'Inventory ${miner.hopper}/${miner.definition.baseHopperSize}')
+                ]),
                 const TableRow(children: [Text('picture of resource')]),
                 if (!miner.hasDrill)
                   TableRow(children: [
                     TextButton(
                         onPressed: () {
-                          ref
-                              .read(gameEventManagerProvider)
-                              .addEvent(DrillAttachEvent(miner: miner));
+                          ref.read(gameEventManagerProvider).addEvent(
+                              DrillAttachEvent(
+                                  miner: miner, drillId: ItemKey.TEST_DRILL));
                         },
                         child: const Text('Attach drill'))
                   ]),
@@ -141,6 +145,15 @@ class ActiveMinersWidget extends HookConsumerWidget {
                             .addEvent(StoreMinerEvent(miner: miner));
                       },
                       child: const Text('Store Miner'))
+                ]),
+                TableRow(children: [
+                  TextButton(
+                      onPressed: () {
+                        ref
+                            .read(gameEventManagerProvider)
+                            .addEvent(CollectHopperMinerEvent(miner: miner));
+                      },
+                      child: const Text('Collect resources'))
                 ]),
               ],
             );

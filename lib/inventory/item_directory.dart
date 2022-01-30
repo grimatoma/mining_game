@@ -25,11 +25,13 @@ class ItemDirectory {
         'Keys to items have a mismatch!');
     assert(_items.length == _itemDatabase.length,
         'An Item key is being used twice!');
+    for (final key in ItemKey.values) {
+      assert(_items[key] != null, 'Item ${key.name} missing item definition');
+    }
   }
 
   ItemKey getKey(String s) => _keys[s]!;
 
-  T? getDefinition<T>(ItemKey key) => _items[key] as T;
   BaseItemForDirectory operator [](ItemKey key) => _items[key]!;
 }
 
@@ -46,6 +48,11 @@ enum ItemKey {
   COPPER,
   @HiveField(4)
   TEST_DRILL,
+}
+
+extension Def on ItemKey {
+  DefT getDefinition<DefT extends BaseItemDefinition>() =>
+      ItemDirectory.directory._items[this] as DefT;
 }
 
 final _itemDatabase = <BaseItemForDirectory>[

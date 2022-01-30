@@ -149,7 +149,7 @@ class PlanetController extends StateNotifier<Planet> {
 
   ItemContainer dig(PlanetPoint p, ItemContainer damage) {
     final tile = planet.map[p];
-    if (tile == null) return ItemContainer(BuiltMap());
+    if (tile == null || tile.resources.empty) return ItemContainer.empty();
 
     final resolvedDamage = tile.resources.maxCanBeRemoved(damage);
     planet = planet.rebuild((p0) {

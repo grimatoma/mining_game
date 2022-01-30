@@ -109,7 +109,7 @@ class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
       definition: fields[1] as MinerDefinition,
       drillItemId: fields[2] as ItemKey?,
       planetPoint: fields[3] as PlanetPoint,
-      inventory: fields[4] as ItemContainer,
+      hopper: fields[4] as ItemContainer,
     );
   }
 
@@ -124,7 +124,7 @@ class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
       ..writeByte(3)
       ..write(obj.planetPoint)
       ..writeByte(4)
-      ..write(obj.inventory);
+      ..write(obj.hopper);
   }
 
   @override

@@ -44,6 +44,14 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
 
   int get(ItemKey key) => state.items[key] ?? 0;
 
+  bool tryRemove(ItemContainer container) {
+    if (canRemove(container)) {
+      remove(container);
+      return true;
+    }
+    return false;
+  }
+
   bool canRemove(ItemContainer container) =>
       !container.items.entries.any((entry) => get(entry.key) - entry.value < 0);
 

@@ -19,6 +19,11 @@ final storeListingsControllerProvider =
                   quantity: 5,
                   cost: ItemContainer.create({ItemKey.IRON: 1}),
                   consumable: false),
+              ItemStackShopListing(
+                  itemKey: ItemKey.TEST_DRILL,
+                  quantity: 1,
+                  cost: ItemContainer.create({ItemKey.IRON: 15}),
+                  consumable: false),
               MinerShopListing(
                   cost: ItemContainer.create({ItemKey.IRON: 5}),
                   definition: const MinerDefinition(

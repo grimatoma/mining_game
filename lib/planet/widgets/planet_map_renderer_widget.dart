@@ -45,8 +45,8 @@ class PlanetMapRenderer extends HookConsumerWidget {
             child: FittedBox(
               fit: BoxFit.fill,
               child: Container(
-                  width: planet.width.toDouble(),
-                  height: planet.height.toDouble(),
+                  width: planet.width.toDouble() * 10,
+                  height: planet.height.toDouble() * 10,
                   color: Colors.yellow,
                   child: CustomPaint(painter: PlanetMapPainter(planet))),
             ),

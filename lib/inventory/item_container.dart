@@ -27,6 +27,8 @@ class ItemContainer {
 
   int get(ItemKey itemKey) => items[itemKey] ?? 0;
 
+  bool get empty => items.values.every((element) => element <= 0);
+
   ItemContainer operator -(ItemContainer other) =>
       ItemContainer(items.rebuild((builder) {
         for (final entry in other.items.entries) {

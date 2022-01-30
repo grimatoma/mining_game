@@ -333,12 +333,12 @@ class _$MinerInstanceTearOff {
       {@HiveField(1) required MinerDefinition definition,
       @HiveField(2) required ItemKey? drillItemId,
       @HiveField(3) required PlanetPoint planetPoint,
-      @HiveField(4) required ItemContainer inventory}) {
+      @HiveField(4) required ItemContainer hopper}) {
     return ActiveMinerInstance(
       definition: definition,
       drillItemId: drillItemId,
       planetPoint: planetPoint,
-      inventory: inventory,
+      hopper: hopper,
     );
   }
 }
@@ -362,7 +362,7 @@ mixin _$MinerInstance {
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)
+            @HiveField(4) ItemContainer hopper)
         active,
   }) =>
       throw _privateConstructorUsedError;
@@ -375,7 +375,7 @@ mixin _$MinerInstance {
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)?
+            @HiveField(4) ItemContainer hopper)?
         active,
   }) =>
       throw _privateConstructorUsedError;
@@ -388,7 +388,7 @@ mixin _$MinerInstance {
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)?
+            @HiveField(4) ItemContainer hopper)?
         active,
     required TResult orElse(),
   }) =>
@@ -511,9 +511,10 @@ class _$StoredMinerInstanceCopyWithImpl<$Res>
 /// @nodoc
 
 @HiveType(typeId: 10, adapterName: 'StoredMinerInstanceAdapter')
-class _$StoredMinerInstance implements StoredMinerInstance {
+class _$StoredMinerInstance extends StoredMinerInstance {
   const _$StoredMinerInstance(
-      {@HiveField(1) required this.definition, @HiveField(2) this.drillItemId});
+      {@HiveField(1) required this.definition, @HiveField(2) this.drillItemId})
+      : super._();
 
   @override
   @HiveField(1)
@@ -559,7 +560,7 @@ class _$StoredMinerInstance implements StoredMinerInstance {
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)
+            @HiveField(4) ItemContainer hopper)
         active,
   }) {
     return stored(definition, drillItemId);
@@ -575,7 +576,7 @@ class _$StoredMinerInstance implements StoredMinerInstance {
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)?
+            @HiveField(4) ItemContainer hopper)?
         active,
   }) {
     return stored?.call(definition, drillItemId);
@@ -591,7 +592,7 @@ class _$StoredMinerInstance implements StoredMinerInstance {
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)?
+            @HiveField(4) ItemContainer hopper)?
         active,
     required TResult orElse(),
   }) {
@@ -633,10 +634,11 @@ class _$StoredMinerInstance implements StoredMinerInstance {
   }
 }
 
-abstract class StoredMinerInstance implements MinerInstance {
+abstract class StoredMinerInstance extends MinerInstance {
   const factory StoredMinerInstance(
       {@HiveField(1) required MinerDefinition definition,
       @HiveField(2) ItemKey? drillItemId}) = _$StoredMinerInstance;
+  const StoredMinerInstance._() : super._();
 
   @override
   @HiveField(1)
@@ -661,7 +663,7 @@ abstract class $ActiveMinerInstanceCopyWith<$Res>
       {@HiveField(1) MinerDefinition definition,
       @HiveField(2) ItemKey? drillItemId,
       @HiveField(3) PlanetPoint planetPoint,
-      @HiveField(4) ItemContainer inventory});
+      @HiveField(4) ItemContainer hopper});
 
   @override
   $MinerDefinitionCopyWith<$Res> get definition;
@@ -684,7 +686,7 @@ class _$ActiveMinerInstanceCopyWithImpl<$Res>
     Object? definition = freezed,
     Object? drillItemId = freezed,
     Object? planetPoint = freezed,
-    Object? inventory = freezed,
+    Object? hopper = freezed,
   }) {
     return _then(ActiveMinerInstance(
       definition: definition == freezed
@@ -699,9 +701,9 @@ class _$ActiveMinerInstanceCopyWithImpl<$Res>
           ? _value.planetPoint
           : planetPoint // ignore: cast_nullable_to_non_nullable
               as PlanetPoint,
-      inventory: inventory == freezed
-          ? _value.inventory
-          : inventory // ignore: cast_nullable_to_non_nullable
+      hopper: hopper == freezed
+          ? _value.hopper
+          : hopper // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
     ));
   }
@@ -718,14 +720,14 @@ class _$ActiveMinerInstanceCopyWithImpl<$Res>
 
 @HiveType(typeId: 37, adapterName: 'ActiveMinerInstanceAdapter')
 @With<ActiveMinerMethods>()
-class _$ActiveMinerInstance
-    with ActiveMinerMethods
-    implements ActiveMinerInstance {
+class _$ActiveMinerInstance extends ActiveMinerInstance
+    with ActiveMinerMethods {
   const _$ActiveMinerInstance(
       {@HiveField(1) required this.definition,
       @HiveField(2) required this.drillItemId,
       @HiveField(3) required this.planetPoint,
-      @HiveField(4) required this.inventory});
+      @HiveField(4) required this.hopper})
+      : super._();
 
   @override
   @HiveField(1)
@@ -738,11 +740,11 @@ class _$ActiveMinerInstance
   final PlanetPoint planetPoint;
   @override
   @HiveField(4)
-  final ItemContainer inventory;
+  final ItemContainer hopper;
 
   @override
   String toString() {
-    return 'MinerInstance.active(definition: $definition, drillItemId: $drillItemId, planetPoint: $planetPoint, inventory: $inventory)';
+    return 'MinerInstance.active(definition: $definition, drillItemId: $drillItemId, planetPoint: $planetPoint, hopper: $hopper)';
   }
 
   @override
@@ -756,7 +758,7 @@ class _$ActiveMinerInstance
                 .equals(other.drillItemId, drillItemId) &&
             const DeepCollectionEquality()
                 .equals(other.planetPoint, planetPoint) &&
-            const DeepCollectionEquality().equals(other.inventory, inventory));
+            const DeepCollectionEquality().equals(other.hopper, hopper));
   }
 
   @override
@@ -765,7 +767,7 @@ class _$ActiveMinerInstance
       const DeepCollectionEquality().hash(definition),
       const DeepCollectionEquality().hash(drillItemId),
       const DeepCollectionEquality().hash(planetPoint),
-      const DeepCollectionEquality().hash(inventory));
+      const DeepCollectionEquality().hash(hopper));
 
   @JsonKey(ignore: true)
   @override
@@ -782,10 +784,10 @@ class _$ActiveMinerInstance
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)
+            @HiveField(4) ItemContainer hopper)
         active,
   }) {
-    return active(definition, drillItemId, planetPoint, inventory);
+    return active(definition, drillItemId, planetPoint, hopper);
   }
 
   @override
@@ -798,10 +800,10 @@ class _$ActiveMinerInstance
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)?
+            @HiveField(4) ItemContainer hopper)?
         active,
   }) {
-    return active?.call(definition, drillItemId, planetPoint, inventory);
+    return active?.call(definition, drillItemId, planetPoint, hopper);
   }
 
   @override
@@ -814,12 +816,12 @@ class _$ActiveMinerInstance
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
-            @HiveField(4) ItemContainer inventory)?
+            @HiveField(4) ItemContainer hopper)?
         active,
     required TResult orElse(),
   }) {
     if (active != null) {
-      return active(definition, drillItemId, planetPoint, inventory);
+      return active(definition, drillItemId, planetPoint, hopper);
     }
     return orElse();
   }
@@ -856,13 +858,14 @@ class _$ActiveMinerInstance
   }
 }
 
-abstract class ActiveMinerInstance
-    implements MinerInstance, ActiveMinerMethods {
+abstract class ActiveMinerInstance extends MinerInstance
+    implements ActiveMinerMethods {
   const factory ActiveMinerInstance(
       {@HiveField(1) required MinerDefinition definition,
       @HiveField(2) required ItemKey? drillItemId,
       @HiveField(3) required PlanetPoint planetPoint,
-      @HiveField(4) required ItemContainer inventory}) = _$ActiveMinerInstance;
+      @HiveField(4) required ItemContainer hopper}) = _$ActiveMinerInstance;
+  const ActiveMinerInstance._() : super._();
 
   @override
   @HiveField(1)
@@ -873,7 +876,7 @@ abstract class ActiveMinerInstance
   @HiveField(3)
   PlanetPoint get planetPoint;
   @HiveField(4)
-  ItemContainer get inventory;
+  ItemContainer get hopper;
   @override
   @JsonKey(ignore: true)
   $ActiveMinerInstanceCopyWith<ActiveMinerInstance> get copyWith =>

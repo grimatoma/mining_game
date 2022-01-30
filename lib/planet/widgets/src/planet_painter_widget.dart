@@ -29,8 +29,9 @@ class PlanetMapPainter extends CustomPainter {
       for (var y = 0.0; y < _planet.height; y++) {
         final tile = _planet.getTile(PlanetPoint(x.toInt(), y.toInt(), 0));
 
-        canvas.drawPoints(
-            PointMode.points, [Offset(x + .5, y + .5)], getPaint(tile));
+        canvas.drawRect(Rect.fromLTWH(x * 10, y * 10, 10, 10), getPaint(tile));
+        // canvas.drawPoints(
+        //     PointMode.points, [Offset(x + .5, y + .5)], getPaint(tile));
       }
     }
   }
