@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/mining/miners_controller.dart';
+import 'package:mining_game/mining/miner.dart';
 
 part 'shop_listing_definitions.freezed.dart';
 

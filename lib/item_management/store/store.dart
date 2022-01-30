@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/mining/miners_controller.dart';
+import 'package:mining_game/mining/miner_events.dart';
 
 import 'shop_listing_definitions.dart';
 import 'store_listings.dart';

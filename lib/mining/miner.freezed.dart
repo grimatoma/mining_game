@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'miners_controller.dart';
+part of 'miner.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -321,20 +321,24 @@ class _$MinerInstanceTearOff {
   const _$MinerInstanceTearOff();
 
   StoredMinerInstance stored(
-      {@HiveField(1) required MinerDefinition definition,
+      {@HiveField(0) required InstanceId id,
+      @HiveField(1) required MinerDefinition definition,
       @HiveField(2) ItemKey? drillItemId}) {
     return StoredMinerInstance(
+      id: id,
       definition: definition,
       drillItemId: drillItemId,
     );
   }
 
   ActiveMinerInstance active(
-      {@HiveField(1) required MinerDefinition definition,
+      {@HiveField(0) required InstanceId id,
+      @HiveField(1) required MinerDefinition definition,
       @HiveField(2) required ItemKey? drillItemId,
       @HiveField(3) required PlanetPoint planetPoint,
       @HiveField(4) required ItemContainer hopper}) {
     return ActiveMinerInstance(
+      id: id,
       definition: definition,
       drillItemId: drillItemId,
       planetPoint: planetPoint,
@@ -348,6 +352,8 @@ const $MinerInstance = _$MinerInstanceTearOff();
 
 /// @nodoc
 mixin _$MinerInstance {
+  @HiveField(0)
+  InstanceId get id => throw _privateConstructorUsedError;
   @HiveField(1)
   MinerDefinition get definition => throw _privateConstructorUsedError;
   @HiveField(2)
@@ -355,10 +361,13 @@ mixin _$MinerInstance {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(1) MinerDefinition definition,
+    required TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)
         stored,
     required TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
@@ -368,10 +377,13 @@ mixin _$MinerInstance {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(1) MinerDefinition definition,
+    TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)?
         stored,
     TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
@@ -381,10 +393,13 @@ mixin _$MinerInstance {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(1) MinerDefinition definition,
+    TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)?
         stored,
     TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
@@ -424,7 +439,8 @@ abstract class $MinerInstanceCopyWith<$Res> {
           MinerInstance value, $Res Function(MinerInstance) then) =
       _$MinerInstanceCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(1) MinerDefinition definition,
+      {@HiveField(0) InstanceId id,
+      @HiveField(1) MinerDefinition definition,
       @HiveField(2) ItemKey? drillItemId});
 
   $MinerDefinitionCopyWith<$Res> get definition;
@@ -441,10 +457,15 @@ class _$MinerInstanceCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? definition = freezed,
     Object? drillItemId = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as InstanceId,
       definition: definition == freezed
           ? _value.definition
           : definition // ignore: cast_nullable_to_non_nullable
@@ -472,7 +493,8 @@ abstract class $StoredMinerInstanceCopyWith<$Res>
       _$StoredMinerInstanceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(1) MinerDefinition definition,
+      {@HiveField(0) InstanceId id,
+      @HiveField(1) MinerDefinition definition,
       @HiveField(2) ItemKey? drillItemId});
 
   @override
@@ -492,10 +514,15 @@ class _$StoredMinerInstanceCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? definition = freezed,
     Object? drillItemId = freezed,
   }) {
     return _then(StoredMinerInstance(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as InstanceId,
       definition: definition == freezed
           ? _value.definition
           : definition // ignore: cast_nullable_to_non_nullable
@@ -513,9 +540,14 @@ class _$StoredMinerInstanceCopyWithImpl<$Res>
 @HiveType(typeId: 10, adapterName: 'StoredMinerInstanceAdapter')
 class _$StoredMinerInstance extends StoredMinerInstance {
   const _$StoredMinerInstance(
-      {@HiveField(1) required this.definition, @HiveField(2) this.drillItemId})
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.definition,
+      @HiveField(2) this.drillItemId})
       : super._();
 
+  @override
+  @HiveField(0)
+  final InstanceId id;
   @override
   @HiveField(1)
   final MinerDefinition definition;
@@ -525,7 +557,7 @@ class _$StoredMinerInstance extends StoredMinerInstance {
 
   @override
   String toString() {
-    return 'MinerInstance.stored(definition: $definition, drillItemId: $drillItemId)';
+    return 'MinerInstance.stored(id: $id, definition: $definition, drillItemId: $drillItemId)';
   }
 
   @override
@@ -533,6 +565,7 @@ class _$StoredMinerInstance extends StoredMinerInstance {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is StoredMinerInstance &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
                 .equals(other.definition, definition) &&
             const DeepCollectionEquality()
@@ -542,6 +575,7 @@ class _$StoredMinerInstance extends StoredMinerInstance {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(definition),
       const DeepCollectionEquality().hash(drillItemId));
 
@@ -553,42 +587,51 @@ class _$StoredMinerInstance extends StoredMinerInstance {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(1) MinerDefinition definition,
+    required TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)
         stored,
     required TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
             @HiveField(4) ItemContainer hopper)
         active,
   }) {
-    return stored(definition, drillItemId);
+    return stored(id, definition, drillItemId);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(1) MinerDefinition definition,
+    TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)?
         stored,
     TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
             @HiveField(4) ItemContainer hopper)?
         active,
   }) {
-    return stored?.call(definition, drillItemId);
+    return stored?.call(id, definition, drillItemId);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(1) MinerDefinition definition,
+    TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)?
         stored,
     TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
@@ -597,7 +640,7 @@ class _$StoredMinerInstance extends StoredMinerInstance {
     required TResult orElse(),
   }) {
     if (stored != null) {
-      return stored(definition, drillItemId);
+      return stored(id, definition, drillItemId);
     }
     return orElse();
   }
@@ -636,10 +679,14 @@ class _$StoredMinerInstance extends StoredMinerInstance {
 
 abstract class StoredMinerInstance extends MinerInstance {
   const factory StoredMinerInstance(
-      {@HiveField(1) required MinerDefinition definition,
+      {@HiveField(0) required InstanceId id,
+      @HiveField(1) required MinerDefinition definition,
       @HiveField(2) ItemKey? drillItemId}) = _$StoredMinerInstance;
   const StoredMinerInstance._() : super._();
 
+  @override
+  @HiveField(0)
+  InstanceId get id;
   @override
   @HiveField(1)
   MinerDefinition get definition;
@@ -660,7 +707,8 @@ abstract class $ActiveMinerInstanceCopyWith<$Res>
       _$ActiveMinerInstanceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(1) MinerDefinition definition,
+      {@HiveField(0) InstanceId id,
+      @HiveField(1) MinerDefinition definition,
       @HiveField(2) ItemKey? drillItemId,
       @HiveField(3) PlanetPoint planetPoint,
       @HiveField(4) ItemContainer hopper});
@@ -683,12 +731,17 @@ class _$ActiveMinerInstanceCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? definition = freezed,
     Object? drillItemId = freezed,
     Object? planetPoint = freezed,
     Object? hopper = freezed,
   }) {
     return _then(ActiveMinerInstance(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as InstanceId,
       definition: definition == freezed
           ? _value.definition
           : definition // ignore: cast_nullable_to_non_nullable
@@ -723,12 +776,16 @@ class _$ActiveMinerInstanceCopyWithImpl<$Res>
 class _$ActiveMinerInstance extends ActiveMinerInstance
     with ActiveMinerMethods {
   const _$ActiveMinerInstance(
-      {@HiveField(1) required this.definition,
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.definition,
       @HiveField(2) required this.drillItemId,
       @HiveField(3) required this.planetPoint,
       @HiveField(4) required this.hopper})
       : super._();
 
+  @override
+  @HiveField(0)
+  final InstanceId id;
   @override
   @HiveField(1)
   final MinerDefinition definition;
@@ -744,7 +801,7 @@ class _$ActiveMinerInstance extends ActiveMinerInstance
 
   @override
   String toString() {
-    return 'MinerInstance.active(definition: $definition, drillItemId: $drillItemId, planetPoint: $planetPoint, hopper: $hopper)';
+    return 'MinerInstance.active(id: $id, definition: $definition, drillItemId: $drillItemId, planetPoint: $planetPoint, hopper: $hopper)';
   }
 
   @override
@@ -752,6 +809,7 @@ class _$ActiveMinerInstance extends ActiveMinerInstance
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ActiveMinerInstance &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
                 .equals(other.definition, definition) &&
             const DeepCollectionEquality()
@@ -764,6 +822,7 @@ class _$ActiveMinerInstance extends ActiveMinerInstance
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(definition),
       const DeepCollectionEquality().hash(drillItemId),
       const DeepCollectionEquality().hash(planetPoint),
@@ -777,42 +836,51 @@ class _$ActiveMinerInstance extends ActiveMinerInstance
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(1) MinerDefinition definition,
+    required TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)
         stored,
     required TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
             @HiveField(4) ItemContainer hopper)
         active,
   }) {
-    return active(definition, drillItemId, planetPoint, hopper);
+    return active(id, definition, drillItemId, planetPoint, hopper);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(1) MinerDefinition definition,
+    TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)?
         stored,
     TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
             @HiveField(4) ItemContainer hopper)?
         active,
   }) {
-    return active?.call(definition, drillItemId, planetPoint, hopper);
+    return active?.call(id, definition, drillItemId, planetPoint, hopper);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(1) MinerDefinition definition,
+    TResult Function(
+            @HiveField(0) InstanceId id,
+            @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId)?
         stored,
     TResult Function(
+            @HiveField(0) InstanceId id,
             @HiveField(1) MinerDefinition definition,
             @HiveField(2) ItemKey? drillItemId,
             @HiveField(3) PlanetPoint planetPoint,
@@ -821,7 +889,7 @@ class _$ActiveMinerInstance extends ActiveMinerInstance
     required TResult orElse(),
   }) {
     if (active != null) {
-      return active(definition, drillItemId, planetPoint, hopper);
+      return active(id, definition, drillItemId, planetPoint, hopper);
     }
     return orElse();
   }
@@ -861,12 +929,16 @@ class _$ActiveMinerInstance extends ActiveMinerInstance
 abstract class ActiveMinerInstance extends MinerInstance
     implements ActiveMinerMethods {
   const factory ActiveMinerInstance(
-      {@HiveField(1) required MinerDefinition definition,
+      {@HiveField(0) required InstanceId id,
+      @HiveField(1) required MinerDefinition definition,
       @HiveField(2) required ItemKey? drillItemId,
       @HiveField(3) required PlanetPoint planetPoint,
       @HiveField(4) required ItemContainer hopper}) = _$ActiveMinerInstance;
   const ActiveMinerInstance._() : super._();
 
+  @override
+  @HiveField(0)
+  InstanceId get id;
   @override
   @HiveField(1)
   MinerDefinition get definition;

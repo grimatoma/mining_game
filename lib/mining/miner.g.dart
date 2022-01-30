@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'miners_controller.dart';
+part of 'miner.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -69,6 +69,7 @@ class StoredMinerInstanceAdapter extends TypeAdapter<_$StoredMinerInstance> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$StoredMinerInstance(
+      id: fields[0] as InstanceId,
       definition: fields[1] as MinerDefinition,
       drillItemId: fields[2] as ItemKey?,
     );
@@ -77,7 +78,9 @@ class StoredMinerInstanceAdapter extends TypeAdapter<_$StoredMinerInstance> {
   @override
   void write(BinaryWriter writer, _$StoredMinerInstance obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
       ..writeByte(1)
       ..write(obj.definition)
       ..writeByte(2)
@@ -106,6 +109,7 @@ class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$ActiveMinerInstance(
+      id: fields[0] as InstanceId,
       definition: fields[1] as MinerDefinition,
       drillItemId: fields[2] as ItemKey?,
       planetPoint: fields[3] as PlanetPoint,
@@ -116,7 +120,9 @@ class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
   @override
   void write(BinaryWriter writer, _$ActiveMinerInstance obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
+      ..writeByte(0)
+      ..write(obj.id)
       ..writeByte(1)
       ..write(obj.definition)
       ..writeByte(2)

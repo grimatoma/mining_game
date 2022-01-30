@@ -5,18 +5,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/event_manager.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
+import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/item_definitions.dart';
 import 'package:mining_game/item_management/item_directory.dart';
-import 'package:mining_game/item_management/items/drill.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
 
-part 'miners_controller.freezed.dart';
-part 'miners_controller.g.dart';
+import 'miner.dart';
+import 'miner_events.dart';
+import 'miners.dart';
 
 final minersControllerProvider =
     StateNotifierProvider<MinersController, Miners>((ref) {
@@ -28,33 +28,14 @@ final minersControllerProvider =
 });
 
 final storedMinersProvider =
-    Provider.autoDispose<BuiltList<StoredMinerInstance>>(
-        (ref) => ref.watch(minersControllerProvider).storage);
-
-final activeMinersProvider =
+    Provider.autoDispose<BuiltMap<InstanceId, StoredMinerInstance>>(
+        (ref) => ref.watch(minersControllerProvider).stored);
+final activeMinerLocationsProvider =
     Provider.autoDispose<BuiltMap<PlanetPoint, ActiveMinerInstance>>(
+        (ref) => ref.watch(minersControllerProvider).activeLocations);
+final activeMinersProvider =
+    Provider.autoDispose<BuiltMap<InstanceId, ActiveMinerInstance>>(
         (ref) => ref.watch(minersControllerProvider).active);
-
-class Miners {
-  final BuiltMap<PlanetPoint, ActiveMinerInstance> active;
-  final BuiltList<StoredMinerInstance> storage;
-
-  const Miners({required this.active, required this.storage});
-  Miners._empty()
-      : active = BuiltMap(),
-        storage = BuiltList();
-
-  Miners rebuild(
-          {Function(MapBuilder<PlanetPoint, MinerInstance>)? activeMinerUpdates,
-          Function(ListBuilder<MinerInstance>)? storedMinerUpdates}) =>
-      Miners(
-          active: activeMinerUpdates != null
-              ? active.rebuild(activeMinerUpdates)
-              : active,
-          storage: storedMinerUpdates != null
-              ? storage.rebuild(storedMinerUpdates)
-              : storage);
-}
 
 /// Manges all auto miners and notifies when the miners collection changes.
 class MinersController extends StateNotifier<Miners> {
@@ -69,20 +50,20 @@ class MinersController extends StateNotifier<Miners> {
 
   MinersController(this._eventStreamManager, this._gameClock,
       this._planetController, this._inventoryController)
-      : super(Miners._empty()) {
+      : super(Miners.empty()) {
     void loadInitialData() async {
       final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
           DatabaseName.installedMiners.name);
       final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
           DatabaseName.storedMiners.name);
-      state = state.rebuild(activeMinerUpdates: (builder) {
-        for (final miner in installedMinersBox.values) {
-          builder[miner.planetPoint] = miner;
-        }
-      }, storedMinerUpdates: (builder) {
-        for (final miner in storedMinersBox.values) {
-          builder.add(miner);
-        }
+      state = state.rebuild(addOrUpdateActive: {
+        for (final miner in installedMinersBox.values)
+          // Regenerate the id on each load.
+          miner.copyWith(id: InstanceId.generate())
+      }, addOrUpdateStored: {
+        for (final miner in storedMinersBox.values)
+          // Regenerate the id on each load.
+          miner.copyWith(id: InstanceId.generate())
       });
     }
 
@@ -94,10 +75,12 @@ class MinersController extends StateNotifier<Miners> {
       stream.listen((event) {
         installedMinersBox
           ..clear()
-          ..addAll(event.active.values);
+          ..addAll(event.active.values)
+          ..flush();
         storedMinersBox
           ..clear()
-          ..addAll(event.storage);
+          ..addAll(event.stored.values)
+          ..flush();
       });
     }
 
@@ -116,7 +99,7 @@ class MinersController extends StateNotifier<Miners> {
           _storeMinerEvent(event);
           break;
         case MinerEventTypes.CREATE_MINER:
-          _createMiner(event);
+          _createMinerEvent(event);
           break;
         case MinerEventTypes.DRILL_ATTACH:
           _drillAttach(event);
@@ -133,9 +116,9 @@ class MinersController extends StateNotifier<Miners> {
   }
 
   void _processGameTick() {
-    activeAutoMiners.active.forEach((_, miner) {
+    for (var miner in activeAutoMiners.active.values) {
       dig(miner);
-    });
+    }
   }
 
   void dig(ActiveMinerInstance miner) {
@@ -143,51 +126,49 @@ class MinersController extends StateNotifier<Miners> {
     final resources = _planetController.dig(miner.planetPoint,
         ItemContainer.single(ItemKey.IRON, miner.totalDamage));
     if (resources.empty) return;
-    state = state.rebuild(activeMinerUpdates: (builder) {
-      builder[miner.planetPoint] =
-          miner.copyWith(hopper: miner.hopper + resources);
-    });
+    state = state.rebuildSingle(
+        addOrUpdateActive: miner.copyWith(hopper: miner.hopper + resources));
   }
 
   void moveMinerHopperToInventory(AutoMiningManagerEvent event) {
     event as CollectHopperMinerEvent;
     final miner = event.miner;
     _inventoryController.add(miner.hopper);
-    state = state.rebuild(activeMinerUpdates: (builder) {
-      builder[miner.planetPoint] =
-          miner.copyWith(hopper: ItemContainer.empty());
-    });
+    state = state.rebuildSingle(
+        addOrUpdateActive: miner.copyWith(hopper: ItemContainer.empty()));
   }
 
   void _installMinerEvent(AutoMiningManagerEvent event) {
     event as InstallAutoMinerEvent;
     final miner = event.miner;
-    state = state.rebuild(activeMinerUpdates: (builder) {
-      builder[event.point] = MinerInstance.active(
-          definition: miner.definition,
-          planetPoint: event.point,
-          drillItemId: miner.drillItemId,
-          hopper: ItemContainer.empty());
-    }, storedMinerUpdates: (builder) {
-      builder.remove(miner);
-    });
+    state = state.rebuildSingle(
+        addOrUpdateActive: ActiveMinerInstance(
+            id: miner.id,
+            definition: miner.definition,
+            planetPoint: event.point,
+            drillItemId: miner.drillItemId,
+            hopper: ItemContainer.empty()),
+        removeStored: miner);
   }
 
-  void _createMiner(AutoMiningManagerEvent event) {
+  void _createMinerEvent(AutoMiningManagerEvent event) {
     event as CreateMinerEvent;
-    activeAutoMiners = state.rebuild(
-        storedMinerUpdates: (p0) =>
-            p0.add(MinerInstance.stored(definition: event.definition)));
+    activeAutoMiners = state.rebuildSingle(
+        addOrUpdateStored: _createNewStoredMiner(event.definition));
   }
+
+  StoredMinerInstance _createNewStoredMiner(MinerDefinition definition) =>
+      StoredMinerInstance(id: InstanceId.generate(), definition: definition);
 
   void _storeMinerEvent(AutoMiningManagerEvent event) {
     event as StoreMinerEvent;
     final miner = event.miner;
-    activeAutoMiners = activeAutoMiners.rebuild(
-        activeMinerUpdates: (p0) =>
-            p0.removeWhere((_, miner) => miner == miner),
-        storedMinerUpdates: (p0) => p0.add(MinerInstance.stored(
-            definition: miner.definition, drillItemId: miner.drillItemId)));
+    activeAutoMiners = activeAutoMiners.rebuildSingle(
+        removeActive: miner,
+        addOrUpdateStored: StoredMinerInstance(
+            id: miner.id,
+            definition: miner.definition,
+            drillItemId: miner.drillItemId));
   }
 
   void _drillAttach(AutoMiningManagerEvent event) {
@@ -208,135 +189,14 @@ class MinersController extends StateNotifier<Miners> {
 
   void _updateMinerWithDrill(MinerInstance miner, ItemKey? drill) {
     if (miner is ActiveMinerInstance) {
-      activeAutoMiners = activeAutoMiners.rebuild(
-          activeMinerUpdates: (p0) =>
-              p0[miner.planetPoint] = miner.copyWith(drillItemId: drill));
+      activeAutoMiners = activeAutoMiners.rebuildSingle(
+          addOrUpdateActive: miner.copyWith(drillItemId: drill));
     } else if (miner is StoredMinerInstance) {
-      activeAutoMiners = activeAutoMiners.rebuild(
-          storedMinerUpdates: (p0) => p0
-            ..remove(miner)
-            ..add(miner.copyWith(drillItemId: drill)));
+      activeAutoMiners = activeAutoMiners.rebuildSingle(
+          addOrUpdateStored: miner.copyWith(drillItemId: drill));
     }
   }
 
   bool hasMiner(PlanetTile planetTile) =>
-      activeAutoMiners.active.containsKey(planetTile);
-}
-
-abstract class AutoMiningManagerEvent extends GameEvent<MinerEventTypes> {
-  @override
-  MinerEventTypes get type;
-}
-
-enum MinerEventTypes {
-  INSTALL_AUTO_MINER,
-  DRILL_ATTACH,
-  STORE_MINER,
-  CREATE_MINER,
-  DRILL_REMOVE,
-  COLLECT_HOPPER,
-}
-
-class CreateMinerEvent extends AutoMiningManagerEvent {
-  @override
-  final type = MinerEventTypes.CREATE_MINER;
-
-  final MinerDefinition definition;
-
-  CreateMinerEvent(this.definition);
-}
-
-class InstallAutoMinerEvent extends AutoMiningManagerEvent {
-  @override
-  final type = MinerEventTypes.INSTALL_AUTO_MINER;
-
-  final PlanetPoint point;
-  final StoredMinerInstance miner;
-
-  InstallAutoMinerEvent({required this.miner, required this.point});
-}
-
-class StoreMinerEvent extends AutoMiningManagerEvent {
-  @override
-  final type = MinerEventTypes.STORE_MINER;
-
-  final ActiveMinerInstance miner;
-
-  StoreMinerEvent({required this.miner});
-}
-
-class CollectHopperMinerEvent extends AutoMiningManagerEvent {
-  @override
-  final type = MinerEventTypes.COLLECT_HOPPER;
-
-  final ActiveMinerInstance miner;
-
-  CollectHopperMinerEvent({required this.miner});
-}
-
-class DrillAttachEvent extends AutoMiningManagerEvent {
-  @override
-  final type = MinerEventTypes.DRILL_ATTACH;
-
-  final ItemKey drillId;
-  final MinerInstance miner;
-
-  DrillAttachEvent({required this.miner, required this.drillId});
-}
-
-class DrillRemoveEvent extends AutoMiningManagerEvent {
-  @override
-  final type = MinerEventTypes.DRILL_REMOVE;
-
-  final MinerInstance miner;
-
-  DrillRemoveEvent({required this.miner});
-}
-
-@freezed
-class MinerDefinition extends BaseItemDefinition with _$MinerDefinition {
-  const MinerDefinition._();
-  @HiveType(typeId: 11, adapterName: 'MinerDefinitionAdapter')
-  const factory MinerDefinition(
-      {@HiveField(2) required String name,
-      @HiveField(3) required String description,
-      @HiveField(4) required int radius,
-      @HiveField(5) required int depth,
-      @HiveField(6) required int baseDamage,
-      // Should this be for all resources or per resource?
-      @HiveField(7) required int baseHopperSize,
-      @HiveField(8) required int fuelConsumption}) = _MinerDefinition;
-}
-
-@freezed
-class MinerInstance with _$MinerInstance {
-  const MinerInstance._();
-
-  @HiveType(typeId: 10, adapterName: 'StoredMinerInstanceAdapter')
-  const factory MinerInstance.stored({
-    @HiveField(1) required MinerDefinition definition,
-    @HiveField(2) ItemKey? drillItemId,
-  }) = StoredMinerInstance;
-
-  @HiveType(typeId: 37, adapterName: 'ActiveMinerInstanceAdapter')
-  @With<ActiveMinerMethods>()
-  const factory MinerInstance.active({
-    @HiveField(1) required MinerDefinition definition,
-    @HiveField(2) required ItemKey? drillItemId,
-    @HiveField(3) required PlanetPoint planetPoint,
-    @HiveField(4) required ItemContainer hopper,
-  }) = ActiveMinerInstance;
-
-  bool get hasDrill => drillItemId != null;
-  DrillDefinition? get drill => drillItemId?.getDefinition();
-}
-
-mixin ActiveMinerMethods {
-  MinerDefinition get definition;
-  ItemKey? get drillItemId;
-  DrillDefinition? get drill;
-
-  int get baseDamage => definition.baseDamage;
-  int get drillDamage => drill?.damage ?? 0;
-  int get totalDamage => baseDamage + drillDamage;
+      activeAutoMiners.activeLocations.containsKey(planetTile);
 }

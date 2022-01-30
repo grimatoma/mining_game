@@ -4,6 +4,8 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/mining/miner.dart';
+import 'package:mining_game/mining/miner_events.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/planet_marker.dart';
@@ -11,7 +13,7 @@ import 'package:mining_game/planet/planet_marker.dart';
 final selectedMinerFromDropdownProvider =
     StateProvider.autoDispose<StoredMinerInstance?>((ref) {
   final availableMiners = ref.watch(storedMinersProvider);
-  if (availableMiners.isNotEmpty) return availableMiners.first;
+  if (availableMiners.isNotEmpty) return availableMiners.values.first;
   return null;
 });
 
@@ -46,7 +48,10 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
             child: const Text('scan')),
       if (availableMiners.isNotEmpty &&
           selectedTile.visible &&
-          !ref.watch(minersControllerProvider).active.containsKey(selectedTile))
+          !ref
+              .watch(minersControllerProvider)
+              .activeLocations
+              .containsKey(selectedTile))
         Row(
           children: [
             const Text('Select Miner to install:'),
@@ -56,7 +61,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                   height: 2,
                   color: Colors.deepPurpleAccent,
                 ),
-                items: availableMiners
+                items: availableMiners.values
                     .map<DropdownMenuItem<StoredMinerInstance>>((value) =>
                         DropdownMenuItem<StoredMinerInstance>(
                             child: Text(value.definition.name), value: value))
@@ -92,7 +97,7 @@ class ActiveMinersWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final miners =
-        ref.watch(activeMinersProvider).values.toList(growable: false);
+        ref.watch(activeMinerLocationsProvider).values.toList(growable: false);
     return Column(
       children: [
         const Text('Active Miners'),

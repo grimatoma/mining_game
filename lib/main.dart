@@ -17,6 +17,9 @@ import 'package:mining_game/planet/point.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget.dart';
 import 'package:mining_game/planet/widgets/src/planet_interface_widget.dart';
 
+import 'item_management/instance_id.dart';
+import 'mining/miner.dart';
+
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerDefinitionAdapter());
@@ -24,6 +27,7 @@ void main() async {
   Hive.registerAdapter(StoredMinerInstanceAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemKeyAdapter());
+  Hive.registerAdapter(InstanceIdAdapter());
   Hive.registerAdapter(BuiltMapAdapter<ItemKey, int>(32));
   Hive.registerAdapter(PlanetTileAdapter());
   Hive.registerAdapter(PlanetPointAdapter());
@@ -227,7 +231,11 @@ class InventoryMenuWidget extends HookConsumerWidget {
         .where((key) => itemDirectory[key] is! HideInInventory)
         .toList();
 
-    final storedMiners = ref.watch(minersControllerProvider).storage;
+    final storedMiners = ref
+        .watch(minersControllerProvider)
+        .stored
+        .values
+        .toList(growable: false);
 
     return Scaffold(
       appBar: AppBar(

@@ -1,7 +1,7 @@
 import 'package:built_collection/src/list.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/mining/miners_controller.dart';
+import 'package:mining_game/mining/miner.dart';
 
 import 'shop_listing_definitions.dart';
 
