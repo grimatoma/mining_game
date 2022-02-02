@@ -22,7 +22,8 @@ class MinerDefinition extends BaseItemDefinition with _$MinerDefinition {
       @HiveField(6) required int baseDamage,
       // Should this be for all resources or per resource?
       @HiveField(7) required int baseHopperSize,
-      @HiveField(8) required int fuelConsumption}) = _MinerDefinition;
+      @HiveField(8) required int fuelConsumption,
+      @HiveField(9) required String image}) = _MinerDefinition;
 }
 
 @freezed

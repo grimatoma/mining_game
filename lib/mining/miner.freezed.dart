@@ -25,7 +25,8 @@ class _$MinerDefinitionTearOff {
       @HiveField(5) required int depth,
       @HiveField(6) required int baseDamage,
       @HiveField(7) required int baseHopperSize,
-      @HiveField(8) required int fuelConsumption}) {
+      @HiveField(8) required int fuelConsumption,
+      @HiveField(9) required String image}) {
     return _MinerDefinition(
       name: name,
       description: description,
@@ -34,6 +35,7 @@ class _$MinerDefinitionTearOff {
       baseDamage: baseDamage,
       baseHopperSize: baseHopperSize,
       fuelConsumption: fuelConsumption,
+      image: image,
     );
   }
 }
@@ -58,6 +60,8 @@ mixin _$MinerDefinition {
   int get baseHopperSize => throw _privateConstructorUsedError;
   @HiveField(8)
   int get fuelConsumption => throw _privateConstructorUsedError;
+  @HiveField(9)
+  String get image => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $MinerDefinitionCopyWith<MinerDefinition> get copyWith =>
@@ -76,7 +80,8 @@ abstract class $MinerDefinitionCopyWith<$Res> {
       @HiveField(5) int depth,
       @HiveField(6) int baseDamage,
       @HiveField(7) int baseHopperSize,
-      @HiveField(8) int fuelConsumption});
+      @HiveField(8) int fuelConsumption,
+      @HiveField(9) String image});
 }
 
 /// @nodoc
@@ -97,6 +102,7 @@ class _$MinerDefinitionCopyWithImpl<$Res>
     Object? baseDamage = freezed,
     Object? baseHopperSize = freezed,
     Object? fuelConsumption = freezed,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
       name: name == freezed
@@ -127,6 +133,10 @@ class _$MinerDefinitionCopyWithImpl<$Res>
           ? _value.fuelConsumption
           : fuelConsumption // ignore: cast_nullable_to_non_nullable
               as int,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -145,7 +155,8 @@ abstract class _$MinerDefinitionCopyWith<$Res>
       @HiveField(5) int depth,
       @HiveField(6) int baseDamage,
       @HiveField(7) int baseHopperSize,
-      @HiveField(8) int fuelConsumption});
+      @HiveField(8) int fuelConsumption,
+      @HiveField(9) String image});
 }
 
 /// @nodoc
@@ -168,6 +179,7 @@ class __$MinerDefinitionCopyWithImpl<$Res>
     Object? baseDamage = freezed,
     Object? baseHopperSize = freezed,
     Object? fuelConsumption = freezed,
+    Object? image = freezed,
   }) {
     return _then(_MinerDefinition(
       name: name == freezed
@@ -198,6 +210,10 @@ class __$MinerDefinitionCopyWithImpl<$Res>
           ? _value.fuelConsumption
           : fuelConsumption // ignore: cast_nullable_to_non_nullable
               as int,
+      image: image == freezed
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -213,7 +229,8 @@ class _$_MinerDefinition extends _MinerDefinition {
       @HiveField(5) required this.depth,
       @HiveField(6) required this.baseDamage,
       @HiveField(7) required this.baseHopperSize,
-      @HiveField(8) required this.fuelConsumption})
+      @HiveField(8) required this.fuelConsumption,
+      @HiveField(9) required this.image})
       : super._();
 
   @override
@@ -237,10 +254,13 @@ class _$_MinerDefinition extends _MinerDefinition {
   @override
   @HiveField(8)
   final int fuelConsumption;
+  @override
+  @HiveField(9)
+  final String image;
 
   @override
   String toString() {
-    return 'MinerDefinition(name: $name, description: $description, radius: $radius, depth: $depth, baseDamage: $baseDamage, baseHopperSize: $baseHopperSize, fuelConsumption: $fuelConsumption)';
+    return 'MinerDefinition(name: $name, description: $description, radius: $radius, depth: $depth, baseDamage: $baseDamage, baseHopperSize: $baseHopperSize, fuelConsumption: $fuelConsumption, image: $image)';
   }
 
   @override
@@ -258,7 +278,8 @@ class _$_MinerDefinition extends _MinerDefinition {
             const DeepCollectionEquality()
                 .equals(other.baseHopperSize, baseHopperSize) &&
             const DeepCollectionEquality()
-                .equals(other.fuelConsumption, fuelConsumption));
+                .equals(other.fuelConsumption, fuelConsumption) &&
+            const DeepCollectionEquality().equals(other.image, image));
   }
 
   @override
@@ -270,7 +291,8 @@ class _$_MinerDefinition extends _MinerDefinition {
       const DeepCollectionEquality().hash(depth),
       const DeepCollectionEquality().hash(baseDamage),
       const DeepCollectionEquality().hash(baseHopperSize),
-      const DeepCollectionEquality().hash(fuelConsumption));
+      const DeepCollectionEquality().hash(fuelConsumption),
+      const DeepCollectionEquality().hash(image));
 
   @JsonKey(ignore: true)
   @override
@@ -286,7 +308,8 @@ abstract class _MinerDefinition extends MinerDefinition {
       @HiveField(5) required int depth,
       @HiveField(6) required int baseDamage,
       @HiveField(7) required int baseHopperSize,
-      @HiveField(8) required int fuelConsumption}) = _$_MinerDefinition;
+      @HiveField(8) required int fuelConsumption,
+      @HiveField(9) required String image}) = _$_MinerDefinition;
   const _MinerDefinition._() : super._();
 
   @override
@@ -310,6 +333,9 @@ abstract class _MinerDefinition extends MinerDefinition {
   @override
   @HiveField(8)
   int get fuelConsumption;
+  @override
+  @HiveField(9)
+  String get image;
   @override
   @JsonKey(ignore: true)
   _$MinerDefinitionCopyWith<_MinerDefinition> get copyWith =>

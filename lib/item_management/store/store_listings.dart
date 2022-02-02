@@ -19,15 +19,15 @@ final storeListings = <ShopListing>[
   MinerShopListing(
       cost: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
-        name: 'Junk Miner',
-        description:
-            'Salvaged from a garage sale. Barely functional and guzzles gas',
-        radius: 1,
-        depth: 1,
-        baseDamage: 1,
-        baseHopperSize: 50,
-        fuelConsumption: 5,
-      )),
+          name: 'Junk Miner',
+          description:
+              'Salvaged from a garage sale. Barely functional and guzzles gas',
+          radius: 1,
+          depth: 1,
+          baseDamage: 1,
+          baseHopperSize: 50,
+          fuelConsumption: 5,
+          image: 'images/drills/1.jpg')),
   MinerShopListing(
       cost: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
@@ -37,7 +37,8 @@ final storeListings = <ShopListing>[
           depth: 1,
           baseDamage: 2,
           baseHopperSize: 100,
-          fuelConsumption: 5)),
+          fuelConsumption: 5,
+          image: 'images/drills/2.jpg')),
   MinerShopListing(
       cost: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
@@ -47,7 +48,8 @@ final storeListings = <ShopListing>[
           depth: 1,
           baseDamage: 1,
           baseHopperSize: 50,
-          fuelConsumption: 5)),
+          fuelConsumption: 5,
+          image: 'images/drills/3.jpg')),
   MinerShopListing(
       cost: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
@@ -57,16 +59,17 @@ final storeListings = <ShopListing>[
           depth: 1,
           baseDamage: 1,
           baseHopperSize: 50,
-          fuelConsumption: 5)),
+          fuelConsumption: 5,
+          image: 'images/drills/4.jpg')),
   MinerShopListing(
       cost: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
-        name: 'Test Miner 5',
-        description: 'this is the 5 miner',
-        radius: 1,
-        depth: 1,
-        baseDamage: 1,
-        baseHopperSize: 50,
-        fuelConsumption: 5,
-      )),
+          name: 'Test Miner 5',
+          description: 'this is the 5 miner',
+          radius: 1,
+          depth: 1,
+          baseDamage: 1,
+          baseHopperSize: 50,
+          fuelConsumption: 5,
+          image: 'images/drills/5.png')),
 ].build();

@@ -24,13 +24,14 @@ class MinerDefinitionAdapter extends TypeAdapter<_$_MinerDefinition> {
       baseDamage: fields[6] as int,
       baseHopperSize: fields[7] as int,
       fuelConsumption: fields[8] as int,
+      image: fields[9] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_MinerDefinition obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(2)
       ..write(obj.name)
       ..writeByte(3)
@@ -44,7 +45,9 @@ class MinerDefinitionAdapter extends TypeAdapter<_$_MinerDefinition> {
       ..writeByte(7)
       ..write(obj.baseHopperSize)
       ..writeByte(8)
-      ..write(obj.fuelConsumption);
+      ..write(obj.fuelConsumption)
+      ..writeByte(9)
+      ..write(obj.image);
   }
 
   @override
