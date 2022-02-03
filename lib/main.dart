@@ -6,6 +6,7 @@ import 'package:mining_game/adapters.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
@@ -58,9 +59,14 @@ class NavItem {
       : key = GlobalKey();
 }
 
-final navigationIndexProvider = StateProvider<int>((ref) => 0);
+final navigationIndexProvider =
+    StateNotifierProvider<IndexNotifier, int>((ref) => IndexNotifier());
 
-// class IndexNotifier extends StateNotifier<>
+class IndexNotifier extends StateNotifier<int> with HistoryMixin<int> {
+  IndexNotifier() : super(0) {
+    state = 0;
+  }
+}
 
 final mainNavigationPagesProvider = StateProvider<BuiltList<NavItem>>((ref) {
   return [
@@ -97,6 +103,11 @@ class MainNavigationWidget extends ConsumerWidget {
         // Add Will PopScope
         child: WillPopScope(
           onWillPop: () async {
+            final stateProvider = ref.read(navigationIndexProvider.notifier);
+            if (stateProvider.canUndo) {
+              stateProvider.undo();
+            }
+            // TODO: Allow app to close...
             return false;
           },
           child: IndexedStack(
@@ -115,15 +126,7 @@ class MainNavigationWidget extends ConsumerWidget {
         ],
         currentIndex: index,
         onTap: (index) async {
-          final item = ref.read(mainNavigationPagesProvider)[index];
-          // Navigator.po(context, );
-          final oldIndex = ref.read(navigationIndexProvider);
           ref.read(navigationIndexProvider.notifier).state = index;
-
-          // window.history.pushState(null, item.name, '/${item.name}');
-          // ref.read(navigationIndexProvider.notifier).state = oldIndex;
-          //
-          // html.window.history.
         },
       ),
     );

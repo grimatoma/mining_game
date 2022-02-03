@@ -5,7 +5,7 @@ mixin HistoryMixin<T> on StateNotifier<T> {
 
   int _undoIndex = 0;
 
-  bool get _canUndo => _undoIndex + 1 < _history.length;
+  bool get canUndo => _undoIndex + 1 < _history.length;
 
   bool get _canRedo => _undoIndex > 0;
 
@@ -17,7 +17,7 @@ mixin HistoryMixin<T> on StateNotifier<T> {
   }
 
   void undo() {
-    if (_canUndo) {
+    if (canUndo) {
       super.state = _history[++_undoIndex];
     }
   }
