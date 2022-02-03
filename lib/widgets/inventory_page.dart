@@ -29,6 +29,7 @@ class InventoryPageWidget extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Inventory'),
+        centerTitle: true,
       ),
       body: Column(
         children: [

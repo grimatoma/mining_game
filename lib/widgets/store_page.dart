@@ -65,6 +65,7 @@ class StorePageWidget extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Store'),
+        centerTitle: true,
       ),
       body: Center(
         child: SizedBox(

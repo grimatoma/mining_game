@@ -12,6 +12,7 @@ class PlanetPageWidget extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Planet'),
+        centerTitle: true,
       ),
       body: SizedBox(
         child: Column(children: const [

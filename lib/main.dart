@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,6 +14,7 @@ import 'package:mining_game/planet/point.dart';
 import 'item_management/instance_id.dart';
 import 'mining/miner.dart';
 import 'widgets/inventory_page.dart';
+import 'widgets/navigator_page.dart';
 import 'widgets/planet_page.dart';
 import 'widgets/status_bar.dart';
 import 'widgets/store_page.dart';
@@ -39,34 +41,90 @@ class MiningGameWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(gameCoreProvider);
 
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Lets mine',
-      home: SafeArea(
-        child: Scaffold(
-          persistentFooterButtons: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _NavigationMenuItem(
-                    text: 'Planet Menu',
-                    path: 'planet',
-                    builder: (context) => const PlanetPageWidget()),
-                _NavigationMenuItem(
-                    text: 'Store',
-                    path: 'store',
-                    builder: (context) => const StorePageWidget()),
-                _NavigationMenuItem(
-                    text: 'Inventory',
-                    path: 'inventory',
-                    builder: (context) => const InventoryPageWidget())
-              ],
-            ),
-          ],
-          appBar: AppBar(
-            title: const Text('Mining Game WIP'),
+      home: MainNavigationWidget(),
+    );
+  }
+}
+
+class NavItem {
+  final GlobalKey key;
+  final String name;
+  final Widget Function(BuildContext) builder;
+  final IconData icon;
+
+  NavItem({required this.name, required this.builder, required this.icon})
+      : key = GlobalKey();
+}
+
+final navigationIndexProvider = StateProvider<int>((ref) => 0);
+
+// class IndexNotifier extends StateNotifier<>
+
+final mainNavigationPagesProvider = StateProvider<BuiltList<NavItem>>((ref) {
+  return [
+    NavItem(
+        name: 'Main',
+        icon: Icons.home,
+        builder: (context) => const MainMenuWidget()),
+    NavItem(
+        name: 'Planet',
+        icon: Icons.circle,
+        builder: (context) => const PlanetPageWidget()),
+    NavItem(
+        name: 'Store',
+        icon: Icons.store,
+        builder: (context) => const StorePageWidget()),
+    NavItem(
+        name: 'Inventory',
+        icon: Icons.storage,
+        builder: (context) => const InventoryPageWidget()),
+  ].build();
+});
+
+class MainNavigationWidget extends ConsumerWidget {
+  const MainNavigationWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final index = ref.watch(navigationIndexProvider);
+    final items = ref.watch(mainNavigationPagesProvider);
+    return Scaffold(
+      body: SafeArea(
+        // Add Will PopScope
+        child: WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: IndexedStack(
+            index: index,
+            children: [
+              for (final item in items) NavigatorPage(navItem: item),
+            ],
           ),
-          body: const MainMenuWidget(),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+          for (final item in items)
+            BottomNavigationBarItem(icon: Icon(item.icon), label: item.name),
+        ],
+        currentIndex: index,
+        onTap: (index) async {
+          final item = ref.read(mainNavigationPagesProvider)[index];
+          // Navigator.po(context, );
+          final oldIndex = ref.read(navigationIndexProvider);
+          ref.read(navigationIndexProvider.notifier).state = index;
+
+          // window.history.pushState(null, item.name, '/${item.name}');
+          // ref.read(navigationIndexProvider.notifier).state = oldIndex;
+          //
+          // html.window.history.
+        },
       ),
     );
   }
@@ -76,60 +134,74 @@ class MainMenuWidget extends HookConsumerWidget {
   const MainMenuWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: ListView(
-          children: [
-            const StatusBarWidget(),
-            _NavigationMenuItem(
-                text: 'Planet Menu',
-                path: 'planet',
-                builder: (context) => const PlanetPageWidget()),
-            _NavigationMenuItem(
-                text: 'Store',
-                path: 'store',
-                builder: (context) => const StorePageWidget()),
-            _NavigationMenuItem(
-                text: 'Inventory',
-                path: 'inventory',
-                builder: (context) => const InventoryPageWidget()),
-            const Center(child: Text('Garage Coming Soon!')),
-            const Center(child: Text('Crafting Coming Soon!')),
-            TextButton(
-                onPressed: () {
-                  for (final database in DatabaseName.values) {
-                    Hive.deleteBoxFromDisk(database.name);
-                  }
-                },
-                child: const Center(
-                    child: Text('Clear game state\n(This will reset the '
-                        'game[For testing])\nReload game after clicking '
-                        'to take effect'))),
-          ],
+    final items = ref.read(mainNavigationPagesProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Let\'s Mine!'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: ListView(
+            children: [
+              const StatusBarWidget(),
+              for (var i = 1; i < items.length; i++)
+                _NavigationMenuItem(
+                    text: items[i].name,
+                    path: items[i].name,
+                    navItem: items[i]),
+              const Center(child: Text('Garage Coming Soon!')),
+              const Center(child: Text('Crafting Coming Soon!')),
+              TextButton(
+                  onPressed: () {
+                    for (final database in DatabaseName.values) {
+                      Hive.deleteBoxFromDisk(database.name);
+                    }
+                  },
+                  child: const Center(
+                      child: Text('Clear game state\n(This will reset the '
+                          'game[For testing])\nReload game after clicking '
+                          'to take effect'))),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _NavigationMenuItem extends StatelessWidget {
+class _NavigationMenuItem extends ConsumerWidget {
   final String text;
   final String path;
-  final Widget Function(BuildContext) builder;
+  final NavItem navItem;
   const _NavigationMenuItem(
-      {Key? key, required this.text, required this.builder, required this.path})
+      {Key? key, required this.text, required this.navItem, required this.path})
       : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
         onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: builder, settings: RouteSettings(name: '/$path')));
+          final index = ref.read(mainNavigationPagesProvider).indexOf(navItem);
+          ref.read(navigationIndexProvider.notifier).state =
+              index >= 0 ? index : 0;
+          Navigator.of(context).restorablePushNamed('/${navItem.name}');
+          // Navigator.
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: builder, settings: RouteSettings(name: '/$path')));
         },
         child: Text(text));
   }
 }
+
+// onWillPop: () async {
+// print(
+// 'On Will called ${navigatorKeys[_pageIndex]?.currentState?.context.widget}');
+// // return !await navigatorKeys[_pageIndex].currentState.context;
+// return !await Navigator.maybePop(
+// navigatorKeys[_pageIndex]!.currentState!.context);
+// // Navigator.pop(navigatorKeys[_pageIndex].currentState.context);
+// },
