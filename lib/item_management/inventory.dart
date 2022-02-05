@@ -15,7 +15,8 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
   final ItemDirectory _itemDirectory;
   InventoryStateController(this._itemDirectory) : super(ItemContainer.empty()) {
     void loadInitialData() async {
-      final loadedBox = await Hive.openBox<int>(DatabaseName.inventory000p.name);
+      final loadedBox =
+          await Hive.openBox<int>(DatabaseName.inventory000p.name);
       state = ItemContainer({
         for (final val in loadedBox.keys)
           _itemDirectory.getKey(val): loadedBox.get(val) ?? 0,

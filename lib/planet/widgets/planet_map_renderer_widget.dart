@@ -13,7 +13,6 @@ class PlanetMapRenderer extends HookConsumerWidget {
     final planet = ref.watch(planetControllerProvider);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height * (1 - .65);
-    final image = ref.watch(planetImageProvider);
     if (ref.read(planetScreenInfoControllerProvider) == emptyPlanetScreenInfo &&
         planet.width > 0) {
       Future.delayed(Duration.zero, () {
