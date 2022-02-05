@@ -1,9 +1,10 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/planet_marker.dart';
 import 'package:mining_game/planet/widgets/src/planet_marker_widget.dart';
-import 'package:mining_game/planet/widgets/src/planet_painter_widget.dart';
 
 class PlanetMapRenderer extends HookConsumerWidget {
   const PlanetMapRenderer({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class PlanetMapRenderer extends HookConsumerWidget {
     final planet = ref.watch(planetControllerProvider);
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height * (1 - .65);
+    final image = ref.watch(planetImageProvider);
     if (ref.read(planetScreenInfoControllerProvider) == emptyPlanetScreenInfo &&
         planet.width > 0) {
       Future.delayed(Duration.zero, () {
@@ -39,22 +41,55 @@ class PlanetMapRenderer extends HookConsumerWidget {
               );
         },
         child: Stack(children: [
-          SizedBox(
-            width: screenWidth,
-            height: screenHeight,
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: Container(
-                  width: planet.width.toDouble() * 10,
-                  height: planet.height.toDouble() * 10,
-                  color: Colors.yellow,
-                  child: CustomPaint(painter: PlanetMapPainter(planet))),
-            ),
-          ),
+          const PlanetImageWidget(),
           MinerLayerWidget(screenWidth, screenHeight),
           const PlanetMarkerWidget(),
         ]),
       ),
     );
   }
+}
+
+class PlanetImageWidget extends HookConsumerWidget {
+  const PlanetImageWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final imageStream = ref.watch(planetImageProvider);
+    return imageStream.when(
+        data: (image) => SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * (1 - .65),
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: CustomPaint(
+                  painter: PlanetImagePainter(image: image!),
+                  child: SizedBox(
+                    width: image.width.toDouble(),
+                    height: image.height.toDouble(),
+                  ),
+                ),
+              ),
+            ),
+        loading: () => const CircularProgressIndicator(),
+        error: (err, stack) => Text('Error: $err'));
+  }
+}
+
+/// Paints given [ui.Image] on [ui.Canvas]
+/// Repaints every time there is a new image.
+class PlanetImagePainter extends CustomPainter {
+  ui.Image image;
+
+  PlanetImagePainter({required this.image});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawImage(image, Offset.zero, Paint());
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

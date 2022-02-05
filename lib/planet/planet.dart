@@ -45,7 +45,7 @@ class Planet {
         height = configs.height,
         depth = configs.depth,
         maxResourceSize = maxResources,
-        map = map.build().rebuild((p0) => null);
+        map = map.build();
   Planet.empty()
       : maxResourceSize = 0,
         width = 0,
@@ -69,4 +69,30 @@ class Planet {
           depth: depth,
           width: width,
           map: map.rebuild(updates));
+
+  // static void _genImage(
+  //     BuiltMap<PlanetPoint, PlanetTile> map, int width, int height) {
+  //   if (width == 0) return;
+  //   final Int32List pixels = Int32List(map.length);
+  //
+  //   final points = map.values.toBuiltList();
+  //   for (var i = 0; i < points.length; i++) {
+  //     var tile = points[i];
+  //     pixels[i] =
+  //         Color.fromRGBO(0, tile.resources.get(ItemKey.IRON), 0, 1.0).value;
+  //   }
+  //
+  //   var completer = Completer<ui.Image>();
+  //   ui.decodeImageFromPixels(
+  //     pixels.buffer.asUint8List(),
+  //     width,
+  //     height,
+  //     ui.PixelFormat.bgra8888,
+  //     (ui.Image img) {
+  //       completer.complete(img);
+  //     },
+  //   );
+  //
+  //   return completer.future;
+  // }
 }

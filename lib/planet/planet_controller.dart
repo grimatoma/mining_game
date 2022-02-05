@@ -1,6 +1,10 @@
+import 'dart:async';
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui';
+import 'dart:ui' as ui;
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -20,10 +24,25 @@ final planetControllerProvider =
   return PlanetController(configs: configs);
 });
 
+final planetImageProvider = StreamProvider<ui.Image?>((ref) {
+  return ref.watch(planetControllerProvider.notifier).planetImage$;
+});
+
+class PlanetImageController extends StateNotifier<ui.Image?> {
+  PlanetImageController() : super(null);
+}
+
 class PlanetController extends StateNotifier<Planet> {
   static const databaseKey = 'planet';
   Planet get planet => state;
-  set planet(Planet planet) => state = planet;
+  set planet(Planet planet) {
+    _genImage(planet.map, planet.width, planet.height, planet.maxResourceSize);
+    state = planet;
+  }
+
+  final planetImageStreamController = StreamController<ui.Image>.broadcast();
+
+  Stream<ui.Image> get planetImage$ => planetImageStreamController.stream;
 
   PlanetController({required GameConfigs configs}) : super(Planet.empty()) {
     void loadInitialData() async {
@@ -81,6 +100,7 @@ class PlanetController extends StateNotifier<Planet> {
             maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
       }
     }
+
     return Planet.newPlanet(
         configs: configs, maxResources: maxResourceSize, map: planetMap);
   }
@@ -108,13 +128,13 @@ class PlanetController extends StateNotifier<Planet> {
           if (x >= 0 && x < planet.width && y >= 0 && y < planet.height)
             PlanetPoint(x, y, 0)
     ];
-    for (final point in points) {
-      planet = planet.rebuild((p0) {
+
+    planet = planet.rebuild((p0) {
+      for (final point in points) {
         final tile = p0[point];
-        if (tile == null) return p0;
-        return p0[point] = tile.copyWith(visible: true);
-      });
-    }
+        if (tile != null) p0[point] = tile.copyWith(visible: true);
+      }
+    });
     return points;
   }
 
@@ -128,4 +148,37 @@ class PlanetController extends StateNotifier<Planet> {
           .toInt(),
       0,
       0);
+
+  void _genImage(BuiltMap<PlanetPoint, PlanetTile> map, int width, int height,
+      int maxResourceSize) {
+    if (width == 0) return;
+    final Int32List pixels = Int32List(map.length);
+
+    final r = Random(9);
+    for (var y = 0; y < height; y++) {
+      for (var x = 0; x < width; x++) {
+        int index = y * width + x;
+        var tile = map[PlanetPoint(x, y, 0)]!;
+
+        final color =
+            min(255, (255 * tile.resources.get(ItemKey.IRON) / maxResourceSize))
+                .toInt();
+        pixels[index] = Color.fromRGBO(
+                tile.visible ? color : 20,
+                tile.visible ? r.nextInt(1) : 100 + r.nextInt(100),
+                tile.visible ? r.nextInt(1) : 100 + r.nextInt(100),
+                1.0)
+            .value;
+      }
+    }
+    ui.decodeImageFromPixels(
+      pixels.buffer.asUint8List(),
+      width,
+      height,
+      ui.PixelFormat.bgra8888,
+      (ui.Image img) {
+        planetImageStreamController.add(img);
+      },
+    );
+  }
 }

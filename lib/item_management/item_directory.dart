@@ -49,6 +49,8 @@ enum ItemKey {
   COPPER,
   @HiveField(4)
   TEST_DRILL,
+  @HiveField(4)
+  CREDIT,
 }
 
 extension Def on ItemKey {
@@ -84,5 +86,10 @@ final _itemDatabase = <BaseItemForDirectory>[
     name: 'Test drill',
     description: 'I do extra damage',
     damage: 3,
-  )
+  ),
+  const ResourceDefinition(
+    itemKey: ItemKey.CREDIT,
+    name: 'Credit',
+    description: 'A form of currency',
+  ),
 ];

@@ -19,7 +19,7 @@ class PlanetMapPainter extends CustomPainter {
       ..strokeWidth = 1.0
       ..color = (planetTile != null && planetTile.visible)
           ? _planet.tileColor(planetTile)
-          : Colors.grey;
+          : _planet.tileColor(planetTile!);
 
     // V1 which is iterate. Try v2 where all tiles are stored by their resource size? THAT SOUNDS REALLY STUPID
 

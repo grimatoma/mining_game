@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final gameConfigsProvider =
-    Provider<GameConfigs>((_) => const GameConfigs(25, 10, 1, 2));
+    Provider<GameConfigs>((_) => const GameConfigs(50, 20, 1, 2));
 
 class GameConfigs {
   final int width;

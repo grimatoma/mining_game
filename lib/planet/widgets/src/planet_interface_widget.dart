@@ -109,48 +109,48 @@ class ActiveMinersWidget extends HookConsumerWidget {
               children: [
                 TableRow(children: [Text(miner.definition.name)]),
                 TableRow(children: [Text('Location ${miner.planetPoint}')]),
-                if (miner.hasDrill) ...[
-                  TableRow(
-                      children: [Text('Drill type: ${miner.drill?.name}')]),
-                  TableRow(children: [Text('Base damage ${miner.baseDamage}')]),
-                  TableRow(
-                      children: [Text('Drill damage ${miner.drillDamage}')]),
-                ],
+                // if (miner.hasDrill) ...[
+                //   TableRow(
+                //       children: [Text('Drill type: ${miner.drill?.name}')]),
+                //   TableRow(children: [Text('Base damage ${miner.baseDamage}')]),
+                //   TableRow(
+                //       children: [Text('Drill damage ${miner.drillDamage}')]),
+                // ],
                 TableRow(children: [Text('Total damage ${miner.totalDamage}')]),
                 TableRow(children: [
                   Text(
                       'Inventory ${miner.hopper}/${miner.definition.baseHopperSize}')
                 ]),
                 const TableRow(children: [Text('picture of resource')]),
-                if (!miner.hasDrill)
-                  TableRow(children: [
-                    TextButton(
-                        onPressed: () {
-                          ref.read(gameEventManagerProvider).addEvent(
-                              DrillAttachEvent(
-                                  miner: miner, drillId: ItemKey.TEST_DRILL));
-                        },
-                        child: const Text('Attach drill'))
-                  ]),
-                if (miner.hasDrill)
-                  TableRow(children: [
-                    TextButton(
-                        onPressed: () {
-                          ref
-                              .read(gameEventManagerProvider)
-                              .addEvent(DrillRemoveEvent(miner: miner));
-                        },
-                        child: const Text('Remove drill'))
-                  ]),
-                TableRow(children: [
-                  TextButton(
-                      onPressed: () {
-                        ref
-                            .read(gameEventManagerProvider)
-                            .addEvent(StoreMinerEvent(miner: miner));
-                      },
-                      child: const Text('Store Miner'))
-                ]),
+                // if (!miner.hasDrill)
+                //   TableRow(children: [
+                //     TextButton(
+                //         onPressed: () {
+                //           ref.read(gameEventManagerProvider).addEvent(
+                //               DrillAttachEvent(
+                //                   miner: miner, drillId: ItemKey.TEST_DRILL));
+                //         },
+                //         child: const Text('Attach drill'))
+                //   ]),
+                // if (miner.hasDrill)
+                //   TableRow(children: [
+                //     TextButton(
+                //         onPressed: () {
+                //           ref
+                //               .read(gameEventManagerProvider)
+                //               .addEvent(DrillRemoveEvent(miner: miner));
+                //         },
+                //         child: const Text('Remove drill'))
+                //   ]),
+                // TableRow(children: [
+                //   TextButton(
+                //       onPressed: () {
+                //         ref
+                //             .read(gameEventManagerProvider)
+                //             .addEvent(StoreMinerEvent(miner: miner));
+                //       },
+                //       child: const Text('Store Miner'))
+                // ]),
                 TableRow(children: [
                   TextButton(
                       onPressed: () {
