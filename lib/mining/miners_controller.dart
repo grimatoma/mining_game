@@ -53,9 +53,9 @@ class MinersController extends StateNotifier<Miners> {
       : super(Miners.empty()) {
     void loadInitialData() async {
       final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
-          DatabaseName.installedMiners0.name);
+          DatabaseName.installedMiners000p.name);
       final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
-          DatabaseName.storedMiners0.name);
+          DatabaseName.storedMiners000p.name);
       state = state.rebuild(addOrUpdateActive: {
         for (final miner in installedMinersBox.values)
           // Regenerate the id on each load.
@@ -69,9 +69,9 @@ class MinersController extends StateNotifier<Miners> {
 
     void updateBox() async {
       final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
-          DatabaseName.installedMiners0.name);
+          DatabaseName.installedMiners000p.name);
       final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
-          DatabaseName.storedMiners0.name);
+          DatabaseName.storedMiners000p.name);
       stream.listen((event) {
         installedMinersBox
           ..clear()

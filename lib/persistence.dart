@@ -1,7 +1,7 @@
 enum DatabaseName {
-  inventory0,
-  wallet0,
-  installedMiners0,
-  storedMiners0,
-  planet0,
+  inventory000p,
+  wallet000p,
+  installedMiners000p,
+  storedMiners000p,
+  planet000p,
 }
