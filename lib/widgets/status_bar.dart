@@ -18,25 +18,24 @@ class StatusBarWidget extends HookConsumerWidget {
         .entries
         .where((element) => itemDirectory[element.key] is ShowInWallet);
     return Container(
+      width: 400,
+      height: 50,
+      color: Colors.cyanAccent[100],
       alignment: Alignment.topLeft,
       child: Center(
-        child: SizedBox(
-          width: 400,
-          height: 50,
-          child: Column(
-            children: [
-              const Text('Mining Game'),
-              Table(
-                children: [
-                  for (final item in itemEntry)
-                    TableRow(children: [
-                      Text(itemDirectory[item.key].name),
-                      Text(item.value.toString()),
-                    ]),
-                ],
-              ),
-            ],
-          ),
+        child: Column(
+          children: [
+            const Text('Mining Game'),
+            Table(
+              children: [
+                for (final item in itemEntry)
+                  TableRow(children: [
+                    Center(child: Text(itemDirectory[item.key].name)),
+                    Center(child: Text(item.value.toString())),
+                  ]),
+              ],
+            ),
+          ],
         ),
       ),
     );

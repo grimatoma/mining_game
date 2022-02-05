@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory.dart';
@@ -7,7 +5,7 @@ import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
 
-import 'status_bar.dart';
+import 'status_bar_wrapped_page.dart';
 
 class StorePageWidget extends HookConsumerWidget {
   const StorePageWidget({Key? key}) : super(key: key);
@@ -62,18 +60,10 @@ class StorePageWidget extends HookConsumerWidget {
               : Colors.redAccent);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Store'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: SizedBox(
-          width: min(MediaQuery.of(context).size.width, 750),
-          child: Column(
-            children: [
-              const StatusBarWidget(),
-              ListView.separated(
+    return StatusBarWrappedPageWidget(
+        title: 'Store',
+        builder: (context, ref) => Scrollbar(
+              child: ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (_, index) {
                   final listing = storeListings.listings[index];
@@ -85,11 +75,7 @@ class StorePageWidget extends HookConsumerWidget {
                 itemCount: storeListings.listings.length,
                 separatorBuilder: (_, __) => const Divider(),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ));
   }
 }
 

@@ -3,9 +3,57 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/item_definitions.dart';
 import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/mining/miner.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 
-import 'status_bar.dart';
+import 'status_bar_wrapped_page.dart';
+
+class _InventoryListItem {
+  final String? header;
+  final BaseItemForDirectory? item;
+  final StoredMinerInstance? miner;
+  _InventoryListItem({this.header, this.item, this.miner});
+
+  Widget build(WidgetRef ref) {
+    final header = this.header;
+    if (header != null) {
+      return Text(header);
+    }
+    final item = this.item;
+    if (item != null) {
+      final inventory = ref.watch(inventoryStateProvider);
+      return Table(
+        children: [
+          TableRow(children: [const Text('Name'), Text(item.name)]),
+          TableRow(
+              children: [const Text('Description'), Text(item.description)]),
+          TableRow(children: [
+            const Text('Amount'),
+            Text(inventory.items[item.itemKey].toString())
+          ]),
+        ],
+      );
+    }
+    final miner = this.miner;
+    if (miner != null) {
+      final definition = miner.definition;
+      return Table(
+        children: [
+          TableRow(children: [const Text('Name'), Text(definition.name)]),
+          TableRow(children: [
+            const Text('Description'),
+            Text(definition.description)
+          ]),
+          TableRow(children: [
+            const Text('Damage'),
+            Text(definition.baseDamage.toString())
+          ]),
+        ],
+      );
+    }
+    throw Exception('');
+  }
+}
 
 class InventoryPageWidget extends HookConsumerWidget {
   const InventoryPageWidget({
@@ -26,71 +74,20 @@ class InventoryPageWidget extends HookConsumerWidget {
         .values
         .toList(growable: false);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Inventory'),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          const StatusBarWidget(),
-          Flexible(
-            child: Column(
-              children: [
-                const Text('Items'),
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (_, index) {
-                    final item = itemDirectory[itemKeys[index]];
-                    return Table(
-                      children: [
-                        TableRow(
-                            children: [const Text('Name'), Text(item.name)]),
-                        TableRow(children: [
-                          const Text('Description'),
-                          Text(item.description)
-                        ]),
-                        TableRow(children: [
-                          const Text('Amount'),
-                          Text(inventory.items[itemKeys[index]].toString())
-                        ]),
-                      ],
-                    );
-                  },
-                  itemCount: itemKeys.length,
-                  separatorBuilder: (_, __) => const Divider(),
-                ),
-                const Text('Miners'),
-                ListView.separated(
-                  shrinkWrap: true,
-                  itemBuilder: (_, index) {
-                    final miner = storedMiners[index];
-                    final definition = miner.definition;
-                    return Table(
-                      children: [
-                        TableRow(children: [
-                          const Text('Name'),
-                          Text(definition.name)
-                        ]),
-                        TableRow(children: [
-                          const Text('Description'),
-                          Text(definition.description)
-                        ]),
-                        TableRow(children: [
-                          const Text('Damage'),
-                          Text(definition.baseDamage.toString())
-                        ]),
-                      ],
-                    );
-                  },
-                  itemCount: storedMiners.length,
-                  separatorBuilder: (_, __) => const Divider(),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+    final inventoryItems = [
+      _InventoryListItem(header: 'Items'),
+      for (final item in itemKeys)
+        _InventoryListItem(item: itemDirectory[item]),
+      _InventoryListItem(header: 'Miners'),
+      for (final miner in storedMiners) _InventoryListItem(miner: miner),
+    ];
+
+    return StatusBarWrappedPageWidget(
+        title: 'Inventory',
+        builder: (context, ref) => ListView.separated(
+              itemBuilder: (_, index) => inventoryItems[index].build(ref),
+              itemCount: inventoryItems.length,
+              separatorBuilder: (_, __) => const Divider(),
+            ));
   }
 }
