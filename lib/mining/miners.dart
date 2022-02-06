@@ -18,29 +18,29 @@ class Miners {
         stored = BuiltMap(),
         activeLocations = BuiltMap();
 
-  Miners rebuildSingle({
-    ActiveMinerInstance? addOrUpdateActive,
-    ActiveMinerInstance? removeActive,
-    StoredMinerInstance? addOrUpdateStored,
-    StoredMinerInstance? removeStored,
-  }) =>
-      rebuild(
-          addOrUpdateActive:
-              addOrUpdateActive != null ? [addOrUpdateActive] : null,
-          removeActive: removeActive != null ? [removeActive] : null,
-          addOrUpdateStored:
-              addOrUpdateStored != null ? [addOrUpdateStored] : null,
-          removeStored: removeStored != null ? [removeStored] : null);
-  Miners rebuild({
-    Iterable<ActiveMinerInstance>? addOrUpdateActive,
-    Iterable<ActiveMinerInstance>? removeActive,
-    Iterable<StoredMinerInstance>? addOrUpdateStored,
-    Iterable<StoredMinerInstance>? removeStored,
-  }) {
-    return Miners(
-        active: active.cheapRebuild(addOrUpdateActive, removeActive),
-        stored: stored.cheapRebuild(addOrUpdateStored, removeStored));
-  }
+  // Miners rebuildSingle({
+  //   ActiveMinerInstance? addOrUpdateActive,
+  //   ActiveMinerInstance? removeActive,
+  //   StoredMinerInstance? addOrUpdateStored,
+  //   StoredMinerInstance? removeStored,
+  // }) =>
+  //     rebuild(
+  //         addOrUpdateActive:
+  //             addOrUpdateActive != null ? [addOrUpdateActive] : null,
+  //         removeActive: removeActive != null ? [removeActive] : null,
+  //         addOrUpdateStored:
+  //             addOrUpdateStored != null ? [addOrUpdateStored] : null,
+  //         removeStored: removeStored != null ? [removeStored] : null);
+  // Miners rebuild({
+  //   Iterable<ActiveMinerInstance>? addOrUpdateActive,
+  //   Iterable<ActiveMinerInstance>? removeActive,
+  //   Iterable<StoredMinerInstance>? addOrUpdateStored,
+  //   Iterable<StoredMinerInstance>? removeStored,
+  // }) {
+  //   return Miners(
+  //       active: active.cheapRebuild(addOrUpdateActive, removeActive),
+  //       stored: stored.cheapRebuild(addOrUpdateStored, removeStored));
+  // }
 }
 
 extension MapUpdate<ValueT extends MinerInstance>

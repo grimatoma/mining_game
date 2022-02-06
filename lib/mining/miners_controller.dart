@@ -44,8 +44,6 @@ class MinersController extends StateNotifier<Miners> {
   final GameClock _gameClock;
   final InventoryStateController _inventoryController;
 
-  Miners get activeAutoMiners => state;
-
   set activeAutoMiners(Miners activeAutoMiners) => state = activeAutoMiners;
 
   MinersController(this._eventStreamManager, this._gameClock,
@@ -56,7 +54,7 @@ class MinersController extends StateNotifier<Miners> {
           DatabaseName.installedMiners000p.name);
       final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
           DatabaseName.storedMiners000p.name);
-      state = state.rebuild(addOrUpdateActive: {
+      state = _rebuild(addOrUpdateActive: {
         for (final miner in installedMinersBox.values)
           // Regenerate the id on each load.
           miner.copyWith(id: InstanceId.generate())
@@ -67,25 +65,7 @@ class MinersController extends StateNotifier<Miners> {
       });
     }
 
-    void updateBox() async {
-      final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
-          DatabaseName.installedMiners000p.name);
-      final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
-          DatabaseName.storedMiners000p.name);
-      stream.listen((event) {
-        installedMinersBox
-          ..clear()
-          ..addAll(event.active.values)
-          ..flush();
-        storedMinersBox
-          ..clear()
-          ..addAll(event.stored.values)
-          ..flush();
-      });
-    }
-
     loadInitialData();
-    updateBox();
 
     _eventStreamManager
         .streamForEventType<AutoMiningManagerEvent>()
@@ -116,7 +96,7 @@ class MinersController extends StateNotifier<Miners> {
   }
 
   void _processGameTick() {
-    for (var miner in activeAutoMiners.active.values) {
+    for (var miner in state.active.values) {
       dig(miner);
     }
   }
@@ -126,7 +106,7 @@ class MinersController extends StateNotifier<Miners> {
     final resources = _planetController.dig(miner.planetPoint,
         ItemContainer.single(ItemKey.IRON, miner.totalDamage));
     if (resources.empty) return;
-    state = state.rebuildSingle(
+    state = _rebuildSingle(
         addOrUpdateActive: miner.copyWith(hopper: miner.hopper + resources));
   }
 
@@ -134,14 +114,14 @@ class MinersController extends StateNotifier<Miners> {
     event as CollectHopperMinerEvent;
     final miner = event.miner;
     _inventoryController.add(miner.hopper);
-    state = state.rebuildSingle(
+    state = _rebuildSingle(
         addOrUpdateActive: miner.copyWith(hopper: ItemContainer.empty()));
   }
 
   void _installMinerEvent(AutoMiningManagerEvent event) {
     event as InstallAutoMinerEvent;
     final miner = event.miner;
-    state = state.rebuildSingle(
+    state = _rebuildSingle(
         addOrUpdateActive: ActiveMinerInstance(
             id: miner.id,
             definition: miner.definition,
@@ -153,7 +133,7 @@ class MinersController extends StateNotifier<Miners> {
 
   void _createMinerEvent(AutoMiningManagerEvent event) {
     event as CreateMinerEvent;
-    activeAutoMiners = state.rebuildSingle(
+    state = _rebuildSingle(
         addOrUpdateStored: _createNewStoredMiner(event.definition));
   }
 
@@ -163,7 +143,7 @@ class MinersController extends StateNotifier<Miners> {
   void _storeMinerEvent(AutoMiningManagerEvent event) {
     event as StoreMinerEvent;
     final miner = event.miner;
-    activeAutoMiners = activeAutoMiners.rebuildSingle(
+    state = _rebuildSingle(
         removeActive: miner,
         addOrUpdateStored: StoredMinerInstance(
             id: miner.id,
@@ -189,14 +169,63 @@ class MinersController extends StateNotifier<Miners> {
 
   void _updateMinerWithDrill(MinerInstance miner, ItemKey? drill) {
     if (miner is ActiveMinerInstance) {
-      activeAutoMiners = activeAutoMiners.rebuildSingle(
-          addOrUpdateActive: miner.copyWith(drillItemId: drill));
+      state =
+          _rebuildSingle(addOrUpdateActive: miner.copyWith(drillItemId: drill));
     } else if (miner is StoredMinerInstance) {
-      activeAutoMiners = activeAutoMiners.rebuildSingle(
-          addOrUpdateStored: miner.copyWith(drillItemId: drill));
+      state =
+          _rebuildSingle(addOrUpdateStored: miner.copyWith(drillItemId: drill));
     }
   }
 
   bool hasMiner(PlanetTile planetTile) =>
-      activeAutoMiners.activeLocations.containsKey(planetTile);
+      state.activeLocations.containsKey(planetTile);
+
+  Miners _rebuildSingle({
+    ActiveMinerInstance? addOrUpdateActive,
+    ActiveMinerInstance? removeActive,
+    StoredMinerInstance? addOrUpdateStored,
+    StoredMinerInstance? removeStored,
+  }) =>
+      _rebuild(
+          addOrUpdateActive:
+              addOrUpdateActive != null ? [addOrUpdateActive] : null,
+          removeActive: removeActive != null ? [removeActive] : null,
+          addOrUpdateStored:
+              addOrUpdateStored != null ? [addOrUpdateStored] : null,
+          removeStored: removeStored != null ? [removeStored] : null);
+  Miners _rebuild({
+    Iterable<ActiveMinerInstance>? addOrUpdateActive,
+    Iterable<ActiveMinerInstance>? removeActive,
+    Iterable<StoredMinerInstance>? addOrUpdateStored,
+    Iterable<StoredMinerInstance>? removeStored,
+  }) {
+    void updateBox() async {
+      final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
+          DatabaseName.installedMiners000p.name);
+      final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
+          DatabaseName.storedMiners000p.name);
+
+      if (addOrUpdateActive != null) {
+        for (final miner in addOrUpdateActive) {
+          installedMinersBox.put(miner.id.toString(), miner);
+        }
+      }
+      if (removeActive != null) {
+        installedMinersBox.deleteAll(removeActive.map((e) => e.id.toString()));
+      }
+      if (addOrUpdateStored != null) {
+        for (final miner in addOrUpdateStored) {
+          storedMinersBox.put(miner.id.toString(), miner);
+        }
+      }
+      if (removeStored != null) {
+        storedMinersBox.deleteAll(removeStored.map((e) => e.id.toString()));
+      }
+    }
+
+    updateBox();
+    return Miners(
+        active: state.active.cheapRebuild(addOrUpdateActive, removeActive),
+        stored: state.stored.cheapRebuild(addOrUpdateStored, removeStored));
+  }
 }

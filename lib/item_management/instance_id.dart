@@ -22,9 +22,8 @@ class InstanceId {
   String toString() => _guid;
 }
 
+Random random = Random(DateTime.now().millisecond);
 String get _generateId {
-  Random random = Random(DateTime.now().millisecond);
-
   const hexDigits = '0123456789abcdef';
   final List<String> uuid = List.filled(36, '');
 

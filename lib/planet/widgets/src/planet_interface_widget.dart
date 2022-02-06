@@ -29,7 +29,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
           body: Column(
         children: const [
           Text('Select a location on the map'),
-          ActiveMinersWidget(),
+          Flexible(flex: 1, child: ActiveMinersWidget()),
         ],
       ));
     }
@@ -128,84 +128,81 @@ class ActiveMinersWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final miners =
         ref.watch(activeMinerLocationsProvider).values.toList(growable: false);
-    return Expanded(
-      child: Column(
-        children: [
-          const Flexible(flex: 0, child: Text('Active Miners')),
-          Flexible(
-            flex: 1,
-            child: Scrollbar(
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  final miner = miners[index];
-                  return Table(
-                    children: [
-                      TableRow(children: [Text(miner.definition.name)]),
-                      TableRow(
-                          children: [Text('Location ${miner.planetPoint}')]),
-                      // if (miner.hasDrill) ...[
-                      //   TableRow(
-                      //       children: [Text('Drill type: ${miner.drill?.name}')]),
-                      //   TableRow(children: [Text('Base damage ${miner.baseDamage}')]),
-                      //   TableRow(
-                      //       children: [Text('Drill damage ${miner.drillDamage}')]),
-                      // ],
-                      TableRow(children: [
-                        Text('Total damage ${miner.totalDamage}')
-                      ]),
-                      TableRow(children: [
-                        Text(
-                            'Inventory ${miner.hopper}/${miner.definition.baseHopperSize}')
-                      ]),
-                      const TableRow(children: [Text('picture of resource')]),
-                      // if (!miner.hasDrill)
-                      //   TableRow(children: [
-                      //     TextButton(
-                      //         onPressed: () {
-                      //           ref.read(gameEventManagerProvider).addEvent(
-                      //               DrillAttachEvent(
-                      //                   miner: miner, drillId: ItemKey.TEST_DRILL));
-                      //         },
-                      //         child: const Text('Attach drill'))
-                      //   ]),
-                      // if (miner.hasDrill)
-                      //   TableRow(children: [
-                      //     TextButton(
-                      //         onPressed: () {
-                      //           ref
-                      //               .read(gameEventManagerProvider)
-                      //               .addEvent(DrillRemoveEvent(miner: miner));
-                      //         },
-                      //         child: const Text('Remove drill'))
-                      //   ]),
-                      // TableRow(children: [
-                      //   TextButton(
-                      //       onPressed: () {
-                      //         ref
-                      //             .read(gameEventManagerProvider)
-                      //             .addEvent(StoreMinerEvent(miner: miner));
-                      //       },
-                      //       child: const Text('Store Miner'))
-                      // ]),
-                      TableRow(children: [
-                        TextButton(
-                            onPressed: () {
-                              ref.read(gameEventManagerProvider).addEvent(
-                                  CollectHopperMinerEvent(miner: miner));
-                            },
-                            child: const Text('Collect resources'))
-                      ]),
-                    ],
-                  );
-                },
-                itemCount: miners.length,
-                separatorBuilder: (_, __) => const Divider(),
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Active Miners'),
+        Flexible(
+          flex: 1,
+          child: Scrollbar(
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (_, index) {
+                final miner = miners[index];
+                return Table(
+                  children: [
+                    TableRow(children: [Text(miner.definition.name)]),
+                    TableRow(children: [Text('Location ${miner.planetPoint}')]),
+                    // if (miner.hasDrill) ...[
+                    //   TableRow(
+                    //       children: [Text('Drill type: ${miner.drill?.name}')]),
+                    //   TableRow(children: [Text('Base damage ${miner.baseDamage}')]),
+                    //   TableRow(
+                    //       children: [Text('Drill damage ${miner.drillDamage}')]),
+                    // ],
+                    TableRow(
+                        children: [Text('Total damage ${miner.totalDamage}')]),
+                    TableRow(children: [
+                      Text(
+                          'Inventory ${miner.hopper}/${miner.definition.baseHopperSize}')
+                    ]),
+                    const TableRow(children: [Text('picture of resource')]),
+                    // if (!miner.hasDrill)
+                    //   TableRow(children: [
+                    //     TextButton(
+                    //         onPressed: () {
+                    //           ref.read(gameEventManagerProvider).addEvent(
+                    //               DrillAttachEvent(
+                    //                   miner: miner, drillId: ItemKey.TEST_DRILL));
+                    //         },
+                    //         child: const Text('Attach drill'))
+                    //   ]),
+                    // if (miner.hasDrill)
+                    //   TableRow(children: [
+                    //     TextButton(
+                    //         onPressed: () {
+                    //           ref
+                    //               .read(gameEventManagerProvider)
+                    //               .addEvent(DrillRemoveEvent(miner: miner));
+                    //         },
+                    //         child: const Text('Remove drill'))
+                    //   ]),
+                    // TableRow(children: [
+                    //   TextButton(
+                    //       onPressed: () {
+                    //         ref
+                    //             .read(gameEventManagerProvider)
+                    //             .addEvent(StoreMinerEvent(miner: miner));
+                    //       },
+                    //       child: const Text('Store Miner'))
+                    // ]),
+                    TableRow(children: [
+                      TextButton(
+                          onPressed: () {
+                            ref.read(gameEventManagerProvider).addEvent(
+                                CollectHopperMinerEvent(miner: miner));
+                          },
+                          child: const Text('Collect resources'))
+                    ]),
+                  ],
+                );
+              },
+              itemCount: miners.length,
+              separatorBuilder: (_, __) => const Divider(),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
