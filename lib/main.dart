@@ -14,6 +14,7 @@ import 'package:mining_game/planet/point.dart';
 
 import 'item_management/instance_id.dart';
 import 'mining/miner.dart';
+import 'widgets/garage_page.dart';
 import 'widgets/inventory_page.dart';
 import 'widgets/navigator_page.dart';
 import 'widgets/planet_page.dart';
@@ -86,6 +87,10 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<NavItem>>((ref) {
         name: 'Inventory',
         icon: Icons.storage,
         builder: (context) => const InventoryPageWidget()),
+    NavItem(
+        name: 'Garage',
+        builder: (context) => const GaragePageWidget(),
+        icon: Icons.garage)
   ].build();
 });
 
