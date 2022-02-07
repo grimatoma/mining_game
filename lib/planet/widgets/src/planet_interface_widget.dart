@@ -8,7 +8,7 @@ import 'package:mining_game/mining/miner.dart';
 import 'package:mining_game/mining/miner_events.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/planet/planet_controller.dart';
-import 'package:mining_game/planet/planet_marker.dart';
+import 'package:mining_game/planet/view_to_planet_controller.dart';
 
 final selectedMinerFromDropdownProvider =
     StateProvider.autoDispose<StoredMinerInstance?>((ref) {
@@ -22,8 +22,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final availableMiners = ref.watch(storedMinersProvider);
-    final selectedTile = ref.watch(planetControllerProvider).getTile(
-        ref.watch(planetScreenInfoControllerProvider).cursorPlanetPoint);
+    final selectedTile = ref.watch(markerLocationProvider);
     if (selectedTile == null || !selectedTile.isValid) {
       return Scaffold(
           body: Column(

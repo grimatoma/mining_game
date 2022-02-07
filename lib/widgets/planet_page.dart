@@ -15,10 +15,13 @@ class PlanetPageWidget extends HookConsumerWidget {
         centerTitle: true,
       ),
       body: SizedBox(
-        child: Column(children: const [
-          StatusBarWidget(),
-          PlanetMapRenderer(),
-          Flexible(child: PlanetInterfaceWidget()),
+        child: Column(children: [
+          const StatusBarWidget(),
+          SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * (1 - .65),
+              child: const PlanetMapRenderer()),
+          const Flexible(child: PlanetInterfaceWidget()),
         ]),
       ),
     );

@@ -23,6 +23,8 @@ class ItemKeyAdapter extends TypeAdapter<ItemKey> {
         return ItemKey.COPPER;
       case 4:
         return ItemKey.TEST_DRILL;
+      case 5:
+        return ItemKey.CREDIT;
       default:
         return ItemKey.ROCK;
     }
@@ -45,6 +47,9 @@ class ItemKeyAdapter extends TypeAdapter<ItemKey> {
         break;
       case ItemKey.TEST_DRILL:
         writer.writeByte(4);
+        break;
+      case ItemKey.CREDIT:
+        writer.writeByte(5);
         break;
     }
   }

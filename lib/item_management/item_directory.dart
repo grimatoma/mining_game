@@ -49,7 +49,7 @@ enum ItemKey {
   COPPER,
   @HiveField(4)
   TEST_DRILL,
-  @HiveField(4)
+  @HiveField(5)
   CREDIT,
 }
 

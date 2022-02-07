@@ -1,52 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/mining/miners_controller.dart';
-import 'package:mining_game/planet/planet_marker.dart';
+import 'package:mining_game/planet/view_to_planet_controller.dart';
 
 class PlanetMarkerWidget extends HookConsumerWidget {
-  const PlanetMarkerWidget({Key? key}) : super(key: key);
+  final BoxConstraints planetRendererConstraints;
+
+  const PlanetMarkerWidget(this.planetRendererConstraints, {Key? key})
+      : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
-    final cursorLocation = planetScreenInfo.cursorLocationScreen;
-    return Positioned(
-        left: cursorLocation.dx + planetScreenInfo.xScale * 0.35,
-        top: cursorLocation.dy + planetScreenInfo.yScale * 0.35,
+    final marker = ref.watch(markerLocationProvider);
+    final planetScale = ref.watch(planetToImageScalerProvider);
+    final transformHelper = ref.watch(planetViewTransformHelperProvider);
+
+    if (marker == null) {
+      return Container();
+    }
+    return Positioned.fromRect(
+        rect: transformHelper.toOnTileScaled(marker.point, 2, 2),
         child: Container(
-          width: 0.3 * planetScreenInfo.xScale,
-          height: 0.3 * planetScreenInfo.yScale,
-          color: Colors.blue,
+          // TODO MArker should be a fixed size to the screen Probably the
+          //  miners too. think like landmarks for good maps.
+          width: 1 * planetScale.x,
+          height: 1 * planetScale.y,
+          decoration: BoxDecoration(
+              color: Colors.transparent,
+              border: Border.all(
+                color: Colors.white,
+                width: 1,
+              )),
         ));
   }
 }
 
 class MinerLayerWidget extends HookConsumerWidget {
-  final double screenWidth;
-  final double screenHeight;
+  final BoxConstraints planetRendererConstraints;
   const MinerLayerWidget(
-    this.screenWidth,
-    this.screenHeight, {
+    this.planetRendererConstraints, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
+    // final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
     final activeMiners = ref.watch(minersControllerProvider);
+    final transformHelper = ref.watch(planetViewTransformHelperProvider);
     return SizedBox(
-      width: screenWidth,
-      height: screenHeight,
+      width: planetRendererConstraints.maxWidth,
+      height: planetRendererConstraints.maxHeight,
       child: Stack(
         fit: StackFit.expand,
         children: activeMiners.active.values
-            .map((miner) => Positioned(
-                left: planetScreenInfo.screenLocation(miner.planetPoint).dx +
-                    0.25 * planetScreenInfo.xScale,
-                top: planetScreenInfo.screenLocation(miner.planetPoint).dy +
-                    0.25 * planetScreenInfo.yScale,
+            .map((miner) => Positioned.fromRect(
+                rect: transformHelper.toOnTileScaled(miner.planetPoint, .8, .8),
                 child: Container(
-                  width: 0.5 * planetScreenInfo.xScale,
-                  height: 0.5 * planetScreenInfo.yScale,
+                  width: 0.5 * transformHelper.planetToImageScaler.x,
+                  height: 0.5 * transformHelper.planetToImageScaler.y,
                   color: Colors.green,
                   child: Text(miner.definition.name,
                       style: const TextStyle(fontSize: 6)),

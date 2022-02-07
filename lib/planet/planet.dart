@@ -7,6 +7,7 @@ import 'package:hive/hive.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 
+import '../item_management/items/item_container.dart';
 import 'planet_tile.dart';
 import 'point.dart';
 
@@ -60,7 +61,17 @@ class Planet {
       0,
       0);
 
-  PlanetTile? getTile(PlanetPoint p) => map[p];
+  PlanetTile getTile(PlanetPoint p) {
+    final tile = map[p];
+    if (tile == null) {
+      print('Getting a null tile!');
+    }
+    return tile ??
+        PlanetTile(
+            point: const PlanetPoint(-1, -1, -1),
+            resources: ItemContainer.empty(),
+            visible: false);
+  }
 
   Planet rebuild(Function(MapBuilder<PlanetPoint, PlanetTile>) updates) =>
       Planet._rebuilt(
@@ -69,30 +80,4 @@ class Planet {
           depth: depth,
           width: width,
           map: map.rebuild(updates));
-
-  // static void _genImage(
-  //     BuiltMap<PlanetPoint, PlanetTile> map, int width, int height) {
-  //   if (width == 0) return;
-  //   final Int32List pixels = Int32List(map.length);
-  //
-  //   final points = map.values.toBuiltList();
-  //   for (var i = 0; i < points.length; i++) {
-  //     var tile = points[i];
-  //     pixels[i] =
-  //         Color.fromRGBO(0, tile.resources.get(ItemKey.IRON), 0, 1.0).value;
-  //   }
-  //
-  //   var completer = Completer<ui.Image>();
-  //   ui.decodeImageFromPixels(
-  //     pixels.buffer.asUint8List(),
-  //     width,
-  //     height,
-  //     ui.PixelFormat.bgra8888,
-  //     (ui.Image img) {
-  //       completer.complete(img);
-  //     },
-  //   );
-  //
-  //   return completer.future;
-  // }
 }
