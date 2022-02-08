@@ -29,3 +29,11 @@ class MinerShopListing extends ShopListing with _$MinerShopListing {
       required ItemContainer cost,
       @Default(true) bool consumable}) = _MinerShopListing;
 }
+
+// @freezed
+// class SellShopListing extends ShopListing with _$SellShopListing {
+//   const factory SellShopListing(
+//       {required ItemContainer sellPrice,
+//       required ItemContainer items,
+//       @Default(true) bool consumable}) = _SellShopListing;
+// }

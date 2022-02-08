@@ -99,7 +99,8 @@ class PlanetImagePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.drawImage(image, Offset.zero, Paint());
+    canvas.drawImage(
+        image, Offset.zero, Paint()..filterQuality = FilterQuality.high);
   }
 
   @override
