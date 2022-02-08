@@ -47,7 +47,7 @@ class PlanetMapRenderer extends HookConsumerWidget {
                   width: viewConstraints.maxWidth,
                   height: viewConstraints.maxHeight,
                   child: FittedBox(
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                       child: PlanetImageWidget(viewConstraints)),
                 ),
                 MinerLayerWidget(viewConstraints),
