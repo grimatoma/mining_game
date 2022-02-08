@@ -43,7 +43,13 @@ class PlanetMapRenderer extends HookConsumerWidget {
             },
             child: AbsorbPointer(
               child: Stack(children: [
-                PlanetImageWidget(viewConstraints),
+                SizedBox(
+                  width: viewConstraints.maxWidth,
+                  height: viewConstraints.maxHeight,
+                  child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: PlanetImageWidget(viewConstraints)),
+                ),
                 MinerLayerWidget(viewConstraints),
                 PlanetMarkerWidget(viewConstraints),
               ]),
@@ -68,20 +74,11 @@ class PlanetImageWidget extends ConsumerWidget {
     return imageStream.when(
         data: (image) {
           if (image == null) return Container();
-          return SizedBox(
-            // width: image.width.toDouble(),
-            // height: image.height.toDouble(),
-            width: planetRendererConstraints.maxWidth,
-            height: planetRendererConstraints.maxHeight,
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: CustomPaint(
-                painter: PlanetImagePainter(image: image),
-                child: SizedBox(
-                  width: image.width.toDouble(),
-                  height: image.height.toDouble(),
-                ),
-              ),
+          return CustomPaint(
+            painter: PlanetImagePainter(image: image),
+            child: SizedBox(
+              width: image.width.toDouble(),
+              height: image.height.toDouble(),
             ),
           );
         },
@@ -100,7 +97,7 @@ class PlanetImagePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawImage(
-        image, Offset.zero, Paint()..filterQuality = FilterQuality.high);
+        image, Offset.zero, Paint()..filterQuality = FilterQuality.none);
   }
 
   @override
