@@ -10,6 +10,8 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  optional-checks:
+    chrome-os-manifest-checks
  exclude:
   - '**/*.g.dart'
   - '**/*.freeze.dart'
