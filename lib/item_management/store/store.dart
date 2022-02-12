@@ -33,9 +33,10 @@ class StoreController extends StateNotifier<StoreListings> {
     StoreListings store,
   ) : super(store);
 
-  bool canBuyItem(ShopListing listing) => _inventory.canRemove(listing.cost);
-  bool buyItem(ShopListing listing) {
-    if (_inventory.canRemove(listing.cost)) {
+  bool canUseSellListing(SellingShopListing listing) =>
+      _inventory.canRemove(listing.cost);
+  void clickSellListing(SellingShopListing listing) {
+    if (canUseSellListing(listing)) {
       _inventory.remove(listing.cost);
       if (listing.consumable) {
         state = state.rebuild((p0) => p0.remove(listing));
@@ -47,8 +48,18 @@ class StoreController extends StateNotifier<StoreListings> {
       } else {
         print('TYPE UNKNOWN FOR SHOP!');
       }
-      return true;
     }
-    return false;
+  }
+
+  bool canUseBuyListing(BuyingShopListing listing) =>
+      _inventory.canRemove(listing.items);
+  void clickBuyListing(BuyingShopListing listing) {
+    if (canUseBuyListing(listing)) {
+      _inventory.remove(listing.items);
+      if (listing.consumable) {
+        state = state.rebuild((p0) => p0.remove(listing));
+      }
+      _inventory.add(listing.sellPrice);
+    }
   }
 }

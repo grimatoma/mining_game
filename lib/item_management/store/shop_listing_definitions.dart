@@ -6,13 +6,19 @@ import 'package:mining_game/mining/miner.dart';
 part 'shop_listing_definitions.freezed.dart';
 
 abstract class ShopListing {
-  ItemContainer get cost;
   bool get consumable;
+
   const ShopListing();
 }
 
+abstract class SellingShopListing extends ShopListing{
+  ItemContainer get cost;
+
+  const SellingShopListing();
+}
+
 @freezed
-class ItemStackShopListing extends ShopListing with _$ItemStackShopListing {
+class ItemStackShopListing extends SellingShopListing with _$ItemStackShopListing {
   const ItemStackShopListing._();
 
   const factory ItemStackShopListing(
@@ -23,17 +29,17 @@ class ItemStackShopListing extends ShopListing with _$ItemStackShopListing {
 }
 
 @freezed
-class MinerShopListing extends ShopListing with _$MinerShopListing {
+class MinerShopListing extends SellingShopListing with _$MinerShopListing {
   const factory MinerShopListing(
       {required MinerDefinition definition,
       required ItemContainer cost,
       @Default(true) bool consumable}) = _MinerShopListing;
 }
 
-// @freezed
-// class SellShopListing extends ShopListing with _$SellShopListing {
-//   const factory SellShopListing(
-//       {required ItemContainer sellPrice,
-//       required ItemContainer items,
-//       @Default(true) bool consumable}) = _SellShopListing;
-// }
+class BuyingShopListing extends ShopListing {
+  final ItemContainer sellPrice;
+  final ItemContainer items;
+  final bool consumable;
+
+  BuyingShopListing({required this.sellPrice,required this.items,this.consumable = false});
+}

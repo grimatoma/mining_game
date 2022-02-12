@@ -6,6 +6,9 @@ import 'package:mining_game/mining/miner.dart';
 import 'shop_listing_definitions.dart';
 
 final storeListings = <ShopListing>[
+  BuyingShopListing(
+      sellPrice: ItemContainer.single(ItemKey.CREDIT, 25),
+      items: ItemContainer.single(ItemKey.IRON, 5)),
   ItemStackShopListing(
       itemKey: ItemKey.ROCK,
       quantity: 5,
