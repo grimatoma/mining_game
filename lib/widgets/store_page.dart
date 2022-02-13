@@ -186,8 +186,6 @@ class ShopButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final storeListingsController = ref.watch(storeControllerProvider.notifier);
-
     return ElevatedButton(
       child: Text(cost.toString()),
       onPressed: onClick,
