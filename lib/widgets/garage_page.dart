@@ -34,31 +34,25 @@ class GaragePageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final garageState = ref.watch(garageProvider);
+
+    final slots = <Widget>[];
+    for (var i = 0; i < ref.watch(gameConfigsProvider).maxGarageSlots; i++) {
+      final slot = garageState.getSlot(i);
+      if (slot is SlotWithMiner) slots.add(GarageSlotWidget(slot));
+      if (slot is LockedSlot) slots.add(LockedGarageSlotWidget(slot));
+      if (slot is EmptySlot) slots.add(EmptyGarageSlotWidget(slot));
+    }
+
     return StatusBarWrappedPageWidget(
         title: 'Garage',
-        builder: (context, ref) => GridView.count(
-              crossAxisCount: 4,
-              mainAxisSpacing: 1,
-              crossAxisSpacing: 1,
-              children: [
-                // for (final slotEntry in garageState.slots.entries)
-                //   slotEntry.value.when(
-                //       withMiner: (s) => GarageSlotWidget(s),
-                //       locked: () => LockedGarageSlotWidget(
-                //           ItemContainer.single(ItemKey.CREDIT, 2 ^ slotEntry.key)),
-                //       empty: () => EmptyGarageSlotWidget()),
-                for (var i = 0;
-                    i < ref.watch(gameConfigsProvider).maxGarageSlots;
-                    i++)
-                  garageState.getSlot(i).when(
-                      withMiner: (_, __) => GarageSlotWidget(
-                          garageState.getSlot(i) as SlotWithMiner),
-                      locked: (_) => LockedGarageSlotWidget(
-                          garageState.getSlot(i) as LockedSlot),
-                      empty: (_) => EmptyGarageSlotWidget(
-                          garageState.getSlot(i) as EmptySlot))
-              ],
-            ));
+        builder: (context, ref) {
+          return GridView.count(
+            crossAxisCount: 4,
+            mainAxisSpacing: 1,
+            crossAxisSpacing: 1,
+            children: slots,
+          );
+        });
   }
 }
 
