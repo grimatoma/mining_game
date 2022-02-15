@@ -11,7 +11,7 @@ import 'status_bar_wrapped_page.dart';
 class _InventoryListItem {
   final String? header;
   final BaseItemForDirectory? item;
-  final StoredMinerInstance? miner;
+  final MinerInstance? miner;
   _InventoryListItem({this.header, this.item, this.miner});
 
   Widget build(WidgetRef ref) {
@@ -68,11 +68,7 @@ class InventoryPageWidget extends HookConsumerWidget {
         .where((key) => itemDirectory[key] is! HideInInventory)
         .toList();
 
-    final storedMiners = ref
-        .watch(minersControllerProvider)
-        .stored
-        .values
-        .toList(growable: false);
+    final storedMiners = ref.watch(storedMinersProvider);
 
     final inventoryItems = [
       _InventoryListItem(header: 'Items'),

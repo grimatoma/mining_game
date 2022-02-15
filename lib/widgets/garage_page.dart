@@ -1,14 +1,30 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/game_management/game_configs.dart';
+import 'package:mining_game/garage_controller.dart';
 import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/item_directory.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/mining/miner.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/widgets/store_page.dart';
 
 import 'status_bar_wrapped_page.dart';
+
+final _unHousedMinersProvider = Provider<BuiltList<MinerInstance>>((ref) {
+  final slottedMiners = ref
+      .watch(garageProvider)
+      .slots
+      .values
+      .whereType<SlotWithMiner>()
+      .map((e) => e.miner)
+      .toSet();
+  return ref
+      .watch(minersProvider)
+      .miners
+      .values
+      .where((e) => !slottedMiners.contains(e))
+      .toBuiltList();
+});
 
 class GaragePageWidget extends ConsumerWidget {
   const GaragePageWidget({
@@ -17,13 +33,7 @@ class GaragePageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    const garageLimit = 9;
-    const unlockedSlots = 4;
-    final miners = ref.watch(minersControllerProvider);
-    final minerList = [
-      ...miners.active.values,
-      ...miners.stored.values,
-    ];
+    final garageState = ref.watch(garageProvider);
     return StatusBarWrappedPageWidget(
         title: 'Garage',
         builder: (context, ref) => GridView.count(
@@ -31,22 +41,31 @@ class GaragePageWidget extends ConsumerWidget {
               mainAxisSpacing: 1,
               crossAxisSpacing: 1,
               children: [
-                for (var i = 0; i < garageLimit; i++) ...[
-                  if (i < minerList.length) ...[
-                    GarageSlotWidget(minerList[i]),
-                  ] else if (i < unlockedSlots)
-                    const EmptyGarageSlotWidget(),
-                  if (i == unlockedSlots - 1)
-                    LockedGarageSlotWidget(
-                        ItemContainer.single(ItemKey.CREDIT, 2 ^ i)),
-                ]
+                // for (final slotEntry in garageState.slots.entries)
+                //   slotEntry.value.when(
+                //       withMiner: (s) => GarageSlotWidget(s),
+                //       locked: () => LockedGarageSlotWidget(
+                //           ItemContainer.single(ItemKey.CREDIT, 2 ^ slotEntry.key)),
+                //       empty: () => EmptyGarageSlotWidget()),
+                for (var i = 0;
+                    i < ref.watch(gameConfigsProvider).maxGarageSlots;
+                    i++)
+                  garageState.getSlot(i).when(
+                      withMiner: (_, __) => GarageSlotWidget(
+                          garageState.getSlot(i) as SlotWithMiner),
+                      locked: (_) => LockedGarageSlotWidget(
+                          garageState.getSlot(i) as LockedSlot),
+                      empty: (_) => EmptyGarageSlotWidget(
+                          garageState.getSlot(i) as EmptySlot))
               ],
             ));
   }
 }
 
 class EmptyGarageSlotWidget extends ConsumerWidget {
-  const EmptyGarageSlotWidget({
+  final EmptySlot slot;
+  const EmptyGarageSlotWidget(
+    this.slot, {
     Key? key,
   }) : super(key: key);
 
@@ -54,37 +73,56 @@ class EmptyGarageSlotWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       color: Colors.blue,
-      child: Expanded(
-        flex: 4,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: FittedBox(
-              fit: BoxFit.contain,
-              child: Text(
-                'Empty',
-              )),
-        ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: FittedBox(
+            fit: BoxFit.contain,
+            child: Column(
+              children: [
+                const Text(
+                  'Empty',
+                ),
+                Row(
+                  children: [
+                    const Text('Add Miner'),
+                    DropdownButton<MinerInstance>(
+                      items: [
+                        for (final miner in ref.watch(_unHousedMinersProvider))
+                          DropdownMenuItem<MinerInstance>(
+                              value: miner, child: Text(miner.definition.name)),
+                      ],
+                      onChanged: (miner) {
+                        ref
+                            .read(garageProvider.notifier)
+                            .addMinerToSlot(slot, miner!);
+                      },
+                    )
+                  ],
+                ),
+              ],
+            )),
       ),
     );
   }
 }
 
 class LockedGarageSlotWidget extends ConsumerWidget {
-  final ItemContainer unlockCost;
+  final LockedSlot slot;
   const LockedGarageSlotWidget(
-    this.unlockCost, {
+    this.slot, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final cost = ref.watch(garageProvider.notifier).unlockCost(slot.index);
     return Container(
       color: Colors.red,
       child: Column(children: [
-        Expanded(
+        const Expanded(
           flex: 4,
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: FittedBox(
                 fit: BoxFit.contain,
                 child: Text(
@@ -96,11 +134,10 @@ class LockedGarageSlotWidget extends ConsumerWidget {
           flex: 3,
           child: Center(
             child: ShopButton(
-              cost: unlockCost,
-              active: ref.watch(inventoryStateProvider).canSubtract(unlockCost),
+              cost: cost,
+              active: ref.watch(inventoryStateProvider).canSubtract(cost),
               onClick: () {
-                ref.read(inventoryStateProvider.notifier).remove(unlockCost);
-                // TODO add garage slot
+                ref.read(garageProvider.notifier).unlockSlot(slot);
               },
             ),
           ),
@@ -111,30 +148,31 @@ class LockedGarageSlotWidget extends ConsumerWidget {
 }
 
 class GarageSlotWidget extends ConsumerWidget {
-  final MinerInstance _minerInstance;
+  final SlotWithMiner _slotWithMiner;
   const GarageSlotWidget(
-    this._minerInstance, {
+    this._slotWithMiner, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final minerInstance = _slotWithMiner.miner;
     return LayoutBuilder(
       builder: (context, constraints) => OutlinedButton(
         onPressed: () {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => MinerDetailWidget(_minerInstance)));
+                  builder: (context) => MinerDetailWidget(minerInstance)));
         },
         child: Column(
           children: [
             Container(
               width: constraints.maxWidth * .7,
               padding: const EdgeInsets.all(16.0),
-              child: Image.asset(_minerInstance.definition.image),
+              child: Image.asset(minerInstance.definition.image),
             ),
-            SizedBox(child: Text(_minerInstance.definition.name)),
+            SizedBox(child: Text(minerInstance.definition.name)),
           ],
         ),
       ),

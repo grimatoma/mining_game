@@ -56,7 +56,8 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
   bool canRemove(ItemContainer container) =>
       !container.items.entries.any((entry) => get(entry.key) - entry.value < 0);
 
-  void remove(ItemContainer container) async {
+  Future<bool> remove(ItemContainer container) async {
+    if (!canRemove(container)) return false;
     final mappedItems = {
       for (final entry in container.items.entries)
         entry.key: get(entry.key) - entry.value,
@@ -75,5 +76,6 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
           .putAll({for (var entry in itemUpdates) entry.key.name: entry.value});
       loadedBox.deleteAll(itemRemovals.map((e) => e.key.name));
     });
+    return true;
   }
 }

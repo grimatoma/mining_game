@@ -116,7 +116,7 @@ class BuyingListing extends ConsumerWidget {
           children: [
             TableRow(children: [
               ListingWidget.buildRowTitle('Description'),
-              Text('We need more iron!'),
+              const Text('We need more iron!'),
             ]),
           ],
         ),

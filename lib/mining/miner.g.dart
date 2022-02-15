@@ -61,77 +61,34 @@ class MinerDefinitionAdapter extends TypeAdapter<_$_MinerDefinition> {
           typeId == other.typeId;
 }
 
-class StoredMinerInstanceAdapter extends TypeAdapter<_$StoredMinerInstance> {
+class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
   @override
   final int typeId = 10;
 
   @override
-  _$StoredMinerInstance read(BinaryReader reader) {
+  _$_MinerInstance read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$StoredMinerInstance(
+    return _$_MinerInstance(
       id: fields[0] as InstanceId,
       definition: fields[1] as MinerDefinition,
       drillItemId: fields[2] as ItemKey?,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, _$StoredMinerInstance obj) {
-    writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
-      ..write(obj.definition)
-      ..writeByte(2)
-      ..write(obj.drillItemId);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is StoredMinerInstanceAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
-  @override
-  final int typeId = 37;
-
-  @override
-  _$ActiveMinerInstance read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return _$ActiveMinerInstance(
-      id: fields[0] as InstanceId,
-      definition: fields[1] as MinerDefinition,
-      drillItemId: fields[2] as ItemKey?,
-      planetPoint: fields[3] as PlanetPoint,
       hopper: fields[4] as ItemContainer,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$ActiveMinerInstance obj) {
+  void write(BinaryWriter writer, _$_MinerInstance obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.definition)
       ..writeByte(2)
       ..write(obj.drillItemId)
-      ..writeByte(3)
-      ..write(obj.planetPoint)
       ..writeByte(4)
       ..write(obj.hopper);
   }
@@ -142,7 +99,7 @@ class ActiveMinerInstanceAdapter extends TypeAdapter<_$ActiveMinerInstance> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ActiveMinerInstanceAdapter &&
+      other is MinerInstanceAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

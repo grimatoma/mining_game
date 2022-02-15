@@ -4,8 +4,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/adapters.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
+import 'package:mining_game/garage_controller.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
@@ -14,6 +16,7 @@ import 'package:mining_game/planet/point.dart';
 
 import 'item_management/instance_id.dart';
 import 'mining/miner.dart';
+import 'mining/miners.dart';
 import 'widgets/garage_page.dart';
 import 'widgets/inventory_page.dart';
 import 'widgets/navigator_page.dart';
@@ -24,8 +27,7 @@ import 'widgets/store_page.dart';
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerDefinitionAdapter());
-  Hive.registerAdapter(ActiveMinerInstanceAdapter());
-  Hive.registerAdapter(StoredMinerInstanceAdapter());
+  Hive.registerAdapter(MinerInstanceAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemKeyAdapter());
   Hive.registerAdapter(InstanceIdAdapter());
@@ -33,7 +35,14 @@ void main() async {
   Hive.registerAdapter(PlanetTileAdapter());
   Hive.registerAdapter(PlanetPointAdapter());
   Hive.registerAdapter(PlanetAdapter());
+  Hive.registerAdapter(SlotStateEmptyAdapter());
+  Hive.registerAdapter(SlotStateLockedAdapter());
+  Hive.registerAdapter(SlotStateMinerAdapter());
+  Hive.registerAdapter(MapEntryAdapter<InstanceId, MinerInstance>(55));
+  Hive.registerAdapter(MapEntryAdapter<PlanetPoint, InstanceId>(56));
+  Hive.registerAdapter(MapEntryAdapter<int, SlotState>(57));
   await Hive.initFlutter();
+  await MinerHiveManager.init();
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
 }
 

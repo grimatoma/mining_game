@@ -11,14 +11,15 @@ abstract class ShopListing {
   const ShopListing();
 }
 
-abstract class SellingShopListing extends ShopListing{
+abstract class SellingShopListing extends ShopListing {
   ItemContainer get cost;
 
   const SellingShopListing();
 }
 
 @freezed
-class ItemStackShopListing extends SellingShopListing with _$ItemStackShopListing {
+class ItemStackShopListing extends SellingShopListing
+    with _$ItemStackShopListing {
   const ItemStackShopListing._();
 
   const factory ItemStackShopListing(
@@ -39,7 +40,9 @@ class MinerShopListing extends SellingShopListing with _$MinerShopListing {
 class BuyingShopListing extends ShopListing {
   final ItemContainer sellPrice;
   final ItemContainer items;
+  @override
   final bool consumable;
 
-  BuyingShopListing({required this.sellPrice,required this.items,this.consumable = false});
+  BuyingShopListing(
+      {required this.sellPrice, required this.items, this.consumable = false});
 }

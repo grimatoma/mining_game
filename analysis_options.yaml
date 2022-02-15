@@ -12,7 +12,7 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   optional-checks:
     chrome-os-manifest-checks
- exclude:
+  exclude:
   - '**/*.g.dart'
   - '**/*.freeze.dart'
 linter:

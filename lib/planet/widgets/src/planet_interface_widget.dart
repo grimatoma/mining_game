@@ -11,9 +11,9 @@ import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/view_to_planet_controller.dart';
 
 final selectedMinerFromDropdownProvider =
-    StateProvider.autoDispose<StoredMinerInstance?>((ref) {
+    StateProvider.autoDispose<MinerInstance?>((ref) {
   final availableMiners = ref.watch(storedMinersProvider);
-  if (availableMiners.isNotEmpty) return availableMiners.values.first;
+  if (availableMiners.isNotEmpty) return availableMiners.first;
   return null;
 });
 
@@ -21,7 +21,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
   const PlanetInterfaceWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final availableMiners = ref.watch(storedMinersProvider);
+    final storedMiners = ref.watch(storedMinersProvider);
     final selectedTile = ref.watch(markerLocationProvider);
     if (selectedTile == null || !selectedTile.isValid) {
       return Scaffold(
@@ -67,29 +67,28 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
               children: [
                 Text(
                     'Remaining resources:\n${selectedTile.visible ? selectedTile.resources.toString() : 'Unknown'}'),
-                if (availableMiners.isNotEmpty &&
+                if (storedMiners.isNotEmpty &&
                     selectedTile.visible &&
                     !ref
-                        .watch(minersControllerProvider)
-                        .activeLocations
-                        .containsKey(selectedTile))
+                        .watch(activeMinersProvider)
+                        .miners
+                        .containsKey(selectedTile.point))
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      DropdownButton<StoredMinerInstance>(
+                      DropdownButton<MinerInstance>(
                           value: ref.watch(selectedMinerFromDropdownProvider),
                           underline: Container(
                             height: 2,
                             color: Colors.deepPurpleAccent,
                           ),
-                          items: availableMiners.values
-                              .map<DropdownMenuItem<StoredMinerInstance>>(
-                                  (value) =>
-                                      DropdownMenuItem<StoredMinerInstance>(
-                                          child: Text(value.definition.name),
-                                          value: value))
+                          items: storedMiners
+                              .map<DropdownMenuItem<MinerInstance>>((value) =>
+                                  DropdownMenuItem<MinerInstance>(
+                                      child: Text(value.definition.name),
+                                      value: value))
                               .toList(growable: false),
-                          onChanged: (StoredMinerInstance? newVal) {
+                          onChanged: (MinerInstance? newVal) {
                             ref
                                 .read(
                                     selectedMinerFromDropdownProvider.notifier)
@@ -101,7 +100,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                                 ref.read(selectedMinerFromDropdownProvider);
                             if (selectedMiner == null) return;
                             ref.read(gameEventManagerProvider).addEvent(
-                                InstallAutoMinerEvent(
+                                ActivateMinerEvent(
                                     miner: selectedMiner,
                                     point: selectedTile.point));
                           },
@@ -126,7 +125,7 @@ class ActiveMinersWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final miners =
-        ref.watch(activeMinerLocationsProvider).values.toList(growable: false);
+        ref.watch(activeMinersProvider).miners.entries.toList(growable: false);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -137,11 +136,12 @@ class ActiveMinersWidget extends HookConsumerWidget {
             child: ListView.separated(
               shrinkWrap: true,
               itemBuilder: (_, index) {
-                final miner = miners[index];
+                final entry = miners[index];
+                final miner = entry.value;
                 return Table(
                   children: [
                     TableRow(children: [Text(miner.definition.name)]),
-                    TableRow(children: [Text('Location ${miner.planetPoint}')]),
+                    TableRow(children: [Text('Location ${entry.key}')]),
                     // if (miner.hasDrill) ...[
                     //   TableRow(
                     //       children: [Text('Drill type: ${miner.drill?.name}')]),

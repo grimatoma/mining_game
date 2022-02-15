@@ -53,7 +53,7 @@ class ItemContainer {
       }));
 
   bool canSubtract(ItemContainer other) {
-    return maxCanBeRemoved(other) == this;
+    return !(this - other).hasNegative;
   }
 
   @override

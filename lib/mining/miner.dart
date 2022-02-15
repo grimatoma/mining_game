@@ -5,7 +5,6 @@ import 'package:mining_game/item_management/item_definitions.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/drill.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/planet/point.dart';
 
 part 'miner.freezed.dart';
 part 'miner.g.dart';
@@ -30,22 +29,28 @@ class MinerDefinition extends BaseItemDefinition with _$MinerDefinition {
 class MinerInstance with _$MinerInstance {
   const MinerInstance._();
 
-  @HiveType(typeId: 10, adapterName: 'StoredMinerInstanceAdapter')
-  const factory MinerInstance.stored({
+  @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
+  // @With<MinerMethods>()
+  const factory MinerInstance({
     @HiveField(0) required InstanceId id,
     @HiveField(1) required MinerDefinition definition,
     @HiveField(2) ItemKey? drillItemId,
-  }) = StoredMinerInstance;
-
-  @HiveType(typeId: 37, adapterName: 'ActiveMinerInstanceAdapter')
-  @With<ActiveMinerMethods>()
-  const factory MinerInstance.active({
-    @HiveField(0) required InstanceId id,
-    @HiveField(1) required MinerDefinition definition,
-    @HiveField(2) required ItemKey? drillItemId,
-    @HiveField(3) required PlanetPoint planetPoint,
     @HiveField(4) required ItemContainer hopper,
-  }) = ActiveMinerInstance;
+  }) = _MinerInstance;
+
+  int get baseDamage => definition.baseDamage;
+  int get drillDamage => drill?.damage ?? 0;
+  int get totalDamage => baseDamage + drillDamage;
+
+  // @HiveType(typeId: 37, adapterName: 'ActiveMinerInstanceAdapter')
+  // @With<ActiveMinerMethods>()
+  // const factory MinerInstance.active({
+  //   @HiveField(0) required InstanceId id,
+  //   @HiveField(1) required MinerDefinition definition,
+  //   @HiveField(2) required ItemKey? drillItemId,
+  //   @HiveField(3) required PlanetPoint planetPoint,
+  //   @HiveField(4) required ItemContainer hopper,
+  // }) = ActiveMinerInstance;
 
   bool get hasDrill => drillItemId != null;
   DrillDefinition? get drill => drillItemId?.getDefinition();
@@ -57,7 +62,7 @@ class MinerInstance with _$MinerInstance {
   // bool operator ==(Object other) => super == other;
 }
 
-mixin ActiveMinerMethods {
+mixin MinerMethods {
   MinerDefinition get definition;
   ItemKey? get drillItemId;
   DrillDefinition? get drill;
