@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/item_management/inventory_events.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/mining/miner.dart';
@@ -44,11 +44,14 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                   children: [
                     TextButton(
                         onPressed: () => ref
-                            .read(inventoryStateProvider.notifier)
-                            .add(ref
-                                .read(planetControllerProvider.notifier)
-                                .dig(selectedTile.point,
-                                    ItemContainer.single(ItemKey.IRON, 1))),
+                            .read(gameEventManagerProvider)
+                            .addEvent(AddItemsInventoryEvent(
+                                container: ref
+                                    .read(planetControllerProvider.notifier)
+                                    .dig(
+                                        selectedTile.point,
+                                        ItemContainer.single(
+                                            ItemKey.IRON, 1)))),
                         child: const Text('dig')),
                     if (!selectedTile.visible)
                       TextButton(

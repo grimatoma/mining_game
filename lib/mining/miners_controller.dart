@@ -1,11 +1,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/event_manager/event_manager.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory.dart';
+import 'package:mining_game/item_management/inventory_events.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/planet/planet_controller.dart';
@@ -109,14 +109,14 @@ class ActiveMinersNotifier extends StateNotifier<ActiveMiners> {
 
 /// Manges all auto miners and notifies when the miners collection changes.
 class MinersStateNotifier extends StateNotifier<Miners> {
-  final EventStreamManager _eventStreamManager;
+  final GameEventManager _gameEventManager;
 
   final InventoryStateController _inventoryController;
 
-  MinersStateNotifier(this._eventStreamManager, this._inventoryController)
+  MinersStateNotifier(this._gameEventManager, this._inventoryController)
       : super(Miners(SyncedMap.loadSimpleSyncedMap<InstanceId, MinerInstance>(
             BoxKey.miners))) {
-    _eventStreamManager.streamForEventType<MinerEvent>().listen((event) {
+    _gameEventManager.streamForEventType<MinerEvent>().listen((event) {
       switch (event.type) {
         case MinerEventType.NEW_MINER:
           _createMinerEvent(event);
@@ -149,7 +149,9 @@ class MinersStateNotifier extends StateNotifier<Miners> {
   void _drillAttach(MinerEvent event) {
     event as DrillAttachEvent;
     final drillKey = event.drillId;
-    if (_inventoryController.tryRemove(ItemContainer.single(drillKey, 1))) {
+    final drill = ItemContainer.single(drillKey, 1);
+    if (_inventoryController.canRemove(drill)) {
+      _gameEventManager.addEvent(RemoveItemsInventoryEvent(container: drill));
       _updateMinerWithDrill(event.miner, drillKey);
     }
   }
@@ -158,7 +160,8 @@ class MinersStateNotifier extends StateNotifier<Miners> {
     event as DrillRemoveEvent;
     final drillId = event.miner.drillItemId;
     if (drillId == null) return;
-    _inventoryController.addItem(drillId, 1);
+    _gameEventManager
+        .addEvent(AddItemInventoryEvent(key: drillId, quantity: 1));
     _updateMinerWithDrill(event.miner, null);
   }
 
@@ -170,7 +173,7 @@ class MinersStateNotifier extends StateNotifier<Miners> {
   void moveMinerHopperToInventory(MinerEvent event) {
     event as CollectHopperMinerEvent;
     final miner = event.miner;
-    _inventoryController.add(miner.hopper);
+    _gameEventManager.addEvent(AddItemsInventoryEvent(container: miner.hopper));
     state = state.rebuild(
         addOrUpdate: {miner.id: miner.copyWith(hopper: ItemContainer.empty())});
   }

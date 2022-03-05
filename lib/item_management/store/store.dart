@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/inventory_events.dart';
+import 'package:mining_game/item_management/store/store_events.dart';
 import 'package:mining_game/mining/miner_events.dart';
 
 import 'shop_listing_definitions.dart';
@@ -32,41 +33,54 @@ class StoreController extends StateNotifier<StoreListings> {
     this._inventory,
     this._gameEventManager,
     StoreListings store,
-  ) : super(store);
+  ) : super(store) {
+    _gameEventManager.streamForEventType<StoreEvent>().listen((event) {
+      switch (event.type) {
+        case StoreEventType.BUY_LISTING:
+          event as BuyStoreEvent;
+          _buyListing(event.listing);
+          break;
+        case StoreEventType.SELL_LISTING:
+          event as SellStoreEvent;
+          _sellListing(event.listing);
+          break;
+      }
+    });
+  }
 
-  bool canUseSellListing(SellingShopListing listing) =>
-      _inventory.canRemove(listing.cost);
+  bool canBuy(BuyShopListing listing) => _inventory.canRemove(listing.price);
+  bool canSell(SellShopListing listing) => _inventory.canRemove(listing.items);
 
-  void clickSellListing(SellingShopListing listing) {
-    if (canUseSellListing(listing)) {
+  void _buyListing(BuyShopListing listing) {
+    if (canBuy(listing)) {
       _gameEventManager
-          .addEvent(RemoveItemsInventoryEvent(container: listing.cost));
+          .addEvent(RemoveItemsInventoryEvent(container: listing.price));
       if (listing.consumable) {
         state = state.rebuild((p0) => p0.remove(listing));
       }
       switch (listing.type) {
-        case SellingShopListingType.ITEM_STACK:
-          listing as ItemStackShopListing;
+        case BuyingShopListingType.ITEM_STACK:
+          listing as BuyItemStackShopListing;
           _gameEventManager.addEvent(AddItemInventoryEvent(
               key: listing.itemKey, quantity: listing.quantity));
           break;
-        case SellingShopListingType.MINER:
-          listing as MinerShopListing;
+        case BuyingShopListingType.MINER:
+          listing as BuyMinerShopListing;
           _gameEventManager.addEvent(CreateMinerEvent(listing.definition));
           break;
       }
     }
   }
 
-  bool canUseBuyListing(BuyingShopListing listing) =>
-      _inventory.canRemove(listing.items);
-  void clickBuyListing(BuyingShopListing listing) {
-    if (canUseBuyListing(listing)) {
-      _inventory.remove(listing.items);
+  void _sellListing(SellShopListing listing) {
+    if (canSell(listing)) {
+      _gameEventManager
+          .addEvent(RemoveItemsInventoryEvent(container: listing.items));
+      _gameEventManager
+          .addEvent(AddItemsInventoryEvent(container: listing.sellPrice));
       if (listing.consumable) {
         state = state.rebuild((p0) => p0.remove(listing));
       }
-      _inventory.add(listing.sellPrice);
     }
   }
 }

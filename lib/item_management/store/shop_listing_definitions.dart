@@ -11,51 +11,51 @@ abstract class ShopListing {
   const ShopListing();
 }
 
-enum SellingShopListingType {
+enum BuyingShopListingType {
   ITEM_STACK,
   MINER,
 }
 
-abstract class SellingShopListing extends ShopListing {
-  SellingShopListingType get type;
-  ItemContainer get cost;
+abstract class BuyShopListing extends ShopListing {
+  BuyingShopListingType get type;
+  ItemContainer get price;
 
-  const SellingShopListing();
+  const BuyShopListing();
 }
 
 @freezed
-class ItemStackShopListing extends SellingShopListing
-    with _$ItemStackShopListing {
-  const ItemStackShopListing._();
+class BuyItemStackShopListing extends BuyShopListing
+    with _$BuyItemStackShopListing {
+  const BuyItemStackShopListing._();
 
   @override
-  final type = SellingShopListingType.ITEM_STACK;
+  final type = BuyingShopListingType.ITEM_STACK;
 
-  const factory ItemStackShopListing(
+  const factory BuyItemStackShopListing(
       {required ItemKey itemKey,
       required int quantity,
-      required ItemContainer cost,
-      @Default(true) bool consumable}) = _ItemStackShopListing;
+      required ItemContainer price,
+      @Default(true) bool consumable}) = _BuyItemStackShopListing;
 }
 
 @freezed
-class MinerShopListing extends SellingShopListing with _$MinerShopListing {
-  const MinerShopListing._();
+class BuyMinerShopListing extends BuyShopListing with _$BuyMinerShopListing {
+  const BuyMinerShopListing._();
   @override
-  final type = SellingShopListingType.MINER;
+  final type = BuyingShopListingType.MINER;
 
-  const factory MinerShopListing(
+  const factory BuyMinerShopListing(
       {required MinerDefinition definition,
-      required ItemContainer cost,
-      @Default(true) bool consumable}) = _MinerShopListing;
+      required ItemContainer price,
+      @Default(true) bool consumable}) = _BuyMinerShopListing;
 }
 
-class BuyingShopListing extends ShopListing {
+class SellShopListing extends ShopListing {
   final ItemContainer sellPrice;
   final ItemContainer items;
   @override
   final bool consumable;
 
-  BuyingShopListing(
+  SellShopListing(
       {required this.sellPrice, required this.items, this.consumable = false});
 }

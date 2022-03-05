@@ -34,27 +34,27 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
       switch (event.type) {
         case InventoryEventType.ADD_ITEM:
           event as AddItemInventoryEvent;
-          addItem(event.key, event.quantity);
+          _addItem(event.key, event.quantity);
           break;
         case InventoryEventType.ADD_ITEMS:
           event as AddItemsInventoryEvent;
-          add(event.container);
+          _add(event.container);
           break;
         case InventoryEventType.REMOVE_ITEM:
           event as RemoveItemInventoryEvent;
           throw UnimplementedError('${event.type} not implemented');
         case InventoryEventType.REMOVE_ITEMS:
           event as RemoveItemsInventoryEvent;
-          remove(event.container);
+          _remove(event.container);
           break;
       }
     });
   }
 
-  void addItem(ItemKey key, int quantity) =>
-      add(ItemContainer.single(key, quantity));
+  void _addItem(ItemKey key, int quantity) =>
+      _add(ItemContainer.single(key, quantity));
 
-  void add(ItemContainer container) async {
+  void _add(ItemContainer container) async {
     final items = container.items;
     final existingItems = state.items;
     final mappedItems = {
@@ -70,18 +70,10 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
 
   int get(ItemKey key) => state.items[key] ?? 0;
 
-  bool tryRemove(ItemContainer container) {
-    if (canRemove(container)) {
-      remove(container);
-      return true;
-    }
-    return false;
-  }
-
   bool canRemove(ItemContainer container) =>
       !container.items.entries.any((entry) => get(entry.key) - entry.value < 0);
 
-  Future<bool> remove(ItemContainer container) async {
+  Future<bool> _remove(ItemContainer container) async {
     if (!canRemove(container)) return false;
     final mappedItems = {
       for (final entry in container.items.entries)

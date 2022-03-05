@@ -6,21 +6,21 @@ import 'package:mining_game/mining/miner.dart';
 import 'shop_listing_definitions.dart';
 
 final storeListings = <ShopListing>[
-  BuyingShopListing(
+  SellShopListing(
       sellPrice: ItemContainer.single(ItemKey.CREDIT, 25),
       items: ItemContainer.single(ItemKey.IRON, 5)),
-  ItemStackShopListing(
+  BuyItemStackShopListing(
       itemKey: ItemKey.ROCK,
       quantity: 5,
-      cost: ItemContainer.create({ItemKey.IRON: 1}),
+      price: ItemContainer.create({ItemKey.IRON: 1}),
       consumable: false),
-  ItemStackShopListing(
+  BuyItemStackShopListing(
       itemKey: ItemKey.TEST_DRILL,
       quantity: 1,
-      cost: ItemContainer.create({ItemKey.IRON: 15}),
+      price: ItemContainer.create({ItemKey.IRON: 15}),
       consumable: false),
-  MinerShopListing(
-      cost: ItemContainer.create({ItemKey.IRON: 5}),
+  BuyMinerShopListing(
+      price: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
           name: 'Junk Miner',
           description:
@@ -31,8 +31,8 @@ final storeListings = <ShopListing>[
           baseHopperSize: 50,
           fuelConsumption: 5,
           image: 'images/drills/1.jpg')),
-  MinerShopListing(
-      cost: ItemContainer.create({ItemKey.IRON: 5}),
+  BuyMinerShopListing(
+      price: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
           name: 'Basic Miner',
           description: 'Generic off the shelf miner',
@@ -42,8 +42,8 @@ final storeListings = <ShopListing>[
           baseHopperSize: 100,
           fuelConsumption: 5,
           image: 'images/drills/2.jpg')),
-  MinerShopListing(
-      cost: ItemContainer.create({ItemKey.IRON: 5}),
+  BuyMinerShopListing(
+      price: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
           name: 'Test Miner 3',
           description: 'this is the third miner',
@@ -53,8 +53,8 @@ final storeListings = <ShopListing>[
           baseHopperSize: 50,
           fuelConsumption: 5,
           image: 'images/drills/3.jpg')),
-  MinerShopListing(
-      cost: ItemContainer.create({ItemKey.IRON: 5}),
+  BuyMinerShopListing(
+      price: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
           name: 'Test Miner 4',
           description: 'this is the 4 miner',
@@ -64,8 +64,8 @@ final storeListings = <ShopListing>[
           baseHopperSize: 50,
           fuelConsumption: 5,
           image: 'images/drills/4.jpg')),
-  MinerShopListing(
-      cost: ItemContainer.create({ItemKey.IRON: 5}),
+  BuyMinerShopListing(
+      price: ItemContainer.create({ItemKey.IRON: 5}),
       definition: const MinerDefinition(
           name: 'Test Miner 5',
           description: 'this is the 5 miner',
