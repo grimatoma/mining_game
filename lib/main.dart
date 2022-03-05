@@ -13,6 +13,7 @@ import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
+import 'package:mining_game/widgets/quests_page.dart';
 
 import 'item_management/instance_id.dart';
 import 'mining/miner.dart';
@@ -99,7 +100,11 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<NavItem>>((ref) {
     NavItem(
         name: 'Garage',
         builder: (context) => const GaragePageWidget(),
-        icon: Icons.garage)
+        icon: Icons.garage),
+    NavItem(
+        name: 'Quests',
+        builder: (context) => const QuestListPageWidget(),
+        icon: Icons.attractions)
   ].build();
 });
 

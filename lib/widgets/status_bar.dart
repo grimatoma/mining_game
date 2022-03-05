@@ -25,7 +25,6 @@ class StatusBarWidget extends HookConsumerWidget {
       child: Center(
         child: Column(
           children: [
-            const Text('Mining Game'),
             Table(
               children: [
                 for (final item in itemEntry)

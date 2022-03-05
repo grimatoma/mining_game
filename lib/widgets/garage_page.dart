@@ -1,8 +1,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/garage_controller.dart';
+import 'package:mining_game/garage_events.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/mining/miner.dart';
 import 'package:mining_game/mining/miners_controller.dart';
@@ -38,7 +40,7 @@ class GaragePageWidget extends ConsumerWidget {
     final slots = <Widget>[];
     for (var i = 0; i < ref.watch(gameConfigsProvider).maxGarageSlots; i++) {
       final slot = garageState.getSlot(i);
-      if (slot is SlotWithMiner) slots.add(GarageSlotWidget(slot));
+      if (slot is SlotWithMiner) slots.add(PopulatedGarageSlotWidget(slot));
       if (slot is LockedSlot) slots.add(LockedGarageSlotWidget(slot));
       if (slot is EmptySlot) slots.add(EmptyGarageSlotWidget(slot));
     }
@@ -86,9 +88,9 @@ class EmptyGarageSlotWidget extends ConsumerWidget {
                               value: miner, child: Text(miner.definition.name)),
                       ],
                       onChanged: (miner) {
-                        ref
-                            .read(garageProvider.notifier)
-                            .addMinerToSlot(slot, miner!);
+                        ref.read(gameEventManagerProvider).addEvent(
+                            AddMinerToSlotGarageEvent(
+                                slot: slot, minerInstance: miner!));
                       },
                     )
                   ],
@@ -131,7 +133,9 @@ class LockedGarageSlotWidget extends ConsumerWidget {
               cost: cost,
               active: ref.watch(inventoryStateProvider).canSubtract(cost),
               onClick: () {
-                ref.read(garageProvider.notifier).unlockSlot(slot);
+                ref
+                    .read(gameEventManagerProvider)
+                    .addEvent(UnlockSlotGarageEvent(slot: slot));
               },
             ),
           ),
@@ -141,9 +145,9 @@ class LockedGarageSlotWidget extends ConsumerWidget {
   }
 }
 
-class GarageSlotWidget extends ConsumerWidget {
+class PopulatedGarageSlotWidget extends ConsumerWidget {
   final SlotWithMiner _slotWithMiner;
-  const GarageSlotWidget(
+  const PopulatedGarageSlotWidget(
     this._slotWithMiner, {
     Key? key,
   }) : super(key: key);
@@ -152,8 +156,8 @@ class GarageSlotWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final minerInstance = _slotWithMiner.miner;
     return LayoutBuilder(
-      builder: (context, constraints) => OutlinedButton(
-        onPressed: () {
+      builder: (context, constraints) => InkWell(
+        onTap: () {
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -185,9 +189,7 @@ class MinerDetailWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return StatusBarWrappedPageWidget(
       title: _minerInstance.definition.name,
-      builder: (_, __) => Container(
-        child: Text(_minerInstance.definition.description),
-      ),
+      builder: (_, __) => Text(_minerInstance.definition.description),
     );
   }
 }

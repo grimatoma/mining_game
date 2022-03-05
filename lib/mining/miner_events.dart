@@ -4,19 +4,19 @@ import 'package:mining_game/planet/point.dart';
 
 import 'miner.dart';
 
-abstract class ActiveMinerEvent extends GameEvent<ActiveMinerEventTypes> {
+abstract class ActiveMinerEvent extends GameEvent<ActiveMinerEventType> {
   @override
-  ActiveMinerEventTypes get type;
+  ActiveMinerEventType get type;
 }
 
-enum ActiveMinerEventTypes {
+enum ActiveMinerEventType {
   ACTIVATE_MINER,
   DEACTIVATE_MINER,
 }
 
 class ActivateMinerEvent extends ActiveMinerEvent {
   @override
-  final type = ActiveMinerEventTypes.ACTIVATE_MINER;
+  final type = ActiveMinerEventType.ACTIVATE_MINER;
 
   final PlanetPoint point;
   final MinerInstance miner;
@@ -26,19 +26,19 @@ class ActivateMinerEvent extends ActiveMinerEvent {
 
 class DeactivateMinerEvent extends ActiveMinerEvent {
   @override
-  final type = ActiveMinerEventTypes.DEACTIVATE_MINER;
+  final type = ActiveMinerEventType.DEACTIVATE_MINER;
 
   final MinerInstance miner;
 
   DeactivateMinerEvent({required this.miner});
 }
 
-abstract class MinerEvent extends GameEvent<MinerEventTypes> {
+abstract class MinerEvent extends GameEvent<MinerEventType> {
   @override
-  MinerEventTypes get type;
+  MinerEventType get type;
 }
 
-enum MinerEventTypes {
+enum MinerEventType {
   // TODO change to DRILL CHANGE that does both
   DRILL_ATTACH,
   NEW_MINER,
@@ -48,7 +48,7 @@ enum MinerEventTypes {
 
 class CreateMinerEvent extends MinerEvent {
   @override
-  final type = MinerEventTypes.NEW_MINER;
+  final type = MinerEventType.NEW_MINER;
 
   final MinerDefinition definition;
 
@@ -57,7 +57,7 @@ class CreateMinerEvent extends MinerEvent {
 
 class CollectHopperMinerEvent extends MinerEvent {
   @override
-  final type = MinerEventTypes.COLLECT_HOPPER;
+  final type = MinerEventType.COLLECT_HOPPER;
 
   final MinerInstance miner;
 
@@ -66,7 +66,7 @@ class CollectHopperMinerEvent extends MinerEvent {
 
 class DrillAttachEvent extends MinerEvent {
   @override
-  final type = MinerEventTypes.DRILL_ATTACH;
+  final type = MinerEventType.DRILL_ATTACH;
 
   final ItemKey drillId;
   final MinerInstance miner;
@@ -76,7 +76,7 @@ class DrillAttachEvent extends MinerEvent {
 
 class DrillRemoveEvent extends MinerEvent {
   @override
-  final type = MinerEventTypes.DRILL_REMOVE;
+  final type = MinerEventType.DRILL_REMOVE;
 
   final MinerInstance miner;
 

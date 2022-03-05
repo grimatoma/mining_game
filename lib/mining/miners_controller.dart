@@ -17,10 +17,7 @@ import 'miners.dart';
 
 final minersProvider =
     StateNotifierProvider<MinersStateNotifier, Miners>((ref) {
-  return MinersStateNotifier(
-      ref.watch(gameEventManagerProvider),
-      ref.watch(gameClockProvider),
-      ref.watch(planetControllerProvider.notifier),
+  return MinersStateNotifier(ref.watch(gameEventManagerProvider),
       ref.watch(inventoryStateProvider.notifier));
 });
 
@@ -33,12 +30,6 @@ final storedMinersProvider =
       .values
       .where((element) => !activeMiners.contains(element));
 });
-// final activeMinerLocationsProvider =
-//     Provider.autoDispose<BuiltMap<PlanetPoint, ActiveMinerInstance>>(
-//         (ref) => ref.watch(minersControllerProvider).activeLocations);
-// final activeMinersProvider =
-//     Provider.autoDispose<BuiltMap<InstanceId, ActiveMinerInstance>>(
-//         (ref) => ref.watch(minersControllerProvider).miners);
 
 final activeMinersProvider =
     StateNotifierProvider<ActiveMinersNotifier, ActiveMiners>((ref) {
@@ -47,7 +38,6 @@ final activeMinersProvider =
       ref.watch(gameEventManagerProvider),
       ref.watch(gameClockProvider),
       ref.watch(planetControllerProvider.notifier),
-      ref.watch(inventoryStateProvider.notifier),
       ActiveMiners(
           SyncedMap<PlanetPoint, MinerInstance, PlanetPoint, InstanceId>.load(
               BoxKey.activeMiners,
@@ -60,25 +50,20 @@ final activeMinersProvider =
 });
 
 class ActiveMinersNotifier extends StateNotifier<ActiveMiners> {
-  final EventStreamManager _eventStreamManager;
+  final GameEventManager _eventStreamManager;
   final PlanetController _planetController;
   final GameClock _gameClock;
-  final InventoryStateController _inventoryController;
 
-  ActiveMinersNotifier(
-      this._eventStreamManager,
-      this._gameClock,
-      this._planetController,
-      this._inventoryController,
-      ActiveMiners activeMiners)
+  ActiveMinersNotifier(this._eventStreamManager, this._gameClock,
+      this._planetController, ActiveMiners activeMiners)
       : super(activeMiners) {
     _eventStreamManager.streamForEventType<ActiveMinerEvent>().listen((event) {
       switch (event.type) {
-        case ActiveMinerEventTypes.ACTIVATE_MINER:
+        case ActiveMinerEventType.ACTIVATE_MINER:
           _handleActivateMinerEvent(event);
           break;
 
-        case ActiveMinerEventTypes.DEACTIVATE_MINER:
+        case ActiveMinerEventType.DEACTIVATE_MINER:
           _handleDeactivateMinerEvent(event);
           break;
       }
@@ -125,44 +110,24 @@ class ActiveMinersNotifier extends StateNotifier<ActiveMiners> {
 /// Manges all auto miners and notifies when the miners collection changes.
 class MinersStateNotifier extends StateNotifier<Miners> {
   final EventStreamManager _eventStreamManager;
-  final PlanetController _planetController;
-  final GameClock _gameClock;
+
   final InventoryStateController _inventoryController;
 
-  MinersStateNotifier(this._eventStreamManager, this._gameClock,
-      this._planetController, this._inventoryController)
+  MinersStateNotifier(this._eventStreamManager, this._inventoryController)
       : super(Miners(SyncedMap.loadSimpleSyncedMap<InstanceId, MinerInstance>(
             BoxKey.miners))) {
-    // void loadInitialData() async {
-    //   final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
-    //       DatabaseName.installedMiners000p.name);
-    //   final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
-    //       DatabaseName.storedMiners000p.name);
-    //   state = _rebuild(addOrUpdateActive: {
-    //     for (final miner in installedMinersBox.values)
-    //       // Regenerate the id on each load.
-    //       miner.copyWith(id: InstanceId.generate())
-    //   }, addOrUpdateStored: {
-    //     for (final miner in storedMinersBox.values)
-    //       // Regenerate the id on each load.
-    //       miner.copyWith(id: InstanceId.generate())
-    //   });
-    // }
-    //
-    // loadInitialData();
-
     _eventStreamManager.streamForEventType<MinerEvent>().listen((event) {
       switch (event.type) {
-        case MinerEventTypes.NEW_MINER:
+        case MinerEventType.NEW_MINER:
           _createMinerEvent(event);
           break;
-        case MinerEventTypes.DRILL_ATTACH:
+        case MinerEventType.DRILL_ATTACH:
           _drillAttach(event);
           break;
-        case MinerEventTypes.DRILL_REMOVE:
+        case MinerEventType.DRILL_REMOVE:
           _drillRemove(event);
           break;
-        case MinerEventTypes.COLLECT_HOPPER:
+        case MinerEventType.COLLECT_HOPPER:
           moveMinerHopperToInventory(event);
           break;
       }
@@ -209,67 +174,7 @@ class MinersStateNotifier extends StateNotifier<Miners> {
     state = state.rebuild(
         addOrUpdate: {miner.id: miner.copyWith(hopper: ItemContainer.empty())});
   }
-
-// Miners _rebuildSingle({
-  //   ActiveMinerInstance? addOrUpdateActive,
-  //   ActiveMinerInstance? removeActive,
-  //   StoredMinerInstance? addOrUpdateStored,
-  //   StoredMinerInstance? removeStored,
-  // }) =>
-  //     _rebuild(
-  //         addOrUpdateActive:
-  //             addOrUpdateActive != null ? [addOrUpdateActive] : null,
-  //         removeActive: removeActive != null ? [removeActive] : null,
-  //         addOrUpdateStored:
-  //             addOrUpdateStored != null ? [addOrUpdateStored] : null,
-  //         removeStored: removeStored != null ? [removeStored] : null);
-  // Miners _rebuild({
-  //   Iterable<ActiveMinerInstance>? addOrUpdateActive,
-  //   Iterable<ActiveMinerInstance>? removeActive,
-  //   Iterable<StoredMinerInstance>? addOrUpdateStored,
-  //   Iterable<StoredMinerInstance>? removeStored,
-  // }) {
-  //   void updateBox() async {
-  //     final installedMinersBox = await Hive.openBox<ActiveMinerInstance>(
-  //         DatabaseName.installedMiners000p.name);
-  //     final storedMinersBox = await Hive.openBox<StoredMinerInstance>(
-  //         DatabaseName.storedMiners000p.name);
-  //
-  //     if (addOrUpdateActive != null) {
-  //       for (final miner in addOrUpdateActive) {
-  //         installedMinersBox.put(miner.id.toString(), miner);
-  //       }
-  //     }
-  //     if (removeActive != null) {
-  //       installedMinersBox.deleteAll(removeActive.map((e) => e.id.toString()));
-  //     }
-  //     if (addOrUpdateStored != null) {
-  //       for (final miner in addOrUpdateStored) {
-  //         storedMinersBox.put(miner.id.toString(), miner);
-  //       }
-  //     }
-  //     if (removeStored != null) {
-  //       storedMinersBox.deleteAll(removeStored.map((e) => e.id.toString()));
-  //     }
-  //   }
-  //
-  //   updateBox();
-  //   return Miners(
-  //       miners: state.miners.cheapRebuild(addOrUpdateActive, removeActive),
-  //       stored: state.stored.cheapRebuild(addOrUpdateStored, removeStored));
-  // }
 }
-
-// class SimpleSyncedMap<K, V> extends SyncedMap<K, V, K, V> {
-//   SimpleSyncedMap.load(BoxName boxName)
-//       : super.load(boxName,
-//             convert: (k, v) => MapEntry(k, v),
-//             loadFunction: (entries) => {
-//                   for (final entry in entries) entry.key: entry.value,
-//                 });
-//
-//
-// }
 
 class SyncedMap<K, V, StoreK, StoreV> {
   final Box<MapEntry<StoreK, StoreV>> _box;
@@ -296,26 +201,10 @@ class SyncedMap<K, V, StoreK, StoreV> {
 
   SyncedMap._rebuild(this._box, this.map, this._convert);
 
-  // SyncedMap<K, V, StoreK, StoreV> rebuildSingle(
-  //     {K? addOrUpdateKey, V? addOrUpdateValue, K? removeKey}) {
-  //   assert(
-  //       (addOrUpdateKey == null && addOrUpdateValue == null) ||
-  //           (addOrUpdateKey != null && addOrUpdateValue != null),
-  //       'Both key and value must be populated');
-  //   return rebuild(addOrUpdate: {
-  //     if (addOrUpdateKey != null && addOrUpdateValue != null)
-  //       addOrUpdateKey: addOrUpdateValue,
-  //   }, remove: [
-  //     if (removeKey != null) removeKey,
-  //   ]);
-  // }
-
   SyncedMap<K, V, StoreK, StoreV> rebuild({
     Map<K, V>? addOrUpdate,
     Iterable<K>? remove,
   }) {
-    // void updateBox() async {
-
     return SyncedMap<K, V, StoreK, StoreV>._rebuild(_box, map.rebuild((p0) {
       if (addOrUpdate != null) {
         addOrUpdate.forEach((key, value) {
@@ -330,17 +219,8 @@ class SyncedMap<K, V, StoreK, StoreV> {
         }));
       }
     }), _convert);
-
-    // }
-
-    // updateBox();
-    // return Miners(
-    //     active: state.active.cheapRebuild(addOrUpdate, remove),
-    //     stored: state.stored.cheapRebuild(addOrUpdateStored, removeStored));
   }
 }
-
-//MapEntry<int, SlotState>
 
 class MapEntryAdapter<KeyT, ValueT>
     extends TypeAdapter<MapEntry<KeyT, ValueT>> {
@@ -370,40 +250,3 @@ class MapEntryAdapter<KeyT, ValueT>
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
-
-// class BoxSyncedMap<ValueT> {
-//   final Box<ValueT> _box;
-//
-//   static Future<BoxSyncedMap<ValueT>> init<int, ValueT>(String path) async {
-//     final box = await MinerHiveManager.openBox<ValueT>(path);
-//     return BoxSyncedMap._init(box);
-//   }
-//
-//   BoxSyncedMap._init(this._box);
-//
-//   Stream<void> get stream => _box.watch().map((event) => null);
-//
-//   void add(ValueT value) => _box.add(value);
-//   void put(int key, ValueT value) => _box.put(key, value);
-//   void putAll(Map<int, ValueT> entries) => _box.putAll(entries);
-//   void remove(int key) => _box.delete(key.toString());
-//   void removeAll(Iterable<int> keys) => _box.deleteAll(keys);
-//
-//   Iterable<ValueT> get values => _box.values;
-//   Iterable<int> get keys => _box.keys.cast<int>();
-// }
-//
-// class MinerHiveManager {
-//   static final openedBoxes = <Box>{};
-//   static Future<Box<T>> openBox<T>(String path) async {
-//     final box = await Hive.openBox<T>(path);
-//     openedBoxes.add(box);
-//     return box;
-//   }
-//
-//   static void clearAll() {
-//     for (final box in openedBoxes) {
-//       box..deleteFromDisk();
-//     }
-//   }
-// }

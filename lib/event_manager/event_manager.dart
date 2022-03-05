@@ -1,6 +1,8 @@
 import 'dart:async';
 
-abstract class Event {}
+abstract class Event {
+  const Event();
+}
 
 class EventStreamManager<EventTypeT extends Event> {
   final StreamController<EventTypeT> _streamController =

@@ -345,9 +345,10 @@ class __$MinerShopListingCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_MinerShopListing implements _MinerShopListing {
+class _$_MinerShopListing extends _MinerShopListing {
   const _$_MinerShopListing(
-      {required this.definition, required this.cost, this.consumable = true});
+      {required this.definition, required this.cost, this.consumable = true})
+      : super._();
 
   @override
   final MinerDefinition definition;
@@ -387,11 +388,12 @@ class _$_MinerShopListing implements _MinerShopListing {
       __$MinerShopListingCopyWithImpl<_MinerShopListing>(this, _$identity);
 }
 
-abstract class _MinerShopListing implements MinerShopListing {
+abstract class _MinerShopListing extends MinerShopListing {
   const factory _MinerShopListing(
       {required MinerDefinition definition,
       required ItemContainer cost,
       bool consumable}) = _$_MinerShopListing;
+  const _MinerShopListing._() : super._();
 
   @override
   MinerDefinition get definition;

@@ -1,19 +1,24 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/persistence.dart';
 
+import 'inventory_events.dart';
 import 'items/item_container.dart';
 
 final inventoryStateProvider =
     StateNotifierProvider<InventoryStateController, ItemContainer>((ref) {
-  return InventoryStateController(ref.watch(itemDirectoryProvider));
+  return InventoryStateController(
+      ref.watch(itemDirectoryProvider), ref.watch(gameEventManagerProvider));
 });
 
 class InventoryStateController extends StateNotifier<ItemContainer> {
   final ItemDirectory _itemDirectory;
-  InventoryStateController(this._itemDirectory) : super(ItemContainer.empty()) {
+  InventoryStateController(
+      this._itemDirectory, GameEventManager gameEventManager)
+      : super(ItemContainer.empty()) {
     void loadInitialData() async {
       final loadedBox =
           await Hive.openBox<int>(DatabaseName.inventory000p.name);
@@ -24,6 +29,26 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     }
 
     loadInitialData();
+
+    gameEventManager.streamForEventType<InventoryEvent>().listen((event) {
+      switch (event.type) {
+        case InventoryEventType.ADD_ITEM:
+          event as AddItemInventoryEvent;
+          addItem(event.key, event.quantity);
+          break;
+        case InventoryEventType.ADD_ITEMS:
+          event as AddItemsInventoryEvent;
+          add(event.container);
+          break;
+        case InventoryEventType.REMOVE_ITEM:
+          event as RemoveItemInventoryEvent;
+          throw UnimplementedError('${event.type} not implemented');
+        case InventoryEventType.REMOVE_ITEMS:
+          event as RemoveItemsInventoryEvent;
+          remove(event.container);
+          break;
+      }
+    });
   }
 
   void addItem(ItemKey key, int quantity) =>

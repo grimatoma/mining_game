@@ -11,7 +11,13 @@ abstract class ShopListing {
   const ShopListing();
 }
 
+enum SellingShopListingType {
+  ITEM_STACK,
+  MINER,
+}
+
 abstract class SellingShopListing extends ShopListing {
+  SellingShopListingType get type;
   ItemContainer get cost;
 
   const SellingShopListing();
@@ -22,6 +28,9 @@ class ItemStackShopListing extends SellingShopListing
     with _$ItemStackShopListing {
   const ItemStackShopListing._();
 
+  @override
+  final type = SellingShopListingType.ITEM_STACK;
+
   const factory ItemStackShopListing(
       {required ItemKey itemKey,
       required int quantity,
@@ -31,6 +40,10 @@ class ItemStackShopListing extends SellingShopListing
 
 @freezed
 class MinerShopListing extends SellingShopListing with _$MinerShopListing {
+  const MinerShopListing._();
+  @override
+  final type = SellingShopListingType.MINER;
+
   const factory MinerShopListing(
       {required MinerDefinition definition,
       required ItemContainer cost,
