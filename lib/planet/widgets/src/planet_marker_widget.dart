@@ -44,21 +44,21 @@ class MinerLayerWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final planetScreenInfo = ref.watch(planetScreenInfoControllerProvider);
-    final activeMiners = ref.watch(activeMinersProvider);
+    final activeMiners = ref.watch(minerLocationsProvider).activeMiners;
     final transformHelper = ref.watch(planetViewTransformHelperProvider);
     return SizedBox(
       width: planetRendererConstraints.maxWidth,
       height: planetRendererConstraints.maxHeight,
       child: Stack(
         fit: StackFit.expand,
-        children: activeMiners.miners.entries.map((entry) {
+        children: activeMiners.entries.map((entry) {
           return Positioned.fromRect(
-              rect: transformHelper.toOnTileScaled(entry.key, .8, .8),
+              rect: transformHelper.toOnTileScaled(entry.value, .8, .8),
               child: Container(
                 width: 0.5 * transformHelper.planetToImageScaler.x,
                 height: 0.5 * transformHelper.planetToImageScaler.y,
                 color: Colors.green,
-                child: Text(entry.value.definition.name,
+                child: Text(entry.key.definition.name,
                     style: const TextStyle(fontSize: 6)),
               ));
         }).toList(growable: false),

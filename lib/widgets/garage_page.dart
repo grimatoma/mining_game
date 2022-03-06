@@ -13,18 +13,18 @@ import 'package:mining_game/widgets/store_page.dart';
 import 'status_bar_wrapped_page.dart';
 
 final _unHousedMinersProvider = Provider<BuiltList<MinerInstance>>((ref) {
-  final slottedMiners = ref
+  final slottedMinerIds = ref
       .watch(garageProvider)
       .slots
       .values
       .whereType<SlotWithMiner>()
-      .map((e) => e.miner)
+      .map((e) => e.minerId)
       .toSet();
   return ref
       .watch(minersProvider)
       .miners
       .values
-      .where((e) => !slottedMiners.contains(e))
+      .where((instance) => !slottedMinerIds.contains(instance.id))
       .toBuiltList();
 });
 
@@ -90,7 +90,7 @@ class EmptyGarageSlotWidget extends ConsumerWidget {
                       onChanged: (miner) {
                         ref.read(gameEventManagerProvider).addEvent(
                             AddMinerToSlotGarageEvent(
-                                slot: slot, minerInstance: miner!));
+                                slot: slot, instanceId: miner!.id));
                       },
                     )
                   ],
@@ -154,7 +154,8 @@ class PopulatedGarageSlotWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final minerInstance = _slotWithMiner.miner;
+    final minerInstance =
+        ref.watch(minersProvider).getMiner(_slotWithMiner.minerId)!;
     return LayoutBuilder(
       builder: (context, constraints) => InkWell(
         onTap: () {

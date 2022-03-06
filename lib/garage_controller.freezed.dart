@@ -159,10 +159,10 @@ class _$SlotStateTearOff {
   const _$SlotStateTearOff();
 
   SlotWithMiner withMiner(
-      {@HiveField(1) required MinerInstance miner,
+      {@HiveField(1) required InstanceId minerId,
       @HiveField(2) required int index}) {
     return SlotWithMiner(
-      miner: miner,
+      minerId: minerId,
       index: index,
     );
   }
@@ -191,7 +191,7 @@ mixin _$SlotState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)
+            @HiveField(1) InstanceId minerId, @HiveField(2) int index)
         withMiner,
     required TResult Function(@HiveField(2) int index) locked,
     required TResult Function(@HiveField(2) int index) empty,
@@ -199,8 +199,7 @@ mixin _$SlotState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,
@@ -208,8 +207,7 @@ mixin _$SlotState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,
@@ -279,9 +277,7 @@ abstract class $SlotWithMinerCopyWith<$Res>
           SlotWithMiner value, $Res Function(SlotWithMiner) then) =
       _$SlotWithMinerCopyWithImpl<$Res>;
   @override
-  $Res call({@HiveField(1) MinerInstance miner, @HiveField(2) int index});
-
-  $MinerInstanceCopyWith<$Res> get miner;
+  $Res call({@HiveField(1) InstanceId minerId, @HiveField(2) int index});
 }
 
 /// @nodoc
@@ -296,26 +292,19 @@ class _$SlotWithMinerCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? miner = freezed,
+    Object? minerId = freezed,
     Object? index = freezed,
   }) {
     return _then(SlotWithMiner(
-      miner: miner == freezed
-          ? _value.miner
-          : miner // ignore: cast_nullable_to_non_nullable
-              as MinerInstance,
+      minerId: minerId == freezed
+          ? _value.minerId
+          : minerId // ignore: cast_nullable_to_non_nullable
+              as InstanceId,
       index: index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
     ));
-  }
-
-  @override
-  $MinerInstanceCopyWith<$Res> get miner {
-    return $MinerInstanceCopyWith<$Res>(_value.miner, (value) {
-      return _then(_value.copyWith(miner: value));
-    });
   }
 }
 
@@ -324,18 +313,18 @@ class _$SlotWithMinerCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
 @HiveType(typeId: 43, adapterName: 'SlotStateMinerAdapter')
 class _$SlotWithMiner implements SlotWithMiner {
   const _$SlotWithMiner(
-      {@HiveField(1) required this.miner, @HiveField(2) required this.index});
+      {@HiveField(1) required this.minerId, @HiveField(2) required this.index});
 
   @override
   @HiveField(1)
-  final MinerInstance miner;
+  final InstanceId minerId;
   @override
   @HiveField(2)
   final int index;
 
   @override
   String toString() {
-    return 'SlotState.withMiner(miner: $miner, index: $index)';
+    return 'SlotState.withMiner(minerId: $minerId, index: $index)';
   }
 
   @override
@@ -343,14 +332,14 @@ class _$SlotWithMiner implements SlotWithMiner {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SlotWithMiner &&
-            const DeepCollectionEquality().equals(other.miner, miner) &&
+            const DeepCollectionEquality().equals(other.minerId, minerId) &&
             const DeepCollectionEquality().equals(other.index, index));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(miner),
+      const DeepCollectionEquality().hash(minerId),
       const DeepCollectionEquality().hash(index));
 
   @JsonKey(ignore: true)
@@ -362,38 +351,36 @@ class _$SlotWithMiner implements SlotWithMiner {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)
+            @HiveField(1) InstanceId minerId, @HiveField(2) int index)
         withMiner,
     required TResult Function(@HiveField(2) int index) locked,
     required TResult Function(@HiveField(2) int index) empty,
   }) {
-    return withMiner(miner, index);
+    return withMiner(minerId, index);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,
   }) {
-    return withMiner?.call(miner, index);
+    return withMiner?.call(minerId, index);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,
     required TResult orElse(),
   }) {
     if (withMiner != null) {
-      return withMiner(miner, index);
+      return withMiner(minerId, index);
     }
     return orElse();
   }
@@ -435,11 +422,11 @@ class _$SlotWithMiner implements SlotWithMiner {
 
 abstract class SlotWithMiner implements SlotState {
   const factory SlotWithMiner(
-      {@HiveField(1) required MinerInstance miner,
+      {@HiveField(1) required InstanceId minerId,
       @HiveField(2) required int index}) = _$SlotWithMiner;
 
   @HiveField(1)
-  MinerInstance get miner;
+  InstanceId get minerId;
   @override
   @HiveField(2)
   int get index;
@@ -516,7 +503,7 @@ class _$LockedSlot implements LockedSlot {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)
+            @HiveField(1) InstanceId minerId, @HiveField(2) int index)
         withMiner,
     required TResult Function(@HiveField(2) int index) locked,
     required TResult Function(@HiveField(2) int index) empty,
@@ -527,8 +514,7 @@ class _$LockedSlot implements LockedSlot {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,
@@ -539,8 +525,7 @@ class _$LockedSlot implements LockedSlot {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,
@@ -665,7 +650,7 @@ class _$EmptySlot implements EmptySlot {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)
+            @HiveField(1) InstanceId minerId, @HiveField(2) int index)
         withMiner,
     required TResult Function(@HiveField(2) int index) locked,
     required TResult Function(@HiveField(2) int index) empty,
@@ -676,8 +661,7 @@ class _$EmptySlot implements EmptySlot {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,
@@ -688,8 +672,7 @@ class _$EmptySlot implements EmptySlot {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            @HiveField(1) MinerInstance miner, @HiveField(2) int index)?
+    TResult Function(@HiveField(1) InstanceId minerId, @HiveField(2) int index)?
         withMiner,
     TResult Function(@HiveField(2) int index)? locked,
     TResult Function(@HiveField(2) int index)? empty,

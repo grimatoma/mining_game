@@ -40,7 +40,7 @@ void main() async {
   Hive.registerAdapter(SlotStateLockedAdapter());
   Hive.registerAdapter(SlotStateMinerAdapter());
   Hive.registerAdapter(MapEntryAdapter<InstanceId, MinerInstance>(55));
-  Hive.registerAdapter(MapEntryAdapter<PlanetPoint, InstanceId>(56));
+  Hive.registerAdapter(MapEntryAdapter<InstanceId, PlanetPoint>(56));
   Hive.registerAdapter(MapEntryAdapter<int, SlotState>(57));
   await Hive.initFlutter();
   await MinerHiveManager.init();

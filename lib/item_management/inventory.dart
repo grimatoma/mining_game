@@ -21,7 +21,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
       : super(ItemContainer.empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<int>(DatabaseName.inventory000p.name);
+          await Hive.openBox<int>(DatabaseName.inventory000p2.name);
       state = ItemContainer({
         for (final val in loadedBox.keys)
           _itemDirectory.getKey(val): loadedBox.get(val) ?? 0,
@@ -63,7 +63,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     };
 
     state = state.rebuild((p0) => p0.addAll(mappedItems));
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory000p.name);
+    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory000p2.name);
     loadedBox
         .putAll(mappedItems.map((key, value) => MapEntry(key.name, value)));
   }
@@ -82,7 +82,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     final itemUpdates = mappedItems.entries.where((entry) => entry.value > 0);
     final itemRemovals = mappedItems.entries.where((entry) => entry.value <= 0);
 
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory000p.name);
+    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory000p2.name);
 
     state = state.rebuild((p0) {
       p0.addEntries(itemUpdates);

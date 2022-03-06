@@ -1,5 +1,5 @@
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/mining/miner.dart';
+import 'package:mining_game/item_management/instance_id.dart';
 
 import 'garage_controller.dart';
 
@@ -27,8 +27,8 @@ class AddMinerToSlotGarageEvent extends GarageEvent {
   @override
   final type = GarageEventType.ADD_MINER_TO_SLOT;
   final EmptySlot slot;
-  final MinerInstance minerInstance;
+  final InstanceId instanceId;
 
   const AddMinerToSlotGarageEvent(
-      {required this.slot, required this.minerInstance});
+      {required this.slot, required this.instanceId});
 }

@@ -68,14 +68,15 @@ class InventoryPageWidget extends HookConsumerWidget {
         .where((key) => itemDirectory[key] is! HideInInventory)
         .toList();
 
-    final storedMiners = ref.watch(storedMinersProvider);
+    final minerLocations = ref.watch(minerLocationsProvider);
 
     final inventoryItems = [
       _InventoryListItem(header: 'Items'),
       for (final item in itemKeys)
         _InventoryListItem(item: itemDirectory[item]),
       _InventoryListItem(header: 'Miners'),
-      for (final miner in storedMiners) _InventoryListItem(miner: miner),
+      for (final miner in minerLocations.storedMiners)
+        _InventoryListItem(miner: miner),
     ];
 
     return StatusBarWrappedPageWidget(

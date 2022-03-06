@@ -12,8 +12,10 @@ import 'package:mining_game/planet/view_to_planet_controller.dart';
 
 final selectedMinerFromDropdownProvider =
     StateProvider.autoDispose<MinerInstance?>((ref) {
-  final availableMiners = ref.watch(storedMinersProvider);
-  if (availableMiners.isNotEmpty) return availableMiners.first;
+  final minerLocations = ref.watch(minerLocationsProvider);
+  if (minerLocations.storedMiners.isNotEmpty) {
+    return minerLocations.storedMiners.first;
+  }
   return null;
 });
 
@@ -21,7 +23,8 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
   const PlanetInterfaceWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final storedMiners = ref.watch(storedMinersProvider);
+    final minerLocations = ref.watch(minerLocationsProvider);
+    final storedMiners = minerLocations.storedMiners;
     final selectedTile = ref.watch(markerLocationProvider);
     if (selectedTile == null || !selectedTile.isValid) {
       return Scaffold(
@@ -73,9 +76,9 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                 if (storedMiners.isNotEmpty &&
                     selectedTile.visible &&
                     !ref
-                        .watch(activeMinersProvider)
-                        .miners
-                        .containsKey(selectedTile.point))
+                        .watch(minerLocationsProvider)
+                        .activeMiners
+                        .containsValue(selectedTile.point))
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -127,8 +130,11 @@ class ActiveMinersWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final miners =
-        ref.watch(activeMinersProvider).miners.entries.toList(growable: false);
+    final miners = ref
+        .watch(minerLocationsProvider)
+        .activeMiners
+        .entries
+        .toList(growable: false);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -140,7 +146,7 @@ class ActiveMinersWidget extends HookConsumerWidget {
               shrinkWrap: true,
               itemBuilder: (_, index) {
                 final entry = miners[index];
-                final miner = entry.value;
+                final miner = entry.key;
                 return Table(
                   children: [
                     TableRow(children: [Text(miner.definition.name)]),

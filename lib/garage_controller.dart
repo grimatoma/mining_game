@@ -7,11 +7,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/garage_events.dart';
+import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/inventory_events.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/mining/miner.dart';
 import 'package:mining_game/mining/miners.dart';
 
 import 'mining/miners_controller.dart';
@@ -50,7 +50,7 @@ class GarageState with _$GarageState {
 class SlotState with _$SlotState {
   @HiveType(typeId: 43, adapterName: 'SlotStateMinerAdapter')
   const factory SlotState.withMiner(
-      {@HiveField(1) required MinerInstance miner,
+      {@HiveField(1) required InstanceId minerId,
       @HiveField(2) required int index}) = SlotWithMiner;
   @HiveType(typeId: 44, adapterName: 'SlotStateLockedAdapter')
   const factory SlotState.locked({@HiveField(2) required int index}) =
@@ -64,7 +64,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
   final GameEventManager _gameEventManager;
   GarageNotifier(
       this._gameEventManager, this._inventoryStateController, intMaxSlots)
-      : super(GarageState(SyncedMap.loadSimpleSyncedMap(BoxKey.GARAGE))) {
+      : super(GarageState(SyncedMap.loadSimpleSyncedMap(BoxKey.GARAGE3))) {
     _gameEventManager.streamForEventType<GarageEvent>().listen((event) {
       switch (event.type) {
         case GarageEventType.UNLOCK_SLOT:
@@ -73,7 +73,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
           break;
         case GarageEventType.ADD_MINER_TO_SLOT:
           event as AddMinerToSlotGarageEvent;
-          _addMinerToSlot(event.slot, event.minerInstance);
+          _addMinerToSlot(event.slot, event.instanceId);
           break;
       }
     });
@@ -98,9 +98,9 @@ class GarageNotifier extends StateNotifier<GarageState> {
     }
   }
 
-  void _addMinerToSlot(EmptySlot slot, MinerInstance minerInstance) {
+  void _addMinerToSlot(EmptySlot slot, InstanceId minerId) {
     state = state.rebuild(addOrUpdate: {
-      slot.index: SlotWithMiner(miner: minerInstance, index: slot.index)
+      slot.index: SlotWithMiner(minerId: minerId, index: slot.index)
     });
   }
 }

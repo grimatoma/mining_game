@@ -10,59 +10,67 @@ import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/point.dart';
+import 'package:quiver/collection.dart';
 
 import 'miner.dart';
 import 'miner_events.dart';
 import 'miners.dart';
 
 final minersProvider =
-    StateNotifierProvider<MinersStateNotifier, Miners>((ref) {
-  return MinersStateNotifier(ref.watch(gameEventManagerProvider),
+    StateNotifierProvider<MinerInstancesNotifier, Miners>((ref) {
+  return MinerInstancesNotifier(ref.watch(gameEventManagerProvider),
       ref.watch(inventoryStateProvider.notifier));
 });
 
-final storedMinersProvider =
-    Provider.autoDispose<Iterable<MinerInstance>>((ref) {
-  final activeMiners = ref.watch(activeMinersProvider).miners.values;
-  return ref
-      .watch(minersProvider)
-      .miners
-      .values
-      .where((element) => !activeMiners.contains(element));
+class MinerLocations {
+  final BuiltList<MinerInstance> storedMiners;
+  // It would be great if this was read only
+  final BiMap<MinerInstance, PlanetPoint> activeMiners;
+
+  const MinerLocations(this.storedMiners, this.activeMiners);
+}
+
+final minerLocationsProvider = Provider<MinerLocations>((ref) {
+  final activeMinerMapping = ref.watch(activeMinerLocationsProvider).miners;
+  final activeMinerIds = activeMinerMapping.keys.toSet();
+  final storedMiners = <MinerInstance>[];
+  final activeMiners = BiMap<MinerInstance, PlanetPoint>();
+
+  for (final miner in ref.watch(minersProvider).miners.values) {
+    if (activeMinerIds.contains(miner.id)) {
+      activeMiners[miner] = activeMinerMapping[miner.id]!;
+    } else {
+      storedMiners.add(miner);
+    }
+  }
+  return MinerLocations(storedMiners.build(), activeMiners);
 });
 
-final activeMinersProvider =
-    StateNotifierProvider<ActiveMinersNotifier, ActiveMiners>((ref) {
-  final miners = ref.read(minersProvider);
-  return ActiveMinersNotifier(
+final activeMinerLocationsProvider =
+    StateNotifierProvider<ActiveMinerLocationsNotifier, ActiveMiners>((ref) {
+  return ActiveMinerLocationsNotifier(
+      ref.watch(minersProvider.notifier),
       ref.watch(gameEventManagerProvider),
       ref.watch(gameClockProvider),
       ref.watch(planetControllerProvider.notifier),
-      ActiveMiners(
-          SyncedMap<PlanetPoint, MinerInstance, PlanetPoint, InstanceId>.load(
-              BoxKey.activeMiners,
-              convert: (k, v) => MapEntry(k, v.id),
-              loadFunction: (db) => {
-                    for (final entry in db)
-                      if (miners.miners[entry.value] != null)
-                        entry.key: miners.miners[entry.value]!,
-                  })));
+      ActiveMiners(SyncedMap.loadSimpleSyncedMap<InstanceId, PlanetPoint>(
+          BoxKey.activeMiners2)));
 });
 
-class ActiveMinersNotifier extends StateNotifier<ActiveMiners> {
+class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
+  final MinerInstancesNotifier _minersNotifier;
   final GameEventManager _eventStreamManager;
   final PlanetController _planetController;
   final GameClock _gameClock;
 
-  ActiveMinersNotifier(this._eventStreamManager, this._gameClock,
-      this._planetController, ActiveMiners activeMiners)
+  ActiveMinerLocationsNotifier(this._minersNotifier, this._eventStreamManager,
+      this._gameClock, this._planetController, ActiveMiners activeMiners)
       : super(activeMiners) {
     _eventStreamManager.streamForEventType<ActiveMinerEvent>().listen((event) {
       switch (event.type) {
         case ActiveMinerEventType.ACTIVATE_MINER:
           _handleActivateMinerEvent(event);
           break;
-
         case ActiveMinerEventType.DEACTIVATE_MINER:
           _handleDeactivateMinerEvent(event);
           break;
@@ -74,15 +82,20 @@ class ActiveMinersNotifier extends StateNotifier<ActiveMiners> {
 
   void _processGameTick() {
     for (var entry in state.miners.entries) {
-      final point = entry.key;
-      final miner = entry.value;
+      final point = entry.value;
+      final miner = _minersNotifier.getMiner(entry.key);
+      if (miner == null) {
+        print('Miner not found when processing game tick?');
+        return;
+      }
       if (miner.definition.baseHopperSize <
           miner.hopper.items.values.fold(0, (p, c) => p + c)) return;
       final resources = _planetController.dig(
           point, ItemContainer.single(ItemKey.IRON, miner.totalDamage));
       if (resources.empty) return;
-      state = state.rebuild(addOrUpdate: {
-        point: miner.copyWith(hopper: miner.hopper + resources)
+      // This should probably be owned in the miners notifier.
+      _minersNotifier.state = _minersNotifier.state.rebuild(addOrUpdate: {
+        miner.id: miner.copyWith(hopper: miner.hopper + resources)
       });
     }
   }
@@ -90,32 +103,25 @@ class ActiveMinersNotifier extends StateNotifier<ActiveMiners> {
   void _handleActivateMinerEvent(ActiveMinerEvent event) {
     event as ActivateMinerEvent;
     final miner = event.miner;
-    state = state.rebuild(addOrUpdate: {
-      event.point: MinerInstance(
-          id: miner.id,
-          definition: miner.definition,
-          drillItemId: miner.drillItemId,
-          hopper: ItemContainer.empty())
-    });
+    state = state.rebuild(addOrUpdate: {miner.id: event.point});
   }
 
   void _handleDeactivateMinerEvent(ActiveMinerEvent event) {
     event as DeactivateMinerEvent;
-    state = state.rebuild(remove: {
-      state.miners.keys.firstWhere((key) => state.miners[key] == event.miner)
-    });
+    state = state.rebuild(
+        remove: {state.miners.keys.firstWhere((key) => key == event.miner.id)});
   }
 }
 
 /// Manges all auto miners and notifies when the miners collection changes.
-class MinersStateNotifier extends StateNotifier<Miners> {
+class MinerInstancesNotifier extends StateNotifier<Miners> {
   final GameEventManager _gameEventManager;
 
   final InventoryStateController _inventoryController;
 
-  MinersStateNotifier(this._gameEventManager, this._inventoryController)
+  MinerInstancesNotifier(this._gameEventManager, this._inventoryController)
       : super(Miners(SyncedMap.loadSimpleSyncedMap<InstanceId, MinerInstance>(
-            BoxKey.miners))) {
+            BoxKey.miners2))) {
     _gameEventManager.streamForEventType<MinerEvent>().listen((event) {
       switch (event.type) {
         case MinerEventType.NEW_MINER:
@@ -133,6 +139,8 @@ class MinersStateNotifier extends StateNotifier<Miners> {
       }
     });
   }
+
+  MinerInstance? getMiner(InstanceId id) => state.miners[id];
 
   void _createMinerEvent(MinerEvent event) {
     event as CreateMinerEvent;
@@ -173,9 +181,9 @@ class MinersStateNotifier extends StateNotifier<Miners> {
   void moveMinerHopperToInventory(MinerEvent event) {
     event as CollectHopperMinerEvent;
     final miner = event.miner;
-    _gameEventManager.addEvent(AddItemsInventoryEvent(container: miner.hopper));
     state = state.rebuild(
         addOrUpdate: {miner.id: miner.copyWith(hopper: ItemContainer.empty())});
+    _gameEventManager.addEvent(AddItemsInventoryEvent(container: miner.hopper));
   }
 }
 

@@ -51,7 +51,7 @@ class SlotStateMinerAdapter extends TypeAdapter<_$SlotWithMiner> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$SlotWithMiner(
-      miner: fields[1] as MinerInstance,
+      minerId: fields[1] as InstanceId,
       index: fields[2] as int,
     );
   }
@@ -61,7 +61,7 @@ class SlotStateMinerAdapter extends TypeAdapter<_$SlotWithMiner> {
     writer
       ..writeByte(2)
       ..writeByte(1)
-      ..write(obj.miner)
+      ..write(obj.minerId)
       ..writeByte(2)
       ..write(obj.index);
   }
