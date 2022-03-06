@@ -43,11 +43,12 @@ class Miners {
 }
 
 enum BoxKey {
-  activeMiners2,
-  miners2,
-  GARAGE3,
+  activeMiners,
+  miners,
+  GARAGE,
+  FEATURES,
 }
-const keyIncrement = '1';
+const keyIncrement = '4';
 
 class MinerHiveManager {
   static final openedBoxes = <BoxKey, Box>{};
@@ -61,16 +62,20 @@ class MinerHiveManager {
     for (final key in BoxKey.values) {
       final boxName = key.name + keyIncrement;
       switch (key) {
-        case BoxKey.activeMiners2:
+        case BoxKey.activeMiners:
           futures.add(Hive.openBox<MapEntry<InstanceId, PlanetPoint>>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
-        case BoxKey.miners2:
+        case BoxKey.miners:
           futures.add(Hive.openBox<MapEntry<InstanceId, MinerInstance>>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
-        case BoxKey.GARAGE3:
+        case BoxKey.GARAGE:
           futures.add(Hive.openBox<MapEntry<int, SlotState>>(boxName)
+              .then((value) => openedBoxes[key] = value));
+          break;
+        case BoxKey.FEATURES:
+          futures.add(Hive.openBox<String>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
       }

@@ -2,11 +2,28 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/mining/miners.dart';
+import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
 
 part 'quests_page.freezed.dart';
+
+final activeFeaturesProvider =
+    StateNotifierProvider<ActiveFeaturesProvider, SyncedSet<Feature>>(
+        (ref) => ActiveFeaturesProvider());
+
+class ActiveFeaturesProvider extends StateNotifier<SyncedSet<Feature>> {
+  ActiveFeaturesProvider()
+      : super(SyncedSet<Feature>.load(BoxKey.FEATURES,
+            convert: (feature) => feature.name,
+            loadFunction: (features) => features
+                .map((e) =>
+                    Feature.values.firstWhere((element) => element.name == e))
+                .toSet()));
+}
 
 enum Feature {
   SMELTING,
@@ -15,7 +32,7 @@ enum Feature {
 @freezed
 class UnlockRequirement with _$UnlockRequirement {
   const factory UnlockRequirement(
-      {BuiltList<Feature>? features,
+      {BuiltSet<Feature>? features,
       ItemContainer? cost,
       ItemContainer? itemsOwned}) = _UnlockRequirement;
 }
@@ -23,7 +40,7 @@ class UnlockRequirement with _$UnlockRequirement {
 @freezed
 class QuestReward with _$QuestReward {
   const factory QuestReward(
-      {BuiltList<Feature>? features, ItemContainer? reward}) = _QuestReward;
+      {BuiltSet<Feature>? features, ItemContainer? reward}) = _QuestReward;
 }
 
 @freezed
@@ -44,6 +61,18 @@ final allQuestsProvider = Provider<BuiltList<Quest>>((ref) => <Quest>[
               UnlockRequirement(cost: ItemContainer.single(ItemKey.CREDIT, 5)),
           reward: QuestReward(reward: ItemContainer.single(ItemKey.ROCK, 25))),
       Quest(
+          name: 'Smelt Iron',
+          description: 'This quest makes sure that you can smelt iron',
+          unlockRequirement:
+              UnlockRequirement(features: {Feature.SMELTING}.build()),
+          reward: QuestReward(reward: ItemContainer.single(ItemKey.ROCK, 25))),
+      Quest(
+          name: 'Own 5 Iron',
+          description: 'This quest checks that you own Iron',
+          unlockRequirement: UnlockRequirement(
+              itemsOwned: ItemContainer.single(ItemKey.CREDIT, 5)),
+          reward: QuestReward(reward: ItemContainer.single(ItemKey.ROCK, 25))),
+      Quest(
           name: 'Unlock smelting',
           description:
               'We need to build a smelter but this costs a lot of resources please help me gather these items so I can start building a smelter.',
@@ -52,7 +81,7 @@ final allQuestsProvider = Provider<BuiltList<Quest>>((ref) => <Quest>[
             ItemKey.CREDIT: 25,
             ItemKey.IRON: 50,
           })),
-          reward: QuestReward(features: [Feature.SMELTING].build())),
+          reward: QuestReward(features: {Feature.SMELTING}.build())),
     ].build());
 final availableQuests =
     Provider<BuiltList<Quest>>((ref) => ref.watch(allQuestsProvider));
@@ -91,7 +120,86 @@ class QuestListDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Text(_quest.toString());
+    bool completed = true;
+    Color getQuestColor(bool requirementMet) {
+      if (requirementMet == false) completed = false;
+      return requirementMet ? Colors.green : Colors.red;
+    }
+
+    TableRow getFeatureStatus(Feature feature) {
+      final reqMet = ref.watch(activeFeaturesProvider).set.contains(feature);
+      final color = getQuestColor(reqMet);
+      return TableRow(children: [
+        Text(
+          '-',
+          style: TextStyle(color: color),
+        ),
+        Text('${feature.name} unlocked:', style: TextStyle(color: color)),
+        Text('${reqMet ? 1 : 0} /1', style: TextStyle(color: color))
+      ]);
+    }
+
+    TableRow getItemRequiredStatus(MapEntry<ItemKey, int> itemRequired) {
+      final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
+      final reqMet = count > itemRequired.value;
+      final color = getQuestColor(reqMet);
+      return TableRow(children: [
+        Text('-', style: TextStyle(color: color)),
+        Text('${ref.watch(itemDirectoryProvider)[itemRequired.key].name}:',
+            style: TextStyle(color: color)),
+        Text(
+            '$count'
+            '/${itemRequired.value}',
+            style: TextStyle(color: color)),
+      ]);
+    }
+
+    TableRow getItemOwnedStatus(MapEntry<ItemKey, int> itemRequired) {
+      final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
+      final reqMet = count > itemRequired.value;
+      final color = getQuestColor(reqMet);
+      return TableRow(children: [
+        Text('-', style: TextStyle(color: color)),
+        Text('${ref.watch(itemDirectoryProvider)[itemRequired.key].name}:',
+            style: TextStyle(color: color)),
+        Text(
+            '$count'
+            '/${itemRequired.value}',
+            style: TextStyle(color: color)),
+      ]);
+    }
+
+    final unlockReq = _quest.unlockRequirement;
+    final features = unlockReq.features;
+    final itemsRequired = unlockReq.cost;
+    final itemsOwnedRequired = unlockReq.itemsOwned;
+    final requirements = Table(
+      children: [
+        if (features != null)
+          for (final feature in features) getFeatureStatus(feature),
+        if (itemsRequired != null)
+          for (final itemRequired in itemsRequired.items.entries)
+            getItemRequiredStatus(itemRequired),
+        if (itemsOwnedRequired != null)
+          for (final itemRequired in itemsOwnedRequired.items.entries)
+            getItemOwnedStatus(itemRequired),
+      ],
+    );
+
+    return Column(
+      children: [
+        Row(
+          children: [Text(_quest.name)],
+        ),
+        if (completed)
+          const Text(
+            'Complete',
+            style: TextStyle(color: Colors.green),
+          )
+        else
+          requirements,
+      ],
+    );
   }
 }
 

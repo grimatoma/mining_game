@@ -19,7 +19,7 @@ class _$UnlockRequirementTearOff {
   const _$UnlockRequirementTearOff();
 
   _UnlockRequirement call(
-      {BuiltList<Feature>? features,
+      {BuiltSet<Feature>? features,
       ItemContainer? cost,
       ItemContainer? itemsOwned}) {
     return _UnlockRequirement(
@@ -35,7 +35,7 @@ const $UnlockRequirement = _$UnlockRequirementTearOff();
 
 /// @nodoc
 mixin _$UnlockRequirement {
-  BuiltList<Feature>? get features => throw _privateConstructorUsedError;
+  BuiltSet<Feature>? get features => throw _privateConstructorUsedError;
   ItemContainer? get cost => throw _privateConstructorUsedError;
   ItemContainer? get itemsOwned => throw _privateConstructorUsedError;
 
@@ -50,7 +50,7 @@ abstract class $UnlockRequirementCopyWith<$Res> {
           UnlockRequirement value, $Res Function(UnlockRequirement) then) =
       _$UnlockRequirementCopyWithImpl<$Res>;
   $Res call(
-      {BuiltList<Feature>? features,
+      {BuiltSet<Feature>? features,
       ItemContainer? cost,
       ItemContainer? itemsOwned});
 }
@@ -74,7 +74,7 @@ class _$UnlockRequirementCopyWithImpl<$Res>
       features: features == freezed
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
-              as BuiltList<Feature>?,
+              as BuiltSet<Feature>?,
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
@@ -95,7 +95,7 @@ abstract class _$UnlockRequirementCopyWith<$Res>
       __$UnlockRequirementCopyWithImpl<$Res>;
   @override
   $Res call(
-      {BuiltList<Feature>? features,
+      {BuiltSet<Feature>? features,
       ItemContainer? cost,
       ItemContainer? itemsOwned});
 }
@@ -121,7 +121,7 @@ class __$UnlockRequirementCopyWithImpl<$Res>
       features: features == freezed
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
-              as BuiltList<Feature>?,
+              as BuiltSet<Feature>?,
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ class _$_UnlockRequirement implements _UnlockRequirement {
   const _$_UnlockRequirement({this.features, this.cost, this.itemsOwned});
 
   @override
-  final BuiltList<Feature>? features;
+  final BuiltSet<Feature>? features;
   @override
   final ItemContainer? cost;
   @override
@@ -177,12 +177,12 @@ class _$_UnlockRequirement implements _UnlockRequirement {
 
 abstract class _UnlockRequirement implements UnlockRequirement {
   const factory _UnlockRequirement(
-      {BuiltList<Feature>? features,
+      {BuiltSet<Feature>? features,
       ItemContainer? cost,
       ItemContainer? itemsOwned}) = _$_UnlockRequirement;
 
   @override
-  BuiltList<Feature>? get features;
+  BuiltSet<Feature>? get features;
   @override
   ItemContainer? get cost;
   @override
@@ -197,7 +197,7 @@ abstract class _UnlockRequirement implements UnlockRequirement {
 class _$QuestRewardTearOff {
   const _$QuestRewardTearOff();
 
-  _QuestReward call({BuiltList<Feature>? features, ItemContainer? reward}) {
+  _QuestReward call({BuiltSet<Feature>? features, ItemContainer? reward}) {
     return _QuestReward(
       features: features,
       reward: reward,
@@ -210,7 +210,7 @@ const $QuestReward = _$QuestRewardTearOff();
 
 /// @nodoc
 mixin _$QuestReward {
-  BuiltList<Feature>? get features => throw _privateConstructorUsedError;
+  BuiltSet<Feature>? get features => throw _privateConstructorUsedError;
   ItemContainer? get reward => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -223,7 +223,7 @@ abstract class $QuestRewardCopyWith<$Res> {
   factory $QuestRewardCopyWith(
           QuestReward value, $Res Function(QuestReward) then) =
       _$QuestRewardCopyWithImpl<$Res>;
-  $Res call({BuiltList<Feature>? features, ItemContainer? reward});
+  $Res call({BuiltSet<Feature>? features, ItemContainer? reward});
 }
 
 /// @nodoc
@@ -243,7 +243,7 @@ class _$QuestRewardCopyWithImpl<$Res> implements $QuestRewardCopyWith<$Res> {
       features: features == freezed
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
-              as BuiltList<Feature>?,
+              as BuiltSet<Feature>?,
       reward: reward == freezed
           ? _value.reward
           : reward // ignore: cast_nullable_to_non_nullable
@@ -259,7 +259,7 @@ abstract class _$QuestRewardCopyWith<$Res>
           _QuestReward value, $Res Function(_QuestReward) then) =
       __$QuestRewardCopyWithImpl<$Res>;
   @override
-  $Res call({BuiltList<Feature>? features, ItemContainer? reward});
+  $Res call({BuiltSet<Feature>? features, ItemContainer? reward});
 }
 
 /// @nodoc
@@ -281,7 +281,7 @@ class __$QuestRewardCopyWithImpl<$Res> extends _$QuestRewardCopyWithImpl<$Res>
       features: features == freezed
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
-              as BuiltList<Feature>?,
+              as BuiltSet<Feature>?,
       reward: reward == freezed
           ? _value.reward
           : reward // ignore: cast_nullable_to_non_nullable
@@ -296,7 +296,7 @@ class _$_QuestReward implements _QuestReward {
   const _$_QuestReward({this.features, this.reward});
 
   @override
-  final BuiltList<Feature>? features;
+  final BuiltSet<Feature>? features;
   @override
   final ItemContainer? reward;
 
@@ -328,10 +328,10 @@ class _$_QuestReward implements _QuestReward {
 
 abstract class _QuestReward implements QuestReward {
   const factory _QuestReward(
-      {BuiltList<Feature>? features, ItemContainer? reward}) = _$_QuestReward;
+      {BuiltSet<Feature>? features, ItemContainer? reward}) = _$_QuestReward;
 
   @override
-  BuiltList<Feature>? get features;
+  BuiltSet<Feature>? get features;
   @override
   ItemContainer? get reward;
   @override

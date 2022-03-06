@@ -64,7 +64,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
   final GameEventManager _gameEventManager;
   GarageNotifier(
       this._gameEventManager, this._inventoryStateController, intMaxSlots)
-      : super(GarageState(SyncedMap.loadSimpleSyncedMap(BoxKey.GARAGE3))) {
+      : super(GarageState(SyncedMap.loadSimpleSyncedMap(BoxKey.GARAGE))) {
     _gameEventManager.streamForEventType<GarageEvent>().listen((event) {
       switch (event.type) {
         case GarageEventType.UNLOCK_SLOT:

@@ -4,6 +4,7 @@ abstract class BaseItemDefinition {
   const BaseItemDefinition();
 
   String get name;
+  // String get namePlural;
   String get description;
 }
 

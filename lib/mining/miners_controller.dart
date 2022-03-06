@@ -54,7 +54,7 @@ final activeMinerLocationsProvider =
       ref.watch(gameClockProvider),
       ref.watch(planetControllerProvider.notifier),
       ActiveMiners(SyncedMap.loadSimpleSyncedMap<InstanceId, PlanetPoint>(
-          BoxKey.activeMiners2)));
+          BoxKey.activeMiners)));
 });
 
 class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
@@ -121,7 +121,7 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
 
   MinerInstancesNotifier(this._gameEventManager, this._inventoryController)
       : super(Miners(SyncedMap.loadSimpleSyncedMap<InstanceId, MinerInstance>(
-            BoxKey.miners2))) {
+            BoxKey.miners))) {
     _gameEventManager.streamForEventType<MinerEvent>().listen((event) {
       switch (event.type) {
         case MinerEventType.NEW_MINER:
@@ -184,6 +184,42 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     state = state.rebuild(
         addOrUpdate: {miner.id: miner.copyWith(hopper: ItemContainer.empty())});
     _gameEventManager.addEvent(AddItemsInventoryEvent(container: miner.hopper));
+  }
+}
+
+class SyncedSet<K> {
+  final Box<String> _box;
+  final BuiltSet<K> set;
+  final String Function(K) _convert;
+
+  SyncedSet.load(BoxKey boxName,
+      {required String Function(K) convert,
+      required Set<K> Function(Iterable<String>) loadFunction})
+      : _box = MinerHiveManager.getBox<String>(boxName),
+        set = loadFunction(MinerHiveManager.getBox<String>(boxName).values)
+            .build(),
+        _convert = convert;
+
+  SyncedSet._rebuild(this._box, this.set, this._convert);
+
+  SyncedSet<K> rebuild({
+    Set<K>? addOrUpdate,
+    Iterable<K>? remove,
+  }) {
+    return SyncedSet<K>._rebuild(_box, set.rebuild((p0) {
+      if (addOrUpdate != null) {
+        for (var value in addOrUpdate) {
+          _box.put(_convert(value), _convert(value));
+          p0.add(value);
+        }
+      }
+      if (remove != null) {
+        _box.deleteAll(remove.map((e) {
+          p0.remove(e);
+          return _convert(e);
+        }));
+      }
+    }), _convert);
   }
 }
 
