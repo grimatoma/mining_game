@@ -120,9 +120,9 @@ class QuestListDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool completed = true;
+    bool questCompleted = true;
     Color getQuestColor(bool requirementMet) {
-      if (requirementMet == false) completed = false;
+      if (requirementMet == false) questCompleted = false;
       return requirementMet ? Colors.green : Colors.red;
     }
 
@@ -141,7 +141,7 @@ class QuestListDetail extends ConsumerWidget {
 
     TableRow getItemRequiredStatus(MapEntry<ItemKey, int> itemRequired) {
       final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
-      final reqMet = count > itemRequired.value;
+      final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
@@ -156,7 +156,7 @@ class QuestListDetail extends ConsumerWidget {
 
     TableRow getItemOwnedStatus(MapEntry<ItemKey, int> itemRequired) {
       final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
-      final reqMet = count > itemRequired.value;
+      final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
@@ -191,9 +191,9 @@ class QuestListDetail extends ConsumerWidget {
         Row(
           children: [Text(_quest.name)],
         ),
-        if (completed)
+        if (questCompleted)
           const Text(
-            'Complete',
+            'Ready to turn in',
             style: TextStyle(color: Colors.green),
           )
         else
