@@ -85,6 +85,7 @@ flutter:
      - images/drills/5.png
      - images/drills/6.jpg
      - images/drills/7.png
+     - json/miners.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

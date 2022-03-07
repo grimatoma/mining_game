@@ -14,19 +14,23 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+MinerDefinition _$MinerDefinitionFromJson(Map<String, dynamic> json) {
+  return _MinerDefinition.fromJson(json);
+}
+
 /// @nodoc
 class _$MinerDefinitionTearOff {
   const _$MinerDefinitionTearOff();
 
   _MinerDefinition call(
-      {@HiveField(2) required String name,
-      @HiveField(3) required String description,
-      @HiveField(4) required int radius,
-      @HiveField(5) required int depth,
-      @HiveField(6) required int baseDamage,
-      @HiveField(7) required int baseHopperSize,
-      @HiveField(8) required int fuelConsumption,
-      @HiveField(9) required String image}) {
+      {required String name,
+      required String description,
+      required int radius,
+      required int depth,
+      required int baseDamage,
+      required int baseHopperSize,
+      required int fuelConsumption,
+      required String image}) {
     return _MinerDefinition(
       name: name,
       description: description,
@@ -38,6 +42,10 @@ class _$MinerDefinitionTearOff {
       image: image,
     );
   }
+
+  MinerDefinition fromJson(Map<String, Object?> json) {
+    return MinerDefinition.fromJson(json);
+  }
 }
 
 /// @nodoc
@@ -45,24 +53,17 @@ const $MinerDefinition = _$MinerDefinitionTearOff();
 
 /// @nodoc
 mixin _$MinerDefinition {
-  @HiveField(2)
   String get name => throw _privateConstructorUsedError;
-  @HiveField(3)
   String get description => throw _privateConstructorUsedError;
-  @HiveField(4)
   int get radius => throw _privateConstructorUsedError;
-  @HiveField(5)
   int get depth => throw _privateConstructorUsedError;
-  @HiveField(6)
   int get baseDamage =>
       throw _privateConstructorUsedError; // Should this be for all resources or per resource?
-  @HiveField(7)
   int get baseHopperSize => throw _privateConstructorUsedError;
-  @HiveField(8)
   int get fuelConsumption => throw _privateConstructorUsedError;
-  @HiveField(9)
   String get image => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $MinerDefinitionCopyWith<MinerDefinition> get copyWith =>
       throw _privateConstructorUsedError;
@@ -74,14 +75,14 @@ abstract class $MinerDefinitionCopyWith<$Res> {
           MinerDefinition value, $Res Function(MinerDefinition) then) =
       _$MinerDefinitionCopyWithImpl<$Res>;
   $Res call(
-      {@HiveField(2) String name,
-      @HiveField(3) String description,
-      @HiveField(4) int radius,
-      @HiveField(5) int depth,
-      @HiveField(6) int baseDamage,
-      @HiveField(7) int baseHopperSize,
-      @HiveField(8) int fuelConsumption,
-      @HiveField(9) String image});
+      {String name,
+      String description,
+      int radius,
+      int depth,
+      int baseDamage,
+      int baseHopperSize,
+      int fuelConsumption,
+      String image});
 }
 
 /// @nodoc
@@ -149,14 +150,14 @@ abstract class _$MinerDefinitionCopyWith<$Res>
       __$MinerDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@HiveField(2) String name,
-      @HiveField(3) String description,
-      @HiveField(4) int radius,
-      @HiveField(5) int depth,
-      @HiveField(6) int baseDamage,
-      @HiveField(7) int baseHopperSize,
-      @HiveField(8) int fuelConsumption,
-      @HiveField(9) String image});
+      {String name,
+      String description,
+      int radius,
+      int depth,
+      int baseDamage,
+      int baseHopperSize,
+      int fuelConsumption,
+      String image});
 }
 
 /// @nodoc
@@ -219,49 +220,38 @@ class __$MinerDefinitionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
-@HiveType(typeId: 11, adapterName: 'MinerDefinitionAdapter')
+@JsonSerializable()
 class _$_MinerDefinition extends _MinerDefinition {
   const _$_MinerDefinition(
-      {@HiveField(2) required this.name,
-      @HiveField(3) required this.description,
-      @HiveField(4) required this.radius,
-      @HiveField(5) required this.depth,
-      @HiveField(6) required this.baseDamage,
-      @HiveField(7) required this.baseHopperSize,
-      @HiveField(8) required this.fuelConsumption,
-      @HiveField(9) required this.image})
+      {required this.name,
+      required this.description,
+      required this.radius,
+      required this.depth,
+      required this.baseDamage,
+      required this.baseHopperSize,
+      required this.fuelConsumption,
+      required this.image})
       : super._();
 
-  @override
-  @HiveField(2)
-  final String name;
-  @override
-  @HiveField(3)
-  final String description;
-  @override
-  @HiveField(4)
-  final int radius;
-  @override
-  @HiveField(5)
-  final int depth;
-  @override
-  @HiveField(6)
-  final int baseDamage;
-  @override // Should this be for all resources or per resource?
-  @HiveField(7)
-  final int baseHopperSize;
-  @override
-  @HiveField(8)
-  final int fuelConsumption;
-  @override
-  @HiveField(9)
-  final String image;
+  factory _$_MinerDefinition.fromJson(Map<String, dynamic> json) =>
+      _$$_MinerDefinitionFromJson(json);
 
   @override
-  String toString() {
-    return 'MinerDefinition(name: $name, description: $description, radius: $radius, depth: $depth, baseDamage: $baseDamage, baseHopperSize: $baseHopperSize, fuelConsumption: $fuelConsumption, image: $image)';
-  }
+  final String name;
+  @override
+  final String description;
+  @override
+  final int radius;
+  @override
+  final int depth;
+  @override
+  final int baseDamage;
+  @override // Should this be for all resources or per resource?
+  final int baseHopperSize;
+  @override
+  final int fuelConsumption;
+  @override
+  final String image;
 
   @override
   bool operator ==(dynamic other) {
@@ -298,43 +288,43 @@ class _$_MinerDefinition extends _MinerDefinition {
   @override
   _$MinerDefinitionCopyWith<_MinerDefinition> get copyWith =>
       __$MinerDefinitionCopyWithImpl<_MinerDefinition>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MinerDefinitionToJson(this);
+  }
 }
 
 abstract class _MinerDefinition extends MinerDefinition {
   const factory _MinerDefinition(
-      {@HiveField(2) required String name,
-      @HiveField(3) required String description,
-      @HiveField(4) required int radius,
-      @HiveField(5) required int depth,
-      @HiveField(6) required int baseDamage,
-      @HiveField(7) required int baseHopperSize,
-      @HiveField(8) required int fuelConsumption,
-      @HiveField(9) required String image}) = _$_MinerDefinition;
+      {required String name,
+      required String description,
+      required int radius,
+      required int depth,
+      required int baseDamage,
+      required int baseHopperSize,
+      required int fuelConsumption,
+      required String image}) = _$_MinerDefinition;
   const _MinerDefinition._() : super._();
 
+  factory _MinerDefinition.fromJson(Map<String, dynamic> json) =
+      _$_MinerDefinition.fromJson;
+
   @override
-  @HiveField(2)
   String get name;
   @override
-  @HiveField(3)
   String get description;
   @override
-  @HiveField(4)
   int get radius;
   @override
-  @HiveField(5)
   int get depth;
   @override
-  @HiveField(6)
   int get baseDamage;
   @override // Should this be for all resources or per resource?
-  @HiveField(7)
   int get baseHopperSize;
   @override
-  @HiveField(8)
   int get fuelConsumption;
   @override
-  @HiveField(9)
   String get image;
   @override
   @JsonKey(ignore: true)

@@ -63,14 +63,17 @@ class MinerHiveManager {
       final boxName = key.name + keyIncrement;
       switch (key) {
         case BoxKey.activeMiners:
+          Hive.registerAdapter(MapEntryAdapter<InstanceId, PlanetPoint>(56));
           futures.add(Hive.openBox<MapEntry<InstanceId, PlanetPoint>>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
         case BoxKey.miners:
+          Hive.registerAdapter(MapEntryAdapter<InstanceId, MinerInstance>(55));
           futures.add(Hive.openBox<MapEntry<InstanceId, MinerInstance>>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
         case BoxKey.GARAGE:
+          Hive.registerAdapter(MapEntryAdapter<int, SlotState>(57));
           futures.add(Hive.openBox<MapEntry<int, SlotState>>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;

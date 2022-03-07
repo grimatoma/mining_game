@@ -46,6 +46,9 @@ class StoreController extends StateNotifier<StoreListings> {
           break;
       }
     });
+    state.listings.forEach((p0) {
+      print(p0.toString());
+    });
   }
 
   bool canBuy(BuyShopListing listing) => _inventory.canRemove(listing.price);

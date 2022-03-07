@@ -12,17 +12,22 @@ part 'miner.g.dart';
 @freezed
 class MinerDefinition extends BaseItemDefinition with _$MinerDefinition {
   const MinerDefinition._();
-  @HiveType(typeId: 11, adapterName: 'MinerDefinitionAdapter')
   const factory MinerDefinition(
-      {@HiveField(2) required String name,
-      @HiveField(3) required String description,
-      @HiveField(4) required int radius,
-      @HiveField(5) required int depth,
-      @HiveField(6) required int baseDamage,
+      {required String name,
+      required String description,
+      required int radius,
+      required int depth,
+      required int baseDamage,
       // Should this be for all resources or per resource?
-      @HiveField(7) required int baseHopperSize,
-      @HiveField(8) required int fuelConsumption,
-      @HiveField(9) required String image}) = _MinerDefinition;
+      required int baseHopperSize,
+      required int fuelConsumption,
+      required String image}) = _MinerDefinition;
+
+  factory MinerDefinition.fromJson(Map<String, dynamic> json) =>
+      _$MinerDefinitionFromJson(json);
+
+  @override
+  String toString() => toJson().toString();
 }
 
 @freezed
@@ -30,7 +35,6 @@ class MinerInstance with _$MinerInstance {
   const MinerInstance._();
 
   @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
-  // @With<MinerMethods>()
   const factory MinerInstance({
     @HiveField(0) required InstanceId id,
     @HiveField(1) required MinerDefinition definition,
@@ -42,24 +46,8 @@ class MinerInstance with _$MinerInstance {
   int get drillDamage => drill?.damage ?? 0;
   int get totalDamage => baseDamage + drillDamage;
 
-  // @HiveType(typeId: 37, adapterName: 'ActiveMinerInstanceAdapter')
-  // @With<ActiveMinerMethods>()
-  // const factory MinerInstance.active({
-  //   @HiveField(0) required InstanceId id,
-  //   @HiveField(1) required MinerDefinition definition,
-  //   @HiveField(2) required ItemKey? drillItemId,
-  //   @HiveField(3) required PlanetPoint planetPoint,
-  //   @HiveField(4) required ItemContainer hopper,
-  // }) = ActiveMinerInstance;
-
   bool get hasDrill => drillItemId != null;
   DrillDefinition? get drill => drillItemId?.getDefinition();
-
-  // @override
-  // int get hashCode => id.hashCode;
-  //
-  // @override
-  // bool operator ==(Object other) => super == other;
 }
 
 mixin MinerMethods {

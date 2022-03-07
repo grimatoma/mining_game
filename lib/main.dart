@@ -7,7 +7,6 @@ import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/garage_controller.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence.dart';
 import 'package:mining_game/planet/planet.dart';
@@ -27,7 +26,6 @@ import 'widgets/store_page.dart';
 
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
-  Hive.registerAdapter(MinerDefinitionAdapter());
   Hive.registerAdapter(MinerInstanceAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemKeyAdapter());
@@ -39,9 +37,6 @@ void main() async {
   Hive.registerAdapter(SlotStateEmptyAdapter());
   Hive.registerAdapter(SlotStateLockedAdapter());
   Hive.registerAdapter(SlotStateMinerAdapter());
-  Hive.registerAdapter(MapEntryAdapter<InstanceId, MinerInstance>(55));
-  Hive.registerAdapter(MapEntryAdapter<InstanceId, PlanetPoint>(56));
-  Hive.registerAdapter(MapEntryAdapter<int, SlotState>(57));
   await Hive.initFlutter();
   await MinerHiveManager.init();
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));

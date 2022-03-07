@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Test Miner 5",
+    "description": "this is the 5 miner",
+    "radius": 1,
+    "depth": 1,
+    "baseDamage": 1,
+    "baseHopperSize": 50,
+    "fuelConsumption": 5,
+    "image": "images/drills/5.png"
+  }
+]

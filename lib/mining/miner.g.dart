@@ -6,61 +6,6 @@ part of 'miner.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MinerDefinitionAdapter extends TypeAdapter<_$_MinerDefinition> {
-  @override
-  final int typeId = 11;
-
-  @override
-  _$_MinerDefinition read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return _$_MinerDefinition(
-      name: fields[2] as String,
-      description: fields[3] as String,
-      radius: fields[4] as int,
-      depth: fields[5] as int,
-      baseDamage: fields[6] as int,
-      baseHopperSize: fields[7] as int,
-      fuelConsumption: fields[8] as int,
-      image: fields[9] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, _$_MinerDefinition obj) {
-    writer
-      ..writeByte(8)
-      ..writeByte(2)
-      ..write(obj.name)
-      ..writeByte(3)
-      ..write(obj.description)
-      ..writeByte(4)
-      ..write(obj.radius)
-      ..writeByte(5)
-      ..write(obj.depth)
-      ..writeByte(6)
-      ..write(obj.baseDamage)
-      ..writeByte(7)
-      ..write(obj.baseHopperSize)
-      ..writeByte(8)
-      ..write(obj.fuelConsumption)
-      ..writeByte(9)
-      ..write(obj.image);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is MinerDefinitionAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
 class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
   @override
   final int typeId = 10;
@@ -103,3 +48,31 @@ class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_MinerDefinition _$$_MinerDefinitionFromJson(Map<String, dynamic> json) =>
+    _$_MinerDefinition(
+      name: json['name'] as String,
+      description: json['description'] as String,
+      radius: json['radius'] as int,
+      depth: json['depth'] as int,
+      baseDamage: json['baseDamage'] as int,
+      baseHopperSize: json['baseHopperSize'] as int,
+      fuelConsumption: json['fuelConsumption'] as int,
+      image: json['image'] as String,
+    );
+
+Map<String, dynamic> _$$_MinerDefinitionToJson(_$_MinerDefinition instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'description': instance.description,
+      'radius': instance.radius,
+      'depth': instance.depth,
+      'baseDamage': instance.baseDamage,
+      'baseHopperSize': instance.baseHopperSize,
+      'fuelConsumption': instance.fuelConsumption,
+      'image': instance.image,
+    };
