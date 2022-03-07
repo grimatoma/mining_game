@@ -1,4 +1,4 @@
-import 'package:built_collection/built_collectionces.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
