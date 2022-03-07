@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/inventory_events.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/store/store_events.dart';
 import 'package:mining_game/mining/miner_events.dart';
 
@@ -36,15 +37,14 @@ class StoreController extends StateNotifier<StoreListings> {
     this._gameEventManager,
   ) : super(StoreListings(<ShopListing>[].build())) {
     void poo() async {
-      final json = await rootBundle.loadString('json/store_listings.json');
-      final jsonMapArray = jsonDecode(json) as Iterable;
-
-      state = StoreListings(
-          jsonMapArray.map((e) => ShopListing.fromJson(e)).toBuiltList());
+      state = StoreListings(await ItemDirectory.parseJsonList(
+          'json/store_listings.json', ShopListing.fromJson));
     }
 
     poo();
   }
+
+
 
   bool canBuy(BuyShopListing listing) => _inventory.canRemove(listing.price);
   bool canSell(SellShopListing listing) => _inventory.canRemove(listing.items);

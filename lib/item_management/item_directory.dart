@@ -22,14 +22,29 @@ class ItemDirectory {
   static BuiltMap<MinerDefinitionId, MinerDefinition>? _miners;
 
   static Future<void> init() async {
-    final minersJson = await rootBundle.loadString('json/miners.json');
-    final minersJsonMap = jsonDecode(minersJson) as Iterable;
-    final m = <MinerDefinitionId, MinerDefinition>{};
-    for (var element in minersJsonMap) {
-      final miner = MinerDefinition.fromJsonFull(element);
-      m[miner.id] = miner;
+    _miners = await parseJsonMap<MinerDefinitionId, MinerDefinition>(
+        'json/miners.json', MinerDefinition.fromJsonFull, (miner) => miner.id);
+  }
+
+  static Future<BuiltList<T>> parseJsonList<T>(
+      String path, T Function(Map<String, dynamic> json) fromJson) async {
+    final json = await rootBundle.loadString('json/store_listings.json');
+    final jsonMapArray = jsonDecode(json) as Iterable;
+    return jsonMapArray.map((e) => fromJson(e)).toBuiltList();
+  }
+
+  static Future<BuiltMap<K, V>> parseJsonMap<K, V>(
+      String path,
+      V Function(Map<String, dynamic> json) fromJson,
+      K Function(V) getKey) async {
+    final json = await rootBundle.loadString(path);
+    final jsonMapItems = jsonDecode(json) as Iterable;
+    final m = <K, V>{};
+    for (var element in jsonMapItems) {
+      final item = fromJson(element);
+      m[getKey(item)] = item;
     }
-    _miners = m.build();
+    return m.build();
   }
 
   ItemDirectory()
