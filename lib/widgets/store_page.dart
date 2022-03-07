@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
-import 'package:mining_game/item_management/store/store_events.dart';
 
 import 'status_bar_wrapped_page.dart';
 
@@ -25,15 +23,10 @@ class StorePageWidget extends HookConsumerWidget {
                 shrinkWrap: true,
                 itemBuilder: (_, index) {
                   final listing = storeListings.listings[index];
-                  if (listing is BuyMinerShopListing) {
-                    return BuyMinerListingWidget(listing: listing);
-                  } else if (listing is BuyItemStackShopListing) {
-                    return BuyItemStackSellingListingWidget(listing);
-                  } else if (listing is SellShopListing) {
-                    return SellingListing(listing);
-                  }
-                  throw UnimplementedError(
-                      'No listing defined for ${listing.runtimeType}');
+                  return listing.map(
+                      buyItemStack: (l) => BuyItemStackSellingListingWidget(l),
+                      buyMiner: (l) => BuyMinerListingWidget(listing: l),
+                      sell: (l) => SellingListing(l));
                 },
                 itemCount: storeListings.listings.length,
                 separatorBuilder: (_, __) => const Divider(),
@@ -80,7 +73,7 @@ class BuyMinerListingWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final definition = listing.definition;
+    final definition = ItemDirectory.getMiner(listing.minerId);
     return ListingWidget(
         imagePath: definition.image,
         listingTitle: definition.name,
@@ -218,9 +211,7 @@ class BuyButton extends ConsumerWidget {
         cost: listing.price,
         active: storeListingsController.canBuy(listing),
         onClick: () {
-          ref
-              .read(gameEventManagerProvider)
-              .addEvent(BuyStoreEvent(listing: listing));
+          storeListingsController.clickListing(listing as ShopListing);
         });
   }
 }
@@ -240,9 +231,7 @@ class SellButton extends ConsumerWidget {
         cost: listing.sellPrice,
         active: storeListingsController.canSell(listing),
         onClick: () {
-          ref
-              .read(gameEventManagerProvider)
-              .addEvent(SellStoreEvent(listing: listing));
+          storeListingsController.clickListing(listing as ShopListing);
         });
   }
 }

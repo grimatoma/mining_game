@@ -1,0 +1,94 @@
+[
+  {
+    "id": 1,
+    "runtimeType": "sell",
+    "sellPrice": {
+      "items": {
+        "CREDIT": 25
+      }
+    },
+    "items": {
+      "items": {
+        "IRON": 5
+      }
+    },
+    "consumable": false
+  },
+  {
+    "id": 2,
+    "runtimeType": "buyItemStack",
+    "price": {
+      "items": {
+        "CREDIT": 25
+      }
+    },
+    "itemKey": "ROCK",
+    "quantity": 1,
+    "consumable": false
+  },
+  {
+    "id": 3,
+    "runtimeType": "buyMiner",
+    "price": {
+      "items": {
+        "CREDIT": 1
+      }
+    },
+    "minerId": {
+      "id": 1
+    },
+    "consumable": true
+  },
+  {
+    "id": 4,
+    "runtimeType": "buyMiner",
+    "price": {
+      "items": {
+        "CREDIT": 2
+      }
+    },
+    "minerId": {
+      "id": 2
+    },
+    "consumable": true
+  },
+  {
+    "id": 5,
+    "runtimeType": "buyMiner",
+    "price": {
+      "items": {
+        "CREDIT": 3
+      }
+    },
+    "minerId": {
+      "id": 3
+    },
+    "consumable": true
+  },
+  {
+    "id": 6,
+    "runtimeType": "buyMiner",
+    "price": {
+      "items": {
+        "CREDIT": 4
+      }
+    },
+    "minerId": {
+      "id": 4
+    },
+    "consumable": true
+  },
+  {
+    "id": 7,
+    "runtimeType": "buyMiner",
+    "price": {
+      "items": {
+        "CREDIT": 5
+      }
+    },
+    "minerId": {
+      "id": 5
+    },
+    "consumable": true
+  }
+]

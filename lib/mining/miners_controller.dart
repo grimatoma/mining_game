@@ -144,14 +144,14 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
 
   void _createMinerEvent(MinerEvent event) {
     event as CreateMinerEvent;
-    final miner = _createNewStoredMiner(event.definition);
+    final miner = _createNewStoredMiner(event.minerId);
     state = state.rebuild(addOrUpdate: {miner.id: miner});
   }
 
-  MinerInstance _createNewStoredMiner(MinerDefinition definition) =>
+  MinerInstance _createNewStoredMiner(MinerDefinitionId minerId) =>
       MinerInstance(
           id: InstanceId.generate(),
-          definition: definition,
+          minerId: minerId,
           hopper: ItemContainer.empty());
 
   void _drillAttach(MinerEvent event) {

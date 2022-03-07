@@ -13,7 +13,8 @@ part 'miner.g.dart';
 class MinerDefinition extends BaseItemDefinition with _$MinerDefinition {
   const MinerDefinition._();
   const factory MinerDefinition(
-      {required String name,
+      {required MinerDefinitionId id,
+      required String name,
       required String description,
       required int radius,
       required int depth,
@@ -24,10 +25,30 @@ class MinerDefinition extends BaseItemDefinition with _$MinerDefinition {
       required String image}) = _MinerDefinition;
 
   factory MinerDefinition.fromJson(Map<String, dynamic> json) =>
+      ItemDirectory.getMiner(json['id']);
+
+  factory MinerDefinition.fromJsonFull(Map<String, dynamic> json) =>
       _$MinerDefinitionFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'id': id,
+      };
+
+  @override
   String toString() => toJson().toString();
+}
+
+@freezed
+class MinerDefinitionId with _$MinerDefinitionId {
+  const MinerDefinitionId._();
+
+  @HiveType(typeId: 50, adapterName: 'MinerDefinitionIdAdapter')
+  const factory MinerDefinitionId({@HiveField(0) required int id}) =
+      _MinerDefinitionId;
+
+  factory MinerDefinitionId.fromJson(Map<String, dynamic> json) =>
+      _$MinerDefinitionIdFromJson(json);
 }
 
 @freezed
@@ -37,7 +58,7 @@ class MinerInstance with _$MinerInstance {
   @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
   const factory MinerInstance({
     @HiveField(0) required InstanceId id,
-    @HiveField(1) required MinerDefinition definition,
+    @HiveField(1) required MinerDefinitionId minerId,
     @HiveField(2) ItemKey? drillItemId,
     @HiveField(4) required ItemContainer hopper,
   }) = _MinerInstance;
@@ -47,6 +68,7 @@ class MinerInstance with _$MinerInstance {
   int get totalDamage => baseDamage + drillDamage;
 
   bool get hasDrill => drillItemId != null;
+  MinerDefinition get definition => ItemDirectory.getMiner(minerId);
   DrillDefinition? get drill => drillItemId?.getDefinition();
 }
 

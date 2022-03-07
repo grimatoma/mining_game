@@ -50,6 +50,7 @@ dependencies:
   fast_noise: ^1.0.1
   built_value: ^8.1.4
   json_serializable: ^6.1.4
+  json_serializable_immutable_collections: ^0.10.1
 
 dev_dependencies:
   hive_generator: ^1.1.1
@@ -86,6 +87,7 @@ flutter:
      - images/drills/6.jpg
      - images/drills/7.png
      - json/miners.json
+     - json/store_listings.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

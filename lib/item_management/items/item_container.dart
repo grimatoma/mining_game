@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 
 part 'item_container.g.dart';
 
 @HiveType(typeId: 35)
+@JsonSerializable()
 class ItemContainer {
   @HiveField(0)
   final BuiltMap<ItemKey, int> items;
@@ -64,4 +66,8 @@ class ItemContainer {
     }
     return s.join('\n');
   }
+
+  factory ItemContainer.fromJson(Map<String, dynamic> json) =>
+      _$ItemContainerFromJson(json);
+  Map<String, dynamic> toJson() => _$ItemContainerToJson(this);
 }

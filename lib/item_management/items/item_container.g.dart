@@ -39,3 +39,30 @@ class ItemContainerAdapter extends TypeAdapter<ItemContainer> {
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+ItemContainer _$ItemContainerFromJson(Map<String, dynamic> json) =>
+    ItemContainer(
+      BuiltMap<ItemKey, int>.of((json['items'] as Map<String, dynamic>).map(
+        (k, e) => MapEntry($enumDecode(_$ItemKeyEnumMap, k), e as int),
+      )),
+    );
+
+Map<String, dynamic> _$ItemContainerToJson(ItemContainer instance) =>
+    <String, dynamic>{
+      'items': instance.items
+          .toMap()
+          .map((k, e) => MapEntry(_$ItemKeyEnumMap[k], e)),
+    };
+
+const _$ItemKeyEnumMap = {
+  ItemKey.ROCK: 'ROCK',
+  ItemKey.SHARP_ROCK: 'SHARP_ROCK',
+  ItemKey.IRON: 'IRON',
+  ItemKey.COPPER: 'COPPER',
+  ItemKey.TEST_DRILL: 'TEST_DRILL',
+  ItemKey.CREDIT: 'CREDIT',
+};

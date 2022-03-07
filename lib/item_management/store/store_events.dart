@@ -2,8 +2,7 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 
 enum StoreEventType {
-  BUY_LISTING,
-  SELL_LISTING,
+  TRANSACT,
 }
 
 abstract class StoreEvent extends GameEvent<StoreEventType> {
@@ -11,20 +10,11 @@ abstract class StoreEvent extends GameEvent<StoreEventType> {
   StoreEventType get type;
 }
 
-class BuyStoreEvent extends StoreEvent {
+class StoreTransactionEvent extends StoreEvent {
   @override
-  final type = StoreEventType.BUY_LISTING;
+  final type = StoreEventType.TRANSACT;
 
-  final BuyShopListing listing;
+  final ShopListing listing;
 
-  BuyStoreEvent({required this.listing});
-}
-
-class SellStoreEvent extends StoreEvent {
-  @override
-  final type = StoreEventType.SELL_LISTING;
-
-  final SellShopListing listing;
-
-  SellStoreEvent({required this.listing});
+  StoreTransactionEvent(this.listing);
 }

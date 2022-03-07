@@ -6,6 +6,40 @@ part of 'miner.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
+class MinerDefinitionIdAdapter extends TypeAdapter<_$_MinerDefinitionId> {
+  @override
+  final int typeId = 50;
+
+  @override
+  _$_MinerDefinitionId read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$_MinerDefinitionId(
+      id: fields[0] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$_MinerDefinitionId obj) {
+    writer
+      ..writeByte(1)
+      ..writeByte(0)
+      ..write(obj.id);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MinerDefinitionIdAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
   @override
   final int typeId = 10;
@@ -18,7 +52,7 @@ class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
     };
     return _$_MinerInstance(
       id: fields[0] as InstanceId,
-      definition: fields[1] as MinerDefinition,
+      minerId: fields[1] as MinerDefinitionId,
       drillItemId: fields[2] as ItemKey?,
       hopper: fields[4] as ItemContainer,
     );
@@ -31,7 +65,7 @@ class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.definition)
+      ..write(obj.minerId)
       ..writeByte(2)
       ..write(obj.drillItemId)
       ..writeByte(4)
@@ -55,6 +89,7 @@ class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
 
 _$_MinerDefinition _$$_MinerDefinitionFromJson(Map<String, dynamic> json) =>
     _$_MinerDefinition(
+      id: MinerDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
       radius: json['radius'] as int,
@@ -67,6 +102,7 @@ _$_MinerDefinition _$$_MinerDefinitionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_MinerDefinitionToJson(_$_MinerDefinition instance) =>
     <String, dynamic>{
+      'id': instance.id.toJson(),
       'name': instance.name,
       'description': instance.description,
       'radius': instance.radius,
@@ -75,4 +111,15 @@ Map<String, dynamic> _$$_MinerDefinitionToJson(_$_MinerDefinition instance) =>
       'baseHopperSize': instance.baseHopperSize,
       'fuelConsumption': instance.fuelConsumption,
       'image': instance.image,
+    };
+
+_$_MinerDefinitionId _$$_MinerDefinitionIdFromJson(Map<String, dynamic> json) =>
+    _$_MinerDefinitionId(
+      id: json['id'] as int,
+    );
+
+Map<String, dynamic> _$$_MinerDefinitionIdToJson(
+        _$_MinerDefinitionId instance) =>
+    <String, dynamic>{
+      'id': instance.id,
     };

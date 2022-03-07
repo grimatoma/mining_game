@@ -1,5 +1,57 @@
 [
   {
+    "name": "Junk Miner",
+    "description": "Salvaged from a garage sale. Barely functional and guzzles gas",
+    "radius": 1,
+    "depth": 1,
+    "baseDamage": 1,
+    "baseHopperSize": 50,
+    "fuelConsumption": 5,
+    "image": "images/drills/1.jpg",
+    "id": {
+      "id" : 1
+    }
+  },
+  {
+    "name": "Basic Miner",
+    "description": "Generic off the shelf miner",
+    "radius": 2,
+    "depth": 1,
+    "baseDamage": 2,
+    "baseHopperSize": 150,
+    "fuelConsumption": 5,
+    "image": "images/drills/2.jpg",
+    "id": {
+      "id" : 2
+    }
+  },
+  {
+    "name": "Test Miner 3",
+    "description": "this is the third miner",
+    "radius": 1,
+    "depth": 1,
+    "baseDamage": 1,
+    "baseHopperSize": 50,
+    "fuelConsumption": 5,
+    "image": "images/drills/3.jpg",
+    "id": {
+      "id" : 3
+    }
+  },
+  {
+    "name": "Test Miner 4",
+    "description": "this is the 4 miner",
+    "radius": 1,
+    "depth": 1,
+    "baseDamage": 1,
+    "baseHopperSize": 50,
+    "fuelConsumption": 5,
+    "image": "images/drills/4.jpg",
+    "id": {
+      "id" : 4
+    }
+  },
+  {
     "name": "Test Miner 5",
     "description": "this is the 5 miner",
     "radius": 1,
@@ -7,6 +59,9 @@
     "baseDamage": 1,
     "baseHopperSize": 50,
     "fuelConsumption": 5,
-    "image": "images/drills/5.png"
+    "image": "images/drills/5.png",
+    "id": {
+      "id" : 5
+    }
   }
 ]

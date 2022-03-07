@@ -27,6 +27,7 @@ import 'widgets/store_page.dart';
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerInstanceAdapter());
+  Hive.registerAdapter(MinerDefinitionIdAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemKeyAdapter());
   Hive.registerAdapter(InstanceIdAdapter());
@@ -37,8 +38,10 @@ void main() async {
   Hive.registerAdapter(SlotStateEmptyAdapter());
   Hive.registerAdapter(SlotStateLockedAdapter());
   Hive.registerAdapter(SlotStateMinerAdapter());
+
   await Hive.initFlutter();
   await MinerHiveManager.init();
+  await ItemDirectory.init();
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
 }
 

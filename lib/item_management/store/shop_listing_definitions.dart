@@ -4,11 +4,10 @@ import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/mining/miner.dart';
 
 part 'shop_listing_definitions.freezed.dart';
+part 'shop_listing_definitions.g.dart';
 
-abstract class ShopListing {
+abstract class ShopListingInterface {
   bool get consumable;
-
-  const ShopListing();
 }
 
 enum BuyingShopListingType {
@@ -16,46 +15,45 @@ enum BuyingShopListingType {
   MINER,
 }
 
-abstract class BuyShopListing extends ShopListing {
+abstract class BuyShopListing extends ShopListingInterface {
   BuyingShopListingType get type;
   ItemContainer get price;
+}
 
-  const BuyShopListing();
+abstract class SellShopListing extends ShopListingInterface {
+  ItemContainer get sellPrice;
+  ItemContainer get items;
 }
 
 @freezed
-class BuyItemStackShopListing extends BuyShopListing
-    with _$BuyItemStackShopListing {
-  const BuyItemStackShopListing._();
+class ShopListing with _$ShopListing implements ShopListingInterface {
+  @Implements<BuyShopListing>()
+  const factory ShopListing.buyItemStack({
+    required int id,
+    @Default(BuyingShopListingType.ITEM_STACK) BuyingShopListingType type,
+    required ItemContainer price,
+    @Default(true) bool consumable,
+    required ItemKey itemKey,
+    required int quantity,
+  }) = BuyItemStackShopListing;
 
-  @override
-  final type = BuyingShopListingType.ITEM_STACK;
+  @Implements<BuyShopListing>()
+  const factory ShopListing.buyMiner({
+    required int id,
+    @Default(BuyingShopListingType.MINER) BuyingShopListingType type,
+    required ItemContainer price,
+    @Default(true) bool consumable,
+    required MinerDefinitionId minerId,
+  }) = BuyMinerShopListing;
 
-  const factory BuyItemStackShopListing(
-      {required ItemKey itemKey,
-      required int quantity,
-      required ItemContainer price,
-      @Default(true) bool consumable}) = _BuyItemStackShopListing;
-}
+  @Implements<SellShopListing>()
+  const factory ShopListing.sell({
+    required int id,
+    @Default(true) bool consumable,
+    required ItemContainer sellPrice,
+    required ItemContainer items,
+  }) = SellItemShopListing;
 
-@freezed
-class BuyMinerShopListing extends BuyShopListing with _$BuyMinerShopListing {
-  const BuyMinerShopListing._();
-  @override
-  final type = BuyingShopListingType.MINER;
-
-  const factory BuyMinerShopListing(
-      {required MinerDefinition definition,
-      required ItemContainer price,
-      @Default(true) bool consumable}) = _BuyMinerShopListing;
-}
-
-class SellShopListing extends ShopListing {
-  final ItemContainer sellPrice;
-  final ItemContainer items;
-  @override
-  final bool consumable;
-
-  SellShopListing(
-      {required this.sellPrice, required this.items, this.consumable = false});
+  factory ShopListing.fromJson(Map<String, dynamic> json) =>
+      _$ShopListingFromJson(json);
 }

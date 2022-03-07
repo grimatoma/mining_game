@@ -23,7 +23,8 @@ class _$MinerDefinitionTearOff {
   const _$MinerDefinitionTearOff();
 
   _MinerDefinition call(
-      {required String name,
+      {required MinerDefinitionId id,
+      required String name,
       required String description,
       required int radius,
       required int depth,
@@ -32,6 +33,7 @@ class _$MinerDefinitionTearOff {
       required int fuelConsumption,
       required String image}) {
     return _MinerDefinition(
+      id: id,
       name: name,
       description: description,
       radius: radius,
@@ -53,6 +55,7 @@ const $MinerDefinition = _$MinerDefinitionTearOff();
 
 /// @nodoc
 mixin _$MinerDefinition {
+  MinerDefinitionId get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   int get radius => throw _privateConstructorUsedError;
@@ -75,7 +78,8 @@ abstract class $MinerDefinitionCopyWith<$Res> {
           MinerDefinition value, $Res Function(MinerDefinition) then) =
       _$MinerDefinitionCopyWithImpl<$Res>;
   $Res call(
-      {String name,
+      {MinerDefinitionId id,
+      String name,
       String description,
       int radius,
       int depth,
@@ -83,6 +87,8 @@ abstract class $MinerDefinitionCopyWith<$Res> {
       int baseHopperSize,
       int fuelConsumption,
       String image});
+
+  $MinerDefinitionIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -96,6 +102,7 @@ class _$MinerDefinitionCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? radius = freezed,
@@ -106,6 +113,10 @@ class _$MinerDefinitionCopyWithImpl<$Res>
     Object? image = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as MinerDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -140,6 +151,13 @@ class _$MinerDefinitionCopyWithImpl<$Res>
               as String,
     ));
   }
+
+  @override
+  $MinerDefinitionIdCopyWith<$Res> get id {
+    return $MinerDefinitionIdCopyWith<$Res>(_value.id, (value) {
+      return _then(_value.copyWith(id: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -150,7 +168,8 @@ abstract class _$MinerDefinitionCopyWith<$Res>
       __$MinerDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String name,
+      {MinerDefinitionId id,
+      String name,
       String description,
       int radius,
       int depth,
@@ -158,6 +177,9 @@ abstract class _$MinerDefinitionCopyWith<$Res>
       int baseHopperSize,
       int fuelConsumption,
       String image});
+
+  @override
+  $MinerDefinitionIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -173,6 +195,7 @@ class __$MinerDefinitionCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? radius = freezed,
@@ -183,6 +206,10 @@ class __$MinerDefinitionCopyWithImpl<$Res>
     Object? image = freezed,
   }) {
     return _then(_MinerDefinition(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as MinerDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -223,7 +250,8 @@ class __$MinerDefinitionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MinerDefinition extends _MinerDefinition {
   const _$_MinerDefinition(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.description,
       required this.radius,
       required this.depth,
@@ -236,6 +264,8 @@ class _$_MinerDefinition extends _MinerDefinition {
   factory _$_MinerDefinition.fromJson(Map<String, dynamic> json) =>
       _$$_MinerDefinitionFromJson(json);
 
+  @override
+  final MinerDefinitionId id;
   @override
   final String name;
   @override
@@ -258,6 +288,7 @@ class _$_MinerDefinition extends _MinerDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _MinerDefinition &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
@@ -275,6 +306,7 @@ class _$_MinerDefinition extends _MinerDefinition {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(radius),
@@ -297,7 +329,8 @@ class _$_MinerDefinition extends _MinerDefinition {
 
 abstract class _MinerDefinition extends MinerDefinition {
   const factory _MinerDefinition(
-      {required String name,
+      {required MinerDefinitionId id,
+      required String name,
       required String description,
       required int radius,
       required int depth,
@@ -310,6 +343,8 @@ abstract class _MinerDefinition extends MinerDefinition {
   factory _MinerDefinition.fromJson(Map<String, dynamic> json) =
       _$_MinerDefinition.fromJson;
 
+  @override
+  MinerDefinitionId get id;
   @override
   String get name;
   @override
@@ -332,18 +367,173 @@ abstract class _MinerDefinition extends MinerDefinition {
       throw _privateConstructorUsedError;
 }
 
+MinerDefinitionId _$MinerDefinitionIdFromJson(Map<String, dynamic> json) {
+  return _MinerDefinitionId.fromJson(json);
+}
+
+/// @nodoc
+class _$MinerDefinitionIdTearOff {
+  const _$MinerDefinitionIdTearOff();
+
+  _MinerDefinitionId call({@HiveField(0) required int id}) {
+    return _MinerDefinitionId(
+      id: id,
+    );
+  }
+
+  MinerDefinitionId fromJson(Map<String, Object?> json) {
+    return MinerDefinitionId.fromJson(json);
+  }
+}
+
+/// @nodoc
+const $MinerDefinitionId = _$MinerDefinitionIdTearOff();
+
+/// @nodoc
+mixin _$MinerDefinitionId {
+  @HiveField(0)
+  int get id => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MinerDefinitionIdCopyWith<MinerDefinitionId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MinerDefinitionIdCopyWith<$Res> {
+  factory $MinerDefinitionIdCopyWith(
+          MinerDefinitionId value, $Res Function(MinerDefinitionId) then) =
+      _$MinerDefinitionIdCopyWithImpl<$Res>;
+  $Res call({@HiveField(0) int id});
+}
+
+/// @nodoc
+class _$MinerDefinitionIdCopyWithImpl<$Res>
+    implements $MinerDefinitionIdCopyWith<$Res> {
+  _$MinerDefinitionIdCopyWithImpl(this._value, this._then);
+
+  final MinerDefinitionId _value;
+  // ignore: unused_field
+  final $Res Function(MinerDefinitionId) _then;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$MinerDefinitionIdCopyWith<$Res>
+    implements $MinerDefinitionIdCopyWith<$Res> {
+  factory _$MinerDefinitionIdCopyWith(
+          _MinerDefinitionId value, $Res Function(_MinerDefinitionId) then) =
+      __$MinerDefinitionIdCopyWithImpl<$Res>;
+  @override
+  $Res call({@HiveField(0) int id});
+}
+
+/// @nodoc
+class __$MinerDefinitionIdCopyWithImpl<$Res>
+    extends _$MinerDefinitionIdCopyWithImpl<$Res>
+    implements _$MinerDefinitionIdCopyWith<$Res> {
+  __$MinerDefinitionIdCopyWithImpl(
+      _MinerDefinitionId _value, $Res Function(_MinerDefinitionId) _then)
+      : super(_value, (v) => _then(v as _MinerDefinitionId));
+
+  @override
+  _MinerDefinitionId get _value => super._value as _MinerDefinitionId;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(_MinerDefinitionId(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+@HiveType(typeId: 50, adapterName: 'MinerDefinitionIdAdapter')
+class _$_MinerDefinitionId extends _MinerDefinitionId {
+  const _$_MinerDefinitionId({@HiveField(0) required this.id}) : super._();
+
+  factory _$_MinerDefinitionId.fromJson(Map<String, dynamic> json) =>
+      _$$_MinerDefinitionIdFromJson(json);
+
+  @override
+  @HiveField(0)
+  final int id;
+
+  @override
+  String toString() {
+    return 'MinerDefinitionId(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _MinerDefinitionId &&
+            const DeepCollectionEquality().equals(other.id, id));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+
+  @JsonKey(ignore: true)
+  @override
+  _$MinerDefinitionIdCopyWith<_MinerDefinitionId> get copyWith =>
+      __$MinerDefinitionIdCopyWithImpl<_MinerDefinitionId>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MinerDefinitionIdToJson(this);
+  }
+}
+
+abstract class _MinerDefinitionId extends MinerDefinitionId {
+  const factory _MinerDefinitionId({@HiveField(0) required int id}) =
+      _$_MinerDefinitionId;
+  const _MinerDefinitionId._() : super._();
+
+  factory _MinerDefinitionId.fromJson(Map<String, dynamic> json) =
+      _$_MinerDefinitionId.fromJson;
+
+  @override
+  @HiveField(0)
+  int get id;
+  @override
+  @JsonKey(ignore: true)
+  _$MinerDefinitionIdCopyWith<_MinerDefinitionId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 /// @nodoc
 class _$MinerInstanceTearOff {
   const _$MinerInstanceTearOff();
 
   _MinerInstance call(
       {@HiveField(0) required InstanceId id,
-      @HiveField(1) required MinerDefinition definition,
+      @HiveField(1) required MinerDefinitionId minerId,
       @HiveField(2) ItemKey? drillItemId,
       @HiveField(4) required ItemContainer hopper}) {
     return _MinerInstance(
       id: id,
-      definition: definition,
+      minerId: minerId,
       drillItemId: drillItemId,
       hopper: hopper,
     );
@@ -358,7 +548,7 @@ mixin _$MinerInstance {
   @HiveField(0)
   InstanceId get id => throw _privateConstructorUsedError;
   @HiveField(1)
-  MinerDefinition get definition => throw _privateConstructorUsedError;
+  MinerDefinitionId get minerId => throw _privateConstructorUsedError;
   @HiveField(2)
   ItemKey? get drillItemId => throw _privateConstructorUsedError;
   @HiveField(4)
@@ -376,11 +566,11 @@ abstract class $MinerInstanceCopyWith<$Res> {
       _$MinerInstanceCopyWithImpl<$Res>;
   $Res call(
       {@HiveField(0) InstanceId id,
-      @HiveField(1) MinerDefinition definition,
+      @HiveField(1) MinerDefinitionId minerId,
       @HiveField(2) ItemKey? drillItemId,
       @HiveField(4) ItemContainer hopper});
 
-  $MinerDefinitionCopyWith<$Res> get definition;
+  $MinerDefinitionIdCopyWith<$Res> get minerId;
 }
 
 /// @nodoc
@@ -395,7 +585,7 @@ class _$MinerInstanceCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? definition = freezed,
+    Object? minerId = freezed,
     Object? drillItemId = freezed,
     Object? hopper = freezed,
   }) {
@@ -404,10 +594,10 @@ class _$MinerInstanceCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as InstanceId,
-      definition: definition == freezed
-          ? _value.definition
-          : definition // ignore: cast_nullable_to_non_nullable
-              as MinerDefinition,
+      minerId: minerId == freezed
+          ? _value.minerId
+          : minerId // ignore: cast_nullable_to_non_nullable
+              as MinerDefinitionId,
       drillItemId: drillItemId == freezed
           ? _value.drillItemId
           : drillItemId // ignore: cast_nullable_to_non_nullable
@@ -420,9 +610,9 @@ class _$MinerInstanceCopyWithImpl<$Res>
   }
 
   @override
-  $MinerDefinitionCopyWith<$Res> get definition {
-    return $MinerDefinitionCopyWith<$Res>(_value.definition, (value) {
-      return _then(_value.copyWith(definition: value));
+  $MinerDefinitionIdCopyWith<$Res> get minerId {
+    return $MinerDefinitionIdCopyWith<$Res>(_value.minerId, (value) {
+      return _then(_value.copyWith(minerId: value));
     });
   }
 }
@@ -436,12 +626,12 @@ abstract class _$MinerInstanceCopyWith<$Res>
   @override
   $Res call(
       {@HiveField(0) InstanceId id,
-      @HiveField(1) MinerDefinition definition,
+      @HiveField(1) MinerDefinitionId minerId,
       @HiveField(2) ItemKey? drillItemId,
       @HiveField(4) ItemContainer hopper});
 
   @override
-  $MinerDefinitionCopyWith<$Res> get definition;
+  $MinerDefinitionIdCopyWith<$Res> get minerId;
 }
 
 /// @nodoc
@@ -458,7 +648,7 @@ class __$MinerInstanceCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? definition = freezed,
+    Object? minerId = freezed,
     Object? drillItemId = freezed,
     Object? hopper = freezed,
   }) {
@@ -467,10 +657,10 @@ class __$MinerInstanceCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as InstanceId,
-      definition: definition == freezed
-          ? _value.definition
-          : definition // ignore: cast_nullable_to_non_nullable
-              as MinerDefinition,
+      minerId: minerId == freezed
+          ? _value.minerId
+          : minerId // ignore: cast_nullable_to_non_nullable
+              as MinerDefinitionId,
       drillItemId: drillItemId == freezed
           ? _value.drillItemId
           : drillItemId // ignore: cast_nullable_to_non_nullable
@@ -489,7 +679,7 @@ class __$MinerInstanceCopyWithImpl<$Res>
 class _$_MinerInstance extends _MinerInstance {
   const _$_MinerInstance(
       {@HiveField(0) required this.id,
-      @HiveField(1) required this.definition,
+      @HiveField(1) required this.minerId,
       @HiveField(2) this.drillItemId,
       @HiveField(4) required this.hopper})
       : super._();
@@ -499,7 +689,7 @@ class _$_MinerInstance extends _MinerInstance {
   final InstanceId id;
   @override
   @HiveField(1)
-  final MinerDefinition definition;
+  final MinerDefinitionId minerId;
   @override
   @HiveField(2)
   final ItemKey? drillItemId;
@@ -509,7 +699,7 @@ class _$_MinerInstance extends _MinerInstance {
 
   @override
   String toString() {
-    return 'MinerInstance(id: $id, definition: $definition, drillItemId: $drillItemId, hopper: $hopper)';
+    return 'MinerInstance(id: $id, minerId: $minerId, drillItemId: $drillItemId, hopper: $hopper)';
   }
 
   @override
@@ -518,8 +708,7 @@ class _$_MinerInstance extends _MinerInstance {
         (other.runtimeType == runtimeType &&
             other is _MinerInstance &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality()
-                .equals(other.definition, definition) &&
+            const DeepCollectionEquality().equals(other.minerId, minerId) &&
             const DeepCollectionEquality()
                 .equals(other.drillItemId, drillItemId) &&
             const DeepCollectionEquality().equals(other.hopper, hopper));
@@ -529,7 +718,7 @@ class _$_MinerInstance extends _MinerInstance {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(definition),
+      const DeepCollectionEquality().hash(minerId),
       const DeepCollectionEquality().hash(drillItemId),
       const DeepCollectionEquality().hash(hopper));
 
@@ -542,7 +731,7 @@ class _$_MinerInstance extends _MinerInstance {
 abstract class _MinerInstance extends MinerInstance {
   const factory _MinerInstance(
       {@HiveField(0) required InstanceId id,
-      @HiveField(1) required MinerDefinition definition,
+      @HiveField(1) required MinerDefinitionId minerId,
       @HiveField(2) ItemKey? drillItemId,
       @HiveField(4) required ItemContainer hopper}) = _$_MinerInstance;
   const _MinerInstance._() : super._();
@@ -552,7 +741,7 @@ abstract class _MinerInstance extends MinerInstance {
   InstanceId get id;
   @override
   @HiveField(1)
-  MinerDefinition get definition;
+  MinerDefinitionId get minerId;
   @override
   @HiveField(2)
   ItemKey? get drillItemId;

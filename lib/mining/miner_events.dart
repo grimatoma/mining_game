@@ -50,9 +50,9 @@ class CreateMinerEvent extends MinerEvent {
   @override
   final type = MinerEventType.NEW_MINER;
 
-  final MinerDefinition definition;
+  final MinerDefinitionId minerId;
 
-  CreateMinerEvent(this.definition);
+  CreateMinerEvent(this.minerId);
 }
 
 class CollectHopperMinerEvent extends MinerEvent {

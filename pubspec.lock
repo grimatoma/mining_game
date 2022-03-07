@@ -340,6 +340,41 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.4"
+  json_serializable_built_typehelpers:
+    dependency: transitive
+    description:
+      name: json_serializable_built_typehelpers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
+  json_serializable_immutable_collections:
+    dependency: "direct main"
+    description:
+      name: json_serializable_immutable_collections
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.10.1"
+  json_serializable_kt_typehelpers:
+    dependency: transitive
+    description:
+      name: json_serializable_kt_typehelpers
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
+  json_serializable_type_helper_utils:
+    dependency: transitive
+    description:
+      name: json_serializable_type_helper_utils
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.1.0"
+  kt_dart:
+    dependency: transitive
+    description:
+      name: kt_dart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.1"
   lints:
     dependency: transitive
     description:
