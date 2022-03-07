@@ -1,7 +1,4 @@
-import 'dart:convert';
-
-import 'package:built_collection/built_collection.dart';
-import 'package:flutter/services.dart';
+import 'package:built_collection/built_collectionces.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/item_management/inventory.dart';
@@ -43,8 +40,6 @@ class StoreController extends StateNotifier<StoreListings> {
 
     poo();
   }
-
-
 
   bool canBuy(BuyShopListing listing) => _inventory.canRemove(listing.price);
   bool canSell(SellShopListing listing) => _inventory.canRemove(listing.items);
