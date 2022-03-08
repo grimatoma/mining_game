@@ -7,6 +7,7 @@ import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/inventory_events.dart';
 import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/point.dart';
@@ -91,7 +92,7 @@ class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
       if (miner.definition.baseHopperSize <
           miner.hopper.items.values.fold(0, (p, c) => p + c)) return;
       final resources = _planetController.dig(
-          point, ItemContainer.single(ItemKey.IRON, miner.totalDamage));
+          point, ItemContainer.single(ItemKeys.IRON, miner.totalDamage));
       if (resources.empty) return;
       // This should probably be owned in the miners notifier.
       _minersNotifier.state = _minersNotifier.state.rebuild(addOrUpdate: {
@@ -169,11 +170,11 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     final drillId = event.miner.drillItemId;
     if (drillId == null) return;
     _gameEventManager
-        .addEvent(AddItemInventoryEvent(key: drillId, quantity: 1));
+        .addEvent(AddItemInventoryEvent(itemId: drillId, quantity: 1));
     _updateMinerWithDrill(event.miner, null);
   }
 
-  void _updateMinerWithDrill(MinerInstance miner, ItemKey? drill) {
+  void _updateMinerWithDrill(MinerInstance miner, ItemId? drill) {
     state = state
         .rebuild(addOrUpdate: {miner.id: miner.copyWith(drillItemId: drill)});
   }

@@ -14,7 +14,7 @@ _$BuyItemStackShopListing _$$BuyItemStackShopListingFromJson(
           BuyingShopListingType.ITEM_STACK,
       price: ItemContainer.fromJson(json['price'] as Map<String, dynamic>),
       consumable: json['consumable'] as bool? ?? true,
-      itemKey: $enumDecode(_$ItemKeyEnumMap, json['itemKey']),
+      itemId: ItemId.fromJson(json['itemId'] as Map<String, dynamic>),
       quantity: json['quantity'] as int,
       $type: json['runtimeType'] as String?,
     );
@@ -26,7 +26,7 @@ Map<String, dynamic> _$$BuyItemStackShopListingToJson(
       'type': _$BuyingShopListingTypeEnumMap[instance.type],
       'price': instance.price.toJson(),
       'consumable': instance.consumable,
-      'itemKey': _$ItemKeyEnumMap[instance.itemKey],
+      'itemId': instance.itemId.toJson(),
       'quantity': instance.quantity,
       'runtimeType': instance.$type,
     };
@@ -34,15 +34,6 @@ Map<String, dynamic> _$$BuyItemStackShopListingToJson(
 const _$BuyingShopListingTypeEnumMap = {
   BuyingShopListingType.ITEM_STACK: 'ITEM_STACK',
   BuyingShopListingType.MINER: 'MINER',
-};
-
-const _$ItemKeyEnumMap = {
-  ItemKey.ROCK: 'ROCK',
-  ItemKey.SHARP_ROCK: 'SHARP_ROCK',
-  ItemKey.IRON: 'IRON',
-  ItemKey.COPPER: 'COPPER',
-  ItemKey.TEST_DRILL: 'TEST_DRILL',
-  ItemKey.CREDIT: 'CREDIT',
 };
 
 _$BuyMinerShopListing _$$BuyMinerShopListingFromJson(

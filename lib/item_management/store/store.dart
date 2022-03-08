@@ -33,12 +33,12 @@ class StoreController extends StateNotifier<StoreListings> {
     this._inventory,
     this._gameEventManager,
   ) : super(StoreListings(<ShopListing>[].build())) {
-    void poo() async {
+    void initStore() async {
       state = StoreListings(await ItemDirectory.parseJsonList(
           'json/store_listings.json', ShopListing.fromJson));
     }
 
-    poo();
+    initStore();
   }
 
   bool canBuy(BuyShopListing listing) => _inventory.canRemove(listing.price);
@@ -58,7 +58,7 @@ class StoreController extends StateNotifier<StoreListings> {
     final success = listing.map(
         buyItemStack: (listing) => handleBuyListing(listing, () {
               _gameEventManager.addEvent(AddItemInventoryEvent(
-                  key: listing.itemKey, quantity: listing.quantity));
+                  itemId: listing.itemId, quantity: listing.quantity));
             }),
         buyMiner: (listing) => handleBuyListing(listing, () {
               _gameEventManager.addEvent(CreateMinerEvent(listing.minerId));

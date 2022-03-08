@@ -1,0 +1,56 @@
+[
+  {
+    "id": {
+      "itemId": "ROCK"
+    },
+    "runtimeType": "resourceDefinition",
+    "name": "Black Rock",
+    "namePlural": "Black Rocks",
+    "description": "Often found in dark caves"
+  },
+  {
+    "id": {
+      "itemId": "SWORD"
+    },
+    "runtimeType": "swordDefinition",
+    "name": "Sword",
+    "namePlural": "Swords",
+    "description": "Pointy stick",
+    "attributes": {
+      "SHARP":10.0
+    }
+  },
+  {
+    "id": {
+      "itemId": "IRON"
+    },
+    "runtimeType": "resourceWalletOnlyDefinition",
+    "name": "Iron",
+    "description": "can be mined"
+  },
+  {
+    "id": {
+      "itemId": "COPPER"
+    },
+    "runtimeType": "resourceWalletOnlyDefinition",
+    "name": "Copper",
+    "description": "can be mined"
+  },
+  {
+    "id": {
+      "itemId": "TEST_DRILL"
+    },
+    "runtimeType": "drillDefinition",
+    "name": "Test Drill",
+    "description": "I do extra damage.",
+    "damage": 4
+  },
+  {
+    "id": {
+      "itemId": "CREDIT"
+    },
+    "runtimeType": "resourceWalletOnlyDefinition",
+    "name": "Credit",
+    "description": "A form of currency."
+  }
+]

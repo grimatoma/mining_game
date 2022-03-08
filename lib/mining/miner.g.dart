@@ -53,7 +53,7 @@ class MinerInstanceAdapter extends TypeAdapter<_$_MinerInstance> {
     return _$_MinerInstance(
       id: fields[0] as InstanceId,
       minerId: fields[1] as MinerDefinitionId,
-      drillItemId: fields[2] as ItemKey?,
+      drillItemId: fields[2] as ItemId?,
       hopper: fields[4] as ItemContainer,
     );
   }

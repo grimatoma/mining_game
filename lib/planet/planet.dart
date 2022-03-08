@@ -56,7 +56,8 @@ class Planet {
 
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
-      min(255, (255 * planetTile.resources.get(ItemKey.IRON) / maxResourceSize))
+      min(255,
+              (255 * planetTile.resources.get(ItemKeys.IRON) / maxResourceSize))
           .toInt(),
       0,
       0);

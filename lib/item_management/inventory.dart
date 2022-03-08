@@ -2,7 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/persistence.dart';
 
 import 'inventory_events.dart';
@@ -10,21 +10,17 @@ import 'items/item_container.dart';
 
 final inventoryStateProvider =
     StateNotifierProvider<InventoryStateController, ItemContainer>((ref) {
-  return InventoryStateController(
-      ref.watch(itemDirectoryProvider), ref.watch(gameEventManagerProvider));
+  return InventoryStateController(ref.watch(gameEventManagerProvider));
 });
 
 class InventoryStateController extends StateNotifier<ItemContainer> {
-  final ItemDirectory _itemDirectory;
-  InventoryStateController(
-      this._itemDirectory, GameEventManager gameEventManager)
+  InventoryStateController(GameEventManager gameEventManager)
       : super(ItemContainer.empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<int>(DatabaseName.inventory000p2.name);
+          await Hive.openBox<int>(DatabaseName.inventory000p22.name);
       state = ItemContainer({
-        for (final val in loadedBox.keys)
-          _itemDirectory.getKey(val): loadedBox.get(val) ?? 0,
+        for (final val in loadedBox.keys) ItemId(val): loadedBox.get(val) ?? 0,
       }.build());
     }
 
@@ -34,7 +30,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
       switch (event.type) {
         case InventoryEventType.ADD_ITEM:
           event as AddItemInventoryEvent;
-          _addItem(event.key, event.quantity);
+          _addItem(event.itemId, event.quantity);
           break;
         case InventoryEventType.ADD_ITEMS:
           event as AddItemsInventoryEvent;
@@ -51,8 +47,8 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     });
   }
 
-  void _addItem(ItemKey key, int quantity) =>
-      _add(ItemContainer.single(key, quantity));
+  void _addItem(ItemId itemId, int quantity) =>
+      _add(ItemContainer.single(itemId, quantity));
 
   void _add(ItemContainer container) async {
     final items = container.items;
@@ -63,12 +59,13 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     };
 
     state = state.rebuild((p0) => p0.addAll(mappedItems));
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory000p2.name);
-    loadedBox
-        .putAll(mappedItems.map((key, value) => MapEntry(key.name, value)));
+    final loadedBox =
+        await Hive.openBox<int>(DatabaseName.inventory000p22.name);
+    loadedBox.putAll(
+        mappedItems.map((key, value) => MapEntry(key.toString(), value)));
   }
 
-  int get(ItemKey key) => state.items[key] ?? 0;
+  int get(ItemId key) => state.items[key] ?? 0;
 
   bool canRemove(ItemContainer container) =>
       !container.items.entries.any((entry) => get(entry.key) - entry.value < 0);
@@ -82,16 +79,17 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     final itemUpdates = mappedItems.entries.where((entry) => entry.value > 0);
     final itemRemovals = mappedItems.entries.where((entry) => entry.value <= 0);
 
-    final loadedBox = await Hive.openBox<int>(DatabaseName.inventory000p2.name);
+    final loadedBox =
+        await Hive.openBox<int>(DatabaseName.inventory000p22.name);
 
     state = state.rebuild((p0) {
       p0.addEntries(itemUpdates);
       for (final itemEntry in itemRemovals) {
-        p0.remove(itemEntry.key);
+        p0.remove(itemEntry.key.toString());
       }
-      loadedBox
-          .putAll({for (var entry in itemUpdates) entry.key.name: entry.value});
-      loadedBox.deleteAll(itemRemovals.map((e) => e.key.name));
+      loadedBox.putAll(
+          {for (var entry in itemUpdates) entry.key.toString(): entry.value});
+      loadedBox.deleteAll(itemRemovals.map((e) => e.key));
     });
     return true;
   }

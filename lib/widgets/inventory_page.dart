@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/item_definitions.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/mining/miner.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 
@@ -10,7 +9,7 @@ import 'status_bar_wrapped_page.dart';
 
 class _InventoryListItem {
   final String? header;
-  final BaseItemForDirectory? item;
+  final ItemDefinition? item;
   final MinerInstance? miner;
   _InventoryListItem({this.header, this.item, this.miner});
 
@@ -29,7 +28,7 @@ class _InventoryListItem {
               children: [const Text('Description'), Text(item.description)]),
           TableRow(children: [
             const Text('Amount'),
-            Text(inventory.items[item.itemKey].toString())
+            Text(inventory.items[item.id].toString())
           ]),
         ],
       );
@@ -63,17 +62,15 @@ class InventoryPageWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final inventory = ref.watch(inventoryStateProvider);
-    final itemDirectory = ref.watch(itemDirectoryProvider);
     final itemKeys = inventory.items.keys
-        .where((key) => itemDirectory[key] is! HideInInventory)
+        .where((key) => key.definition is! HideInInventory)
         .toList();
 
     final minerLocations = ref.watch(minerLocationsProvider);
 
     final inventoryItems = [
       _InventoryListItem(header: 'Items'),
-      for (final item in itemKeys)
-        _InventoryListItem(item: itemDirectory[item]),
+      for (final item in itemKeys) _InventoryListItem(item: item.definition),
       _InventoryListItem(header: 'Miners'),
       for (final miner in minerLocations.storedMiners)
         _InventoryListItem(miner: miner),

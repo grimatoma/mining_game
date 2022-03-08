@@ -38,14 +38,14 @@ class _$ShopListingTearOff {
       BuyingShopListingType type = BuyingShopListingType.ITEM_STACK,
       required ItemContainer price,
       bool consumable = true,
-      required ItemKey itemKey,
+      required ItemId itemId,
       required int quantity}) {
     return BuyItemStackShopListing(
       id: id,
       type: type,
       price: price,
       consumable: consumable,
-      itemKey: itemKey,
+      itemId: itemId,
       quantity: quantity,
     );
   }
@@ -94,7 +94,7 @@ mixin _$ShopListing {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemKey itemKey, int quantity)
+            ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
             ItemContainer price, bool consumable, MinerDefinitionId minerId)
@@ -107,7 +107,7 @@ mixin _$ShopListing {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?
@@ -120,7 +120,7 @@ mixin _$ShopListing {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?
@@ -205,8 +205,10 @@ abstract class $BuyItemStackShopListingCopyWith<$Res>
       BuyingShopListingType type,
       ItemContainer price,
       bool consumable,
-      ItemKey itemKey,
+      ItemId itemId,
       int quantity});
+
+  $ItemIdCopyWith<$Res> get itemId;
 }
 
 /// @nodoc
@@ -226,7 +228,7 @@ class _$BuyItemStackShopListingCopyWithImpl<$Res>
     Object? type = freezed,
     Object? price = freezed,
     Object? consumable = freezed,
-    Object? itemKey = freezed,
+    Object? itemId = freezed,
     Object? quantity = freezed,
   }) {
     return _then(BuyItemStackShopListing(
@@ -246,15 +248,22 @@ class _$BuyItemStackShopListingCopyWithImpl<$Res>
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
               as bool,
-      itemKey: itemKey == freezed
-          ? _value.itemKey
-          : itemKey // ignore: cast_nullable_to_non_nullable
-              as ItemKey,
+      itemId: itemId == freezed
+          ? _value.itemId
+          : itemId // ignore: cast_nullable_to_non_nullable
+              as ItemId,
       quantity: quantity == freezed
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
     ));
+  }
+
+  @override
+  $ItemIdCopyWith<$Res> get itemId {
+    return $ItemIdCopyWith<$Res>(_value.itemId, (value) {
+      return _then(_value.copyWith(itemId: value));
+    });
   }
 }
 
@@ -267,7 +276,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
       this.type = BuyingShopListingType.ITEM_STACK,
       required this.price,
       this.consumable = true,
-      required this.itemKey,
+      required this.itemId,
       required this.quantity,
       String? $type})
       : $type = $type ?? 'buyItemStack';
@@ -286,7 +295,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
   @override
   final bool consumable;
   @override
-  final ItemKey itemKey;
+  final ItemId itemId;
   @override
   final int quantity;
 
@@ -295,7 +304,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
 
   @override
   String toString() {
-    return 'ShopListing.buyItemStack(id: $id, type: $type, price: $price, consumable: $consumable, itemKey: $itemKey, quantity: $quantity)';
+    return 'ShopListing.buyItemStack(id: $id, type: $type, price: $price, consumable: $consumable, itemId: $itemId, quantity: $quantity)';
   }
 
   @override
@@ -308,7 +317,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality()
                 .equals(other.consumable, consumable) &&
-            const DeepCollectionEquality().equals(other.itemKey, itemKey) &&
+            const DeepCollectionEquality().equals(other.itemId, itemId) &&
             const DeepCollectionEquality().equals(other.quantity, quantity));
   }
 
@@ -319,7 +328,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
       const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(price),
       const DeepCollectionEquality().hash(consumable),
-      const DeepCollectionEquality().hash(itemKey),
+      const DeepCollectionEquality().hash(itemId),
       const DeepCollectionEquality().hash(quantity));
 
   @JsonKey(ignore: true)
@@ -332,7 +341,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemKey itemKey, int quantity)
+            ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
             ItemContainer price, bool consumable, MinerDefinitionId minerId)
@@ -341,14 +350,14 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
             ItemContainer items)
         sell,
   }) {
-    return buyItemStack(id, type, price, consumable, itemKey, quantity);
+    return buyItemStack(id, type, price, consumable, itemId, quantity);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?
@@ -357,14 +366,14 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
             ItemContainer items)?
         sell,
   }) {
-    return buyItemStack?.call(id, type, price, consumable, itemKey, quantity);
+    return buyItemStack?.call(id, type, price, consumable, itemId, quantity);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?
@@ -375,7 +384,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
     required TResult orElse(),
   }) {
     if (buyItemStack != null) {
-      return buyItemStack(id, type, price, consumable, itemKey, quantity);
+      return buyItemStack(id, type, price, consumable, itemId, quantity);
     }
     return orElse();
   }
@@ -426,7 +435,7 @@ abstract class BuyItemStackShopListing implements ShopListing, BuyShopListing {
       BuyingShopListingType type,
       required ItemContainer price,
       bool consumable,
-      required ItemKey itemKey,
+      required ItemId itemId,
       required int quantity}) = _$BuyItemStackShopListing;
 
   factory BuyItemStackShopListing.fromJson(Map<String, dynamic> json) =
@@ -438,7 +447,7 @@ abstract class BuyItemStackShopListing implements ShopListing, BuyShopListing {
   ItemContainer get price;
   @override
   bool get consumable;
-  ItemKey get itemKey;
+  ItemId get itemId;
   int get quantity;
   @override
   @JsonKey(ignore: true)
@@ -582,7 +591,7 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemKey itemKey, int quantity)
+            ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
             ItemContainer price, bool consumable, MinerDefinitionId minerId)
@@ -598,7 +607,7 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?
@@ -614,7 +623,7 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?
@@ -806,7 +815,7 @@ class _$SellItemShopListing implements SellItemShopListing {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemKey itemKey, int quantity)
+            ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
             ItemContainer price, bool consumable, MinerDefinitionId minerId)
@@ -822,7 +831,7 @@ class _$SellItemShopListing implements SellItemShopListing {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?
@@ -838,7 +847,7 @@ class _$SellItemShopListing implements SellItemShopListing {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemKey itemKey, int quantity)?
+            bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
             bool consumable, MinerDefinitionId minerId)?

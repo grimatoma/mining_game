@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/mining/miner.dart';
 
@@ -33,7 +33,7 @@ class ShopListing with _$ShopListing implements ShopListingInterface {
     @Default(BuyingShopListingType.ITEM_STACK) BuyingShopListingType type,
     required ItemContainer price,
     @Default(true) bool consumable,
-    required ItemKey itemKey,
+    required ItemId itemId,
     required int quantity,
   }) = BuyItemStackShopListing;
 

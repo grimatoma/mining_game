@@ -47,7 +47,7 @@ class PlanetController extends StateNotifier<Planet> {
   PlanetController({required GameConfigs configs}) : super(Planet.empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p2.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p22.name);
       final loadedPlanet = loadedBox.get(databaseKey);
       if (loadedPlanet == null) {
         planet = _generatePlanet(configs);
@@ -58,7 +58,7 @@ class PlanetController extends StateNotifier<Planet> {
 
     void updateBox() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p2.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p22.name);
       stream.listen((event) {
         loadedBox.put(databaseKey, planet);
       });
@@ -96,7 +96,7 @@ class PlanetController extends StateNotifier<Planet> {
         final p = PlanetPoint(x, y, z);
         planetMap[p] = PlanetTile(
             point: p,
-            resources: ItemContainer.single(ItemKey.IRON, resourceSize),
+            resources: ItemContainer.single(ItemKeys.IRON, resourceSize),
             visible: false);
         maxResourceSize =
             maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
@@ -145,7 +145,7 @@ class PlanetController extends StateNotifier<Planet> {
       min(
               255,
               (255 *
-                  planetTile.resources.get(ItemKey.IRON) /
+                  planetTile.resources.get(ItemKeys.IRON) /
                   planet.maxResourceSize))
           .toInt(),
       0,
@@ -162,9 +162,9 @@ class PlanetController extends StateNotifier<Planet> {
         int index = y * width + x;
         var tile = map[PlanetPoint(x, y, 0)]!;
 
-        final color =
-            min(255, (255 * tile.resources.get(ItemKey.IRON) / maxResourceSize))
-                .toInt();
+        final color = min(255,
+                (255 * tile.resources.get(ItemKeys.IRON) / maxResourceSize))
+            .toInt();
         pixels[index] = Color.fromRGBO(
                 tile.visible ? color : 20,
                 tile.visible ? r.nextInt(1) : 100 + r.nextInt(100),

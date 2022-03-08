@@ -1,5 +1,5 @@
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/planet/point.dart';
 
 import 'miner.dart';
@@ -68,7 +68,7 @@ class DrillAttachEvent extends MinerEvent {
   @override
   final type = MinerEventType.DRILL_ATTACH;
 
-  final ItemKey drillId;
+  final ItemId drillId;
   final MinerInstance miner;
 
   DrillAttachEvent({required this.miner, required this.drillId});

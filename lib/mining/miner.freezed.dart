@@ -529,7 +529,7 @@ class _$MinerInstanceTearOff {
   _MinerInstance call(
       {@HiveField(0) required InstanceId id,
       @HiveField(1) required MinerDefinitionId minerId,
-      @HiveField(2) ItemKey? drillItemId,
+      @HiveField(2) ItemId? drillItemId,
       @HiveField(4) required ItemContainer hopper}) {
     return _MinerInstance(
       id: id,
@@ -550,7 +550,7 @@ mixin _$MinerInstance {
   @HiveField(1)
   MinerDefinitionId get minerId => throw _privateConstructorUsedError;
   @HiveField(2)
-  ItemKey? get drillItemId => throw _privateConstructorUsedError;
+  ItemId? get drillItemId => throw _privateConstructorUsedError;
   @HiveField(4)
   ItemContainer get hopper => throw _privateConstructorUsedError;
 
@@ -567,10 +567,11 @@ abstract class $MinerInstanceCopyWith<$Res> {
   $Res call(
       {@HiveField(0) InstanceId id,
       @HiveField(1) MinerDefinitionId minerId,
-      @HiveField(2) ItemKey? drillItemId,
+      @HiveField(2) ItemId? drillItemId,
       @HiveField(4) ItemContainer hopper});
 
   $MinerDefinitionIdCopyWith<$Res> get minerId;
+  $ItemIdCopyWith<$Res>? get drillItemId;
 }
 
 /// @nodoc
@@ -601,7 +602,7 @@ class _$MinerInstanceCopyWithImpl<$Res>
       drillItemId: drillItemId == freezed
           ? _value.drillItemId
           : drillItemId // ignore: cast_nullable_to_non_nullable
-              as ItemKey?,
+              as ItemId?,
       hopper: hopper == freezed
           ? _value.hopper
           : hopper // ignore: cast_nullable_to_non_nullable
@@ -613,6 +614,17 @@ class _$MinerInstanceCopyWithImpl<$Res>
   $MinerDefinitionIdCopyWith<$Res> get minerId {
     return $MinerDefinitionIdCopyWith<$Res>(_value.minerId, (value) {
       return _then(_value.copyWith(minerId: value));
+    });
+  }
+
+  @override
+  $ItemIdCopyWith<$Res>? get drillItemId {
+    if (_value.drillItemId == null) {
+      return null;
+    }
+
+    return $ItemIdCopyWith<$Res>(_value.drillItemId!, (value) {
+      return _then(_value.copyWith(drillItemId: value));
     });
   }
 }
@@ -627,11 +639,13 @@ abstract class _$MinerInstanceCopyWith<$Res>
   $Res call(
       {@HiveField(0) InstanceId id,
       @HiveField(1) MinerDefinitionId minerId,
-      @HiveField(2) ItemKey? drillItemId,
+      @HiveField(2) ItemId? drillItemId,
       @HiveField(4) ItemContainer hopper});
 
   @override
   $MinerDefinitionIdCopyWith<$Res> get minerId;
+  @override
+  $ItemIdCopyWith<$Res>? get drillItemId;
 }
 
 /// @nodoc
@@ -664,7 +678,7 @@ class __$MinerInstanceCopyWithImpl<$Res>
       drillItemId: drillItemId == freezed
           ? _value.drillItemId
           : drillItemId // ignore: cast_nullable_to_non_nullable
-              as ItemKey?,
+              as ItemId?,
       hopper: hopper == freezed
           ? _value.hopper
           : hopper // ignore: cast_nullable_to_non_nullable
@@ -692,7 +706,7 @@ class _$_MinerInstance extends _MinerInstance {
   final MinerDefinitionId minerId;
   @override
   @HiveField(2)
-  final ItemKey? drillItemId;
+  final ItemId? drillItemId;
   @override
   @HiveField(4)
   final ItemContainer hopper;
@@ -732,7 +746,7 @@ abstract class _MinerInstance extends MinerInstance {
   const factory _MinerInstance(
       {@HiveField(0) required InstanceId id,
       @HiveField(1) required MinerDefinitionId minerId,
-      @HiveField(2) ItemKey? drillItemId,
+      @HiveField(2) ItemId? drillItemId,
       @HiveField(4) required ItemContainer hopper}) = _$_MinerInstance;
   const _MinerInstance._() : super._();
 
@@ -744,7 +758,7 @@ abstract class _MinerInstance extends MinerInstance {
   MinerDefinitionId get minerId;
   @override
   @HiveField(2)
-  ItemKey? get drillItemId;
+  ItemId? get drillItemId;
   @override
   @HiveField(4)
   ItemContainer get hopper;

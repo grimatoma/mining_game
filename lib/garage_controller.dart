@@ -80,7 +80,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
   }
 
   ItemContainer unlockCost(int index) =>
-      ItemContainer.single(ItemKey.CREDIT, pow(2, index + 1).round());
+      ItemContainer.single(ItemKeys.CREDIT, pow(2, index + 1).round());
 
   void _unlockSlot(LockedSlot slot) async {
     bool canUnlock(ItemContainer unlockCost) =>

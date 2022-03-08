@@ -2,32 +2,30 @@ import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 
 part 'item_container.g.dart';
 
 @HiveType(typeId: 35)
-@JsonSerializable()
 class ItemContainer {
   @HiveField(0)
-  final BuiltMap<ItemKey, int> items;
+  final BuiltMap<ItemId, int> items;
 
   ItemContainer(this.items);
-  factory ItemContainer.create(Map<ItemKey, int> items) =>
+  factory ItemContainer.create(Map<ItemId, int> items) =>
       ItemContainer(items.build());
-  factory ItemContainer.single(ItemKey key, int quantity) =>
+  factory ItemContainer.single(ItemId key, int quantity) =>
       ItemContainer({key: quantity}.build());
   ItemContainer.empty() : items = BuiltMap();
 
   ItemContainer rebuild(
-      Function(MapBuilder<ItemKey, int>) itemInstancesUpdates) {
+      Function(MapBuilder<ItemId, int>) itemInstancesUpdates) {
     return ItemContainer(items.rebuild(itemInstancesUpdates));
   }
 
   bool get hasNegative => items.values.any((element) => element < 0);
 
-  int get(ItemKey itemKey) => items[itemKey] ?? 0;
+  int get(ItemId itemKey) => items[itemKey] ?? 0;
 
   bool get empty => items.values.every((element) => element <= 0);
 
@@ -62,12 +60,15 @@ class ItemContainer {
   String toString() {
     var s = <String>[];
     for (var entry in items.entries) {
-      s.add('${entry.key.name}: ${entry.value}');
+      s.add('${entry.key}: ${entry.value}');
     }
     return s.join('\n');
   }
 
-  factory ItemContainer.fromJson(Map<String, dynamic> json) =>
-      _$ItemContainerFromJson(json);
-  Map<String, dynamic> toJson() => _$ItemContainerToJson(this);
+  factory ItemContainer.fromJson(Map<String, dynamic> json) => ItemContainer({
+        for (final item in json.entries) ItemId(item.key): item.value as int,
+      }.build());
+  Map<String, dynamic> toJson() => {
+        for (final item in items.entries) item.key.toString(): item.value,
+      };
 }

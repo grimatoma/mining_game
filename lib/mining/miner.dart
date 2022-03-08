@@ -1,16 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:mining_game/item_management/instance_id.dart';
-import 'package:mining_game/item_management/item_definitions.dart';
 import 'package:mining_game/item_management/item_directory.dart';
-import 'package:mining_game/item_management/items/drill.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 
 part 'miner.freezed.dart';
 part 'miner.g.dart';
 
 @freezed
-class MinerDefinition extends BaseItemDefinition with _$MinerDefinition {
+class MinerDefinition with _$MinerDefinition {
   const MinerDefinition._();
   const factory MinerDefinition(
       {required MinerDefinitionId id,
@@ -59,7 +58,7 @@ class MinerInstance with _$MinerInstance {
   const factory MinerInstance({
     @HiveField(0) required InstanceId id,
     @HiveField(1) required MinerDefinitionId minerId,
-    @HiveField(2) ItemKey? drillItemId,
+    @HiveField(2) ItemId? drillItemId,
     @HiveField(4) required ItemContainer hopper,
   }) = _MinerInstance;
 
@@ -74,7 +73,7 @@ class MinerInstance with _$MinerInstance {
 
 mixin MinerMethods {
   MinerDefinition get definition;
-  ItemKey? get drillItemId;
+  ItemId? get drillItemId;
   DrillDefinition? get drill;
 
   int get baseDamage => definition.baseDamage;

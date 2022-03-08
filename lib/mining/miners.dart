@@ -48,7 +48,7 @@ enum BoxKey {
   GARAGE,
   FEATURES,
 }
-const keyIncrement = '4';
+const keyIncrement = '5';
 
 class MinerHiveManager {
   static final openedBoxes = <BoxKey, Box>{};

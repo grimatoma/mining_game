@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory.dart';
 import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/mining/miners.dart';
 import 'package:mining_game/mining/miners_controller.dart';
@@ -58,28 +59,28 @@ final allQuestsProvider = Provider<BuiltList<Quest>>((ref) => <Quest>[
           description:
               'This is an example quest. Please give me 5 credits so I can give you 25 rocks. :)',
           unlockRequirement:
-              UnlockRequirement(cost: ItemContainer.single(ItemKey.CREDIT, 5)),
-          reward: QuestReward(reward: ItemContainer.single(ItemKey.ROCK, 25))),
+              UnlockRequirement(cost: ItemContainer.single(ItemKeys.CREDIT, 5)),
+          reward: QuestReward(reward: ItemContainer.single(ItemKeys.ROCK, 25))),
       Quest(
           name: 'Smelt Iron',
           description: 'This quest makes sure that you can smelt iron',
           unlockRequirement:
               UnlockRequirement(features: {Feature.SMELTING}.build()),
-          reward: QuestReward(reward: ItemContainer.single(ItemKey.ROCK, 25))),
+          reward: QuestReward(reward: ItemContainer.single(ItemKeys.ROCK, 25))),
       Quest(
           name: 'Own 5 Iron',
           description: 'This quest checks that you own Iron',
           unlockRequirement: UnlockRequirement(
-              itemsOwned: ItemContainer.single(ItemKey.CREDIT, 5)),
-          reward: QuestReward(reward: ItemContainer.single(ItemKey.ROCK, 25))),
+              itemsOwned: ItemContainer.single(ItemKeys.CREDIT, 5)),
+          reward: QuestReward(reward: ItemContainer.single(ItemKeys.ROCK, 25))),
       Quest(
           name: 'Unlock smelting',
           description:
               'We need to build a smelter but this costs a lot of resources please help me gather these items so I can start building a smelter.',
           unlockRequirement: UnlockRequirement(
               cost: ItemContainer.create({
-            ItemKey.CREDIT: 25,
-            ItemKey.IRON: 50,
+            ItemKeys.CREDIT: 25,
+            ItemKeys.IRON: 50,
           })),
           reward: QuestReward(features: {Feature.SMELTING}.build())),
     ].build());
@@ -139,13 +140,13 @@ class QuestListDetail extends ConsumerWidget {
       ]);
     }
 
-    TableRow getItemRequiredStatus(MapEntry<ItemKey, int> itemRequired) {
+    TableRow getItemRequiredStatus(MapEntry<ItemId, int> itemRequired) {
       final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
       final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
-        Text('${ref.watch(itemDirectoryProvider)[itemRequired.key].name}:',
+        Text('${itemRequired.key.definition.name}:',
             style: TextStyle(color: color)),
         Text(
             '$count'
@@ -154,13 +155,13 @@ class QuestListDetail extends ConsumerWidget {
       ]);
     }
 
-    TableRow getItemOwnedStatus(MapEntry<ItemKey, int> itemRequired) {
+    TableRow getItemOwnedStatus(MapEntry<ItemId, int> itemRequired) {
       final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
       final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
-        Text('${ref.watch(itemDirectoryProvider)[itemRequired.key].name}:',
+        Text('${itemRequired.key.definition.name}:',
             style: TextStyle(color: color)),
         Text(
             '$count'

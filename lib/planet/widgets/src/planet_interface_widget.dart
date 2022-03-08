@@ -54,7 +54,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                                     .dig(
                                         selectedTile.point,
                                         ItemContainer.single(
-                                            ItemKey.IRON, 1)))),
+                                            ItemKeys.IRON, 1)))),
                         child: const Text('dig')),
                     if (!selectedTile.visible)
                       TextButton(
