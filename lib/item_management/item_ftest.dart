@@ -15,8 +15,10 @@ class ItemId with _$ItemId {
   @override
   String toString() => itemId;
 
-  ItemDefinition get definition => ItemDirectory.getItem(this);
-  String get itemName => definition.name;
+  // ItemDefinition get definition => ItemDirectory.getItem(this);
+  DefT definition<DefT extends ItemDefinition>() =>
+      ItemDirectory.getItem(this) as DefT;
+  String get itemName => definition().name;
 
   factory ItemId.fromJson(Map<String, dynamic> json) => _$ItemIdFromJson(json);
 }

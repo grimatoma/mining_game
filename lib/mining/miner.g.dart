@@ -17,7 +17,7 @@ class MinerDefinitionIdAdapter extends TypeAdapter<_$_MinerDefinitionId> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$_MinerDefinitionId(
-      id: fields[0] as int,
+      minerId: fields[0] as int,
     );
   }
 
@@ -26,7 +26,7 @@ class MinerDefinitionIdAdapter extends TypeAdapter<_$_MinerDefinitionId> {
     writer
       ..writeByte(1)
       ..writeByte(0)
-      ..write(obj.id);
+      ..write(obj.minerId);
   }
 
   @override
@@ -115,11 +115,11 @@ Map<String, dynamic> _$$_MinerDefinitionToJson(_$_MinerDefinition instance) =>
 
 _$_MinerDefinitionId _$$_MinerDefinitionIdFromJson(Map<String, dynamic> json) =>
     _$_MinerDefinitionId(
-      id: json['id'] as int,
+      minerId: json['minerId'] as int,
     );
 
 Map<String, dynamic> _$$_MinerDefinitionIdToJson(
         _$_MinerDefinitionId instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'minerId': instance.minerId,
     };

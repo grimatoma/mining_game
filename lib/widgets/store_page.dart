@@ -44,7 +44,7 @@ class BuyItemStackSellingListingWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final definition = listing.itemId.definition;
+    final definition = listing.itemId.definition();
 
     return ListingWidget(
       listingTitle: definition.name,

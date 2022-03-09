@@ -63,14 +63,14 @@ class InventoryPageWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final inventory = ref.watch(inventoryStateProvider);
     final itemKeys = inventory.items.keys
-        .where((key) => key.definition is! HideInInventory)
+        .where((key) => key.definition() is! HideInInventory)
         .toList();
 
     final minerLocations = ref.watch(minerLocationsProvider);
 
     final inventoryItems = [
       _InventoryListItem(header: 'Items'),
-      for (final item in itemKeys) _InventoryListItem(item: item.definition),
+      for (final item in itemKeys) _InventoryListItem(item: item.definition()),
       _InventoryListItem(header: 'Miners'),
       for (final miner in minerLocations.storedMiners)
         _InventoryListItem(miner: miner),

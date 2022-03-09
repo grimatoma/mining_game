@@ -146,7 +146,7 @@ class QuestListDetail extends ConsumerWidget {
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
-        Text('${itemRequired.key.definition.name}:',
+        Text('${itemRequired.key.definition().name}:',
             style: TextStyle(color: color)),
         Text(
             '$count'
@@ -161,7 +161,7 @@ class QuestListDetail extends ConsumerWidget {
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
-        Text('${itemRequired.key.definition.name}:',
+        Text('${itemRequired.key.definition().name}:',
             style: TextStyle(color: color)),
         Text(
             '$count'

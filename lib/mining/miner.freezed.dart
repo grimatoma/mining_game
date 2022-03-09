@@ -375,9 +375,9 @@ MinerDefinitionId _$MinerDefinitionIdFromJson(Map<String, dynamic> json) {
 class _$MinerDefinitionIdTearOff {
   const _$MinerDefinitionIdTearOff();
 
-  _MinerDefinitionId call({@HiveField(0) required int id}) {
+  _MinerDefinitionId call({@HiveField(0) required int minerId}) {
     return _MinerDefinitionId(
-      id: id,
+      minerId: minerId,
     );
   }
 
@@ -392,7 +392,7 @@ const $MinerDefinitionId = _$MinerDefinitionIdTearOff();
 /// @nodoc
 mixin _$MinerDefinitionId {
   @HiveField(0)
-  int get id => throw _privateConstructorUsedError;
+  int get minerId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -405,7 +405,7 @@ abstract class $MinerDefinitionIdCopyWith<$Res> {
   factory $MinerDefinitionIdCopyWith(
           MinerDefinitionId value, $Res Function(MinerDefinitionId) then) =
       _$MinerDefinitionIdCopyWithImpl<$Res>;
-  $Res call({@HiveField(0) int id});
+  $Res call({@HiveField(0) int minerId});
 }
 
 /// @nodoc
@@ -419,12 +419,12 @@ class _$MinerDefinitionIdCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? minerId = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      minerId: minerId == freezed
+          ? _value.minerId
+          : minerId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -437,7 +437,7 @@ abstract class _$MinerDefinitionIdCopyWith<$Res>
           _MinerDefinitionId value, $Res Function(_MinerDefinitionId) then) =
       __$MinerDefinitionIdCopyWithImpl<$Res>;
   @override
-  $Res call({@HiveField(0) int id});
+  $Res call({@HiveField(0) int minerId});
 }
 
 /// @nodoc
@@ -453,12 +453,12 @@ class __$MinerDefinitionIdCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? id = freezed,
+    Object? minerId = freezed,
   }) {
     return _then(_MinerDefinitionId(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
+      minerId: minerId == freezed
+          ? _value.minerId
+          : minerId // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -468,18 +468,18 @@ class __$MinerDefinitionIdCopyWithImpl<$Res>
 @JsonSerializable()
 @HiveType(typeId: 50, adapterName: 'MinerDefinitionIdAdapter')
 class _$_MinerDefinitionId extends _MinerDefinitionId {
-  const _$_MinerDefinitionId({@HiveField(0) required this.id}) : super._();
+  const _$_MinerDefinitionId({@HiveField(0) required this.minerId}) : super._();
 
   factory _$_MinerDefinitionId.fromJson(Map<String, dynamic> json) =>
       _$$_MinerDefinitionIdFromJson(json);
 
   @override
   @HiveField(0)
-  final int id;
+  final int minerId;
 
   @override
   String toString() {
-    return 'MinerDefinitionId(id: $id)';
+    return 'MinerDefinitionId(minerId: $minerId)';
   }
 
   @override
@@ -487,12 +487,12 @@ class _$_MinerDefinitionId extends _MinerDefinitionId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _MinerDefinitionId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            const DeepCollectionEquality().equals(other.minerId, minerId));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(minerId));
 
   @JsonKey(ignore: true)
   @override
@@ -506,7 +506,7 @@ class _$_MinerDefinitionId extends _MinerDefinitionId {
 }
 
 abstract class _MinerDefinitionId extends MinerDefinitionId {
-  const factory _MinerDefinitionId({@HiveField(0) required int id}) =
+  const factory _MinerDefinitionId({@HiveField(0) required int minerId}) =
       _$_MinerDefinitionId;
   const _MinerDefinitionId._() : super._();
 
@@ -515,7 +515,7 @@ abstract class _MinerDefinitionId extends MinerDefinitionId {
 
   @override
   @HiveField(0)
-  int get id;
+  int get minerId;
   @override
   @JsonKey(ignore: true)
   _$MinerDefinitionIdCopyWith<_MinerDefinitionId> get copyWith =>

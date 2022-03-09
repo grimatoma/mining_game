@@ -29,7 +29,7 @@
       "CREDIT": 1
     },
     "minerId": {
-      "id": 1
+      "minerId": 1
     },
     "consumable": true
   },
@@ -40,7 +40,7 @@
       "CREDIT": 2
     },
     "minerId": {
-      "id": 2
+      "minerId": 2
     },
     "consumable": true
   },
@@ -51,7 +51,7 @@
       "CREDIT": 3
     },
     "minerId": {
-      "id": 3
+      "minerId": 3
     },
     "consumable": true
   },
@@ -62,7 +62,7 @@
       "CREDIT": 4
     },
     "minerId": {
-      "id": 4
+      "minerId": 4
     },
     "consumable": true
   },
@@ -73,7 +73,7 @@
       "CREDIT": 5
     },
     "minerId": {
-      "id": 5
+      "minerId": 5
     },
     "consumable": true
   }

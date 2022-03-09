@@ -14,7 +14,7 @@ class StatusBarWidget extends HookConsumerWidget {
         .watch(inventoryStateProvider)
         .items
         .entries
-        .where((element) => element.key.definition is ShowInWallet);
+        .where((element) => element.key.definition() is ShowInWallet);
     return Container(
       width: 400,
       height: 50,

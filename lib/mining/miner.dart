@@ -43,7 +43,7 @@ class MinerDefinitionId with _$MinerDefinitionId {
   const MinerDefinitionId._();
 
   @HiveType(typeId: 50, adapterName: 'MinerDefinitionIdAdapter')
-  const factory MinerDefinitionId({@HiveField(0) required int id}) =
+  const factory MinerDefinitionId({@HiveField(0) required int minerId}) =
       _MinerDefinitionId;
 
   factory MinerDefinitionId.fromJson(Map<String, dynamic> json) =>
@@ -68,7 +68,7 @@ class MinerInstance with _$MinerInstance {
 
   bool get hasDrill => drillItemId != null;
   MinerDefinition get definition => ItemDirectory.getMiner(minerId);
-  DrillDefinition? get drill => drillItemId?.getDefinition();
+  DrillDefinition? get drill => drillItemId?.definition();
 }
 
 mixin MinerMethods {

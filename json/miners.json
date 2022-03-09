@@ -9,7 +9,7 @@
     "fuelConsumption": 5,
     "image": "images/drills/1.jpg",
     "id": {
-      "id" : 1
+      "minerId" : 1
     }
   },
   {
@@ -22,7 +22,7 @@
     "fuelConsumption": 5,
     "image": "images/drills/2.jpg",
     "id": {
-      "id" : 2
+      "minerId" : 2
     }
   },
   {
@@ -35,7 +35,7 @@
     "fuelConsumption": 5,
     "image": "images/drills/3.jpg",
     "id": {
-      "id" : 3
+      "minerId" : 3
     }
   },
   {
@@ -48,7 +48,7 @@
     "fuelConsumption": 5,
     "image": "images/drills/4.jpg",
     "id": {
-      "id" : 4
+      "minerId" : 4
     }
   },
   {
@@ -61,7 +61,7 @@
     "fuelConsumption": 5,
     "image": "images/drills/5.png",
     "id": {
-      "id" : 5
+      "minerId" : 5
     }
   }
 ]
