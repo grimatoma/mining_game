@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/mining/miner.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 
 import 'status_bar_wrapped_page.dart';
