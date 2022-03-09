@@ -1,6 +1,7 @@
 [
   {
     "name": "Junk Miner",
+    "runtimeType": "minerDefinition",
     "description": "Salvaged from a garage sale. Barely functional and guzzles gas",
     "radius": 1,
     "depth": 1,
@@ -9,11 +10,13 @@
     "fuelConsumption": 5,
     "image": "images/drills/1.jpg",
     "id": {
-      "minerId" : 1
+      "runtimeType": "minerId",
+      "itemId": "MINER1"
     }
   },
   {
     "name": "Basic Miner",
+    "runtimeType": "minerDefinition",
     "description": "Generic off the shelf miner",
     "radius": 2,
     "depth": 1,
@@ -22,11 +25,13 @@
     "fuelConsumption": 5,
     "image": "images/drills/2.jpg",
     "id": {
-      "minerId" : 2
+      "runtimeType": "minerId",
+      "itemId": "MINER2"
     }
   },
   {
     "name": "Test Miner 3",
+    "runtimeType": "minerDefinition",
     "description": "this is the third miner",
     "radius": 1,
     "depth": 1,
@@ -35,11 +40,13 @@
     "fuelConsumption": 5,
     "image": "images/drills/3.jpg",
     "id": {
-      "minerId" : 3
+      "runtimeType": "minerId",
+      "itemId": "MINER3"
     }
   },
   {
     "name": "Test Miner 4",
+    "runtimeType": "minerDefinition",
     "description": "this is the 4 miner",
     "radius": 1,
     "depth": 1,
@@ -48,11 +55,13 @@
     "fuelConsumption": 5,
     "image": "images/drills/4.jpg",
     "id": {
-      "minerId" : 4
+      "runtimeType": "minerId",
+      "itemId": "MINER4"
     }
   },
   {
     "name": "Test Miner 5",
+    "runtimeType": "minerDefinition",
     "description": "this is the 5 miner",
     "radius": 1,
     "depth": 1,
@@ -61,7 +70,8 @@
     "fuelConsumption": 5,
     "image": "images/drills/5.png",
     "id": {
-      "minerId" : 5
+      "runtimeType": "minerId",
+      "itemId": "MINER5"
     }
   }
 ]

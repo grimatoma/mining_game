@@ -5,7 +5,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:mining_game/game_management/game_configs.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_keys.dart';
 
 import '../item_management/items/item_container.dart';
 import 'planet_tile.dart';

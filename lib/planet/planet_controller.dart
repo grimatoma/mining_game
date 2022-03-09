@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence.dart';
 
@@ -47,7 +47,7 @@ class PlanetController extends StateNotifier<Planet> {
   PlanetController({required GameConfigs configs}) : super(Planet.empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p22.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p223.name);
       final loadedPlanet = loadedBox.get(databaseKey);
       if (loadedPlanet == null) {
         planet = _generatePlanet(configs);
@@ -58,7 +58,7 @@ class PlanetController extends StateNotifier<Planet> {
 
     void updateBox() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p22.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p223.name);
       stream.listen((event) {
         loadedBox.put(databaseKey, planet);
       });

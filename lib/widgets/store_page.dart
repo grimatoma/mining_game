@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
@@ -72,7 +72,7 @@ class BuyMinerListingWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final definition = ItemDirectory.getMiner(listing.minerId);
+    final MinerDefinition definition = listing.minerId.definition();
     return ListingWidget(
         imagePath: definition.image,
         listingTitle: definition.name,

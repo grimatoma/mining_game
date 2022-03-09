@@ -5,8 +5,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/adapters.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/garage_controller.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
-import 'package:mining_game/item_management/item_ftest.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence.dart';
@@ -16,7 +16,6 @@ import 'package:mining_game/planet/point.dart';
 import 'package:mining_game/widgets/quests_page.dart';
 
 import 'item_management/instance_id.dart';
-import 'mining/miner.dart';
 import 'mining/miners.dart';
 import 'widgets/garage_page.dart';
 import 'widgets/inventory_page.dart';
@@ -28,7 +27,7 @@ import 'widgets/store_page.dart';
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerInstanceAdapter());
-  Hive.registerAdapter(MinerDefinitionIdAdapter());
+  Hive.registerAdapter(MinerIdAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(InstanceIdAdapter());

@@ -1,4 +1,4 @@
 enum DatabaseName {
-  inventory000p22,
-  planet000p22,
+  inventory000p223,
+  planet000p223,
 }

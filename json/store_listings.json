@@ -17,6 +17,7 @@
       "CREDIT": 25
     },
     "itemId": {
+      "runtimeType": "itemId",
       "itemId": "ROCK"
     },
     "quantity": 1,
@@ -29,7 +30,8 @@
       "CREDIT": 1
     },
     "minerId": {
-      "minerId": 1
+      "runtimeType": "minerId",
+      "itemId": "MINER1"
     },
     "consumable": true
   },
@@ -40,7 +42,8 @@
       "CREDIT": 2
     },
     "minerId": {
-      "minerId": 2
+      "runtimeType": "minerId",
+      "itemId": "MINER2"
     },
     "consumable": true
   },
@@ -51,7 +54,8 @@
       "CREDIT": 3
     },
     "minerId": {
-      "minerId": 3
+      "runtimeType": "minerId",
+      "itemId": "MINER3"
     },
     "consumable": true
   },
@@ -62,7 +66,8 @@
       "CREDIT": 4
     },
     "minerId": {
-      "minerId": 4
+      "runtimeType": "minerId",
+      "itemId": "MINER4"
     },
     "consumable": true
   },
@@ -73,7 +78,8 @@
       "CREDIT": 5
     },
     "minerId": {
-      "minerId": 5
+      "runtimeType": "minerId",
+      "itemId": "MINER5"
     },
     "consumable": true
   }

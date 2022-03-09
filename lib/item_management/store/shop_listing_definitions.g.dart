@@ -44,8 +44,7 @@ _$BuyMinerShopListing _$$BuyMinerShopListingFromJson(
           BuyingShopListingType.MINER,
       price: ItemContainer.fromJson(json['price'] as Map<String, dynamic>),
       consumable: json['consumable'] as bool? ?? true,
-      minerId:
-          MinerDefinitionId.fromJson(json['minerId'] as Map<String, dynamic>),
+      minerId: MinerId.fromJson(json['minerId'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 

@@ -1,7 +1,6 @@
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/item_management/item_ftest.dart';
-
-import 'items/item_container.dart';
+import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/items/item_container.dart';
 
 enum InventoryEventType { ADD_ITEM, ADD_ITEMS, REMOVE_ITEM, REMOVE_ITEMS }
 

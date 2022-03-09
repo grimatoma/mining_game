@@ -1,8 +1,6 @@
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/item_management/item_ftest.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/planet/point.dart';
-
-import 'miner.dart';
 
 abstract class ActiveMinerEvent extends GameEvent<ActiveMinerEventType> {
   @override
@@ -50,7 +48,7 @@ class CreateMinerEvent extends MinerEvent {
   @override
   final type = MinerEventType.NEW_MINER;
 
-  final MinerDefinitionId minerId;
+  final MinerId minerId;
 
   CreateMinerEvent(this.minerId);
 }

@@ -5,8 +5,8 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/garage_controller.dart';
 import 'package:mining_game/garage_events.dart';
-import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/mining/miner.dart';
+import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/widgets/store_page.dart';
 

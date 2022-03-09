@@ -8,9 +8,9 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/garage_events.dart';
 import 'package:mining_game/item_management/instance_id.dart';
-import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/inventory_events.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventory_events.dart';
+import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/mining/miners.dart';
 

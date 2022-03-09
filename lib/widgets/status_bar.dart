@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory.dart';
-import 'package:mining_game/item_management/item_ftest.dart';
+import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 
 class StatusBarWidget extends HookConsumerWidget {
   const StatusBarWidget({

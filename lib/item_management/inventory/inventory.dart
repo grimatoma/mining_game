@@ -2,11 +2,12 @@ import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/item_management/item_ftest.dart';
+import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence.dart';
 
 import 'inventory_events.dart';
-import 'items/item_container.dart';
 
 final inventoryStateProvider =
     StateNotifierProvider<InventoryStateController, ItemContainer>((ref) {
@@ -18,9 +19,10 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
       : super(ItemContainer.empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<int>(DatabaseName.inventory000p22.name);
+          await Hive.openBox<int>(DatabaseName.inventory000p223.name);
       state = ItemContainer({
-        for (final val in loadedBox.keys) ItemId(val): loadedBox.get(val) ?? 0,
+        for (final val in loadedBox.keys)
+          ItemDirectory.getId(val): loadedBox.get(val) ?? 0,
       }.build());
     }
 
@@ -60,7 +62,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
 
     state = state.rebuild((p0) => p0.addAll(mappedItems));
     final loadedBox =
-        await Hive.openBox<int>(DatabaseName.inventory000p22.name);
+        await Hive.openBox<int>(DatabaseName.inventory000p223.name);
     loadedBox.putAll(
         mappedItems.map((key, value) => MapEntry(key.toString(), value)));
   }
@@ -80,7 +82,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     final itemRemovals = mappedItems.entries.where((entry) => entry.value <= 0);
 
     final loadedBox =
-        await Hive.openBox<int>(DatabaseName.inventory000p22.name);
+        await Hive.openBox<int>(DatabaseName.inventory000p223.name);
 
     state = state.rebuild((p0) {
       p0.addEntries(itemUpdates);

@@ -1,7 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/item_management/item_ftest.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/mining/miner.dart';
 
 part 'shop_listing_definitions.freezed.dart';
 part 'shop_listing_definitions.g.dart';
@@ -43,7 +42,7 @@ class ShopListing with _$ShopListing implements ShopListingInterface {
     @Default(BuyingShopListingType.MINER) BuyingShopListingType type,
     required ItemContainer price,
     @Default(true) bool consumable,
-    required MinerDefinitionId minerId,
+    required MinerId minerId,
   }) = BuyMinerShopListing;
 
   @Implements<SellShopListing>()

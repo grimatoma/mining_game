@@ -55,7 +55,7 @@ class _$ShopListingTearOff {
       BuyingShopListingType type = BuyingShopListingType.MINER,
       required ItemContainer price,
       bool consumable = true,
-      required MinerDefinitionId minerId}) {
+      required MinerId minerId}) {
     return BuyMinerShopListing(
       id: id,
       type: type,
@@ -97,7 +97,7 @@ mixin _$ShopListing {
             ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerDefinitionId minerId)
+            ItemContainer price, bool consumable, MinerId minerId)
         buyMiner,
     required TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)
@@ -110,7 +110,7 @@ mixin _$ShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
@@ -123,7 +123,7 @@ mixin _$ShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
@@ -344,7 +344,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
             ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerDefinitionId minerId)
+            ItemContainer price, bool consumable, MinerId minerId)
         buyMiner,
     required TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)
@@ -360,7 +360,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
@@ -376,7 +376,7 @@ class _$BuyItemStackShopListing implements BuyItemStackShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
@@ -467,9 +467,7 @@ abstract class $BuyMinerShopListingCopyWith<$Res>
       BuyingShopListingType type,
       ItemContainer price,
       bool consumable,
-      MinerDefinitionId minerId});
-
-  $MinerDefinitionIdCopyWith<$Res> get minerId;
+      MinerId minerId});
 }
 
 /// @nodoc
@@ -511,15 +509,8 @@ class _$BuyMinerShopListingCopyWithImpl<$Res>
       minerId: minerId == freezed
           ? _value.minerId
           : minerId // ignore: cast_nullable_to_non_nullable
-              as MinerDefinitionId,
+              as MinerId,
     ));
-  }
-
-  @override
-  $MinerDefinitionIdCopyWith<$Res> get minerId {
-    return $MinerDefinitionIdCopyWith<$Res>(_value.minerId, (value) {
-      return _then(_value.copyWith(minerId: value));
-    });
   }
 }
 
@@ -550,7 +541,7 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
   @override
   final bool consumable;
   @override
-  final MinerDefinitionId minerId;
+  final MinerId minerId;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -594,7 +585,7 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
             ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerDefinitionId minerId)
+            ItemContainer price, bool consumable, MinerId minerId)
         buyMiner,
     required TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)
@@ -610,7 +601,7 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
@@ -626,7 +617,7 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
@@ -685,7 +676,7 @@ abstract class BuyMinerShopListing implements ShopListing, BuyShopListing {
       BuyingShopListingType type,
       required ItemContainer price,
       bool consumable,
-      required MinerDefinitionId minerId}) = _$BuyMinerShopListing;
+      required MinerId minerId}) = _$BuyMinerShopListing;
 
   factory BuyMinerShopListing.fromJson(Map<String, dynamic> json) =
       _$BuyMinerShopListing.fromJson;
@@ -696,7 +687,7 @@ abstract class BuyMinerShopListing implements ShopListing, BuyShopListing {
   ItemContainer get price;
   @override
   bool get consumable;
-  MinerDefinitionId get minerId;
+  MinerId get minerId;
   @override
   @JsonKey(ignore: true)
   $BuyMinerShopListingCopyWith<BuyMinerShopListing> get copyWith =>
@@ -818,7 +809,7 @@ class _$SellItemShopListing implements SellItemShopListing {
             ItemContainer price, bool consumable, ItemId itemId, int quantity)
         buyItemStack,
     required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerDefinitionId minerId)
+            ItemContainer price, bool consumable, MinerId minerId)
         buyMiner,
     required TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)
@@ -834,7 +825,7 @@ class _$SellItemShopListing implements SellItemShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
@@ -850,7 +841,7 @@ class _$SellItemShopListing implements SellItemShopListing {
             bool consumable, ItemId itemId, int quantity)?
         buyItemStack,
     TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerDefinitionId minerId)?
+            bool consumable, MinerId minerId)?
         buyMiner,
     TResult Function(int id, bool consumable, ItemContainer sellPrice,
             ItemContainer items)?
