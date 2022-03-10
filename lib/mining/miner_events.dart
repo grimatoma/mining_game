@@ -48,7 +48,7 @@ class CreateMinerEvent extends MinerEvent {
   @override
   final type = MinerEventType.NEW_MINER;
 
-  final MinerId minerId;
+  final MinerItemId minerId;
 
   CreateMinerEvent(this.minerId);
 }

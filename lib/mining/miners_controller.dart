@@ -9,6 +9,7 @@ import 'package:mining_game/item_management/inventory/inventory_events.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/point.dart';
 import 'package:quiver/collection.dart';
@@ -148,7 +149,7 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     state = state.rebuild(addOrUpdate: {miner.id: miner});
   }
 
-  MinerInstance _createNewStoredMiner(MinerId minerId) => MinerInstance(
+  MinerInstance _createNewStoredMiner(MinerItemId minerId) => MinerInstance(
       id: InstanceId.generate(),
       itemId: minerId,
       hopper: ItemContainer.empty());
@@ -194,9 +195,8 @@ class SyncedSet<K> {
   SyncedSet.load(BoxKey boxName,
       {required String Function(K) convert,
       required Set<K> Function(Iterable<String>) loadFunction})
-      : _box = MinerHiveManager.getBox<String>(boxName),
-        set = loadFunction(MinerHiveManager.getBox<String>(boxName).values)
-            .build(),
+      : _box = HiveManager.getBox<String>(boxName),
+        set = loadFunction(HiveManager.getBox<String>(boxName).values).build(),
         _convert = convert;
 
   SyncedSet._rebuild(this._box, this.set, this._convert);
@@ -238,10 +238,9 @@ class SyncedMap<K, V, StoreK, StoreV> {
       {required MapEntry<StoreK, StoreV> Function(K, V) convert,
       required Map<K, V> Function(Iterable<MapEntry<StoreK, StoreV>>)
           loadFunction})
-      : _box = MinerHiveManager.getBox<MapEntry<StoreK, StoreV>>(boxName),
+      : _box = HiveManager.getBox<MapEntry<StoreK, StoreV>>(boxName),
         map = loadFunction(
-                MinerHiveManager.getBox<MapEntry<StoreK, StoreV>>(boxName)
-                    .values)
+                HiveManager.getBox<MapEntry<StoreK, StoreV>>(boxName).values)
             .build(),
         _convert = convert;
 

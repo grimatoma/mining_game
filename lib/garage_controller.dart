@@ -12,9 +12,9 @@ import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/inventory/inventory_events.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/mining/miners.dart';
 
 import 'mining/miners_controller.dart';
+import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
 part 'garage_controller.g.dart';

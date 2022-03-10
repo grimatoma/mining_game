@@ -17,15 +17,22 @@ class ItemInstance extends BaseItemInstance with _$ItemInstance {
   }) = ExampleInstance;
 
   @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
-  @Assert('itemId.itemType == _ItemType.MINER', 'Must use a MINER ItemId')
+  @Assert('itemId is MinerItemId', 'Must use a MinerItemId')
   @With<InstanceDefinition<MinerDefinition>>()
-  @With<MinerMethods>()
   factory ItemInstance.minerInstance({
     @HiveField(0) required InstanceId id,
     @HiveField(1) required ItemId itemId,
     @HiveField(2) ItemId? drillId,
     @HiveField(4) required ItemContainer hopper,
   }) = MinerInstance;
+
+  @HiveType(typeId: 72, adapterName: 'StackInstanceAdapter')
+  @Assert('itemId is StackableItemId', 'Must use a StackableItemId')
+  factory ItemInstance.stackInstance({
+    required InstanceId id,
+    required ItemId itemId,
+    required int quantity,
+  }) = StackInstance;
 }
 
 abstract class InstanceDefinition<T extends ItemDefinition> {
@@ -33,10 +40,7 @@ abstract class InstanceDefinition<T extends ItemDefinition> {
   T get definition => itemId.definition<T>();
 }
 
-abstract class MinerMethods {
-  MinerDefinition get definition;
-  ItemId? get drillId;
-
+mixin MinerMethods on MinerInstance {
   DrillDefinition? get _drill => drillId?.definition<DrillDefinition>();
 
   int get baseDamage => definition.baseDamage;
@@ -44,4 +48,19 @@ abstract class MinerMethods {
   int get totalDamage => baseDamage + drillDamage;
 
   bool get hasDrill => drillId != null;
+}
+
+mixin StackMethods on StackInstance {
+  StackInstance operator +(int amount) => copyWith(quantity: quantity + amount);
+  StackInstance operator -(int amount) => copyWith(quantity: quantity - amount);
+}
+
+// A container that wants 5 coal?
+
+class ItemRequirement {
+  final BuiltMap<ItemId, int> requiredAmount;
+
+  ItemRequirement(this.requiredAmount);
+
+  bool meetsRequirement(Iterable<ItemInstance> items) => false;
 }
