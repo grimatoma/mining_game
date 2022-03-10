@@ -68,7 +68,7 @@ class ItemContainer {
 
   factory ItemContainer.fromJson(Map<String, dynamic> json) => ItemContainer({
         for (final item in json.entries)
-          ItemDirectory.getId(item.key): item.value as int,
+          ItemDirectory.loadIdFromDb(item.key): item.value as int,
       }.build());
   Map<String, dynamic> toJson() => {
         for (final item in items.entries) item.key.toString(): item.value,

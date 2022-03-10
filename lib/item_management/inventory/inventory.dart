@@ -22,7 +22,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
           await Hive.openBox<int>(DatabaseName.inventory000p223.name);
       state = ItemContainer({
         for (final val in loadedBox.keys)
-          ItemDirectory.getId(val): loadedBox.get(val) ?? 0,
+          ItemDirectory.loadIdFromDb(val): loadedBox.get(val) ?? 0,
       }.build());
     }
 

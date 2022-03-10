@@ -44,5 +44,5 @@ class ItemDirectory {
   }
 
   static ItemDefinition getItem(ItemId id) => _allItems[id]!;
-  static ItemId getId(String id) => _loadItemsFromDbMapping![id]!;
+  static ItemId loadIdFromDb(String id) => _loadItemsFromDbMapping![id]!;
 }
