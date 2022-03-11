@@ -2,11 +2,14 @@ import 'dart:math';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
+import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/persistence/synced.dart';
 
-final inventoryStateProvider =
+final inventoryStateProvider2 =
     StateNotifierProvider<InventoryStateController2, Inventory>((ref) {
   return InventoryStateController2(ref.watch(gameEventManagerProvider));
 });
@@ -15,11 +18,29 @@ class Inventory {
   final SyncedList<ItemInstance?> itemSlots;
 
   Inventory(this.itemSlots);
+
+  Inventory rebuild(Function(SyncedListBuilder<ItemInstance?>) updates) =>
+      Inventory(itemSlots.rebuild(updates));
 }
 
 class InventoryStateController2 extends StateNotifier<Inventory> {
   InventoryStateController2(GameEventManager gameEventManager)
-      : super(Inventory(SyncedList.load(BoxKey.INVENTORY)));
+      : super(Inventory(SyncedList.load(BoxKey.INVENTORY))) {
+    print('init');
+    // state = Inventory(state.itemSlots.rebuild((p0) {
+    //   p0.addAll([
+    //     ItemInstance.minerInstance(
+    //         id: InstanceId.generate(),
+    //         itemId: const MinerItemId("MINER1"),
+    //         hopper: ItemContainer.empty()),
+    //     StackInstance(
+    //         id: InstanceId.generate(), itemId: ItemKeys.CREDIT, quantity: 3),
+    //     StackInstance(
+    //         id: InstanceId.generate(), itemId: ItemKeys.CREDIT, quantity: 4),
+    //     null,
+    //   ]);
+    // }));
+  }
 
   // Takes the last items first that meet the requirement until it is fufilled;
 
@@ -28,7 +49,7 @@ class InventoryStateController2 extends StateNotifier<Inventory> {
       // Do logic that removes the requirements from the inventroy fromt he first seen.
       if (requirements.requiredAmount.isEmpty) return;
 
-      state.itemSlots.rebuild((p0) {
+      state = state.rebuild((p0) {
         final itemsNeeded = requirements.requiredAmount.toMap();
         for (var index = state.itemSlots.list.length - 1; index >= 0; index--) {
           final item = p0[index] as ItemInstance?;
@@ -76,7 +97,7 @@ class InventoryStateController2 extends StateNotifier<Inventory> {
         final endFinal = min(maxSize, count);
         final startFinal = count - endFinal;
 
-        state.itemSlots.rebuild((p0) {
+        state = state.rebuild((p0) {
           p0[destIndex] = destSlot.copyWith(quantity: endFinal);
           if (startFinal > 0) {
             p0[startFinal] = destSlot.copyWith(quantity: endFinal);
@@ -88,7 +109,7 @@ class InventoryStateController2 extends StateNotifier<Inventory> {
       }
     }
     // Basic swap
-    state.itemSlots.rebuild((p0) {
+    state = state.rebuild((p0) {
       p0[destIndex] = state.itemSlots[startIndex];
       p0[startIndex] = state.itemSlots[destIndex];
     });

@@ -51,6 +51,7 @@ dependencies:
   built_value: ^8.1.4
   json_serializable: ^6.1.4
   json_serializable_immutable_collections: ^0.10.1
+  flutter_reorderable_grid_view: ^2.0.2
 
 dev_dependencies:
   hive_generator: ^1.1.1

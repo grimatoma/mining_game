@@ -18,6 +18,7 @@ import 'package:mining_game/widgets/quests_page.dart';
 
 import 'item_management/instance_id.dart';
 import 'widgets/garage_page.dart';
+import 'widgets/inventory2_page.dart';
 import 'widgets/inventory_page.dart';
 import 'widgets/navigator_page.dart';
 import 'widgets/planet_page.dart';
@@ -28,7 +29,7 @@ void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerInstanceAdapter());
   Hive.registerAdapter(MinerItemIdAdapter());
-  // Hive.registerAdapter(StackableItemIdAdapter());
+  Hive.registerAdapter(StackInstanceAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(InstanceIdAdapter());
@@ -73,9 +74,7 @@ final navigationIndexProvider =
     StateNotifierProvider<IndexNotifier, int>((ref) => IndexNotifier());
 
 class IndexNotifier extends StateNotifier<int> with HistoryMixin<int> {
-  IndexNotifier() : super(0) {
-    state = 0;
-  }
+  IndexNotifier() : super(4);
 }
 
 final mainNavigationPagesProvider = StateProvider<BuiltList<NavItem>>((ref) {
@@ -96,6 +95,10 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<NavItem>>((ref) {
         name: 'Inventory',
         icon: Icons.storage,
         builder: (context) => const InventoryPageWidget()),
+    NavItem(
+        name: 'Inventory2',
+        icon: Icons.storage,
+        builder: (context) => const InventoryPageWidget2()),
     NavItem(
         name: 'Garage',
         builder: (context) => const GaragePageWidget(),
