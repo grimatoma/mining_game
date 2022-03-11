@@ -7,7 +7,8 @@
     "runtimeType": "resourceDefinition",
     "name": "Black Rock",
     "namePlural": "Black Rocks",
-    "description": "Often found in dark caves"
+    "description": "Often found in dark caves",
+    "maxStackSize": 100
   },
   {
     "id": {
@@ -30,7 +31,8 @@
     "runtimeType": "resourceWalletOnlyDefinition",
     "name": "Iron",
     "namePlural": "Iron",
-    "description": "can be mined"
+    "description": "can be mined",
+    "maxStackSize": 100
   },
   {
     "id": {
@@ -40,7 +42,8 @@
     "runtimeType": "resourceWalletOnlyDefinition",
     "name": "Copper",
     "namePlural": "Copper",
-    "description": "can be mined"
+    "description": "can be mined",
+    "maxStackSize": 100
   },
   {
     "id": {
@@ -60,6 +63,7 @@
     "runtimeType": "resourceWalletOnlyDefinition",
     "name": "Credit",
     "namePlural": "Credits",
-    "description": "A form of currency."
+    "description": "A form of currency.",
+    "maxStackSize": 100
   }
 ]

@@ -16,6 +16,10 @@ abstract class HasPluralName {
   String get namePlural;
 }
 
+abstract class Stackable {
+  int get maxStackSize;
+}
+
 enum WeaponAttributes {
   SHARP,
   BLUNT,

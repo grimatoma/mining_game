@@ -42,7 +42,7 @@ class ShopListing with _$ShopListing implements ShopListingInterface {
     @Default(BuyingShopListingType.MINER) BuyingShopListingType type,
     required ItemContainer price,
     @Default(true) bool consumable,
-    required MinerId minerId,
+    required MinerItemId minerId,
   }) = BuyMinerShopListing;
 
   @Implements<SellShopListing>()
