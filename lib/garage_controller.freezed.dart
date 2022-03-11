@@ -18,8 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$GarageStateTearOff {
   const _$GarageStateTearOff();
 
-  _GarageState call(
-      @HiveField(1) SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) {
+  _GarageState call(SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) {
     return _GarageState(
       slotsSyncedMap,
     );
@@ -31,7 +30,7 @@ const $GarageState = _$GarageStateTearOff();
 
 /// @nodoc
 mixin _$GarageState {
-  @HiveField(1)
+// @HiveField(1)
   SyncedMap<int, SlotState, int, SlotState> get slotsSyncedMap =>
       throw _privateConstructorUsedError;
 
@@ -45,8 +44,7 @@ abstract class $GarageStateCopyWith<$Res> {
   factory $GarageStateCopyWith(
           GarageState value, $Res Function(GarageState) then) =
       _$GarageStateCopyWithImpl<$Res>;
-  $Res call(
-      {@HiveField(1) SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap});
+  $Res call({SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap});
 }
 
 /// @nodoc
@@ -77,8 +75,7 @@ abstract class _$GarageStateCopyWith<$Res>
           _GarageState value, $Res Function(_GarageState) then) =
       __$GarageStateCopyWithImpl<$Res>;
   @override
-  $Res call(
-      {@HiveField(1) SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap});
+  $Res call({SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap});
 }
 
 /// @nodoc
@@ -106,12 +103,10 @@ class __$GarageStateCopyWithImpl<$Res> extends _$GarageStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-@HiveType(typeId: 42, adapterName: 'GarageStateAdapter')
 class _$_GarageState extends _GarageState {
-  const _$_GarageState(@HiveField(1) this.slotsSyncedMap) : super._();
+  const _$_GarageState(this.slotsSyncedMap) : super._();
 
-  @override
-  @HiveField(1)
+  @override // @HiveField(1)
   final SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap;
 
   @override
@@ -140,13 +135,11 @@ class _$_GarageState extends _GarageState {
 
 abstract class _GarageState extends GarageState {
   const factory _GarageState(
-          @HiveField(1)
-              SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) =
+          SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) =
       _$_GarageState;
   const _GarageState._() : super._();
 
-  @override
-  @HiveField(1)
+  @override // @HiveField(1)
   SyncedMap<int, SlotState, int, SlotState> get slotsSyncedMap;
   @override
   @JsonKey(ignore: true)

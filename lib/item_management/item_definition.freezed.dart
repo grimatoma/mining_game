@@ -2199,7 +2199,9 @@ class _$ItemInstanceTearOff {
   }
 
   StackInstance stackInstance(
-      {required InstanceId id, required ItemId itemId, required int quantity}) {
+      {@HiveField(0) required InstanceId id,
+      @HiveField(1) required ItemId itemId,
+      @HiveField(2) required int quantity}) {
     return StackInstance(
       id: id,
       itemId: itemId,
@@ -2229,7 +2231,8 @@ mixin _$ItemInstance {
             @HiveField(2) ItemId? drillId,
             @HiveField(4) ItemContainer hopper)
         minerInstance,
-    required TResult Function(InstanceId id, ItemId itemId, int quantity)
+    required TResult Function(@HiveField(0) InstanceId id,
+            @HiveField(1) ItemId itemId, @HiveField(2) int quantity)
         stackInstance,
   }) =>
       throw _privateConstructorUsedError;
@@ -2240,7 +2243,9 @@ mixin _$ItemInstance {
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -2250,7 +2255,9 @@ mixin _$ItemInstance {
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -2418,7 +2425,8 @@ class _$ExampleInstance extends ExampleInstance {
             @HiveField(2) ItemId? drillId,
             @HiveField(4) ItemContainer hopper)
         minerInstance,
-    required TResult Function(InstanceId id, ItemId itemId, int quantity)
+    required TResult Function(@HiveField(0) InstanceId id,
+            @HiveField(1) ItemId itemId, @HiveField(2) int quantity)
         stackInstance,
   }) {
     return exampleInstance(id, itemId);
@@ -2432,7 +2440,9 @@ class _$ExampleInstance extends ExampleInstance {
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
   }) {
     return exampleInstance?.call(id, itemId);
   }
@@ -2445,7 +2455,9 @@ class _$ExampleInstance extends ExampleInstance {
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
     required TResult orElse(),
   }) {
     if (exampleInstance != null) {
@@ -2577,9 +2589,8 @@ class _$MinerInstanceCopyWithImpl<$Res> extends _$ItemInstanceCopyWithImpl<$Res>
 /// @nodoc
 
 @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
-@With<InstanceDefinition<MinerDefinition>>()
-class _$MinerInstance extends MinerInstance
-    with InstanceDefinition<MinerDefinition> {
+@With<MinerMethods>()
+class _$MinerInstance extends MinerInstance with MinerMethods {
   _$MinerInstance(
       {@HiveField(0) required this.id,
       @HiveField(1) required this.itemId,
@@ -2642,7 +2653,8 @@ class _$MinerInstance extends MinerInstance
             @HiveField(2) ItemId? drillId,
             @HiveField(4) ItemContainer hopper)
         minerInstance,
-    required TResult Function(InstanceId id, ItemId itemId, int quantity)
+    required TResult Function(@HiveField(0) InstanceId id,
+            @HiveField(1) ItemId itemId, @HiveField(2) int quantity)
         stackInstance,
   }) {
     return minerInstance(id, itemId, drillId, hopper);
@@ -2656,7 +2668,9 @@ class _$MinerInstance extends MinerInstance
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
   }) {
     return minerInstance?.call(id, itemId, drillId, hopper);
   }
@@ -2669,7 +2683,9 @@ class _$MinerInstance extends MinerInstance
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
     required TResult orElse(),
   }) {
     if (minerInstance != null) {
@@ -2713,8 +2729,7 @@ class _$MinerInstance extends MinerInstance
   }
 }
 
-abstract class MinerInstance extends ItemInstance
-    implements InstanceDefinition<MinerDefinition> {
+abstract class MinerInstance extends ItemInstance implements MinerMethods {
   factory MinerInstance(
       {@HiveField(0) required InstanceId id,
       @HiveField(1) required ItemId itemId,
@@ -2745,7 +2760,10 @@ abstract class $StackInstanceCopyWith<$Res>
           StackInstance value, $Res Function(StackInstance) then) =
       _$StackInstanceCopyWithImpl<$Res>;
   @override
-  $Res call({InstanceId id, ItemId itemId, int quantity});
+  $Res call(
+      {@HiveField(0) InstanceId id,
+      @HiveField(1) ItemId itemId,
+      @HiveField(2) int quantity});
 
   @override
   $ItemIdCopyWith<$Res> get itemId;
@@ -2787,17 +2805,22 @@ class _$StackInstanceCopyWithImpl<$Res> extends _$ItemInstanceCopyWithImpl<$Res>
 /// @nodoc
 
 @HiveType(typeId: 72, adapterName: 'StackInstanceAdapter')
-class _$StackInstance extends StackInstance {
+@With<StackMethods>()
+class _$StackInstance extends StackInstance with StackMethods {
   _$StackInstance(
-      {required this.id, required this.itemId, required this.quantity})
-      : assert(itemId is StackableItemId, 'Must use a StackableItemId'),
-        super._();
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.itemId,
+      @HiveField(2) required this.quantity})
+      : super._();
 
   @override
+  @HiveField(0)
   final InstanceId id;
   @override
+  @HiveField(1)
   final ItemId itemId;
   @override
+  @HiveField(2)
   final int quantity;
 
   @override
@@ -2839,7 +2862,8 @@ class _$StackInstance extends StackInstance {
             @HiveField(2) ItemId? drillId,
             @HiveField(4) ItemContainer hopper)
         minerInstance,
-    required TResult Function(InstanceId id, ItemId itemId, int quantity)
+    required TResult Function(@HiveField(0) InstanceId id,
+            @HiveField(1) ItemId itemId, @HiveField(2) int quantity)
         stackInstance,
   }) {
     return stackInstance(id, itemId, quantity);
@@ -2853,7 +2877,9 @@ class _$StackInstance extends StackInstance {
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
   }) {
     return stackInstance?.call(id, itemId, quantity);
   }
@@ -2866,7 +2892,9 @@ class _$StackInstance extends StackInstance {
     TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
             @HiveField(2) ItemId? drillId, @HiveField(4) ItemContainer hopper)?
         minerInstance,
-    TResult Function(InstanceId id, ItemId itemId, int quantity)? stackInstance,
+    TResult Function(@HiveField(0) InstanceId id, @HiveField(1) ItemId itemId,
+            @HiveField(2) int quantity)?
+        stackInstance,
     required TResult orElse(),
   }) {
     if (stackInstance != null) {
@@ -2910,17 +2938,20 @@ class _$StackInstance extends StackInstance {
   }
 }
 
-abstract class StackInstance extends ItemInstance {
+abstract class StackInstance extends ItemInstance implements StackMethods {
   factory StackInstance(
-      {required InstanceId id,
-      required ItemId itemId,
-      required int quantity}) = _$StackInstance;
+      {@HiveField(0) required InstanceId id,
+      @HiveField(1) required ItemId itemId,
+      @HiveField(2) required int quantity}) = _$StackInstance;
   StackInstance._() : super._();
 
   @override
+  @HiveField(0)
   InstanceId get id;
   @override
+  @HiveField(1)
   ItemId get itemId;
+  @HiveField(2)
   int get quantity;
   @override
   @JsonKey(ignore: true)

@@ -28,7 +28,7 @@ void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerInstanceAdapter());
   Hive.registerAdapter(MinerItemIdAdapter());
-  Hive.registerAdapter(StackableItemIdAdapter());
+  // Hive.registerAdapter(StackableItemIdAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(InstanceIdAdapter());

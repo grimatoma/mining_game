@@ -1,10 +1,9 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/persistence/synced.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
-
-import 'miners_controller.dart';
 
 class ActiveMiners {
   final SyncedMap<InstanceId, PlanetPoint, InstanceId, PlanetPoint> _syncedMap;

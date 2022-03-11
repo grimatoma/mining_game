@@ -30,7 +30,7 @@
       "CREDIT": 1
     },
     "minerId": {
-      "runtimeType": "minerId",
+      "runtimeType": "minerItemId",
       "itemId": "MINER1"
     },
     "consumable": true
@@ -42,7 +42,7 @@
       "CREDIT": 2
     },
     "minerId": {
-      "runtimeType": "minerId",
+      "runtimeType": "minerItemId",
       "itemId": "MINER2"
     },
     "consumable": true
@@ -54,7 +54,7 @@
       "CREDIT": 3
     },
     "minerId": {
-      "runtimeType": "minerId",
+      "runtimeType": "minerItemId",
       "itemId": "MINER3"
     },
     "consumable": true
@@ -66,7 +66,7 @@
       "CREDIT": 4
     },
     "minerId": {
-      "runtimeType": "minerId",
+      "runtimeType": "minerItemId",
       "itemId": "MINER4"
     },
     "consumable": true
@@ -78,7 +78,7 @@
       "CREDIT": 5
     },
     "minerId": {
-      "runtimeType": "minerId",
+      "runtimeType": "minerItemId",
       "itemId": "MINER5"
     },
     "consumable": true

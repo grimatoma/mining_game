@@ -12,8 +12,8 @@ import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/inventory/inventory_events.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/persistence/synced.dart';
 
-import 'mining/miners_controller.dart';
 import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
@@ -29,11 +29,10 @@ final garageProvider = StateNotifierProvider<GarageNotifier, GarageState>(
 class GarageState with _$GarageState {
   const GarageState._();
 
-  @HiveType(typeId: 42, adapterName: 'GarageStateAdapter')
+  // @HiveType(typeId: 42, adapterName: 'GarageStateAdapter')
   const factory GarageState(
-          @HiveField(1)
-              SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) =
-      _GarageState;
+      // @HiveField(1)
+      SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) = _GarageState;
 
   BuiltMap<int, SlotState> get slots => slotsSyncedMap.map;
   SlotState getSlot(int index) => slots[index] ?? LockedSlot(index: index);

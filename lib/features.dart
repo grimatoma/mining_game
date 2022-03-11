@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
+import 'package:mining_game/persistence/synced.dart';
 
 final activeFeaturesProvider =
     StateNotifierProvider<ActiveFeaturesProvider, SyncedSet<Feature>>(

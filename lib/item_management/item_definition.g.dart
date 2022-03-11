@@ -127,12 +127,23 @@ class StackInstanceAdapter extends TypeAdapter<_$StackInstance> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$StackInstance();
+    return _$StackInstance(
+      id: fields[0] as InstanceId,
+      itemId: fields[1] as ItemId,
+      quantity: fields[2] as int,
+    );
   }
 
   @override
   void write(BinaryWriter writer, _$StackInstance obj) {
-    writer..writeByte(0);
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.itemId)
+      ..writeByte(2)
+      ..write(obj.quantity);
   }
 
   @override

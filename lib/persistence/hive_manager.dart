@@ -2,14 +2,16 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mining_game/garage_controller.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/planet/point.dart';
+
+import 'synced.dart';
 
 enum BoxKey {
   activeMiners,
   miners,
   GARAGE,
   FEATURES,
+  INVENTORY,
 }
 const keyIncrement = '6';
 
@@ -42,6 +44,10 @@ class HiveManager {
           break;
         case BoxKey.FEATURES:
           futures.add(Hive.openBox<String>(boxName)
+              .then((value) => openedBoxes[key] = value));
+          break;
+        case BoxKey.INVENTORY:
+          futures.add(Hive.openBox<ItemInstance?>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
       }
