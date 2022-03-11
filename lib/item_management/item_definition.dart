@@ -8,26 +8,21 @@ import 'items/item_container.dart';
 
 part 'item_definition.freezed.dart';
 part 'item_definition.g.dart';
-part 'item_definition_attributes2.dart';
+part 'item_definition_attributes.dart';
 part 'item_instance.dart';
-
-enum _ItemType {
-  DEFAULT,
-  MINER,
-}
 
 @freezed
 class ItemId with _$ItemId {
   const ItemId._();
   @HiveType(typeId: 66, adapterName: 'ItemIdAdapter')
-  @Assert('itemType == _ItemType.DEFAULT', 'Use default type only!')
-  const factory ItemId.itemId(@HiveField(0) String itemId,
-      [@Default(_ItemType.DEFAULT) _ItemType itemType]) = _ItemId;
+  const factory ItemId.itemId(@HiveField(0) String itemId) = _ItemId;
 
-  @HiveType(typeId: 69, adapterName: 'MinerIdAdapter')
-  @Assert('itemType == _ItemType.MINER', 'Use default type only!')
-  const factory ItemId.minerId(@HiveField(0) String itemId,
-      [@Default(_ItemType.MINER) _ItemType itemType]) = MinerId;
+  @HiveType(typeId: 69, adapterName: 'MinerItemIdAdapter')
+  const factory ItemId.minerItemId(@HiveField(0) String itemId) = MinerItemId;
+
+  // @HiveType(typeId: 70, adapterName: 'StackableItemIdAdapter')
+  // const factory ItemId.stackableItemId(@HiveField(0) String itemId) =
+  //     StackableItemId;
 
   @override
   String toString() => itemId;
@@ -41,49 +36,64 @@ class ItemId with _$ItemId {
 
 @freezed
 class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
+  // This is dumb, remove this. just have a list of resources to show in a wallet.
   @Implements<HideInInventory>()
   @Implements<ShowInWallet>()
   @Implements<Resource>()
   @Implements<HasPluralName>()
+  // @Assert('id is StackableItemId', 'Must use a StackableItemId')
+  @Implements<Stackable>()
   const factory ItemDefinition.resourceWalletOnlyDefinition(
-      {required ItemId id,
-      required String name,
-      required String namePlural,
-      required String description}) = ResourceWalletOnlyDefinition;
+    ItemId id,
+    int maxStackSize,
+    String name,
+    String namePlural,
+    String description,
+    String image,
+  ) = ResourceWalletOnlyDefinition;
 
   @Implements<Resource>()
+  // @Assert('id is StackableItemId', 'Must use a StackableItemId')
+  @Implements<Stackable>()
   const factory ItemDefinition.resourceDefinition(
-      {required ItemId id,
-      required String name,
-      required String description}) = ResourceDefinition;
+    ItemId id,
+    String name,
+    String description,
+    String image,
+    int maxStackSize,
+  ) = ResourceDefinition;
 
   const factory ItemDefinition.drillDefinition(
-      {required ItemId id,
-      required String name,
-      required String description,
-      required int damage}) = DrillDefinition;
+    ItemId id,
+    String name,
+    String description,
+    String image,
+    int damage,
+  ) = DrillDefinition;
 
   @Implements<HasPluralName>()
   const factory ItemDefinition.swordDefinition(
-          {required ItemId id,
-          required String name,
-          required String namePlural,
-          required String description,
-          required BuiltMap<WeaponAttributes, double> attributes}) =
-      SwordDefinition;
+    ItemId id,
+    String name,
+    String namePlural,
+    String description,
+    String image,
+    BuiltMap<WeaponAttributes, double> attributes,
+  ) = SwordDefinition;
 
-  @Assert('id.itemType == _ItemType.MINER', 'Must use a MINER ItemId')
+  @Assert('id is MinerItemId', 'Must use a MinerItemId')
   factory ItemDefinition.minerDefinition(
-      {required ItemId id,
-      required String name,
-      required String description,
-      required int radius,
-      required int depth,
-      required int baseDamage,
-      // Should this be for all resources or per resource?
-      required int baseHopperSize,
-      required int fuelConsumption,
-      required String image}) = MinerDefinition;
+    ItemId id,
+    String name,
+    String description,
+    int radius,
+    int depth,
+    int baseDamage,
+    // Should this be for all resources or per resource?
+    int baseHopperSize,
+    int fuelConsumption,
+    String image,
+  ) = MinerDefinition;
 
   factory ItemDefinition.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionFromJson(json);

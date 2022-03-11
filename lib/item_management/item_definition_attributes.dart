@@ -4,6 +4,7 @@ abstract class BaseItemDefinition {
   ItemId get id;
   String get name;
   String get description;
+  String get image;
 }
 
 abstract class ShowInWallet {}
@@ -14,6 +15,10 @@ abstract class Resource {}
 
 abstract class HasPluralName {
   String get namePlural;
+}
+
+abstract class Stackable {
+  int get maxStackSize;
 }
 
 enum WeaponAttributes {

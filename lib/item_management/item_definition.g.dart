@@ -40,23 +40,23 @@ class ItemIdAdapter extends TypeAdapter<_$_ItemId> {
           typeId == other.typeId;
 }
 
-class MinerIdAdapter extends TypeAdapter<_$MinerId> {
+class MinerItemIdAdapter extends TypeAdapter<_$MinerItemId> {
   @override
   final int typeId = 69;
 
   @override
-  _$MinerId read(BinaryReader reader) {
+  _$MinerItemId read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$MinerId(
+    return _$MinerItemId(
       fields[0] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$MinerId obj) {
+  void write(BinaryWriter writer, _$MinerItemId obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -69,7 +69,7 @@ class MinerIdAdapter extends TypeAdapter<_$MinerId> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MinerIdAdapter &&
+      other is MinerItemIdAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -117,48 +117,81 @@ class MinerInstanceAdapter extends TypeAdapter<_$MinerInstance> {
           typeId == other.typeId;
 }
 
+class StackInstanceAdapter extends TypeAdapter<_$StackInstance> {
+  @override
+  final int typeId = 72;
+
+  @override
+  _$StackInstance read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return _$StackInstance(
+      id: fields[0] as InstanceId,
+      itemId: fields[1] as ItemId,
+      quantity: fields[2] as int,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, _$StackInstance obj) {
+    writer
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.itemId)
+      ..writeByte(2)
+      ..write(obj.quantity);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is StackInstanceAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
 _$_ItemId _$$_ItemIdFromJson(Map<String, dynamic> json) => _$_ItemId(
       json['itemId'] as String,
-      $enumDecodeNullable(_$_ItemTypeEnumMap, json['itemType']) ??
-          _ItemType.DEFAULT,
-      json['runtimeType'] as String?,
+      $type: json['runtimeType'] as String?,
     );
 
 Map<String, dynamic> _$$_ItemIdToJson(_$_ItemId instance) => <String, dynamic>{
       'itemId': instance.itemId,
-      'itemType': _$_ItemTypeEnumMap[instance.itemType],
       'runtimeType': instance.$type,
     };
 
-const _$_ItemTypeEnumMap = {
-  _ItemType.DEFAULT: 'DEFAULT',
-  _ItemType.MINER: 'MINER',
-};
-
-_$MinerId _$$MinerIdFromJson(Map<String, dynamic> json) => _$MinerId(
+_$MinerItemId _$$MinerItemIdFromJson(Map<String, dynamic> json) =>
+    _$MinerItemId(
       json['itemId'] as String,
-      $enumDecodeNullable(_$_ItemTypeEnumMap, json['itemType']) ??
-          _ItemType.MINER,
-      json['runtimeType'] as String?,
+      $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$MinerIdToJson(_$MinerId instance) => <String, dynamic>{
+Map<String, dynamic> _$$MinerItemIdToJson(_$MinerItemId instance) =>
+    <String, dynamic>{
       'itemId': instance.itemId,
-      'itemType': _$_ItemTypeEnumMap[instance.itemType],
       'runtimeType': instance.$type,
     };
 
 _$ResourceWalletOnlyDefinition _$$ResourceWalletOnlyDefinitionFromJson(
         Map<String, dynamic> json) =>
     _$ResourceWalletOnlyDefinition(
-      id: ItemId.fromJson(json['id'] as Map<String, dynamic>),
-      name: json['name'] as String,
-      namePlural: json['namePlural'] as String,
-      description: json['description'] as String,
+      ItemId.fromJson(json['id'] as Map<String, dynamic>),
+      json['maxStackSize'] as int,
+      json['name'] as String,
+      json['namePlural'] as String,
+      json['description'] as String,
+      json['image'] as String,
       $type: json['runtimeType'] as String?,
     );
 
@@ -166,17 +199,21 @@ Map<String, dynamic> _$$ResourceWalletOnlyDefinitionToJson(
         _$ResourceWalletOnlyDefinition instance) =>
     <String, dynamic>{
       'id': instance.id.toJson(),
+      'maxStackSize': instance.maxStackSize,
       'name': instance.name,
       'namePlural': instance.namePlural,
       'description': instance.description,
+      'image': instance.image,
       'runtimeType': instance.$type,
     };
 
 _$ResourceDefinition _$$ResourceDefinitionFromJson(Map<String, dynamic> json) =>
     _$ResourceDefinition(
-      id: ItemId.fromJson(json['id'] as Map<String, dynamic>),
-      name: json['name'] as String,
-      description: json['description'] as String,
+      ItemId.fromJson(json['id'] as Map<String, dynamic>),
+      json['name'] as String,
+      json['description'] as String,
+      json['image'] as String,
+      json['maxStackSize'] as int,
       $type: json['runtimeType'] as String?,
     );
 
@@ -186,15 +223,18 @@ Map<String, dynamic> _$$ResourceDefinitionToJson(
       'id': instance.id.toJson(),
       'name': instance.name,
       'description': instance.description,
+      'image': instance.image,
+      'maxStackSize': instance.maxStackSize,
       'runtimeType': instance.$type,
     };
 
 _$DrillDefinition _$$DrillDefinitionFromJson(Map<String, dynamic> json) =>
     _$DrillDefinition(
-      id: ItemId.fromJson(json['id'] as Map<String, dynamic>),
-      name: json['name'] as String,
-      description: json['description'] as String,
-      damage: json['damage'] as int,
+      ItemId.fromJson(json['id'] as Map<String, dynamic>),
+      json['name'] as String,
+      json['description'] as String,
+      json['image'] as String,
+      json['damage'] as int,
       $type: json['runtimeType'] as String?,
     );
 
@@ -203,17 +243,19 @@ Map<String, dynamic> _$$DrillDefinitionToJson(_$DrillDefinition instance) =>
       'id': instance.id.toJson(),
       'name': instance.name,
       'description': instance.description,
+      'image': instance.image,
       'damage': instance.damage,
       'runtimeType': instance.$type,
     };
 
 _$SwordDefinition _$$SwordDefinitionFromJson(Map<String, dynamic> json) =>
     _$SwordDefinition(
-      id: ItemId.fromJson(json['id'] as Map<String, dynamic>),
-      name: json['name'] as String,
-      namePlural: json['namePlural'] as String,
-      description: json['description'] as String,
-      attributes: BuiltMap<WeaponAttributes, double>.of(
+      ItemId.fromJson(json['id'] as Map<String, dynamic>),
+      json['name'] as String,
+      json['namePlural'] as String,
+      json['description'] as String,
+      json['image'] as String,
+      BuiltMap<WeaponAttributes, double>.of(
           (json['attributes'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(
             $enumDecode(_$WeaponAttributesEnumMap, k), (e as num).toDouble()),
@@ -227,6 +269,7 @@ Map<String, dynamic> _$$SwordDefinitionToJson(_$SwordDefinition instance) =>
       'name': instance.name,
       'namePlural': instance.namePlural,
       'description': instance.description,
+      'image': instance.image,
       'attributes': instance.attributes
           .toMap()
           .map((k, e) => MapEntry(_$WeaponAttributesEnumMap[k], e)),
@@ -241,15 +284,15 @@ const _$WeaponAttributesEnumMap = {
 
 _$MinerDefinition _$$MinerDefinitionFromJson(Map<String, dynamic> json) =>
     _$MinerDefinition(
-      id: ItemId.fromJson(json['id'] as Map<String, dynamic>),
-      name: json['name'] as String,
-      description: json['description'] as String,
-      radius: json['radius'] as int,
-      depth: json['depth'] as int,
-      baseDamage: json['baseDamage'] as int,
-      baseHopperSize: json['baseHopperSize'] as int,
-      fuelConsumption: json['fuelConsumption'] as int,
-      image: json['image'] as String,
+      ItemId.fromJson(json['id'] as Map<String, dynamic>),
+      json['name'] as String,
+      json['description'] as String,
+      json['radius'] as int,
+      json['depth'] as int,
+      json['baseDamage'] as int,
+      json['baseHopperSize'] as int,
+      json['fuelConsumption'] as int,
+      json['image'] as String,
       $type: json['runtimeType'] as String?,
     );
 

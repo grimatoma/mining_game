@@ -7,7 +7,9 @@
     "runtimeType": "resourceDefinition",
     "name": "Black Rock",
     "namePlural": "Black Rocks",
-    "description": "Often found in dark caves"
+    "description": "Often found in dark caves",
+    "image": "images/placeholder.png",
+    "maxStackSize": 100
   },
   {
     "id": {
@@ -18,6 +20,7 @@
     "name": "Sword",
     "namePlural": "Swords",
     "description": "Pointy stick",
+    "image": "images/placeholder.png",
     "attributes": {
       "SHARP":10.0
     }
@@ -30,7 +33,9 @@
     "runtimeType": "resourceWalletOnlyDefinition",
     "name": "Iron",
     "namePlural": "Iron",
-    "description": "can be mined"
+    "description": "can be mined",
+    "image": "images/placeholder.png",
+    "maxStackSize": 100
   },
   {
     "id": {
@@ -40,7 +45,9 @@
     "runtimeType": "resourceWalletOnlyDefinition",
     "name": "Copper",
     "namePlural": "Copper",
-    "description": "can be mined"
+    "description": "can be mined",
+    "image": "images/placeholder.png",
+    "maxStackSize": 100
   },
   {
     "id": {
@@ -50,6 +57,7 @@
     "runtimeType": "drillDefinition",
     "name": "Test Drill",
     "description": "I do extra damage.",
+    "image": "images/placeholder.png",
     "damage": 4
   },
   {
@@ -60,6 +68,8 @@
     "runtimeType": "resourceWalletOnlyDefinition",
     "name": "Credit",
     "namePlural": "Credits",
-    "description": "A form of currency."
+    "description": "A form of currency.",
+    "image": "images/placeholder.png",
+    "maxStackSize": 100
   }
 ]
