@@ -8,7 +8,7 @@
     "name": "Black Rock",
     "namePlural": "Black Rocks",
     "description": "Often found in dark caves",
-    "image": "images/placeholder.png",
+    "image": "assets/images/placeholder.png",
     "maxStackSize": 100
   },
   {
@@ -20,7 +20,7 @@
     "name": "Sword",
     "namePlural": "Swords",
     "description": "Pointy stick",
-    "image": "images/placeholder.png",
+    "image": "assets/images/placeholder.png",
     "attributes": {
       "SHARP":10.0
     }
@@ -34,7 +34,7 @@
     "name": "Iron",
     "namePlural": "Iron",
     "description": "can be mined",
-    "image": "images/placeholder.png",
+    "image": "assets/images/minerals/iron.png",
     "maxStackSize": 100
   },
   {
@@ -46,7 +46,7 @@
     "name": "Copper",
     "namePlural": "Copper",
     "description": "can be mined",
-    "image": "images/placeholder.png",
+    "image": "assets/images/minerals/copper.png",
     "maxStackSize": 100
   },
   {
@@ -57,7 +57,7 @@
     "runtimeType": "drillDefinition",
     "name": "Test Drill",
     "description": "I do extra damage.",
-    "image": "images/placeholder.png",
+    "image": "assets/images/placeholder.png",
     "damage": 4
   },
   {
@@ -69,7 +69,7 @@
     "name": "Credit",
     "namePlural": "Credits",
     "description": "A form of currency.",
-    "image": "images/placeholder.png",
+    "image": "assets/images/money.png",
     "maxStackSize": 100
   }
 ]

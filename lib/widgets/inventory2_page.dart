@@ -1,8 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory/inventory2.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/items/item_container.dart';
 
 import 'status_bar_wrapped_page.dart';
 
@@ -30,7 +34,35 @@ class InventoryPageWidget2 extends ConsumerWidget {
                 Row(
                   children: [
                     TextButton(
-                        onPressed: () {}, child: const Text('Add Credits)'))
+                        onPressed: () {
+                          ref.read(inventoryStateProvider2.notifier).addItem(
+                              ItemInstance.stackInstance(
+                                  id: InstanceId.generate(),
+                                  itemId: ItemKeys.CREDIT,
+                                  quantity: 45));
+                        },
+                        child: const Text('Add Credits')),
+                    TextButton(
+                        onPressed: () {
+                          ref.read(inventoryStateProvider2.notifier).addItem(
+                              ItemInstance.minerInstance(
+                                  id: InstanceId.generate(),
+                                  itemId: const MinerItemId('MINER1'),
+                                  hopper: ItemContainer.empty()));
+                        },
+                        child: const Text('Add Miner')),
+                    TextButton(
+                        onPressed: () {
+                          ref
+                              .read(inventoryStateProvider2.notifier)
+                              .addItem(null);
+                        },
+                        child: const Text('Add Empty slot')),
+                    TextButton(
+                        onPressed: () {
+                          ref.read(inventoryStateProvider2.notifier).clear();
+                        },
+                        child: const Text('Clear')),
                   ],
                 ),
                 Expanded(
@@ -125,19 +157,34 @@ class ItemRenderWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
-        Image.asset(_itemInstance?.itemId.definition().image ??
-            'images/placeholder.png'),
-        const Align(
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: SizedBox.expand(
+              child: FittedBox(
+                fit: BoxFit.fill,
+                child: Image.asset(_itemInstance?.itemId.definition().image ??
+                    'assets/images/empty_inventory_slot.png'),
+              ),
+            ),
+          ),
+        ),
+        Align(
           alignment: Alignment.topLeft,
-          child: Text('topLeft'),
+          child: Text(_itemInstance?.itemId.definition().name ?? ''),
         ),
         const Align(
           alignment: Alignment.topRight,
           child: Text('topRight'),
         ),
-        const Align(
+        Align(
           alignment: Alignment.bottomLeft,
-          child: Text('bottomLeft'),
+          child: Text(_itemInstance?.maybeMap(
+                  stackInstance: (stack) {
+                    return stack.quantity.toString();
+                  },
+                  orElse: () => '') ??
+              ''),
         ),
         const Align(
           alignment: Alignment.bottomRight,

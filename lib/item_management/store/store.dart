@@ -35,7 +35,7 @@ class StoreController extends StateNotifier<StoreListings> {
   ) : super(StoreListings(<ShopListing>[].build())) {
     void initStore() async {
       state = StoreListings(await ItemDirectory.parseJsonList(
-          'json/store_listings.json', ShopListing.fromJson));
+          'assets/json/store_listings.json', ShopListing.fromJson));
     }
 
     initStore();

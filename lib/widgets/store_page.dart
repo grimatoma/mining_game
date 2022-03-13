@@ -125,7 +125,7 @@ class ListingWidget extends ConsumerWidget {
   final Widget listingDetails;
   final Widget actionButton;
   const ListingWidget({
-    this.imagePath = 'images/placeholder.png',
+    this.imagePath = 'assets/images/placeholder.png',
     required this.listingTitle,
     required this.listingDetails,
     required this.actionButton,

@@ -26,6 +26,14 @@ class InventoryStateController2 extends StateNotifier<Inventory> {
 
   // Takes the last items first that meet the requirement until it is fufilled;
 
+  void clear() {
+    state = state.rebuild((p0) => p0.clear());
+  }
+
+  void addItem(ItemInstance? instance) {
+    state = state.rebuild((p0) => p0.add(instance));
+  }
+
   subtractItemRequirement(ItemRequirement requirements) {
     if (requirements.meetsRequirement(state.itemSlots.list)) {
       // Do logic that removes the requirements from the inventroy fromt he first seen.

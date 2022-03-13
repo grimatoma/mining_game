@@ -52,6 +52,7 @@ dependencies:
   json_serializable: ^6.1.4
   json_serializable_immutable_collections: ^0.10.1
   flutter_reorderable_grid_view: ^2.0.2
+  flame: ^1.0.0
 
 dev_dependencies:
   hive_generator: ^1.1.1
@@ -79,17 +80,21 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - images/placeholder.png
-     - images/drills/1.jpg
-     - images/drills/2.jpg
-     - images/drills/3.jpg
-     - images/drills/4.jpg
-     - images/drills/5.png
-     - images/drills/6.jpg
-     - images/drills/7.png
-     - json/miners.json
-     - json/store_listings.json
-     - json/items.json
+     - assets/images/placeholder.png
+     - assets/images/empty_inventory_slot.png
+     - assets/images/drills/1.jpg
+     - assets/images/drills/2.jpg
+     - assets/images/drills/3.jpg
+     - assets/images/drills/4.jpg
+     - assets/images/drills/5.png
+     - assets/images/drills/6.jpg
+     - assets/images/drills/7.png
+     - assets/json/miners.json
+     - assets/images/minerals/iron.png
+     - assets/images/minerals/copper.png
+     - assets/json/store_listings.json
+     - assets/json/items.json
+     - assets/images/money.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

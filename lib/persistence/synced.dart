@@ -47,6 +47,11 @@ class SyncedListBuilder<K> {
     _listBuilder.addAll(iterable);
   }
 
+  void clear() {
+    _box.clear();
+    _listBuilder.clear();
+  }
+
   BuiltList<K> build() => _listBuilder.build();
 }
 

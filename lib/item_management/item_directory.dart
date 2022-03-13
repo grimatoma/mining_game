@@ -11,9 +11,11 @@ class ItemDirectory {
 
   static Future<void> init() async {
     final miners = await parseJsonMap<ItemId, ItemDefinition>(
-        'json/miners.json', ItemDefinition.fromJson, (miner) => miner.id);
+        'assets/json/miners.json',
+        ItemDefinition.fromJson,
+        (miner) => miner.id);
     final items = await parseJsonMap<ItemId, ItemDefinition>(
-        'json/items.json', ItemDefinition.fromJson, (item) => item.id);
+        'assets/json/items.json', ItemDefinition.fromJson, (item) => item.id);
     _allItems = _allItems.rebuild((p0) => p0
       ..addAll(miners.toMap())
       ..addAll(items.toMap()));

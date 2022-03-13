@@ -8,7 +8,7 @@
     "baseDamage": 1,
     "baseHopperSize": 50,
     "fuelConsumption": 5,
-    "image": "images/drills/1.jpg",
+    "image": "assets/images/drills/1.jpg",
     "id": {
       "runtimeType": "minerItemId",
       "itemId": "MINER1"
@@ -23,7 +23,7 @@
     "baseDamage": 2,
     "baseHopperSize": 150,
     "fuelConsumption": 5,
-    "image": "images/drills/2.jpg",
+    "image": "assets/images/drills/2.jpg",
     "id": {
       "runtimeType": "minerItemId",
       "itemId": "MINER2"
@@ -38,7 +38,7 @@
     "baseDamage": 1,
     "baseHopperSize": 50,
     "fuelConsumption": 5,
-    "image": "images/drills/3.jpg",
+    "image": "assets/images/drills/3.jpg",
     "id": {
       "runtimeType": "minerItemId",
       "itemId": "MINER3"
@@ -53,7 +53,7 @@
     "baseDamage": 1,
     "baseHopperSize": 50,
     "fuelConsumption": 5,
-    "image": "images/drills/4.jpg",
+    "image": "assets/images/drills/4.jpg",
     "id": {
       "runtimeType": "minerItemId",
       "itemId": "MINER4"
@@ -68,7 +68,7 @@
     "baseDamage": 1,
     "baseHopperSize": 50,
     "fuelConsumption": 5,
-    "image": "images/drills/5.png",
+    "image": "assets/images/drills/5.png",
     "id": {
       "runtimeType": "minerItemId",
       "itemId": "MINER5"
