@@ -28,69 +28,69 @@ class InventoryPageWidget2 extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final inventory = ref.watch(inventoryStateProvider2).itemSlots.list;
     return StatusBarWrappedPageWidget(
-        title: 'Inventory',
-        builder: (context, ref) => Expanded(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            ref.read(inventoryStateProvider2.notifier).addItem(
-                                ItemInstance.stackInstance(
-                                    id: InstanceId.generate(),
-                                    itemId: ItemKeys.CREDIT,
-                                    quantity: 45));
-                          },
-                          child: const Text('Add Credits')),
-                      TextButton(
-                          onPressed: () {
-                            ref.read(inventoryStateProvider2.notifier).addItem(
-                                ItemInstance.minerInstance(
-                                    id: InstanceId.generate(),
-                                    itemId: const MinerItemId('MINER1'),
-                                    hopper: ItemContainer.empty()));
-                          },
-                          child: const Text('Add Miner')),
-                      TextButton(
-                          onPressed: () {
-                            ref
-                                .read(inventoryStateProvider2.notifier)
-                                .addItem(null);
-                          },
-                          child: const Text('Add Empty slot')),
-                      TextButton(
-                          onPressed: () {
-                            ref.read(inventoryStateProvider2.notifier).clear();
-                          },
-                          child: const Text('Clear')),
-                    ],
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Flexible(
-                          flex: 3,
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200,
-                              childAspectRatio: 1 / 1,
-                              crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
-                            ),
-                            itemBuilder: (_, index) =>
-                                ItemWidget(inventory[index], index),
-                            itemCount: inventory.length,
-                          ),
-                        ),
-                        const Flexible(flex: 1, child: ItemDetailWidget()),
-                      ],
+      title: 'Inventory',
+      builder: (context, ref) => Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider2.notifier).addItem(
+                        ItemInstance.stackInstance(
+                            id: InstanceId.generate(),
+                            itemId: ItemKeys.CREDIT,
+                            quantity: 45));
+                  },
+                  child: const Text('Add Credits')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider2.notifier).addItem(
+                        ItemInstance.minerInstance(
+                            id: InstanceId.generate(),
+                            itemId: const MinerItemId('MINER1'),
+                            hopper: ItemContainer.empty()));
+                  },
+                  child: const Text('Add Miner')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider2.notifier).addItem(null);
+                  },
+                  child: const Text('Add Empty slot')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider2.notifier).clear();
+                  },
+                  child: const Text('Clear')),
+            ],
+          ),
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Flexible(
+                  flex: 3,
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200,
+                      childAspectRatio: 1 / 1,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
                     ),
+                    itemBuilder: (_, index) =>
+                        ItemWidget(inventory[index], index),
+                    itemCount: inventory.length,
                   ),
-                ],
-              ),
-            ));
+                ),
+                const Flexible(flex: 1, child: ItemDetailWidget()),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
@@ -239,31 +239,27 @@ class ItemDetailWidget extends ConsumerWidget {
     final definition = itemInstance.itemId.definition();
     // This should have a fitted box or seomthing
     // https://stackoverflow.com/questions/57803737/flutter-renderflex-children-have-non-zero-flex-but-incoming-height-constraints
-    return Column(
-      children: [
-        FittedBox(
-            fit: BoxFit.fitWidth,
-            child: Image.asset(itemInstance.itemId.definition().image)),
-        Row(
-          children: [
-            Column(
+    return Container(
+      color: Colors.red,
+      child: Column(
+        children: [
+          Expanded(
+              child: Center(
+                  child: Image.asset(itemInstance.itemId.definition().image))),
+          Expanded(
+            child: Column(
               children: [
                 Text(definition.name),
-                Text(definition.description),
-                // Expanded(child: Text(definition.description)),
+                Text(
+                    'dddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddd ddddddddddddddddddddddddddd'),
+                Flexible(child: Text(definition.name)),
+                Flexible(child: Text(definition.description)),
                 TextButton(onPressed: () {}, child: const Text('Sell')),
               ],
-            )
-
-            // definition.map(
-            //     resourceWalletOnlyDefinition: resourceWalletOnlyDefinition,
-            //     resourceDefinition: resourceDefinition,
-            //     drillDefinition: drillDefinition,
-            //     swordDefinition: swordDefinition,
-            //     minerDefinition: minerDefinition)
-          ],
-        )
-      ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

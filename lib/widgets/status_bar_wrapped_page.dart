@@ -23,8 +23,10 @@ class StatusBarWrappedPageWidget extends ConsumerWidget {
       ),
       body: Center(
         child: SizedBox(
-          width: min(MediaQuery.of(context).size.width, 750),
+          width: min(MediaQuery.of(context).size.width, 900),
+          // height: MediaQuery.of(context).size.height,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               const StatusBarWidget(),
               Expanded(child: builder(context, ref)),
