@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../main.dart';
 import 'status_bar.dart';
 
 class StatusBarWrappedPageWidget extends ConsumerWidget {
@@ -16,6 +17,8 @@ class StatusBarWrappedPageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final index = ref.watch(navigationIndexProvider);
+    final items = ref.watch(mainNavigationPagesProvider);
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -33,6 +36,20 @@ class StatusBarWrappedPageWidget extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        items: [
+          for (final item in items)
+            BottomNavigationBarItem(icon: Icon(item.icon), label: item.name),
+        ],
+        currentIndex: index,
+        onTap: (index) async {
+          ref.read(navigationIndexProvider.notifier).state = index;
+          Navigator.of(context).restorablePushReplacementNamed(
+              ref.read(mainNavigationPagesProvider)[index].routeName);
+          // Navigator.restorableReplace(context, oldRoute: oldRoute, newRouteBuilder: newRouteBuilder)
+        },
       ),
     );
   }
