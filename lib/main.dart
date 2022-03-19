@@ -51,37 +51,128 @@ class MiningGameWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(gameCoreProvider);
 
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Lets mine',
-      // home: const MainNavigationWidget(),
-      // initialRoute: '/${ref.watch(mainNavigationPagesProvider).first.name}',
-      initialRoute: ref.watch(mainNavigationPagesProvider)[2].routeName,
-      routes: <String, WidgetBuilder>{
-        // '/': (context) => const TestWi(),
-        for (final nav in ref.watch(mainNavigationPagesProvider))
-          nav.routeName: nav.builder,
-      },
+      home: AppRootWidget(),
+      // // initialRoute: '/${ref.watch(mainNavigationPagesProvider).first.name}',
+      // initialRoute: ref.watch(mainNavigationPagesProvider)[2].routeName,
+      // routes: <String, WidgetBuilder>{
+      //   // '/': (context) => const TestWi(),
+      //   for (final nav in ref.watch(mainNavigationPagesProvider))
+      //     nav.routeName: nav.builder,
+      // },
     );
   }
 }
 
-class NavItem {
-  // final GlobalKey key;
-  final String name;
-  final Widget Function(BuildContext context) builder;
-  final IconData icon;
-  final String routeName;
+class AppRootWidget extends HookConsumerWidget {
+  const AppRootWidget({
+    Key? key,
+  }) : super(key: key);
 
-  NavItem({required this.name, required this.builder, required this.icon})
-      : routeName = '/$name';
-// : key = GlobalKey();
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final routes = ref.watch(mainNavigationPagesProvider);
+    final currentIndex = ref.watch(navigationIndexProvider);
+    return WillPopScope(
+        child: Scaffold(
+          body: Stack(
+            children: [
+              for (int i = 0; i < routes.length; i++)
+                RouteBaseWidget(
+                  // false,
+                  i != currentIndex,
+                  routes[i],
+                ),
+            ],
+          ),
+          bottomNavigationBar: const BottomNavigationWidget(),
+        ),
+        onWillPop: () async {
+          final currentTab = routes[currentIndex];
+          final isFirstRouteInCurrentTab =
+              await currentTab.key.currentState?.maybePop() ?? false;
+          if (isFirstRouteInCurrentTab) {
+            // if not on the 'main' tab
+            if (currentTab != routes[0]) {
+              ref
+                  .read(navigationIndexProvider.notifier)
+                  .updateIndex(currentIndex);
+              return false;
+            }
+          }
+          return isFirstRouteInCurrentTab;
+        });
+  }
+}
+
+class BottomNavigationWidget extends ConsumerWidget {
+  const BottomNavigationWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return BottomNavigationBar(
+      items: [
+        for (final route in ref.watch(mainNavigationPagesProvider))
+          // TODO
+          BottomNavigationBarItem(
+              label: route.name,
+              icon: Icon(
+                route.icon,
+                color: Colors.blue,
+              ))
+      ],
+      onTap: (index) {
+        ref.read(navigationIndexProvider.notifier).updateIndex(index);
+      },
+      currentIndex: ref.watch(navigationIndexProvider),
+      selectedItemColor: Colors.red,
+    );
+  }
+}
+
+class RouteBaseWidget extends ConsumerWidget {
+  final RootRoute _rootRoute;
+  final bool _visible;
+
+  const RouteBaseWidget(
+    this._visible,
+    this._rootRoute, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Offstage(
+        offstage: _visible, child: _rootRoute.builder(context, _rootRoute));
+    // return Offstage(
+    //   offstage: _visible,
+    //   child:Navigator(
+    //     key: _rootRoute.key,
+    //     initialRoute: _rootRoute.,
+    //   ) ,
+    // );
+  }
+}
+
+class RootRoute {
+  final key = GlobalKey<NavigatorState>();
+  final String name;
+  final Widget Function(BuildContext context, RootRoute rootRoute) builder;
+  final IconData icon;
+
+  RootRoute({required this.name, required this.builder, required this.icon});
 }
 
 final navigationIndexProvider =
     StateNotifierProvider<IndexNotifier, int>((ref) => IndexNotifier());
 
 class IndexNotifier extends StateNotifier<int> with HistoryMixin<int> {
-  IndexNotifier() : super(4);
+  IndexNotifier() : super(0);
+
+  void updateIndex(int i) => state = i;
 }
 
 class TestWi extends HookConsumerWidget {
@@ -105,37 +196,37 @@ class TestWi extends HookConsumerWidget {
   }
 }
 
-final mainNavigationPagesProvider = StateProvider<BuiltList<NavItem>>((ref) {
+final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
   print('loading list');
   return [
-    NavItem(name: '', icon: Icons.watch, builder: (context) => const TestWi()),
+    // NavItem(name: '', icon: Icons.watch, builder: (context) => const TestWi()),
     // NavItem(
     //     name: 'Main',
     //     icon: Icons.home,
     //     builder: (context) => const MainMenuWidget()),
-    NavItem(
+    RootRoute(
         name: 'planet',
         icon: Icons.circle,
-        builder: (context) => const PlanetPageWidget()),
-    NavItem(
+        builder: (context, _) => const PlanetPageWidget()),
+    RootRoute(
         name: 'Store',
         icon: Icons.store,
-        builder: (context) => const StorePageWidget()),
-    NavItem(
+        builder: (context, _) => const StorePageWidget()),
+    RootRoute(
         name: 'Inventory',
         icon: Icons.storage,
-        builder: (context) => const InventoryPageWidget()),
-    NavItem(
+        builder: (context, _) => const InventoryPageWidget()),
+    RootRoute(
         name: 'Inventory2',
         icon: Icons.storage,
-        builder: (context) => const InventoryPageWidget2()),
-    NavItem(
+        builder: (context, _) => const InventoryPageWidget2()),
+    RootRoute(
         name: 'Garage',
-        builder: (context) => const GaragePageWidget(),
+        builder: (context, _) => const GaragePageWidget(),
         icon: Icons.garage),
-    NavItem(
+    RootRoute(
         name: 'Quests',
-        builder: (context) => const QuestListPageWidget(),
+        builder: (context, rootRoute) => QuestListPageWidget(rootRoute),
         icon: Icons.attractions)
   ].build();
 });

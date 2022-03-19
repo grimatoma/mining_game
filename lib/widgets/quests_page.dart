@@ -3,31 +3,51 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/main.dart';
 import 'package:mining_game/quests.dart';
 import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
 
 class QuestListPageWidget extends ConsumerWidget {
-  const QuestListPageWidget({
+  final RootRoute _rootRoute;
+
+  const QuestListPageWidget(
+    this._rootRoute, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final quests = ref.watch(availableQuests);
-    return StatusBarWrappedPageWidget(
-        title: 'Quests',
-        builder: (context, ref) => ListView.separated(
-            itemBuilder: (_, index) => InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              QuestDetailWidget(quests[index])));
-                },
-                child: QuestListDetail(quests[index])),
-            separatorBuilder: (_, __) => const Divider(),
-            itemCount: quests.length));
+    Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
+      final quests = ref.watch(availableQuests);
+      return {
+        '/': (context) => StatusBarWrappedPageWidget(
+            title: 'Quests',
+            builder: (context, ref) => ListView.separated(
+                itemBuilder: (_, index) => InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  QuestDetailWidget(quests[index])));
+                    },
+                    child: QuestListDetail(quests[index])),
+                separatorBuilder: (_, __) => const Divider(),
+                itemCount: quests.length)),
+        '/detail': (context) => QuestDetailWidget(quests[0]),
+      };
+    }
+
+    final routeBuilders = _routeBuilders(context);
+
+    return Navigator(
+      key: _rootRoute.key,
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(
+          builder: (context) => routeBuilders[routeSettings.name!]!(context),
+        );
+      },
+    );
   }
 }
 
