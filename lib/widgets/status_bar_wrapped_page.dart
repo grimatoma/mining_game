@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,7 +21,7 @@ class StatusBarWrappedPageWidget extends ConsumerWidget {
       ),
       body: Center(
         child: SizedBox(
-          width: min(MediaQuery.of(context).size.width, 900),
+          // width: max(MediaQuery.of(context).size.width, 900),
           // height: MediaQuery.of(context).size.height,
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -34,20 +32,6 @@ class StatusBarWrappedPageWidget extends ConsumerWidget {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   items: [
-      //     for (final item in items)
-      //       BottomNavigationBarItem(icon: Icon(item.icon), label: item.name),
-      //   ],
-      //   currentIndex: index,
-      //   onTap: (index) async {
-      //     ref.read(navigationIndexProvider.notifier).state = index;
-      //     Navigator.of(context).restorablePushReplacementNamed(
-      //         ref.read(mainNavigationPagesProvider)[index].routeName);
-      //     // Navigator.restorableReplace(context, oldRoute: oldRoute, newRouteBuilder: newRouteBuilder)
-      //   },
-      // ),
     );
   }
 }

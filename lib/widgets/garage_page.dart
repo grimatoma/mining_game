@@ -48,11 +48,13 @@ class GaragePageWidget extends ConsumerWidget {
     return StatusBarWrappedPageWidget(
         title: 'Garage',
         builder: (context, ref) {
-          return GridView.count(
-            crossAxisCount: 4,
-            mainAxisSpacing: 1,
-            crossAxisSpacing: 1,
-            children: slots,
+          return LayoutBuilder(
+            builder: (context, constraints) => GridView.count(
+              crossAxisCount: constraints.maxWidth.toInt() ~/ 180,
+              mainAxisSpacing: 1,
+              crossAxisSpacing: 1,
+              children: slots,
+            ),
           );
         });
   }

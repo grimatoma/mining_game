@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory/inventory2.dart';
@@ -126,7 +124,7 @@ class ItemWidget extends HookConsumerWidget {
               ? widget
               : LongPressDraggable<int>(
                   data: _index,
-                  delay: const Duration(milliseconds: 200),
+                  delay: const Duration(milliseconds: 10),
                   dragAnchorStrategy: pointerDragAnchorStrategy,
                   feedback:
                       DraggingItemWidget(_itemInstance, _index, constraints),
@@ -182,27 +180,27 @@ class ItemRenderWidget extends ConsumerWidget {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(24.0),
           child: Center(
             child: SizedBox.expand(
               child: FittedBox(
                 fit: BoxFit.fill,
-                child: Image.asset(_itemInstance?.itemId.definition().image ??
-                    'assets/images/empty_inventory_slot.png'),
+                child: _itemInstance != null
+                    ? Image.asset(_itemInstance!.itemId.definition().image)
+                    : null,
               ),
             ),
           ),
         ),
         Align(
           alignment: Alignment.topLeft,
-          child: Text(_itemInstance?.itemId.definition().name ?? ''),
-        ),
-        const Align(
-          alignment: Alignment.topRight,
-          child: Text('topRight'),
+          child: Text(
+            _getName(_itemInstance),
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         Align(
-          alignment: Alignment.bottomLeft,
+          alignment: Alignment.bottomRight,
           child: Text(_itemInstance?.maybeMap(
                   stackInstance: (stack) {
                     return stack.quantity.toString();
@@ -210,12 +208,17 @@ class ItemRenderWidget extends ConsumerWidget {
                   orElse: () => '') ??
               ''),
         ),
-        const Align(
-          alignment: Alignment.bottomRight,
-          child: Text('bottomRight'),
-        ),
       ],
     );
+  }
+
+  String _getName(ItemInstance? itemInstance) {
+    if (itemInstance == null) return '';
+    final definition = _itemInstance!.itemId.definition();
+    if (definition is HasPluralName) {
+      return (definition as HasPluralName).namePlural;
+    }
+    return definition.name;
   }
 }
 
