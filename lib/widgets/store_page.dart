@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
@@ -12,6 +13,7 @@ class StorePageWidget extends HookConsumerWidget {
   const StorePageWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final scrollCtrl = useScrollController();
     // Listen to changes in money (For failed purchases);
     ref.watch(inventoryStateProvider);
     final storeListings = ref.watch(storeControllerProvider);
@@ -19,6 +21,7 @@ class StorePageWidget extends HookConsumerWidget {
     return StatusBarWrappedPageWidget(
         title: 'Store',
         builder: (context, ref) => Scrollbar(
+              controller: scrollCtrl,
               child: ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (_, index) {

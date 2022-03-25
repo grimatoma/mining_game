@@ -1,5 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
@@ -28,32 +29,32 @@ final _unHousedMinersProvider = Provider<BuiltList<MinerInstance>>((ref) {
       .toBuiltList();
 });
 
-class GaragePageWidget extends ConsumerWidget {
+class GaragePageWidget extends HookConsumerWidget {
   const GaragePageWidget({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final garageState = ref.watch(garageProvider);
-
-    final slots = <Widget>[];
-    for (var i = 0; i < ref.watch(gameConfigsProvider).maxGarageSlots; i++) {
-      final slot = garageState.getSlot(i);
-      if (slot is SlotWithMiner) slots.add(PopulatedGarageSlotWidget(slot));
-      if (slot is LockedSlot) slots.add(LockedGarageSlotWidget(slot));
-      if (slot is EmptySlot) slots.add(EmptyGarageSlotWidget(slot));
-    }
-
+    final scrollController = useScrollController();
     return StatusBarWrappedPageWidget(
         title: 'Garage',
         builder: (context, ref) {
           return LayoutBuilder(
             builder: (context, constraints) => GridView.count(
+              controller: scrollController,
               crossAxisCount: constraints.maxWidth.toInt() ~/ 180,
               mainAxisSpacing: 1,
               crossAxisSpacing: 1,
-              children: slots,
+              children: [
+                for (var i = 0;
+                    i < ref.watch(gameConfigsProvider).maxGarageSlots;
+                    i++)
+                  ref.watch(garageProvider).getSlot(i).map(
+                      withMiner: (slot) => PopulatedGarageSlotWidget(slot),
+                      locked: (slot) => LockedGarageSlotWidget(slot),
+                      empty: (slot) => EmptyGarageSlotWidget(slot)),
+              ],
             ),
           );
         });
