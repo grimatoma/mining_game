@@ -6,33 +6,36 @@ import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
 
 class ActiveMiners {
-  final SyncedMap<InstanceId, PlanetPoint, InstanceId, PlanetPoint> _syncedMap;
+  final SyncedMap<ItemInstanceId, PlanetPoint, ItemInstanceId, PlanetPoint>
+      _syncedMap;
+
   ActiveMiners(this._syncedMap);
 
-  BuiltMap<InstanceId, PlanetPoint> get miners => _syncedMap.map;
+  BuiltMap<ItemInstanceId, PlanetPoint> get miners => _syncedMap.map;
 
   bool hasMiner(PlanetTile planetTile) => miners.containsKey(planetTile.point);
 
   ActiveMiners rebuild({
-    Map<InstanceId, PlanetPoint>? addOrUpdate,
-    Iterable<InstanceId>? remove,
+    Map<ItemInstanceId, PlanetPoint>? addOrUpdate,
+    Iterable<ItemInstanceId>? remove,
   }) =>
       ActiveMiners(
           _syncedMap.rebuild(addOrUpdate: addOrUpdate, remove: remove));
 }
 
 class Miners {
-  final SyncedMap<InstanceId, MinerInstance, InstanceId, MinerInstance>
+  final SyncedMap<ItemInstanceId, MinerInstance, ItemInstanceId, MinerInstance>
       _syncedMap;
 
   Miners(this._syncedMap);
 
-  BuiltMap<InstanceId, MinerInstance> get miners => _syncedMap.map;
-  MinerInstance? getMiner(InstanceId id) => miners[id];
+  BuiltMap<ItemInstanceId, MinerInstance> get miners => _syncedMap.map;
+
+  MinerInstance? getMiner(ItemInstanceId id) => miners[id];
 
   Miners rebuild({
-    Map<InstanceId, MinerInstance>? addOrUpdate,
-    Iterable<InstanceId>? remove,
+    Map<ItemInstanceId, MinerInstance>? addOrUpdate,
+    Iterable<ItemInstanceId>? remove,
   }) =>
       Miners(_syncedMap.rebuild(addOrUpdate: addOrUpdate, remove: remove));
 }

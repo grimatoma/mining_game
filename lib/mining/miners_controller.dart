@@ -54,7 +54,7 @@ final activeMinerLocationsProvider =
       ref.watch(gameEventManagerProvider),
       ref.watch(gameClockProvider),
       ref.watch(planetControllerProvider.notifier),
-      ActiveMiners(SyncedMap.loadSimpleSyncedMap<InstanceId, PlanetPoint>(
+      ActiveMiners(SyncedMap.loadSimpleSyncedMap<ItemInstanceId, PlanetPoint>(
           BoxKey.activeMiners)));
 });
 
@@ -121,8 +121,9 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
   final InventoryStateController _inventoryController;
 
   MinerInstancesNotifier(this._gameEventManager, this._inventoryController)
-      : super(Miners(SyncedMap.loadSimpleSyncedMap<InstanceId, MinerInstance>(
-            BoxKey.miners))) {
+      : super(Miners(
+            SyncedMap.loadSimpleSyncedMap<ItemInstanceId, MinerInstance>(
+                BoxKey.miners))) {
     _gameEventManager.streamForEventType<MinerEvent>().listen((event) {
       switch (event.type) {
         case MinerEventType.NEW_MINER:
@@ -141,7 +142,7 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     });
   }
 
-  MinerInstance? getMiner(InstanceId id) => state.miners[id];
+  MinerInstance? getMiner(ItemInstanceId id) => state.miners[id];
 
   void _createMinerEvent(MinerEvent event) {
     event as CreateMinerEvent;
@@ -150,7 +151,7 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
   }
 
   MinerInstance _createNewStoredMiner(MinerItemId minerId) => MinerInstance(
-      id: InstanceId.generate(),
+      id: ItemInstanceId.generate(),
       itemId: minerId,
       hopper: ItemContainer.empty());
 
@@ -173,7 +174,7 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     _updateMinerWithDrill(event.miner, null);
   }
 
-  void _updateMinerWithDrill(MinerInstance miner, ItemId? drill) {
+  void _updateMinerWithDrill(MinerInstance miner, ItemDefinitionId? drill) {
     state =
         state.rebuild(addOrUpdate: {miner.id: miner.copyWith(drillId: drill)});
   }

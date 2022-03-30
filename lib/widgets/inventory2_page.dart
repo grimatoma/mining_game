@@ -5,7 +5,6 @@ import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory/inventory2.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
 
 import 'status_bar_wrapped_page.dart';
 
@@ -39,7 +38,7 @@ class InventoryPageWidget2 extends HookConsumerWidget {
                   onPressed: () {
                     ref.read(inventoryStateProvider2.notifier).addItem(
                         ItemInstance.stackInstance(
-                            id: InstanceId.generate(),
+                            id: ItemInstanceId.generate(),
                             itemId: ItemKeys.CREDIT,
                             quantity: 45));
                   },
@@ -48,14 +47,13 @@ class InventoryPageWidget2 extends HookConsumerWidget {
                   onPressed: () {
                     ref.read(inventoryStateProvider2.notifier).addItem(
                         ItemInstance.minerInstance(
-                            id: InstanceId.generate(),
-                            itemId: const MinerItemId('MINER1'),
-                            hopper: ItemContainer.empty()));
+                            id: ItemInstanceId.generate(),
+                            itemId: const MinerItemId('MINER1')));
                   },
                   child: const Text('Add Miner')),
               TextButton(
                   onPressed: () {
-                    ref.read(inventoryStateProvider2.notifier).addItem(null);
+                    ref.read(inventoryStateProvider2.notifier).addSlots(1);
                   },
                   child: const Text('Add Empty slot')),
               TextButton(

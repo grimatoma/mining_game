@@ -10,23 +10,26 @@ part 'item_container.g.dart';
 @HiveType(typeId: 35)
 class ItemContainer {
   @HiveField(0)
-  final BuiltMap<ItemId, int> items;
+  final BuiltMap<ItemDefinitionId, int> items;
 
   ItemContainer(this.items);
-  factory ItemContainer.create(Map<ItemId, int> items) =>
+
+  factory ItemContainer.create(Map<ItemDefinitionId, int> items) =>
       ItemContainer(items.build());
-  factory ItemContainer.single(ItemId key, int quantity) =>
+
+  factory ItemContainer.single(ItemDefinitionId key, int quantity) =>
       ItemContainer({key: quantity}.build());
+
   ItemContainer.empty() : items = BuiltMap();
 
   ItemContainer rebuild(
-      Function(MapBuilder<ItemId, int>) itemInstancesUpdates) {
+      Function(MapBuilder<ItemDefinitionId, int>) itemInstancesUpdates) {
     return ItemContainer(items.rebuild(itemInstancesUpdates));
   }
 
   bool get hasNegative => items.values.any((element) => element < 0);
 
-  int get(ItemId itemKey) => items[itemKey] ?? 0;
+  int get(ItemDefinitionId itemKey) => items[itemKey] ?? 0;
 
   bool get empty => items.values.every((element) => element <= 0);
 

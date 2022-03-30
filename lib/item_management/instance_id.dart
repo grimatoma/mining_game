@@ -2,11 +2,12 @@ import 'dart:math';
 
 import 'package:hive/hive.dart';
 
-class InstanceId {
+class ItemInstanceId {
   final String _guid;
 
-  InstanceId.generate() : _guid = _generateId;
-  InstanceId._load(this._guid);
+  ItemInstanceId.generate() : _guid = _generateId;
+
+  ItemInstanceId._load(this._guid);
 
   @override
   int get hashCode => _guid.hashCode;
@@ -14,7 +15,7 @@ class InstanceId {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is InstanceId &&
+      other is ItemInstanceId &&
           runtimeType == other.runtimeType &&
           _guid == other._guid;
 
@@ -45,15 +46,16 @@ String get _generateId {
   return buffer.toString();
 }
 
-class InstanceIdAdapter extends TypeAdapter<InstanceId> {
+class InstanceIdAdapter extends TypeAdapter<ItemInstanceId> {
   @override
   final typeId = 31;
 
   @override
-  InstanceId read(BinaryReader reader) => InstanceId._load(reader.readString());
+  ItemInstanceId read(BinaryReader reader) =>
+      ItemInstanceId._load(reader.readString());
 
   @override
-  void write(BinaryWriter writer, InstanceId obj) {
+  void write(BinaryWriter writer, ItemInstanceId obj) {
     writer.writeString(obj._guid);
   }
 

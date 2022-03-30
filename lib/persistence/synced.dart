@@ -37,7 +37,7 @@ class SyncedListBuilder<K> {
     _listBuilder[index] = element;
   }
 
-  void add(value) {
+  void add(K value) {
     _box.add(value);
     _listBuilder.add(value);
   }

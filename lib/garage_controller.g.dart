@@ -17,7 +17,7 @@ class SlotStateMinerAdapter extends TypeAdapter<_$SlotWithMiner> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return _$SlotWithMiner(
-      minerId: fields[1] as InstanceId,
+      minerId: fields[1] as ItemInstanceId,
       index: fields[2] as int,
     );
   }

@@ -3,10 +3,10 @@
 import 'item_definition.dart';
 
 class ItemKeys {
-  static final ROCK = ItemId.itemId('ROCK');
-  static final SHARP_ROCK = ItemId.itemId('SHARP_ROCK');
-  static final IRON = ItemId.itemId('IRON');
-  static final COPPER = ItemId.itemId('COPPER');
-  static final TEST_DRILL = ItemId.itemId('TEST_DRILL');
-  static final CREDIT = ItemId.itemId('CREDIT');
+  static const ROCK = ItemDefinitionId.stackableItemId('ROCK');
+  static const SHARP_ROCK = ItemDefinitionId.stackableItemId('SHARP_ROCK');
+  static const IRON = ItemDefinitionId.stackableItemId('IRON');
+  static const COPPER = ItemDefinitionId.stackableItemId('COPPER');
+  static const TEST_DRILL = ItemDefinitionId.basicItemId('TEST_DRILL');
+  static const CREDIT = ItemDefinitionId.stackableItemId('CREDIT');
 }

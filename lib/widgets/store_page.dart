@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
 
@@ -27,9 +26,8 @@ class StorePageWidget extends HookConsumerWidget {
                 itemBuilder: (_, index) {
                   final listing = storeListings.listings[index];
                   return listing.map(
-                      buyItemStack: (l) => BuyItemStackSellingListingWidget(l),
-                      buyMiner: (l) => BuyMinerListingWidget(listing: l),
-                      sell: (l) => SellingListing(l));
+                      buyItems: (l) => BuyListingWidget(l),
+                      sellItems: (l) => SellingListing(l));
                 },
                 itemCount: storeListings.listings.length,
                 separatorBuilder: (_, __) => const Divider(),
@@ -38,40 +36,40 @@ class StorePageWidget extends HookConsumerWidget {
   }
 }
 
-class BuyItemStackSellingListingWidget extends ConsumerWidget {
-  final BuyItemStackShopListing listing;
-  const BuyItemStackSellingListingWidget(
-    this.listing, {
-    Key? key,
-  }) : super(key: key);
+// class BuyItemStackSellingListingWidget extends ConsumerWidget {
+//   final BuyItemStackShopListing listing;
+//   const BuyItemStackSellingListingWidget(
+//     this.listing, {
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final definition = listing.itemId.definition();
+//
+//     return ListingWidget(
+//       listingTitle: definition.name,
+//       listingDetails: Table(
+//         children: [
+//           TableRow(children: [
+//             ListingWidget.buildRowTitle('Description'),
+//             Text(definition.description),
+//           ]),
+//           TableRow(children: [
+//             ListingWidget.buildRowTitle('Quantity'),
+//             Text('${listing.quantity}'),
+//           ]),
+//         ],
+//       ),
+//       actionButton: BuyButton(listing),
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final definition = listing.itemId.definition();
+class BuyListingWidget extends ConsumerWidget {
+  final BuyShopListing listing;
 
-    return ListingWidget(
-      listingTitle: definition.name,
-      listingDetails: Table(
-        children: [
-          TableRow(children: [
-            ListingWidget.buildRowTitle('Description'),
-            Text(definition.description),
-          ]),
-          TableRow(children: [
-            ListingWidget.buildRowTitle('Quantity'),
-            Text('${listing.quantity}'),
-          ]),
-        ],
-      ),
-      actionButton: BuyButton(listing),
-    );
-  }
-}
-
-class BuyMinerListingWidget extends ConsumerWidget {
-  final BuyMinerShopListing listing;
-  const BuyMinerListingWidget({Key? key, required this.listing})
-      : super(key: key);
+  const BuyListingWidget(this.listing, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -100,7 +98,8 @@ class BuyMinerListingWidget extends ConsumerWidget {
 }
 
 class SellingListing extends ConsumerWidget {
-  final SellShopListing listing;
+  final SellItemsShopListing listing;
+
   const SellingListing(
     this.listing, {
     Key? key,
@@ -118,7 +117,7 @@ class SellingListing extends ConsumerWidget {
             ]),
           ],
         ),
-        actionButton: SellButton(listing));
+        actionButton: SellItemsButton(listing));
   }
 }
 
@@ -172,9 +171,10 @@ class ListingWidget extends ConsumerWidget {
 }
 
 class ShopButton extends ConsumerWidget {
-  final ItemContainer cost;
+  final ItemRequirement cost;
   final bool active;
   final void Function() onClick;
+
   const ShopButton({
     required this.cost,
     required this.active,
@@ -218,9 +218,10 @@ class BuyButton extends ConsumerWidget {
   }
 }
 
-class SellButton extends ConsumerWidget {
-  final SellShopListing listing;
-  const SellButton(
+class SellItemsButton extends ConsumerWidget {
+  final SellItemsShopListing listing;
+
+  const SellItemsButton(
     this.listing, {
     Key? key,
   }) : super(key: key);
@@ -230,10 +231,10 @@ class SellButton extends ConsumerWidget {
     final storeListingsController = ref.watch(storeControllerProvider.notifier);
 
     return ShopButton(
-        cost: listing.sellPrice,
-        active: storeListingsController.canSell(listing),
+        cost: listing.items,
+        active: storeListingsController.canSellItemListing(listing),
         onClick: () {
-          storeListingsController.clickListing(listing as ShopListing);
+          storeListingsController.clickListing(listing);
         });
   }
 }

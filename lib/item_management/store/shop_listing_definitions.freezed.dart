@@ -16,12 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
-    case 'buyItemStack':
-      return BuyItemStackShopListing.fromJson(json);
-    case 'buyMiner':
-      return BuyMinerShopListing.fromJson(json);
-    case 'sell':
-      return SellItemShopListing.fromJson(json);
+    case 'buyItems':
+      return BuyItemsShopListing.fromJson(json);
+    case 'sellItems':
+      return SellItemsShopListing.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'ShopListing',
@@ -33,44 +31,25 @@ ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
 class _$ShopListingTearOff {
   const _$ShopListingTearOff();
 
-  BuyItemStackShopListing buyItemStack(
+  BuyItemsShopListing buyItems(
       {required int id,
-      BuyingShopListingType type = BuyingShopListingType.ITEM_STACK,
-      required ItemContainer price,
+      required ItemRequirement price,
       bool consumable = true,
-      required ItemId itemId,
-      required int quantity}) {
-    return BuyItemStackShopListing(
+      required ItemInstanceGenerator generator}) {
+    return BuyItemsShopListing(
       id: id,
-      type: type,
       price: price,
       consumable: consumable,
-      itemId: itemId,
-      quantity: quantity,
+      generator: generator,
     );
   }
 
-  BuyMinerShopListing buyMiner(
-      {required int id,
-      BuyingShopListingType type = BuyingShopListingType.MINER,
-      required ItemContainer price,
-      bool consumable = true,
-      required MinerItemId minerId}) {
-    return BuyMinerShopListing(
-      id: id,
-      type: type,
-      price: price,
-      consumable: consumable,
-      minerId: minerId,
-    );
-  }
-
-  SellItemShopListing sell(
+  SellItemsShopListing sellItems(
       {required int id,
       bool consumable = true,
-      required ItemContainer sellPrice,
-      required ItemContainer items}) {
-    return SellItemShopListing(
+      required ItemInstanceGenerator sellPrice,
+      required ItemRequirement items}) {
+    return SellItemsShopListing(
       id: id,
       consumable: consumable,
       sellPrice: sellPrice,
@@ -93,63 +72,51 @@ mixin _$ShopListing {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemId itemId, int quantity)
-        buyItemStack,
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerItemId minerId)
-        buyMiner,
-    required TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)
-        sell,
+    required TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)
+        buyItems,
+    required TResult Function(int id, bool consumable,
+            ItemInstanceGenerator sellPrice, ItemRequirement items)
+        sellItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
+    TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)?
+        buyItems,
+    TResult Function(int id, bool consumable, ItemInstanceGenerator sellPrice,
+            ItemRequirement items)?
+        sellItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
+    TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)?
+        buyItems,
+    TResult Function(int id, bool consumable, ItemInstanceGenerator sellPrice,
+            ItemRequirement items)?
+        sellItems,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BuyItemStackShopListing value) buyItemStack,
-    required TResult Function(BuyMinerShopListing value) buyMiner,
-    required TResult Function(SellItemShopListing value) sell,
+    required TResult Function(BuyItemsShopListing value) buyItems,
+    required TResult Function(SellItemsShopListing value) sellItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
+    TResult Function(BuyItemsShopListing value)? buyItems,
+    TResult Function(SellItemsShopListing value)? sellItems,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
+    TResult Function(BuyItemsShopListing value)? buyItems,
+    TResult Function(SellItemsShopListing value)? sellItems,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -194,322 +161,54 @@ class _$ShopListingCopyWithImpl<$Res> implements $ShopListingCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $BuyItemStackShopListingCopyWith<$Res>
+abstract class $BuyItemsShopListingCopyWith<$Res>
     implements $ShopListingCopyWith<$Res> {
-  factory $BuyItemStackShopListingCopyWith(BuyItemStackShopListing value,
-          $Res Function(BuyItemStackShopListing) then) =
-      _$BuyItemStackShopListingCopyWithImpl<$Res>;
+  factory $BuyItemsShopListingCopyWith(
+          BuyItemsShopListing value, $Res Function(BuyItemsShopListing) then) =
+      _$BuyItemsShopListingCopyWithImpl<$Res>;
   @override
   $Res call(
       {int id,
-      BuyingShopListingType type,
-      ItemContainer price,
+      ItemRequirement price,
       bool consumable,
-      ItemId itemId,
-      int quantity});
-
-  $ItemIdCopyWith<$Res> get itemId;
+      ItemInstanceGenerator generator});
 }
 
 /// @nodoc
-class _$BuyItemStackShopListingCopyWithImpl<$Res>
+class _$BuyItemsShopListingCopyWithImpl<$Res>
     extends _$ShopListingCopyWithImpl<$Res>
-    implements $BuyItemStackShopListingCopyWith<$Res> {
-  _$BuyItemStackShopListingCopyWithImpl(BuyItemStackShopListing _value,
-      $Res Function(BuyItemStackShopListing) _then)
-      : super(_value, (v) => _then(v as BuyItemStackShopListing));
+    implements $BuyItemsShopListingCopyWith<$Res> {
+  _$BuyItemsShopListingCopyWithImpl(
+      BuyItemsShopListing _value, $Res Function(BuyItemsShopListing) _then)
+      : super(_value, (v) => _then(v as BuyItemsShopListing));
 
   @override
-  BuyItemStackShopListing get _value => super._value as BuyItemStackShopListing;
+  BuyItemsShopListing get _value => super._value as BuyItemsShopListing;
 
   @override
   $Res call({
     Object? id = freezed,
-    Object? type = freezed,
     Object? price = freezed,
     Object? consumable = freezed,
-    Object? itemId = freezed,
-    Object? quantity = freezed,
+    Object? generator = freezed,
   }) {
-    return _then(BuyItemStackShopListing(
+    return _then(BuyItemsShopListing(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as BuyingShopListingType,
       price: price == freezed
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as ItemContainer,
+              as ItemRequirement,
       consumable: consumable == freezed
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
               as bool,
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemId,
-      quantity: quantity == freezed
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-
-  @override
-  $ItemIdCopyWith<$Res> get itemId {
-    return $ItemIdCopyWith<$Res>(_value.itemId, (value) {
-      return _then(_value.copyWith(itemId: value));
-    });
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-@Implements<BuyShopListing>()
-class _$BuyItemStackShopListing implements BuyItemStackShopListing {
-  const _$BuyItemStackShopListing(
-      {required this.id,
-      this.type = BuyingShopListingType.ITEM_STACK,
-      required this.price,
-      this.consumable = true,
-      required this.itemId,
-      required this.quantity,
-      String? $type})
-      : $type = $type ?? 'buyItemStack';
-
-  factory _$BuyItemStackShopListing.fromJson(Map<String, dynamic> json) =>
-      _$$BuyItemStackShopListingFromJson(json);
-
-  @override
-  final int id;
-  @JsonKey()
-  @override
-  final BuyingShopListingType type;
-  @override
-  final ItemContainer price;
-  @JsonKey()
-  @override
-  final bool consumable;
-  @override
-  final ItemId itemId;
-  @override
-  final int quantity;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ShopListing.buyItemStack(id: $id, type: $type, price: $price, consumable: $consumable, itemId: $itemId, quantity: $quantity)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is BuyItemStackShopListing &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.price, price) &&
-            const DeepCollectionEquality()
-                .equals(other.consumable, consumable) &&
-            const DeepCollectionEquality().equals(other.itemId, itemId) &&
-            const DeepCollectionEquality().equals(other.quantity, quantity));
-  }
-
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(price),
-      const DeepCollectionEquality().hash(consumable),
-      const DeepCollectionEquality().hash(itemId),
-      const DeepCollectionEquality().hash(quantity));
-
-  @JsonKey(ignore: true)
-  @override
-  $BuyItemStackShopListingCopyWith<BuyItemStackShopListing> get copyWith =>
-      _$BuyItemStackShopListingCopyWithImpl<BuyItemStackShopListing>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemId itemId, int quantity)
-        buyItemStack,
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerItemId minerId)
-        buyMiner,
-    required TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)
-        sell,
-  }) {
-    return buyItemStack(id, type, price, consumable, itemId, quantity);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
-  }) {
-    return buyItemStack?.call(id, type, price, consumable, itemId, quantity);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
-    required TResult orElse(),
-  }) {
-    if (buyItemStack != null) {
-      return buyItemStack(id, type, price, consumable, itemId, quantity);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BuyItemStackShopListing value) buyItemStack,
-    required TResult Function(BuyMinerShopListing value) buyMiner,
-    required TResult Function(SellItemShopListing value) sell,
-  }) {
-    return buyItemStack(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
-  }) {
-    return buyItemStack?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
-    required TResult orElse(),
-  }) {
-    if (buyItemStack != null) {
-      return buyItemStack(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BuyItemStackShopListingToJson(this);
-  }
-}
-
-abstract class BuyItemStackShopListing implements ShopListing, BuyShopListing {
-  const factory BuyItemStackShopListing(
-      {required int id,
-      BuyingShopListingType type,
-      required ItemContainer price,
-      bool consumable,
-      required ItemId itemId,
-      required int quantity}) = _$BuyItemStackShopListing;
-
-  factory BuyItemStackShopListing.fromJson(Map<String, dynamic> json) =
-      _$BuyItemStackShopListing.fromJson;
-
-  @override
-  int get id;
-  BuyingShopListingType get type;
-  ItemContainer get price;
-  @override
-  bool get consumable;
-  ItemId get itemId;
-  int get quantity;
-  @override
-  @JsonKey(ignore: true)
-  $BuyItemStackShopListingCopyWith<BuyItemStackShopListing> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $BuyMinerShopListingCopyWith<$Res>
-    implements $ShopListingCopyWith<$Res> {
-  factory $BuyMinerShopListingCopyWith(
-          BuyMinerShopListing value, $Res Function(BuyMinerShopListing) then) =
-      _$BuyMinerShopListingCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {int id,
-      BuyingShopListingType type,
-      ItemContainer price,
-      bool consumable,
-      MinerItemId minerId});
-}
-
-/// @nodoc
-class _$BuyMinerShopListingCopyWithImpl<$Res>
-    extends _$ShopListingCopyWithImpl<$Res>
-    implements $BuyMinerShopListingCopyWith<$Res> {
-  _$BuyMinerShopListingCopyWithImpl(
-      BuyMinerShopListing _value, $Res Function(BuyMinerShopListing) _then)
-      : super(_value, (v) => _then(v as BuyMinerShopListing));
-
-  @override
-  BuyMinerShopListing get _value => super._value as BuyMinerShopListing;
-
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? type = freezed,
-    Object? price = freezed,
-    Object? consumable = freezed,
-    Object? minerId = freezed,
-  }) {
-    return _then(BuyMinerShopListing(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      type: type == freezed
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as BuyingShopListingType,
-      price: price == freezed
-          ? _value.price
-          : price // ignore: cast_nullable_to_non_nullable
-              as ItemContainer,
-      consumable: consumable == freezed
-          ? _value.consumable
-          : consumable // ignore: cast_nullable_to_non_nullable
-              as bool,
-      minerId: minerId == freezed
-          ? _value.minerId
-          : minerId // ignore: cast_nullable_to_non_nullable
-              as MinerItemId,
+      generator: generator == freezed
+          ? _value.generator
+          : generator // ignore: cast_nullable_to_non_nullable
+              as ItemInstanceGenerator,
     ));
   }
 }
@@ -517,115 +216,100 @@ class _$BuyMinerShopListingCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @Implements<BuyShopListing>()
-class _$BuyMinerShopListing implements BuyMinerShopListing {
-  const _$BuyMinerShopListing(
+class _$BuyItemsShopListing implements BuyItemsShopListing {
+  const _$BuyItemsShopListing(
       {required this.id,
-      this.type = BuyingShopListingType.MINER,
       required this.price,
       this.consumable = true,
-      required this.minerId,
+      required this.generator,
       String? $type})
-      : $type = $type ?? 'buyMiner';
+      : $type = $type ?? 'buyItems';
 
-  factory _$BuyMinerShopListing.fromJson(Map<String, dynamic> json) =>
-      _$$BuyMinerShopListingFromJson(json);
+  factory _$BuyItemsShopListing.fromJson(Map<String, dynamic> json) =>
+      _$$BuyItemsShopListingFromJson(json);
 
   @override
   final int id;
-  @JsonKey()
   @override
-  final BuyingShopListingType type;
-  @override
-  final ItemContainer price;
+  final ItemRequirement price;
   @JsonKey()
   @override
   final bool consumable;
   @override
-  final MinerItemId minerId;
+  final ItemInstanceGenerator generator;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'ShopListing.buyMiner(id: $id, type: $type, price: $price, consumable: $consumable, minerId: $minerId)';
+    return 'ShopListing.buyItems(id: $id, price: $price, consumable: $consumable, generator: $generator)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is BuyMinerShopListing &&
+            other is BuyItemsShopListing &&
             const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
             const DeepCollectionEquality().equals(other.price, price) &&
             const DeepCollectionEquality()
                 .equals(other.consumable, consumable) &&
-            const DeepCollectionEquality().equals(other.minerId, minerId));
+            const DeepCollectionEquality().equals(other.generator, generator));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(type),
       const DeepCollectionEquality().hash(price),
       const DeepCollectionEquality().hash(consumable),
-      const DeepCollectionEquality().hash(minerId));
+      const DeepCollectionEquality().hash(generator));
 
   @JsonKey(ignore: true)
   @override
-  $BuyMinerShopListingCopyWith<BuyMinerShopListing> get copyWith =>
-      _$BuyMinerShopListingCopyWithImpl<BuyMinerShopListing>(this, _$identity);
+  $BuyItemsShopListingCopyWith<BuyItemsShopListing> get copyWith =>
+      _$BuyItemsShopListingCopyWithImpl<BuyItemsShopListing>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemId itemId, int quantity)
-        buyItemStack,
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerItemId minerId)
-        buyMiner,
-    required TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)
-        sell,
+    required TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)
+        buyItems,
+    required TResult Function(int id, bool consumable,
+            ItemInstanceGenerator sellPrice, ItemRequirement items)
+        sellItems,
   }) {
-    return buyMiner(id, type, price, consumable, minerId);
+    return buyItems(id, price, consumable, generator);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
+    TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)?
+        buyItems,
+    TResult Function(int id, bool consumable, ItemInstanceGenerator sellPrice,
+            ItemRequirement items)?
+        sellItems,
   }) {
-    return buyMiner?.call(id, type, price, consumable, minerId);
+    return buyItems?.call(id, price, consumable, generator);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
+    TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)?
+        buyItems,
+    TResult Function(int id, bool consumable, ItemInstanceGenerator sellPrice,
+            ItemRequirement items)?
+        sellItems,
     required TResult orElse(),
   }) {
-    if (buyMiner != null) {
-      return buyMiner(id, type, price, consumable, minerId);
+    if (buyItems != null) {
+      return buyItems(id, price, consumable, generator);
     }
     return orElse();
   }
@@ -633,88 +317,86 @@ class _$BuyMinerShopListing implements BuyMinerShopListing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BuyItemStackShopListing value) buyItemStack,
-    required TResult Function(BuyMinerShopListing value) buyMiner,
-    required TResult Function(SellItemShopListing value) sell,
+    required TResult Function(BuyItemsShopListing value) buyItems,
+    required TResult Function(SellItemsShopListing value) sellItems,
   }) {
-    return buyMiner(this);
+    return buyItems(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
+    TResult Function(BuyItemsShopListing value)? buyItems,
+    TResult Function(SellItemsShopListing value)? sellItems,
   }) {
-    return buyMiner?.call(this);
+    return buyItems?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
+    TResult Function(BuyItemsShopListing value)? buyItems,
+    TResult Function(SellItemsShopListing value)? sellItems,
     required TResult orElse(),
   }) {
-    if (buyMiner != null) {
-      return buyMiner(this);
+    if (buyItems != null) {
+      return buyItems(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BuyMinerShopListingToJson(this);
+    return _$$BuyItemsShopListingToJson(this);
   }
 }
 
-abstract class BuyMinerShopListing implements ShopListing, BuyShopListing {
-  const factory BuyMinerShopListing(
+abstract class BuyItemsShopListing implements ShopListing, BuyShopListing {
+  const factory BuyItemsShopListing(
       {required int id,
-      BuyingShopListingType type,
-      required ItemContainer price,
+      required ItemRequirement price,
       bool consumable,
-      required MinerItemId minerId}) = _$BuyMinerShopListing;
+      required ItemInstanceGenerator generator}) = _$BuyItemsShopListing;
 
-  factory BuyMinerShopListing.fromJson(Map<String, dynamic> json) =
-      _$BuyMinerShopListing.fromJson;
+  factory BuyItemsShopListing.fromJson(Map<String, dynamic> json) =
+      _$BuyItemsShopListing.fromJson;
 
   @override
   int get id;
-  BuyingShopListingType get type;
-  ItemContainer get price;
+  ItemRequirement get price;
   @override
   bool get consumable;
-  MinerItemId get minerId;
+  ItemInstanceGenerator get generator;
   @override
   @JsonKey(ignore: true)
-  $BuyMinerShopListingCopyWith<BuyMinerShopListing> get copyWith =>
+  $BuyItemsShopListingCopyWith<BuyItemsShopListing> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $SellItemShopListingCopyWith<$Res>
+abstract class $SellItemsShopListingCopyWith<$Res>
     implements $ShopListingCopyWith<$Res> {
-  factory $SellItemShopListingCopyWith(
-          SellItemShopListing value, $Res Function(SellItemShopListing) then) =
-      _$SellItemShopListingCopyWithImpl<$Res>;
+  factory $SellItemsShopListingCopyWith(SellItemsShopListing value,
+          $Res Function(SellItemsShopListing) then) =
+      _$SellItemsShopListingCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id, bool consumable, ItemContainer sellPrice, ItemContainer items});
+      {int id,
+      bool consumable,
+      ItemInstanceGenerator sellPrice,
+      ItemRequirement items});
 }
 
 /// @nodoc
-class _$SellItemShopListingCopyWithImpl<$Res>
+class _$SellItemsShopListingCopyWithImpl<$Res>
     extends _$ShopListingCopyWithImpl<$Res>
-    implements $SellItemShopListingCopyWith<$Res> {
-  _$SellItemShopListingCopyWithImpl(
-      SellItemShopListing _value, $Res Function(SellItemShopListing) _then)
-      : super(_value, (v) => _then(v as SellItemShopListing));
+    implements $SellItemsShopListingCopyWith<$Res> {
+  _$SellItemsShopListingCopyWithImpl(
+      SellItemsShopListing _value, $Res Function(SellItemsShopListing) _then)
+      : super(_value, (v) => _then(v as SellItemsShopListing));
 
   @override
-  SellItemShopListing get _value => super._value as SellItemShopListing;
+  SellItemsShopListing get _value => super._value as SellItemsShopListing;
 
   @override
   $Res call({
@@ -723,7 +405,7 @@ class _$SellItemShopListingCopyWithImpl<$Res>
     Object? sellPrice = freezed,
     Object? items = freezed,
   }) {
-    return _then(SellItemShopListing(
+    return _then(SellItemsShopListing(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -735,11 +417,11 @@ class _$SellItemShopListingCopyWithImpl<$Res>
       sellPrice: sellPrice == freezed
           ? _value.sellPrice
           : sellPrice // ignore: cast_nullable_to_non_nullable
-              as ItemContainer,
+              as ItemInstanceGenerator,
       items: items == freezed
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as ItemContainer,
+              as ItemRequirement,
     ));
   }
 }
@@ -747,17 +429,17 @@ class _$SellItemShopListingCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @Implements<SellShopListing>()
-class _$SellItemShopListing implements SellItemShopListing {
-  const _$SellItemShopListing(
+class _$SellItemsShopListing implements SellItemsShopListing {
+  const _$SellItemsShopListing(
       {required this.id,
       this.consumable = true,
       required this.sellPrice,
       required this.items,
       String? $type})
-      : $type = $type ?? 'sell';
+      : $type = $type ?? 'sellItems';
 
-  factory _$SellItemShopListing.fromJson(Map<String, dynamic> json) =>
-      _$$SellItemShopListingFromJson(json);
+  factory _$SellItemsShopListing.fromJson(Map<String, dynamic> json) =>
+      _$$SellItemsShopListingFromJson(json);
 
   @override
   final int id;
@@ -765,23 +447,23 @@ class _$SellItemShopListing implements SellItemShopListing {
   @override
   final bool consumable;
   @override
-  final ItemContainer sellPrice;
+  final ItemInstanceGenerator sellPrice;
   @override
-  final ItemContainer items;
+  final ItemRequirement items;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'ShopListing.sell(id: $id, consumable: $consumable, sellPrice: $sellPrice, items: $items)';
+    return 'ShopListing.sellItems(id: $id, consumable: $consumable, sellPrice: $sellPrice, items: $items)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is SellItemShopListing &&
+            other is SellItemsShopListing &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality()
                 .equals(other.consumable, consumable) &&
@@ -799,57 +481,49 @@ class _$SellItemShopListing implements SellItemShopListing {
 
   @JsonKey(ignore: true)
   @override
-  $SellItemShopListingCopyWith<SellItemShopListing> get copyWith =>
-      _$SellItemShopListingCopyWithImpl<SellItemShopListing>(this, _$identity);
+  $SellItemsShopListingCopyWith<SellItemsShopListing> get copyWith =>
+      _$SellItemsShopListingCopyWithImpl<SellItemsShopListing>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, ItemId itemId, int quantity)
-        buyItemStack,
-    required TResult Function(int id, BuyingShopListingType type,
-            ItemContainer price, bool consumable, MinerItemId minerId)
-        buyMiner,
-    required TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)
-        sell,
+    required TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)
+        buyItems,
+    required TResult Function(int id, bool consumable,
+            ItemInstanceGenerator sellPrice, ItemRequirement items)
+        sellItems,
   }) {
-    return sell(id, consumable, sellPrice, items);
+    return sellItems(id, consumable, sellPrice, items);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
+    TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)?
+        buyItems,
+    TResult Function(int id, bool consumable, ItemInstanceGenerator sellPrice,
+            ItemRequirement items)?
+        sellItems,
   }) {
-    return sell?.call(id, consumable, sellPrice, items);
+    return sellItems?.call(id, consumable, sellPrice, items);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, ItemId itemId, int quantity)?
-        buyItemStack,
-    TResult Function(int id, BuyingShopListingType type, ItemContainer price,
-            bool consumable, MinerItemId minerId)?
-        buyMiner,
-    TResult Function(int id, bool consumable, ItemContainer sellPrice,
-            ItemContainer items)?
-        sell,
+    TResult Function(int id, ItemRequirement price, bool consumable,
+            ItemInstanceGenerator generator)?
+        buyItems,
+    TResult Function(int id, bool consumable, ItemInstanceGenerator sellPrice,
+            ItemRequirement items)?
+        sellItems,
     required TResult orElse(),
   }) {
-    if (sell != null) {
-      return sell(id, consumable, sellPrice, items);
+    if (sellItems != null) {
+      return sellItems(id, consumable, sellPrice, items);
     }
     return orElse();
   }
@@ -857,61 +531,58 @@ class _$SellItemShopListing implements SellItemShopListing {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(BuyItemStackShopListing value) buyItemStack,
-    required TResult Function(BuyMinerShopListing value) buyMiner,
-    required TResult Function(SellItemShopListing value) sell,
+    required TResult Function(BuyItemsShopListing value) buyItems,
+    required TResult Function(SellItemsShopListing value) sellItems,
   }) {
-    return sell(this);
+    return sellItems(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
+    TResult Function(BuyItemsShopListing value)? buyItems,
+    TResult Function(SellItemsShopListing value)? sellItems,
   }) {
-    return sell?.call(this);
+    return sellItems?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(BuyItemStackShopListing value)? buyItemStack,
-    TResult Function(BuyMinerShopListing value)? buyMiner,
-    TResult Function(SellItemShopListing value)? sell,
+    TResult Function(BuyItemsShopListing value)? buyItems,
+    TResult Function(SellItemsShopListing value)? sellItems,
     required TResult orElse(),
   }) {
-    if (sell != null) {
-      return sell(this);
+    if (sellItems != null) {
+      return sellItems(this);
     }
     return orElse();
   }
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SellItemShopListingToJson(this);
+    return _$$SellItemsShopListingToJson(this);
   }
 }
 
-abstract class SellItemShopListing implements ShopListing, SellShopListing {
-  const factory SellItemShopListing(
+abstract class SellItemsShopListing implements ShopListing, SellShopListing {
+  const factory SellItemsShopListing(
       {required int id,
       bool consumable,
-      required ItemContainer sellPrice,
-      required ItemContainer items}) = _$SellItemShopListing;
+      required ItemInstanceGenerator sellPrice,
+      required ItemRequirement items}) = _$SellItemsShopListing;
 
-  factory SellItemShopListing.fromJson(Map<String, dynamic> json) =
-      _$SellItemShopListing.fromJson;
+  factory SellItemsShopListing.fromJson(Map<String, dynamic> json) =
+      _$SellItemsShopListing.fromJson;
 
   @override
   int get id;
   @override
   bool get consumable;
-  ItemContainer get sellPrice;
-  ItemContainer get items;
+  ItemInstanceGenerator get sellPrice;
+  ItemRequirement get items;
   @override
   @JsonKey(ignore: true)
-  $SellItemShopListingCopyWith<SellItemShopListing> get copyWith =>
+  $SellItemsShopListingCopyWith<SellItemsShopListing> get copyWith =>
       throw _privateConstructorUsedError;
 }

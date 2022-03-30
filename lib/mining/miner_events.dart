@@ -66,7 +66,7 @@ class DrillAttachEvent extends MinerEvent {
   @override
   final type = MinerEventType.DRILL_ATTACH;
 
-  final ItemId drillId;
+  final ItemDefinitionId drillId;
   final MinerInstance miner;
 
   DrillAttachEvent({required this.miner, required this.drillId});

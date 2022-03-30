@@ -17,7 +17,7 @@ class ItemContainerAdapter extends TypeAdapter<ItemContainer> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ItemContainer(
-      fields[0] as BuiltMap<ItemId, int>,
+      fields[0] as BuiltMap<ItemDefinitionId, int>,
     );
   }
 

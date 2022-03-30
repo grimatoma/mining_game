@@ -3,47 +3,57 @@ part of 'item_definition.dart';
 abstract class BaseItemInstance {
   const BaseItemInstance();
 
-  InstanceId get id;
-  ItemId get itemId;
+  ItemInstanceId get id;
+
+  ItemDefinitionId get itemId;
 }
 
 @freezed
 class ItemInstance extends BaseItemInstance with _$ItemInstance {
   const ItemInstance._();
 
-  factory ItemInstance.exampleInstance({
-    @HiveField(0) required InstanceId id,
-    @HiveField(1) required ItemId itemId,
-  }) = ExampleInstance;
+  // factory ItemInstance.exampleInstance({
+  //   @HiveField(0) required ItemInstanceId id,
+  //   @HiveField(1) required ItemDefinitionId itemId,
+  // }) = ExampleInstance;
+
+  @HiveType(typeId: 10, adapterName: 'BasicInstanceAdapter')
+  @Assert('itemId is BasicItemId', 'Must use a BasicItemId')
+  @With<MinerMethods>()
+  factory ItemInstance.basicInstance({
+    @HiveField(0) required ItemInstanceId id,
+    @HiveField(1) required ItemDefinitionId itemId,
+  }) = BasicInstance;
 
   @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
   @Assert('itemId is MinerItemId', 'Must use a MinerItemId')
   // @With<InstanceDefinition<MinerDefinition>>()
   @With<MinerMethods>()
   factory ItemInstance.minerInstance({
-    @HiveField(0) required InstanceId id,
-    @HiveField(1) required ItemId itemId,
-    @HiveField(2) ItemId? drillId,
-    @HiveField(4) required ItemContainer hopper,
+    @HiveField(0) required ItemInstanceId id,
+    @HiveField(1) required ItemDefinitionId itemId,
+    @HiveField(2) ItemDefinitionId? drillId,
+    // @HiveField(4) required ItemContainer hopper,
   }) = MinerInstance;
 
   @HiveType(typeId: 72, adapterName: 'StackInstanceAdapter')
   @With<StackMethods>()
-  // @Assert('itemId is StackableItemId', 'Must use a StackableItemId')
+  @Assert('itemId is StackableItemId', 'Must use a StackableItemId')
   factory ItemInstance.stackInstance({
-    @HiveField(0) required InstanceId id,
-    @HiveField(1) required ItemId itemId,
+    @HiveField(0) required ItemInstanceId id,
+    @HiveField(1) required ItemDefinitionId itemId,
     @HiveField(2) required int quantity,
   }) = StackInstance;
 }
 
 abstract class InstanceDefinition<T extends ItemDefinition> {
-  ItemId get itemId;
+  ItemDefinitionId get itemId;
+
   T get definition => itemId.definition<T>();
 }
 
 abstract class MinerMethods implements InstanceDefinition<MinerDefinition> {
-  ItemId? get drillId;
+  ItemDefinitionId? get drillId;
 
   DrillDefinition? get _drill => drillId?.definition<DrillDefinition>();
   @override
@@ -62,24 +72,65 @@ abstract class StackMethods {
 
   StackInstance operator +(int amount) => copyWith(quantity: quantity + amount);
   StackInstance operator -(int amount) => copyWith(quantity: quantity - amount);
+
   int meow() => 3;
 }
 
-// A container that wants 5 coal?
+@HiveType(typeId: 81)
+class ItemInstanceGenerator {
+  @HiveField(0)
+  final BuiltMap<ItemDefinitionId, int> items;
 
+  ItemInstanceGenerator(this.items);
+
+  BuiltList<ItemInstance> generate() {
+    return <ItemInstance>[
+      for (final entry in items.entries)
+        ...entry.key.map(
+          basicItemId: (_) => [
+            for (var i = 0; i < entry.value; i++)
+              BasicInstance(id: ItemInstanceId.generate(), itemId: entry.key)
+          ],
+          minerItemId: (_) => [
+            for (var i = 0; i < entry.value; i++)
+              MinerInstance(id: ItemInstanceId.generate(), itemId: entry.key)
+          ],
+          stackableItemId: (_) => [
+            StackInstance(
+                id: ItemInstanceId.generate(),
+                itemId: entry.key,
+                quantity: entry.value)
+          ],
+        )
+    ].build();
+  }
+
+  factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) =>
+      ItemInstanceGenerator({
+        for (final item in json.entries)
+          ItemDirectory.loadIdFromDb(item.key): item.value as int,
+      }.build());
+
+  Map<String, dynamic> toJson() => {
+        for (final item in items.entries) item.key.toString(): item.value,
+      };
+}
+
+@HiveType(typeId: 82)
 class ItemRequirement {
-  final BuiltMap<ItemId, int> requiredAmount;
+  @HiveField(0)
+  final BuiltMap<ItemDefinitionId, int> requiredItems;
 
-  ItemRequirement(this.requiredAmount);
+  ItemRequirement(this.requiredItems);
 
-  bool meetsRequirement(Iterable<ItemInstance?> items) {
-    if (requiredAmount.isEmpty) return true;
+  bool meetsRequirement(Iterable<ItemInstance?> existingItems) {
+    if (requiredItems.isEmpty) return true;
 
-    final remaining = requiredAmount.toMap();
-    for (final item in items) {
+    final remainingRequiredItems = requiredItems.toMap();
+    for (final item in existingItems) {
       if (item != null) {
         final id = item.itemId;
-        if (remaining.containsKey(id)) {
+        if (remainingRequiredItems.containsKey(id)) {
           int count;
           if (item is StackInstance) {
             count = item.quantity;
@@ -87,16 +138,27 @@ class ItemRequirement {
             count = 1;
           }
 
-          final newCount = remaining[id]! - count;
-          if (newCount > 0) {
-            remaining[id] = newCount;
+          final newRemainingCount = remainingRequiredItems[id]! - count;
+          if (newRemainingCount > 0) {
+            remainingRequiredItems[id] = newRemainingCount;
           } else {
-            remaining.remove(id);
-            if (remaining.isEmpty) return true;
+            remainingRequiredItems.remove(id);
+            if (remainingRequiredItems.isEmpty) return true;
           }
         }
       }
     }
     return false;
   }
+
+  factory ItemRequirement.fromJson(Map<String, dynamic> json) =>
+      ItemRequirement({
+        for (final item in json.entries)
+          ItemDirectory.loadIdFromDb(item.key): item.value as int,
+      }.build());
+
+  Map<String, dynamic> toJson() => {
+        for (final item in requiredItems.entries)
+          item.key.toString(): item.value,
+      };
 }

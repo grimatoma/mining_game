@@ -49,7 +49,7 @@ class GarageState with _$GarageState {
 class SlotState with _$SlotState {
   @HiveType(typeId: 43, adapterName: 'SlotStateMinerAdapter')
   const factory SlotState.withMiner(
-      {@HiveField(1) required InstanceId minerId,
+      {@HiveField(1) required ItemInstanceId minerId,
       @HiveField(2) required int index}) = SlotWithMiner;
   @HiveType(typeId: 44, adapterName: 'SlotStateLockedAdapter')
   const factory SlotState.locked({@HiveField(2) required int index}) =
@@ -97,7 +97,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
     }
   }
 
-  void _addMinerToSlot(EmptySlot slot, InstanceId minerId) {
+  void _addMinerToSlot(EmptySlot slot, ItemInstanceId minerId) {
     state = state.rebuild(addOrUpdate: {
       slot.index: SlotWithMiner(minerId: minerId, index: slot.index)
     });

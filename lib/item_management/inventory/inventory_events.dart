@@ -14,7 +14,7 @@ abstract class InventoryEvent extends GameEvent<InventoryEventType> {
 class AddItemInventoryEvent extends InventoryEvent {
   @override
   final type = InventoryEventType.ADD_ITEM;
-  final ItemId itemId;
+  final ItemDefinitionId itemId;
   final int quantity;
 
   const AddItemInventoryEvent({required this.itemId, required this.quantity});
@@ -31,7 +31,7 @@ class AddItemsInventoryEvent extends InventoryEvent {
 class RemoveItemInventoryEvent extends InventoryEvent {
   @override
   final type = InventoryEventType.REMOVE_ITEM;
-  final ItemId key;
+  final ItemDefinitionId key;
   final int quantity;
 
   const RemoveItemInventoryEvent({required this.key, required this.quantity});

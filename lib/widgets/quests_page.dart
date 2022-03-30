@@ -85,7 +85,8 @@ class QuestListDetail extends ConsumerWidget {
       ]);
     }
 
-    TableRow getItemRequiredStatus(MapEntry<ItemId, int> itemRequired) {
+    TableRow getItemRequiredStatus(
+        MapEntry<ItemDefinitionId, int> itemRequired) {
       final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
       final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);
@@ -100,7 +101,7 @@ class QuestListDetail extends ConsumerWidget {
       ]);
     }
 
-    TableRow getItemOwnedStatus(MapEntry<ItemId, int> itemRequired) {
+    TableRow getItemOwnedStatus(MapEntry<ItemDefinitionId, int> itemRequired) {
       final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
       final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);

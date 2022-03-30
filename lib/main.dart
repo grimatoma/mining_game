@@ -31,7 +31,7 @@ void main() async {
   Hive.registerAdapter(ItemContainerAdapter());
   Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(InstanceIdAdapter());
-  Hive.registerAdapter(BuiltMapAdapter<ItemId, int>(32));
+  Hive.registerAdapter(BuiltMapAdapter<ItemDefinitionId, int>(32));
   Hive.registerAdapter(PlanetTileAdapter());
   Hive.registerAdapter(PlanetPointAdapter());
   Hive.registerAdapter(PlanetAdapter());

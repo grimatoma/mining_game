@@ -6,15 +6,15 @@ import 'package:flutter/services.dart';
 import 'item_definition.dart';
 
 class ItemDirectory {
-  static BuiltMap<ItemId, ItemDefinition> _allItems = BuiltMap();
-  static BuiltMap<String, ItemId>? _loadItemsFromDbMapping;
+  static BuiltMap<ItemDefinitionId, ItemDefinition> _allItems = BuiltMap();
+  static BuiltMap<String, ItemDefinitionId>? _loadItemsFromDbMapping;
 
   static Future<void> init() async {
-    final miners = await parseJsonMap<ItemId, ItemDefinition>(
+    final miners = await parseJsonMap<ItemDefinitionId, ItemDefinition>(
         'assets/json/miners.json',
         ItemDefinition.fromJson,
         (miner) => miner.id);
-    final items = await parseJsonMap<ItemId, ItemDefinition>(
+    final items = await parseJsonMap<ItemDefinitionId, ItemDefinition>(
         'assets/json/items.json', ItemDefinition.fromJson, (item) => item.id);
     _allItems = _allItems.rebuild((p0) => p0
       ..addAll(miners.toMap())
@@ -45,6 +45,8 @@ class ItemDirectory {
     return m.build();
   }
 
-  static ItemDefinition getItem(ItemId id) => _allItems[id]!;
-  static ItemId loadIdFromDb(String id) => _loadItemsFromDbMapping![id]!;
+  static ItemDefinition getItem(ItemDefinitionId id) => _allItems[id]!;
+
+  static ItemDefinitionId loadIdFromDb(String id) =>
+      _loadItemsFromDbMapping![id]!;
 }

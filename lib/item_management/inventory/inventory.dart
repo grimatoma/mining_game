@@ -49,7 +49,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
     });
   }
 
-  void _addItem(ItemId itemId, int quantity) =>
+  void _addItem(ItemDefinitionId itemId, int quantity) =>
       _add(ItemContainer.single(itemId, quantity));
 
   void _add(ItemContainer container) async {
@@ -67,7 +67,7 @@ class InventoryStateController extends StateNotifier<ItemContainer> {
         mappedItems.map((key, value) => MapEntry(key.toString(), value)));
   }
 
-  int get(ItemId key) => state.items[key] ?? 0;
+  int get(ItemDefinitionId key) => state.items[key] ?? 0;
 
   bool canRemove(ItemContainer container) =>
       !container.items.entries.any((entry) => get(entry.key) - entry.value < 0);

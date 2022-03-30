@@ -30,17 +30,52 @@ class InventoryStateController2 extends StateNotifier<Inventory> {
     state = state.rebuild((p0) => p0.clear());
   }
 
-  void addItem(ItemInstance? instance) {
-    state = state.rebuild((p0) => p0.add(instance));
+  void addSlots(int count) {
+    state = state.rebuild((p0) => p0.addAll([
+          for (int i = 0; i < count; i++) null,
+        ]));
   }
 
-  subtractItemRequirement(ItemRequirement requirements) {
-    if (requirements.meetsRequirement(state.itemSlots.list)) {
+  void addItem(ItemInstance item) {
+    state = state.rebuild((p0) => p0.add(item));
+  }
+
+  void addItems(Iterable<ItemInstance> items) {
+    for (final item in items) {
+      addItem(item);
+    }
+  }
+
+  void addItemWithGenerator(ItemInstanceGenerator generator) {
+    addItems(generator.generate());
+  }
+
+  void removeItem(ItemInstance item) {
+    state = state.rebuild((p0) {
+      final index = state.itemSlots.list.indexOf(item);
+      p0[index] = null;
+    });
+  }
+
+  ItemInstance? removeItemAtIndex(int index) {
+    ItemInstance? returnItem;
+    state = state.rebuild((p0) {
+      returnItem = p0[index];
+      p0[index] = null;
+    });
+    return returnItem;
+  }
+
+  bool meetsRequirements(ItemRequirement requirement) =>
+      requirement.meetsRequirement(state.itemSlots.list);
+
+  void subtractItemRequirement(ItemRequirement requirement) {
+    if (meetsRequirements(requirement)) {
       // Do logic that removes the requirements from the inventroy fromt he first seen.
-      if (requirements.requiredAmount.isEmpty) return;
+      if (requirement.requiredItems.isEmpty) return;
 
       state = state.rebuild((p0) {
-        final itemsNeeded = requirements.requiredAmount.toMap();
+        final itemsNeeded = requirement.requiredItems.toMap();
         for (var index = state.itemSlots.list.length - 1; index >= 0; index--) {
           final item = p0[index] as ItemInstance?;
           if (item == null) continue;
@@ -59,7 +94,8 @@ class InventoryStateController2 extends StateNotifier<Inventory> {
               itemsNeeded.remove(itemId);
             }
           }, orElse: () {
-            p0[index] = null;
+            // Single item at instance.
+            removeItemAtIndex(index);
             if (amountRequired - 1 <= 0) {
               itemsNeeded.remove(itemId);
             } else {
@@ -92,7 +128,7 @@ class InventoryStateController2 extends StateNotifier<Inventory> {
           if (remainder > 0) {
             p0[startIndex] = destSlot.copyWith(quantity: remainder);
           } else {
-            p0[startIndex] = null;
+            removeItemAtIndex(startIndex);
           }
         });
         return;
