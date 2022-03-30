@@ -37,42 +37,42 @@ class InventoryPageWidget2 extends HookConsumerWidget {
             children: [
               TextButton(
                   onPressed: () {
-                        ref.read(inventoryStateProvider2.notifier).addItem(
-                            ItemInstance.stackInstance(
-                                id: InstanceId.generate(),
-                                itemId: ItemKeys.CREDIT,
-                                quantity: 45));
-                      },
-                      child: const Text('Add Credits')),
-                  TextButton(
-                      onPressed: () {
-                        ref.read(inventoryStateProvider2.notifier).addItem(
-                            ItemInstance.minerInstance(
-                                id: InstanceId.generate(),
-                                itemId: const MinerItemId('MINER1'),
-                                hopper: ItemContainer.empty()));
-                      },
-                      child: const Text('Add Miner')),
-                  TextButton(
-                      onPressed: () {
-                        ref.read(inventoryStateProvider2.notifier).addItem(null);
-                      },
-                      child: const Text('Add Empty slot')),
-                  TextButton(
-                      onPressed: () {
-                        ref.read(inventoryStateProvider2.notifier).clear();
-                      },
-                      child: const Text('Clear')),
-                ],
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Flexible(
-                      flex: 3,
-                      child: GridView.builder(
-                        controller: scrollController,
+                    ref.read(inventoryStateProvider2.notifier).addItem(
+                        ItemInstance.stackInstance(
+                            id: InstanceId.generate(),
+                            itemId: ItemKeys.CREDIT,
+                            quantity: 45));
+                  },
+                  child: const Text('Add Credits')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider2.notifier).addItem(
+                        ItemInstance.minerInstance(
+                            id: InstanceId.generate(),
+                            itemId: const MinerItemId('MINER1'),
+                            hopper: ItemContainer.empty()));
+                  },
+                  child: const Text('Add Miner')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider2.notifier).addItem(null);
+                  },
+                  child: const Text('Add Empty slot')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider2.notifier).clear();
+                  },
+                  child: const Text('Clear')),
+            ],
+          ),
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Flexible(
+                  flex: 3,
+                  child: GridView.builder(
+                    controller: scrollController,
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
                       maxCrossAxisExtent: 200,
@@ -84,13 +84,13 @@ class InventoryPageWidget2 extends HookConsumerWidget {
                         ItemWidget(inventory[index], index),
                     itemCount: inventory.length,
                   ),
-                    ),
-                    const Flexible(flex: 1, child: ItemDetailWidget()),
-                  ],
                 ),
-              ),
-            ],
+                const Flexible(flex: 1, child: ItemDetailWidget()),
+              ],
+            ),
           ),
+        ],
+      ),
     );
   }
 }

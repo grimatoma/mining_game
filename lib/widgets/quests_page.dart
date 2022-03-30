@@ -8,6 +8,8 @@ import 'package:mining_game/main.dart';
 import 'package:mining_game/quests.dart';
 import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
 
+// final
+
 class QuestListPageWidget extends HookConsumerWidget {
   final RootRoute _rootRoute;
 
@@ -55,7 +57,8 @@ class QuestListPageWidget extends HookConsumerWidget {
 }
 
 class QuestListDetail extends ConsumerWidget {
-  final Quest _quest;
+  final QuestDefinition _quest;
+
   const QuestListDetail(
     this._quest, {
     Key? key,
@@ -147,7 +150,8 @@ class QuestListDetail extends ConsumerWidget {
 }
 
 class QuestDetailWidget extends ConsumerWidget {
-  final Quest _quest;
+  final QuestDefinition _quest;
+
   const QuestDetailWidget(
     this._quest, {
     Key? key,
@@ -156,6 +160,16 @@ class QuestDetailWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return StatusBarWrappedPageWidget(
-        title: _quest.name, builder: (_, __) => Text(_quest.toString()));
+        title: _quest.name,
+        builder: (_, __) => Column(
+              children: [
+                Text(_quest.toString()),
+                // if (ref.watch(allQuestsProvider.))
+              ],
+            ));
   }
 }
+
+// bool requirementsMet(Quest quest) {
+//   return quest.unlockRequirement
+// }
