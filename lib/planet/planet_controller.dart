@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence.dart';
@@ -47,7 +48,7 @@ class PlanetController extends StateNotifier<Planet> {
   PlanetController({required GameConfigs configs}) : super(Planet.empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p223.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p223d.name);
       final loadedPlanet = loadedBox.get(databaseKey);
       if (loadedPlanet == null) {
         planet = _generatePlanet(configs);
@@ -58,7 +59,7 @@ class PlanetController extends StateNotifier<Planet> {
 
     void updateBox() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p223.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p223d.name);
       stream.listen((event) {
         loadedBox.put(databaseKey, planet);
       });
@@ -107,15 +108,16 @@ class PlanetController extends StateNotifier<Planet> {
         configs: configs, maxResources: maxResourceSize, map: planetMap);
   }
 
-  ItemContainer dig(PlanetPoint p, ItemContainer damage) {
+  BuiltList<ItemInstance> dig(PlanetPoint p, ItemRequirement damage) {
     final tile = planet.map[p];
-    if (tile == null || tile.resources.empty) return ItemContainer.empty();
+    if (tile == null || tile.resources.empty) return BuiltList();
 
     final resolvedDamage = tile.resources.maxCanBeRemoved(damage);
     planet = planet.rebuild((p0) {
       p0[p] = tile.copyWith(resources: tile.resources - resolvedDamage);
     });
-    return resolvedDamage;
+    return ItemInstanceGenerator.generateItemInstance(
+        ItemKeys.IRON, resolvedDamage.items[ItemKeys.IRON] ?? 0);
   }
 
   void scanForResources(PlanetPoint p, int radius) {

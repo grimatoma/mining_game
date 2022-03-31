@@ -4,10 +4,10 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventory2.dart';
 import 'package:mining_game/item_management/inventory/inventory_events.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/persistence/synced.dart';
 import 'package:mining_game/planet/planet_controller.dart';
@@ -50,6 +50,7 @@ final minerLocationsProvider = Provider<MinerLocations>((ref) {
 final activeMinerLocationsProvider =
     StateNotifierProvider<ActiveMinerLocationsNotifier, ActiveMiners>((ref) {
   return ActiveMinerLocationsNotifier(
+      ref.watch(inventoryStateProvider2.notifier),
       ref.watch(minersProvider.notifier),
       ref.watch(gameEventManagerProvider),
       ref.watch(gameClockProvider),
@@ -59,14 +60,20 @@ final activeMinerLocationsProvider =
 });
 
 class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
+  final InventoryStateController2 _inventoryController;
   final MinerInstancesNotifier _minersNotifier;
   final GameEventManager _eventStreamManager;
   final PlanetController _planetController;
   final GameClock _gameClock;
 
-  ActiveMinerLocationsNotifier(this._minersNotifier, this._eventStreamManager,
-      this._gameClock, this._planetController, ActiveMiners activeMiners)
-      : super(activeMiners) {
+  ActiveMinerLocationsNotifier(
+    this._inventoryController,
+    this._minersNotifier,
+    this._eventStreamManager,
+    this._gameClock,
+    this._planetController,
+    ActiveMiners activeMiners,
+  ) : super(activeMiners) {
     _eventStreamManager.streamForEventType<ActiveMinerEvent>().listen((event) {
       switch (event.type) {
         case ActiveMinerEventType.ACTIVATE_MINER:
@@ -89,15 +96,20 @@ class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
         print('Miner not found when processing game tick?');
         return;
       }
-      if (miner.definition.baseHopperSize <
-          miner.hopper.items.values.fold(0, (p, c) => p + c)) return;
+
+      // if (miner.definition.baseHopperSize <
+      //     miner.hopper.items.values.fold(0, (p, c) => p + c)) return;
+
       final resources = _planetController.dig(
-          point, ItemContainer.single(ItemKeys.IRON, miner.totalDamage));
-      if (resources.empty) return;
+          point, ItemRequirement({ItemKeys.IRON: miner.totalDamage}.build()));
+      if (resources.isEmpty) return;
+
+      _inventoryController.addItems(resources);
+
       // This should probably be owned in the miners notifier.
-      _minersNotifier.state = _minersNotifier.state.rebuild(addOrUpdate: {
-        miner.id: miner.copyWith(hopper: miner.hopper + resources)
-      });
+      // _minersNotifier.state = _minersNotifier.state.rebuild(addOrUpdate: {
+      //   miner.id: miner.copyWith(hopper: miner.hopper + resources)
+      // });
     }
   }
 
@@ -135,9 +147,9 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
         case MinerEventType.DRILL_REMOVE:
           _drillRemove(event);
           break;
-        case MinerEventType.COLLECT_HOPPER:
-          moveMinerHopperToInventory(event);
-          break;
+        // case MinerEventType.COLLECT_HOPPER:
+        //   moveMinerHopperToInventory(event);
+        //   break;
       }
     });
   }
@@ -150,19 +162,21 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     state = state.rebuild(addOrUpdate: {miner.id: miner});
   }
 
-  MinerInstance _createNewStoredMiner(MinerItemId minerId) => MinerInstance(
-      id: ItemInstanceId.generate(),
-      itemId: minerId,
-      hopper: ItemContainer.empty());
+  MinerInstance _createNewStoredMiner(MinerItemDefinitionId minerId) =>
+      MinerInstance(
+        id: ItemInstanceId.generate(),
+        itemId: minerId,
+      );
 
   void _drillAttach(MinerEvent event) {
-    event as DrillAttachEvent;
-    final drillKey = event.drillId;
-    final drill = ItemContainer.single(drillKey, 1);
-    if (_inventoryController.canRemove(drill)) {
-      _gameEventManager.addEvent(RemoveItemsInventoryEvent(container: drill));
-      _updateMinerWithDrill(event.miner, drillKey);
-    }
+    throw UnimplementedError();
+    // event as DrillAttachEvent;
+    // final drillKey = event.drillId;
+    // final drill = ItemContainer.single(drillKey, 1);
+    // if (_inventoryController.canRemove(drill)) {
+    //   _gameEventManager.addEvent(RemoveItemsInventoryEvent(container: drill));
+    //   _updateMinerWithDrill(event.miner, drillKey);
+    // }
   }
 
   void _drillRemove(MinerEvent event) {
@@ -174,16 +188,17 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     _updateMinerWithDrill(event.miner, null);
   }
 
-  void _updateMinerWithDrill(MinerInstance miner, ItemDefinitionId? drill) {
+  void _updateMinerWithDrill(
+      MinerInstance miner, BasicItemDefinitionId? drill) {
     state =
         state.rebuild(addOrUpdate: {miner.id: miner.copyWith(drillId: drill)});
   }
 
-  void moveMinerHopperToInventory(MinerEvent event) {
-    event as CollectHopperMinerEvent;
-    final miner = event.miner;
-    state = state.rebuild(
-        addOrUpdate: {miner.id: miner.copyWith(hopper: ItemContainer.empty())});
-    _gameEventManager.addEvent(AddItemsInventoryEvent(container: miner.hopper));
-  }
+// void moveMinerHopperToInventory(MinerEvent event) {
+//   event as CollectHopperMinerEvent;
+//   final miner = event.miner;
+//   state = state.rebuild(
+//       addOrUpdate: {miner.id: miner.copyWith(hopper: ItemContainer.empty())});
+//   _gameEventManager.addEvent(AddItemsInventoryEvent(container: miner.hopper));
+// }
 }

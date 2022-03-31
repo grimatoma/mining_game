@@ -41,25 +41,16 @@ enum MinerEventType {
   DRILL_ATTACH,
   NEW_MINER,
   DRILL_REMOVE,
-  COLLECT_HOPPER,
+  // COLLECT_HOPPER,
 }
 
 class CreateMinerEvent extends MinerEvent {
   @override
   final type = MinerEventType.NEW_MINER;
 
-  final MinerItemId minerId;
+  final MinerItemDefinitionId minerId;
 
   CreateMinerEvent(this.minerId);
-}
-
-class CollectHopperMinerEvent extends MinerEvent {
-  @override
-  final type = MinerEventType.COLLECT_HOPPER;
-
-  final MinerInstance miner;
-
-  CollectHopperMinerEvent({required this.miner});
 }
 
 class DrillAttachEvent extends MinerEvent {

@@ -48,7 +48,7 @@ class InventoryPageWidget2 extends HookConsumerWidget {
                     ref.read(inventoryStateProvider2.notifier).addItem(
                         ItemInstance.minerInstance(
                             id: ItemInstanceId.generate(),
-                            itemId: const MinerItemId('MINER1')));
+                            itemId: const MinerItemDefinitionId('MINER1')));
                   },
                   child: const Text('Add Miner')),
               TextButton(
@@ -254,7 +254,7 @@ class ItemDetailWidget extends ConsumerWidget {
             child: Column(
               children: [
                 Text(definition.name),
-                Text(
+                const Text(
                     'dddddddddddddddddddddd dddddddddddddddddddddddddddddddddddddddddddddddddddd ddddddddddddddddddddddddddd'),
                 Flexible(child: Text(definition.name)),
                 Flexible(child: Text(definition.description)),

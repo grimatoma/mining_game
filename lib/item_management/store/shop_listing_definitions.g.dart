@@ -6,9 +6,8 @@ part of 'shop_listing_definitions.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BuyItemsShopListing _$$BuyItemsShopListingFromJson(
-        Map<String, dynamic> json) =>
-    _$BuyItemsShopListing(
+_$BuyItemShopListing _$$BuyItemShopListingFromJson(Map<String, dynamic> json) =>
+    _$BuyItemShopListing(
       id: json['id'] as int,
       price: ItemRequirement.fromJson(json['price'] as Map<String, dynamic>),
       consumable: json['consumable'] as bool? ?? true,
@@ -17,8 +16,8 @@ _$BuyItemsShopListing _$$BuyItemsShopListingFromJson(
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$BuyItemsShopListingToJson(
-        _$BuyItemsShopListing instance) =>
+Map<String, dynamic> _$$BuyItemShopListingToJson(
+        _$BuyItemShopListing instance) =>
     <String, dynamic>{
       'id': instance.id,
       'price': instance.price.toJson(),

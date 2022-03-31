@@ -6,23 +6,24 @@ part of 'item_definition.dart';
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BasicItemIdAdapter extends TypeAdapter<_$BasicItemId> {
+class BasicItemDefinitionIdAdapter
+    extends TypeAdapter<_$BasicItemDefinitionId> {
   @override
   final int typeId = 66;
 
   @override
-  _$BasicItemId read(BinaryReader reader) {
+  _$BasicItemDefinitionId read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$BasicItemId(
+    return _$BasicItemDefinitionId(
       fields[0] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$BasicItemId obj) {
+  void write(BinaryWriter writer, _$BasicItemDefinitionId obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -35,28 +36,29 @@ class BasicItemIdAdapter extends TypeAdapter<_$BasicItemId> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BasicItemIdAdapter &&
+      other is BasicItemDefinitionIdAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class MinerItemIdAdapter extends TypeAdapter<_$MinerItemId> {
+class MinerItemDefinitionIdAdapter
+    extends TypeAdapter<_$MinerItemDefinitionId> {
   @override
   final int typeId = 69;
 
   @override
-  _$MinerItemId read(BinaryReader reader) {
+  _$MinerItemDefinitionId read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$MinerItemId(
+    return _$MinerItemDefinitionId(
       fields[0] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$MinerItemId obj) {
+  void write(BinaryWriter writer, _$MinerItemDefinitionId obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -69,28 +71,29 @@ class MinerItemIdAdapter extends TypeAdapter<_$MinerItemId> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MinerItemIdAdapter &&
+      other is MinerItemDefinitionIdAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class StackableItemIdAdapter extends TypeAdapter<_$StackableItemId> {
+class StackableItemDefinitionIdAdapter
+    extends TypeAdapter<_$StackableItemDefinitionId> {
   @override
   final int typeId = 70;
 
   @override
-  _$StackableItemId read(BinaryReader reader) {
+  _$StackableItemDefinitionId read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return _$StackableItemId(
+    return _$StackableItemDefinitionId(
       fields[0] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, _$StackableItemId obj) {
+  void write(BinaryWriter writer, _$StackableItemDefinitionId obj) {
     writer
       ..writeByte(1)
       ..writeByte(0)
@@ -103,7 +106,7 @@ class StackableItemIdAdapter extends TypeAdapter<_$StackableItemId> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is StackableItemIdAdapter &&
+      other is StackableItemDefinitionIdAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -147,7 +150,7 @@ class BasicInstanceAdapter extends TypeAdapter<_$BasicInstance> {
 
 class MinerInstanceAdapter extends TypeAdapter<_$MinerInstance> {
   @override
-  final int typeId = 10;
+  final int typeId = 104;
 
   @override
   _$MinerInstance read(BinaryReader reader) {
@@ -158,7 +161,7 @@ class MinerInstanceAdapter extends TypeAdapter<_$MinerInstance> {
     return _$MinerInstance(
       id: fields[0] as ItemInstanceId,
       itemId: fields[1] as ItemDefinitionId,
-      drillId: fields[2] as ItemDefinitionId?,
+      drillId: fields[2] as BasicItemDefinitionId?,
     );
   }
 
@@ -236,16 +239,19 @@ class ItemInstanceGeneratorAdapter extends TypeAdapter<ItemInstanceGenerator> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return ItemInstanceGenerator(
-      fields[0] as BuiltMap<ItemDefinitionId, int>,
+      fields[0] as ItemDefinitionId,
+      fields[2] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, ItemInstanceGenerator obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.items);
+      ..write(obj.id)
+      ..writeByte(2)
+      ..write(obj.count);
   }
 
   @override
@@ -297,37 +303,43 @@ class ItemRequirementAdapter extends TypeAdapter<ItemRequirement> {
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$BasicItemId _$$BasicItemIdFromJson(Map<String, dynamic> json) =>
-    _$BasicItemId(
+_$BasicItemDefinitionId _$$BasicItemDefinitionIdFromJson(
+        Map<String, dynamic> json) =>
+    _$BasicItemDefinitionId(
       json['itemId'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$BasicItemIdToJson(_$BasicItemId instance) =>
+Map<String, dynamic> _$$BasicItemDefinitionIdToJson(
+        _$BasicItemDefinitionId instance) =>
     <String, dynamic>{
       'itemId': instance.itemId,
       'runtimeType': instance.$type,
     };
 
-_$MinerItemId _$$MinerItemIdFromJson(Map<String, dynamic> json) =>
-    _$MinerItemId(
+_$MinerItemDefinitionId _$$MinerItemDefinitionIdFromJson(
+        Map<String, dynamic> json) =>
+    _$MinerItemDefinitionId(
       json['itemId'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$MinerItemIdToJson(_$MinerItemId instance) =>
+Map<String, dynamic> _$$MinerItemDefinitionIdToJson(
+        _$MinerItemDefinitionId instance) =>
     <String, dynamic>{
       'itemId': instance.itemId,
       'runtimeType': instance.$type,
     };
 
-_$StackableItemId _$$StackableItemIdFromJson(Map<String, dynamic> json) =>
-    _$StackableItemId(
+_$StackableItemDefinitionId _$$StackableItemDefinitionIdFromJson(
+        Map<String, dynamic> json) =>
+    _$StackableItemDefinitionId(
       json['itemId'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$StackableItemIdToJson(_$StackableItemId instance) =>
+Map<String, dynamic> _$$StackableItemDefinitionIdToJson(
+        _$StackableItemDefinitionId instance) =>
     <String, dynamic>{
       'itemId': instance.itemId,
       'runtimeType': instance.$type,
@@ -434,4 +446,18 @@ Map<String, dynamic> _$$MinerDefinitionToJson(_$MinerDefinition instance) =>
       'fuelConsumption': instance.fuelConsumption,
       'image': instance.image,
       'runtimeType': instance.$type,
+    };
+
+ItemInstanceGenerator _$ItemInstanceGeneratorFromJson(
+        Map<String, dynamic> json) =>
+    ItemInstanceGenerator(
+      ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
+      json['count'] as int,
+    );
+
+Map<String, dynamic> _$ItemInstanceGeneratorToJson(
+        ItemInstanceGenerator instance) =>
+    <String, dynamic>{
+      'id': instance.id.toJson(),
+      'count': instance.count,
     };

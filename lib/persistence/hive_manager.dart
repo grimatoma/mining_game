@@ -13,10 +13,12 @@ enum BoxKey {
   FEATURES,
   INVENTORY,
 }
-const keyIncrement = '7';
+
+const keyIncrement = '8';
 
 class HiveManager {
   static final openedBoxes = <BoxKey, Box>{};
+
   static Box<T> getBox<T>(BoxKey key) {
     return openedBoxes[key] as Box<T>;
   }

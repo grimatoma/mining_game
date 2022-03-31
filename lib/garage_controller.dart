@@ -8,12 +8,11 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/garage_events.dart';
 import 'package:mining_game/item_management/instance_id.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/inventory/inventory_events.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence/synced.dart';
 
+import 'item_management/inventory/inventory2.dart';
 import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
@@ -22,7 +21,7 @@ part 'garage_controller.g.dart';
 final garageProvider = StateNotifierProvider<GarageNotifier, GarageState>(
     (ref) => GarageNotifier(
         ref.watch(gameEventManagerProvider),
-        ref.watch(inventoryStateProvider.notifier),
+        ref.watch(inventoryStateProvider2.notifier),
         ref.watch(gameConfigsProvider).maxGarageSlots));
 
 @freezed
@@ -59,8 +58,9 @@ class SlotState with _$SlotState {
 }
 
 class GarageNotifier extends StateNotifier<GarageState> {
-  final InventoryStateController _inventoryStateController;
+  final InventoryStateController2 _inventoryStateController;
   final GameEventManager _gameEventManager;
+
   GarageNotifier(
       this._gameEventManager, this._inventoryStateController, intMaxSlots)
       : super(GarageState(SyncedMap.loadSimpleSyncedMap(BoxKey.GARAGE))) {
@@ -78,17 +78,17 @@ class GarageNotifier extends StateNotifier<GarageState> {
     });
   }
 
-  ItemContainer unlockCost(int index) =>
-      ItemContainer.single(ItemKeys.CREDIT, pow(2, index + 1).round());
+  ItemRequirement unlockCost(int index) =>
+      ItemRequirement({ItemKeys.CREDIT: pow(2, index + 1).round()}.build());
 
   void _unlockSlot(LockedSlot slot) async {
-    bool canUnlock(ItemContainer unlockCost) =>
-        _inventoryStateController.canRemove(unlockCost);
+    bool canUnlock(ItemRequirement unlockCost) =>
+        _inventoryStateController.meetsRequirements(unlockCost);
 
     final index = slot.index;
     final cost = unlockCost(index);
     if (canUnlock(cost)) {
-      _gameEventManager.addEvent(RemoveItemsInventoryEvent(container: cost));
+      _inventoryStateController.subtractItemRequirement(cost);
       state = state.rebuild(addOrUpdate: {
         index: EmptySlot(index: index),
       });

@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
 
@@ -26,8 +27,8 @@ class StorePageWidget extends HookConsumerWidget {
                 itemBuilder: (_, index) {
                   final listing = storeListings.listings[index];
                   return listing.map(
-                      buyItems: (l) => BuyListingWidget(l),
-                      sellItems: (l) => SellingListing(l));
+                      buyItem: (l) => BuyListingWidget(l),
+                      sellItems: (l) => SellingListingWidget(l));
                 },
                 itemCount: storeListings.listings.length,
                 separatorBuilder: (_, __) => const Divider(),
@@ -36,71 +37,54 @@ class StorePageWidget extends HookConsumerWidget {
   }
 }
 
-// class BuyItemStackSellingListingWidget extends ConsumerWidget {
-//   final BuyItemStackShopListing listing;
-//   const BuyItemStackSellingListingWidget(
-//     this.listing, {
-//     Key? key,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final definition = listing.itemId.definition();
-//
-//     return ListingWidget(
-//       listingTitle: definition.name,
-//       listingDetails: Table(
-//         children: [
-//           TableRow(children: [
-//             ListingWidget.buildRowTitle('Description'),
-//             Text(definition.description),
-//           ]),
-//           TableRow(children: [
-//             ListingWidget.buildRowTitle('Quantity'),
-//             Text('${listing.quantity}'),
-//           ]),
-//         ],
-//       ),
-//       actionButton: BuyButton(listing),
-//     );
-//   }
-// }
-
 class BuyListingWidget extends ConsumerWidget {
-  final BuyShopListing listing;
+  final BuyItemShopListing listing;
 
   const BuyListingWidget(this.listing, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final MinerDefinition definition = listing.minerId.definition();
+    final definition = ItemDirectory.getItem(listing.generator.id);
+    final itemEntry = listing.generator.id;
     return ListingWidget(
-        imagePath: definition.image,
-        listingTitle: definition.name,
-        listingDetails: Table(
-          children: [
-            TableRow(children: [
-              ListingWidget.buildRowTitle('Base damage'),
-              Text(definition.baseDamage.toString()),
-            ]),
-            TableRow(children: [
-              ListingWidget.buildRowTitle('Hopper size'),
-              Text('${definition.baseHopperSize} items'),
-            ]),
-            TableRow(children: [
-              ListingWidget.buildRowTitle('Attachment slots'),
-              const Text('2'),
-            ]),
-          ],
-        ),
-        actionButton: BuyButton(listing));
+      imagePath: definition.image,
+      listingTitle: definition.name,
+      listingDetails: Table(
+          children: itemEntry.map(basicItemId: (id) {
+        return [];
+      }, minerItemId: (id) {
+        definition as MinerDefinition;
+        return [
+          TableRow(children: [
+            ListingWidget.buildRowTitle('Base damage'),
+            Text(definition.baseDamage.toString()),
+          ]),
+          TableRow(children: [
+            ListingWidget.buildRowTitle('Hopper size'),
+            Text('${definition.baseHopperSize} items'),
+          ]),
+          TableRow(children: [
+            ListingWidget.buildRowTitle('Attachment slots'),
+            const Text('2'),
+          ]),
+        ];
+      }, stackableItemId: (id) {
+        // definition as MinerDefinition;
+        return [
+          TableRow(children: [
+            ListingWidget.buildRowTitle('STACKABLE ITEM HERE'),
+          ])
+        ];
+      })),
+      actionButton: BuyButton(listing),
+    );
   }
 }
 
-class SellingListing extends ConsumerWidget {
+class SellingListingWidget extends ConsumerWidget {
   final SellItemsShopListing listing;
 
-  const SellingListing(
+  const SellingListingWidget(
     this.listing, {
     Key? key,
   }) : super(key: key);

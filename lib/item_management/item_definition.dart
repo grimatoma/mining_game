@@ -14,17 +14,17 @@ part 'item_instance.dart';
 class ItemDefinitionId with _$ItemDefinitionId {
   const ItemDefinitionId._();
 
-  @HiveType(typeId: 66, adapterName: 'BasicItemIdAdapter')
+  @HiveType(typeId: 66, adapterName: 'BasicItemDefinitionIdAdapter')
   const factory ItemDefinitionId.basicItemId(@HiveField(0) String itemId) =
-      BasicItemId;
+      BasicItemDefinitionId;
 
-  @HiveType(typeId: 69, adapterName: 'MinerItemIdAdapter')
+  @HiveType(typeId: 69, adapterName: 'MinerItemDefinitionIdAdapter')
   const factory ItemDefinitionId.minerItemId(@HiveField(0) String itemId) =
-      MinerItemId;
+      MinerItemDefinitionId;
 
-  @HiveType(typeId: 70, adapterName: 'StackableItemIdAdapter')
+  @HiveType(typeId: 70, adapterName: 'StackableItemDefinitionIdAdapter')
   const factory ItemDefinitionId.stackableItemId(@HiveField(0) String itemId) =
-      StackableItemId;
+      StackableItemDefinitionId;
 
   @override
   String toString() => itemId;
@@ -57,7 +57,8 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
   // ) = ResourceWalletOnlyDefinition;
 
   @Implements<Resource>()
-  // @Assert('id is StackableItemId', 'Must use a StackableItemId')
+  @Assert(
+      'id is StackableItemDefinitionId', 'Must use a StackableItemDefinitionId')
   @Implements<Stackable>()
   const factory ItemDefinition.resourceDefinition(
     ItemDefinitionId id,
@@ -85,7 +86,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     BuiltMap<WeaponAttributes, double> attributes,
   ) = SwordDefinition;
 
-  @Assert('id is MinerItemId', 'Must use a MinerItemId')
+  @Assert('id is MinerItemDefinitionId', 'Must use a MinerItemDefinitionId')
   factory ItemDefinition.minerDefinition(
     ItemDefinitionId id,
     String name,

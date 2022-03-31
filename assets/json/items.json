@@ -1,7 +1,7 @@
 [
   {
     "id": {
-      "runtimeType": "itemId",
+      "runtimeType": "basicItemId",
       "itemId": "ROCK"
     },
     "runtimeType": "resourceDefinition",
@@ -13,7 +13,7 @@
   },
   {
     "id": {
-      "runtimeType": "itemId",
+      "runtimeType": "basicItemId",
       "itemId": "SWORD"
     },
     "runtimeType": "swordDefinition",
@@ -27,10 +27,10 @@
   },
   {
     "id": {
-      "runtimeType": "itemId",
+      "runtimeType": "stackableItemId",
       "itemId": "IRON"
     },
-    "runtimeType": "resourceWalletOnlyDefinition",
+    "runtimeType": "resourceDefinition",
     "name": "Iron",
     "namePlural": "Iron",
     "description": "can be mined",
@@ -39,10 +39,10 @@
   },
   {
     "id": {
-      "runtimeType": "itemId",
+      "runtimeType": "stackableItemId",
       "itemId": "COPPER"
     },
-    "runtimeType": "resourceWalletOnlyDefinition",
+    "runtimeType": "resourceDefinition",
     "name": "Copper",
     "namePlural": "Copper",
     "description": "can be mined",
@@ -51,7 +51,7 @@
   },
   {
     "id": {
-      "runtimeType": "itemId",
+      "runtimeType": "basicItemId",
       "itemId": "TEST_DRILL"
     },
     "runtimeType": "drillDefinition",
@@ -62,10 +62,10 @@
   },
   {
     "id": {
-      "runtimeType": "itemId",
+      "runtimeType": "basicItemId",
       "itemId": "CREDIT"
     },
-    "runtimeType": "resourceWalletOnlyDefinition",
+    "runtimeType": "resourceDefinition",
     "name": "Credit",
     "namePlural": "Credits",
     "description": "A form of currency.",

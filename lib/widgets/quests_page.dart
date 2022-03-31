@@ -122,14 +122,11 @@ class QuestListDetail extends ConsumerWidget {
     final itemsOwnedRequired = unlockReq.itemsOwned;
     final requirements = Table(
       children: [
-        if (features != null)
-          for (final feature in features) getFeatureStatus(feature),
-        if (itemsRequired != null)
-          for (final itemRequired in itemsRequired.items.entries)
-            getItemRequiredStatus(itemRequired),
-        if (itemsOwnedRequired != null)
-          for (final itemRequired in itemsOwnedRequired.items.entries)
-            getItemOwnedStatus(itemRequired),
+        for (final feature in features) getFeatureStatus(feature),
+        for (final itemRequired in itemsRequired.items.entries)
+          getItemRequiredStatus(itemRequired),
+        for (final itemRequired in itemsOwnedRequired.items.entries)
+          getItemOwnedStatus(itemRequired),
       ],
     );
 

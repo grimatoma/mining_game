@@ -6,7 +6,7 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/garage_controller.dart';
 import 'package:mining_game/garage_events.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventory2.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/mining/miners_controller.dart';
 import 'package:mining_game/widgets/store_page.dart';
@@ -134,7 +134,9 @@ class LockedGarageSlotWidget extends ConsumerWidget {
           child: Center(
             child: ShopButton(
               cost: cost,
-              active: ref.watch(inventoryStateProvider).canSubtract(cost),
+              active: ref
+                  .watch(inventoryStateProvider2.notifier)
+                  .meetsRequirements(cost),
               onClick: () {
                 ref
                     .read(gameEventManagerProvider)

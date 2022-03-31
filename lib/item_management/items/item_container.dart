@@ -49,9 +49,9 @@ class ItemContainer {
         return builder;
       }));
 
-  ItemContainer maxCanBeRemoved(ItemContainer attemptedRemoveAmount) =>
+  ItemContainer maxCanBeRemoved(ItemRequirement attemptedRemoveAmount) =>
       ItemContainer(BuiltMap.build((builder) {
-        for (final entries in attemptedRemoveAmount.items.entries) {
+        for (final entries in attemptedRemoveAmount.requiredItems.entries) {
           builder[entries.key] = min(get(entries.key), entries.value);
         }
       }));

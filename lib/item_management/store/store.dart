@@ -54,7 +54,7 @@ class StoreController extends StateNotifier<StoreListings> {
     }
 
     final success = listing.map(
-        buyItems: (listing) => handleBuyListing(listing, () {
+        buyItem: (listing) => handleBuyListing(listing, () {
               _inventory.addItemWithGenerator(listing.generator);
             }),
         sellItems: (listing) {

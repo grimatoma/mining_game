@@ -18,27 +18,27 @@ class ItemInstance extends BaseItemInstance with _$ItemInstance {
   // }) = ExampleInstance;
 
   @HiveType(typeId: 10, adapterName: 'BasicInstanceAdapter')
-  @Assert('itemId is BasicItemId', 'Must use a BasicItemId')
-  @With<MinerMethods>()
+  @Assert('itemId is BasicItemDefinitionId', 'Must use a BasicItemDefinitionId')
   factory ItemInstance.basicInstance({
     @HiveField(0) required ItemInstanceId id,
     @HiveField(1) required ItemDefinitionId itemId,
   }) = BasicInstance;
 
-  @HiveType(typeId: 10, adapterName: 'MinerInstanceAdapter')
-  @Assert('itemId is MinerItemId', 'Must use a MinerItemId')
+  @HiveType(typeId: 104, adapterName: 'MinerInstanceAdapter')
+  @Assert('itemId is MinerItemDefinitionId', 'Must use a MinerItemDefinitionId')
   // @With<InstanceDefinition<MinerDefinition>>()
   @With<MinerMethods>()
   factory ItemInstance.minerInstance({
     @HiveField(0) required ItemInstanceId id,
     @HiveField(1) required ItemDefinitionId itemId,
-    @HiveField(2) ItemDefinitionId? drillId,
+    @HiveField(2) BasicItemDefinitionId? drillId,
     // @HiveField(4) required ItemContainer hopper,
   }) = MinerInstance;
 
   @HiveType(typeId: 72, adapterName: 'StackInstanceAdapter')
   @With<StackMethods>()
-  @Assert('itemId is StackableItemId', 'Must use a StackableItemId')
+  @Assert('itemId is StackableItemDefinitionId',
+      'Must use a StackableItemDefinitionId')
   factory ItemInstance.stackInstance({
     @HiveField(0) required ItemInstanceId id,
     @HiveField(1) required ItemDefinitionId itemId,
@@ -53,7 +53,7 @@ abstract class InstanceDefinition<T extends ItemDefinition> {
 }
 
 abstract class MinerMethods implements InstanceDefinition<MinerDefinition> {
-  ItemDefinitionId? get drillId;
+  BasicItemDefinitionId? get drillId;
 
   DrillDefinition? get _drill => drillId?.definition<DrillDefinition>();
   @override
@@ -77,44 +77,82 @@ abstract class StackMethods {
 }
 
 @HiveType(typeId: 81)
+@JsonSerializable()
 class ItemInstanceGenerator {
   @HiveField(0)
-  final BuiltMap<ItemDefinitionId, int> items;
+  final ItemDefinitionId id;
+  @HiveField(2)
+  final int count;
 
-  ItemInstanceGenerator(this.items);
+  ItemInstanceGenerator(this.id, this.count);
 
   BuiltList<ItemInstance> generate() {
     return <ItemInstance>[
-      for (final entry in items.entries)
-        ...entry.key.map(
-          basicItemId: (_) => [
-            for (var i = 0; i < entry.value; i++)
-              BasicInstance(id: ItemInstanceId.generate(), itemId: entry.key)
-          ],
-          minerItemId: (_) => [
-            for (var i = 0; i < entry.value; i++)
-              MinerInstance(id: ItemInstanceId.generate(), itemId: entry.key)
-          ],
-          stackableItemId: (_) => [
-            StackInstance(
-                id: ItemInstanceId.generate(),
-                itemId: entry.key,
-                quantity: entry.value)
-          ],
-        )
+      ...id.map(
+        basicItemId: (_) => [
+          for (var i = 0; i < count; i++)
+            BasicInstance(id: ItemInstanceId.generate(), itemId: id)
+        ],
+        minerItemId: (_) => [
+          for (var i = 0; i < count; i++)
+            MinerInstance(id: ItemInstanceId.generate(), itemId: id)
+        ],
+        stackableItemId: (_) => [
+          StackInstance(
+              id: ItemInstanceId.generate(), itemId: id, quantity: count)
+        ],
+      )
     ].build();
   }
 
-  factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) =>
-      ItemInstanceGenerator({
-        for (final item in json.entries)
-          ItemDirectory.loadIdFromDb(item.key): item.value as int,
-      }.build());
+  static BuiltList<ItemInstance> generateItemInstance(
+          ItemDefinitionId id, int count) =>
+      ItemInstanceGenerator(id, count).generate();
 
-  Map<String, dynamic> toJson() => {
-        for (final item in items.entries) item.key.toString(): item.value,
-      };
+  factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) =>
+      _$ItemInstanceGeneratorFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ItemInstanceGeneratorToJson(this);
 }
+
+// class ItemInstancesGenerator {
+//   @HiveField(0)
+//   final BuiltList<ItemInstanceGenerator> items;
+//
+//   ItemInstancesGenerator(this.items);
+//
+//   BuiltList<ItemInstance> generate() {
+//     return <ItemInstance>[
+//       for (final entry in items.entries)
+//         ...entry.key.map(
+//           basicItemId: (_) => [
+//             for (var i = 0; i < entry.value; i++)
+//               BasicInstance(id: ItemInstanceId.generate(), itemId: entry.key)
+//           ],
+//           minerItemId: (_) => [
+//             for (var i = 0; i < entry.value; i++)
+//               MinerInstance(id: ItemInstanceId.generate(), itemId: entry.key)
+//           ],
+//           stackableItemId: (_) => [
+//             StackInstance(
+//                 id: ItemInstanceId.generate(),
+//                 itemId: entry.key,
+//                 quantity: entry.value)
+//           ],
+//         )
+//     ].build();
+//   }
+//
+//   factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) =>
+//       ItemInstanceGenerator({
+//         for (final item in json.entries)
+//           ItemDirectory.loadIdFromDb(item.key): item.value as int,
+//       }.build());
+//
+//   Map<String, dynamic> toJson() => {
+//         for (final item in items.entries) item.key.toString(): item.value,
+//       };
+// }
 
 @HiveType(typeId: 82)
 class ItemRequirement {

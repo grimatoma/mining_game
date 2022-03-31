@@ -18,13 +18,21 @@ abstract class SellShopListing extends ShopListingInterface {
 
 @freezed
 class ShopListing with _$ShopListing implements ShopListingInterface {
+  // @Implements<BuyShopListing>()
+  // const factory ShopListing.buyItems({
+  //   required int id,
+  //   required ItemRequirement price,
+  //   @Default(true) bool consumable,
+  //   required ItemInstanceGenerator generator,
+  // }) = BuyItemsShopListing;
+
   @Implements<BuyShopListing>()
-  const factory ShopListing.buyItems({
+  const factory ShopListing.buyItem({
     required int id,
     required ItemRequirement price,
     @Default(true) bool consumable,
     required ItemInstanceGenerator generator,
-  }) = BuyItemsShopListing;
+  }) = BuyItemShopListing;
 
   // @Implements<BuyShopListing>()
   // const factory ShopListing.buyMiner({
