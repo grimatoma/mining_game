@@ -162,11 +162,8 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     state = state.rebuild(addOrUpdate: {miner.id: miner});
   }
 
-  MinerInstance _createNewStoredMiner(MinerItemDefinitionId minerId) =>
-      MinerInstance(
-        id: ItemInstanceId.generate(),
-        itemId: minerId,
-      );
+  MinerInstance _createNewStoredMiner(MinerDefinition minerDefinition) =>
+      minerDefinition.generateItemInstance().first as MinerInstance;
 
   void _drillAttach(MinerEvent event) {
     throw UnimplementedError();
@@ -188,8 +185,7 @@ class MinerInstancesNotifier extends StateNotifier<Miners> {
     _updateMinerWithDrill(event.miner, null);
   }
 
-  void _updateMinerWithDrill(
-      MinerInstance miner, BasicItemDefinitionId? drill) {
+  void _updateMinerWithDrill(MinerInstance miner, ItemDefinitionId? drill) {
     state =
         state.rebuild(addOrUpdate: {miner.id: miner.copyWith(drillId: drill)});
   }

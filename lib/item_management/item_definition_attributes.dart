@@ -1,10 +1,14 @@
 part of 'item_definition.dart';
 
 abstract class BaseItemDefinition {
+  const BaseItemDefinition();
+
   ItemDefinitionId get id;
 
   String get name;
+
   String get description;
+
   String get image;
 }
 

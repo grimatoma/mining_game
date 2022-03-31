@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory/inventory2.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 
 import 'status_bar_wrapped_page.dart';
@@ -45,10 +46,9 @@ class InventoryPageWidget2 extends HookConsumerWidget {
                   child: const Text('Add Credits')),
               TextButton(
                   onPressed: () {
-                    ref.read(inventoryStateProvider2.notifier).addItem(
-                        ItemInstance.minerInstance(
-                            id: ItemInstanceId.generate(),
-                            itemId: const MinerItemDefinitionId('MINER1')));
+                    ref.read(inventoryStateProvider2.notifier).addItems(
+                        ItemDirectory.getItem(const ItemDefinitionId('MINER1'))
+                            .generateItemInstance());
                   },
                   child: const Text('Add Miner')),
               TextButton(

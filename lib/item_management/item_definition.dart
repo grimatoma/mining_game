@@ -14,17 +14,9 @@ part 'item_instance.dart';
 class ItemDefinitionId with _$ItemDefinitionId {
   const ItemDefinitionId._();
 
-  @HiveType(typeId: 66, adapterName: 'BasicItemDefinitionIdAdapter')
-  const factory ItemDefinitionId.basicItemId(@HiveField(0) String itemId) =
-      BasicItemDefinitionId;
-
-  @HiveType(typeId: 69, adapterName: 'MinerItemDefinitionIdAdapter')
-  const factory ItemDefinitionId.minerItemId(@HiveField(0) String itemId) =
-      MinerItemDefinitionId;
-
-  @HiveType(typeId: 70, adapterName: 'StackableItemDefinitionIdAdapter')
-  const factory ItemDefinitionId.stackableItemId(@HiveField(0) String itemId) =
-      StackableItemDefinitionId;
+  @HiveType(typeId: 66, adapterName: 'ItemDefinitionIdAdapter')
+  const factory ItemDefinitionId(@HiveField(0) String itemId) =
+      _ItemDefinitionId;
 
   @override
   String toString() => itemId;
@@ -40,25 +32,9 @@ class ItemDefinitionId with _$ItemDefinitionId {
 
 @freezed
 class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
-  // // This is dumb, remove this. just have a list of resources to show in a wallet.
-  // @Implements<HideInInventory>()
-  // @Implements<ShowInWallet>()
-  // @Implements<Resource>()
-  // @Implements<HasPluralName>()
-  // // @Assert('id is StackableItemId', 'Must use a StackableItemId')
-  // @Implements<Stackable>()
-  // const factory ItemDefinition.resourceWalletOnlyDefinition(
-  //   ItemId id,
-  //   int maxStackSize,
-  //   String name,
-  //   String namePlural,
-  //   String description,
-  //   String image,
-  // ) = ResourceWalletOnlyDefinition;
+  const ItemDefinition._();
 
   @Implements<Resource>()
-  @Assert(
-      'id is StackableItemDefinitionId', 'Must use a StackableItemDefinitionId')
   @Implements<Stackable>()
   const factory ItemDefinition.resourceDefinition(
     ItemDefinitionId id,
@@ -86,8 +62,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     BuiltMap<WeaponAttributes, double> attributes,
   ) = SwordDefinition;
 
-  @Assert('id is MinerItemDefinitionId', 'Must use a MinerItemDefinitionId')
-  factory ItemDefinition.minerDefinition(
+  const factory ItemDefinition.minerDefinition(
     ItemDefinitionId id,
     String name,
     String description,
@@ -99,6 +74,9 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     int fuelConsumption,
     String image,
   ) = MinerDefinition;
+
+  BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
+      ItemInstanceGenerator(id, countIfStack).generate();
 
   factory ItemDefinition.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionFromJson(json);

@@ -26,7 +26,7 @@ import 'widgets/store_page.dart';
 void main() async {
   Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
   Hive.registerAdapter(MinerInstanceAdapter());
-  Hive.registerAdapter(MinerItemDefinitionIdAdapter());
+  Hive.registerAdapter(ItemDefinitionIdAdapter());
   Hive.registerAdapter(StackInstanceAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
   // Hive.registerAdapter(ItemIdAdapter());

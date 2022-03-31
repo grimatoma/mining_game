@@ -1,85 +1,95 @@
 [
   {
     "id": 1,
-    "runtimeType": "sell",
-    "sellPrice": {
-      "CREDIT": 25
+    "runtimeType": "sellItems",
+    "item": {
+      "id": "CREDIT",
+      "countIfStack": 25
     },
-    "items": {
-      "IRON": 5
+    "cost": {
+      "requiredItems": {
+        "IRON": 5
+      }
     },
     "consumable": false
   },
   {
     "id": 2,
-    "runtimeType": "buyItemStack",
-    "price": {
-      "CREDIT": 25
+    "runtimeType": "buyItem",
+    "cost": {
+      "requiredItems": {
+        "CREDIT": 25
+      }
     },
-    "itemId": {
-      "runtimeType": "itemId",
-      "itemId": "ROCK"
+    "item": {
+      "id": "ROCK",
+      "countIfStack": 25
     },
     "quantity": 1,
     "consumable": false
   },
   {
     "id": 3,
-    "runtimeType": "buyMiner",
-    "price": {
-      "CREDIT": 1
+    "runtimeType": "buyItem",
+    "cost": {
+      "requiredItems": {
+        "CREDIT": 1
+      }
     },
-    "minerId": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER1"
+    "item": {
+      "id": "MINER1"
     },
     "consumable": true
   },
   {
     "id": 4,
-    "runtimeType": "buyMiner",
-    "price": {
-      "CREDIT": 2
+    "runtimeType": "buyItem",
+    "cost": {
+      "requiredItems": {
+        "CREDIT": 2
+      }
     },
-    "minerId": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER2"
+    "item": {
+      "id": "MINER2"
     },
     "consumable": true
   },
   {
     "id": 5,
-    "runtimeType": "buyMiner",
-    "price": {
-      "CREDIT": 3
+    "runtimeType": "buyItem",
+    "cost": {
+      "requiredItems": {
+        "CREDIT": 3
+      }
     },
-    "minerId": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER3"
+    "item": {
+      "id": "MINER3"
     },
     "consumable": true
   },
   {
     "id": 6,
-    "runtimeType": "buyMiner",
-    "price": {
-      "CREDIT": 4
+    "runtimeType": "buyItem",
+    "cost": {
+      "requiredItems": {
+        "CREDIT": 4
+      }
     },
-    "minerId": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER4"
+    "item": {
+      "id": "MINER4"
     },
     "consumable": true
   },
   {
     "id": 7,
-    "runtimeType": "buyMiner",
-    "price": {
-      "CREDIT": 5
+    "runtimeType": "buyItem",
+    "cost": {
+      "requiredItems": {
+        "CREDIT": 5
+      }
     },
-    "minerId": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER5"
+    "item": {
+      "id": "MINER5"
     },
     "consumable": true
   }

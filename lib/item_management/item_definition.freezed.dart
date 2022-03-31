@@ -15,38 +15,15 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ItemDefinitionId _$ItemDefinitionIdFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'basicItemId':
-      return BasicItemDefinitionId.fromJson(json);
-    case 'minerItemId':
-      return MinerItemDefinitionId.fromJson(json);
-    case 'stackableItemId':
-      return StackableItemDefinitionId.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'ItemDefinitionId',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
+  return _ItemDefinitionId.fromJson(json);
 }
 
 /// @nodoc
 class _$ItemDefinitionIdTearOff {
   const _$ItemDefinitionIdTearOff();
 
-  BasicItemDefinitionId basicItemId(@HiveField(0) String itemId) {
-    return BasicItemDefinitionId(
-      itemId,
-    );
-  }
-
-  MinerItemDefinitionId minerItemId(@HiveField(0) String itemId) {
-    return MinerItemDefinitionId(
-      itemId,
-    );
-  }
-
-  StackableItemDefinitionId stackableItemId(@HiveField(0) String itemId) {
-    return StackableItemDefinitionId(
+  _ItemDefinitionId call(@HiveField(0) String itemId) {
+    return _ItemDefinitionId(
       itemId,
     );
   }
@@ -64,50 +41,6 @@ mixin _$ItemDefinitionId {
   @HiveField(0)
   String get itemId => throw _privateConstructorUsedError;
 
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) String itemId) basicItemId,
-    required TResult Function(@HiveField(0) String itemId) minerItemId,
-    required TResult Function(@HiveField(0) String itemId) stackableItemId,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicItemDefinitionId value) basicItemId,
-    required TResult Function(MinerItemDefinitionId value) minerItemId,
-    required TResult Function(StackableItemDefinitionId value) stackableItemId,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ItemDefinitionIdCopyWith<ItemDefinitionId> get copyWith =>
@@ -145,31 +78,31 @@ class _$ItemDefinitionIdCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $BasicItemDefinitionIdCopyWith<$Res>
+abstract class _$ItemDefinitionIdCopyWith<$Res>
     implements $ItemDefinitionIdCopyWith<$Res> {
-  factory $BasicItemDefinitionIdCopyWith(BasicItemDefinitionId value,
-          $Res Function(BasicItemDefinitionId) then) =
-      _$BasicItemDefinitionIdCopyWithImpl<$Res>;
+  factory _$ItemDefinitionIdCopyWith(
+          _ItemDefinitionId value, $Res Function(_ItemDefinitionId) then) =
+      __$ItemDefinitionIdCopyWithImpl<$Res>;
   @override
   $Res call({@HiveField(0) String itemId});
 }
 
 /// @nodoc
-class _$BasicItemDefinitionIdCopyWithImpl<$Res>
+class __$ItemDefinitionIdCopyWithImpl<$Res>
     extends _$ItemDefinitionIdCopyWithImpl<$Res>
-    implements $BasicItemDefinitionIdCopyWith<$Res> {
-  _$BasicItemDefinitionIdCopyWithImpl(
-      BasicItemDefinitionId _value, $Res Function(BasicItemDefinitionId) _then)
-      : super(_value, (v) => _then(v as BasicItemDefinitionId));
+    implements _$ItemDefinitionIdCopyWith<$Res> {
+  __$ItemDefinitionIdCopyWithImpl(
+      _ItemDefinitionId _value, $Res Function(_ItemDefinitionId) _then)
+      : super(_value, (v) => _then(v as _ItemDefinitionId));
 
   @override
-  BasicItemDefinitionId get _value => super._value as BasicItemDefinitionId;
+  _ItemDefinitionId get _value => super._value as _ItemDefinitionId;
 
   @override
   $Res call({
     Object? itemId = freezed,
   }) {
-    return _then(BasicItemDefinitionId(
+    return _then(_ItemDefinitionId(
       itemId == freezed
           ? _value.itemId
           : itemId // ignore: cast_nullable_to_non_nullable
@@ -180,27 +113,22 @@ class _$BasicItemDefinitionIdCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@HiveType(typeId: 66, adapterName: 'BasicItemDefinitionIdAdapter')
-class _$BasicItemDefinitionId extends BasicItemDefinitionId {
-  const _$BasicItemDefinitionId(@HiveField(0) this.itemId, {String? $type})
-      : $type = $type ?? 'basicItemId',
-        super._();
+@HiveType(typeId: 66, adapterName: 'ItemDefinitionIdAdapter')
+class _$_ItemDefinitionId extends _ItemDefinitionId {
+  const _$_ItemDefinitionId(@HiveField(0) this.itemId) : super._();
 
-  factory _$BasicItemDefinitionId.fromJson(Map<String, dynamic> json) =>
-      _$$BasicItemDefinitionIdFromJson(json);
+  factory _$_ItemDefinitionId.fromJson(Map<String, dynamic> json) =>
+      _$$_ItemDefinitionIdFromJson(json);
 
   @override
   @HiveField(0)
   final String itemId;
 
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is BasicItemDefinitionId &&
+            other is _ItemDefinitionId &&
             const DeepCollectionEquality().equals(other.itemId, itemId));
   }
 
@@ -210,421 +138,29 @@ class _$BasicItemDefinitionId extends BasicItemDefinitionId {
 
   @JsonKey(ignore: true)
   @override
-  $BasicItemDefinitionIdCopyWith<BasicItemDefinitionId> get copyWith =>
-      _$BasicItemDefinitionIdCopyWithImpl<BasicItemDefinitionId>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) String itemId) basicItemId,
-    required TResult Function(@HiveField(0) String itemId) minerItemId,
-    required TResult Function(@HiveField(0) String itemId) stackableItemId,
-  }) {
-    return basicItemId(itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-  }) {
-    return basicItemId?.call(itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-    required TResult orElse(),
-  }) {
-    if (basicItemId != null) {
-      return basicItemId(itemId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicItemDefinitionId value) basicItemId,
-    required TResult Function(MinerItemDefinitionId value) minerItemId,
-    required TResult Function(StackableItemDefinitionId value) stackableItemId,
-  }) {
-    return basicItemId(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-  }) {
-    return basicItemId?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-    required TResult orElse(),
-  }) {
-    if (basicItemId != null) {
-      return basicItemId(this);
-    }
-    return orElse();
-  }
+  _$ItemDefinitionIdCopyWith<_ItemDefinitionId> get copyWith =>
+      __$ItemDefinitionIdCopyWithImpl<_ItemDefinitionId>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BasicItemDefinitionIdToJson(this);
+    return _$$_ItemDefinitionIdToJson(this);
   }
 }
 
-abstract class BasicItemDefinitionId extends ItemDefinitionId {
-  const factory BasicItemDefinitionId(@HiveField(0) String itemId) =
-      _$BasicItemDefinitionId;
-  const BasicItemDefinitionId._() : super._();
+abstract class _ItemDefinitionId extends ItemDefinitionId {
+  const factory _ItemDefinitionId(@HiveField(0) String itemId) =
+      _$_ItemDefinitionId;
+  const _ItemDefinitionId._() : super._();
 
-  factory BasicItemDefinitionId.fromJson(Map<String, dynamic> json) =
-      _$BasicItemDefinitionId.fromJson;
+  factory _ItemDefinitionId.fromJson(Map<String, dynamic> json) =
+      _$_ItemDefinitionId.fromJson;
 
   @override
   @HiveField(0)
   String get itemId;
   @override
   @JsonKey(ignore: true)
-  $BasicItemDefinitionIdCopyWith<BasicItemDefinitionId> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $MinerItemDefinitionIdCopyWith<$Res>
-    implements $ItemDefinitionIdCopyWith<$Res> {
-  factory $MinerItemDefinitionIdCopyWith(MinerItemDefinitionId value,
-          $Res Function(MinerItemDefinitionId) then) =
-      _$MinerItemDefinitionIdCopyWithImpl<$Res>;
-  @override
-  $Res call({@HiveField(0) String itemId});
-}
-
-/// @nodoc
-class _$MinerItemDefinitionIdCopyWithImpl<$Res>
-    extends _$ItemDefinitionIdCopyWithImpl<$Res>
-    implements $MinerItemDefinitionIdCopyWith<$Res> {
-  _$MinerItemDefinitionIdCopyWithImpl(
-      MinerItemDefinitionId _value, $Res Function(MinerItemDefinitionId) _then)
-      : super(_value, (v) => _then(v as MinerItemDefinitionId));
-
-  @override
-  MinerItemDefinitionId get _value => super._value as MinerItemDefinitionId;
-
-  @override
-  $Res call({
-    Object? itemId = freezed,
-  }) {
-    return _then(MinerItemDefinitionId(
-      itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-@HiveType(typeId: 69, adapterName: 'MinerItemDefinitionIdAdapter')
-class _$MinerItemDefinitionId extends MinerItemDefinitionId {
-  const _$MinerItemDefinitionId(@HiveField(0) this.itemId, {String? $type})
-      : $type = $type ?? 'minerItemId',
-        super._();
-
-  factory _$MinerItemDefinitionId.fromJson(Map<String, dynamic> json) =>
-      _$$MinerItemDefinitionIdFromJson(json);
-
-  @override
-  @HiveField(0)
-  final String itemId;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is MinerItemDefinitionId &&
-            const DeepCollectionEquality().equals(other.itemId, itemId));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(itemId));
-
-  @JsonKey(ignore: true)
-  @override
-  $MinerItemDefinitionIdCopyWith<MinerItemDefinitionId> get copyWith =>
-      _$MinerItemDefinitionIdCopyWithImpl<MinerItemDefinitionId>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) String itemId) basicItemId,
-    required TResult Function(@HiveField(0) String itemId) minerItemId,
-    required TResult Function(@HiveField(0) String itemId) stackableItemId,
-  }) {
-    return minerItemId(itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-  }) {
-    return minerItemId?.call(itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-    required TResult orElse(),
-  }) {
-    if (minerItemId != null) {
-      return minerItemId(itemId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicItemDefinitionId value) basicItemId,
-    required TResult Function(MinerItemDefinitionId value) minerItemId,
-    required TResult Function(StackableItemDefinitionId value) stackableItemId,
-  }) {
-    return minerItemId(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-  }) {
-    return minerItemId?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-    required TResult orElse(),
-  }) {
-    if (minerItemId != null) {
-      return minerItemId(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MinerItemDefinitionIdToJson(this);
-  }
-}
-
-abstract class MinerItemDefinitionId extends ItemDefinitionId {
-  const factory MinerItemDefinitionId(@HiveField(0) String itemId) =
-      _$MinerItemDefinitionId;
-  const MinerItemDefinitionId._() : super._();
-
-  factory MinerItemDefinitionId.fromJson(Map<String, dynamic> json) =
-      _$MinerItemDefinitionId.fromJson;
-
-  @override
-  @HiveField(0)
-  String get itemId;
-  @override
-  @JsonKey(ignore: true)
-  $MinerItemDefinitionIdCopyWith<MinerItemDefinitionId> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $StackableItemDefinitionIdCopyWith<$Res>
-    implements $ItemDefinitionIdCopyWith<$Res> {
-  factory $StackableItemDefinitionIdCopyWith(StackableItemDefinitionId value,
-          $Res Function(StackableItemDefinitionId) then) =
-      _$StackableItemDefinitionIdCopyWithImpl<$Res>;
-  @override
-  $Res call({@HiveField(0) String itemId});
-}
-
-/// @nodoc
-class _$StackableItemDefinitionIdCopyWithImpl<$Res>
-    extends _$ItemDefinitionIdCopyWithImpl<$Res>
-    implements $StackableItemDefinitionIdCopyWith<$Res> {
-  _$StackableItemDefinitionIdCopyWithImpl(StackableItemDefinitionId _value,
-      $Res Function(StackableItemDefinitionId) _then)
-      : super(_value, (v) => _then(v as StackableItemDefinitionId));
-
-  @override
-  StackableItemDefinitionId get _value =>
-      super._value as StackableItemDefinitionId;
-
-  @override
-  $Res call({
-    Object? itemId = freezed,
-  }) {
-    return _then(StackableItemDefinitionId(
-      itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-@HiveType(typeId: 70, adapterName: 'StackableItemDefinitionIdAdapter')
-class _$StackableItemDefinitionId extends StackableItemDefinitionId {
-  const _$StackableItemDefinitionId(@HiveField(0) this.itemId, {String? $type})
-      : $type = $type ?? 'stackableItemId',
-        super._();
-
-  factory _$StackableItemDefinitionId.fromJson(Map<String, dynamic> json) =>
-      _$$StackableItemDefinitionIdFromJson(json);
-
-  @override
-  @HiveField(0)
-  final String itemId;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is StackableItemDefinitionId &&
-            const DeepCollectionEquality().equals(other.itemId, itemId));
-  }
-
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(itemId));
-
-  @JsonKey(ignore: true)
-  @override
-  $StackableItemDefinitionIdCopyWith<StackableItemDefinitionId> get copyWith =>
-      _$StackableItemDefinitionIdCopyWithImpl<StackableItemDefinitionId>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) String itemId) basicItemId,
-    required TResult Function(@HiveField(0) String itemId) minerItemId,
-    required TResult Function(@HiveField(0) String itemId) stackableItemId,
-  }) {
-    return stackableItemId(itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-  }) {
-    return stackableItemId?.call(itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) String itemId)? basicItemId,
-    TResult Function(@HiveField(0) String itemId)? minerItemId,
-    TResult Function(@HiveField(0) String itemId)? stackableItemId,
-    required TResult orElse(),
-  }) {
-    if (stackableItemId != null) {
-      return stackableItemId(itemId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicItemDefinitionId value) basicItemId,
-    required TResult Function(MinerItemDefinitionId value) minerItemId,
-    required TResult Function(StackableItemDefinitionId value) stackableItemId,
-  }) {
-    return stackableItemId(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-  }) {
-    return stackableItemId?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicItemDefinitionId value)? basicItemId,
-    TResult Function(MinerItemDefinitionId value)? minerItemId,
-    TResult Function(StackableItemDefinitionId value)? stackableItemId,
-    required TResult orElse(),
-  }) {
-    if (stackableItemId != null) {
-      return stackableItemId(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$StackableItemDefinitionIdToJson(this);
-  }
-}
-
-abstract class StackableItemDefinitionId extends ItemDefinitionId {
-  const factory StackableItemDefinitionId(@HiveField(0) String itemId) =
-      _$StackableItemDefinitionId;
-  const StackableItemDefinitionId._() : super._();
-
-  factory StackableItemDefinitionId.fromJson(Map<String, dynamic> json) =
-      _$StackableItemDefinitionId.fromJson;
-
-  @override
-  @HiveField(0)
-  String get itemId;
-  @override
-  @JsonKey(ignore: true)
-  $StackableItemDefinitionIdCopyWith<StackableItemDefinitionId> get copyWith =>
+  _$ItemDefinitionIdCopyWith<_ItemDefinitionId> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -966,13 +502,12 @@ class _$ResourceDefinitionCopyWithImpl<$Res>
 @JsonSerializable()
 @Implements<Resource>()
 @Implements<Stackable>()
-class _$ResourceDefinition implements ResourceDefinition {
+class _$ResourceDefinition extends ResourceDefinition {
   const _$ResourceDefinition(
       this.id, this.name, this.description, this.image, this.maxStackSize,
       {String? $type})
-      : assert(id is StackableItemDefinitionId,
-            'Must use a StackableItemDefinitionId'),
-        $type = $type ?? 'resourceDefinition';
+      : $type = $type ?? 'resourceDefinition',
+        super._();
 
   factory _$ResourceDefinition.fromJson(Map<String, dynamic> json) =>
       _$$ResourceDefinitionFromJson(json);
@@ -1167,14 +702,15 @@ class _$ResourceDefinition implements ResourceDefinition {
   }
 }
 
-abstract class ResourceDefinition
-    implements ItemDefinition, Resource, Stackable {
+abstract class ResourceDefinition extends ItemDefinition
+    implements Resource, Stackable {
   const factory ResourceDefinition(
       ItemDefinitionId id,
       String name,
       String description,
       String image,
       int maxStackSize) = _$ResourceDefinition;
+  const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
       _$ResourceDefinition.fromJson;
@@ -1258,11 +794,12 @@ class _$DrillDefinitionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$DrillDefinition implements DrillDefinition {
+class _$DrillDefinition extends DrillDefinition {
   const _$DrillDefinition(
       this.id, this.name, this.description, this.image, this.damage,
       {String? $type})
-      : $type = $type ?? 'drillDefinition';
+      : $type = $type ?? 'drillDefinition',
+        super._();
 
   factory _$DrillDefinition.fromJson(Map<String, dynamic> json) =>
       _$$DrillDefinitionFromJson(json);
@@ -1456,9 +993,10 @@ class _$DrillDefinition implements DrillDefinition {
   }
 }
 
-abstract class DrillDefinition implements ItemDefinition {
+abstract class DrillDefinition extends ItemDefinition {
   const factory DrillDefinition(ItemDefinitionId id, String name,
       String description, String image, int damage) = _$DrillDefinition;
+  const DrillDefinition._() : super._();
 
   factory DrillDefinition.fromJson(Map<String, dynamic> json) =
       _$DrillDefinition.fromJson;
@@ -1549,11 +1087,12 @@ class _$SwordDefinitionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @Implements<HasPluralName>()
-class _$SwordDefinition implements SwordDefinition {
+class _$SwordDefinition extends SwordDefinition {
   const _$SwordDefinition(this.id, this.name, this.namePlural, this.description,
       this.image, this.attributes,
       {String? $type})
-      : $type = $type ?? 'swordDefinition';
+      : $type = $type ?? 'swordDefinition',
+        super._();
 
   factory _$SwordDefinition.fromJson(Map<String, dynamic> json) =>
       _$$SwordDefinitionFromJson(json);
@@ -1756,7 +1295,7 @@ class _$SwordDefinition implements SwordDefinition {
   }
 }
 
-abstract class SwordDefinition implements ItemDefinition, HasPluralName {
+abstract class SwordDefinition extends ItemDefinition implements HasPluralName {
   const factory SwordDefinition(
       ItemDefinitionId id,
       String name,
@@ -1764,6 +1303,7 @@ abstract class SwordDefinition implements ItemDefinition, HasPluralName {
       String description,
       String image,
       BuiltMap<WeaponAttributes, double> attributes) = _$SwordDefinition;
+  const SwordDefinition._() : super._();
 
   factory SwordDefinition.fromJson(Map<String, dynamic> json) =
       _$SwordDefinition.fromJson;
@@ -1872,8 +1412,8 @@ class _$MinerDefinitionCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$MinerDefinition implements MinerDefinition {
-  _$MinerDefinition(
+class _$MinerDefinition extends MinerDefinition {
+  const _$MinerDefinition(
       this.id,
       this.name,
       this.description,
@@ -1884,8 +1424,8 @@ class _$MinerDefinition implements MinerDefinition {
       this.fuelConsumption,
       this.image,
       {String? $type})
-      : assert(id is MinerItemDefinitionId, 'Must use a MinerItemDefinitionId'),
-        $type = $type ?? 'minerDefinition';
+      : $type = $type ?? 'minerDefinition',
+        super._();
 
   factory _$MinerDefinition.fromJson(Map<String, dynamic> json) =>
       _$$MinerDefinitionFromJson(json);
@@ -2101,8 +1641,8 @@ class _$MinerDefinition implements MinerDefinition {
   }
 }
 
-abstract class MinerDefinition implements ItemDefinition {
-  factory MinerDefinition(
+abstract class MinerDefinition extends ItemDefinition {
+  const factory MinerDefinition(
       ItemDefinitionId id,
       String name,
       String description,
@@ -2112,6 +1652,7 @@ abstract class MinerDefinition implements ItemDefinition {
       int baseHopperSize,
       int fuelConsumption,
       String image) = _$MinerDefinition;
+  const MinerDefinition._() : super._();
 
   factory MinerDefinition.fromJson(Map<String, dynamic> json) =
       _$MinerDefinition.fromJson;
@@ -2151,7 +1692,7 @@ class _$ItemInstanceTearOff {
   MinerInstance minerInstance(
       {@HiveField(0) required ItemInstanceId id,
       @HiveField(1) required ItemDefinitionId itemId,
-      @HiveField(2) BasicItemDefinitionId? drillId}) {
+      @HiveField(2) ItemDefinitionId? drillId}) {
     return MinerInstance(
       id: id,
       itemId: itemId,
@@ -2189,7 +1730,7 @@ mixin _$ItemInstance {
     required TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)
+            @HiveField(2) ItemDefinitionId? drillId)
         minerInstance,
     required TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
@@ -2204,7 +1745,7 @@ mixin _$ItemInstance {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
@@ -2219,7 +1760,7 @@ mixin _$ItemInstance {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
@@ -2347,9 +1888,7 @@ class _$BasicInstanceCopyWithImpl<$Res> extends _$ItemInstanceCopyWithImpl<$Res>
 class _$BasicInstance extends BasicInstance {
   _$BasicInstance(
       {@HiveField(0) required this.id, @HiveField(1) required this.itemId})
-      : assert(itemId is BasicItemDefinitionId,
-            'Must use a BasicItemDefinitionId'),
-        super._();
+      : super._();
 
   @override
   @HiveField(0)
@@ -2392,7 +1931,7 @@ class _$BasicInstance extends BasicInstance {
     required TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)
+            @HiveField(2) ItemDefinitionId? drillId)
         minerInstance,
     required TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
@@ -2410,7 +1949,7 @@ class _$BasicInstance extends BasicInstance {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
@@ -2428,7 +1967,7 @@ class _$BasicInstance extends BasicInstance {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
@@ -2504,10 +2043,11 @@ abstract class $MinerInstanceCopyWith<$Res>
   $Res call(
       {@HiveField(0) ItemInstanceId id,
       @HiveField(1) ItemDefinitionId itemId,
-      @HiveField(2) BasicItemDefinitionId? drillId});
+      @HiveField(2) ItemDefinitionId? drillId});
 
   @override
   $ItemDefinitionIdCopyWith<$Res> get itemId;
+  $ItemDefinitionIdCopyWith<$Res>? get drillId;
 }
 
 /// @nodoc
@@ -2538,8 +2078,19 @@ class _$MinerInstanceCopyWithImpl<$Res> extends _$ItemInstanceCopyWithImpl<$Res>
       drillId: drillId == freezed
           ? _value.drillId
           : drillId // ignore: cast_nullable_to_non_nullable
-              as BasicItemDefinitionId?,
+              as ItemDefinitionId?,
     ));
+  }
+
+  @override
+  $ItemDefinitionIdCopyWith<$Res>? get drillId {
+    if (_value.drillId == null) {
+      return null;
+    }
+
+    return $ItemDefinitionIdCopyWith<$Res>(_value.drillId!, (value) {
+      return _then(_value.copyWith(drillId: value));
+    });
   }
 }
 
@@ -2552,9 +2103,7 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
       {@HiveField(0) required this.id,
       @HiveField(1) required this.itemId,
       @HiveField(2) this.drillId})
-      : assert(itemId is MinerItemDefinitionId,
-            'Must use a MinerItemDefinitionId'),
-        super._();
+      : super._();
 
   @override
   @HiveField(0)
@@ -2564,7 +2113,7 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
   final ItemDefinitionId itemId;
   @override
   @HiveField(2)
-  final BasicItemDefinitionId? drillId;
+  final ItemDefinitionId? drillId;
 
   @override
   String toString() {
@@ -2602,7 +2151,7 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
     required TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)
+            @HiveField(2) ItemDefinitionId? drillId)
         minerInstance,
     required TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
@@ -2620,7 +2169,7 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
@@ -2638,7 +2187,7 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
@@ -2690,7 +2239,7 @@ abstract class MinerInstance extends ItemInstance implements MinerMethods {
   factory MinerInstance(
       {@HiveField(0) required ItemInstanceId id,
       @HiveField(1) required ItemDefinitionId itemId,
-      @HiveField(2) BasicItemDefinitionId? drillId}) = _$MinerInstance;
+      @HiveField(2) ItemDefinitionId? drillId}) = _$MinerInstance;
   MinerInstance._() : super._();
 
   @override
@@ -2700,7 +2249,7 @@ abstract class MinerInstance extends ItemInstance implements MinerMethods {
   @HiveField(1)
   ItemDefinitionId get itemId;
   @HiveField(2)
-  BasicItemDefinitionId? get drillId;
+  ItemDefinitionId? get drillId;
   @override
   @JsonKey(ignore: true)
   $MinerInstanceCopyWith<MinerInstance> get copyWith =>
@@ -2765,9 +2314,7 @@ class _$StackInstance extends StackInstance with StackMethods {
       {@HiveField(0) required this.id,
       @HiveField(1) required this.itemId,
       @HiveField(2) required this.quantity})
-      : assert(itemId is StackableItemDefinitionId,
-            'Must use a StackableItemDefinitionId'),
-        super._();
+      : super._();
 
   @override
   @HiveField(0)
@@ -2815,7 +2362,7 @@ class _$StackInstance extends StackInstance with StackMethods {
     required TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)
+            @HiveField(2) ItemDefinitionId? drillId)
         minerInstance,
     required TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
@@ -2833,7 +2380,7 @@ class _$StackInstance extends StackInstance with StackMethods {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
@@ -2851,7 +2398,7 @@ class _$StackInstance extends StackInstance with StackMethods {
     TResult Function(
             @HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) BasicItemDefinitionId? drillId)?
+            @HiveField(2) ItemDefinitionId? drillId)?
         minerInstance,
     TResult Function(@HiveField(0) ItemInstanceId id,
             @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?

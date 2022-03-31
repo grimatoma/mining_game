@@ -12,7 +12,7 @@ import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/view_to_planet_controller.dart';
 
 final selectedMinerFromDropdownProvider =
-StateProvider.autoDispose<MinerInstance?>((ref) {
+    StateProvider.autoDispose<MinerInstance?>((ref) {
   final minerLocations = ref.watch(minerLocationsProvider);
   if (minerLocations.storedMiners.isNotEmpty) {
     return minerLocations.storedMiners.first;
@@ -31,11 +31,11 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
     if (selectedTile == null || !selectedTile.isValid) {
       return Scaffold(
           body: Column(
-            children: const [
-              Text('Select a location on the map'),
-              Flexible(flex: 1, child: ActiveMinersWidget()),
-            ],
-          ));
+        children: const [
+          Text('Select a location on the map'),
+          Flexible(flex: 1, child: ActiveMinersWidget()),
+        ],
+      ));
     }
     return Column(children: [
       Text('Selected Location: ${selectedTile.point.toString()}'),
@@ -91,20 +91,20 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                           ),
                           items: storedMiners
                               .map<DropdownMenuItem<MinerInstance>>((value) =>
-                              DropdownMenuItem<MinerInstance>(
-                                  child: Text(value.definition.name),
-                                  value: value))
+                                  DropdownMenuItem<MinerInstance>(
+                                      child: Text(value.definition.name),
+                                      value: value))
                               .toList(growable: false),
                           onChanged: (MinerInstance? newVal) {
                             ref
                                 .read(
-                                selectedMinerFromDropdownProvider.notifier)
+                                    selectedMinerFromDropdownProvider.notifier)
                                 .state = newVal;
                           }),
                       TextButton(
                           onPressed: () {
                             final selectedMiner =
-                            ref.read(selectedMinerFromDropdownProvider);
+                                ref.read(selectedMinerFromDropdownProvider);
                             if (selectedMiner == null) return;
                             ref.read(gameEventManagerProvider).addEvent(
                                 ActivateMinerEvent(

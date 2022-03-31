@@ -45,37 +45,40 @@ class BuyListingWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final definition = ItemDirectory.getItem(listing.generator.id);
-    final itemEntry = listing.generator.id;
+
     return ListingWidget(
       imagePath: definition.image,
       listingTitle: definition.name,
-      listingDetails: Table(
-          children: itemEntry.map(basicItemId: (id) {
-        return [];
-      }, minerItemId: (id) {
-        definition as MinerDefinition;
-        return [
-          TableRow(children: [
-            ListingWidget.buildRowTitle('Base damage'),
-            Text(definition.baseDamage.toString()),
-          ]),
-          TableRow(children: [
-            ListingWidget.buildRowTitle('Hopper size'),
-            Text('${definition.baseHopperSize} items'),
-          ]),
-          TableRow(children: [
-            ListingWidget.buildRowTitle('Attachment slots'),
-            const Text('2'),
-          ]),
-        ];
-      }, stackableItemId: (id) {
-        // definition as MinerDefinition;
-        return [
+      listingDetails: Table(children: [
+        if (definition is Stackable)
           TableRow(children: [
             ListingWidget.buildRowTitle('STACKABLE ITEM HERE'),
           ])
-        ];
-      })),
+        else
+          ...definition.maybeMap(minerDefinition: (id) {
+            definition as MinerDefinition;
+            return [
+              TableRow(children: [
+                ListingWidget.buildRowTitle('Base damage'),
+                Text(definition.baseDamage.toString()),
+              ]),
+              TableRow(children: [
+                ListingWidget.buildRowTitle('Hopper size'),
+                Text('${definition.baseHopperSize} items'),
+              ]),
+              TableRow(children: [
+                ListingWidget.buildRowTitle('Attachment slots'),
+                const Text('2'),
+              ]),
+            ];
+          }, orElse: () {
+            return [
+              TableRow(children: [
+                ListingWidget.buildRowTitle('OR ELSE ITEM HERE'),
+              ])
+            ];
+          })
+      ]),
       actionButton: BuyButton(listing),
     );
   }
@@ -92,7 +95,7 @@ class SellingListingWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ListingWidget(
-        listingTitle: listing.items.toString(),
+        listingTitle: listing.sellPrice.toString(),
         listingDetails: Table(
           children: [
             TableRow(children: [
@@ -194,7 +197,7 @@ class BuyButton extends ConsumerWidget {
     final storeListingsController = ref.watch(storeControllerProvider.notifier);
 
     return ShopButton(
-        cost: listing.price,
+        cost: listing.cost,
         active: storeListingsController.canBuy(listing),
         onClick: () {
           storeListingsController.clickListing(listing as ShopListing);
@@ -215,7 +218,7 @@ class SellItemsButton extends ConsumerWidget {
     final storeListingsController = ref.watch(storeControllerProvider.notifier);
 
     return ShopButton(
-        cost: listing.items,
+        cost: listing.cost,
         active: storeListingsController.canSellItemListing(listing),
         onClick: () {
           storeListingsController.clickListing(listing);

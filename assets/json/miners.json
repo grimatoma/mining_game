@@ -9,10 +9,7 @@
     "baseHopperSize": 50,
     "fuelConsumption": 5,
     "image": "assets/images/drills/1.jpg",
-    "id": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER1"
-    }
+    "id": "MINER1"
   },
   {
     "name": "Basic Miner",
@@ -24,10 +21,7 @@
     "baseHopperSize": 150,
     "fuelConsumption": 5,
     "image": "assets/images/drills/2.jpg",
-    "id": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER2"
-    }
+    "id": "MINER2"
   },
   {
     "name": "Test Miner 3",
@@ -39,10 +33,7 @@
     "baseHopperSize": 50,
     "fuelConsumption": 5,
     "image": "assets/images/drills/3.jpg",
-    "id": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER3"
-    }
+    "id": "MINER3"
   },
   {
     "name": "Test Miner 4",
@@ -54,10 +45,7 @@
     "baseHopperSize": 50,
     "fuelConsumption": 5,
     "image": "assets/images/drills/4.jpg",
-    "id": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER4"
-    }
+    "id": "MINER4"
   },
   {
     "name": "Test Miner 5",
@@ -69,9 +57,6 @@
     "baseHopperSize": 50,
     "fuelConsumption": 5,
     "image": "assets/images/drills/5.png",
-    "id": {
-      "runtimeType": "minerItemId",
-      "itemId": "MINER5"
-    }
+    "id": "MINER5"
   }
 ]

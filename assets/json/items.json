@@ -1,9 +1,6 @@
 [
   {
-    "id": {
-      "runtimeType": "basicItemId",
-      "itemId": "ROCK"
-    },
+    "id": "ROCK",
     "runtimeType": "resourceDefinition",
     "name": "Black Rock",
     "namePlural": "Black Rocks",
@@ -12,24 +9,18 @@
     "maxStackSize": 100
   },
   {
-    "id": {
-      "runtimeType": "basicItemId",
-      "itemId": "SWORD"
-    },
+    "id": "SWORD",
     "runtimeType": "swordDefinition",
     "name": "Sword",
     "namePlural": "Swords",
     "description": "Pointy stick",
     "image": "assets/images/placeholder.png",
     "attributes": {
-      "SHARP":10.0
+      "SHARP": 10.0
     }
   },
   {
-    "id": {
-      "runtimeType": "stackableItemId",
-      "itemId": "IRON"
-    },
+    "id": "IRON",
     "runtimeType": "resourceDefinition",
     "name": "Iron",
     "namePlural": "Iron",
@@ -38,10 +29,7 @@
     "maxStackSize": 100
   },
   {
-    "id": {
-      "runtimeType": "stackableItemId",
-      "itemId": "COPPER"
-    },
+    "id": "COPPER",
     "runtimeType": "resourceDefinition",
     "name": "Copper",
     "namePlural": "Copper",
@@ -50,10 +38,7 @@
     "maxStackSize": 100
   },
   {
-    "id": {
-      "runtimeType": "basicItemId",
-      "itemId": "TEST_DRILL"
-    },
+    "id": "TEST_DRILL",
     "runtimeType": "drillDefinition",
     "name": "Test Drill",
     "description": "I do extra damage.",
@@ -61,10 +46,7 @@
     "damage": 4
   },
   {
-    "id": {
-      "runtimeType": "basicItemId",
-      "itemId": "CREDIT"
-    },
+    "id": "CREDIT",
     "runtimeType": "resourceDefinition",
     "name": "Credit",
     "namePlural": "Credits",
