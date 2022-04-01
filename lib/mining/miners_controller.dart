@@ -4,7 +4,6 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_clock.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/inventory/inventory2.dart';
 import 'package:mining_game/item_management/inventory/inventory_events.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
@@ -50,7 +49,7 @@ final minerLocationsProvider = Provider<MinerLocations>((ref) {
 final activeMinerLocationsProvider =
     StateNotifierProvider<ActiveMinerLocationsNotifier, ActiveMiners>((ref) {
   return ActiveMinerLocationsNotifier(
-      ref.watch(inventoryStateProvider2.notifier),
+      ref.watch(inventoryStateProvider.notifier),
       ref.watch(minersProvider.notifier),
       ref.watch(gameEventManagerProvider),
       ref.watch(gameClockProvider),
@@ -60,7 +59,7 @@ final activeMinerLocationsProvider =
 });
 
 class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
-  final InventoryStateController2 _inventoryController;
+  final InventoryStateController _inventoryController;
   final MinerInstancesNotifier _minersNotifier;
   final GameEventManager _eventStreamManager;
   final PlanetController _planetController;

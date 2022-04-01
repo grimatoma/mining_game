@@ -12,7 +12,7 @@ import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/persistence/synced.dart';
 
-import 'item_management/inventory/inventory2.dart';
+import 'item_management/inventory/inventory.dart';
 import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
@@ -21,7 +21,7 @@ part 'garage_controller.g.dart';
 final garageProvider = StateNotifierProvider<GarageNotifier, GarageState>(
     (ref) => GarageNotifier(
         ref.watch(gameEventManagerProvider),
-        ref.watch(inventoryStateProvider2.notifier),
+        ref.watch(inventoryStateProvider.notifier),
         ref.watch(gameConfigsProvider).maxGarageSlots));
 
 @freezed
@@ -58,7 +58,7 @@ class SlotState with _$SlotState {
 }
 
 class GarageNotifier extends StateNotifier<GarageState> {
-  final InventoryStateController2 _inventoryStateController;
+  final InventoryStateController _inventoryStateController;
   final GameEventManager _gameEventManager;
 
   GarageNotifier(

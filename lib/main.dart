@@ -17,7 +17,6 @@ import 'package:mining_game/widgets/quests_page.dart';
 
 import 'item_management/instance_id.dart';
 import 'widgets/garage_page.dart';
-import 'widgets/inventory2_page.dart';
 import 'widgets/inventory_page.dart';
 import 'widgets/planet_page.dart';
 import 'widgets/status_bar_wrapped_page.dart';
@@ -209,10 +208,6 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
         name: 'Inventory',
         icon: Icons.storage,
         builder: (context, _) => const InventoryPageWidget()),
-    RootRoute(
-        name: 'Inventory2',
-        icon: Icons.storage,
-        builder: (context, _) => const InventoryPageWidget2()),
     RootRoute(
         name: 'Garage',
         builder: (context, _) => const GaragePageWidget(),

@@ -36,6 +36,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
 
   @Implements<Resource>()
   @Implements<Stackable>()
+  @Implements<ShowInWallet>()
   const factory ItemDefinition.resourceDefinition(
     ItemDefinitionId id,
     String name,

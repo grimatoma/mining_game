@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/main.dart';
 import 'package:mining_game/quests.dart';
@@ -87,7 +86,8 @@ class QuestListDetail extends ConsumerWidget {
 
     TableRow getItemRequiredStatus(
         MapEntry<ItemDefinitionId, int> itemRequired) {
-      final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
+      final count =
+          5; //ref.watch(inventoryStateProvider).get(itemRequired.key);
       final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [
@@ -102,7 +102,8 @@ class QuestListDetail extends ConsumerWidget {
     }
 
     TableRow getItemOwnedStatus(MapEntry<ItemDefinitionId, int> itemRequired) {
-      final count = ref.watch(inventoryStateProvider).get(itemRequired.key);
+      final count =
+          5; //ref.watch(inventoryStateProvider).get(itemRequired.key);
       final reqMet = count >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [

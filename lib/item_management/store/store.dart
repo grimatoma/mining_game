@@ -1,6 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory/inventory2.dart';
+import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/item_keys.dart';
@@ -9,7 +9,7 @@ import 'shop_listing_definitions.dart';
 
 final storeControllerProvider =
     StateNotifierProvider<StoreController, StoreListings>(
-        (ref) => StoreController(ref.watch(inventoryStateProvider2.notifier)));
+        (ref) => StoreController(ref.watch(inventoryStateProvider.notifier)));
 
 class StoreListings {
   final BuiltList<ShopListing> listings;
@@ -21,7 +21,7 @@ class StoreListings {
 }
 
 class StoreController extends StateNotifier<StoreListings> {
-  final InventoryStateController2 _inventory;
+  final InventoryStateController _inventory;
 
   StoreController(
     this._inventory,

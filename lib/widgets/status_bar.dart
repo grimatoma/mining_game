@@ -11,8 +11,7 @@ class StatusBarWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemEntry = ref
-        .watch(inventoryStateProvider)
-        .items
+        .watch(inventoryCountsStateProvider)
         .entries
         .where((element) => element.key.definition() is ShowInWallet);
     return Container(

@@ -502,6 +502,7 @@ class _$ResourceDefinitionCopyWithImpl<$Res>
 @JsonSerializable()
 @Implements<Resource>()
 @Implements<Stackable>()
+@Implements<ShowInWallet>()
 class _$ResourceDefinition extends ResourceDefinition {
   const _$ResourceDefinition(
       this.id, this.name, this.description, this.image, this.maxStackSize,
@@ -703,13 +704,14 @@ class _$ResourceDefinition extends ResourceDefinition {
 }
 
 abstract class ResourceDefinition extends ItemDefinition
-    implements Resource, Stackable {
+    implements Resource, Stackable, ShowInWallet {
   const factory ResourceDefinition(
       ItemDefinitionId id,
       String name,
       String description,
       String image,
       int maxStackSize) = _$ResourceDefinition;
+
   const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
