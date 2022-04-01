@@ -28,7 +28,11 @@ class ItemDirectory {
       String path, T Function(Map<String, dynamic> json) fromJson) async {
     final json = await rootBundle.loadString(path);
     final jsonMapArray = jsonDecode(json) as Iterable;
-    return jsonMapArray.map((e) => fromJson(e)).toBuiltList();
+    return jsonMapArray.map((e) {
+      print(e);
+      print(fromJson(e));
+      return fromJson(e);
+    }).toBuiltList();
   }
 
   static Future<BuiltMap<K, V>> parseJsonMap<K, V>(

@@ -104,10 +104,20 @@ class ItemInstanceGenerator {
           ItemDefinitionId id, int count) =>
       ItemInstanceGenerator(id, count).generate();
 
-  factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) =>
-      _$ItemInstanceGeneratorFromJson(json);
+  // factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) =>
+  //     _$ItemInstanceGeneratorFromJson(json);
+  //
+  // Map<String, dynamic> toJson() => _$ItemInstanceGeneratorToJson(this);
 
-  Map<String, dynamic> toJson() => _$ItemInstanceGeneratorToJson(this);
+  factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) {
+    final entry = json.entries.first;
+    return ItemInstanceGenerator(
+        ItemDirectory.loadIdFromDb(entry.key), entry.value);
+  }
+
+  Map<String, dynamic> toJson() => {
+        id.toString(): countIfStack,
+      };
 }
 
 @HiveType(typeId: 82)
@@ -144,6 +154,12 @@ class ItemRequirement {
     }
     return false;
   }
+
+  @override
+  String toString() => [
+        for (final item in requiredItems.entries)
+          '${item.key.itemName}: ${item.value}',
+      ].join('\n');
 
   factory ItemRequirement.fromJson(Map<String, dynamic> json) =>
       ItemRequirement({

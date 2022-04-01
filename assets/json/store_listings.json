@@ -1,95 +1,72 @@
 [
   {
     "id": 1,
-    "runtimeType": "sellItems",
     "item": {
-      "id": "CREDIT",
-      "countIfStack": 25
+      "CREDIT": 25
     },
     "cost": {
-      "requiredItems": {
         "IRON": 5
-      }
     },
     "consumable": false
   },
   {
     "id": 2,
-    "runtimeType": "buyItem",
     "cost": {
-      "requiredItems": {
-        "CREDIT": 25
-      }
+      "CREDIT": 25
     },
     "item": {
-      "id": "ROCK",
-      "countIfStack": 25
+      "ROCK": 5
     },
     "quantity": 1,
     "consumable": false
   },
   {
     "id": 3,
-    "runtimeType": "buyItem",
     "cost": {
-      "requiredItems": {
-        "CREDIT": 1
-      }
+      "CREDIT": 1
     },
     "item": {
-      "id": "MINER1"
+      "MINER1": 1
     },
     "consumable": true
   },
   {
     "id": 4,
-    "runtimeType": "buyItem",
     "cost": {
-      "requiredItems": {
-        "CREDIT": 2
-      }
+      "CREDIT": 2
     },
     "item": {
-      "id": "MINER2"
+      "MINER2": 1
     },
     "consumable": true
   },
   {
     "id": 5,
-    "runtimeType": "buyItem",
     "cost": {
-      "requiredItems": {
-        "CREDIT": 3
-      }
+      "CREDIT": 3
     },
     "item": {
-      "id": "MINER3"
+      "MINER3": 1
     },
     "consumable": true
   },
   {
     "id": 6,
-    "runtimeType": "buyItem",
     "cost": {
-      "requiredItems": {
-        "CREDIT": 4
-      }
+      "CREDIT": 4
     },
     "item": {
-      "id": "MINER4"
+      "MINER4": 1
     },
     "consumable": true
   },
   {
     "id": 7,
-    "runtimeType": "buyItem",
     "cost": {
-      "requiredItems": {
-        "CREDIT": 5
-      }
+      "CREDIT": 5
     },
     "item": {
-      "id": "MINER5"
+      "MINER5": 1
     },
     "consumable": true
   }

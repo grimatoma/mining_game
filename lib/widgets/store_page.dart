@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
@@ -13,38 +12,35 @@ class StorePageWidget extends HookConsumerWidget {
   const StorePageWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scrollCtrl = useScrollController();
     // Listen to changes in money (For failed purchases);
     ref.watch(inventoryStateProvider);
     final storeListings = ref.watch(storeControllerProvider);
 
     return StatusBarWrappedPageWidget(
         title: 'Store',
-        builder: (context, ref) => Scrollbar(
-              controller: scrollCtrl,
-              child: ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (_, index) {
-                  final listing = storeListings.listings[index];
-                  return listing.map(
-                      buyItem: (l) => BuyListingWidget(l),
-                      sellItems: (l) => SellingListingWidget(l));
-                },
-                itemCount: storeListings.listings.length,
-                separatorBuilder: (_, __) => const Divider(),
-              ),
+        builder: (context, ref) => ListView.separated(
+              controller: ScrollController(),
+              shrinkWrap: true,
+              itemBuilder: (_, index) {
+                final listing = storeListings.listings[index];
+                return listing.map(
+                  itemListing: (l) => ItemShopListingWidget(l),
+                );
+              },
+              itemCount: storeListings.listings.length,
+              separatorBuilder: (_, __) => const Divider(),
             ));
   }
 }
 
-class BuyListingWidget extends ConsumerWidget {
-  final BuyItemShopListing listing;
+class ItemShopListingWidget extends ConsumerWidget {
+  final ItemShopListing listing;
 
-  const BuyListingWidget(this.listing, {Key? key}) : super(key: key);
+  const ItemShopListingWidget(this.listing, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final definition = ItemDirectory.getItem(listing.generator.id);
+    final definition = ItemDirectory.getItem(listing.item.id);
 
     return ListingWidget(
       imagePath: definition.image,
@@ -81,30 +77,6 @@ class BuyListingWidget extends ConsumerWidget {
       ]),
       actionButton: BuyButton(listing),
     );
-  }
-}
-
-class SellingListingWidget extends ConsumerWidget {
-  final SellItemsShopListing listing;
-
-  const SellingListingWidget(
-    this.listing, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return ListingWidget(
-        listingTitle: listing.sellPrice.toString(),
-        listingDetails: Table(
-          children: [
-            TableRow(children: [
-              ListingWidget.buildRowTitle('Description'),
-              const Text('We need more iron!'),
-            ]),
-          ],
-        ),
-        actionButton: SellItemsButton(listing));
   }
 }
 
@@ -186,7 +158,8 @@ class ShopButton extends ConsumerWidget {
 }
 
 class BuyButton extends ConsumerWidget {
-  final BuyShopListing listing;
+  final ItemShopListing listing;
+
   const BuyButton(
     this.listing, {
     Key? key,
@@ -199,27 +172,6 @@ class BuyButton extends ConsumerWidget {
     return ShopButton(
         cost: listing.cost,
         active: storeListingsController.canBuy(listing),
-        onClick: () {
-          storeListingsController.clickListing(listing as ShopListing);
-        });
-  }
-}
-
-class SellItemsButton extends ConsumerWidget {
-  final SellItemsShopListing listing;
-
-  const SellItemsButton(
-    this.listing, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final storeListingsController = ref.watch(storeControllerProvider.notifier);
-
-    return ShopButton(
-        cost: listing.cost,
-        active: storeListingsController.canSellItemListing(listing),
         onClick: () {
           storeListingsController.clickListing(listing);
         });

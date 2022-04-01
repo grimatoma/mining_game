@@ -1,6 +1,8 @@
 [
   {
-    "id": "ROCK",
+    "id": {
+      "itemId": "ROCK"
+    },
     "runtimeType": "resourceDefinition",
     "name": "Black Rock",
     "namePlural": "Black Rocks",
@@ -9,7 +11,9 @@
     "maxStackSize": 100
   },
   {
-    "id": "SWORD",
+    "id": {
+      "itemId": "SWORD"
+    },
     "runtimeType": "swordDefinition",
     "name": "Sword",
     "namePlural": "Swords",
@@ -20,7 +24,9 @@
     }
   },
   {
-    "id": "IRON",
+    "id": {
+      "itemId": "IRON"
+    },
     "runtimeType": "resourceDefinition",
     "name": "Iron",
     "namePlural": "Iron",
@@ -29,7 +35,9 @@
     "maxStackSize": 100
   },
   {
-    "id": "COPPER",
+    "id": {
+      "itemId": "COPPER"
+    },
     "runtimeType": "resourceDefinition",
     "name": "Copper",
     "namePlural": "Copper",
@@ -38,7 +46,9 @@
     "maxStackSize": 100
   },
   {
-    "id": "TEST_DRILL",
+    "id": {
+      "itemId": "TEST_DRILL"
+    },
     "runtimeType": "drillDefinition",
     "name": "Test Drill",
     "description": "I do extra damage.",
@@ -46,7 +56,9 @@
     "damage": 4
   },
   {
-    "id": "CREDIT",
+    "id": {
+      "itemId": "CREDIT"
+    },
     "runtimeType": "resourceDefinition",
     "name": "Credit",
     "namePlural": "Credits",

@@ -18,45 +18,12 @@ abstract class SellShopListing extends ShopListingInterface {
 
 @freezed
 class ShopListing with _$ShopListing implements ShopListingInterface {
-  // @Implements<BuyShopListing>()
-  // const factory ShopListing.buyItems({
-  //   required int id,
-  //   required ItemRequirement price,
-  //   @Default(true) bool consumable,
-  //   required ItemInstanceGenerator generator,
-  // }) = BuyItemsShopListing;
-
   const factory ShopListing.itemListing({
     required int id,
     required ItemRequirement cost,
     required ItemInstanceGenerator item,
     @Default(true) bool consumable,
   }) = ItemShopListing;
-
-  // @Implements<BuyShopListing>()
-  // const factory ShopListing.buyItem({
-  //   required int id,
-  //   required ItemRequirement cost,
-  //   @Default(true) bool consumable,
-  //   required ItemInstanceGenerator item,
-  // }) = BuyItemShopListing;
-  //
-  // // @Implements<BuyShopListing>()
-  // // const factory ShopListing.buyMiner({
-  // //   required int id,
-  // //   @Default(BuyingShopListingType.MINER) BuyingShopListingType type,
-  // //   required ItemRequirement price,
-  // //   @Default(true) bool consumable,
-  // //   required MinerItemId minerId,
-  // // }) = BuyMinerShopListing;
-  //
-  // @Implements<SellShopListing>()
-  // const factory ShopListing.sellItems({
-  //   required int id,
-  //   @Default(true) bool consumable,
-  //   required ItemInstanceGenerator item,
-  //   required ItemRequirement cost,
-  // }) = SellItemsShopListing;
 
   factory ShopListing.fromJson(Map<String, dynamic> json) =>
       _$ShopListingFromJson(json);
