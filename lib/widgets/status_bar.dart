@@ -16,7 +16,7 @@ class StatusBarWidget extends HookConsumerWidget {
         .where((element) => element.key.definition() is ShowInWallet);
     return Container(
       // width: 400,
-      height: 50,
+      // height: 50,
       color: Colors.cyanAccent[100],
       alignment: Alignment.topLeft,
       child: Center(

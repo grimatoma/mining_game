@@ -14,7 +14,7 @@ enum BoxKey {
   INVENTORY,
 }
 
-const keyIncrement = '8';
+const keyIncrement = '9';
 
 class HiveManager {
   static final openedBoxes = <BoxKey, Box>{};

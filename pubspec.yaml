@@ -53,6 +53,7 @@ dependencies:
   json_serializable_immutable_collections: ^0.10.1
   flutter_reorderable_grid_view: ^2.0.2
   flame: ^1.0.0
+  tuple: ^2.0.0
 
 dev_dependencies:
   hive_generator: ^1.1.1

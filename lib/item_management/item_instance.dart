@@ -59,12 +59,17 @@ abstract class MinerMethods implements InstanceDefinition<MinerDefinition> {
 
 abstract class StackMethods {
   $StackInstanceCopyWith<StackInstance> get copyWith;
+
   int get quantity;
 
+  ItemDefinitionId get itemId;
+
   StackInstance operator +(int amount) => copyWith(quantity: quantity + amount);
+
   StackInstance operator -(int amount) => copyWith(quantity: quantity - amount);
 
-  int meow() => 3;
+  int get maxStackSize =>
+      (ItemDirectory.getItem(itemId) as Stackable).maxStackSize;
 }
 
 @HiveType(typeId: 81)
