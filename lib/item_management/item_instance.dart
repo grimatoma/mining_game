@@ -132,6 +132,12 @@ class ItemRequirement {
 
   ItemRequirement(this.requiredItems);
 
+  factory ItemRequirement.single(ItemDefinitionId itemDefinitionId,
+          [int count = 1]) =>
+      ItemRequirement({itemDefinitionId: count}.build());
+
+  factory ItemRequirement.empty() => ItemRequirement(BuiltMap());
+
   bool meetsRequirement(Iterable<ItemInstance?> existingItems) {
     if (requiredItems.isEmpty) return true;
 

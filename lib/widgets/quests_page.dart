@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,13 +8,10 @@ import 'package:mining_game/main.dart';
 import 'package:mining_game/quests.dart';
 import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
 
-// final
-
 class QuestListPageWidget extends HookConsumerWidget {
   final RootRoute _rootRoute;
 
-  const QuestListPageWidget(
-    this._rootRoute, {
+  const QuestListPageWidget(this._rootRoute, {
     Key? key,
   }) : super(key: key);
 
@@ -21,24 +19,27 @@ class QuestListPageWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
     Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
-      final quests = ref.watch(availableQuests);
       return {
         '/': (context) => StatusBarWrappedPageWidget(
             title: 'Quests',
-            builder: (context, ref) => ListView.separated(
-                controller: scrollController,
-                itemBuilder: (_, index) => InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  QuestDetailWidget(quests[index])));
-                    },
-                    child: QuestListDetail(quests[index])),
-                separatorBuilder: (_, __) => const Divider(),
-                itemCount: quests.length)),
-        '/detail': (context) => QuestDetailWidget(quests[0]),
+            builder: (context, ref) {
+              final quests = ref.watch(activeQuestStatusProvider);
+              return ListView.separated(
+                  controller: scrollController,
+                  itemBuilder: (_, index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    QuestDetailWidget(quests[index])));
+                      },
+                      child: QuestListDetail(quests[index])),
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemCount: quests.length);
+            }),
+        '/detail': (context) =>
+            QuestDetailWidget(ref.watch(activeQuestStatusProvider)[0]),
       };
     }
 
@@ -56,23 +57,25 @@ class QuestListPageWidget extends HookConsumerWidget {
 }
 
 class QuestListDetail extends ConsumerWidget {
-  final QuestDefinition _quest;
+  final QuestStatus _questStatus;
 
   const QuestListDetail(
-    this._quest, {
+    this._questStatus, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print(_questStatus);
     bool questCompleted = true;
     Color getQuestColor(bool requirementMet) {
       if (requirementMet == false) questCompleted = false;
       return requirementMet ? Colors.green : Colors.red;
     }
 
-    TableRow getFeatureStatus(Feature feature) {
-      final reqMet = ref.watch(activeFeaturesProvider).set.contains(feature);
+    TableRow getFeatureStatus(
+        Feature feature, BuiltSet<Feature> currentFeatures) {
+      final reqMet = currentFeatures.contains(feature);
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text(
@@ -84,57 +87,42 @@ class QuestListDetail extends ConsumerWidget {
       ]);
     }
 
-    TableRow getItemRequiredStatus(
-        MapEntry<ItemDefinitionId, int> itemRequired) {
-      final count =
-          5; //ref.watch(inventoryStateProvider).get(itemRequired.key);
-      final reqMet = count >= itemRequired.value;
+    TableRow getItemRequiredStatus(MapEntry<ItemDefinitionId, int> itemRequired,
+        ItemRequirement currentItems,
+        [String? suffix]) {
+      final currentCount = currentItems.requiredItems[itemRequired.key] ?? 0;
+      final reqMet = currentCount >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
         Text('${itemRequired.key.definition().name}:',
             style: TextStyle(color: color)),
         Text(
-            '$count'
+            '$currentCount'
             '/${itemRequired.value}',
             style: TextStyle(color: color)),
+        if (suffix != null) Text(' $suffix', style: TextStyle(color: color)),
       ]);
     }
 
-    TableRow getItemOwnedStatus(MapEntry<ItemDefinitionId, int> itemRequired) {
-      final count =
-          5; //ref.watch(inventoryStateProvider).get(itemRequired.key);
-      final reqMet = count >= itemRequired.value;
-      final color = getQuestColor(reqMet);
-      return TableRow(children: [
-        Text('-', style: TextStyle(color: color)),
-        Text('${itemRequired.key.definition().name}:',
-            style: TextStyle(color: color)),
-        Text(
-            '$count'
-            '/${itemRequired.value}',
-            style: TextStyle(color: color)),
-      ]);
-    }
-
-    final unlockReq = _quest.unlockRequirement;
+    final unlockReq = _questStatus.definition.unlockRequirement;
     final features = unlockReq.features;
-    final itemsRequired = unlockReq.cost;
-    final itemsOwnedRequired = unlockReq.itemsOwned;
     final requirements = Table(
       children: [
-        for (final feature in features) getFeatureStatus(feature),
-        for (final itemRequired in itemsRequired.items.entries)
-          getItemRequiredStatus(itemRequired),
-        for (final itemRequired in itemsOwnedRequired.items.entries)
-          getItemOwnedStatus(itemRequired),
+        for (final feature in features)
+          getFeatureStatus(feature, _questStatus.featuresProgress),
+        for (final itemRequired in unlockReq.cost.requiredItems.entries)
+          getItemRequiredStatus(itemRequired, _questStatus.itemsProgress),
+        for (final itemRequired in unlockReq.itemsOwned.requiredItems.entries)
+          getItemRequiredStatus(
+              itemRequired, _questStatus.itemsProgress, 'Owned'),
       ],
     );
 
     return Column(
       children: [
         Row(
-          children: [Text(_quest.name)],
+          children: [Text(_questStatus.definition.name)],
         ),
         if (questCompleted)
           const Text(
@@ -149,26 +137,22 @@ class QuestListDetail extends ConsumerWidget {
 }
 
 class QuestDetailWidget extends ConsumerWidget {
-  final QuestDefinition _quest;
+  final QuestStatus _questStatus;
 
   const QuestDetailWidget(
-    this._quest, {
+    this._questStatus, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return StatusBarWrappedPageWidget(
-        title: _quest.name,
+        title: _questStatus.definition.name,
         builder: (_, __) => Column(
               children: [
-                Text(_quest.toString()),
+                Text(_questStatus.toString()),
                 // if (ref.watch(allQuestsProvider.))
               ],
             ));
   }
 }
-
-// bool requirementsMet(Quest quest) {
-//   return quest.unlockRequirement
-// }

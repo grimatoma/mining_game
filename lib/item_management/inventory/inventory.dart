@@ -11,6 +11,7 @@ import 'package:tuple/tuple.dart';
 
 final inventoryCountsStateProvider =
     StateProvider<BuiltMap<ItemDefinitionId, int>>((ref) {
+      print('inventory count updated');
   final itemCounts = MapBuilder<ItemDefinitionId, int>();
   final inventory = ref.watch(inventoryStateProvider).itemSlots.list.values;
   for (final item in inventory) {
@@ -69,7 +70,7 @@ class InventoryStateController extends StateNotifier<Inventory> {
         item.maybeMap(stackInstance: (stack) {
           final stackLimit = stack.maxStackSize;
           final similarItemStacks = p0.readOnlyList.toMap()
-            ..removeWhere((key, value) => (value is! StackInstance));
+            ..removeWhere((key, value) => (value?.itemId != item.itemId));
           var remainingItemsToAdd = stack.quantity;
           for (final entry in similarItemStacks.entries) {
             if (remainingItemsToAdd <= 0) break;
