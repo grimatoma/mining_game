@@ -48,7 +48,7 @@ class PlanetController extends StateNotifier<Planet> {
   PlanetController({required GameConfigs configs}) : super(Planet.empty()) {
     void loadInitialData() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p223d.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
       final loadedPlanet = loadedBox.get(databaseKey);
       if (loadedPlanet == null) {
         planet = _generatePlanet(configs);
@@ -59,7 +59,7 @@ class PlanetController extends StateNotifier<Planet> {
 
     void updateBox() async {
       final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p223d.name);
+          await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
       stream.listen((event) {
         loadedBox.put(databaseKey, planet);
       });

@@ -127,7 +127,7 @@ class SyncedSet<K> {
 
   SyncedSet.load(BoxKey boxName,
       {required String Function(K) convert,
-        required Set<K> Function(Iterable<String>) loadFunction})
+      required Set<K> Function(Iterable<String>) loadFunction})
       : _box = HiveManager.getBox<String>(boxName),
         set = loadFunction(HiveManager.getBox<String>(boxName).values).build(),
         _convert = convert;
@@ -164,16 +164,16 @@ class SyncedMap<K, V, StoreK, StoreV> {
       SyncedMap<K, V, K, V>.load(boxName,
           convert: (k, v) => MapEntry(k, v),
           loadFunction: (entries) => {
-            for (final entry in entries) entry.key: entry.value,
-          });
+                for (final entry in entries) entry.key: entry.value,
+              });
 
   SyncedMap.load(BoxKey boxName,
       {required MapEntry<StoreK, StoreV> Function(K, V) convert,
-        required Map<K, V> Function(Iterable<MapEntry<StoreK, StoreV>>)
-        loadFunction})
+      required Map<K, V> Function(Iterable<MapEntry<StoreK, StoreV>>)
+          loadFunction})
       : _box = HiveManager.getBox<MapEntry<StoreK, StoreV>>(boxName),
         map = loadFunction(
-            HiveManager.getBox<MapEntry<StoreK, StoreV>>(boxName).values)
+                HiveManager.getBox<MapEntry<StoreK, StoreV>>(boxName).values)
             .build(),
         _convert = convert;
 
@@ -200,7 +200,8 @@ class SyncedMap<K, V, StoreK, StoreV> {
   }
 }
 
-class MapEntryAdapter<KeyT, ValueT> extends TypeAdapter<MapEntry<KeyT, ValueT>> {
+class MapEntryAdapter<KeyT, ValueT>
+    extends TypeAdapter<MapEntry<KeyT, ValueT>> {
   @override
   final int typeId;
 
@@ -223,7 +224,7 @@ class MapEntryAdapter<KeyT, ValueT> extends TypeAdapter<MapEntry<KeyT, ValueT>> 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is MapEntryAdapter &&
-              runtimeType == other.runtimeType &&
-              typeId == other.typeId;
+      other is MapEntryAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
 }

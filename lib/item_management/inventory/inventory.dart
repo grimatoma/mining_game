@@ -11,7 +11,7 @@ import 'package:tuple/tuple.dart';
 
 final inventoryCountsStateProvider =
     StateProvider<BuiltMap<ItemDefinitionId, int>>((ref) {
-      final itemCounts = MapBuilder<ItemDefinitionId, int>();
+  final itemCounts = MapBuilder<ItemDefinitionId, int>();
   final inventory = ref.watch(inventoryStateProvider).itemSlots.list.values;
   for (final item in inventory) {
     if (item == null) continue;
