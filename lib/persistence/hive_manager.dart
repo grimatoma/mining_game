@@ -12,6 +12,7 @@ enum BoxKey {
   GARAGE,
   FEATURES,
   INVENTORY,
+  COMPLETED_QUESTS,
 }
 
 const keyIncrement = '10';
@@ -53,6 +54,10 @@ class HiveManager {
           break;
         case BoxKey.INVENTORY:
           futures.add(Hive.openBox<ItemInstance?>(boxName)
+              .then((value) => openedBoxes[key] = value));
+          break;
+        case BoxKey.COMPLETED_QUESTS:
+          futures.add(Hive.openBox<int>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
       }

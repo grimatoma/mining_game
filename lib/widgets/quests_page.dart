@@ -11,12 +11,14 @@ import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
 class QuestListPageWidget extends HookConsumerWidget {
   final RootRoute _rootRoute;
 
-  const QuestListPageWidget(this._rootRoute, {
+  const QuestListPageWidget(
+    this._rootRoute, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('rebuilding quest page');
     final scrollController = useScrollController();
     Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
       return {
@@ -28,16 +30,16 @@ class QuestListPageWidget extends HookConsumerWidget {
                   controller: scrollController,
                   itemBuilder: (_, index) => InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    QuestDetailWidget(quests[index])));
-                      },
-                      child: QuestListDetail(quests[index])),
-                  separatorBuilder: (_, __) => const Divider(),
-                  itemCount: quests.length);
-            }),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            QuestDetailWidget(quests[index])));
+                              },
+                              child: QuestListDetail(quests[index])),
+                      separatorBuilder: (_, __) => const Divider(),
+                      itemCount: quests.length);
+                }),
         '/detail': (context) =>
             QuestDetailWidget(ref.watch(activeQuestStatusProvider)[0]),
       };
@@ -66,10 +68,7 @@ class QuestListDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(_questStatus);
-    bool questCompleted = true;
     Color getQuestColor(bool requirementMet) {
-      if (requirementMet == false) questCompleted = false;
       return requirementMet ? Colors.green : Colors.red;
     }
 
@@ -105,7 +104,7 @@ class QuestListDetail extends ConsumerWidget {
       ]);
     }
 
-    final unlockReq = _questStatus.definition.unlockRequirement;
+    final unlockReq = _questStatus.definition.completeRequirement;
     final features = unlockReq.features;
     final requirements = Table(
       children: [
@@ -124,7 +123,15 @@ class QuestListDetail extends ConsumerWidget {
         Row(
           children: [Text(_questStatus.definition.name)],
         ),
-        if (questCompleted)
+        if (_questStatus.requirementsMet)
+          TextButton(
+              onPressed: () {
+                ref
+                    .read(completedQuestsProvider.notifier)
+                    .markCompleted(_questStatus.definition);
+              },
+              child: const Text('Compelte Quest')),
+        if (_questStatus.requirementsMet)
           const Text(
             'Ready to turn in',
             style: TextStyle(color: Colors.green),

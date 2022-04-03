@@ -246,6 +246,7 @@ _$ResourceDefinition _$$ResourceDefinitionFromJson(Map<String, dynamic> json) =>
     _$ResourceDefinition(
       ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       json['name'] as String,
+      json['namePlural'] as String,
       json['description'] as String,
       json['image'] as String,
       json['maxStackSize'] as int,
@@ -257,6 +258,7 @@ Map<String, dynamic> _$$ResourceDefinitionToJson(
     <String, dynamic>{
       'id': instance.id.toJson(),
       'name': instance.name,
+      'namePlural': instance.namePlural,
       'description': instance.description,
       'image': instance.image,
       'maxStackSize': instance.maxStackSize,
