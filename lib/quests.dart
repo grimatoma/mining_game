@@ -10,16 +10,14 @@ import 'package:mining_game/persistence/hive_manager.dart';
 import 'item_management/inventory/inventory.dart';
 
 part 'quests.freezed.dart';
-
-zed.dart';
-
 part 'quests.g.dart';
 
 @freezed
 class Requirement with _$Requirement {
-  const factory Requirement({required BuiltSet<Feature> features,
-    required ItemRequirement cost,
-    required ItemRequirement itemsOwned}) = _Requirement;
+  const factory Requirement(
+      {required BuiltSet<Feature> features,
+      required ItemRequirement cost,
+      required ItemRequirement itemsOwned}) = _Requirement;
 
   factory Requirement.none() => Requirement(
       features: BuiltSet(),
