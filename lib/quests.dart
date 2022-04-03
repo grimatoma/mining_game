@@ -9,13 +9,32 @@ import 'package:mining_game/item_management/items/item_container.dart';
 import 'item_management/inventory/inventory.dart';
 
 part 'quests.freezed.dart';
+part 'quests.g.dart';
 
 @freezed
-class UnlockRequirement with _$UnlockRequirement {
-  const factory UnlockRequirement(
+class Requirement with _$Requirement {
+  const factory Requirement(
       {required BuiltSet<Feature> features,
       required ItemRequirement cost,
-      required ItemRequirement itemsOwned}) = _UnlockRequirement;
+      required ItemRequirement itemsOwned}) = _Requirement;
+
+  factory Requirement.none() => Requirement(
+      features: BuiltSet(),
+      cost: ItemRequirement(BuiltMap()),
+      itemsOwned: ItemRequirement(BuiltMap()));
+
+  factory Requirement.featureOnly(BuiltSet<Feature> features) => Requirement(
+      features: features,
+      cost: ItemRequirement(BuiltMap()),
+      itemsOwned: ItemRequirement(BuiltMap()));
+
+  factory Requirement.itemOwnedOnly(ItemRequirement itemsOwned) => Requirement(
+      features: BuiltSet(),
+      cost: ItemRequirement(BuiltMap()),
+      itemsOwned: itemsOwned);
+
+  factory Requirement.fromJson(Map<String, dynamic> json) =>
+      _$RequirementFromJson(json);
 }
 
 @freezed
