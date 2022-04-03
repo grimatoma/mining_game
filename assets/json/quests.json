@@ -1,0 +1,126 @@
+[
+  {
+    "id": 1,
+    "name": "Test quest1",
+    "description": "This is an example quest. Please give me 5 credits so I can give you 25 rocks. :",
+    "enabledRequirement": {
+      "features": [],
+      "cost": {},
+      "itemsOwned": {
+        "IRON": 5
+      }
+    },
+    "completeRequirement": {
+      "features": [],
+      "cost": {
+        "CREDIT": 5
+      },
+      "itemsOwned": {}
+    },
+    "reward": {
+      "features": [],
+      "reward": {
+        "ROCK": 25
+      }
+    }
+  },
+  {
+    "id": 2,
+    "name": "Smelt Iron",
+    "description": "This quest makes sure that you can smelt iron",
+    "completeRequirement": {
+      "features": [
+        "SMELTING"
+      ],
+      "cost": {},
+      "itemsOwned": {}
+    },
+    "enabledRequirement": {
+      "features": [],
+      "cost": {},
+      "itemsOwned": {}
+    },
+    "reward": {
+      "features": [],
+      "reward": {
+        "ROCK": 25
+      }
+    }
+  },
+  {
+    "id": 3,
+    "name": "Own 5 Iron",
+    "description": "This quest checks that you own Iron",
+    "completeRequirement": {
+      "features": [
+      ],
+      "cost": {},
+      "itemsOwned": {
+        "IRON": 5
+      }
+    },
+    "enabledRequirement": {
+      "features": [],
+      "cost": {},
+      "itemsOwned": {}
+    },
+    "reward": {
+      "features": [],
+      "reward": {
+        "ROCK": 25
+      }
+    }
+  },
+  {
+    "id": 4,
+    "name": "Unlock smelting",
+    "description": "We need to build a smelter but this costs a lot of resources please help me gather these items so I can start building a smelter.",
+    "completeRequirement": {
+      "features": [
+      ],
+      "cost": {
+        "IRON": 50,
+        "CREDIT": 25
+      },
+      "itemsOwned": {
+      }
+    },
+    "enabledRequirement": {
+      "features": [],
+      "cost": {},
+      "itemsOwned": {}
+    },
+    "reward": {
+      "features": [
+        "SMELTING"
+      ],
+      "reward": {}
+    }
+  },
+  {
+    "id": 5,
+    "name": "Give me Credits",
+    "description": "I am short some credits. Give them to me",
+    "completeRequirement": {
+      "features": [
+      ],
+      "cost": {
+        "CREDIT": 17
+      },
+      "itemsOwned": {
+      }
+    },
+    "enabledRequirement": {
+      "features": [],
+      "cost": {},
+      "itemsOwned": {}
+    },
+    "reward": {
+      "features": [
+      ],
+      "reward": {
+        "CREDIT": 17
+      }
+    }
+  }
+]

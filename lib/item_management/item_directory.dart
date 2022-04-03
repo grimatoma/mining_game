@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/services.dart';
+import 'package:mining_game/quests.dart';
 
 import 'item_definition.dart';
 
 class ItemDirectory {
   static BuiltMap<ItemDefinitionId, ItemDefinition> _allItems = BuiltMap();
   static BuiltMap<String, ItemDefinitionId>? _loadItemsFromDbMapping;
+  static Future<BuiltList<QuestDefinition>> allQuests =
+      Future.value(BuiltList());
 
   static Future<void> init() async {
     final miners = await parseJsonMap<ItemDefinitionId, ItemDefinition>(
@@ -22,6 +25,8 @@ class ItemDirectory {
     _loadItemsFromDbMapping = {
       for (final id in _allItems.keys) id.itemId: id,
     }.build();
+    allQuests = parseJsonList<QuestDefinition>(
+        'assets/json/quests.json', QuestDefinition.fromJson);
   }
 
   static Future<BuiltList<T>> parseJsonList<T>(
@@ -29,8 +34,6 @@ class ItemDirectory {
     final json = await rootBundle.loadString(path);
     final jsonMapArray = jsonDecode(json) as Iterable;
     return jsonMapArray.map((e) {
-      print(e);
-      print(fromJson(e));
       return fromJson(e);
     }).toBuiltList();
   }

@@ -11,7 +11,7 @@ import 'package:tuple/tuple.dart';
 
 final inventoryCountsStateProvider =
     StateProvider<BuiltMap<ItemDefinitionId, int>>((ref) {
-      print('inventory count updated');
+  print('inventory count updated');
   final itemCounts = MapBuilder<ItemDefinitionId, int>();
   final inventory = ref.watch(inventoryStateProvider).itemSlots.list.values;
   for (final item in inventory) {
@@ -100,7 +100,13 @@ class InventoryStateController extends StateNotifier<Inventory> {
           }
           success = remainingItemsToAdd <= 0;
         }, orElse: () {
-          final nextOpenSpaceIndex = _nextFreeIndex;
+          /// Returns -1 if there is no free space.
+          int _nextFreeIndex() => state.itemSlots.list.entries
+              .firstWhere((element) => element.value == null,
+                  orElse: () => const MapEntry(-1, null))
+              .key;
+
+          final nextOpenSpaceIndex = _nextFreeIndex();
           if (nextOpenSpaceIndex == -1) {
             success = false;
             return;
@@ -119,19 +125,6 @@ class InventoryStateController extends StateNotifier<Inventory> {
     return success;
   }
 
-  /// Returns -1 if there is no free space.
-  int get _nextFreeIndex => state.itemSlots.list.entries
-      .firstWhere((element) => element.value == null,
-          orElse: () => const MapEntry(-1, null))
-      .key;
-
-  // void removeItem(ItemInstance item) {
-  //   state = state.rebuild((p0) {
-  //     final index = state.itemSlots.list.indexOf(item);
-  //     p0[index] = null;
-  //   });
-  // }
-
   ItemInstance? removeItemAtIndex(int index) {
     ItemInstance? returnItem;
     state = state.rebuild((p0) {
@@ -144,42 +137,44 @@ class InventoryStateController extends StateNotifier<Inventory> {
   bool meetsRequirements(ItemRequirement requirement) =>
       requirement.meetsRequirement(state.itemSlots.list.values);
 
-  void subtractItemRequirement(ItemRequirement requirement) {
-    if (meetsRequirements(requirement)) {
-      // Do logic that removes the requirements from the inventroy fromt he first seen.
-      if (requirement.requiredItems.isEmpty) return;
+  bool subtractItemRequirement(ItemRequirement requirement) {
+    if (!meetsRequirements(requirement)) return false;
+    // Do logic that removes the requirements from the inventory from the first seen.
+    if (requirement.requiredItems.isEmpty) return true;
 
-      state = state.rebuild((p0) {
-        final itemsNeeded = requirement.requiredItems.toMap();
-        for (var index = state.itemSlots.list.length - 1; index >= 0; index--) {
-          final item = p0[index] as ItemInstance?;
-          if (item == null) continue;
-          final itemId = item.itemId;
-          if (!itemsNeeded.containsKey(itemId)) continue;
+    state = state.rebuild((p0) {
+      final itemsNeeded = requirement.requiredItems.toMap();
+      for (var index = state.itemSlots.list.length - 1; index >= 0; index--) {
+        final item = p0[index] as ItemInstance?;
+        if (item == null) continue;
+        final itemId = item.itemId;
+        if (!itemsNeeded.containsKey(itemId)) continue;
 
-          final amountRequired = itemsNeeded[itemId]!;
+        final amountRequired = itemsNeeded[itemId]!;
 
-          item.maybeMap(stackInstance: (itemStack) {
-            final updatedStack = itemStack - amountRequired;
-            if (updatedStack.quantity > 0) {
-              p0[index] = null;
-              itemsNeeded[itemId] = updatedStack.quantity;
-            } else {
-              p0[index] = updatedStack;
-              itemsNeeded.remove(itemId);
-            }
-          }, orElse: () {
-            // Single item at instance.
-            removeItemAtIndex(index);
-            if (amountRequired - 1 <= 0) {
-              itemsNeeded.remove(itemId);
-            } else {
-              itemsNeeded[itemId] = amountRequired - 1;
-            }
-          });
-        }
-      });
-    }
+        item.maybeMap(stackInstance: (currentItemStack) {
+          final currentItemRemainingAmount =
+              currentItemStack.quantity - amountRequired;
+          if (currentItemRemainingAmount > 0) {
+            p0[index] =
+                currentItemStack.copyWith(quantity: currentItemRemainingAmount);
+            itemsNeeded.remove(itemId);
+          } else {
+            p0[index] = null;
+            itemsNeeded[itemId] = amountRequired - currentItemStack.quantity;
+          }
+        }, orElse: () {
+          // Single item at instance.
+          removeItemAtIndex(index);
+          if (amountRequired - 1 <= 0) {
+            itemsNeeded.remove(itemId);
+          } else {
+            itemsNeeded[itemId] = amountRequired - 1;
+          }
+        });
+      }
+    });
+    return true;
   }
 
   void moveItem(int startIndex, int destIndex) {

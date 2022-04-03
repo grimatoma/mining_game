@@ -1,9 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
-import 'package:mining_game/item_management/item_keys.dart';
 
 import 'shop_listing_definitions.dart';
 
@@ -26,13 +24,6 @@ class StoreController extends StateNotifier<StoreListings> {
   StoreController(
     this._inventory,
   ) : super(StoreListings(<ShopListing>[].build())) {
-    print(ItemShopListing(
-            id: 1,
-            cost: ItemRequirement({
-              ItemKeys.CREDIT: 1,
-            }.build()),
-            item: ItemInstanceGenerator(ItemKeys.CREDIT, 50))
-        .toJson());
     void initStore() async {
       state = StoreListings(await ItemDirectory.parseJsonList(
           'assets/json/store_listings.json', ShopListing.fromJson));
