@@ -5,8 +5,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/main.dart';
-import 'package:mining_game/quests.dart';
+import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
+
+import 'quest_detail_widget.dart';
+import 'quest_providers.dart';
 
 class QuestListPageWidget extends HookConsumerWidget {
   final RootRoute _rootRoute;
@@ -26,20 +29,32 @@ class QuestListPageWidget extends HookConsumerWidget {
             title: 'Quests',
             builder: (context, ref) {
               final quests = ref.watch(activeQuestStatusProvider);
-              return ListView.separated(
-                  controller: scrollController,
-                  itemBuilder: (_, index) => InkWell(
-                      onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            QuestDetailWidget(quests[index])));
-                              },
-                              child: QuestListDetail(quests[index])),
+              return Column(
+                children: [
+                  TextButton(
+                      onPressed: () {
+                        ref
+                            .read(completedQuestsProvider.notifier)
+                            .resetQuests();
+                      },
+                      child: const Text("Reset quests")),
+                  ListView.separated(
+                      shrinkWrap: true,
+                      controller: scrollController,
+                      itemBuilder: (_, index) => InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        QuestDetailWidget(quests[index])));
+                          },
+                          child: QuestListDetail(quests[index])),
                       separatorBuilder: (_, __) => const Divider(),
-                      itemCount: quests.length);
-                }),
+                      itemCount: quests.length),
+                ],
+              );
+            }),
         '/detail': (context) =>
             QuestDetailWidget(ref.watch(activeQuestStatusProvider)[0]),
       };
@@ -124,14 +139,6 @@ class QuestListDetail extends ConsumerWidget {
           children: [Text(_questStatus.definition.name)],
         ),
         if (_questStatus.requirementsMet)
-          TextButton(
-              onPressed: () {
-                ref
-                    .read(completedQuestsProvider.notifier)
-                    .markCompleted(_questStatus.definition);
-              },
-              child: const Text('Compelte Quest')),
-        if (_questStatus.requirementsMet)
           const Text(
             'Ready to turn in',
             style: TextStyle(color: Colors.green),
@@ -140,26 +147,5 @@ class QuestListDetail extends ConsumerWidget {
           requirements,
       ],
     );
-  }
-}
-
-class QuestDetailWidget extends ConsumerWidget {
-  final QuestStatus _questStatus;
-
-  const QuestDetailWidget(
-    this._questStatus, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return StatusBarWrappedPageWidget(
-        title: _questStatus.definition.name,
-        builder: (_, __) => Column(
-              children: [
-                Text(_questStatus.toString()),
-                // if (ref.watch(allQuestsProvider.))
-              ],
-            ));
   }
 }

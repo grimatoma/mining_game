@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'quests.dart';
+part of 'quest_definition.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

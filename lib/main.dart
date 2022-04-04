@@ -13,7 +13,7 @@ import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/planet/planet.dart';
 import 'package:mining_game/planet/planet_tile.dart';
 import 'package:mining_game/planet/point.dart';
-import 'package:mining_game/widgets/quests_page.dart';
+import 'package:mining_game/quests/quests_page.dart';
 
 import 'item_management/instance_id.dart';
 import 'widgets/garage_page.dart';
@@ -28,7 +28,6 @@ void main() async {
   Hive.registerAdapter(ItemDefinitionIdAdapter());
   Hive.registerAdapter(StackInstanceAdapter());
   Hive.registerAdapter(ItemContainerAdapter());
-  // Hive.registerAdapter(ItemIdAdapter());
   Hive.registerAdapter(InstanceIdAdapter());
   Hive.registerAdapter(BuiltMapAdapter<ItemDefinitionId, int>(32));
   Hive.registerAdapter(PlanetTileAdapter());
@@ -113,6 +112,8 @@ class BottomNavigationWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BottomNavigationBar(
+      showUnselectedLabels: true,
+      unselectedItemColor: Colors.blue,
       items: [
         for (final route in ref.watch(mainNavigationPagesProvider))
           // TODO
@@ -189,13 +190,7 @@ class TestWi extends HookConsumerWidget {
 }
 
 final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
-  print('loading list');
   return [
-    // NavItem(name: '', icon: Icons.watch, builder: (context) => const TestWi()),
-    // NavItem(
-    //     name: 'Main',
-    //     icon: Icons.home,
-    //     builder: (context) => const MainMenuWidget()),
     RootRoute(
         name: 'planet',
         icon: Icons.circle,

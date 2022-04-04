@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/services.dart';
-import 'package:mining_game/quests.dart';
+import 'package:mining_game/quests/quest_definition.dart';
 
 import 'item_definition.dart';
 
