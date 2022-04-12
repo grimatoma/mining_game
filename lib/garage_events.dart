@@ -27,8 +27,8 @@ class AddMinerToSlotGarageEvent extends GarageEvent {
   @override
   final type = GarageEventType.ADD_MINER_TO_SLOT;
   final EmptySlot slot;
-  final ItemInstanceId instanceId;
+  final ItemInstanceId minerInstance;
 
   const AddMinerToSlotGarageEvent(
-      {required this.slot, required this.instanceId});
+      {required this.slot, required this.minerInstance});
 }

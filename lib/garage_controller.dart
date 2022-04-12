@@ -72,7 +72,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
           break;
         case GarageEventType.ADD_MINER_TO_SLOT:
           event as AddMinerToSlotGarageEvent;
-          _addMinerToSlot(event.slot, event.instanceId);
+          _addMinerToSlot(event.slot, event.minerInstance);
           break;
       }
     });
@@ -97,9 +97,9 @@ class GarageNotifier extends StateNotifier<GarageState> {
     }
   }
 
-  void _addMinerToSlot(EmptySlot slot, ItemInstanceId minerId) {
+  void _addMinerToSlot(EmptySlot slot, ItemInstanceId minerInstance) {
     state = state.rebuild(addOrUpdate: {
-      slot.index: SlotWithMiner(minerId: minerId, index: slot.index)
+      slot.index: SlotWithMiner(minerId: minerInstance, index: slot.index)
     });
   }
 }

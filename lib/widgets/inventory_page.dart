@@ -73,7 +73,7 @@ class InventoryPageWidget extends HookConsumerWidget {
                     controller: scrollController,
                     gridDelegate:
                         const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
+                      maxCrossAxisExtent: 100,
                       childAspectRatio: 1 / 1,
                       crossAxisSpacing: 5,
                       mainAxisSpacing: 5,

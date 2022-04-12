@@ -93,7 +93,7 @@ class EmptyGarageSlotWidget extends ConsumerWidget {
                       onChanged: (miner) {
                         ref.read(gameEventManagerProvider).addEvent(
                             AddMinerToSlotGarageEvent(
-                                slot: slot, instanceId: miner!.id));
+                                slot: slot, minerInstance: miner!.id));
                       },
                     )
                   ],
