@@ -46,8 +46,8 @@ class _PlanetMapRendererWidget2State
               child: FittedBox(
                 fit: BoxFit.fill,
                 child: SizedBox(
-                  width: selectedPlanet.width * 32,
-                  height: selectedPlanet.height * 32,
+                  width: selectedPlanet.width * 64,
+                  height: selectedPlanet.height * 64,
                   child: Table(
                     border: TableBorder.all(),
                     children: [
@@ -92,8 +92,8 @@ class TileWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final tileState = ref.watch(_controller.provider);
     return SizedBox(
-      height: 32,
-      width: 32,
+      height: 64,
+      width: 64,
       child: InkResponse(
         onTap: () {
           ref.read(selectedTileControllerProvider.notifier).state = _controller;
