@@ -12,44 +12,20 @@ part of 'shop_listing_definitions.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
   return ItemShopListing.fromJson(json);
 }
 
 /// @nodoc
-class _$ShopListingTearOff {
-  const _$ShopListingTearOff();
-
-  ItemShopListing itemListing(
-      {required int id,
-      required ItemRequirement cost,
-      required ItemInstanceGenerator item,
-      bool consumable = true}) {
-    return ItemShopListing(
-      id: id,
-      cost: cost,
-      item: item,
-      consumable: consumable,
-    );
-  }
-
-  ShopListing fromJson(Map<String, Object?> json) {
-    return ShopListing.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $ShopListing = _$ShopListingTearOff();
-
-/// @nodoc
 mixin _$ShopListing {
   int get id => throw _privateConstructorUsedError;
+
   ItemRequirement get cost => throw _privateConstructorUsedError;
+
   ItemInstanceGenerator get item => throw _privateConstructorUsedError;
   bool get consumable => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id, ItemRequirement cost,
@@ -143,11 +119,12 @@ class _$ShopListingCopyWithImpl<$Res> implements $ShopListingCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $ItemShopListingCopyWith<$Res>
+abstract class _$$ItemShopListingCopyWith<$Res>
     implements $ShopListingCopyWith<$Res> {
-  factory $ItemShopListingCopyWith(
-          ItemShopListing value, $Res Function(ItemShopListing) then) =
-      _$ItemShopListingCopyWithImpl<$Res>;
+  factory _$$ItemShopListingCopyWith(
+          _$ItemShopListing value, $Res Function(_$ItemShopListing) then) =
+      __$$ItemShopListingCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {int id,
@@ -157,15 +134,15 @@ abstract class $ItemShopListingCopyWith<$Res>
 }
 
 /// @nodoc
-class _$ItemShopListingCopyWithImpl<$Res>
+class __$$ItemShopListingCopyWithImpl<$Res>
     extends _$ShopListingCopyWithImpl<$Res>
-    implements $ItemShopListingCopyWith<$Res> {
-  _$ItemShopListingCopyWithImpl(
-      ItemShopListing _value, $Res Function(ItemShopListing) _then)
-      : super(_value, (v) => _then(v as ItemShopListing));
+    implements _$$ItemShopListingCopyWith<$Res> {
+  __$$ItemShopListingCopyWithImpl(
+      _$ItemShopListing _value, $Res Function(_$ItemShopListing) _then)
+      : super(_value, (v) => _then(v as _$ItemShopListing));
 
   @override
-  ItemShopListing get _value => super._value as ItemShopListing;
+  _$ItemShopListing get _value => super._value as _$ItemShopListing;
 
   @override
   $Res call({
@@ -174,7 +151,7 @@ class _$ItemShopListingCopyWithImpl<$Res>
     Object? item = freezed,
     Object? consumable = freezed,
   }) {
-    return _then(ItemShopListing(
+    return _then(_$ItemShopListing(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -213,8 +190,8 @@ class _$ItemShopListing implements ItemShopListing {
   final ItemRequirement cost;
   @override
   final ItemInstanceGenerator item;
-  @JsonKey()
   @override
+  @JsonKey()
   final bool consumable;
 
   @override
@@ -226,7 +203,7 @@ class _$ItemShopListing implements ItemShopListing {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is ItemShopListing &&
+            other is _$ItemShopListing &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.cost, cost) &&
             const DeepCollectionEquality().equals(other.item, item) &&
@@ -234,6 +211,7 @@ class _$ItemShopListing implements ItemShopListing {
                 .equals(other.consumable, consumable));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -244,8 +222,8 @@ class _$ItemShopListing implements ItemShopListing {
 
   @JsonKey(ignore: true)
   @override
-  $ItemShopListingCopyWith<ItemShopListing> get copyWith =>
-      _$ItemShopListingCopyWithImpl<ItemShopListing>(this, _$identity);
+  _$$ItemShopListingCopyWith<_$ItemShopListing> get copyWith =>
+      __$$ItemShopListingCopyWithImpl<_$ItemShopListing>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -317,24 +295,28 @@ class _$ItemShopListing implements ItemShopListing {
 
 abstract class ItemShopListing implements ShopListing {
   const factory ItemShopListing(
-      {required int id,
-      required ItemRequirement cost,
-      required ItemInstanceGenerator item,
-      bool consumable}) = _$ItemShopListing;
+      {required final int id,
+      required final ItemRequirement cost,
+      required final ItemInstanceGenerator item,
+      final bool consumable}) = _$ItemShopListing;
 
   factory ItemShopListing.fromJson(Map<String, dynamic> json) =
       _$ItemShopListing.fromJson;
 
   @override
-  int get id;
+  int get id => throw _privateConstructorUsedError;
+
   @override
-  ItemRequirement get cost;
+  ItemRequirement get cost => throw _privateConstructorUsedError;
+
   @override
-  ItemInstanceGenerator get item;
+  ItemInstanceGenerator get item => throw _privateConstructorUsedError;
+
   @override
-  bool get consumable;
+  bool get consumable => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  $ItemShopListingCopyWith<ItemShopListing> get copyWith =>
+  _$$ItemShopListingCopyWith<_$ItemShopListing> get copyWith =>
       throw _privateConstructorUsedError;
 }

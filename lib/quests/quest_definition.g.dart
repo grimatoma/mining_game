@@ -17,7 +17,7 @@ _$_Requirement _$$_RequirementFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_RequirementToJson(_$_Requirement instance) =>
     <String, dynamic>{
-      'features': instance.features.map((e) => _$FeatureEnumMap[e]).toList(),
+      'features': instance.features.map((e) => _$FeatureEnumMap[e]!).toList(),
       'cost': instance.cost.toJson(),
       'itemsOwned': instance.itemsOwned.toJson(),
     };
@@ -39,7 +39,7 @@ _$_QuestReward _$$_QuestRewardFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_QuestRewardToJson(_$_QuestReward instance) =>
     <String, dynamic>{
-      'features': instance.features?.map((e) => _$FeatureEnumMap[e]).toList(),
+      'features': instance.features?.map((e) => _$FeatureEnumMap[e]!).toList(),
       'reward': instance.reward?.toJson(),
     };
 

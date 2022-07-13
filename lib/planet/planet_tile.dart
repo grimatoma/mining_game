@@ -5,6 +5,7 @@ import 'package:mining_game/item_management/items/item_container.dart';
 import 'point.dart';
 
 part 'planet_tile.freezed.dart';
+
 part 'planet_tile.g.dart';
 
 @freezed
@@ -15,10 +16,18 @@ class PlanetTile with _$PlanetTile {
   factory PlanetTile(
       {@HiveField(0) required PlanetPoint point,
       @HiveField(1) required ItemContainer resources,
-      @HiveField(2) required bool visible}) = _PlanetTile;
+      @HiveField(2) required bool visible,
+      @HiveField(3) @Default(TileType.Empty) TileType tileType}) = _PlanetTile;
 
   // factory PlanetTile.fromJson(Map<String, dynamic> json) =>
   //     _$PlanetTileFromJson(json);
 
   bool get isValid => point.isNotNegative;
+}
+
+enum TileType {
+  Empty,
+  Mine,
+  Grass,
+  Blocked,
 }

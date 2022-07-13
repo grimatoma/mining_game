@@ -58,7 +58,8 @@ abstract class MinerMethods implements InstanceDefinition<MinerDefinition> {
 }
 
 abstract class StackMethods {
-  $StackInstanceCopyWith<StackInstance> get copyWith;
+  // ignore: library_private_types_in_public_api
+  _$$StackInstanceCopyWith<_$StackInstance> get copyWith;
 
   int get quantity;
 

@@ -12,21 +12,7 @@ part of 'garage_controller.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$GarageStateTearOff {
-  const _$GarageStateTearOff();
-
-  _GarageState call(SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) {
-    return _GarageState(
-      slotsSyncedMap,
-    );
-  }
-}
-
-/// @nodoc
-const $GarageState = _$GarageStateTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$GarageState {
@@ -69,30 +55,31 @@ class _$GarageStateCopyWithImpl<$Res> implements $GarageStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$GarageStateCopyWith<$Res>
+abstract class _$$_GarageStateCopyWith<$Res>
     implements $GarageStateCopyWith<$Res> {
-  factory _$GarageStateCopyWith(
-          _GarageState value, $Res Function(_GarageState) then) =
-      __$GarageStateCopyWithImpl<$Res>;
+  factory _$$_GarageStateCopyWith(
+          _$_GarageState value, $Res Function(_$_GarageState) then) =
+      __$$_GarageStateCopyWithImpl<$Res>;
+
   @override
   $Res call({SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap});
 }
 
 /// @nodoc
-class __$GarageStateCopyWithImpl<$Res> extends _$GarageStateCopyWithImpl<$Res>
-    implements _$GarageStateCopyWith<$Res> {
-  __$GarageStateCopyWithImpl(
-      _GarageState _value, $Res Function(_GarageState) _then)
-      : super(_value, (v) => _then(v as _GarageState));
+class __$$_GarageStateCopyWithImpl<$Res> extends _$GarageStateCopyWithImpl<$Res>
+    implements _$$_GarageStateCopyWith<$Res> {
+  __$$_GarageStateCopyWithImpl(
+      _$_GarageState _value, $Res Function(_$_GarageState) _then)
+      : super(_value, (v) => _then(v as _$_GarageState));
 
   @override
-  _GarageState get _value => super._value as _GarageState;
+  _$_GarageState get _value => super._value as _$_GarageState;
 
   @override
   $Res call({
     Object? slotsSyncedMap = freezed,
   }) {
-    return _then(_GarageState(
+    return _then(_$_GarageState(
       slotsSyncedMap == freezed
           ? _value.slotsSyncedMap
           : slotsSyncedMap // ignore: cast_nullable_to_non_nullable
@@ -106,7 +93,8 @@ class __$GarageStateCopyWithImpl<$Res> extends _$GarageStateCopyWithImpl<$Res>
 class _$_GarageState extends _GarageState {
   const _$_GarageState(this.slotsSyncedMap) : super._();
 
-  @override // @HiveField(1)
+// @HiveField(1)
+  @override
   final SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap;
 
   @override
@@ -118,7 +106,7 @@ class _$_GarageState extends _GarageState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _GarageState &&
+            other is _$_GarageState &&
             const DeepCollectionEquality()
                 .equals(other.slotsSyncedMap, slotsSyncedMap));
   }
@@ -129,58 +117,31 @@ class _$_GarageState extends _GarageState {
 
   @JsonKey(ignore: true)
   @override
-  _$GarageStateCopyWith<_GarageState> get copyWith =>
-      __$GarageStateCopyWithImpl<_GarageState>(this, _$identity);
+  _$$_GarageStateCopyWith<_$_GarageState> get copyWith =>
+      __$$_GarageStateCopyWithImpl<_$_GarageState>(this, _$identity);
 }
 
 abstract class _GarageState extends GarageState {
   const factory _GarageState(
-          SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) =
+          final SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) =
       _$_GarageState;
+
   const _GarageState._() : super._();
 
   @override // @HiveField(1)
-  SyncedMap<int, SlotState, int, SlotState> get slotsSyncedMap;
+  SyncedMap<int, SlotState, int, SlotState> get slotsSyncedMap =>
+      throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  _$GarageStateCopyWith<_GarageState> get copyWith =>
+  _$$_GarageStateCopyWith<_$_GarageState> get copyWith =>
       throw _privateConstructorUsedError;
 }
-
-/// @nodoc
-class _$SlotStateTearOff {
-  const _$SlotStateTearOff();
-
-  SlotWithMiner withMiner(
-      {@HiveField(1) required ItemInstanceId minerId,
-      @HiveField(2) required int index}) {
-    return SlotWithMiner(
-      minerId: minerId,
-      index: index,
-    );
-  }
-
-  LockedSlot locked({@HiveField(2) required int index}) {
-    return LockedSlot(
-      index: index,
-    );
-  }
-
-  EmptySlot empty({@HiveField(2) required int index}) {
-    return EmptySlot(
-      index: index,
-    );
-  }
-}
-
-/// @nodoc
-const $SlotState = _$SlotStateTearOff();
 
 /// @nodoc
 mixin _$SlotState {
   @HiveField(2)
   int get index => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -266,31 +227,32 @@ class _$SlotStateCopyWithImpl<$Res> implements $SlotStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $SlotWithMinerCopyWith<$Res>
+abstract class _$$SlotWithMinerCopyWith<$Res>
     implements $SlotStateCopyWith<$Res> {
-  factory $SlotWithMinerCopyWith(
-          SlotWithMiner value, $Res Function(SlotWithMiner) then) =
-      _$SlotWithMinerCopyWithImpl<$Res>;
+  factory _$$SlotWithMinerCopyWith(
+          _$SlotWithMiner value, $Res Function(_$SlotWithMiner) then) =
+      __$$SlotWithMinerCopyWithImpl<$Res>;
+
   @override
   $Res call({@HiveField(1) ItemInstanceId minerId, @HiveField(2) int index});
 }
 
 /// @nodoc
-class _$SlotWithMinerCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
-    implements $SlotWithMinerCopyWith<$Res> {
-  _$SlotWithMinerCopyWithImpl(
-      SlotWithMiner _value, $Res Function(SlotWithMiner) _then)
-      : super(_value, (v) => _then(v as SlotWithMiner));
+class __$$SlotWithMinerCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
+    implements _$$SlotWithMinerCopyWith<$Res> {
+  __$$SlotWithMinerCopyWithImpl(
+      _$SlotWithMiner _value, $Res Function(_$SlotWithMiner) _then)
+      : super(_value, (v) => _then(v as _$SlotWithMiner));
 
   @override
-  SlotWithMiner get _value => super._value as SlotWithMiner;
+  _$SlotWithMiner get _value => super._value as _$SlotWithMiner;
 
   @override
   $Res call({
     Object? minerId = freezed,
     Object? index = freezed,
   }) {
-    return _then(SlotWithMiner(
+    return _then(_$SlotWithMiner(
       minerId: minerId == freezed
           ? _value.minerId
           : minerId // ignore: cast_nullable_to_non_nullable
@@ -326,7 +288,7 @@ class _$SlotWithMiner implements SlotWithMiner {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is SlotWithMiner &&
+            other is _$SlotWithMiner &&
             const DeepCollectionEquality().equals(other.minerId, minerId) &&
             const DeepCollectionEquality().equals(other.index, index));
   }
@@ -339,8 +301,8 @@ class _$SlotWithMiner implements SlotWithMiner {
 
   @JsonKey(ignore: true)
   @override
-  $SlotWithMinerCopyWith<SlotWithMiner> get copyWith =>
-      _$SlotWithMinerCopyWithImpl<SlotWithMiner>(this, _$identity);
+  _$$SlotWithMinerCopyWith<_$SlotWithMiner> get copyWith =>
+      __$$SlotWithMinerCopyWithImpl<_$SlotWithMiner>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -419,43 +381,47 @@ class _$SlotWithMiner implements SlotWithMiner {
 
 abstract class SlotWithMiner implements SlotState {
   const factory SlotWithMiner(
-      {@HiveField(1) required ItemInstanceId minerId,
-      @HiveField(2) required int index}) = _$SlotWithMiner;
+      {@HiveField(1) required final ItemInstanceId minerId,
+      @HiveField(2) required final int index}) = _$SlotWithMiner;
 
   @HiveField(1)
-  ItemInstanceId get minerId;
+  ItemInstanceId get minerId => throw _privateConstructorUsedError;
+
   @override
   @HiveField(2)
-  int get index;
+  int get index => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  $SlotWithMinerCopyWith<SlotWithMiner> get copyWith =>
+  _$$SlotWithMinerCopyWith<_$SlotWithMiner> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LockedSlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
-  factory $LockedSlotCopyWith(
-          LockedSlot value, $Res Function(LockedSlot) then) =
-      _$LockedSlotCopyWithImpl<$Res>;
+abstract class _$$LockedSlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
+  factory _$$LockedSlotCopyWith(
+          _$LockedSlot value, $Res Function(_$LockedSlot) then) =
+      __$$LockedSlotCopyWithImpl<$Res>;
+
   @override
   $Res call({@HiveField(2) int index});
 }
 
 /// @nodoc
-class _$LockedSlotCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
-    implements $LockedSlotCopyWith<$Res> {
-  _$LockedSlotCopyWithImpl(LockedSlot _value, $Res Function(LockedSlot) _then)
-      : super(_value, (v) => _then(v as LockedSlot));
+class __$$LockedSlotCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
+    implements _$$LockedSlotCopyWith<$Res> {
+  __$$LockedSlotCopyWithImpl(
+      _$LockedSlot _value, $Res Function(_$LockedSlot) _then)
+      : super(_value, (v) => _then(v as _$LockedSlot));
 
   @override
-  LockedSlot get _value => super._value as LockedSlot;
+  _$LockedSlot get _value => super._value as _$LockedSlot;
 
   @override
   $Res call({
     Object? index = freezed,
   }) {
-    return _then(LockedSlot(
+    return _then(_$LockedSlot(
       index: index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -483,7 +449,7 @@ class _$LockedSlot implements LockedSlot {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is LockedSlot &&
+            other is _$LockedSlot &&
             const DeepCollectionEquality().equals(other.index, index));
   }
 
@@ -493,8 +459,8 @@ class _$LockedSlot implements LockedSlot {
 
   @JsonKey(ignore: true)
   @override
-  $LockedSlotCopyWith<LockedSlot> get copyWith =>
-      _$LockedSlotCopyWithImpl<LockedSlot>(this, _$identity);
+  _$$LockedSlotCopyWith<_$LockedSlot> get copyWith =>
+      __$$LockedSlotCopyWithImpl<_$LockedSlot>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -572,39 +538,44 @@ class _$LockedSlot implements LockedSlot {
 }
 
 abstract class LockedSlot implements SlotState {
-  const factory LockedSlot({@HiveField(2) required int index}) = _$LockedSlot;
+  const factory LockedSlot({@HiveField(2) required final int index}) =
+      _$LockedSlot;
 
   @override
   @HiveField(2)
-  int get index;
+  int get index => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  $LockedSlotCopyWith<LockedSlot> get copyWith =>
+  _$$LockedSlotCopyWith<_$LockedSlot> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $EmptySlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
-  factory $EmptySlotCopyWith(EmptySlot value, $Res Function(EmptySlot) then) =
-      _$EmptySlotCopyWithImpl<$Res>;
+abstract class _$$EmptySlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
+  factory _$$EmptySlotCopyWith(
+          _$EmptySlot value, $Res Function(_$EmptySlot) then) =
+      __$$EmptySlotCopyWithImpl<$Res>;
+
   @override
   $Res call({@HiveField(2) int index});
 }
 
 /// @nodoc
-class _$EmptySlotCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
-    implements $EmptySlotCopyWith<$Res> {
-  _$EmptySlotCopyWithImpl(EmptySlot _value, $Res Function(EmptySlot) _then)
-      : super(_value, (v) => _then(v as EmptySlot));
+class __$$EmptySlotCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
+    implements _$$EmptySlotCopyWith<$Res> {
+  __$$EmptySlotCopyWithImpl(
+      _$EmptySlot _value, $Res Function(_$EmptySlot) _then)
+      : super(_value, (v) => _then(v as _$EmptySlot));
 
   @override
-  EmptySlot get _value => super._value as EmptySlot;
+  _$EmptySlot get _value => super._value as _$EmptySlot;
 
   @override
   $Res call({
     Object? index = freezed,
   }) {
-    return _then(EmptySlot(
+    return _then(_$EmptySlot(
       index: index == freezed
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
@@ -632,7 +603,7 @@ class _$EmptySlot implements EmptySlot {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is EmptySlot &&
+            other is _$EmptySlot &&
             const DeepCollectionEquality().equals(other.index, index));
   }
 
@@ -642,8 +613,8 @@ class _$EmptySlot implements EmptySlot {
 
   @JsonKey(ignore: true)
   @override
-  $EmptySlotCopyWith<EmptySlot> get copyWith =>
-      _$EmptySlotCopyWithImpl<EmptySlot>(this, _$identity);
+  _$$EmptySlotCopyWith<_$EmptySlot> get copyWith =>
+      __$$EmptySlotCopyWithImpl<_$EmptySlot>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -721,13 +692,15 @@ class _$EmptySlot implements EmptySlot {
 }
 
 abstract class EmptySlot implements SlotState {
-  const factory EmptySlot({@HiveField(2) required int index}) = _$EmptySlot;
+  const factory EmptySlot({@HiveField(2) required final int index}) =
+      _$EmptySlot;
 
   @override
   @HiveField(2)
-  int get index;
+  int get index => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  $EmptySlotCopyWith<EmptySlot> get copyWith =>
+  _$$EmptySlotCopyWith<_$EmptySlot> get copyWith =>
       throw _privateConstructorUsedError;
 }

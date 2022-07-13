@@ -12,43 +12,25 @@ part of 'point.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 PlanetPoint _$PlanetPointFromJson(Map<String, dynamic> json) {
   return _PlanetPoint.fromJson(json);
 }
 
 /// @nodoc
-class _$PlanetPointTearOff {
-  const _$PlanetPointTearOff();
-
-  _PlanetPoint call(
-      @HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z) {
-    return _PlanetPoint(
-      x,
-      y,
-      z,
-    );
-  }
-
-  PlanetPoint fromJson(Map<String, Object?> json) {
-    return PlanetPoint.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $PlanetPoint = _$PlanetPointTearOff();
-
-/// @nodoc
 mixin _$PlanetPoint {
   @HiveField(0)
   int get x => throw _privateConstructorUsedError;
+
   @HiveField(1)
   int get y => throw _privateConstructorUsedError;
+
   @HiveField(2)
   int get z => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $PlanetPointCopyWith<PlanetPoint> get copyWith =>
       throw _privateConstructorUsedError;
@@ -59,6 +41,7 @@ abstract class $PlanetPointCopyWith<$Res> {
   factory $PlanetPointCopyWith(
           PlanetPoint value, $Res Function(PlanetPoint) then) =
       _$PlanetPointCopyWithImpl<$Res>;
+
   $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
 
@@ -67,6 +50,7 @@ class _$PlanetPointCopyWithImpl<$Res> implements $PlanetPointCopyWith<$Res> {
   _$PlanetPointCopyWithImpl(this._value, this._then);
 
   final PlanetPoint _value;
+
   // ignore: unused_field
   final $Res Function(PlanetPoint) _then;
 
@@ -94,24 +78,25 @@ class _$PlanetPointCopyWithImpl<$Res> implements $PlanetPointCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$PlanetPointCopyWith<$Res>
+abstract class _$$_PlanetPointCopyWith<$Res>
     implements $PlanetPointCopyWith<$Res> {
-  factory _$PlanetPointCopyWith(
-          _PlanetPoint value, $Res Function(_PlanetPoint) then) =
-      __$PlanetPointCopyWithImpl<$Res>;
+  factory _$$_PlanetPointCopyWith(
+          _$_PlanetPoint value, $Res Function(_$_PlanetPoint) then) =
+      __$$_PlanetPointCopyWithImpl<$Res>;
+
   @override
   $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
 
 /// @nodoc
-class __$PlanetPointCopyWithImpl<$Res> extends _$PlanetPointCopyWithImpl<$Res>
-    implements _$PlanetPointCopyWith<$Res> {
-  __$PlanetPointCopyWithImpl(
-      _PlanetPoint _value, $Res Function(_PlanetPoint) _then)
-      : super(_value, (v) => _then(v as _PlanetPoint));
+class __$$_PlanetPointCopyWithImpl<$Res> extends _$PlanetPointCopyWithImpl<$Res>
+    implements _$$_PlanetPointCopyWith<$Res> {
+  __$$_PlanetPointCopyWithImpl(
+      _$_PlanetPoint _value, $Res Function(_$_PlanetPoint) _then)
+      : super(_value, (v) => _then(v as _$_PlanetPoint));
 
   @override
-  _PlanetPoint get _value => super._value as _PlanetPoint;
+  _$_PlanetPoint get _value => super._value as _$_PlanetPoint;
 
   @override
   $Res call({
@@ -119,7 +104,7 @@ class __$PlanetPointCopyWithImpl<$Res> extends _$PlanetPointCopyWithImpl<$Res>
     Object? y = freezed,
     Object? z = freezed,
   }) {
-    return _then(_PlanetPoint(
+    return _then(_$_PlanetPoint(
       x == freezed
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
@@ -161,12 +146,13 @@ class _$_PlanetPoint extends _PlanetPoint {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PlanetPoint &&
+            other is _$_PlanetPoint &&
             const DeepCollectionEquality().equals(other.x, x) &&
             const DeepCollectionEquality().equals(other.y, y) &&
             const DeepCollectionEquality().equals(other.z, z));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -176,8 +162,8 @@ class _$_PlanetPoint extends _PlanetPoint {
 
   @JsonKey(ignore: true)
   @override
-  _$PlanetPointCopyWith<_PlanetPoint> get copyWith =>
-      __$PlanetPointCopyWithImpl<_PlanetPoint>(this, _$identity);
+  _$$_PlanetPointCopyWith<_$_PlanetPoint> get copyWith =>
+      __$$_PlanetPointCopyWithImpl<_$_PlanetPoint>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -186,9 +172,9 @@ class _$_PlanetPoint extends _PlanetPoint {
 }
 
 abstract class _PlanetPoint extends PlanetPoint {
-  const factory _PlanetPoint(
-          @HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z) =
-      _$_PlanetPoint;
+  const factory _PlanetPoint(@HiveField(0) final int x,
+      @HiveField(1) final int y, @HiveField(2) final int z) = _$_PlanetPoint;
+
   const _PlanetPoint._() : super._();
 
   factory _PlanetPoint.fromJson(Map<String, dynamic> json) =
@@ -196,15 +182,18 @@ abstract class _PlanetPoint extends PlanetPoint {
 
   @override
   @HiveField(0)
-  int get x;
+  int get x => throw _privateConstructorUsedError;
+
   @override
   @HiveField(1)
-  int get y;
+  int get y => throw _privateConstructorUsedError;
+
   @override
   @HiveField(2)
-  int get z;
+  int get z => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  _$PlanetPointCopyWith<_PlanetPoint> get copyWith =>
+  _$$_PlanetPointCopyWith<_$_PlanetPoint> get copyWith =>
       throw _privateConstructorUsedError;
 }

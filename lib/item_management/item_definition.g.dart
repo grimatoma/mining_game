@@ -309,7 +309,7 @@ Map<String, dynamic> _$$SwordDefinitionToJson(_$SwordDefinition instance) =>
       'image': instance.image,
       'attributes': instance.attributes
           .toMap()
-          .map((k, e) => MapEntry(_$WeaponAttributesEnumMap[k], e)),
+          .map((k, e) => MapEntry(_$WeaponAttributesEnumMap[k]!, e)),
       'runtimeType': instance.$type,
     };
 

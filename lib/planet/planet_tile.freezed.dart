@@ -12,35 +12,21 @@ part of 'planet_tile.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
-
-/// @nodoc
-class _$PlanetTileTearOff {
-  const _$PlanetTileTearOff();
-
-  _PlanetTile call(
-      {@HiveField(0) required PlanetPoint point,
-      @HiveField(1) required ItemContainer resources,
-      @HiveField(2) required bool visible}) {
-    return _PlanetTile(
-      point: point,
-      resources: resources,
-      visible: visible,
-    );
-  }
-}
-
-/// @nodoc
-const $PlanetTile = _$PlanetTileTearOff();
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
 mixin _$PlanetTile {
   @HiveField(0)
   PlanetPoint get point => throw _privateConstructorUsedError;
+
   @HiveField(1)
   ItemContainer get resources => throw _privateConstructorUsedError;
+
   @HiveField(2)
   bool get visible => throw _privateConstructorUsedError;
+
+  @HiveField(3)
+  TileType get tileType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $PlanetTileCopyWith<PlanetTile> get copyWith =>
@@ -52,10 +38,12 @@ abstract class $PlanetTileCopyWith<$Res> {
   factory $PlanetTileCopyWith(
           PlanetTile value, $Res Function(PlanetTile) then) =
       _$PlanetTileCopyWithImpl<$Res>;
+
   $Res call(
       {@HiveField(0) PlanetPoint point,
       @HiveField(1) ItemContainer resources,
-      @HiveField(2) bool visible});
+      @HiveField(2) bool visible,
+      @HiveField(3) TileType tileType});
 
   $PlanetPointCopyWith<$Res> get point;
 }
@@ -65,6 +53,7 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
   _$PlanetTileCopyWithImpl(this._value, this._then);
 
   final PlanetTile _value;
+
   // ignore: unused_field
   final $Res Function(PlanetTile) _then;
 
@@ -73,6 +62,7 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
     Object? point = freezed,
     Object? resources = freezed,
     Object? visible = freezed,
+    Object? tileType = freezed,
   }) {
     return _then(_value.copyWith(
       point: point == freezed
@@ -87,6 +77,10 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
+      tileType: tileType == freezed
+          ? _value.tileType
+          : tileType // ignore: cast_nullable_to_non_nullable
+              as TileType,
     ));
   }
 
@@ -99,37 +93,41 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$PlanetTileCopyWith<$Res> implements $PlanetTileCopyWith<$Res> {
-  factory _$PlanetTileCopyWith(
-          _PlanetTile value, $Res Function(_PlanetTile) then) =
-      __$PlanetTileCopyWithImpl<$Res>;
+abstract class _$$_PlanetTileCopyWith<$Res>
+    implements $PlanetTileCopyWith<$Res> {
+  factory _$$_PlanetTileCopyWith(
+          _$_PlanetTile value, $Res Function(_$_PlanetTile) then) =
+      __$$_PlanetTileCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {@HiveField(0) PlanetPoint point,
       @HiveField(1) ItemContainer resources,
-      @HiveField(2) bool visible});
+      @HiveField(2) bool visible,
+      @HiveField(3) TileType tileType});
 
   @override
   $PlanetPointCopyWith<$Res> get point;
 }
 
 /// @nodoc
-class __$PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
-    implements _$PlanetTileCopyWith<$Res> {
-  __$PlanetTileCopyWithImpl(
-      _PlanetTile _value, $Res Function(_PlanetTile) _then)
-      : super(_value, (v) => _then(v as _PlanetTile));
+class __$$_PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
+    implements _$$_PlanetTileCopyWith<$Res> {
+  __$$_PlanetTileCopyWithImpl(
+      _$_PlanetTile _value, $Res Function(_$_PlanetTile) _then)
+      : super(_value, (v) => _then(v as _$_PlanetTile));
 
   @override
-  _PlanetTile get _value => super._value as _PlanetTile;
+  _$_PlanetTile get _value => super._value as _$_PlanetTile;
 
   @override
   $Res call({
     Object? point = freezed,
     Object? resources = freezed,
     Object? visible = freezed,
+    Object? tileType = freezed,
   }) {
-    return _then(_PlanetTile(
+    return _then(_$_PlanetTile(
       point: point == freezed
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
@@ -142,6 +140,10 @@ class __$PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
+      tileType: tileType == freezed
+          ? _value.tileType
+          : tileType // ignore: cast_nullable_to_non_nullable
+              as TileType,
     ));
   }
 }
@@ -153,7 +155,8 @@ class _$_PlanetTile extends _PlanetTile {
   _$_PlanetTile(
       {@HiveField(0) required this.point,
       @HiveField(1) required this.resources,
-      @HiveField(2) required this.visible})
+      @HiveField(2) required this.visible,
+      @HiveField(3) this.tileType = TileType.Empty})
       : super._();
 
   @override
@@ -165,20 +168,25 @@ class _$_PlanetTile extends _PlanetTile {
   @override
   @HiveField(2)
   final bool visible;
+  @override
+  @JsonKey()
+  @HiveField(3)
+  final TileType tileType;
 
   @override
   String toString() {
-    return 'PlanetTile(point: $point, resources: $resources, visible: $visible)';
+    return 'PlanetTile(point: $point, resources: $resources, visible: $visible, tileType: $tileType)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _PlanetTile &&
+            other is _$_PlanetTile &&
             const DeepCollectionEquality().equals(other.point, point) &&
             const DeepCollectionEquality().equals(other.resources, resources) &&
-            const DeepCollectionEquality().equals(other.visible, visible));
+            const DeepCollectionEquality().equals(other.visible, visible) &&
+            const DeepCollectionEquality().equals(other.tileType, tileType));
   }
 
   @override
@@ -186,32 +194,42 @@ class _$_PlanetTile extends _PlanetTile {
       runtimeType,
       const DeepCollectionEquality().hash(point),
       const DeepCollectionEquality().hash(resources),
-      const DeepCollectionEquality().hash(visible));
+      const DeepCollectionEquality().hash(visible),
+      const DeepCollectionEquality().hash(tileType));
 
   @JsonKey(ignore: true)
   @override
-  _$PlanetTileCopyWith<_PlanetTile> get copyWith =>
-      __$PlanetTileCopyWithImpl<_PlanetTile>(this, _$identity);
+  _$$_PlanetTileCopyWith<_$_PlanetTile> get copyWith =>
+      __$$_PlanetTileCopyWithImpl<_$_PlanetTile>(this, _$identity);
 }
 
 abstract class _PlanetTile extends PlanetTile {
   factory _PlanetTile(
-      {@HiveField(0) required PlanetPoint point,
-      @HiveField(1) required ItemContainer resources,
-      @HiveField(2) required bool visible}) = _$_PlanetTile;
+      {@HiveField(0) required final PlanetPoint point,
+      @HiveField(1) required final ItemContainer resources,
+      @HiveField(2) required final bool visible,
+      @HiveField(3) final TileType tileType}) = _$_PlanetTile;
+
   _PlanetTile._() : super._();
 
   @override
   @HiveField(0)
-  PlanetPoint get point;
+  PlanetPoint get point => throw _privateConstructorUsedError;
+
   @override
   @HiveField(1)
-  ItemContainer get resources;
+  ItemContainer get resources => throw _privateConstructorUsedError;
+
   @override
   @HiveField(2)
-  bool get visible;
+  bool get visible => throw _privateConstructorUsedError;
+
+  @override
+  @HiveField(3)
+  TileType get tileType => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  _$PlanetTileCopyWith<_PlanetTile> get copyWith =>
+  _$$_PlanetTileCopyWith<_$_PlanetTile> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -35,7 +35,9 @@ class PlanetImageController extends StateNotifier<ui.Image?> {
 
 class PlanetController extends StateNotifier<Planet> {
   static const databaseKey = 'planet';
+
   Planet get planet => state;
+
   set planet(Planet planet) {
     _genImage(planet.map, planet.width, planet.height, planet.maxResourceSize);
     state = planet;
@@ -47,14 +49,14 @@ class PlanetController extends StateNotifier<Planet> {
 
   PlanetController({required GameConfigs configs}) : super(Planet.empty()) {
     void loadInitialData() async {
-      final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
-      final loadedPlanet = loadedBox.get(databaseKey);
-      if (loadedPlanet == null) {
-        planet = _generatePlanet(configs);
-      } else {
-        planet = loadedPlanet;
-      }
+      // final loadedBox =
+      //     await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
+      // final loadedPlanet = loadedBox.get(databaseKey);
+      // if (loadedPlanet == null) {
+      planet = _generatePlanet(configs);
+      // } else {
+      //   planet = loadedPlanet;
+      // }
     }
 
     void updateBox() async {
@@ -70,6 +72,37 @@ class PlanetController extends StateNotifier<Planet> {
   }
 
   Planet _generatePlanet(GameConfigs configs) {
+    const z = 0;
+    // change to spare populating
+    final planetMap = <PlanetPoint, PlanetTile>{};
+    var maxResourceSize = 0;
+
+    for (var x = 0; x < configs.width; x++) {
+      for (var y = 0; y < configs.height; y++) {
+        const resourceSize = 1;
+        final p = PlanetPoint(x, y, z);
+        planetMap[p] = PlanetTile(
+            point: p,
+            resources: ItemContainer.single(ItemKeys.IRON, resourceSize),
+            visible: false);
+        maxResourceSize =
+            maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
+      }
+    }
+
+    void remap(int x, int y, TileType tileType) {
+      final point = PlanetPoint(x, y, z);
+      planetMap[point] = planetMap[point]!.copyWith(tileType: tileType);
+    }
+
+    remap(0, 1, TileType.Mine);
+    remap(5, 5, TileType.Grass);
+
+    return Planet.newPlanet(
+        configs: configs, maxResources: maxResourceSize, map: planetMap);
+  }
+
+  Planet _generatePlanetOld(GameConfigs configs) {
     int _skew(double i) {
       const multiplier = 10000;
       var out = i;

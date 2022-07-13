@@ -20,19 +20,22 @@ class PlanetTileAdapter extends TypeAdapter<_$_PlanetTile> {
       point: fields[0] as PlanetPoint,
       resources: fields[1] as ItemContainer,
       visible: fields[2] as bool,
+      tileType: fields[3] as TileType,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$_PlanetTile obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.point)
       ..writeByte(1)
       ..write(obj.resources)
       ..writeByte(2)
-      ..write(obj.visible);
+      ..write(obj.visible)
+      ..writeByte(3)
+      ..write(obj.tileType);
   }
 
   @override

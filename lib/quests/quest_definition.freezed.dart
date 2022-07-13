@@ -12,42 +12,22 @@ part of 'quest_definition.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 Requirement _$RequirementFromJson(Map<String, dynamic> json) {
   return _Requirement.fromJson(json);
 }
 
 /// @nodoc
-class _$RequirementTearOff {
-  const _$RequirementTearOff();
-
-  _Requirement call(
-      {required BuiltSet<Feature> features,
-      required ItemRequirement cost,
-      required ItemRequirement itemsOwned}) {
-    return _Requirement(
-      features: features,
-      cost: cost,
-      itemsOwned: itemsOwned,
-    );
-  }
-
-  Requirement fromJson(Map<String, Object?> json) {
-    return Requirement.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $Requirement = _$RequirementTearOff();
-
-/// @nodoc
 mixin _$Requirement {
   BuiltSet<Feature> get features => throw _privateConstructorUsedError;
+
   ItemRequirement get cost => throw _privateConstructorUsedError;
+
   ItemRequirement get itemsOwned => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $RequirementCopyWith<Requirement> get copyWith =>
       throw _privateConstructorUsedError;
@@ -58,6 +38,7 @@ abstract class $RequirementCopyWith<$Res> {
   factory $RequirementCopyWith(
           Requirement value, $Res Function(Requirement) then) =
       _$RequirementCopyWithImpl<$Res>;
+
   $Res call(
       {BuiltSet<Feature> features,
       ItemRequirement cost,
@@ -69,6 +50,7 @@ class _$RequirementCopyWithImpl<$Res> implements $RequirementCopyWith<$Res> {
   _$RequirementCopyWithImpl(this._value, this._then);
 
   final Requirement _value;
+
   // ignore: unused_field
   final $Res Function(Requirement) _then;
 
@@ -96,11 +78,12 @@ class _$RequirementCopyWithImpl<$Res> implements $RequirementCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$RequirementCopyWith<$Res>
+abstract class _$$_RequirementCopyWith<$Res>
     implements $RequirementCopyWith<$Res> {
-  factory _$RequirementCopyWith(
-          _Requirement value, $Res Function(_Requirement) then) =
-      __$RequirementCopyWithImpl<$Res>;
+  factory _$$_RequirementCopyWith(
+          _$_Requirement value, $Res Function(_$_Requirement) then) =
+      __$$_RequirementCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {BuiltSet<Feature> features,
@@ -109,14 +92,14 @@ abstract class _$RequirementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$RequirementCopyWithImpl<$Res> extends _$RequirementCopyWithImpl<$Res>
-    implements _$RequirementCopyWith<$Res> {
-  __$RequirementCopyWithImpl(
-      _Requirement _value, $Res Function(_Requirement) _then)
-      : super(_value, (v) => _then(v as _Requirement));
+class __$$_RequirementCopyWithImpl<$Res> extends _$RequirementCopyWithImpl<$Res>
+    implements _$$_RequirementCopyWith<$Res> {
+  __$$_RequirementCopyWithImpl(
+      _$_Requirement _value, $Res Function(_$_Requirement) _then)
+      : super(_value, (v) => _then(v as _$_Requirement));
 
   @override
-  _Requirement get _value => super._value as _Requirement;
+  _$_Requirement get _value => super._value as _$_Requirement;
 
   @override
   $Res call({
@@ -124,7 +107,7 @@ class __$RequirementCopyWithImpl<$Res> extends _$RequirementCopyWithImpl<$Res>
     Object? cost = freezed,
     Object? itemsOwned = freezed,
   }) {
-    return _then(_Requirement(
+    return _then(_$_Requirement(
       features: features == freezed
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
@@ -166,13 +149,14 @@ class _$_Requirement implements _Requirement {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Requirement &&
+            other is _$_Requirement &&
             const DeepCollectionEquality().equals(other.features, features) &&
             const DeepCollectionEquality().equals(other.cost, cost) &&
             const DeepCollectionEquality()
                 .equals(other.itemsOwned, itemsOwned));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -182,8 +166,8 @@ class _$_Requirement implements _Requirement {
 
   @JsonKey(ignore: true)
   @override
-  _$RequirementCopyWith<_Requirement> get copyWith =>
-      __$RequirementCopyWithImpl<_Requirement>(this, _$identity);
+  _$$_RequirementCopyWith<_$_Requirement> get copyWith =>
+      __$$_RequirementCopyWithImpl<_$_Requirement>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -193,22 +177,25 @@ class _$_Requirement implements _Requirement {
 
 abstract class _Requirement implements Requirement {
   const factory _Requirement(
-      {required BuiltSet<Feature> features,
-      required ItemRequirement cost,
-      required ItemRequirement itemsOwned}) = _$_Requirement;
+      {required final BuiltSet<Feature> features,
+      required final ItemRequirement cost,
+      required final ItemRequirement itemsOwned}) = _$_Requirement;
 
   factory _Requirement.fromJson(Map<String, dynamic> json) =
       _$_Requirement.fromJson;
 
   @override
-  BuiltSet<Feature> get features;
+  BuiltSet<Feature> get features => throw _privateConstructorUsedError;
+
   @override
-  ItemRequirement get cost;
+  ItemRequirement get cost => throw _privateConstructorUsedError;
+
   @override
-  ItemRequirement get itemsOwned;
+  ItemRequirement get itemsOwned => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  _$RequirementCopyWith<_Requirement> get copyWith =>
+  _$$_RequirementCopyWith<_$_Requirement> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -217,30 +204,13 @@ QuestReward _$QuestRewardFromJson(Map<String, dynamic> json) {
 }
 
 /// @nodoc
-class _$QuestRewardTearOff {
-  const _$QuestRewardTearOff();
-
-  _QuestReward call({BuiltSet<Feature>? features, ItemContainer? reward}) {
-    return _QuestReward(
-      features: features,
-      reward: reward,
-    );
-  }
-
-  QuestReward fromJson(Map<String, Object?> json) {
-    return QuestReward.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $QuestReward = _$QuestRewardTearOff();
-
-/// @nodoc
 mixin _$QuestReward {
   BuiltSet<Feature>? get features => throw _privateConstructorUsedError;
+
   ItemContainer? get reward => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $QuestRewardCopyWith<QuestReward> get copyWith =>
       throw _privateConstructorUsedError;
@@ -251,6 +221,7 @@ abstract class $QuestRewardCopyWith<$Res> {
   factory $QuestRewardCopyWith(
           QuestReward value, $Res Function(QuestReward) then) =
       _$QuestRewardCopyWithImpl<$Res>;
+
   $Res call({BuiltSet<Feature>? features, ItemContainer? reward});
 }
 
@@ -259,6 +230,7 @@ class _$QuestRewardCopyWithImpl<$Res> implements $QuestRewardCopyWith<$Res> {
   _$QuestRewardCopyWithImpl(this._value, this._then);
 
   final QuestReward _value;
+
   // ignore: unused_field
   final $Res Function(QuestReward) _then;
 
@@ -281,31 +253,32 @@ class _$QuestRewardCopyWithImpl<$Res> implements $QuestRewardCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$QuestRewardCopyWith<$Res>
+abstract class _$$_QuestRewardCopyWith<$Res>
     implements $QuestRewardCopyWith<$Res> {
-  factory _$QuestRewardCopyWith(
-          _QuestReward value, $Res Function(_QuestReward) then) =
-      __$QuestRewardCopyWithImpl<$Res>;
+  factory _$$_QuestRewardCopyWith(
+          _$_QuestReward value, $Res Function(_$_QuestReward) then) =
+      __$$_QuestRewardCopyWithImpl<$Res>;
+
   @override
   $Res call({BuiltSet<Feature>? features, ItemContainer? reward});
 }
 
 /// @nodoc
-class __$QuestRewardCopyWithImpl<$Res> extends _$QuestRewardCopyWithImpl<$Res>
-    implements _$QuestRewardCopyWith<$Res> {
-  __$QuestRewardCopyWithImpl(
-      _QuestReward _value, $Res Function(_QuestReward) _then)
-      : super(_value, (v) => _then(v as _QuestReward));
+class __$$_QuestRewardCopyWithImpl<$Res> extends _$QuestRewardCopyWithImpl<$Res>
+    implements _$$_QuestRewardCopyWith<$Res> {
+  __$$_QuestRewardCopyWithImpl(
+      _$_QuestReward _value, $Res Function(_$_QuestReward) _then)
+      : super(_value, (v) => _then(v as _$_QuestReward));
 
   @override
-  _QuestReward get _value => super._value as _QuestReward;
+  _$_QuestReward get _value => super._value as _$_QuestReward;
 
   @override
   $Res call({
     Object? features = freezed,
     Object? reward = freezed,
   }) {
-    return _then(_QuestReward(
+    return _then(_$_QuestReward(
       features: features == freezed
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
@@ -340,11 +313,12 @@ class _$_QuestReward implements _QuestReward {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QuestReward &&
+            other is _$_QuestReward &&
             const DeepCollectionEquality().equals(other.features, features) &&
             const DeepCollectionEquality().equals(other.reward, reward));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -353,8 +327,8 @@ class _$_QuestReward implements _QuestReward {
 
   @JsonKey(ignore: true)
   @override
-  _$QuestRewardCopyWith<_QuestReward> get copyWith =>
-      __$QuestRewardCopyWithImpl<_QuestReward>(this, _$identity);
+  _$$_QuestRewardCopyWith<_$_QuestReward> get copyWith =>
+      __$$_QuestRewardCopyWithImpl<_$_QuestReward>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -364,18 +338,21 @@ class _$_QuestReward implements _QuestReward {
 
 abstract class _QuestReward implements QuestReward {
   const factory _QuestReward(
-      {BuiltSet<Feature>? features, ItemContainer? reward}) = _$_QuestReward;
+      {final BuiltSet<Feature>? features,
+      final ItemContainer? reward}) = _$_QuestReward;
 
   factory _QuestReward.fromJson(Map<String, dynamic> json) =
       _$_QuestReward.fromJson;
 
   @override
-  BuiltSet<Feature>? get features;
+  BuiltSet<Feature>? get features => throw _privateConstructorUsedError;
+
   @override
-  ItemContainer? get reward;
+  ItemContainer? get reward => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  _$QuestRewardCopyWith<_QuestReward> get copyWith =>
+  _$$_QuestRewardCopyWith<_$_QuestReward> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -384,45 +361,21 @@ QuestDefinition _$QuestDefinitionFromJson(Map<String, dynamic> json) {
 }
 
 /// @nodoc
-class _$QuestDefinitionTearOff {
-  const _$QuestDefinitionTearOff();
-
-  _QuestDefinition call(
-      {required int id,
-      required String name,
-      required String description,
-      required Requirement enabledRequirement,
-      required Requirement completeRequirement,
-      required QuestReward reward}) {
-    return _QuestDefinition(
-      id: id,
-      name: name,
-      description: description,
-      enabledRequirement: enabledRequirement,
-      completeRequirement: completeRequirement,
-      reward: reward,
-    );
-  }
-
-  QuestDefinition fromJson(Map<String, Object?> json) {
-    return QuestDefinition.fromJson(json);
-  }
-}
-
-/// @nodoc
-const $QuestDefinition = _$QuestDefinitionTearOff();
-
-/// @nodoc
 mixin _$QuestDefinition {
   int get id => throw _privateConstructorUsedError;
+
   String get name => throw _privateConstructorUsedError;
+
   String get description =>
       throw _privateConstructorUsedError; //TODO: This should be changed to look at the achievement metrics instead so it can always stay on.
   Requirement get enabledRequirement => throw _privateConstructorUsedError;
+
   Requirement get completeRequirement => throw _privateConstructorUsedError;
+
   QuestReward get reward => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $QuestDefinitionCopyWith<QuestDefinition> get copyWith =>
       throw _privateConstructorUsedError;
@@ -433,6 +386,7 @@ abstract class $QuestDefinitionCopyWith<$Res> {
   factory $QuestDefinitionCopyWith(
           QuestDefinition value, $Res Function(QuestDefinition) then) =
       _$QuestDefinitionCopyWithImpl<$Res>;
+
   $Res call(
       {int id,
       String name,
@@ -442,7 +396,9 @@ abstract class $QuestDefinitionCopyWith<$Res> {
       QuestReward reward});
 
   $RequirementCopyWith<$Res> get enabledRequirement;
+
   $RequirementCopyWith<$Res> get completeRequirement;
+
   $QuestRewardCopyWith<$Res> get reward;
 }
 
@@ -452,6 +408,7 @@ class _$QuestDefinitionCopyWithImpl<$Res>
   _$QuestDefinitionCopyWithImpl(this._value, this._then);
 
   final QuestDefinition _value;
+
   // ignore: unused_field
   final $Res Function(QuestDefinition) _then;
 
@@ -515,11 +472,12 @@ class _$QuestDefinitionCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$QuestDefinitionCopyWith<$Res>
+abstract class _$$_QuestDefinitionCopyWith<$Res>
     implements $QuestDefinitionCopyWith<$Res> {
-  factory _$QuestDefinitionCopyWith(
-          _QuestDefinition value, $Res Function(_QuestDefinition) then) =
-      __$QuestDefinitionCopyWithImpl<$Res>;
+  factory _$$_QuestDefinitionCopyWith(
+          _$_QuestDefinition value, $Res Function(_$_QuestDefinition) then) =
+      __$$_QuestDefinitionCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {int id,
@@ -531,22 +489,24 @@ abstract class _$QuestDefinitionCopyWith<$Res>
 
   @override
   $RequirementCopyWith<$Res> get enabledRequirement;
+
   @override
   $RequirementCopyWith<$Res> get completeRequirement;
+
   @override
   $QuestRewardCopyWith<$Res> get reward;
 }
 
 /// @nodoc
-class __$QuestDefinitionCopyWithImpl<$Res>
+class __$$_QuestDefinitionCopyWithImpl<$Res>
     extends _$QuestDefinitionCopyWithImpl<$Res>
-    implements _$QuestDefinitionCopyWith<$Res> {
-  __$QuestDefinitionCopyWithImpl(
-      _QuestDefinition _value, $Res Function(_QuestDefinition) _then)
-      : super(_value, (v) => _then(v as _QuestDefinition));
+    implements _$$_QuestDefinitionCopyWith<$Res> {
+  __$$_QuestDefinitionCopyWithImpl(
+      _$_QuestDefinition _value, $Res Function(_$_QuestDefinition) _then)
+      : super(_value, (v) => _then(v as _$_QuestDefinition));
 
   @override
-  _QuestDefinition get _value => super._value as _QuestDefinition;
+  _$_QuestDefinition get _value => super._value as _$_QuestDefinition;
 
   @override
   $Res call({
@@ -557,7 +517,7 @@ class __$QuestDefinitionCopyWithImpl<$Res>
     Object? completeRequirement = freezed,
     Object? reward = freezed,
   }) {
-    return _then(_QuestDefinition(
+    return _then(_$_QuestDefinition(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -606,7 +566,9 @@ class _$_QuestDefinition implements _QuestDefinition {
   final String name;
   @override
   final String description;
-  @override //TODO: This should be changed to look at the achievement metrics instead so it can always stay on.
+
+//TODO: This should be changed to look at the achievement metrics instead so it can always stay on.
+  @override
   final Requirement enabledRequirement;
   @override
   final Requirement completeRequirement;
@@ -622,7 +584,7 @@ class _$_QuestDefinition implements _QuestDefinition {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QuestDefinition &&
+            other is _$_QuestDefinition &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
@@ -634,6 +596,7 @@ class _$_QuestDefinition implements _QuestDefinition {
             const DeepCollectionEquality().equals(other.reward, reward));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -646,8 +609,8 @@ class _$_QuestDefinition implements _QuestDefinition {
 
   @JsonKey(ignore: true)
   @override
-  _$QuestDefinitionCopyWith<_QuestDefinition> get copyWith =>
-      __$QuestDefinitionCopyWithImpl<_QuestDefinition>(this, _$identity);
+  _$$_QuestDefinitionCopyWith<_$_QuestDefinition> get copyWith =>
+      __$$_QuestDefinitionCopyWithImpl<_$_QuestDefinition>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -657,60 +620,48 @@ class _$_QuestDefinition implements _QuestDefinition {
 
 abstract class _QuestDefinition implements QuestDefinition {
   const factory _QuestDefinition(
-      {required int id,
-      required String name,
-      required String description,
-      required Requirement enabledRequirement,
-      required Requirement completeRequirement,
-      required QuestReward reward}) = _$_QuestDefinition;
+      {required final int id,
+      required final String name,
+      required final String description,
+      required final Requirement enabledRequirement,
+      required final Requirement completeRequirement,
+      required final QuestReward reward}) = _$_QuestDefinition;
 
   factory _QuestDefinition.fromJson(Map<String, dynamic> json) =
       _$_QuestDefinition.fromJson;
 
   @override
-  int get id;
+  int get id => throw _privateConstructorUsedError;
+
   @override
-  String get name;
+  String get name => throw _privateConstructorUsedError;
+
   @override
-  String get description;
+  String get description => throw _privateConstructorUsedError;
+
   @override //TODO: This should be changed to look at the achievement metrics instead so it can always stay on.
-  Requirement get enabledRequirement;
+  Requirement get enabledRequirement => throw _privateConstructorUsedError;
+
   @override
-  Requirement get completeRequirement;
+  Requirement get completeRequirement => throw _privateConstructorUsedError;
+
   @override
-  QuestReward get reward;
+  QuestReward get reward => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  _$QuestDefinitionCopyWith<_QuestDefinition> get copyWith =>
+  _$$_QuestDefinitionCopyWith<_$_QuestDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-class _$QuestStatusTearOff {
-  const _$QuestStatusTearOff();
-
-  _QuestStatus call(
-      {required QuestDefinition definition,
-      required bool requirementsMet,
-      required BuiltSet<Feature> featuresProgress,
-      required ItemRequirement itemsProgress}) {
-    return _QuestStatus(
-      definition: definition,
-      requirementsMet: requirementsMet,
-      featuresProgress: featuresProgress,
-      itemsProgress: itemsProgress,
-    );
-  }
-}
-
-/// @nodoc
-const $QuestStatus = _$QuestStatusTearOff();
-
-/// @nodoc
 mixin _$QuestStatus {
   QuestDefinition get definition => throw _privateConstructorUsedError;
+
   bool get requirementsMet => throw _privateConstructorUsedError;
+
   BuiltSet<Feature> get featuresProgress => throw _privateConstructorUsedError;
+
   ItemRequirement get itemsProgress => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -723,6 +674,7 @@ abstract class $QuestStatusCopyWith<$Res> {
   factory $QuestStatusCopyWith(
           QuestStatus value, $Res Function(QuestStatus) then) =
       _$QuestStatusCopyWithImpl<$Res>;
+
   $Res call(
       {QuestDefinition definition,
       bool requirementsMet,
@@ -737,6 +689,7 @@ class _$QuestStatusCopyWithImpl<$Res> implements $QuestStatusCopyWith<$Res> {
   _$QuestStatusCopyWithImpl(this._value, this._then);
 
   final QuestStatus _value;
+
   // ignore: unused_field
   final $Res Function(QuestStatus) _then;
 
@@ -776,11 +729,12 @@ class _$QuestStatusCopyWithImpl<$Res> implements $QuestStatusCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$QuestStatusCopyWith<$Res>
+abstract class _$$_QuestStatusCopyWith<$Res>
     implements $QuestStatusCopyWith<$Res> {
-  factory _$QuestStatusCopyWith(
-          _QuestStatus value, $Res Function(_QuestStatus) then) =
-      __$QuestStatusCopyWithImpl<$Res>;
+  factory _$$_QuestStatusCopyWith(
+          _$_QuestStatus value, $Res Function(_$_QuestStatus) then) =
+      __$$_QuestStatusCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {QuestDefinition definition,
@@ -793,14 +747,14 @@ abstract class _$QuestStatusCopyWith<$Res>
 }
 
 /// @nodoc
-class __$QuestStatusCopyWithImpl<$Res> extends _$QuestStatusCopyWithImpl<$Res>
-    implements _$QuestStatusCopyWith<$Res> {
-  __$QuestStatusCopyWithImpl(
-      _QuestStatus _value, $Res Function(_QuestStatus) _then)
-      : super(_value, (v) => _then(v as _QuestStatus));
+class __$$_QuestStatusCopyWithImpl<$Res> extends _$QuestStatusCopyWithImpl<$Res>
+    implements _$$_QuestStatusCopyWith<$Res> {
+  __$$_QuestStatusCopyWithImpl(
+      _$_QuestStatus _value, $Res Function(_$_QuestStatus) _then)
+      : super(_value, (v) => _then(v as _$_QuestStatus));
 
   @override
-  _QuestStatus get _value => super._value as _QuestStatus;
+  _$_QuestStatus get _value => super._value as _$_QuestStatus;
 
   @override
   $Res call({
@@ -809,7 +763,7 @@ class __$QuestStatusCopyWithImpl<$Res> extends _$QuestStatusCopyWithImpl<$Res>
     Object? featuresProgress = freezed,
     Object? itemsProgress = freezed,
   }) {
-    return _then(_QuestStatus(
+    return _then(_$_QuestStatus(
       definition: definition == freezed
           ? _value.definition
           : definition // ignore: cast_nullable_to_non_nullable
@@ -857,7 +811,7 @@ class _$_QuestStatus implements _QuestStatus {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _QuestStatus &&
+            other is _$_QuestStatus &&
             const DeepCollectionEquality()
                 .equals(other.definition, definition) &&
             const DeepCollectionEquality()
@@ -878,27 +832,31 @@ class _$_QuestStatus implements _QuestStatus {
 
   @JsonKey(ignore: true)
   @override
-  _$QuestStatusCopyWith<_QuestStatus> get copyWith =>
-      __$QuestStatusCopyWithImpl<_QuestStatus>(this, _$identity);
+  _$$_QuestStatusCopyWith<_$_QuestStatus> get copyWith =>
+      __$$_QuestStatusCopyWithImpl<_$_QuestStatus>(this, _$identity);
 }
 
 abstract class _QuestStatus implements QuestStatus {
   const factory _QuestStatus(
-      {required QuestDefinition definition,
-      required bool requirementsMet,
-      required BuiltSet<Feature> featuresProgress,
-      required ItemRequirement itemsProgress}) = _$_QuestStatus;
+      {required final QuestDefinition definition,
+      required final bool requirementsMet,
+      required final BuiltSet<Feature> featuresProgress,
+      required final ItemRequirement itemsProgress}) = _$_QuestStatus;
 
   @override
-  QuestDefinition get definition;
+  QuestDefinition get definition => throw _privateConstructorUsedError;
+
   @override
-  bool get requirementsMet;
+  bool get requirementsMet => throw _privateConstructorUsedError;
+
   @override
-  BuiltSet<Feature> get featuresProgress;
+  BuiltSet<Feature> get featuresProgress => throw _privateConstructorUsedError;
+
   @override
-  ItemRequirement get itemsProgress;
+  ItemRequirement get itemsProgress => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
-  _$QuestStatusCopyWith<_QuestStatus> get copyWith =>
+  _$$_QuestStatusCopyWith<_$_QuestStatus> get copyWith =>
       throw _privateConstructorUsedError;
 }
