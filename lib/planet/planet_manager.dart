@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/item_keys.dart';
 
 part 'planet_manager.freezed.dart';
 // part 'planet_manager.g.dart';
@@ -204,11 +205,28 @@ class Tree extends Doodad {
 }
 
 abstract class TickableDoodad extends Doodad {
-  TickableDoodad(super.parent);
-
-  final tickState = StateProvider<int>((ref) => 0);
+  final SimpleStateProvider<int> currentTickState;
 
   int get ticksRequired;
+
+  TickableDoodad(super.parent)
+      : currentTickState = SimpleStateProvider<int>(parent.ref, (ref) => 0);
+
+  bool canTick() => true;
+
+  @override
+  @mustCallSuper
+  void update() {
+    if (!canTick()) return;
+    final newVal = currentTickState.read + 1;
+    currentTickState.updateState = newVal;
+    if (newVal <= ticksRequired) return;
+    currentTickState.updateState = 1;
+    print('Updating Digger!');
+    ticksMet();
+  }
+
+  void ticksMet();
 }
 
 class Digger extends TickableDoodad {
@@ -218,19 +236,14 @@ class Digger extends TickableDoodad {
   Digger(super.parent);
 
   @override
-  void update() {
-    final provider = parent.ref.read(tickState.notifier);
-    provider.state = provider.state + 1;
-    if (provider.state <= ticksRequired) return;
-    provider.state = 1;
-    print('Updating Digger!');
-    parent.ref.read(inventoryStateProvider.notifier).addItems(
-        ItemDirectory.getItem(const ItemDefinitionId('IRON'))
-            .generateItemInstance(2));
+  void ticksMet() {
+    parent.ref
+        .read(inventoryStateProvider.notifier)
+        .addItems(ItemDirectory.getItem(ItemKeys.IRON).generateItemInstance(2));
   }
 
   @override
-  String? get imageAsset => 'assets/images/drills/5.png';
+  final imageAsset = 'assets/images/drills/5.png';
 }
 
 class DiggerBuildMenuItem extends BuildMenuItem {
@@ -252,4 +265,89 @@ class DiggerBuildMenuItem extends BuildMenuItem {
   @override
   final description =
       'Digs for resources and will store them in the planets resource depot.';
+}
+
+abstract class ReadOnlySimpleStateProvider<T> {
+  T get read;
+
+  T watch(WidgetRef ref);
+}
+
+class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
+  final Ref _ref;
+  final StateProvider<T> stateProvider;
+
+  SimpleStateProvider(this._ref, T Function(Ref ref) initialValue)
+      : stateProvider = StateProvider<T>(initialValue) {
+    AlwaysAliveProviderBase<StateController<T>> h = stateProvider.notifier;
+  }
+
+  AlwaysAliveProviderBase<StateController<T>> get notifier =>
+      stateProvider.notifier;
+
+  @override
+  T get read => _ref.read(notifier).state;
+
+  @override
+  T watch(WidgetRef ref) => ref.watch(stateProvider);
+
+  set updateState(T newState) {
+    _ref.read(stateProvider.notifier).state = newState;
+  }
+}
+
+class Smelter extends TickableDoodad {
+  final InventoryStateController _inventoryController;
+  final materials = ItemRequirement({ItemKeys.IRON: 2}.build());
+
+  BuiltList<ItemInstance> get itemsProduced =>
+      ItemKeys.IRON_BAR.generateItemInstance(2);
+  final SimpleStateProvider<bool> _hasResourceState;
+
+  ReadOnlySimpleStateProvider<bool> get hasResources => _hasResourceState;
+
+  Smelter(super.parent)
+      : _inventoryController = parent.ref.read(inventoryStateProvider.notifier),
+        _hasResourceState =
+            SimpleStateProvider<bool>(parent.ref, (ref) => false);
+
+  @override
+  final imageAsset = 'assets/images/drills/4.jpg';
+
+  @override
+  final ticksRequired = 8;
+
+  @override
+  bool canTick() {
+    if (hasResources.read) return true;
+    if (_inventoryController.subtractItemRequirement(materials)) {
+      _hasResourceState.updateState = true;
+      return true;
+    }
+    return false;
+  }
+
+  @override
+  void ticksMet() {
+    _inventoryController.addItems(itemsProduced);
+    parent.ref.read(inventoryStateProvider.notifier).addItems(itemsProduced);
+  }
+}
+
+class SmelterBuildMenuItem extends BuildMenuItem {
+  SmelterBuildMenuItem._();
+
+  static final singleton = SmelterBuildMenuItem._();
+
+  @override
+  Doodad createNew(TileStateController parent) => Smelter(parent);
+
+  @override
+  final description = 'Smelts iron ore into iron bars.';
+
+  @override
+  final image = 'assets/images/drills/6.jpg';
+
+  @override
+  final name = 'Iron Smelter';
 }

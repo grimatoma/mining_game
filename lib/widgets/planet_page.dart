@@ -131,6 +131,7 @@ class BuildMenuWidget extends HookConsumerWidget {
                     for (int i = 0; i < 10; i++) ...[
                       DoodadBuildItemWidget(TreeBuildMenuItem.singleton),
                       DoodadBuildItemWidget(DiggerBuildMenuItem.singleton),
+                      DoodadBuildItemWidget(SmelterBuildMenuItem.singleton),
                     ],
                   ],
                 ),
@@ -207,18 +208,7 @@ class BuildMenuFocusDetail extends ConsumerWidget {
                       ),
                       TextButton(
                           onPressed: () {
-                            final selectedTile =
-                                ref.read(selectedTileControllerProvider);
-                            selectedTile
-                                ?.addDoodad(item.createNew(selectedTile));
-                            ref.read(panelVisibilityState.notifier).state =
-                                PanelVisibility.None;
-                            ref
-                                .read(selectedTileControllerProvider.notifier)
-                                .state = null;
-                            ref
-                                .read(buildMenuItemFocusProvider.notifier)
-                                .state = null;
+                            buyDoodad(ref);
                           },
                           child: const Center(child: Text('Buy'))),
                     ],
@@ -231,6 +221,17 @@ class BuildMenuFocusDetail extends ConsumerWidget {
       ),
     );
   }
+}
+
+void buyDoodad(WidgetRef ref) {
+  final item = ref.watch(buildMenuItemFocusProvider);
+  final selectedTile = ref.read(selectedTileControllerProvider);
+  if (item == null || selectedTile == null) return;
+
+  selectedTile.addDoodad(item.createNew(selectedTile));
+  ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
+  ref.read(selectedTileControllerProvider.notifier).state = null;
+  ref.read(buildMenuItemFocusProvider.notifier).state = null;
 }
 
 class DoodadBuildItemWidget extends HookConsumerWidget {
@@ -253,7 +254,13 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
         borderRadius: BorderRadius.circular(10.0),
         child: InkResponse(
           onTap: () {
-            ref.read(buildMenuItemFocusProvider.notifier).state = _item;
+            final focusedItemProvider =
+                ref.read(buildMenuItemFocusProvider.notifier);
+            if (focusedItemProvider.state == _item) {
+              buyDoodad(ref);
+            } else {
+              focusedItemProvider.state = _item;
+            }
           },
           child: Stack(
             children: [
@@ -284,89 +291,92 @@ class TileDetailWidget extends ConsumerWidget {
     return Container(
         color: Colors.red,
         height: 150,
-        child: LayoutBuilder(builder: (context, constaints) {
-          final width = min(constaints.maxWidth, 500.0);
-          return SizedBox(
-            width: width,
-            child: Column(
-              // mainAxisSize: MainAxisSize.max,
-              children: [
-                ModalTitleWidget(
-                  title:
-                      '${selectedTile.tile.title} ${selectedTile.tile.x},${selectedTile.tile.y}',
-                  leftCharms: [
-                    Text('${selectedTile.tile.x},${selectedTile.tile.y}'),
-                  ],
-                  rightCharms: [
-                    if (selectedTile.tile.hasDoodad)
+        child: Center(
+          child: LayoutBuilder(builder: (context, constaints) {
+            final width = min(constaints.maxWidth, 500.0);
+            return SizedBox(
+              width: width,
+              child: Column(
+                // mainAxisSize: MainAxisSize.max,
+                children: [
+                  ModalTitleWidget(
+                    title:
+                        '${selectedTile.tile.title} ${selectedTile.tile.x},${selectedTile.tile.y}',
+                    leftCharms: [
+                      Text('${selectedTile.tile.x},${selectedTile.tile.y}'),
+                    ],
+                    rightCharms: [
+                      if (selectedTile.tile.hasDoodad)
+                        TextButton(
+                            onPressed: () {
+                              selectedTile.removeDoodad();
+                              ref.read(panelVisibilityState.notifier).state =
+                                  PanelVisibility.None;
+                            },
+                            child: const Text('Remove')),
                       TextButton(
                           onPressed: () {
-                            selectedTile.removeDoodad();
                             ref.read(panelVisibilityState.notifier).state =
                                 PanelVisibility.None;
+                            ref
+                                .read(selectedTileControllerProvider.notifier)
+                                .state = null;
                           },
-                          child: const Text('Remove')),
-                    TextButton(
-                        onPressed: () {
-                          ref.read(panelVisibilityState.notifier).state =
-                              PanelVisibility.None;
-                          ref
-                              .read(selectedTileControllerProvider.notifier)
-                              .state = null;
-                        },
-                        child: const Text('Close')),
-                  ],
-                ),
-                Expanded(
-                  flex: 1,
-                  // fit: FlexFit.loose,
-                  child: Column(
-                    // fit: StackFit.expand,
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Expanded(
-                      //     child: Container(
-                      //
-                      //
-                      //   color: Colors.purple,
-                      // )),
-                      if (selectedTile.tile.doodad != null)
-                        Expanded(
-                          child: SizedBox(
-                            width: width * 0.8,
-                            child: DoodadStatus(selectedTile.tile.doodad!),
-                          ),
-                        ),
-                      if (!selectedTile.tile.hasDoodad)
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: Column(
-                            children: [
-                              TextButton(
-                                  onPressed: (ref.read(
-                                              selectedTileControllerProvider) ==
-                                          null)
-                                      ? null
-                                      : () {
-                                          ref
-                                              .read(
-                                                  panelVisibilityState.notifier)
-                                              .state = PanelVisibility.BuyMenu;
-                                        },
-                                  child: const Text('Build')),
-                            ],
-                          ),
-                        ),
+                          child: const Text('Close')),
                     ],
                   ),
-                ),
-              ],
-            ),
-          );
-        }));
+                  Expanded(
+                    flex: 1,
+                    // fit: FlexFit.loose,
+                    child: Column(
+                      // fit: StackFit.expand,
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      // mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Expanded(
+                        //     child: Container(
+                        //
+                        //
+                        //   color: Colors.purple,
+                        // )),
+                        if (selectedTile.tile.doodad != null)
+                          Expanded(
+                            child: SizedBox(
+                              width: width * 0.8,
+                              child: DoodadStatus(selectedTile.tile.doodad!),
+                            ),
+                          ),
+                        if (!selectedTile.tile.hasDoodad)
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Column(
+                              children: [
+                                TextButton(
+                                    onPressed: (ref.read(
+                                                selectedTileControllerProvider) ==
+                                            null)
+                                        ? null
+                                        : () {
+                                            ref
+                                                    .read(panelVisibilityState
+                                                        .notifier)
+                                                    .state =
+                                                PanelVisibility.BuyMenu;
+                                          },
+                                    child: const Text('Build')),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ));
   }
 }
 
@@ -382,13 +392,9 @@ class DoodadStatus extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final doodad = _doodad;
     if (doodad is TickableDoodad) {
-      final tick = ref.watch(doodad.tickState);
-      final ticksLeft = doodad.ticksRequired - tick;
-      return
-          // LayoutBuilder(
-          // builder: (context, constraints) =>
-          Column(
-        // mainAxisSize: MainAxisSize.min,
+      final currentTick = doodad.currentTickState.watch(ref);
+      final ticksLeft = doodad.ticksRequired - currentTick;
+      return Column(
         children: [
           Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
               ':'
@@ -398,7 +404,7 @@ class DoodadStatus extends ConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: LinearProgressIndicator(
-                value: tick.toDouble() / doodad.ticksRequired,
+                value: currentTick.toDouble() / doodad.ticksRequired,
               ),
             ),
           ),
@@ -406,7 +412,6 @@ class DoodadStatus extends ConsumerWidget {
         // ),
       );
     }
-
     return Container();
   }
 }

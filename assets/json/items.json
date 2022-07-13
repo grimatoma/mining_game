@@ -36,6 +36,17 @@
   },
   {
     "id": {
+      "itemId": "IRON_BAR"
+    },
+    "runtimeType": "resourceDefinition",
+    "name": "Iron Bar",
+    "namePlural": "Iron Bars",
+    "description": "A smelted form of iron ready to be used for crafting.",
+    "image": "assets/images/minerals/iron.png",
+    "maxStackSize": 100
+  },
+  {
+    "id": {
       "itemId": "COPPER"
     },
     "runtimeType": "resourceDefinition",
