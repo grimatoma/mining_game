@@ -4,13 +4,16 @@ import 'package:mining_game/item_management/item_directory.dart';
 
 import 'item_definition.dart';
 
-class ItemKeys {
-  static const ROCK = ItemDefinitionId('ROCK');
-  static const SHARP_ROCK = ItemDefinitionId('SHARP_ROCK');
-  static const IRON = ItemDefinitionId('IRON');
-  static final IRON_BAR =
-      ItemDirectory.getItem(const ItemDefinitionId('IRON_BAR'));
-  static const COPPER = ItemDefinitionId('COPPER');
-  static const TEST_DRILL = ItemDefinitionId('TEST_DRILL');
-  static const CREDIT = ItemDefinitionId('CREDIT');
+class Items {
+  static final ROCK = _getItemDefinition('ROCK');
+  static final SHARP_ROCK = _getItemDefinition('SHARP_ROCK');
+  static final IRON = _getItemDefinition('IRON');
+  static final IRON_BAR = _getItemDefinition('IRON_BAR');
+  static final COPPER = _getItemDefinition('COPPER');
+  static final TEST_DRILL = _getItemDefinition('TEST_DRILL');
+  static final CREDIT = _getItemDefinition('CREDIT');
+
+  static ItemDefinition _getItemDefinition(String key) {
+    return ItemDirectory.getItem(ItemDefinitionId(key));
+  }
 }

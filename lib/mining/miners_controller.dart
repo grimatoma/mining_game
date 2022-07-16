@@ -24,6 +24,7 @@ final minersProvider =
 
 class MinerLocations {
   final BuiltList<MinerInstance> storedMiners;
+
   // It would be great if this was read only
   final BiMap<MinerInstance, PlanetPoint> activeMiners;
 
@@ -100,7 +101,7 @@ class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
       //     miner.hopper.items.values.fold(0, (p, c) => p + c)) return;
 
       final resources = _planetController.dig(
-          point, ItemRequirement({ItemKeys.IRON: miner.totalDamage}.build()));
+          point, ItemRequirement.fromMap({Items.IRON.id: miner.totalDamage}));
       if (resources.isEmpty) return;
 
       _inventoryController.addItems(resources);

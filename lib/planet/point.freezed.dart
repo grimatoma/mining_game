@@ -22,15 +22,12 @@ PlanetPoint _$PlanetPointFromJson(Map<String, dynamic> json) {
 mixin _$PlanetPoint {
   @HiveField(0)
   int get x => throw _privateConstructorUsedError;
-
   @HiveField(1)
   int get y => throw _privateConstructorUsedError;
-
   @HiveField(2)
   int get z => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $PlanetPointCopyWith<PlanetPoint> get copyWith =>
       throw _privateConstructorUsedError;
@@ -41,7 +38,6 @@ abstract class $PlanetPointCopyWith<$Res> {
   factory $PlanetPointCopyWith(
           PlanetPoint value, $Res Function(PlanetPoint) then) =
       _$PlanetPointCopyWithImpl<$Res>;
-
   $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
 
@@ -50,7 +46,6 @@ class _$PlanetPointCopyWithImpl<$Res> implements $PlanetPointCopyWith<$Res> {
   _$PlanetPointCopyWithImpl(this._value, this._then);
 
   final PlanetPoint _value;
-
   // ignore: unused_field
   final $Res Function(PlanetPoint) _then;
 
@@ -83,7 +78,6 @@ abstract class _$$_PlanetPointCopyWith<$Res>
   factory _$$_PlanetPointCopyWith(
           _$_PlanetPoint value, $Res Function(_$_PlanetPoint) then) =
       __$$_PlanetPointCopyWithImpl<$Res>;
-
   @override
   $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
@@ -174,7 +168,6 @@ class _$_PlanetPoint extends _PlanetPoint {
 abstract class _PlanetPoint extends PlanetPoint {
   const factory _PlanetPoint(@HiveField(0) final int x,
       @HiveField(1) final int y, @HiveField(2) final int z) = _$_PlanetPoint;
-
   const _PlanetPoint._() : super._();
 
   factory _PlanetPoint.fromJson(Map<String, dynamic> json) =
@@ -183,15 +176,12 @@ abstract class _PlanetPoint extends PlanetPoint {
   @override
   @HiveField(0)
   int get x => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   int get y => throw _privateConstructorUsedError;
-
   @override
   @HiveField(2)
   int get z => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$_PlanetPointCopyWith<_$_PlanetPoint> get copyWith =>

@@ -5,11 +5,10 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 part 'planet_manager.freezed.dart';
-// part 'planet_manager.g.dart';
 
 class PlanetsManager {
   final Ref _ref;
@@ -117,6 +116,8 @@ class Tile with _$Tile {
     return tileType.toString();
   }
 
+  Hexagon get asHexagon => Hexagon(x, y);
+
   bool get hasDoodad => doodad != null;
 }
 
@@ -168,6 +169,8 @@ abstract class BuildMenuItem {
 
   String get image;
 
+  ItemRequirement get cost;
+
   Doodad createNew(TileStateController parent);
 }
 
@@ -190,11 +193,15 @@ class TreeBuildMenuItem extends BuildMenuItem {
   @override
   final description =
       'A tree that flows in the wind. Must be cleared before a building can be placed here.';
+
+  @override
+  // TODO: implement cost
+  ItemRequirement get cost => throw UnimplementedError();
 }
 
 class Tree extends Doodad {
   @override
-  String? get imageAsset => 'assets/images/tree.png';
+  String? get imageAsset => 'assets/images/tiles/03Trees/jungle_heavy.png';
 
   Tree(TileStateController parent) : super(parent);
 
@@ -239,7 +246,7 @@ class Digger extends TickableDoodad {
   void ticksMet() {
     parent.ref
         .read(inventoryStateProvider.notifier)
-        .addItems(ItemDirectory.getItem(ItemKeys.IRON).generateItemInstance(2));
+        .addItems(Items.IRON.generateItemInstance(2));
   }
 
   @override
@@ -265,6 +272,10 @@ class DiggerBuildMenuItem extends BuildMenuItem {
   @override
   final description =
       'Digs for resources and will store them in the planets resource depot.';
+
+  @override
+  // TODO: implement cost
+  ItemRequirement get cost => throw UnimplementedError();
 }
 
 abstract class ReadOnlySimpleStateProvider<T> {
@@ -278,9 +289,7 @@ class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
   final StateProvider<T> stateProvider;
 
   SimpleStateProvider(this._ref, T Function(Ref ref) initialValue)
-      : stateProvider = StateProvider<T>(initialValue) {
-    AlwaysAliveProviderBase<StateController<T>> h = stateProvider.notifier;
-  }
+      : stateProvider = StateProvider<T>(initialValue);
 
   AlwaysAliveProviderBase<StateController<T>> get notifier =>
       stateProvider.notifier;
@@ -298,10 +307,10 @@ class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
 
 class Smelter extends TickableDoodad {
   final InventoryStateController _inventoryController;
-  final materials = ItemRequirement({ItemKeys.IRON: 2}.build());
+  final materials = ItemRequirement.fromMap({Items.IRON.id: 2});
 
   BuiltList<ItemInstance> get itemsProduced =>
-      ItemKeys.IRON_BAR.generateItemInstance(2);
+      Items.IRON_BAR.generateItemInstance(2);
   final SimpleStateProvider<bool> _hasResourceState;
 
   ReadOnlySimpleStateProvider<bool> get hasResources => _hasResourceState;
@@ -350,4 +359,23 @@ class SmelterBuildMenuItem extends BuildMenuItem {
 
   @override
   final name = 'Iron Smelter';
+
+  @override
+  final cost = ItemRequirement.fromMap({Items.CREDIT.id: 5});
 }
+
+// class TreeHarvester extends TickableDoodad {
+//   @override
+//   // TODO: implement imageAsset
+//   String? get imageAsset => throw UnimplementedError();
+//
+//   @override
+//   void ticksMet() {
+//     // TODO: implement ticksMet
+//   }
+//
+//   @override
+//   // TODO: implement ticksRequired
+//   int get ticksRequired => throw UnimplementedError();
+//
+// }

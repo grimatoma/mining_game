@@ -62,7 +62,7 @@ final activeQuestStatusProvider = StateProvider<BuiltList<QuestStatus>>((ref) {
   QuestStatus checkRequirements(
       Requirement requirements, QuestDefinition questDefinition) {
     var meetsRequirements = true;
-    final questProgress = MapBuilder<ItemDefinitionId, int>();
+    final questProgress = <ItemDefinitionId, int>{};
 
     void processRequirement(ItemRequirement itemRequirements) {
       for (final requiredItem in itemRequirements.requiredItems.entries) {
@@ -86,7 +86,7 @@ final activeQuestStatusProvider = StateProvider<BuiltList<QuestStatus>>((ref) {
     return QuestStatus(
         definition: questDefinition,
         requirementsMet: meetsRequirements,
-        itemsProgress: ItemRequirement(questProgress.build()),
+        itemsProgress: ItemRequirement.fromMap(questProgress),
         featuresProgress: ownedFeatures);
   }
 

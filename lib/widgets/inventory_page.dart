@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
@@ -37,11 +36,9 @@ class InventoryPageWidget extends HookConsumerWidget {
             children: [
               TextButton(
                   onPressed: () {
-                    ref.read(inventoryStateProvider.notifier).addItem(
-                        ItemInstance.stackInstance(
-                            id: ItemInstanceId.generate(),
-                            itemId: ItemKeys.CREDIT,
-                            quantity: 45));
+                    ref
+                        .read(inventoryStateProvider.notifier)
+                        .addItems(Items.CREDIT.generateItemInstance(42));
                   },
                   child: const Text('Add Credits')),
               TextButton(
@@ -105,18 +102,18 @@ class ItemWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _selected = ref.watch(selectedItemProvider) == _index;
+    final selected = ref.watch(selectedItemProvider) == _index;
     return LayoutBuilder(
       builder: (context, constraints) => DragTarget<int>(
         builder: (context, candidateData, rejectedData) {
-          Color? color = _selected ? Colors.green[500] : Colors.blue[200];
+          Color? color = selected ? Colors.green[500] : Colors.blue[200];
           if (candidateData.isNotEmpty) {
             color = Colors.orange[800];
           }
           final widget = GestureDetector(
             child: Container(
-              child: ItemRenderWidget(_itemInstance),
               color: color,
+              child: ItemRenderWidget(_itemInstance),
             ),
             onTap: () {
               ref.read(selectedItemProvider.notifier).select(_index);
@@ -164,11 +161,11 @@ class DraggingItemWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _selected = ref.watch(selectedItemProvider) == _index;
+    final selected = ref.watch(selectedItemProvider) == _index;
     return Container(
       constraints: _boxConstraints,
+      color: selected ? Colors.green[800] : Colors.blue[500],
       child: ItemRenderWidget(_itemInstance),
-      color: _selected ? Colors.green[800] : Colors.blue[500],
     );
   }
 }

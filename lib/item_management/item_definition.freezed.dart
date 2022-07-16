@@ -65,7 +65,6 @@ abstract class _$$_ItemDefinitionIdCopyWith<$Res>
   factory _$$_ItemDefinitionIdCopyWith(
           _$_ItemDefinitionId value, $Res Function(_$_ItemDefinitionId) then) =
       __$$_ItemDefinitionIdCopyWithImpl<$Res>;
-
   @override
   $Res call({@HiveField(0) String itemId});
 }
@@ -134,7 +133,6 @@ class _$_ItemDefinitionId extends _ItemDefinitionId {
 abstract class _ItemDefinitionId extends ItemDefinitionId {
   const factory _ItemDefinitionId(@HiveField(0) final String itemId) =
       _$_ItemDefinitionId;
-
   const _ItemDefinitionId._() : super._();
 
   factory _ItemDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -143,7 +141,6 @@ abstract class _ItemDefinitionId extends ItemDefinitionId {
   @override
   @HiveField(0)
   String get itemId => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$_ItemDefinitionIdCopyWith<_$_ItemDefinitionId> get copyWith =>
@@ -358,7 +355,6 @@ abstract class _$$ResourceDefinitionCopyWith<$Res>
   factory _$$ResourceDefinitionCopyWith(_$ResourceDefinition value,
           $Res Function(_$ResourceDefinition) then) =
       __$$ResourceDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -647,7 +643,6 @@ abstract class ResourceDefinition extends ItemDefinition
       final String description,
       final String image,
       final int maxStackSize) = _$ResourceDefinition;
-
   const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
@@ -655,20 +650,14 @@ abstract class ResourceDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   String get namePlural => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get image => throw _privateConstructorUsedError;
-
   int get maxStackSize => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$ResourceDefinitionCopyWith<_$ResourceDefinition> get copyWith =>
@@ -681,7 +670,6 @@ abstract class _$$DrillDefinitionCopyWith<$Res>
   factory _$$DrillDefinitionCopyWith(
           _$DrillDefinition value, $Res Function(_$DrillDefinition) then) =
       __$$DrillDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -952,7 +940,6 @@ abstract class DrillDefinition extends ItemDefinition {
       final String description,
       final String image,
       final int damage) = _$DrillDefinition;
-
   const DrillDefinition._() : super._();
 
   factory DrillDefinition.fromJson(Map<String, dynamic> json) =
@@ -960,18 +947,13 @@ abstract class DrillDefinition extends ItemDefinition {
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get image => throw _privateConstructorUsedError;
-
   int get damage => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$DrillDefinitionCopyWith<_$DrillDefinition> get copyWith =>
@@ -984,7 +966,6 @@ abstract class _$$SwordDefinitionCopyWith<$Res>
   factory _$$SwordDefinitionCopyWith(
           _$SwordDefinition value, $Res Function(_$SwordDefinition) then) =
       __$$SwordDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -1271,7 +1252,6 @@ abstract class SwordDefinition extends ItemDefinition implements HasPluralName {
       final String description,
       final String image,
       final BuiltMap<WeaponAttributes, double> attributes) = _$SwordDefinition;
-
   const SwordDefinition._() : super._();
 
   factory SwordDefinition.fromJson(Map<String, dynamic> json) =
@@ -1279,21 +1259,15 @@ abstract class SwordDefinition extends ItemDefinition implements HasPluralName {
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   String get namePlural => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get image => throw _privateConstructorUsedError;
-
   BuiltMap<WeaponAttributes, double> get attributes =>
       throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$SwordDefinitionCopyWith<_$SwordDefinition> get copyWith =>
@@ -1306,7 +1280,6 @@ abstract class _$$MinerDefinitionCopyWith<$Res>
   factory _$$MinerDefinitionCopyWith(
           _$MinerDefinition value, $Res Function(_$MinerDefinition) then) =
       __$$MinerDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -1419,7 +1392,6 @@ class _$MinerDefinition extends MinerDefinition {
   final int depth;
   @override
   final int baseDamage;
-
 // Should this be for all resources or per resource?
   @override
   final int baseHopperSize;
@@ -1637,7 +1609,6 @@ abstract class MinerDefinition extends ItemDefinition {
       final int baseHopperSize,
       final int fuelConsumption,
       final String image) = _$MinerDefinition;
-
   const MinerDefinition._() : super._();
 
   factory MinerDefinition.fromJson(Map<String, dynamic> json) =
@@ -1645,26 +1616,18 @@ abstract class MinerDefinition extends ItemDefinition {
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   int get radius => throw _privateConstructorUsedError;
-
   int get depth => throw _privateConstructorUsedError;
-
   int get baseDamage =>
       throw _privateConstructorUsedError; // Should this be for all resources or per resource?
   int get baseHopperSize => throw _privateConstructorUsedError;
-
   int get fuelConsumption => throw _privateConstructorUsedError;
-
   @override
   String get image => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$MinerDefinitionCopyWith<_$MinerDefinition> get copyWith =>
@@ -1801,7 +1764,6 @@ abstract class _$$BasicInstanceCopyWith<$Res>
   factory _$$BasicInstanceCopyWith(
           _$BasicInstance value, $Res Function(_$BasicInstance) then) =
       __$$BasicInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@HiveField(0) ItemInstanceId id, @HiveField(1) ItemDefinitionId itemId});
@@ -1976,17 +1938,14 @@ abstract class BasicInstance extends ItemInstance {
   factory BasicInstance(
       {@HiveField(0) required final ItemInstanceId id,
       @HiveField(1) required final ItemDefinitionId itemId}) = _$BasicInstance;
-
   BasicInstance._() : super._();
 
   @override
   @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$BasicInstanceCopyWith<_$BasicInstance> get copyWith =>
@@ -1999,7 +1958,6 @@ abstract class _$$MinerInstanceCopyWith<$Res>
   factory _$$MinerInstanceCopyWith(
           _$MinerInstance value, $Res Function(_$MinerInstance) then) =
       __$$MinerInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@HiveField(0) ItemInstanceId id,
@@ -2008,7 +1966,6 @@ abstract class _$$MinerInstanceCopyWith<$Res>
 
   @override
   $ItemDefinitionIdCopyWith<$Res> get itemId;
-
   $ItemDefinitionIdCopyWith<$Res>? get drillId;
 }
 
@@ -2202,20 +2159,16 @@ abstract class MinerInstance extends ItemInstance implements MinerMethods {
       {@HiveField(0) required final ItemInstanceId id,
       @HiveField(1) required final ItemDefinitionId itemId,
       @HiveField(2) final ItemDefinitionId? drillId}) = _$MinerInstance;
-
   MinerInstance._() : super._();
 
   @override
   @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-
   @HiveField(2)
   ItemDefinitionId? get drillId => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$MinerInstanceCopyWith<_$MinerInstance> get copyWith =>
@@ -2228,7 +2181,6 @@ abstract class _$$StackInstanceCopyWith<$Res>
   factory _$$StackInstanceCopyWith(
           _$StackInstance value, $Res Function(_$StackInstance) then) =
       __$$StackInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@HiveField(0) ItemInstanceId id,
@@ -2418,20 +2370,16 @@ abstract class StackInstance extends ItemInstance implements StackMethods {
       {@HiveField(0) required final ItemInstanceId id,
       @HiveField(1) required final ItemDefinitionId itemId,
       @HiveField(2) required final int quantity}) = _$StackInstance;
-
   StackInstance._() : super._();
 
   @override
   @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-
   @HiveField(2)
   int get quantity => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$StackInstanceCopyWith<_$StackInstance> get copyWith =>

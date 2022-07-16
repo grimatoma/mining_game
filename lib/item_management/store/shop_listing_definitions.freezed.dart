@@ -21,9 +21,7 @@ ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ShopListing {
   int get id => throw _privateConstructorUsedError;
-
   ItemRequirement get cost => throw _privateConstructorUsedError;
-
   ItemInstanceGenerator get item => throw _privateConstructorUsedError;
   bool get consumable => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -124,7 +122,6 @@ abstract class _$$ItemShopListingCopyWith<$Res>
   factory _$$ItemShopListingCopyWith(
           _$ItemShopListing value, $Res Function(_$ItemShopListing) then) =
       __$$ItemShopListingCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -305,16 +302,12 @@ abstract class ItemShopListing implements ShopListing {
 
   @override
   int get id => throw _privateConstructorUsedError;
-
   @override
   ItemRequirement get cost => throw _privateConstructorUsedError;
-
   @override
   ItemInstanceGenerator get item => throw _privateConstructorUsedError;
-
   @override
   bool get consumable => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$ItemShopListingCopyWith<_$ItemShopListing> get copyWith =>

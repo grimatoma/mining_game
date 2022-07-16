@@ -60,7 +60,6 @@ abstract class _$$_GarageStateCopyWith<$Res>
   factory _$$_GarageStateCopyWith(
           _$_GarageState value, $Res Function(_$_GarageState) then) =
       __$$_GarageStateCopyWithImpl<$Res>;
-
   @override
   $Res call({SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap});
 }
@@ -125,13 +124,11 @@ abstract class _GarageState extends GarageState {
   const factory _GarageState(
           final SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) =
       _$_GarageState;
-
   const _GarageState._() : super._();
 
   @override // @HiveField(1)
   SyncedMap<int, SlotState, int, SlotState> get slotsSyncedMap =>
       throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$_GarageStateCopyWith<_$_GarageState> get copyWith =>
@@ -232,7 +229,6 @@ abstract class _$$SlotWithMinerCopyWith<$Res>
   factory _$$SlotWithMinerCopyWith(
           _$SlotWithMiner value, $Res Function(_$SlotWithMiner) then) =
       __$$SlotWithMinerCopyWithImpl<$Res>;
-
   @override
   $Res call({@HiveField(1) ItemInstanceId minerId, @HiveField(2) int index});
 }
@@ -386,11 +382,9 @@ abstract class SlotWithMiner implements SlotState {
 
   @HiveField(1)
   ItemInstanceId get minerId => throw _privateConstructorUsedError;
-
   @override
   @HiveField(2)
   int get index => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$SlotWithMinerCopyWith<_$SlotWithMiner> get copyWith =>
@@ -402,7 +396,6 @@ abstract class _$$LockedSlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
   factory _$$LockedSlotCopyWith(
           _$LockedSlot value, $Res Function(_$LockedSlot) then) =
       __$$LockedSlotCopyWithImpl<$Res>;
-
   @override
   $Res call({@HiveField(2) int index});
 }
@@ -544,7 +537,6 @@ abstract class LockedSlot implements SlotState {
   @override
   @HiveField(2)
   int get index => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$LockedSlotCopyWith<_$LockedSlot> get copyWith =>
@@ -556,7 +548,6 @@ abstract class _$$EmptySlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
   factory _$$EmptySlotCopyWith(
           _$EmptySlot value, $Res Function(_$EmptySlot) then) =
       __$$EmptySlotCopyWithImpl<$Res>;
-
   @override
   $Res call({@HiveField(2) int index});
 }
@@ -698,7 +689,6 @@ abstract class EmptySlot implements SlotState {
   @override
   @HiveField(2)
   int get index => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$EmptySlotCopyWith<_$EmptySlot> get copyWith =>

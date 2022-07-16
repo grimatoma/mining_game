@@ -32,12 +32,14 @@ class Planet {
       required this.height,
       required this.depth,
       required this.map});
+
   Planet._rebuilt(
       {required this.maxResourceSize,
       required this.width,
       required this.height,
       required this.depth,
       required this.map});
+
   Planet.newPlanet(
       {required GameConfigs configs,
       required int maxResources,
@@ -47,6 +49,7 @@ class Planet {
         depth = configs.depth,
         maxResourceSize = maxResources,
         map = map.build();
+
   Planet.empty()
       : maxResourceSize = 0,
         width = 0,
@@ -57,7 +60,7 @@ class Planet {
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
       min(255,
-              (255 * planetTile.resources.get(ItemKeys.IRON) / maxResourceSize))
+              (255 * planetTile.resources.get(Items.IRON.id) / maxResourceSize))
           .toInt(),
       0,
       0);

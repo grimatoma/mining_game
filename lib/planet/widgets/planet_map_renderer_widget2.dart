@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
@@ -16,20 +14,7 @@ class _PlanetMapRendererWidget2State
     extends ConsumerState<PlanetMapRendererWidget2> {
   @override
   Widget build(BuildContext context) {
-//  final viewerTransformController = ref.watch(transformerController);
-    final transformationController = useTransformationController();
-    final selectedPlanet = ref.watch(selectedPlanetProvider);
-    // return Center(
-    // child:
     return LayoutBuilder(builder: (context, viewConstraints) {
-      // final stored = ref.watch(planetViewerConstraintsProvider);
-      // if (stored.x != viewConstraints.maxWidth ||
-      //     stored.y != viewConstraints.maxHeight) {
-      //   Future.delayed(Duration.zero, () {
-      //     ref.read(planetViewerConstraintsProvider.notifier).update(
-      //         Vector2(viewConstraints.maxWidth, viewConstraints.maxHeight));
-      //   });
-      // }
       final selectedPlanet = ref.watch(selectedPlanetProvider);
       return InteractiveViewer(
         constrained: false,
@@ -103,14 +88,12 @@ class TileWidget extends ConsumerWidget {
         child: Stack(
           children: [
             Image.asset('assets/images/empty_inventory_slot.png'),
-            // Text('${_controller.x},${_controller.y}\nMeow')
             if (tileState.doodad != null) ...[
               if (tileState.doodad?.imageAsset != null)
                 Image.asset((tileState.doodad?.imageAsset)!),
             ],
             if (ref.watch(selectedTileControllerProvider) == _controller)
               Container(
-                constraints: const BoxConstraints.expand(),
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.red, width: 5)),
               ),

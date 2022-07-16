@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -52,9 +51,9 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                           ref.read(inventoryStateProvider.notifier).addItems(
                               ref.read(planetControllerProvider.notifier).dig(
                                   selectedTile.point,
-                                  ItemRequirement({
-                                    ItemKeys.IRON: 1,
-                                  }.build())));
+                                  ItemRequirement.fromMap({
+                                    Items.IRON.id: 1,
+                                  })));
                         },
                         child: const Text('dig')),
                     if (!selectedTile.visible)
@@ -92,8 +91,8 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                           items: storedMiners
                               .map<DropdownMenuItem<MinerInstance>>((value) =>
                                   DropdownMenuItem<MinerInstance>(
-                                      child: Text(value.definition.name),
-                                      value: value))
+                                      value: value,
+                                      child: Text(value.definition.name)))
                               .toList(growable: false),
                           onChanged: (MinerInstance? newVal) {
                             ref

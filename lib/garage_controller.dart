@@ -16,6 +16,7 @@ import 'item_management/inventory/inventory.dart';
 import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
+
 part 'garage_controller.g.dart';
 
 final garageProvider = StateNotifierProvider<GarageNotifier, GarageState>(
@@ -34,6 +35,7 @@ class GarageState with _$GarageState {
       SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) = _GarageState;
 
   BuiltMap<int, SlotState> get slots => slotsSyncedMap.map;
+
   SlotState getSlot(int index) => slots[index] ?? LockedSlot(index: index);
 
   GarageState rebuild({
@@ -50,9 +52,11 @@ class SlotState with _$SlotState {
   const factory SlotState.withMiner(
       {@HiveField(1) required ItemInstanceId minerId,
       @HiveField(2) required int index}) = SlotWithMiner;
+
   @HiveType(typeId: 44, adapterName: 'SlotStateLockedAdapter')
   const factory SlotState.locked({@HiveField(2) required int index}) =
       LockedSlot;
+
   @HiveType(typeId: 45, adapterName: 'SlotStateEmptyAdapter')
   const factory SlotState.empty({@HiveField(2) required int index}) = EmptySlot;
 }
@@ -79,7 +83,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
   }
 
   ItemRequirement unlockCost(int index) =>
-      ItemRequirement({ItemKeys.CREDIT: pow(2, index + 1).round()}.build());
+      ItemRequirement.fromMap({Items.CREDIT.id: pow(2, index + 1).round()});
 
   void _unlockSlot(LockedSlot slot) async {
     bool canUnlock(ItemRequirement unlockCost) =>

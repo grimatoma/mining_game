@@ -47,11 +47,14 @@ abstract class MinerMethods implements InstanceDefinition<MinerDefinition> {
   ItemDefinitionId? get drillId;
 
   DrillDefinition? get _drill => drillId?.definition<DrillDefinition>();
+
   @override
   MinerDefinition get definition => itemId.definition<MinerDefinition>();
 
   int get baseDamage => definition.baseDamage;
+
   int get drillDamage => _drill?.damage ?? 0;
+
   int get totalDamage => baseDamage + drillDamage;
 
   bool get hasDrill => drillId != null;
@@ -133,11 +136,14 @@ class ItemRequirement {
 
   ItemRequirement(this.requiredItems);
 
+  factory ItemRequirement.fromMap(Map<ItemDefinitionId, int> items) =>
+      ItemRequirement(items.build());
+
   factory ItemRequirement.single(ItemDefinitionId itemDefinitionId,
           [int count = 1]) =>
-      ItemRequirement({itemDefinitionId: count}.build());
+      ItemRequirement.fromMap({itemDefinitionId: count});
 
-  factory ItemRequirement.empty() => ItemRequirement(BuiltMap());
+  factory ItemRequirement.empty() => ItemRequirement.fromMap({});
 
   bool meetsRequirement(Iterable<ItemInstance?> existingItems) {
     if (requiredItems.isEmpty) return true;
@@ -174,10 +180,10 @@ class ItemRequirement {
       ].join('\n');
 
   factory ItemRequirement.fromJson(Map<String, dynamic> json) =>
-      ItemRequirement({
+      ItemRequirement.fromMap({
         for (final item in json.entries)
           ItemDirectory.loadIdFromDb(item.key): item.value as int,
-      }.build());
+      });
 
   Map<String, dynamic> toJson() => {
         for (final item in requiredItems.entries)

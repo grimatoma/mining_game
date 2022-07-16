@@ -18,13 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PlanetTile {
   @HiveField(0)
   PlanetPoint get point => throw _privateConstructorUsedError;
-
   @HiveField(1)
   ItemContainer get resources => throw _privateConstructorUsedError;
-
   @HiveField(2)
   bool get visible => throw _privateConstructorUsedError;
-
   @HiveField(3)
   TileType get tileType => throw _privateConstructorUsedError;
 
@@ -38,7 +35,6 @@ abstract class $PlanetTileCopyWith<$Res> {
   factory $PlanetTileCopyWith(
           PlanetTile value, $Res Function(PlanetTile) then) =
       _$PlanetTileCopyWithImpl<$Res>;
-
   $Res call(
       {@HiveField(0) PlanetPoint point,
       @HiveField(1) ItemContainer resources,
@@ -53,7 +49,6 @@ class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
   _$PlanetTileCopyWithImpl(this._value, this._then);
 
   final PlanetTile _value;
-
   // ignore: unused_field
   final $Res Function(PlanetTile) _then;
 
@@ -98,7 +93,6 @@ abstract class _$$_PlanetTileCopyWith<$Res>
   factory _$$_PlanetTileCopyWith(
           _$_PlanetTile value, $Res Function(_$_PlanetTile) then) =
       __$$_PlanetTileCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@HiveField(0) PlanetPoint point,
@@ -209,25 +203,20 @@ abstract class _PlanetTile extends PlanetTile {
       @HiveField(1) required final ItemContainer resources,
       @HiveField(2) required final bool visible,
       @HiveField(3) final TileType tileType}) = _$_PlanetTile;
-
   _PlanetTile._() : super._();
 
   @override
   @HiveField(0)
   PlanetPoint get point => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   ItemContainer get resources => throw _privateConstructorUsedError;
-
   @override
   @HiveField(2)
   bool get visible => throw _privateConstructorUsedError;
-
   @override
   @HiveField(3)
   TileType get tileType => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$_PlanetTileCopyWith<_$_PlanetTile> get copyWith =>

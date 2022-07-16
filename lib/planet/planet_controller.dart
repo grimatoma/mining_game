@@ -14,7 +14,6 @@ import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/items/item_container.dart';
 import 'package:mining_game/persistence.dart';
 
-import 'generation/perline_noise.dart';
 import 'planet.dart';
 import 'planet_tile.dart';
 import 'point.dart';
@@ -83,7 +82,7 @@ class PlanetController extends StateNotifier<Planet> {
         final p = PlanetPoint(x, y, z);
         planetMap[p] = PlanetTile(
             point: p,
-            resources: ItemContainer.single(ItemKeys.IRON, resourceSize),
+            resources: ItemContainer.single(Items.IRON.id, resourceSize),
             visible: false);
         maxResourceSize =
             maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
@@ -102,44 +101,44 @@ class PlanetController extends StateNotifier<Planet> {
         configs: configs, maxResources: maxResourceSize, map: planetMap);
   }
 
-  Planet _generatePlanetOld(GameConfigs configs) {
-    int _skew(double i) {
-      const multiplier = 10000;
-      var out = i;
-      out = i * multiplier;
-      out = out.abs();
-      // Change to .35
-      out -= multiplier * .15;
-      out = max(0, out);
-
-      return out.toInt();
-    }
-
-    const z = 0;
-
-    // change to spare populating
-    final planetMap = <PlanetPoint, PlanetTile>{};
-    var maxResourceSize = 0;
-
-    final resourceMap =
-        executeNoise(configs.width, configs.height, configs.seed);
-
-    for (var x = 0; x < configs.width; x++) {
-      for (var y = 0; y < configs.height; y++) {
-        final resourceSize = _skew(resourceMap[x][y]);
-        final p = PlanetPoint(x, y, z);
-        planetMap[p] = PlanetTile(
-            point: p,
-            resources: ItemContainer.single(ItemKeys.IRON, resourceSize),
-            visible: false);
-        maxResourceSize =
-            maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
-      }
-    }
-
-    return Planet.newPlanet(
-        configs: configs, maxResources: maxResourceSize, map: planetMap);
-  }
+  // Planet _generatePlanetOld(GameConfigs configs) {
+  //   int _skew(double i) {
+  //     const multiplier = 10000;
+  //     var out = i;
+  //     out = i * multiplier;
+  //     out = out.abs();
+  //     // Change to .35
+  //     out -= multiplier * .15;
+  //     out = max(0, out);
+  //
+  //     return out.toInt();
+  //   }
+  //
+  //   const z = 0;
+  //
+  //   // change to spare populating
+  //   final planetMap = <PlanetPoint, PlanetTile>{};
+  //   var maxResourceSize = 0;
+  //
+  //   final resourceMap =
+  //       executeNoise(configs.width, configs.height, configs.seed);
+  //
+  //   for (var x = 0; x < configs.width; x++) {
+  //     for (var y = 0; y < configs.height; y++) {
+  //       final resourceSize = _skew(resourceMap[x][y]);
+  //       final p = PlanetPoint(x, y, z);
+  //       planetMap[p] = PlanetTile(
+  //           point: p,
+  //           resources: ItemContainer.single(Items.IRON.id, resourceSize),
+  //           visible: false);
+  //       maxResourceSize =
+  //           maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
+  //     }
+  //   }
+  //
+  //   return Planet.newPlanet(
+  //       configs: configs, maxResources: maxResourceSize, map: planetMap);
+  // }
 
   BuiltList<ItemInstance> dig(PlanetPoint p, ItemRequirement damage) {
     final tile = planet.map[p];
@@ -149,8 +148,8 @@ class PlanetController extends StateNotifier<Planet> {
     planet = planet.rebuild((p0) {
       p0[p] = tile.copyWith(resources: tile.resources - resolvedDamage);
     });
-    return ItemInstanceGenerator.generateItemInstance(
-        ItemKeys.IRON, resolvedDamage.items[ItemKeys.IRON] ?? 0);
+    return Items.IRON
+        .generateItemInstance(resolvedDamage.items[Items.IRON.id] ?? 0);
   }
 
   void scanForResources(PlanetPoint p, int radius) {
@@ -180,7 +179,7 @@ class PlanetController extends StateNotifier<Planet> {
       min(
               255,
               (255 *
-                  planetTile.resources.get(ItemKeys.IRON) /
+                  planetTile.resources.get(Items.IRON.id) /
                   planet.maxResourceSize))
           .toInt(),
       0,
@@ -198,7 +197,7 @@ class PlanetController extends StateNotifier<Planet> {
         var tile = map[PlanetPoint(x, y, 0)]!;
 
         final color = min(255,
-                (255 * tile.resources.get(ItemKeys.IRON) / maxResourceSize))
+                (255 * tile.resources.get(Items.IRON.id) / maxResourceSize))
             .toInt();
         pixels[index] = Color.fromRGBO(
                 tile.visible ? color : 20,

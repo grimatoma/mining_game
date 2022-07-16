@@ -17,20 +17,15 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Tile {
   int get x => throw _privateConstructorUsedError;
-
   int get y => throw _privateConstructorUsedError;
-
   TileType get tileType => throw _privateConstructorUsedError;
-
   Doodad? get doodad => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int x, int y, TileType tileType, Doodad? doodad)
         empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int x, int y, TileType tileType, Doodad? doodad)? empty,
@@ -42,13 +37,11 @@ mixin _$Tile {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Empty value) empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Empty value)? empty,
@@ -69,7 +62,6 @@ mixin _$Tile {
 abstract class $TileCopyWith<$Res> {
   factory $TileCopyWith(Tile value, $Res Function(Tile) then) =
       _$TileCopyWithImpl<$Res>;
-
   $Res call({int x, int y, TileType tileType, Doodad? doodad});
 }
 
@@ -78,7 +70,6 @@ class _$TileCopyWithImpl<$Res> implements $TileCopyWith<$Res> {
   _$TileCopyWithImpl(this._value, this._then);
 
   final Tile _value;
-
   // ignore: unused_field
   final $Res Function(Tile) _then;
 
@@ -114,7 +105,6 @@ class _$TileCopyWithImpl<$Res> implements $TileCopyWith<$Res> {
 abstract class _$$EmptyCopyWith<$Res> implements $TileCopyWith<$Res> {
   factory _$$EmptyCopyWith(_$Empty value, $Res Function(_$Empty) then) =
       __$$EmptyCopyWithImpl<$Res>;
-
   @override
   $Res call({int x, int y, TileType tileType, Doodad? doodad});
 }
@@ -260,21 +250,16 @@ class _$Empty extends Empty {
 abstract class Empty extends Tile {
   factory Empty(final int x, final int y, final TileType tileType,
       {final Doodad? doodad}) = _$Empty;
-
   Empty._() : super._();
 
   @override
   int get x => throw _privateConstructorUsedError;
-
   @override
   int get y => throw _privateConstructorUsedError;
-
   @override
   TileType get tileType => throw _privateConstructorUsedError;
-
   @override
   Doodad? get doodad => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$EmptyCopyWith<_$Empty> get copyWith => throw _privateConstructorUsedError;

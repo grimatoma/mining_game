@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/planet/planet_manager.dart';
-import 'package:mining_game/planet/widgets/planet_map_renderer_widget2.dart';
+import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 import 'status_bar_wrapped_page.dart';
 
@@ -15,7 +15,9 @@ class PlanetPageWidget extends HookConsumerWidget {
     return StatusBarWrappedPageWidget(
       title: 'Planet',
       builder: (context, ref) => Stack(children: [
-        const PlanetMapRendererWidget2(),
+        // const PlanetMapRendererWidget2(),
+        const PlanetMapRendererWidget3(),
+
         Align(
           alignment: FractionalOffset.bottomCenter,
           child: Row(
@@ -115,6 +117,8 @@ class BuildMenuWidget extends HookConsumerWidget {
                       onPressed: () {
                         ref.read(panelVisibilityState.notifier).state =
                             PanelVisibility.None;
+                        ref.read(buildMenuItemFocusProvider.notifier).state =
+                            null;
                       },
                       child: const Text('Close'))
                 ],
@@ -166,8 +170,8 @@ class BuildMenuFocusDetail extends ConsumerWidget {
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
                 color: Colors.red[100],
-                border:
-                    Border(bottom: BorderSide(color: Colors.black, width: 2))),
+                border: const Border(
+                    bottom: BorderSide(color: Colors.black, width: 2))),
             child: Text(
               item.name,
               style: const TextStyle(
@@ -231,7 +235,7 @@ void buyDoodad(WidgetRef ref) {
   selectedTile.addDoodad(item.createNew(selectedTile));
   ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
   ref.read(selectedTileControllerProvider.notifier).state = null;
-  ref.read(buildMenuItemFocusProvider.notifier).state = null;
+  // ref.read(buildMenuItemFocusProvider.notifier).state = null;
 }
 
 class DoodadBuildItemWidget extends HookConsumerWidget {
@@ -289,15 +293,15 @@ class TileDetailWidget extends ConsumerWidget {
     final selectedTile = ref.watch(selectedTileControllerProvider);
     if (selectedTile == null) return Container();
     return Container(
-        color: Colors.red,
+        color: Colors.red[100],
         height: 150,
         child: Center(
           child: LayoutBuilder(builder: (context, constaints) {
             final width = min(constaints.maxWidth, 500.0);
-            return SizedBox(
+            return Container(
+              color: Colors.red[800],
               width: width,
               child: Column(
-                // mainAxisSize: MainAxisSize.max,
                 children: [
                   ModalTitleWidget(
                     title:

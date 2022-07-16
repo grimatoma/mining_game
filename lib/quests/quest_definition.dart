@@ -17,17 +17,17 @@ class Requirement with _$Requirement {
 
   factory Requirement.none() => Requirement(
       features: BuiltSet(),
-      cost: ItemRequirement(BuiltMap()),
-      itemsOwned: ItemRequirement(BuiltMap()));
+      cost: ItemRequirement.empty(),
+      itemsOwned: ItemRequirement.empty());
 
   factory Requirement.featureOnly(BuiltSet<Feature> features) => Requirement(
       features: features,
-      cost: ItemRequirement(BuiltMap()),
-      itemsOwned: ItemRequirement(BuiltMap()));
+      cost: ItemRequirement.empty(),
+      itemsOwned: ItemRequirement.empty());
 
   factory Requirement.itemOwnedOnly(ItemRequirement itemsOwned) => Requirement(
       features: BuiltSet(),
-      cost: ItemRequirement(BuiltMap()),
+      cost: ItemRequirement.empty(),
       itemsOwned: itemsOwned);
 
   factory Requirement.fromJson(Map<String, dynamic> json) =>

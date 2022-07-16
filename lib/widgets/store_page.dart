@@ -10,6 +10,7 @@ import 'status_bar_wrapped_page.dart';
 
 class StorePageWidget extends HookConsumerWidget {
   const StorePageWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen to changes in money (For failed purchases);
@@ -85,6 +86,7 @@ class ListingWidget extends ConsumerWidget {
   final String listingTitle;
   final Widget listingDetails;
   final Widget actionButton;
+
   const ListingWidget({
     this.imagePath = 'assets/images/placeholder.png',
     required this.listingTitle,
@@ -144,7 +146,6 @@ class ShopButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ElevatedButton(
-      child: Text(cost.toString()),
       onPressed: onClick,
       style: ElevatedButton.styleFrom(
         shape: const RoundedRectangleBorder(
@@ -153,6 +154,7 @@ class ShopButton extends ConsumerWidget {
         onPrimary: active ? Colors.grey[800] : Colors.grey[500],
         primary: active ? Colors.green[300] : Colors.grey[100],
       ),
+      child: Text(cost.toString()),
     );
   }
 }
