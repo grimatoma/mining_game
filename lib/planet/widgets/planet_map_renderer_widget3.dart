@@ -13,13 +13,6 @@ class HexagonPlanetRenderer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPlanet = ref.watch(selectedPlanetProvider);
-    // return FittedBox(
-    //   fit: BoxFit.scaleDown,
-    //   child: Container(
-    //     color: Colors.black,
-    //     child: Text('sss'),
-    //   ),
-    // );
     return InteractiveViewer(
       constrained: false,
       minScale: 0.01,
@@ -39,30 +32,14 @@ class HexagonPlanetRenderer extends ConsumerWidget {
                 height: selectedPlanet.height * 64,
                 child: Stack(
                   children: [
-                    for (int y = 0; y < selectedPlanet.height; y++)
-                      for (final tile in selectedPlanet.tilesIterable)
-                        Transform.translate(
-                          offset: flatHexToPixel(32, tile.tile.hexagon),
-                          child: TileWidget(tile),
-                        ),
+                    for (final tile in selectedPlanet.tilesIterable)
+                      Transform.translate(
+                        offset: flatHexToPixel(32, tile.tile.hexagon),
+                        child: TileWidget(tile),
+                      ),
                     const SelectedTileWidget(),
                   ],
                 ),
-                //           )
-                //           // Stack(children: [
-                //           //   SizedBox(
-                //           //     width: viewConstraints.maxWidth,
-                //           //     height: viewConstraints.maxHeight,
-                //           //     child: FittedBox(
-                //           //         fit: BoxFit.fill,
-                //           //         child: PlanetImageWidget(viewConstraints)),
-                //           //   ),
-                //           //   // MinerLayerWidget(viewConstraints),
-                //           //   // PlanetMarkerWidget(viewConstraints),
-                //           // ]),
-                //           );
-                //     },
-                //   ),
               ),
             ),
           ),
@@ -94,61 +71,41 @@ class TileWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final tileState = ref.watch(_controller.provider);
-    return SizedBox(
-      height: 64,
-      width: 64,
-      child: InkResponse(
-        onTap: () {
-          final selectedTileController =
-              ref.read(selectedTileControllerProvider.notifier);
-          if (selectedTileController.state == _controller) {
-            ref.read(panelVisibilityState.notifier).state =
-                PanelVisibility.BuyMenu;
-          } else {
-            selectedTileController.state = _controller;
-            ref.read(panelVisibilityState.notifier).state =
-                PanelVisibility.TileDetail;
-          }
-        },
-        child: Stack(
-          children: [
-            Assets.getTile(TileType.Grass, tileState.hexagon),
-            // Image.asset('assets/images/tiles/02Grass/plains.png'),
-            if (tileState.doodad != null) ...[
-              if (tileState.doodad?.imageAsset != null)
-                Image.asset((tileState.doodad?.imageAsset)!),
-            ],
-
-            // Container(
-            //   decoration: BoxDecoration(
-            //       border: Border.all(color: Colors.red, width: 5)),
-          ],
+    return ClipPath(
+      clipper: SelectedTileMarkerClipper(32),
+      child: Container(
+        color: Colors.red[50],
+        child: SizedBox(
+          height: 64,
+          width: 64,
+          child: InkResponse(
+            onTap: () {
+              final selectedTileController =
+                  ref.read(selectedTileControllerProvider.notifier);
+              if (selectedTileController.state == _controller) {
+                ref.read(panelVisibilityState.notifier).state =
+                    PanelVisibility.BuyMenu;
+              } else {
+                selectedTileController.state = _controller;
+                ref.read(panelVisibilityState.notifier).state =
+                    PanelVisibility.TileDetail;
+              }
+            },
+            child: Stack(
+              children: [
+                Assets.getTile(TileType.Grass, tileState.hexagon),
+                if (tileState.doodad != null) ...[
+                  if (tileState.doodad?.imageAsset != null)
+                    Image.asset((tileState.doodad?.imageAsset)!),
+                ],
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
-
-// class Hexagon {
-//   final int q;
-//   final int r;
-//
-//   const Hexagon(this.q, this.r);
-//
-//   @override
-//   String toString() => '$q,$r';
-// }
-//
-// // only uses
-// List<Hexagon> generateHexagonMapOfSize(int width) {
-//   int indexStart = -(width / 2).floor();
-//   int indexEndInclusive = width + indexStart - 1;
-//
-//   return [
-//     for (int q = indexStart; q <= indexEndInclusive; q++)
-//       for (int r = indexStart; r <= indexEndInclusive; r++) Hexagon(q, r),
-//   ];
-// }
 
 class Point {
   final double x;
@@ -160,10 +117,32 @@ class Point {
   String toString() => '$x,$y';
 }
 
-Offset flatHexToPixel(double size, Hexagon hex, [int radius = 2]) {
+Offset flatHexToPixel(double size, Hexagon hex, [int radius = 4]) {
   var x = size * (3.0 / 2 * hex.q) + size * 2 * radius;
   var y = size * (sqrt(3) / 2 * hex.q + sqrt(3) * hex.r) + size * 2 * radius;
   return Offset(x, y);
+}
+
+//focus tile
+class SelectedTileMarkerClipper extends CustomClipper<Path> {
+  final double _length;
+
+  SelectedTileMarkerClipper(this._length);
+
+  @override
+  Path getClip(Size size) {
+    final path = Path();
+
+    path.addPolygon([
+      for (int i = 0; i < 6; i++) flatHexCorner(const Offset(32, 32), 32, i),
+    ], true);
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return true;
+  }
 }
 
 //focus tile

@@ -103,11 +103,6 @@ class _$_Hexagon extends _Hexagon {
   final int r;
 
   @override
-  String toString() {
-    return 'Hexagon(q: $q, r: $r)';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&

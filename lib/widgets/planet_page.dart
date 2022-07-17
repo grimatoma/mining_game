@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/planet/planet_manager.dart';
@@ -75,21 +76,28 @@ class ModalTitleWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                Text(
-                  title,
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                if (leftCharms.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                    child: Row(
-                      children: leftCharms,
+            Flexible(
+              flex: 1,
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: AutoSizeText(
+                      title,
+                      maxLines: 1,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                  )
-              ],
+                  ),
+                  if (leftCharms.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                      child: Row(
+                        children: leftCharms,
+                      ),
+                    )
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -335,9 +343,14 @@ class TileDetailWidget extends ConsumerWidget {
                 children: [
                   ModalTitleWidget(
                     title:
-                        '${selectedTile.tile.title} ${selectedTile.tile.hexagon}',
+                        '${selectedTile.tile.tileType.name} ${selectedTile.tile.hexagon}',
                     leftCharms: [
-                      Text('${selectedTile.tile.hexagon}'),
+                      if (selectedTile.tile.hasDoodad)
+                        AutoSizeText(
+                          maxLines: 1,
+                          '${selectedTile.tile.doodad.runtimeType}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
                     ],
                     rightCharms: [
                       if (selectedTile.tile.hasDoodad)

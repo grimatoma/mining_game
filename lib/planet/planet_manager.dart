@@ -54,6 +54,18 @@ List<Hexagon> generateHexagonMapOfSize(int width) {
   ];
 }
 
+List<Hexagon> generateRectangleMap(int left, int right, int top, int bottom) {
+  final list = <Hexagon>[];
+  for (int q = left; q <= right; q++) {
+    // flat top
+    int qOffset = (q / 2.0).floor(); // or q>>1
+    for (int r = top - qOffset; r <= bottom - qOffset; r++) {
+      list.add(Hexagon(q, r));
+    }
+  }
+  return list;
+}
+
 List<Hexagon> generateHexagonMapOfSize2(int map_radius) {
   // print('generating map of size $width');
   // int indexStart = -(width / 2).floor();
@@ -89,8 +101,8 @@ class PlanetManager {
   late final BuiltMap<Hexagon, TileStateController> tiles;
 
   // Load or for now generate the planet
-  final width = 5;
-  final height = 8;
+  final width = 9;
+  final height = 9;
 
   PlanetManager(this._ref) {
     final planetBuilder = MapBuilder<Hexagon, TileStateController>();
@@ -102,7 +114,7 @@ class PlanetManager {
     //   planetBuilder.add(rowBuilder.build());
     // }
 
-    for (final hexagon in generateHexagonMapOfSize2(2)) {
+    for (final hexagon in generateHexagonMapOfSize2(4)) {
       print(hexagon);
       planetBuilder[hexagon] = TileStateController(_ref, hexagon);
     }
@@ -138,6 +150,9 @@ class Hexagon with _$Hexagon {
   const Hexagon._();
 
   factory Hexagon(int q, int r) = _Hexagon;
+
+  @override
+  String toString() => '($q,$r)';
 }
 
 @freezed
