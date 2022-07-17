@@ -5,71 +5,70 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/assets.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
-class PlanetMapRendererWidget3 extends StatefulHookConsumerWidget {
-  const PlanetMapRendererWidget3({Key? key}) : super(key: key);
+class HexagonPlanetRenderer extends ConsumerWidget {
+  const HexagonPlanetRenderer({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _PlanetMapRendererWidget2State();
-}
-
-class _PlanetMapRendererWidget2State
-    extends ConsumerState<PlanetMapRendererWidget3> {
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, viewConstraints) {
-      final selectedPlanet = ref.watch(selectedPlanetProvider);
-      return InteractiveViewer(
-        constrained: false,
-        minScale: 0.01,
-        maxScale: 5,
-        child: Padding(
-          padding: const EdgeInsets.all(128.0),
-          child: Container(
-            width: selectedPlanet.width * 64,
-            height: selectedPlanet.height * 64,
-            color: Colors.teal,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: SizedBox(
-                  width: selectedPlanet.width * 64,
-                  height: selectedPlanet.height * 64,
-                  child: Stack(
-                    children: [
-                      for (int y = 0; y < selectedPlanet.height; y++)
-                        for (final tile in selectedPlanet.tilesIterable)
-                          Transform.translate(
-                            offset: flatHexToPixel(
-                                32, Hexagon(tile.tile.x, tile.tile.y)),
-                            child: TileWidget(tile),
-                          ),
-                      const SelectedTileWidget(),
-                    ],
-                  ),
-                  //           )
-                  //           // Stack(children: [
-                  //           //   SizedBox(
-                  //           //     width: viewConstraints.maxWidth,
-                  //           //     height: viewConstraints.maxHeight,
-                  //           //     child: FittedBox(
-                  //           //         fit: BoxFit.fill,
-                  //           //         child: PlanetImageWidget(viewConstraints)),
-                  //           //   ),
-                  //           //   // MinerLayerWidget(viewConstraints),
-                  //           //   // PlanetMarkerWidget(viewConstraints),
-                  //           // ]),
-                  //           );
-                  //     },
-                  //   ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedPlanet = ref.watch(selectedPlanetProvider);
+    // return FittedBox(
+    //   fit: BoxFit.scaleDown,
+    //   child: Container(
+    //     color: Colors.black,
+    //     child: Text('sss'),
+    //   ),
+    // );
+    return InteractiveViewer(
+      constrained: false,
+      minScale: 0.01,
+      maxScale: 5,
+      child: Padding(
+        padding: const EdgeInsets.all(128.0),
+        child: Container(
+          width: selectedPlanet.width * 64,
+          height: selectedPlanet.height * 64,
+          color: Colors.teal,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: SizedBox(
+                width: selectedPlanet.width * 64,
+                height: selectedPlanet.height * 64,
+                child: Stack(
+                  children: [
+                    for (int y = 0; y < selectedPlanet.height; y++)
+                      for (final tile in selectedPlanet.tilesIterable)
+                        Transform.translate(
+                          offset: flatHexToPixel(32, tile.tile.hexagon),
+                          child: TileWidget(tile),
+                        ),
+                    const SelectedTileWidget(),
+                  ],
                 ),
+                //           )
+                //           // Stack(children: [
+                //           //   SizedBox(
+                //           //     width: viewConstraints.maxWidth,
+                //           //     height: viewConstraints.maxHeight,
+                //           //     child: FittedBox(
+                //           //         fit: BoxFit.fill,
+                //           //         child: PlanetImageWidget(viewConstraints)),
+                //           //   ),
+                //           //   // MinerLayerWidget(viewConstraints),
+                //           //   // PlanetMarkerWidget(viewConstraints),
+                //           // ]),
+                //           );
+                //     },
+                //   ),
               ),
             ),
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }
 
@@ -113,7 +112,7 @@ class TileWidget extends ConsumerWidget {
         },
         child: Stack(
           children: [
-            Assets.getTile(TileType.Grass, tileState.asHexagon),
+            Assets.getTile(TileType.Grass, tileState.hexagon),
             // Image.asset('assets/images/tiles/02Grass/plains.png'),
             if (tileState.doodad != null) ...[
               if (tileState.doodad?.imageAsset != null)
@@ -130,26 +129,26 @@ class TileWidget extends ConsumerWidget {
   }
 }
 
-class Hexagon {
-  final int q;
-  final int r;
-
-  const Hexagon(this.q, this.r);
-
-  @override
-  String toString() => '$q,$r';
-}
-
-// only uses
-List<Hexagon> generateHexagonMapOfSize(int width) {
-  int indexStart = -(width / 2).floor();
-  int indexEndInclusive = width + indexStart - 1;
-
-  return [
-    for (int q = indexStart; q <= indexEndInclusive; q++)
-      for (int r = indexStart; r <= indexEndInclusive; r++) Hexagon(q, r),
-  ];
-}
+// class Hexagon {
+//   final int q;
+//   final int r;
+//
+//   const Hexagon(this.q, this.r);
+//
+//   @override
+//   String toString() => '$q,$r';
+// }
+//
+// // only uses
+// List<Hexagon> generateHexagonMapOfSize(int width) {
+//   int indexStart = -(width / 2).floor();
+//   int indexEndInclusive = width + indexStart - 1;
+//
+//   return [
+//     for (int q = indexStart; q <= indexEndInclusive; q++)
+//       for (int r = indexStart; r <= indexEndInclusive; r++) Hexagon(q, r),
+//   ];
+// }
 
 class Point {
   final double x;
@@ -161,30 +160,30 @@ class Point {
   String toString() => '$x,$y';
 }
 
-Offset flatHexToPixel(double size, Hexagon hex) {
-  var x = size * (3.0 / 2 * hex.q);
-  var y = size * (sqrt(3) / 2 * hex.q + sqrt(3) * hex.r);
+Offset flatHexToPixel(double size, Hexagon hex, [int radius = 2]) {
+  var x = size * (3.0 / 2 * hex.q) + size * 2 * radius;
+  var y = size * (sqrt(3) / 2 * hex.q + sqrt(3) * hex.r) + size * 2 * radius;
   return Offset(x, y);
 }
 
 //focus tile
 class SelectedTileMarker extends CustomPainter {
-  final Tile hexagon;
-  final double length;
+  final Tile _tile;
+  final double _length;
 
-  SelectedTileMarker(this.length, this.hexagon);
+  SelectedTileMarker(this._length, this._tile);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = flatHexToPixel(length, Hexagon(hexagon.x, hexagon.y))
-        .translate(length, length);
+    final center =
+        flatHexToPixel(_length, _tile.hexagon).translate(_length, _length);
     final paint = Paint()
       ..color = Colors.red
       ..strokeWidth = 5;
     for (int i = 0; i < 6; i++) {
       int next = (i + 1) % 6;
-      canvas.drawLine(flatHexCorner(center, length, i),
-          flatHexCorner(center, length, next), paint);
+      canvas.drawLine(flatHexCorner(center, _length, i),
+          flatHexCorner(center, _length, next), paint);
     }
   }
 

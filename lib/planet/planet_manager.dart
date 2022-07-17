@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -6,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 part 'planet_manager.freezed.dart';
 
@@ -42,6 +42,34 @@ final selectedPlanetProvider = StateProvider<PlanetManager>(
 final selectedTileControllerProvider =
     StateProvider<TileStateController?>((ref) => null);
 
+// only uses
+List<Hexagon> generateHexagonMapOfSize(int width) {
+  print('generating map of size $width');
+  int indexStart = -(width / 2).floor();
+  int indexEndInclusive = width + indexStart - 1;
+
+  return [
+    for (int q = indexStart; q <= indexEndInclusive; q++)
+      for (int r = indexStart; r <= indexEndInclusive; r++) Hexagon(q, r),
+  ];
+}
+
+List<Hexagon> generateHexagonMapOfSize2(int map_radius) {
+  // print('generating map of size $width');
+  // int indexStart = -(width / 2).floor();
+  // int indexEndInclusive = width + indexStart - 1;
+
+  final list = <Hexagon>[];
+  for (int q = -map_radius; q <= map_radius; q++) {
+    int r1 = max(-map_radius, -q - map_radius);
+    int r2 = min(map_radius, -q + map_radius);
+    for (int r = r1; r <= r2; r++) {
+      list.add(Hexagon(q, r));
+    }
+  }
+  return list;
+}
+
 enum PanelVisibility {
   None,
   BuyMenu,
@@ -58,24 +86,33 @@ class Planet {}
 class PlanetManager {
   final Ref _ref;
 
-  late final BuiltList<BuiltList<TileStateController>> tiles;
+  late final BuiltMap<Hexagon, TileStateController> tiles;
 
   // Load or for now generate the planet
-  final width = 12;
+  final width = 5;
   final height = 8;
 
   PlanetManager(this._ref) {
-    final planetBuilder = ListBuilder<BuiltList<TileStateController>>();
-    for (int y = 0; y < height; y++) {
-      final rowBuilder = ListBuilder<TileStateController>();
-      for (int x = 0; x < width; x++) {
-        rowBuilder.add(TileStateController(_ref, x, y));
-      }
-      planetBuilder.add(rowBuilder.build());
-    }
+    final planetBuilder = MapBuilder<Hexagon, TileStateController>();
+    // for (int y = 0; y < height; y++) {
+    //   final rowBuilder = ListBuilder<TileStateController>();
+    //   for (int x = 0; x < width; x++) {
+    //     rowBuilder.add(TileStateController(_ref, Hexagon(x, y)));
+    //   }
+    //   planetBuilder.add(rowBuilder.build());
+    // }
 
+    for (final hexagon in generateHexagonMapOfSize2(2)) {
+      print(hexagon);
+      planetBuilder[hexagon] = TileStateController(_ref, hexagon);
+    }
+    print(planetBuilder);
+    //
+    // planetBuilder
+    //     .putIfAbsent(const Hexagon(0, 0),
+    //         () => TileStateController(_ref, const Hexagon(0, 0)))
+    //     .addDoodad((c) => Tree(c));
     tiles = planetBuilder.build();
-    tiles[2][2].addDoodad(Tree(tiles[2][2]));
   }
 
   void update() {
@@ -84,16 +121,9 @@ class PlanetManager {
     }
   }
 
-  Iterable<TileStateController> get tilesIterable sync* {
-    for (final row in tiles) {
-      for (final tile in row) {
-        yield tile;
-      }
-    }
+  Iterable<TileStateController> get tilesIterable {
+    return tiles.values;
   }
-
-  TileStateController getTile(int index) =>
-      tiles[index ~/ width][index % height];
 }
 
 enum TileType {
@@ -104,10 +134,18 @@ enum TileType {
 }
 
 @freezed
+class Hexagon with _$Hexagon {
+  const Hexagon._();
+
+  factory Hexagon(int q, int r) = _Hexagon;
+}
+
+@freezed
 class Tile with _$Tile {
   const Tile._();
 
-  factory Tile.empty(int x, int y, TileType tileType, {Doodad? doodad}) = Empty;
+  factory Tile.empty(Hexagon hexagon, TileType tileType, {Doodad? doodad}) =
+      Empty;
 
   // factory Tile.iron(int x, int y, BuiltSet<Doodad> doodads) = Empty;
 
@@ -116,16 +154,14 @@ class Tile with _$Tile {
     return tileType.toString();
   }
 
-  Hexagon get asHexagon => Hexagon(x, y);
-
   bool get hasDoodad => doodad != null;
 }
 
 class TileStateController extends StateNotifier<Tile> {
   final Ref ref;
 
-  TileStateController(this.ref, int x, int y)
-      : super(Tile.empty(x, y, TileType.Grass));
+  TileStateController(this.ref, Hexagon hexagon)
+      : super(Tile.empty(hexagon, TileType.Grass));
 
   StateNotifierProvider<TileStateController, Tile> get provider =>
       StateNotifierProvider((ref) => this);
@@ -136,8 +172,8 @@ class TileStateController extends StateNotifier<Tile> {
     tile.doodad?.update();
   }
 
-  void addDoodad(Doodad doodad) {
-    state = state.copyWith(doodad: doodad);
+  void addDoodad(Doodad Function(TileStateController controller) genDoodad) {
+    state = state.copyWith(doodad: genDoodad(this));
   }
 
   void removeDoodad() {

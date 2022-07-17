@@ -38,8 +38,8 @@ class _PlanetMapRendererWidget2State
                     children: [
                       for (int y = 0; y < selectedPlanet.height; y++)
                         TableRow(children: [
-                          for (final tile in selectedPlanet.tiles[y])
-                            TileWidget(tile),
+                          // for (final tile in selectedPlanet.tiles[y])
+                          //   TileWidget(tile),
                         ])
                     ],
                   ),

@@ -1,6 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/widgets.dart';
 import 'package:mining_game/planet/planet_manager.dart';
-import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 class Assets {
   static Image getTile(TileType tileType, Hexagon location) {
@@ -24,8 +25,18 @@ class Assets {
         // TODO: Handle this case.
         break;
     }
-    return Image.asset(sourceMap[
-        (((location.q + 1 * 123) + (location.r - 1 * 123)) % sourceMap.length)
-            .abs()]);
+    return Image.asset(_getAsset(location, sourceMap));
+  }
+
+  static final _noise = <Hexagon, Map<int, String>>{};
+
+  static String _getAsset(Hexagon hexagon, List<String> assets) {
+    if (!_noise.containsKey(hexagon) ||
+        !_noise[hexagon]!.containsKey(assets.length)) {
+      _noise.putIfAbsent(hexagon, () => <int, String>{});
+      _noise[hexagon]![assets.length] =
+          assets[Random(hexagon.hashCode).nextInt(assets.length)];
+    }
+    return _noise[hexagon]![assets.length]!;
   }
 }

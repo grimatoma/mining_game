@@ -6,13 +6,10 @@ import 'dart:ui' as ui;
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
-import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
-import 'package:mining_game/persistence.dart';
 
 import 'planet.dart';
 import 'planet_tile.dart';
@@ -58,16 +55,16 @@ class PlanetController extends StateNotifier<Planet> {
       // }
     }
 
-    void updateBox() async {
-      final loadedBox =
-          await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
-      stream.listen((event) {
-        loadedBox.put(databaseKey, planet);
-      });
-    }
+    // void updateBox() async {
+    //   final loadedBox =
+    //       await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
+    //   stream.listen((event) {
+    //     loadedBox.put(databaseKey, planet);
+    //   });
+    // }
 
     loadInitialData();
-    updateBox();
+    // updateBox();
   }
 
   Planet _generatePlanet(GameConfigs configs) {
@@ -76,18 +73,29 @@ class PlanetController extends StateNotifier<Planet> {
     final planetMap = <PlanetPoint, PlanetTile>{};
     var maxResourceSize = 0;
 
-    for (var x = 0; x < configs.width; x++) {
-      for (var y = 0; y < configs.height; y++) {
-        const resourceSize = 1;
-        final p = PlanetPoint(x, y, z);
-        planetMap[p] = PlanetTile(
-            point: p,
-            resources: ItemContainer.single(Items.IRON.id, resourceSize),
-            visible: false);
-        maxResourceSize =
-            maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
-      }
-    }
+    // for (var x = 0; x < configs.width; x++) {
+    //   for (var y = 0; y < configs.height; y++) {
+    //     const resourceSize = 1;
+    //     final p = PlanetPoint(x, y, z);
+    //     planetMap[p] = PlanetTile(
+    //         point: p,
+    //         resources: ItemContainer.single(Items.IRON.id, resourceSize),
+    //         visible: false);
+    //     maxResourceSize =
+    //         maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
+    //   }
+    // }
+
+    // for (final hexagon in generateHexagonMapOfSize(5)) {
+    //   const resourceSize = 1;
+    //   final p = PlanetPoint(hexagon.r, hexagon.q, z);
+    //   planetMap[p] = PlanetTile(
+    //       point: p,
+    //       resources: ItemContainer.single(Items.IRON.id, resourceSize),
+    //       visible: false);
+    //   maxResourceSize =
+    //       maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
+    // }
 
     void remap(int x, int y, TileType tileType) {
       final point = PlanetPoint(x, y, z);
@@ -97,6 +105,7 @@ class PlanetController extends StateNotifier<Planet> {
     remap(0, 1, TileType.Mine);
     remap(5, 5, TileType.Grass);
 
+    print('new Planet!');
     return Planet.newPlanet(
         configs: configs, maxResources: maxResourceSize, map: planetMap);
   }
@@ -218,3 +227,25 @@ class PlanetController extends StateNotifier<Planet> {
     );
   }
 }
+//
+// class Hexagon {
+//   final int q;
+//   final int r;
+//
+//   const Hexagon(this.q, this.r);
+//
+//   @override
+//   String toString() => '$q,$r';
+// }
+//
+// // only uses
+// List<Hexagon> generateHexagonMapOfSize(int width) {
+//   print('generating map of size $width');
+//   int indexStart = -(width / 2).floor();
+//   int indexEndInclusive = width + indexStart - 1;
+//
+//   return [
+//     for (int q = indexStart; q <= indexEndInclusive; q++)
+//       for (int r = indexStart; r <= indexEndInclusive; r++) Hexagon(q, r),
+//   ];
+// }

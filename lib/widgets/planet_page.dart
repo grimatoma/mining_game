@@ -7,6 +7,17 @@ import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 import 'status_bar_wrapped_page.dart';
 
+class TestC extends ConsumerWidget {
+  const TestC({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Text('ss');
+  }
+}
+
 class PlanetPageWidget extends HookConsumerWidget {
   const PlanetPageWidget({Key? key}) : super(key: key);
 
@@ -14,9 +25,14 @@ class PlanetPageWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return StatusBarWrappedPageWidget(
       title: 'Planet',
-      builder: (context, ref) => Stack(children: [
+      builder: (context, ref) => Stack(fit: StackFit.expand, children: [
         // const PlanetMapRendererWidget2(),
-        const PlanetMapRendererWidget3(),
+        // FittedBox(
+        //     fit: BoxFit.scaleDown, child: const PlanetMapRendererWidget3()),
+        // Container(
+        //   child: Text('q'),
+        // ),
+        const HexagonPlanetRenderer(),
 
         Align(
           alignment: FractionalOffset.bottomCenter,
@@ -97,54 +113,63 @@ class BuildMenuWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Container(
-        width: min(600, MediaQuery.of(context).size.width * .95),
-        margin: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-            color: Colors.yellowAccent[100],
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(width: 2)),
-        // margin: EdgeInsets.all(8),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Column(
-            children: [
-              ModalTitleWidget(
-                title: 'Build menu',
-                rightCharms: [
-                  TextButton(
-                      onPressed: () {
-                        ref.read(panelVisibilityState.notifier).state =
-                            PanelVisibility.None;
-                        ref.read(buildMenuItemFocusProvider.notifier).state =
-                            null;
-                      },
-                      child: const Text('Close'))
+    return Stack(
+      children: [
+        GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              closeBuyMenu(ref);
+            },
+            child: Container(
+              color: Colors.orange,
+            )),
+        Center(
+          child: Container(
+            width: min(600, MediaQuery.of(context).size.width * .95),
+            margin: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+                color: Colors.yellowAccent[100],
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(width: 2)),
+            // margin: EdgeInsets.all(8),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Column(
+                children: [
+                  ModalTitleWidget(
+                    title: 'Build menu',
+                    rightCharms: [
+                      TextButton(
+                          onPressed: () {
+                            closeBuyMenu(ref);
+                          },
+                          child: const Text('Close'))
+                    ],
+                  ),
+                  Expanded(
+                    child: GridView.count(
+                      padding: const EdgeInsets.all(menuItemPadding),
+                      mainAxisSpacing: menuItemPadding,
+                      crossAxisSpacing: menuItemPadding,
+                      crossAxisCount: (MediaQuery.of(context).size.width / 128)
+                          .floor()
+                          .clamp(3, 5),
+                      children: [
+                        for (int i = 0; i < 10; i++) ...[
+                          DoodadBuildItemWidget(TreeBuildMenuItem.singleton),
+                          DoodadBuildItemWidget(DiggerBuildMenuItem.singleton),
+                          DoodadBuildItemWidget(SmelterBuildMenuItem.singleton),
+                        ],
+                      ],
+                    ),
+                  ),
+                  const BuildMenuFocusDetail(),
                 ],
               ),
-              Expanded(
-                child: GridView.count(
-                  padding: const EdgeInsets.all(menuItemPadding),
-                  mainAxisSpacing: menuItemPadding,
-                  crossAxisSpacing: menuItemPadding,
-                  crossAxisCount: (MediaQuery.of(context).size.width / 128)
-                      .floor()
-                      .clamp(3, 5),
-                  children: [
-                    for (int i = 0; i < 10; i++) ...[
-                      DoodadBuildItemWidget(TreeBuildMenuItem.singleton),
-                      DoodadBuildItemWidget(DiggerBuildMenuItem.singleton),
-                      DoodadBuildItemWidget(SmelterBuildMenuItem.singleton),
-                    ],
-                  ],
-                ),
-              ),
-              const BuildMenuFocusDetail(),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -232,10 +257,15 @@ void buyDoodad(WidgetRef ref) {
   final selectedTile = ref.read(selectedTileControllerProvider);
   if (item == null || selectedTile == null) return;
 
-  selectedTile.addDoodad(item.createNew(selectedTile));
+  selectedTile.addDoodad(item.createNew);
   ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
   ref.read(selectedTileControllerProvider.notifier).state = null;
   // ref.read(buildMenuItemFocusProvider.notifier).state = null;
+}
+
+void closeBuyMenu(WidgetRef ref) {
+  ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
+  ref.read(buildMenuItemFocusProvider.notifier).state = null;
 }
 
 class DoodadBuildItemWidget extends HookConsumerWidget {
@@ -305,9 +335,9 @@ class TileDetailWidget extends ConsumerWidget {
                 children: [
                   ModalTitleWidget(
                     title:
-                        '${selectedTile.tile.title} ${selectedTile.tile.x},${selectedTile.tile.y}',
+                        '${selectedTile.tile.title} ${selectedTile.tile.hexagon}',
                     leftCharms: [
-                      Text('${selectedTile.tile.x},${selectedTile.tile.y}'),
+                      Text('${selectedTile.tile.hexagon}'),
                     ],
                     rightCharms: [
                       if (selectedTile.tile.hasDoodad)
