@@ -105,6 +105,7 @@ flutter:
     - assets/images/tiles/02Grass/prairie.png
     - assets/images/tiles/02Grass/shrubland.png
     - assets/images/tiles/03Trees/jungle_heavy.png
+    - assets/images/tiles/13-Icons/windmill.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

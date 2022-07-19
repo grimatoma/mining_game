@@ -217,42 +217,32 @@ abstract class Doodad {
   void update();
 }
 
-abstract class BuildMenuItem {
-  String get name;
+class BuildMenuItem {
+  final String name;
 
-  String get description;
+  final String description;
 
-  String get image;
+  final String image;
 
-  ItemRequirement get cost;
+  final ItemRequirement cost;
 
-  Doodad createNew(TileStateController parent);
+  final Doodad Function(TileStateController parent) createNew;
+
+  BuildMenuItem(
+      {required this.name,
+      required this.description,
+      required this.image,
+      required this.cost,
+      required this.createNew});
 }
 
-class TreeBuildMenuItem extends BuildMenuItem {
-  TreeBuildMenuItem._();
-
-  static final singleton = TreeBuildMenuItem._();
-
-  @override
-  Doodad createNew(TileStateController parent) {
-    return Tree(parent);
-  }
-
-  @override
-  final image = 'assets/images/tree.png';
-
-  @override
-  final name = 'Tree';
-
-  @override
-  final description =
-      'A tree that flows in the wind. Must be cleared before a building can be placed here.';
-
-  @override
-  // TODO: implement cost
-  ItemRequirement get cost => throw UnimplementedError();
-}
+final treeBuildMenuItem = BuildMenuItem(
+    name: 'Tree',
+    description:
+        'A tree that flows in the wind. Must be cleared before a building can be placed here.',
+    image: 'assets/images/tree.png',
+    cost: ItemRequirement.empty(),
+    createNew: (p) => Tree(p));
 
 class Tree extends Doodad {
   @override
@@ -274,7 +264,7 @@ abstract class TickableDoodad extends Doodad {
   TickableDoodad(super.parent)
       : currentTickState = SimpleStateProvider<int>(parent.ref, (ref) => 0);
 
-  bool canTick() => true;
+  bool canTick();
 
   @override
   @mustCallSuper
@@ -306,32 +296,18 @@ class Digger extends TickableDoodad {
 
   @override
   final imageAsset = 'assets/images/drills/5.png';
+
+  @override
+  bool canTick() => true;
 }
 
-class DiggerBuildMenuItem extends BuildMenuItem {
-  DiggerBuildMenuItem._();
-
-  static final singleton = DiggerBuildMenuItem._();
-
-  @override
-  Doodad createNew(TileStateController parent) {
-    return Digger(parent);
-  }
-
-  @override
-  final image = 'assets/images/drills/5.png';
-
-  @override
-  final name = 'Digger';
-
-  @override
-  final description =
-      'Digs for resources and will store them in the planets resource depot.';
-
-  @override
-  // TODO: implement cost
-  ItemRequirement get cost => throw UnimplementedError();
-}
+final diggerBuildMenuItem = BuildMenuItem(
+    name: 'Digger',
+    description:
+        'Digs for resources and will store them in the planets resource depot.',
+    image: 'assets/images/drills/5.png',
+    cost: ItemRequirement.empty(),
+    createNew: (p) => Digger(p));
 
 abstract class ReadOnlySimpleStateProvider<T> {
   T get read;
@@ -398,26 +374,12 @@ class Smelter extends TickableDoodad {
   }
 }
 
-class SmelterBuildMenuItem extends BuildMenuItem {
-  SmelterBuildMenuItem._();
-
-  static final singleton = SmelterBuildMenuItem._();
-
-  @override
-  Doodad createNew(TileStateController parent) => Smelter(parent);
-
-  @override
-  final description = 'Smelts iron ore into iron bars.';
-
-  @override
-  final image = 'assets/images/drills/6.jpg';
-
-  @override
-  final name = 'Iron Smelter';
-
-  @override
-  final cost = ItemRequirement.fromMap({Items.CREDIT.id: 5});
-}
+final smelterBuildMenuItem = BuildMenuItem(
+    name: 'Iron Digger',
+    description: 'Smelts iron ore into iron bars.',
+    image: 'assets/images/drills/6.jpg',
+    cost: ItemRequirement.fromMap({Items.CREDIT.id: 5}),
+    createNew: (p) => Smelter(p));
 
 // class TreeHarvester extends TickableDoodad {
 //   @override
@@ -434,3 +396,32 @@ class SmelterBuildMenuItem extends BuildMenuItem {
 //   int get ticksRequired => throw UnimplementedError();
 //
 // }
+
+class Farm extends TickableDoodad {
+  Farm(super.parent);
+
+  @override
+  final imageAsset = 'assets/images/tiles/13-Icons/windmill.png';
+
+  @override
+  void ticksMet() {
+    // TODO: implement ticksMet
+  }
+
+  @override
+  // TODO: implement ticksRequired
+  final ticksRequired = 20;
+
+  @override
+  bool canTick() {
+    // TODO: implement canTick
+    return true;
+  }
+}
+
+final farmBuildMenuItem = BuildMenuItem(
+    name: 'Farm',
+    description: 'Farms plants and not mobs.',
+    image: 'assets/images/tiles/13-Icons/windmill.png',
+    cost: ItemRequirement.fromMap({Items.CREDIT.id: 5}),
+    createNew: (p) => Farm(p));

@@ -164,9 +164,10 @@ class BuildMenuWidget extends HookConsumerWidget {
                           .clamp(3, 5),
                       children: [
                         for (int i = 0; i < 10; i++) ...[
-                          DoodadBuildItemWidget(TreeBuildMenuItem.singleton),
-                          DoodadBuildItemWidget(DiggerBuildMenuItem.singleton),
-                          DoodadBuildItemWidget(SmelterBuildMenuItem.singleton),
+                          DoodadBuildItemWidget(treeBuildMenuItem),
+                          DoodadBuildItemWidget(diggerBuildMenuItem),
+                          DoodadBuildItemWidget(smelterBuildMenuItem),
+                          DoodadBuildItemWidget(farmBuildMenuItem),
                         ],
                       ],
                     ),
@@ -334,10 +335,10 @@ class TileDetailWidget extends ConsumerWidget {
         color: Colors.red[100],
         height: 150,
         child: Center(
-          child: LayoutBuilder(builder: (context, constaints) {
-            final width = min(constaints.maxWidth, 500.0);
+          child: LayoutBuilder(builder: (context, constraints) {
+            final width = min(constraints.maxWidth, 500.0);
             return Container(
-              color: Colors.red[800],
+              color: Colors.red[400],
               width: width,
               child: Column(
                 children: [

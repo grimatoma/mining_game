@@ -18,7 +18,8 @@ class HexagonPlanetRenderer extends HookConsumerWidget {
       minScale: 1.0,
       maxScale: 3,
       child: Padding(
-        padding: const EdgeInsets.all(512.0),
+        padding: EdgeInsets.symmetric(
+            vertical: 16, horizontal: MediaQuery.of(context).size.width * 0.3),
         child: Container(
           width: selectedPlanet.width * tileSize2 * 2,
           height: selectedPlanet.height * tileSize2 * sqrt(3),
