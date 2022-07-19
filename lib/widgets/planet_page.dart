@@ -8,17 +8,6 @@ import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 import 'status_bar_wrapped_page.dart';
 
-class TestC extends ConsumerWidget {
-  const TestC({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Text('ss');
-  }
-}
-
 class PlanetPageWidget extends HookConsumerWidget {
   const PlanetPageWidget({Key? key}) : super(key: key);
 
@@ -27,14 +16,7 @@ class PlanetPageWidget extends HookConsumerWidget {
     return StatusBarWrappedPageWidget(
       title: 'Planet',
       builder: (context, ref) => Stack(fit: StackFit.expand, children: [
-        // const PlanetMapRendererWidget2(),
-        // FittedBox(
-        //     fit: BoxFit.scaleDown, child: const PlanetMapRendererWidget3()),
-        // Container(
-        //   child: Text('q'),
-        // ),
         const HexagonPlanetRenderer(),
-
         Align(
           alignment: FractionalOffset.bottomCenter,
           child: Row(

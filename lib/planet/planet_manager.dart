@@ -66,15 +66,15 @@ List<Hexagon> generateRectangleMap(int left, int right, int top, int bottom) {
   return list;
 }
 
-List<Hexagon> generateHexagonMapOfSize2(int map_radius) {
+List<Hexagon> generateHexagonMapOfSize2(int mapRadius) {
   // print('generating map of size $width');
   // int indexStart = -(width / 2).floor();
   // int indexEndInclusive = width + indexStart - 1;
 
   final list = <Hexagon>[];
-  for (int q = -map_radius; q <= map_radius; q++) {
-    int r1 = max(-map_radius, -q - map_radius);
-    int r2 = min(map_radius, -q + map_radius);
+  for (int q = -mapRadius; q <= mapRadius; q++) {
+    int r1 = max(-mapRadius, -q - mapRadius);
+    int r2 = min(mapRadius, -q + mapRadius);
     for (int r = r1; r <= r2; r++) {
       list.add(Hexagon(q, r));
     }
