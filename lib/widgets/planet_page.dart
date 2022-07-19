@@ -129,8 +129,8 @@ class BuildMenuWidget extends HookConsumerWidget {
               closeBuyMenu(ref);
             },
             child: Container(
-              color: Colors.orange,
-            )),
+                // Covers the background to allow for closing of the buy menu.
+                )),
         Center(
           child: Container(
             width: min(600, MediaQuery.of(context).size.width * .95),

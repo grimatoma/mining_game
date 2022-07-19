@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 class Assets {
-  static Image getTile(TileType tileType, Hexagon location) {
+  static Image getTile(TileType tileType, Hexagon location,
+      [double? width, double? height]) {
     var sourceMap = <String>[];
     switch (tileType) {
       case TileType.Grass:
@@ -25,7 +26,11 @@ class Assets {
         // TODO: Handle this case.
         break;
     }
-    return Image.asset(_getAsset(location, sourceMap));
+    return Image.asset(
+      _getAsset(location, sourceMap),
+      width: width,
+      height: height,
+    );
   }
 
   static final _noise = <Hexagon, Map<int, String>>{};

@@ -88,6 +88,10 @@ enum PanelVisibility {
   TileDetail,
 }
 
+const tileSize = 50.0;
+const tileSize2 = 42.0;
+const tileSize3 = 41.0;
+
 final panelVisibilityState =
     StateProvider<PanelVisibility>((ref) => PanelVisibility.None);
 
