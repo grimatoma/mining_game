@@ -140,6 +140,26 @@ class PlanetManager {
   Iterable<TileStateController> get tilesIterable {
     return tiles.values;
   }
+
+  BuiltList<TileStateController> getControllerNeighbors(
+          TileStateController c) =>
+      getNeighbors(c.tile.hexagon);
+
+  BuiltList<TileStateController> getNeighbors(Hexagon hexagon) {
+    final map = ListBuilder<TileStateController>();
+    for (final offset in const [
+      Hexagon(1, 0),
+      Hexagon(1, -1),
+      Hexagon(0, -1),
+      Hexagon(-1, 0),
+      Hexagon(-1, 1),
+      Hexagon(0, 1)
+    ]) {
+      final neighbor = tiles[hexagon + offset];
+      if (neighbor != null) map.add(neighbor);
+    }
+    return map.build();
+  }
 }
 
 enum TileType {
@@ -153,10 +173,12 @@ enum TileType {
 class Hexagon with _$Hexagon {
   const Hexagon._();
 
-  factory Hexagon(int q, int r) = _Hexagon;
+  const factory Hexagon(int q, int r) = _Hexagon;
 
   @override
   String toString() => '($q,$r)';
+
+  Hexagon operator +(Hexagon other) => Hexagon(q + other.q, r + other.r);
 }
 
 @freezed
