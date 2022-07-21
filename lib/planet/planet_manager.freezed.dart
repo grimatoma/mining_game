@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Hexagon {
   int get q => throw _privateConstructorUsedError;
-
   int get r => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -28,7 +27,6 @@ mixin _$Hexagon {
 abstract class $HexagonCopyWith<$Res> {
   factory $HexagonCopyWith(Hexagon value, $Res Function(Hexagon) then) =
       _$HexagonCopyWithImpl<$Res>;
-
   $Res call({int q, int r});
 }
 
@@ -37,7 +35,6 @@ class _$HexagonCopyWithImpl<$Res> implements $HexagonCopyWith<$Res> {
   _$HexagonCopyWithImpl(this._value, this._then);
 
   final Hexagon _value;
-
   // ignore: unused_field
   final $Res Function(Hexagon) _then;
 
@@ -64,7 +61,6 @@ abstract class _$$_HexagonCopyWith<$Res> implements $HexagonCopyWith<$Res> {
   factory _$$_HexagonCopyWith(
           _$_Hexagon value, $Res Function(_$_Hexagon) then) =
       __$$_HexagonCopyWithImpl<$Res>;
-
   @override
   $Res call({int q, int r});
 }
@@ -129,15 +125,12 @@ class _$_Hexagon extends _Hexagon {
 
 abstract class _Hexagon extends Hexagon {
   const factory _Hexagon(final int q, final int r) = _$_Hexagon;
-
   const _Hexagon._() : super._();
 
   @override
   int get q => throw _privateConstructorUsedError;
-
   @override
   int get r => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$_HexagonCopyWith<_$_Hexagon> get copyWith =>
@@ -147,11 +140,8 @@ abstract class _Hexagon extends Hexagon {
 /// @nodoc
 mixin _$Tile {
   Hexagon get hexagon => throw _privateConstructorUsedError;
-
   TileType get tileType => throw _privateConstructorUsedError;
-
   Doodad? get doodad => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -159,7 +149,6 @@ mixin _$Tile {
         empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(Hexagon hexagon, TileType tileType, Doodad? doodad)? empty,
@@ -171,13 +160,11 @@ mixin _$Tile {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Empty value) empty,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Empty value)? empty,
@@ -198,7 +185,6 @@ mixin _$Tile {
 abstract class $TileCopyWith<$Res> {
   factory $TileCopyWith(Tile value, $Res Function(Tile) then) =
       _$TileCopyWithImpl<$Res>;
-
   $Res call({Hexagon hexagon, TileType tileType, Doodad? doodad});
 
   $HexagonCopyWith<$Res> get hexagon;
@@ -209,7 +195,6 @@ class _$TileCopyWithImpl<$Res> implements $TileCopyWith<$Res> {
   _$TileCopyWithImpl(this._value, this._then);
 
   final Tile _value;
-
   // ignore: unused_field
   final $Res Function(Tile) _then;
 
@@ -247,7 +232,6 @@ class _$TileCopyWithImpl<$Res> implements $TileCopyWith<$Res> {
 abstract class _$$EmptyCopyWith<$Res> implements $TileCopyWith<$Res> {
   factory _$$EmptyCopyWith(_$Empty value, $Res Function(_$Empty) then) =
       __$$EmptyCopyWithImpl<$Res>;
-
   @override
   $Res call({Hexagon hexagon, TileType tileType, Doodad? doodad});
 
@@ -388,18 +372,14 @@ class _$Empty extends Empty {
 abstract class Empty extends Tile {
   factory Empty(final Hexagon hexagon, final TileType tileType,
       {final Doodad? doodad}) = _$Empty;
-
   Empty._() : super._();
 
   @override
   Hexagon get hexagon => throw _privateConstructorUsedError;
-
   @override
   TileType get tileType => throw _privateConstructorUsedError;
-
   @override
   Doodad? get doodad => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$EmptyCopyWith<_$Empty> get copyWith => throw _privateConstructorUsedError;

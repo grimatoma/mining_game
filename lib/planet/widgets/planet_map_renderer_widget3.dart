@@ -14,36 +14,25 @@ class HexagonPlanetRenderer extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPlanet = ref.watch(selectedPlanetProvider);
     return InteractiveViewer(
-      constrained: false,
-      minScale: 1.0,
+      boundaryMargin: const EdgeInsets.all(double.infinity),
+      constrained: true,
+      minScale: 0.25,
       maxScale: 3,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: 16, horizontal: MediaQuery.of(context).size.width * 0.3),
+      child: Center(
         child: Container(
           width: selectedPlanet.width * tileSize2 * 2,
           height: selectedPlanet.height * tileSize2 * sqrt(3),
           color: Colors.teal,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FittedBox(
-              fit: BoxFit.fill,
-              child: SizedBox(
-                width: selectedPlanet.width * tileSize2 * 2,
-                height: selectedPlanet.height * tileSize2 * sqrt(3),
-                child: Stack(
-                  children: [
-                    for (final tile in selectedPlanet.tilesIterable)
-                      // for (final tile in [selectedPlanet.tilesIterable.last])
-                      Transform.translate(
-                        offset: flatHexToPixel(41, tile.tile.hexagon),
-                        child: TileWidget(tile),
-                      ),
-                    const SelectedTileWidget(),
-                  ],
+          child: Stack(
+            children: [
+              for (final tile in selectedPlanet.tilesIterable)
+                // for (final tile in [selectedPlanet.tilesIterable.last])
+                Transform.translate(
+                  offset: flatHexToPixel(41, tile.tile.hexagon),
+                  child: TileWidget(tile),
                 ),
-              ),
-            ),
+              const SelectedTileWidget(),
+            ],
           ),
         ),
       ),
@@ -58,7 +47,12 @@ class SelectedTileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    if (ref.watch(selectedTileControllerProvider) == null) return Container();
+    if (ref.watch(selectedTileControllerProvider) == null) {
+      return const SizedBox(
+        width: 0,
+        height: 0,
+      );
+    }
     final tile = ref.watch(selectedTileControllerProvider);
 
     return Transform.translate(
@@ -68,6 +62,8 @@ class SelectedTileWidget extends ConsumerWidget {
           child: ClipPath(
             clipper: SelectedTileMarkerClipper(tileSize + 4, true),
             child: Container(
+              width: tileSize * 2,
+              height: tileSize * 3 / sqrt(3),
               color: Colors.red,
             ),
           ),
@@ -105,7 +101,7 @@ class TileWidget extends ConsumerWidget {
             },
             child: Stack(
               children: [
-                Assets.getTile(TileType.Grass, tileState.hexagon, 210, 210),
+                Assets.getTile(tileState.tileType, tileState.hexagon, 210, 210),
                 if (tileState.doodad != null) ...[
                   if (tileState.doodad?.imageAsset != null)
                     Image.asset(

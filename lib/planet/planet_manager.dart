@@ -118,9 +118,17 @@ class PlanetManager {
     //   planetBuilder.add(rowBuilder.build());
     // }
 
+    var index = 0;
     for (final hexagon in generateHexagonMapOfSize2(4)) {
-      print(hexagon);
-      planetBuilder[hexagon] = TileStateController(_ref, hexagon);
+      var type = TileType.Grass;
+      if (index == 4) {
+        type = TileType.IronDeposit;
+      }
+      if (index == 15) {
+        type = TileType.Mountain;
+      }
+      planetBuilder[hexagon] = TileStateController(_ref, hexagon, type);
+      index++;
     }
     print(planetBuilder);
     //
@@ -201,8 +209,8 @@ class Tile with _$Tile {
 class TileStateController extends StateNotifier<Tile> {
   final Ref ref;
 
-  TileStateController(this.ref, Hexagon hexagon)
-      : super(Tile.empty(hexagon, TileType.Grass));
+  TileStateController(this.ref, Hexagon hexagon, TileType tileType)
+      : super(Tile.empty(hexagon, tileType));
 
   StateNotifierProvider<TileStateController, Tile> get provider =>
       StateNotifierProvider((ref) => this);

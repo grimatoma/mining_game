@@ -17,12 +17,19 @@ class Assets {
         ];
         break;
       case TileType.Mountain:
-        // TODO: Handle this case.
+        sourceMap = const [
+          'assets/images/tiles/11-mountains/mountain_range.png',
+        ];
         break;
       case TileType.Empty:
-        // TODO: Handle this case.
+        sourceMap = const [
+          'assets/images/tiles/08-hot_weather/desert_rocky.png',
+        ];
         break;
       case TileType.IronDeposit:
+        sourceMap = const [
+          'assets/images/tiles/08-hot_weather/desert_rocky.png',
+        ];
         // TODO: Handle this case.
         break;
     }
