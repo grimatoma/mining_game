@@ -102,10 +102,10 @@ class TileWidget extends ConsumerWidget {
             child: Stack(
               children: [
                 Assets.getTile(tileState.tileType, tileState.hexagon, 210, 210),
-                if (tileState.doodad != null) ...[
-                  if (tileState.doodad?.imageAsset != null)
+                if (tileState.doodadInstance != null) ...[
+                  if (tileState.doodadInstance?.imageAsset != null)
                     Image.asset(
-                      (tileState.doodad?.imageAsset)!,
+                      (tileState.doodadInstance?.imageAsset)!,
                       width: 210,
                       height: 210,
                       // fit: BoxFit.,

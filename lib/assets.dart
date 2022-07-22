@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:mining_game/planet/planet_manager.dart';
+import 'package:mining_game/planet/widgets/buildings.dart';
 
 class Assets {
   static Image getTile(TileType tileType, Hexagon location,
@@ -30,7 +31,22 @@ class Assets {
         sourceMap = const [
           'assets/images/tiles/08-hot_weather/desert_rocky.png',
         ];
-        // TODO: Handle this case.
+        break;
+      case TileType.Tree:
+        sourceMap = const [
+          'assets/images/tree.png',
+          'assets/images/tiles/03trees/jungle_light.png',
+          'assets/images/tiles/03trees/trees_heavy.png',
+          'assets/images/tiles/03trees/trees_light.png',
+          'assets/images/tiles/03trees/forest_heavy.png',
+          'assets/images/tiles/03trees/forest_light.png',
+        ];
+        break;
+      case TileType.Water:
+        sourceMap = const [
+          'assets/images/tiles/09-water/sea.png',
+          'assets/images/tiles/09-water/shoals.png',
+        ];
         break;
     }
     return Image.asset(

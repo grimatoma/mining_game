@@ -4,8 +4,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/planet/planet_manager.dart';
+import 'package:mining_game/planet/widgets/buildings.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
+import '../item_management/item_definition.dart';
 import 'status_bar_wrapped_page.dart';
 
 class PlanetPageWidget extends HookConsumerWidget {
@@ -145,12 +147,15 @@ class BuildMenuWidget extends HookConsumerWidget {
                           .floor()
                           .clamp(3, 5),
                       children: [
-                        for (int i = 0; i < 10; i++) ...[
-                          DoodadBuildItemWidget(treeBuildMenuItem),
-                          DoodadBuildItemWidget(diggerBuildMenuItem),
-                          DoodadBuildItemWidget(smelterBuildMenuItem),
-                          DoodadBuildItemWidget(farmBuildMenuItem),
-                        ],
+                        // for (int i = 0; i < 10; i++) ...[
+                        DoodadBuildItemWidget(BuildMenuItem(
+                            doodad: tree, cost: ItemRequirement.empty())),
+                        DoodadBuildItemWidget(BuildMenuItem(
+                            doodad: digger, cost: ItemRequirement.empty())),
+                        // DoodadBuildItemWidget(smelterBuildMenuItem),
+                        // DoodadBuildItemWidget(farmBuildMenuItem),
+                        // DoodadBuildItemWidget(dirtRoadBuildMenuItem),
+                        // ],
                       ],
                     ),
                   ),
@@ -176,6 +181,7 @@ class BuildMenuFocusDetail extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final item = ref.watch(buildMenuItemFocusProvider);
     if (item == null) return Container();
+    final doodad = item.doodad;
     return Container(
       color: Colors.green[100],
       height: 200,
@@ -189,7 +195,7 @@ class BuildMenuFocusDetail extends ConsumerWidget {
                 border: const Border(
                     bottom: BorderSide(color: Colors.black, width: 2))),
             child: Text(
-              item.name,
+              doodad.name,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
@@ -207,7 +213,7 @@ class BuildMenuFocusDetail extends ConsumerWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.asset(
-                        item.image,
+                        doodad.storeImageAsset,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -222,7 +228,7 @@ class BuildMenuFocusDetail extends ConsumerWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
                           children: [
-                            Text(item.description),
+                            Text(doodad.description),
                           ],
                         ),
                       ),
@@ -248,7 +254,7 @@ void buyDoodad(WidgetRef ref) {
   final selectedTile = ref.read(selectedTileControllerProvider);
   if (item == null || selectedTile == null) return;
 
-  selectedTile.addDoodad(item.createNew);
+  selectedTile.addDoodad(item.doodad);
   ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
   ref.read(selectedTileControllerProvider.notifier).state = null;
   // ref.read(buildMenuItemFocusProvider.notifier).state = null;
@@ -291,11 +297,11 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
             children: [
               Center(
                 child: Image.asset(
-                  _item.image,
+                  _item.doodad.storeImageAsset,
                   fit: BoxFit.fill,
                 ),
               ),
-              Text(_item.name),
+              Text(_item.doodad.name),
             ],
           ),
         ),
@@ -331,7 +337,7 @@ class TileDetailWidget extends ConsumerWidget {
                       if (selectedTile.tile.hasDoodad)
                         AutoSizeText(
                           maxLines: 1,
-                          '${selectedTile.tile.doodad.runtimeType}',
+                          '${selectedTile.tile.doodadInstance.runtimeType}',
                           style: const TextStyle(fontSize: 16),
                         ),
                     ],
@@ -371,11 +377,12 @@ class TileDetailWidget extends ConsumerWidget {
                         //
                         //   color: Colors.purple,
                         // )),
-                        if (selectedTile.tile.doodad != null)
+                        if (selectedTile.tile.doodadInstance != null)
                           Expanded(
                             child: SizedBox(
                               width: width * 0.8,
-                              child: DoodadStatus(selectedTile.tile.doodad!),
+                              child: DoodadStatus(
+                                  selectedTile.tile.doodadInstance!),
                             ),
                           ),
                         if (!selectedTile.tile.hasDoodad)
@@ -411,17 +418,18 @@ class TileDetailWidget extends ConsumerWidget {
 }
 
 class DoodadStatus extends ConsumerWidget {
-  final Doodad _doodad;
+  final DoodadInstance _doodadInstance;
 
   const DoodadStatus(
-    this._doodad, {
+    this._doodadInstance, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final doodad = _doodad;
-    if (doodad is TickableDoodad) {
+    // Make local to use IS for typing.
+    final doodad = _doodadInstance;
+    if (doodad is TickableDoodadInstance) {
       final currentTick = doodad.currentTickState.watch(ref);
       final ticksLeft = doodad.ticksRequired - currentTick;
       return Column(

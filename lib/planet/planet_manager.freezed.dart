@@ -140,23 +140,32 @@ abstract class _Hexagon extends Hexagon {
 /// @nodoc
 mixin _$Tile {
   Hexagon get hexagon => throw _privateConstructorUsedError;
+
   TileType get tileType => throw _privateConstructorUsedError;
-  Doodad? get doodad => throw _privateConstructorUsedError;
+
+  DoodadInstance<DoodadInterface>? get doodadInstance =>
+      throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            Hexagon hexagon, TileType tileType, Doodad? doodad)
+    required TResult Function(Hexagon hexagon, TileType tileType,
+            DoodadInstance<DoodadInterface>? doodadInstance)
+        empty,
+  }) =>
+      throw _privateConstructorUsedError;
+
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Hexagon hexagon, TileType tileType,
+            DoodadInstance<DoodadInterface>? doodadInstance)?
         empty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Hexagon hexagon, TileType tileType, Doodad? doodad)? empty,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Hexagon hexagon, TileType tileType, Doodad? doodad)? empty,
+    TResult Function(Hexagon hexagon, TileType tileType,
+            DoodadInstance<DoodadInterface>? doodadInstance)?
+        empty,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -185,7 +194,11 @@ mixin _$Tile {
 abstract class $TileCopyWith<$Res> {
   factory $TileCopyWith(Tile value, $Res Function(Tile) then) =
       _$TileCopyWithImpl<$Res>;
-  $Res call({Hexagon hexagon, TileType tileType, Doodad? doodad});
+
+  $Res call(
+      {Hexagon hexagon,
+      TileType tileType,
+      DoodadInstance<DoodadInterface>? doodadInstance});
 
   $HexagonCopyWith<$Res> get hexagon;
 }
@@ -202,7 +215,7 @@ class _$TileCopyWithImpl<$Res> implements $TileCopyWith<$Res> {
   $Res call({
     Object? hexagon = freezed,
     Object? tileType = freezed,
-    Object? doodad = freezed,
+    Object? doodadInstance = freezed,
   }) {
     return _then(_value.copyWith(
       hexagon: hexagon == freezed
@@ -213,10 +226,10 @@ class _$TileCopyWithImpl<$Res> implements $TileCopyWith<$Res> {
           ? _value.tileType
           : tileType // ignore: cast_nullable_to_non_nullable
               as TileType,
-      doodad: doodad == freezed
-          ? _value.doodad
-          : doodad // ignore: cast_nullable_to_non_nullable
-              as Doodad?,
+      doodadInstance: doodadInstance == freezed
+          ? _value.doodadInstance
+          : doodadInstance // ignore: cast_nullable_to_non_nullable
+              as DoodadInstance<DoodadInterface>?,
     ));
   }
 
@@ -232,8 +245,12 @@ class _$TileCopyWithImpl<$Res> implements $TileCopyWith<$Res> {
 abstract class _$$EmptyCopyWith<$Res> implements $TileCopyWith<$Res> {
   factory _$$EmptyCopyWith(_$Empty value, $Res Function(_$Empty) then) =
       __$$EmptyCopyWithImpl<$Res>;
+
   @override
-  $Res call({Hexagon hexagon, TileType tileType, Doodad? doodad});
+  $Res call(
+      {Hexagon hexagon,
+      TileType tileType,
+      DoodadInstance<DoodadInterface>? doodadInstance});
 
   @override
   $HexagonCopyWith<$Res> get hexagon;
@@ -252,7 +269,7 @@ class __$$EmptyCopyWithImpl<$Res> extends _$TileCopyWithImpl<$Res>
   $Res call({
     Object? hexagon = freezed,
     Object? tileType = freezed,
-    Object? doodad = freezed,
+    Object? doodadInstance = freezed,
   }) {
     return _then(_$Empty(
       hexagon == freezed
@@ -263,10 +280,10 @@ class __$$EmptyCopyWithImpl<$Res> extends _$TileCopyWithImpl<$Res>
           ? _value.tileType
           : tileType // ignore: cast_nullable_to_non_nullable
               as TileType,
-      doodad: doodad == freezed
-          ? _value.doodad
-          : doodad // ignore: cast_nullable_to_non_nullable
-              as Doodad?,
+      doodadInstance: doodadInstance == freezed
+          ? _value.doodadInstance
+          : doodadInstance // ignore: cast_nullable_to_non_nullable
+              as DoodadInstance<DoodadInterface>?,
     ));
   }
 }
@@ -274,18 +291,18 @@ class __$$EmptyCopyWithImpl<$Res> extends _$TileCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Empty extends Empty {
-  _$Empty(this.hexagon, this.tileType, {this.doodad}) : super._();
+  _$Empty(this.hexagon, this.tileType, {this.doodadInstance}) : super._();
 
   @override
   final Hexagon hexagon;
   @override
   final TileType tileType;
   @override
-  final Doodad? doodad;
+  final DoodadInstance<DoodadInterface>? doodadInstance;
 
   @override
   String toString() {
-    return 'Tile.empty(hexagon: $hexagon, tileType: $tileType, doodad: $doodad)';
+    return 'Tile.empty(hexagon: $hexagon, tileType: $tileType, doodadInstance: $doodadInstance)';
   }
 
   @override
@@ -295,7 +312,8 @@ class _$Empty extends Empty {
             other is _$Empty &&
             const DeepCollectionEquality().equals(other.hexagon, hexagon) &&
             const DeepCollectionEquality().equals(other.tileType, tileType) &&
-            const DeepCollectionEquality().equals(other.doodad, doodad));
+            const DeepCollectionEquality()
+                .equals(other.doodadInstance, doodadInstance));
   }
 
   @override
@@ -303,7 +321,7 @@ class _$Empty extends Empty {
       runtimeType,
       const DeepCollectionEquality().hash(hexagon),
       const DeepCollectionEquality().hash(tileType),
-      const DeepCollectionEquality().hash(doodad));
+      const DeepCollectionEquality().hash(doodadInstance));
 
   @JsonKey(ignore: true)
   @override
@@ -313,29 +331,33 @@ class _$Empty extends Empty {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            Hexagon hexagon, TileType tileType, Doodad? doodad)
+    required TResult Function(Hexagon hexagon, TileType tileType,
+            DoodadInstance<DoodadInterface>? doodadInstance)
         empty,
   }) {
-    return empty(hexagon, tileType, doodad);
+    return empty(hexagon, tileType, doodadInstance);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Hexagon hexagon, TileType tileType, Doodad? doodad)? empty,
+    TResult Function(Hexagon hexagon, TileType tileType,
+            DoodadInstance<DoodadInterface>? doodadInstance)?
+        empty,
   }) {
-    return empty?.call(hexagon, tileType, doodad);
+    return empty?.call(hexagon, tileType, doodadInstance);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Hexagon hexagon, TileType tileType, Doodad? doodad)? empty,
+    TResult Function(Hexagon hexagon, TileType tileType,
+            DoodadInstance<DoodadInterface>? doodadInstance)?
+        empty,
     required TResult orElse(),
   }) {
     if (empty != null) {
-      return empty(hexagon, tileType, doodad);
+      return empty(hexagon, tileType, doodadInstance);
     }
     return orElse();
   }
@@ -371,15 +393,20 @@ class _$Empty extends Empty {
 
 abstract class Empty extends Tile {
   factory Empty(final Hexagon hexagon, final TileType tileType,
-      {final Doodad? doodad}) = _$Empty;
+      {final DoodadInstance<DoodadInterface>? doodadInstance}) = _$Empty;
+
   Empty._() : super._();
 
   @override
   Hexagon get hexagon => throw _privateConstructorUsedError;
+
   @override
   TileType get tileType => throw _privateConstructorUsedError;
+
   @override
-  Doodad? get doodad => throw _privateConstructorUsedError;
+  DoodadInstance<DoodadInterface>? get doodadInstance =>
+      throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$EmptyCopyWith<_$Empty> get copyWith => throw _privateConstructorUsedError;
