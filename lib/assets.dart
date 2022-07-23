@@ -35,11 +35,11 @@ class Assets {
       case TileType.Tree:
         sourceMap = const [
           'assets/images/tree.png',
-          'assets/images/tiles/03trees/jungle_light.png',
-          'assets/images/tiles/03trees/trees_heavy.png',
-          'assets/images/tiles/03trees/trees_light.png',
-          'assets/images/tiles/03trees/forest_heavy.png',
-          'assets/images/tiles/03trees/forest_light.png',
+          'assets/images/tiles/03Trees/jungle_light.png',
+          'assets/images/tiles/03Trees/trees_heavy.png',
+          'assets/images/tiles/03Trees/trees_light.png',
+          'assets/images/tiles/03Trees/forest_heavy.png',
+          'assets/images/tiles/03Trees/forest_light.png',
         ];
         break;
       case TileType.Water:

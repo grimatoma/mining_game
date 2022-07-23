@@ -112,11 +112,11 @@ flutter:
     - assets/images/tiles/11-mountains/mountain_range.png
     - assets/images/tiles/08-hot_weather/desert_rocky.png
     - assets/images/tiles/10-barren_terrain/open_underdark.png
-    - assets/images/tiles/03trees/jungle_light.png
-    - assets/images/tiles/03trees/trees_heavy.png
-    - assets/images/tiles/03trees/trees_light.png
-    - assets/images/tiles/03trees/forest_heavy.png
-    - assets/images/tiles/03trees/forest_light.png
+    - assets/images/tiles/03Trees/jungle_light.png
+    - assets/images/tiles/03Trees/trees_heavy.png
+    - assets/images/tiles/03Trees/trees_light.png
+    - assets/images/tiles/03Trees/forest_heavy.png
+    - assets/images/tiles/03Trees/forest_light.png
     - assets/images/tiles/09-water/sea.png
     - assets/images/tiles/09-water/shoals.png
 
