@@ -119,6 +119,19 @@ flutter:
     - assets/images/tiles/03Trees/forest_light.png
     - assets/images/tiles/09-water/sea.png
     - assets/images/tiles/09-water/shoals.png
+    - assets/images/doodad/sawmill.png
+    - assets/images/doodad/lumberHut.jpg
+    - assets/images/1Icons/wood.png
+    - assets/images/1Icons/plank.png
+    - assets/images/forestTest/forest0.png
+    - assets/images/forestTest/forest10.png
+    - assets/images/forestTest/forest25.png
+    - assets/images/forestTest/forest50.png
+    - assets/images/forestTest/forest60.png
+    - assets/images/forestTest/forest65.png
+    - assets/images/forestTest/forest75.png
+    - assets/images/forestTest/forest90.png
+    - assets/images/forestTest/forest100.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

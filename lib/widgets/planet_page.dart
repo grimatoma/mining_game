@@ -105,68 +105,82 @@ class BuildMenuWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(
-      children: [
-        GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            onTap: () {
-              closeBuyMenu(ref);
-            },
+    final selectedTile = ref.watch(selectedTileControllerProvider);
+    if (selectedTile == null) {
+      print('opening buy menu when no tile is selected');
+      ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
+      return Container();
+    } else {
+      return Stack(
+        children: [
+          GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () {
+                closeBuyMenu(ref);
+              },
+              child: Container(
+                  // Covers the background to allow for closing of the buy menu.
+                  )),
+          Center(
             child: Container(
-                // Covers the background to allow for closing of the buy menu.
-                )),
-        Center(
-          child: Container(
-            width: min(600, MediaQuery.of(context).size.width * .95),
-            margin: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-                color: Colors.yellowAccent[100],
+              width: min(600, MediaQuery.of(context).size.width * .95),
+              margin: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                  color: Colors.yellowAccent[100],
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: 2)),
+              // margin: EdgeInsets.all(8),
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(width: 2)),
-            // margin: EdgeInsets.all(8),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Column(
-                children: [
-                  ModalTitleWidget(
-                    title: 'Build menu',
-                    rightCharms: [
-                      TextButton(
-                          onPressed: () {
-                            closeBuyMenu(ref);
-                          },
-                          child: const Text('Close'))
-                    ],
-                  ),
-                  Expanded(
-                    child: GridView.count(
-                      padding: const EdgeInsets.all(menuItemPadding),
-                      mainAxisSpacing: menuItemPadding,
-                      crossAxisSpacing: menuItemPadding,
-                      crossAxisCount: (MediaQuery.of(context).size.width / 128)
-                          .floor()
-                          .clamp(3, 5),
-                      children: [
-                        // for (int i = 0; i < 10; i++) ...[
-                        DoodadBuildItemWidget(BuildMenuItem(
-                            doodad: tree, cost: ItemRequirement.empty())),
-                        DoodadBuildItemWidget(BuildMenuItem(
-                            doodad: digger, cost: ItemRequirement.empty())),
-                        // DoodadBuildItemWidget(smelterBuildMenuItem),
-                        // DoodadBuildItemWidget(farmBuildMenuItem),
-                        // DoodadBuildItemWidget(dirtRoadBuildMenuItem),
-                        // ],
+                child: Column(
+                  children: [
+                    ModalTitleWidget(
+                      title: 'Build menu',
+                      rightCharms: [
+                        TextButton(
+                            onPressed: () {
+                              closeBuyMenu(ref);
+                            },
+                            child: const Text('Close'))
                       ],
                     ),
-                  ),
-                  const BuildMenuFocusDetail(),
-                ],
+                    Expanded(
+                      child: GridView.count(
+                        padding: const EdgeInsets.all(menuItemPadding),
+                        mainAxisSpacing: menuItemPadding,
+                        crossAxisSpacing: menuItemPadding,
+                        crossAxisCount:
+                            (MediaQuery.of(context).size.width / 128)
+                                .floor()
+                                .clamp(3, 5),
+                        children: [
+                          // for (int i = 0; i < 10; i++) ...[
+                          for (final item in [
+                            tree,
+                            digger,
+                            treeCutterHut,
+                          ])
+                            if (!selectedTile.hasDoodad &&
+                                item.supportedLocations
+                                    .contains(selectedTile.tileType))
+                              DoodadBuildItemWidget(BuildMenuItem(
+                                  doodad: item, cost: ItemRequirement.empty())),
+                          // DoodadBuildItemWidget(smelterBuildMenuItem),
+                          // DoodadBuildItemWidget(farmBuildMenuItem),
+                          // DoodadBuildItemWidget(dirtRoadBuildMenuItem),
+                          // ],
+                        ],
+                      ),
+                    ),
+                    const BuildMenuFocusDetail(),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    }
   }
 }
 
@@ -257,7 +271,7 @@ void buyDoodad(WidgetRef ref) {
   selectedTile.addDoodad(item.doodad);
   ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
   ref.read(selectedTileControllerProvider.notifier).state = null;
-  // ref.read(buildMenuItemFocusProvider.notifier).state = null;
+  ref.read(buildMenuItemFocusProvider.notifier).state = null;
 }
 
 void closeBuyMenu(WidgetRef ref) {
@@ -278,7 +292,7 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 3),
-        color: Colors.purple,
+        // color: Colors.purple,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: ClipRRect(
@@ -332,17 +346,17 @@ class TileDetailWidget extends ConsumerWidget {
                 children: [
                   ModalTitleWidget(
                     title:
-                        '${selectedTile.tile.tileType.name} ${selectedTile.tile.hexagon}',
+                        '${selectedTile.tileType.name} ${selectedTile.hexagon}',
                     leftCharms: [
-                      if (selectedTile.tile.hasDoodad)
+                      if (selectedTile.hasDoodad)
                         AutoSizeText(
                           maxLines: 1,
-                          '${selectedTile.tile.doodadInstance.runtimeType}',
+                          '${selectedTile.doodadInstance.runtimeType}',
                           style: const TextStyle(fontSize: 16),
                         ),
                     ],
                     rightCharms: [
-                      if (selectedTile.tile.hasDoodad)
+                      if (selectedTile.hasDoodad)
                         TextButton(
                             onPressed: () {
                               selectedTile.removeDoodad();
@@ -377,15 +391,14 @@ class TileDetailWidget extends ConsumerWidget {
                         //
                         //   color: Colors.purple,
                         // )),
-                        if (selectedTile.tile.doodadInstance != null)
+                        if (selectedTile.doodadInstance != null)
                           Expanded(
                             child: SizedBox(
                               width: width * 0.8,
-                              child: DoodadStatus(
-                                  selectedTile.tile.doodadInstance!),
+                              child: DoodadStatus(selectedTile.doodadInstance!),
                             ),
                           ),
-                        if (!selectedTile.tile.hasDoodad)
+                        if (!selectedTile.hasDoodad)
                           Align(
                             alignment: Alignment.topRight,
                             child: Column(

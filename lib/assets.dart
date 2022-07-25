@@ -48,6 +48,11 @@ class Assets {
           'assets/images/tiles/09-water/shoals.png',
         ];
         break;
+      // case TileType.Stone:
+      //   sourceMap = const [
+      //     'assets/images/tiles/11-mountains/mountain_range.png',
+      //   ];
+      //   break;
     }
     return Image.asset(
       _getAsset(location, sourceMap),

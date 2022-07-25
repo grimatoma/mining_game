@@ -28,7 +28,7 @@ class HexagonPlanetRenderer extends HookConsumerWidget {
               for (final tile in selectedPlanet.tilesIterable)
                 // for (final tile in [selectedPlanet.tilesIterable.last])
                 Transform.translate(
-                  offset: flatHexToPixel(41, tile.tile.hexagon),
+                  offset: flatHexToPixel(41, tile.hexagon),
                   child: TileWidget(tile),
                 ),
               const SelectedTileWidget(),
@@ -56,7 +56,7 @@ class SelectedTileWidget extends ConsumerWidget {
     final tile = ref.watch(selectedTileControllerProvider);
 
     return Transform.translate(
-        offset: flatHexToPixel(tileSize3, tile!.tile.hexagon),
+        offset: flatHexToPixel(tileSize3, tile!.hexagon),
         child: ClipPath(
           clipper: SelectedTileMarkerClipper(tileSize - 4),
           child: ClipPath(
@@ -78,7 +78,7 @@ class TileWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final tileState = ref.watch(_controller.provider);
+    final tileController = ref.watch(_controller.provider);
     return ClipPath(
       clipper: SelectedTileMarkerClipper(),
       child: Container(
@@ -101,11 +101,12 @@ class TileWidget extends ConsumerWidget {
             },
             child: Stack(
               children: [
-                Assets.getTile(tileState.tileType, tileState.hexagon, 210, 210),
-                if (tileState.doodadInstance != null) ...[
-                  if (tileState.doodadInstance?.imageAsset != null)
+                Assets.getTile(
+                    tileController.tileType, tileController.hexagon, 210, 210),
+                if (tileController.doodadInstance != null) ...[
+                  if (tileController.doodadInstance?.imageAsset != null)
                     Image.asset(
-                      (tileState.doodadInstance?.imageAsset)!,
+                      (tileController.doodadInstance?.imageAsset)!,
                       width: 210,
                       height: 210,
                       // fit: BoxFit.,
@@ -113,6 +114,7 @@ class TileWidget extends ConsumerWidget {
                       // height: 32 * sqrt(3),
                     ),
                 ],
+                Center(child: Text('${tileController.hexagon}')),
               ],
             ),
           ),

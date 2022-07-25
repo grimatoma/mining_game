@@ -185,7 +185,7 @@ class InventoryStateController extends StateNotifier<Inventory> {
     if (startSlot != null &&
         destSlot != null &&
         startSlot.itemId == destSlot.itemId) {
-      final definition = destSlot.itemId.definition();
+      final definition = destSlot.itemId._definition();
       if (definition is Stackable) {
         final maxSize = definition.maxStackSize;
         destSlot as StackInstance;

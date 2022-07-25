@@ -15,7 +15,126 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
+mixin _$DoodadId {
+  String get id => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $DoodadIdCopyWith<DoodadId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DoodadIdCopyWith<$Res> {
+  factory $DoodadIdCopyWith(DoodadId value, $Res Function(DoodadId) then) =
+      _$DoodadIdCopyWithImpl<$Res>;
+
+  $Res call({String id});
+}
+
+/// @nodoc
+class _$DoodadIdCopyWithImpl<$Res> implements $DoodadIdCopyWith<$Res> {
+  _$DoodadIdCopyWithImpl(this._value, this._then);
+
+  final DoodadId _value;
+
+  // ignore: unused_field
+  final $Res Function(DoodadId) _then;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_DoodadIdCopyWith<$Res> implements $DoodadIdCopyWith<$Res> {
+  factory _$$_DoodadIdCopyWith(
+          _$_DoodadId value, $Res Function(_$_DoodadId) then) =
+      __$$_DoodadIdCopyWithImpl<$Res>;
+
+  @override
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$_DoodadIdCopyWithImpl<$Res> extends _$DoodadIdCopyWithImpl<$Res>
+    implements _$$_DoodadIdCopyWith<$Res> {
+  __$$_DoodadIdCopyWithImpl(
+      _$_DoodadId _value, $Res Function(_$_DoodadId) _then)
+      : super(_value, (v) => _then(v as _$_DoodadId));
+
+  @override
+  _$_DoodadId get _value => super._value as _$_DoodadId;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(_$_DoodadId(
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_DoodadId extends _DoodadId {
+  const _$_DoodadId(this.id) : super._();
+
+  @override
+  final String id;
+
+  @override
+  String toString() {
+    return 'DoodadId(id: $id)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_DoodadId &&
+            const DeepCollectionEquality().equals(other.id, id));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_DoodadIdCopyWith<_$_DoodadId> get copyWith =>
+      __$$_DoodadIdCopyWithImpl<_$_DoodadId>(this, _$identity);
+}
+
+abstract class _DoodadId extends DoodadId {
+  const factory _DoodadId(final String id) = _$_DoodadId;
+
+  const _DoodadId._() : super._();
+
+  @override
+  String get id => throw _privateConstructorUsedError;
+
+  @override
+  @JsonKey(ignore: true)
+  _$$_DoodadIdCopyWith<_$_DoodadId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$Doodad {
+  DoodadId get id => throw _privateConstructorUsedError;
+
   String get name => throw _privateConstructorUsedError;
 
   String get description => throw _privateConstructorUsedError;
@@ -26,9 +145,12 @@ mixin _$Doodad {
 
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
 
+  int get ticksRequired => throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -37,13 +159,25 @@ mixin _$Doodad {
             int ticksRequired)
         digger,
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
             String storeImageAsset,
-            Set<TileType> supportedLocations)
+            Set<TileType> supportedLocations,
+            int ticksRequired)
         tree,
     required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        treeCutterHut,
+    required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -57,6 +191,7 @@ mixin _$Doodad {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -64,10 +199,26 @@ mixin _$Doodad {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -80,6 +231,7 @@ mixin _$Doodad {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -87,10 +239,26 @@ mixin _$Doodad {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -106,6 +274,7 @@ mixin _$Doodad {
   TResult map<TResult extends Object?>({
     required TResult Function(Digger value) digger,
     required TResult Function(Tree value) tree,
+    required TResult Function(TreeCutterHut value) treeCutterHut,
     required TResult Function(Smelter value) smelter,
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +283,7 @@ mixin _$Doodad {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +291,7 @@ mixin _$Doodad {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
     required TResult orElse(),
   }) =>
@@ -136,11 +307,15 @@ abstract class $DoodadCopyWith<$Res> {
       _$DoodadCopyWithImpl<$Res>;
 
   $Res call(
-      {String name,
+      {DoodadId id,
+      String name,
       String description,
       String imageAsset,
       String storeImageAsset,
-      Set<TileType> supportedLocations});
+      Set<TileType> supportedLocations,
+      int ticksRequired});
+
+  $DoodadIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -148,19 +323,24 @@ class _$DoodadCopyWithImpl<$Res> implements $DoodadCopyWith<$Res> {
   _$DoodadCopyWithImpl(this._value, this._then);
 
   final Doodad _value;
-
   // ignore: unused_field
   final $Res Function(Doodad) _then;
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? imageAsset = freezed,
     Object? storeImageAsset = freezed,
     Object? supportedLocations = freezed,
+    Object? ticksRequired = freezed,
   }) {
     return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as DoodadId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -181,7 +361,18 @@ class _$DoodadCopyWithImpl<$Res> implements $DoodadCopyWith<$Res> {
           ? _value.supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
+      ticksRequired: ticksRequired == freezed
+          ? _value.ticksRequired
+          : ticksRequired // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
+  }
+
+  @override
+  $DoodadIdCopyWith<$Res> get id {
+    return $DoodadIdCopyWith<$Res>(_value.id, (value) {
+      return _then(_value.copyWith(id: value));
+    });
   }
 }
 
@@ -192,12 +383,16 @@ abstract class _$$DiggerCopyWith<$Res> implements $DoodadCopyWith<$Res> {
 
   @override
   $Res call(
-      {String name,
+      {DoodadId id,
+      String name,
       String description,
       String imageAsset,
       String storeImageAsset,
       Set<TileType> supportedLocations,
       int ticksRequired});
+
+  @override
+  $DoodadIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -211,6 +406,7 @@ class __$$DiggerCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? imageAsset = freezed,
@@ -219,6 +415,10 @@ class __$$DiggerCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
     Object? ticksRequired = freezed,
   }) {
     return _then(_$Digger(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as DoodadId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -251,7 +451,8 @@ class __$$DiggerCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
 
 class _$Digger extends Digger {
   const _$Digger(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.description,
       required this.imageAsset,
       required this.storeImageAsset,
@@ -260,6 +461,8 @@ class _$Digger extends Digger {
       : _supportedLocations = supportedLocations,
         super._();
 
+  @override
+  final DoodadId id;
   @override
   final String name;
   @override
@@ -281,7 +484,7 @@ class _$Digger extends Digger {
 
   @override
   String toString() {
-    return 'Doodad.digger(name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired)';
+    return 'Doodad.digger(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired)';
   }
 
   @override
@@ -289,6 +492,7 @@ class _$Digger extends Digger {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Digger &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
@@ -305,6 +509,7 @@ class _$Digger extends Digger {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imageAsset),
@@ -321,6 +526,7 @@ class _$Digger extends Digger {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -329,13 +535,25 @@ class _$Digger extends Digger {
             int ticksRequired)
         digger,
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
             String storeImageAsset,
-            Set<TileType> supportedLocations)
+            Set<TileType> supportedLocations,
+            int ticksRequired)
         tree,
     required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        treeCutterHut,
+    required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -344,7 +562,7 @@ class _$Digger extends Digger {
             int ticksRequired)
         smelter,
   }) {
-    return digger(name, description, imageAsset, storeImageAsset,
+    return digger(id, name, description, imageAsset, storeImageAsset,
         supportedLocations, ticksRequired);
   }
 
@@ -352,6 +570,7 @@ class _$Digger extends Digger {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -359,10 +578,26 @@ class _$Digger extends Digger {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -371,7 +606,7 @@ class _$Digger extends Digger {
             int ticksRequired)?
         smelter,
   }) {
-    return digger?.call(name, description, imageAsset, storeImageAsset,
+    return digger?.call(id, name, description, imageAsset, storeImageAsset,
         supportedLocations, ticksRequired);
   }
 
@@ -379,6 +614,7 @@ class _$Digger extends Digger {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -386,10 +622,26 @@ class _$Digger extends Digger {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -400,7 +652,7 @@ class _$Digger extends Digger {
     required TResult orElse(),
   }) {
     if (digger != null) {
-      return digger(name, description, imageAsset, storeImageAsset,
+      return digger(id, name, description, imageAsset, storeImageAsset,
           supportedLocations, ticksRequired);
     }
     return orElse();
@@ -411,6 +663,7 @@ class _$Digger extends Digger {
   TResult map<TResult extends Object?>({
     required TResult Function(Digger value) digger,
     required TResult Function(Tree value) tree,
+    required TResult Function(TreeCutterHut value) treeCutterHut,
     required TResult Function(Smelter value) smelter,
   }) {
     return digger(this);
@@ -421,6 +674,7 @@ class _$Digger extends Digger {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
   }) {
     return digger?.call(this);
@@ -431,6 +685,7 @@ class _$Digger extends Digger {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
     required TResult orElse(),
   }) {
@@ -443,7 +698,8 @@ class _$Digger extends Digger {
 
 abstract class Digger extends Doodad implements TickableDoodadDefinition {
   const factory Digger(
-      {required final String name,
+      {required final DoodadId id,
+      required final String name,
       required final String description,
       required final String imageAsset,
       required final String storeImageAsset,
@@ -451,6 +707,9 @@ abstract class Digger extends Doodad implements TickableDoodadDefinition {
       required final int ticksRequired}) = _$Digger;
 
   const Digger._() : super._();
+
+  @override
+  DoodadId get id => throw _privateConstructorUsedError;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -467,8 +726,8 @@ abstract class Digger extends Doodad implements TickableDoodadDefinition {
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
 
+  @override
   int get ticksRequired => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$DiggerCopyWith<_$Digger> get copyWith =>
@@ -482,11 +741,16 @@ abstract class _$$TreeCopyWith<$Res> implements $DoodadCopyWith<$Res> {
 
   @override
   $Res call(
-      {String name,
+      {DoodadId id,
+      String name,
       String description,
       String imageAsset,
       String storeImageAsset,
-      Set<TileType> supportedLocations});
+      Set<TileType> supportedLocations,
+      int ticksRequired});
+
+  @override
+  $DoodadIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -500,13 +764,19 @@ class __$$TreeCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? imageAsset = freezed,
     Object? storeImageAsset = freezed,
     Object? supportedLocations = freezed,
+    Object? ticksRequired = freezed,
   }) {
     return _then(_$Tree(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as DoodadId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -527,6 +797,10 @@ class __$$TreeCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
+      ticksRequired: ticksRequired == freezed
+          ? _value.ticksRequired
+          : ticksRequired // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -535,14 +809,18 @@ class __$$TreeCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
 
 class _$Tree extends Tree {
   const _$Tree(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.description,
       required this.imageAsset,
       required this.storeImageAsset,
-      required final Set<TileType> supportedLocations})
+      required final Set<TileType> supportedLocations,
+      required this.ticksRequired})
       : _supportedLocations = supportedLocations,
         super._();
 
+  @override
+  final DoodadId id;
   @override
   final String name;
   @override
@@ -560,8 +838,11 @@ class _$Tree extends Tree {
   }
 
   @override
+  final int ticksRequired;
+
+  @override
   String toString() {
-    return 'Doodad.tree(name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations)';
+    return 'Doodad.tree(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired)';
   }
 
   @override
@@ -569,6 +850,7 @@ class _$Tree extends Tree {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Tree &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
@@ -577,17 +859,21 @@ class _$Tree extends Tree {
             const DeepCollectionEquality()
                 .equals(other.storeImageAsset, storeImageAsset) &&
             const DeepCollectionEquality()
-                .equals(other._supportedLocations, _supportedLocations));
+                .equals(other._supportedLocations, _supportedLocations) &&
+            const DeepCollectionEquality()
+                .equals(other.ticksRequired, ticksRequired));
   }
 
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imageAsset),
       const DeepCollectionEquality().hash(storeImageAsset),
-      const DeepCollectionEquality().hash(_supportedLocations));
+      const DeepCollectionEquality().hash(_supportedLocations),
+      const DeepCollectionEquality().hash(ticksRequired));
 
   @JsonKey(ignore: true)
   @override
@@ -598,6 +884,7 @@ class _$Tree extends Tree {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -606,13 +893,25 @@ class _$Tree extends Tree {
             int ticksRequired)
         digger,
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
             String storeImageAsset,
-            Set<TileType> supportedLocations)
+            Set<TileType> supportedLocations,
+            int ticksRequired)
         tree,
     required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        treeCutterHut,
+    required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -621,14 +920,15 @@ class _$Tree extends Tree {
             int ticksRequired)
         smelter,
   }) {
-    return tree(
-        name, description, imageAsset, storeImageAsset, supportedLocations);
+    return tree(id, name, description, imageAsset, storeImageAsset,
+        supportedLocations, ticksRequired);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -636,10 +936,26 @@ class _$Tree extends Tree {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -648,14 +964,15 @@ class _$Tree extends Tree {
             int ticksRequired)?
         smelter,
   }) {
-    return tree?.call(
-        name, description, imageAsset, storeImageAsset, supportedLocations);
+    return tree?.call(id, name, description, imageAsset, storeImageAsset,
+        supportedLocations, ticksRequired);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -663,10 +980,26 @@ class _$Tree extends Tree {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -677,8 +1010,8 @@ class _$Tree extends Tree {
     required TResult orElse(),
   }) {
     if (tree != null) {
-      return tree(
-          name, description, imageAsset, storeImageAsset, supportedLocations);
+      return tree(id, name, description, imageAsset, storeImageAsset,
+          supportedLocations, ticksRequired);
     }
     return orElse();
   }
@@ -688,6 +1021,7 @@ class _$Tree extends Tree {
   TResult map<TResult extends Object?>({
     required TResult Function(Digger value) digger,
     required TResult Function(Tree value) tree,
+    required TResult Function(TreeCutterHut value) treeCutterHut,
     required TResult Function(Smelter value) smelter,
   }) {
     return tree(this);
@@ -698,6 +1032,7 @@ class _$Tree extends Tree {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
   }) {
     return tree?.call(this);
@@ -708,6 +1043,7 @@ class _$Tree extends Tree {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
     required TResult orElse(),
   }) {
@@ -718,15 +1054,20 @@ class _$Tree extends Tree {
   }
 }
 
-abstract class Tree extends Doodad {
+abstract class Tree extends Doodad implements TickableDoodadDefinition {
   const factory Tree(
-      {required final String name,
+      {required final DoodadId id,
+      required final String name,
       required final String description,
       required final String imageAsset,
       required final String storeImageAsset,
-      required final Set<TileType> supportedLocations}) = _$Tree;
+      required final Set<TileType> supportedLocations,
+      required final int ticksRequired}) = _$Tree;
 
   const Tree._() : super._();
+
+  @override
+  DoodadId get id => throw _privateConstructorUsedError;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -744,8 +1085,373 @@ abstract class Tree extends Doodad {
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
 
   @override
+  int get ticksRequired => throw _privateConstructorUsedError;
+
+  @override
   @JsonKey(ignore: true)
   _$$TreeCopyWith<_$Tree> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$TreeCutterHutCopyWith<$Res> implements $DoodadCopyWith<$Res> {
+  factory _$$TreeCutterHutCopyWith(
+          _$TreeCutterHut value, $Res Function(_$TreeCutterHut) then) =
+      __$$TreeCutterHutCopyWithImpl<$Res>;
+
+  @override
+  $Res call(
+      {DoodadId id,
+      String name,
+      String description,
+      String imageAsset,
+      String storeImageAsset,
+      Set<TileType> supportedLocations,
+      int ticksRequired});
+
+  @override
+  $DoodadIdCopyWith<$Res> get id;
+}
+
+/// @nodoc
+class __$$TreeCutterHutCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
+    implements _$$TreeCutterHutCopyWith<$Res> {
+  __$$TreeCutterHutCopyWithImpl(
+      _$TreeCutterHut _value, $Res Function(_$TreeCutterHut) _then)
+      : super(_value, (v) => _then(v as _$TreeCutterHut));
+
+  @override
+  _$TreeCutterHut get _value => super._value as _$TreeCutterHut;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? imageAsset = freezed,
+    Object? storeImageAsset = freezed,
+    Object? supportedLocations = freezed,
+    Object? ticksRequired = freezed,
+  }) {
+    return _then(_$TreeCutterHut(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as DoodadId,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageAsset: imageAsset == freezed
+          ? _value.imageAsset
+          : imageAsset // ignore: cast_nullable_to_non_nullable
+              as String,
+      storeImageAsset: storeImageAsset == freezed
+          ? _value.storeImageAsset
+          : storeImageAsset // ignore: cast_nullable_to_non_nullable
+              as String,
+      supportedLocations: supportedLocations == freezed
+          ? _value._supportedLocations
+          : supportedLocations // ignore: cast_nullable_to_non_nullable
+              as Set<TileType>,
+      ticksRequired: ticksRequired == freezed
+          ? _value.ticksRequired
+          : ticksRequired // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$TreeCutterHut extends TreeCutterHut {
+  const _$TreeCutterHut(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.imageAsset,
+      required this.storeImageAsset,
+      required final Set<TileType> supportedLocations,
+      required this.ticksRequired})
+      : _supportedLocations = supportedLocations,
+        super._();
+
+  @override
+  final DoodadId id;
+  @override
+  final String name;
+  @override
+  final String description;
+  @override
+  final String imageAsset;
+  @override
+  final String storeImageAsset;
+  final Set<TileType> _supportedLocations;
+
+  @override
+  Set<TileType> get supportedLocations {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_supportedLocations);
+  }
+
+  @override
+  final int ticksRequired;
+
+  @override
+  String toString() {
+    return 'Doodad.treeCutterHut(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TreeCutterHut &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
+            const DeepCollectionEquality()
+                .equals(other.imageAsset, imageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other.storeImageAsset, storeImageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other._supportedLocations, _supportedLocations) &&
+            const DeepCollectionEquality()
+                .equals(other.ticksRequired, ticksRequired));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(imageAsset),
+      const DeepCollectionEquality().hash(storeImageAsset),
+      const DeepCollectionEquality().hash(_supportedLocations),
+      const DeepCollectionEquality().hash(ticksRequired));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$TreeCutterHutCopyWith<_$TreeCutterHut> get copyWith =>
+      __$$TreeCutterHutCopyWithImpl<_$TreeCutterHut>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        digger,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        tree,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        treeCutterHut,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        smelter,
+  }) {
+    return treeCutterHut(id, name, description, imageAsset, storeImageAsset,
+        supportedLocations, ticksRequired);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        digger,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        tree,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        smelter,
+  }) {
+    return treeCutterHut?.call(id, name, description, imageAsset,
+        storeImageAsset, supportedLocations, ticksRequired);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        digger,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        tree,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        smelter,
+    required TResult orElse(),
+  }) {
+    if (treeCutterHut != null) {
+      return treeCutterHut(id, name, description, imageAsset, storeImageAsset,
+          supportedLocations, ticksRequired);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Digger value) digger,
+    required TResult Function(Tree value) tree,
+    required TResult Function(TreeCutterHut value) treeCutterHut,
+    required TResult Function(Smelter value) smelter,
+  }) {
+    return treeCutterHut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(Digger value)? digger,
+    TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
+    TResult Function(Smelter value)? smelter,
+  }) {
+    return treeCutterHut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Digger value)? digger,
+    TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
+    TResult Function(Smelter value)? smelter,
+    required TResult orElse(),
+  }) {
+    if (treeCutterHut != null) {
+      return treeCutterHut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TreeCutterHut extends Doodad
+    implements TickableDoodadDefinition {
+  const factory TreeCutterHut(
+      {required final DoodadId id,
+      required final String name,
+      required final String description,
+      required final String imageAsset,
+      required final String storeImageAsset,
+      required final Set<TileType> supportedLocations,
+      required final int ticksRequired}) = _$TreeCutterHut;
+
+  const TreeCutterHut._() : super._();
+
+  @override
+  DoodadId get id => throw _privateConstructorUsedError;
+
+  @override
+  String get name => throw _privateConstructorUsedError;
+
+  @override
+  String get description => throw _privateConstructorUsedError;
+
+  @override
+  String get imageAsset => throw _privateConstructorUsedError;
+
+  @override
+  String get storeImageAsset => throw _privateConstructorUsedError;
+
+  @override
+  Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
+
+  @override
+  int get ticksRequired => throw _privateConstructorUsedError;
+
+  @override
+  @JsonKey(ignore: true)
+  _$$TreeCutterHutCopyWith<_$TreeCutterHut> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -755,12 +1461,16 @@ abstract class _$$SmelterCopyWith<$Res> implements $DoodadCopyWith<$Res> {
 
   @override
   $Res call(
-      {String name,
+      {DoodadId id,
+      String name,
       String description,
       String imageAsset,
       String storeImageAsset,
       Set<TileType> supportedLocations,
       int ticksRequired});
+
+  @override
+  $DoodadIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -774,6 +1484,7 @@ class __$$SmelterCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object? id = freezed,
     Object? name = freezed,
     Object? description = freezed,
     Object? imageAsset = freezed,
@@ -782,6 +1493,10 @@ class __$$SmelterCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
     Object? ticksRequired = freezed,
   }) {
     return _then(_$Smelter(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as DoodadId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -814,7 +1529,8 @@ class __$$SmelterCopyWithImpl<$Res> extends _$DoodadCopyWithImpl<$Res>
 
 class _$Smelter extends Smelter {
   const _$Smelter(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.description,
       required this.imageAsset,
       required this.storeImageAsset,
@@ -823,6 +1539,8 @@ class _$Smelter extends Smelter {
       : _supportedLocations = supportedLocations,
         super._();
 
+  @override
+  final DoodadId id;
   @override
   final String name;
   @override
@@ -844,7 +1562,7 @@ class _$Smelter extends Smelter {
 
   @override
   String toString() {
-    return 'Doodad.smelter(name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired)';
+    return 'Doodad.smelter(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired)';
   }
 
   @override
@@ -852,6 +1570,7 @@ class _$Smelter extends Smelter {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Smelter &&
+            const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality()
                 .equals(other.description, description) &&
@@ -868,6 +1587,7 @@ class _$Smelter extends Smelter {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imageAsset),
@@ -884,6 +1604,7 @@ class _$Smelter extends Smelter {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -892,13 +1613,25 @@ class _$Smelter extends Smelter {
             int ticksRequired)
         digger,
     required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
             String storeImageAsset,
-            Set<TileType> supportedLocations)
+            Set<TileType> supportedLocations,
+            int ticksRequired)
         tree,
     required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)
+        treeCutterHut,
+    required TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -907,7 +1640,7 @@ class _$Smelter extends Smelter {
             int ticksRequired)
         smelter,
   }) {
-    return smelter(name, description, imageAsset, storeImageAsset,
+    return smelter(id, name, description, imageAsset, storeImageAsset,
         supportedLocations, ticksRequired);
   }
 
@@ -915,6 +1648,7 @@ class _$Smelter extends Smelter {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -922,10 +1656,26 @@ class _$Smelter extends Smelter {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -934,7 +1684,7 @@ class _$Smelter extends Smelter {
             int ticksRequired)?
         smelter,
   }) {
-    return smelter?.call(name, description, imageAsset, storeImageAsset,
+    return smelter?.call(id, name, description, imageAsset, storeImageAsset,
         supportedLocations, ticksRequired);
   }
 
@@ -942,6 +1692,7 @@ class _$Smelter extends Smelter {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -949,10 +1700,26 @@ class _$Smelter extends Smelter {
             Set<TileType> supportedLocations,
             int ticksRequired)?
         digger,
-    TResult Function(String name, String description, String imageAsset,
-            String storeImageAsset, Set<TileType> supportedLocations)?
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
         tree,
     TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            Set<TileType> supportedLocations,
+            int ticksRequired)?
+        treeCutterHut,
+    TResult Function(
+            DoodadId id,
             String name,
             String description,
             String imageAsset,
@@ -963,7 +1730,7 @@ class _$Smelter extends Smelter {
     required TResult orElse(),
   }) {
     if (smelter != null) {
-      return smelter(name, description, imageAsset, storeImageAsset,
+      return smelter(id, name, description, imageAsset, storeImageAsset,
           supportedLocations, ticksRequired);
     }
     return orElse();
@@ -974,6 +1741,7 @@ class _$Smelter extends Smelter {
   TResult map<TResult extends Object?>({
     required TResult Function(Digger value) digger,
     required TResult Function(Tree value) tree,
+    required TResult Function(TreeCutterHut value) treeCutterHut,
     required TResult Function(Smelter value) smelter,
   }) {
     return smelter(this);
@@ -984,6 +1752,7 @@ class _$Smelter extends Smelter {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
   }) {
     return smelter?.call(this);
@@ -994,6 +1763,7 @@ class _$Smelter extends Smelter {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Digger value)? digger,
     TResult Function(Tree value)? tree,
+    TResult Function(TreeCutterHut value)? treeCutterHut,
     TResult Function(Smelter value)? smelter,
     required TResult orElse(),
   }) {
@@ -1006,7 +1776,8 @@ class _$Smelter extends Smelter {
 
 abstract class Smelter extends Doodad implements TickableDoodadDefinition {
   const factory Smelter(
-      {required final String name,
+      {required final DoodadId id,
+      required final String name,
       required final String description,
       required final String imageAsset,
       required final String storeImageAsset,
@@ -1014,6 +1785,9 @@ abstract class Smelter extends Doodad implements TickableDoodadDefinition {
       required final int ticksRequired}) = _$Smelter;
 
   const Smelter._() : super._();
+
+  @override
+  DoodadId get id => throw _privateConstructorUsedError;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -1030,8 +1804,8 @@ abstract class Smelter extends Doodad implements TickableDoodadDefinition {
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
 
+  @override
   int get ticksRequired => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$SmelterCopyWith<_$Smelter> get copyWith =>

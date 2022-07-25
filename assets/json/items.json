@@ -76,5 +76,27 @@
     "description": "A form of currency.",
     "image": "assets/images/money.png",
     "maxStackSize": 100
+  },
+  {
+    "id": {
+      "itemId": "WOOD"
+    },
+    "runtimeType": "resourceDefinition",
+    "name": "Wood",
+    "namePlural": "Wood",
+    "description": "Unprocessed word",
+    "image": "assets/images/1Icons/wood.png",
+    "maxStackSize": 100
+  },
+  {
+    "id": {
+      "itemId": "PLANK"
+    },
+    "runtimeType": "resourceDefinition",
+    "name": "Plank",
+    "namePlural": "Planks",
+    "description": "Processed word",
+    "image": "assets/images/1Icons/plank.png",
+    "maxStackSize": 100
   }
 ]

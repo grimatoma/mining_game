@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/item_definition.dart';
@@ -133,7 +134,7 @@ class PlanetManager {
       if (water.contains(hexagon)) {
         type = TileType.Water;
       }
-      planetBuilder[hexagon] = TileStateController(_ref, hexagon, type);
+      planetBuilder[hexagon] = TileStateController(_ref, this, hexagon, type);
       index++;
     }
     print(planetBuilder);
@@ -147,7 +148,7 @@ class PlanetManager {
 
   BuiltSet<Hexagon> cubeRing(Hexagon center, int radius) {
     final builder = SetBuilder<Hexagon>();
-    var current = hexagonDirections[4] * radius;
+    var current = center + hexagonDirections[4] * radius;
 
     for (int i = 0; i < 6; i++) {
       for (int j = 0; j < radius; j++) {
@@ -171,7 +172,41 @@ class PlanetManager {
 
   BuiltList<TileStateController> getControllerNeighbors(
           TileStateController c) =>
-      getNeighbors(c.tile.hexagon);
+      getNeighbors(c.hexagon);
+
+  BuiltList<TileStateController> getTilesInRange(Hexagon hexagon, int range,
+      {Iterable<TileType>? whereTileType}) {
+    final hexagons = <Hexagon>{};
+    for (int i = range; range > 0; range--) {
+      hexagons.addAll(cubeRing(hexagon, i).toList());
+    }
+    final builder = ListBuilder<TileStateController>();
+
+    for (final h in hexagons) {
+      final tile = tiles[h];
+      if (tile != null) {
+        if (whereTileType == null || whereTileType.contains(tile.tileType)) {
+          builder.add(tile);
+        }
+      }
+    }
+
+    // for (int q = hexagon.q; -range <= q && q <= range; q++) {
+    //   for (int r = hexagon.r;
+    //   max(-range, -q - r) <= r && r <= min(range, -q + range);
+    //   r++) {
+    //     final tile = tiles[Hexagon(q, r)];
+    //     if (tile != null) {
+    //       if (whereTileType == null ||
+    //           whereTileType.contains(tile.tile.tileType)) {
+    //         print('added tile in range ${tile.tile.hexagon}');
+    //         builder.add(tile);
+    //       }
+    //     }
+    //   }
+    // }
+    return builder.build();
+  }
 
   BuiltList<TileStateController> getNeighbors(Hexagon hexagon) {
     final map = ListBuilder<TileStateController>();
@@ -219,44 +254,51 @@ class Hexagon with _$Hexagon {
   Hexagon operator *(int scale) => Hexagon(q * scale, r * scale);
 }
 
-@freezed
-class Tile with _$Tile {
-  const Tile._();
+// @freezed
+// class Tile with _$Tile {
+//   const Tile._();
+//
+//   factory Tile.empty(Hexagon hexagon, TileType tileType,
+//       {DoodadInstance? doodadInstance}) = Empty;
+//
+//   // factory Tile.iron(int x, int y, BuiltSet<Doodad> doodads) = Empty;
+//
+//   String get title {
+//     if (doodadInstance != null) doodadInstance.runtimeType;
+//     return tileType.toString();
+//   }
+//
+//   bool get hasDoodad => doodadInstance != null;
+// }
 
-  factory Tile.empty(Hexagon hexagon, TileType tileType,
-      {DoodadInstance? doodadInstance}) = Empty;
+class TileStateController extends ChangeNotifier {
+  final Hexagon hexagon;
+  final Ref _ref;
+  final PlanetManager _planetManager;
+  final TileType tileType;
+  DoodadInstance? doodadInstance;
 
-  // factory Tile.iron(int x, int y, BuiltSet<Doodad> doodads) = Empty;
+  TileStateController(
+      this._ref, this._planetManager, this.hexagon, this.tileType);
 
-  String get title {
-    if (doodadInstance != null) doodadInstance.runtimeType;
-    return tileType.toString();
+  ChangeNotifierProvider<TileStateController> get provider =>
+      ChangeNotifierProvider((ref) => this);
+
+  void update() {
+    doodadInstance?.update();
   }
 
   bool get hasDoodad => doodadInstance != null;
-}
-
-class TileStateController extends StateNotifier<Tile> {
-  final Ref ref;
-
-  TileStateController(this.ref, Hexagon hexagon, TileType tileType)
-      : super(Tile.empty(hexagon, tileType));
-
-  StateNotifierProvider<TileStateController, Tile> get provider =>
-      StateNotifierProvider((ref) => this);
-
-  Tile get tile => state;
-
-  void update() {
-    tile.doodadInstance?.update();
-  }
 
   void addDoodad(Doodad doodad) {
-    state = state.copyWith(doodadInstance: doodad.create(ref, doodad));
+    doodadInstance = doodad.create(
+        _ref, _planetManager, this, doodad, () => notifyListeners());
+    notifyListeners();
   }
 
   void removeDoodad() {
-    state = state.copyWith(doodadInstance: null);
+    doodadInstance = null;
+    notifyListeners();
   }
 }
 
