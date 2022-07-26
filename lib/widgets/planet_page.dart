@@ -395,7 +395,9 @@ class TileDetailWidget extends ConsumerWidget {
                           Expanded(
                             child: SizedBox(
                               width: width * 0.8,
-                              child: DoodadStatus(selectedTile.doodadInstance!),
+                              child: selectedTile
+                                      .doodadInstance?.statusWidget ??
+                                  DoodadStatus(selectedTile.doodadInstance!),
                             ),
                           ),
                         if (!selectedTile.hasDoodad)
@@ -445,25 +447,27 @@ class DoodadStatus extends ConsumerWidget {
     if (doodad is TickableDoodadInstance) {
       final currentTick = doodad.currentTickState.watch(ref);
       final ticksLeft = doodad.ticksRequired - currentTick;
-      final statusWidget = _doodadInstance.statusWidget;
-      return statusWidget ??
-          Column(
-            children: [
-              Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
-                  ':'
-                  '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: LinearProgressIndicator(
-                    value: currentTick.toDouble() / doodad.ticksRequired,
-                  ),
-                ),
+      return Column(
+        children: [
+          Text(
+            doodad.ticksName,
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+          ),
+          Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
+              ':'
+              '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: LinearProgressIndicator(
+                value: currentTick.toDouble() / doodad.ticksRequired,
               ),
-            ],
-            // ),
-          );
+            ),
+          ),
+        ],
+        // ),
+      );
     }
     return Container();
   }

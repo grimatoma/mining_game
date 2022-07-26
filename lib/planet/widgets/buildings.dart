@@ -9,6 +9,7 @@ import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/planet/planet_manager.dart';
+import 'package:mining_game/widgets/planet_page.dart';
 
 part 'buildings.freezed.dart';
 
@@ -207,6 +208,9 @@ class DiggerInstance extends TickableDoodadInstance<Digger> {
 
   @override
   bool canTick() => true;
+
+  @override
+  final ticksName = 'Digging';
 }
 
 abstract class TickableDoodadInstance<
@@ -224,6 +228,9 @@ abstract class TickableDoodadInstance<
   }
 
   bool canTick();
+
+  /// Like growing or cutting for cutting a tree.
+  String get ticksName;
 
   @override
   @mustCallSuper
@@ -261,12 +268,12 @@ class TreeInstance extends TickableDoodadInstance<Tree> {
     }
   }
 
-  BuiltList<ItemInstance> cutTree() {
-    if (treeCount >= treeCost) {
-      treeCount -= treeCost;
-      return Items.WOOD.generateItemInstance(1);
-    }
-    return BuiltList<ItemInstance>();
+  void cutTree() {
+    if (treeCount < treeCost) return;
+    treeCount -= treeCost;
+    _ref
+        .read(inventoryStateProvider.notifier)
+        .addItems(Items.WOOD.generateItemInstance(1));
   }
 
   void _refreshImageAsset() {
@@ -310,6 +317,9 @@ class TreeInstance extends TickableDoodadInstance<Tree> {
 
   @override
   Widget get statusWidget => TreeStatusWidget(this);
+
+  @override
+  final ticksName = 'Growing';
 }
 
 class TreeStatusWidget extends ConsumerWidget {
@@ -338,20 +348,21 @@ class TreeStatusWidget extends ConsumerWidget {
             ],
           ),
         ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
-                  ':'
-                  '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
-              LinearProgressIndicator(
-                value: currentTick.toDouble() / _treeInstance.ticksRequired,
-              ),
-            ],
-          ),
-        )
+        Expanded(flex: 1, child: DoodadStatus(_treeInstance)),
+        // Expanded(
+        //   flex: 1,
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
+        //           ':'
+        //           '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
+        //       LinearProgressIndicator(
+        //         value: currentTick.toDouble() / _treeInstance.ticksRequired,
+        //       ),
+        //     ],
+        //   ),
+        // )
       ],
     );
   }
@@ -374,6 +385,9 @@ class SmelterInstance extends TickableDoodadInstance<Smelter> {
 
   @override
   final ticksRequired = 8;
+
+  @override
+  final ticksName = 'Smelting';
 
   @override
   bool canTick() {
@@ -431,13 +445,13 @@ class TreeCutterHutInstance extends TickableDoodadInstance<TreeCutterHut> {
       final targetIndex = Random().nextInt(treesInRange.length);
       final target = treesInRange[targetIndex];
       target.cutTree();
-      _ref
-          .read(inventoryStateProvider.notifier)
-          .addItems(Items.WOOD.generateItemInstance(2));
       cuttingTree = true;
     }
     return true;
   }
+
+  @override
+  final ticksName = 'Chopping';
 
   @override
   void ticksMet() {
