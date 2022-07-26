@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
@@ -171,6 +173,8 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
 
   void update();
 
+  Widget? get statusWidget => null;
+
   @override
   String get description => _definition.description;
 
@@ -238,7 +242,7 @@ abstract class TickableDoodadInstance<
 
 class TreeInstance extends TickableDoodadInstance<Tree> {
   static const treeCost = 0.25;
-  static const _treeMax = 1.0;
+  static const treeMax = 1.0;
   double treeCount = 1;
 
   TreeInstance(super.ref, super.planetManager, super.parent, super.definition,
@@ -251,8 +255,8 @@ class TreeInstance extends TickableDoodadInstance<Tree> {
 
   @override
   void ticksMet() {
-    if (treeCount < _treeMax) {
-      treeCount = min(treeCount + 0.1, _treeMax);
+    if (treeCount < treeMax) {
+      treeCount = min(treeCount + 0.1, treeMax);
       _refreshImageAsset();
     }
   }
@@ -303,6 +307,54 @@ class TreeInstance extends TickableDoodadInstance<Tree> {
 
   @override
   late String imageAsset;
+
+  @override
+  Widget get statusWidget => TreeStatusWidget(this);
+}
+
+class TreeStatusWidget extends ConsumerWidget {
+  final TreeInstance _treeInstance;
+
+  const TreeStatusWidget(
+    this._treeInstance, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentTick = _treeInstance.currentTickState.watch(ref);
+    final ticksLeft = _treeInstance.ticksRequired - currentTick;
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Forest growth:'),
+              Text(
+                  '${(_treeInstance.treeCount * 100).toInt()}/${(TreeInstance.treeMax * 100).toInt()}'),
+              Text('Trees cost ${(TreeInstance.treeCost * 100).toInt()} each'),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
+                  ':'
+                  '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
+              LinearProgressIndicator(
+                value: currentTick.toDouble() / _treeInstance.ticksRequired,
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
 }
 
 class SmelterInstance extends TickableDoodadInstance<Smelter> {
@@ -379,6 +431,9 @@ class TreeCutterHutInstance extends TickableDoodadInstance<TreeCutterHut> {
       final targetIndex = Random().nextInt(treesInRange.length);
       final target = treesInRange[targetIndex];
       target.cutTree();
+      _ref
+          .read(inventoryStateProvider.notifier)
+          .addItems(Items.WOOD.generateItemInstance(2));
       cuttingTree = true;
     }
     return true;

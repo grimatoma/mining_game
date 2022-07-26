@@ -105,16 +105,27 @@ class TileWidget extends ConsumerWidget {
                     tileController.tileType, tileController.hexagon, 210, 210),
                 if (tileController.doodadInstance != null) ...[
                   if (tileController.doodadInstance?.imageAsset != null)
-                    Image.asset(
-                      (tileController.doodadInstance?.imageAsset)!,
-                      width: 210,
-                      height: 210,
-                      // fit: BoxFit.,
-                      // width: 64,
-                      // height: 32 * sqrt(3),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Image.asset(
+                        (tileController.doodadInstance?.imageAsset)!,
+                        width: 210,
+                        height: 210,
+                        // fit: BoxFit.,
+                        // width: 64,
+                        // height: 32 * sqrt(3),
+                      ),
                     ),
                 ],
-                Center(child: Text('${tileController.hexagon}')),
+                Center(
+                    child: Text(
+                  '${tileController.hexagon}',
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      backgroundColor: Colors.black,
+                      fontSize: 8),
+                )),
               ],
             ),
           ),

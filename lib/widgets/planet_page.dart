@@ -445,23 +445,25 @@ class DoodadStatus extends ConsumerWidget {
     if (doodad is TickableDoodadInstance) {
       final currentTick = doodad.currentTickState.watch(ref);
       final ticksLeft = doodad.ticksRequired - currentTick;
-      return Column(
-        children: [
-          Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
-              ':'
-              '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: LinearProgressIndicator(
-                value: currentTick.toDouble() / doodad.ticksRequired,
+      final statusWidget = _doodadInstance.statusWidget;
+      return statusWidget ??
+          Column(
+            children: [
+              Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
+                  ':'
+                  '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LinearProgressIndicator(
+                    value: currentTick.toDouble() / doodad.ticksRequired,
+                  ),
+                ),
               ),
-            ),
-          ),
-        ],
-        // ),
-      );
+            ],
+            // ),
+          );
     }
     return Container();
   }
