@@ -347,6 +347,54 @@ Map<String, dynamic> _$$MinerDefinitionToJson(_$MinerDefinition instance) =>
       'runtimeType': instance.$type,
     };
 
+_$BasicInstance _$$BasicInstanceFromJson(Map<String, dynamic> json) =>
+    _$BasicInstance(
+      id: ItemInstanceId.fromJson(json['id'] as Map<String, dynamic>),
+      itemId: ItemDefinitionId.fromJson(json['itemId'] as Map<String, dynamic>),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$BasicInstanceToJson(_$BasicInstance instance) =>
+    <String, dynamic>{
+      'id': instance.id.toJson(),
+      'itemId': instance.itemId.toJson(),
+      'runtimeType': instance.$type,
+    };
+
+_$MinerInstance _$$MinerInstanceFromJson(Map<String, dynamic> json) =>
+    _$MinerInstance(
+      id: ItemInstanceId.fromJson(json['id'] as Map<String, dynamic>),
+      itemId: ItemDefinitionId.fromJson(json['itemId'] as Map<String, dynamic>),
+      drillId: json['drillId'] == null
+          ? null
+          : ItemDefinitionId.fromJson(json['drillId'] as Map<String, dynamic>),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$MinerInstanceToJson(_$MinerInstance instance) =>
+    <String, dynamic>{
+      'id': instance.id.toJson(),
+      'itemId': instance.itemId.toJson(),
+      'drillId': instance.drillId?.toJson(),
+      'runtimeType': instance.$type,
+    };
+
+_$StackInstance _$$StackInstanceFromJson(Map<String, dynamic> json) =>
+    _$StackInstance(
+      id: ItemInstanceId.fromJson(json['id'] as Map<String, dynamic>),
+      itemId: ItemDefinitionId.fromJson(json['itemId'] as Map<String, dynamic>),
+      quantity: json['quantity'] as int,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$StackInstanceToJson(_$StackInstance instance) =>
+    <String, dynamic>{
+      'id': instance.id.toJson(),
+      'itemId': instance.itemId.toJson(),
+      'quantity': instance.quantity,
+      'runtimeType': instance.$type,
+    };
+
 ItemInstanceGenerator _$ItemInstanceGeneratorFromJson(
         Map<String, dynamic> json) =>
     ItemInstanceGenerator(

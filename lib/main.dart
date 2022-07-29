@@ -38,6 +38,7 @@ void main() async {
   Hive.registerAdapter(SlotStateMinerAdapter());
 
   await Hive.initFlutter();
+
   await HiveManager.init();
   await ItemDirectory.init();
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
@@ -45,6 +46,7 @@ void main() async {
 
 class MiningGameWidget extends HookConsumerWidget {
   const MiningGameWidget({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(gameCoreProvider);

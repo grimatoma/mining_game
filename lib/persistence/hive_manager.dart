@@ -15,7 +15,7 @@ enum BoxKey {
   COMPLETED_QUESTS,
 }
 
-const keyIncrement = '10';
+const keyIncrement = '15';
 
 class HiveManager {
   static final openedBoxes = <BoxKey, Box>{};
@@ -53,7 +53,7 @@ class HiveManager {
               .then((value) => openedBoxes[key] = value));
           break;
         case BoxKey.INVENTORY:
-          futures.add(Hive.openBox<ItemInstance?>(boxName)
+          futures.add(Hive.openBox<String>(boxName)
               .then((value) => openedBoxes[key] = value));
           break;
         case BoxKey.COMPLETED_QUESTS:

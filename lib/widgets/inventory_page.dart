@@ -239,7 +239,7 @@ class ItemDetailWidget extends ConsumerWidget {
       return Container();
     }
 
-    final definition = itemInstance.itemId._definition();
+    final definition = itemInstance.itemId.definition();
     // This should have a fitted box or seomthing
     // https://stackoverflow.com/questions/57803737/flutter-renderflex-children-have-non-zero-flex-but-incoming-height-constraints
     return Container(
@@ -248,7 +248,7 @@ class ItemDetailWidget extends ConsumerWidget {
         children: [
           Expanded(
               child: Center(
-                  child: Image.asset(itemInstance.itemId._definition().image))),
+                  child: Image.asset(itemInstance.itemId.definition().image))),
           Expanded(
             child: Column(
               children: [

@@ -3,8 +3,11 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/doodads/base/doodad_definition.dart';
+import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
+import 'package:mining_game/doodads/base/tickable_doodad.dart';
+import 'package:mining_game/doodads/doodad_test_wip.dart';
 import 'package:mining_game/planet/planet_manager.dart';
-import 'package:mining_game/planet/widgets/buildings.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 import '../item_management/item_definition.dart';
@@ -154,21 +157,9 @@ class BuildMenuWidget extends HookConsumerWidget {
                                 .floor()
                                 .clamp(3, 5),
                         children: [
-                          // for (int i = 0; i < 10; i++) ...[
-                          for (final item in [
-                            tree,
-                            digger,
-                            treeCutterHut,
-                          ])
-                            if (!selectedTile.hasDoodad &&
-                                item.supportedLocations
-                                    .contains(selectedTile.tileType))
-                              DoodadBuildItemWidget(BuildMenuItem(
-                                  doodad: item, cost: ItemRequirement.empty())),
-                          // DoodadBuildItemWidget(smelterBuildMenuItem),
-                          // DoodadBuildItemWidget(farmBuildMenuItem),
-                          // DoodadBuildItemWidget(dirtRoadBuildMenuItem),
-                          // ],
+                          for (final item in supportedItemsToBuy(selectedTile))
+                            DoodadBuildItemWidget(BuildMenuItem(
+                                doodad: item, cost: ItemRequirement.empty())),
                         ],
                       ),
                     ),
@@ -182,6 +173,16 @@ class BuildMenuWidget extends HookConsumerWidget {
       );
     }
   }
+}
+
+Iterable<DoodadDefinition> supportedItemsToBuy(
+    TileStateController tileStateController) {
+  return [
+    for (final item in doodadDefinitionsExample)
+      if (!tileStateController.hasDoodad &&
+          item.supportedLocations.contains(tileStateController.tileType))
+        item,
+  ];
 }
 
 final buildMenuItemFocusProvider = StateProvider<BuildMenuItem?>((ref) => null);
@@ -333,6 +334,8 @@ class TileDetailWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedTile = ref.watch(selectedTileControllerProvider);
     if (selectedTile == null) return Container();
+
+    final canBuild = supportedItemsToBuy(selectedTile).isNotEmpty;
     return Container(
         color: Colors.red[100],
         height: 150,
@@ -406,17 +409,15 @@ class TileDetailWidget extends ConsumerWidget {
                             child: Column(
                               children: [
                                 TextButton(
-                                    onPressed: (ref.read(
-                                                selectedTileControllerProvider) ==
-                                            null)
-                                        ? null
-                                        : () {
+                                    onPressed: canBuild
+                                        ? () {
                                             ref
                                                     .read(panelVisibilityState
                                                         .notifier)
                                                     .state =
                                                 PanelVisibility.BuyMenu;
-                                          },
+                                          }
+                                        : null,
                                     child: const Text('Build')),
                               ],
                             ),

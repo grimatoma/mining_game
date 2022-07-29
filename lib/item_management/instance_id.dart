@@ -1,29 +1,24 @@
 import 'dart:math';
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 
-class ItemInstanceId {
-  final String _guid;
+part 'instance_id.freezed.dart';
 
-  ItemInstanceId.generate() : _guid = _generateId;
+part 'instance_id.g.dart';
 
-  ItemInstanceId._load(this._guid);
+@freezed
+class ItemInstanceId with _$ItemInstanceId {
+  factory ItemInstanceId(String guid) = _ItemInstanceId;
 
-  @override
-  int get hashCode => _guid.hashCode;
+  factory ItemInstanceId.fromJson(Map<String, Object?> json) =>
+      _$ItemInstanceIdFromJson(json);
 
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ItemInstanceId &&
-          runtimeType == other.runtimeType &&
-          _guid == other._guid;
-
-  @override
-  String toString() => _guid;
+  static ItemInstanceId generate() => ItemInstanceId(_generateId);
 }
 
 Random random = Random(DateTime.now().millisecond);
+
 String get _generateId {
   const hexDigits = '0123456789abcdef';
   final List<String> uuid = List.filled(36, '');
@@ -52,11 +47,11 @@ class InstanceIdAdapter extends TypeAdapter<ItemInstanceId> {
 
   @override
   ItemInstanceId read(BinaryReader reader) =>
-      ItemInstanceId._load(reader.readString());
+      ItemInstanceId(reader.readString());
 
   @override
   void write(BinaryWriter writer, ItemInstanceId obj) {
-    writer.writeString(obj._guid);
+    writer.writeString(obj.guid);
   }
 
   @override

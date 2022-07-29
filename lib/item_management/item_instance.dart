@@ -35,6 +35,9 @@ class ItemInstance extends BaseItemInstance with _$ItemInstance {
     @HiveField(1) required ItemDefinitionId itemId,
     @HiveField(2) required int quantity,
   }) = StackInstance;
+
+  factory ItemInstance.fromJson(Map<String, dynamic> json) =>
+      _$ItemInstanceFromJson(json);
 }
 
 abstract class InstanceDefinition<T extends ItemDefinition> {

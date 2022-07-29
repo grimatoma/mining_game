@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
+import 'package:mining_game/hive3/hive_tester.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
@@ -30,7 +31,7 @@ final inventoryStateProvider =
 });
 
 class Inventory {
-  final SyncedList<ItemInstance?> itemSlots;
+  final SyncedList2<ItemInstance?> itemSlots;
 
   Inventory(this.itemSlots);
 
@@ -40,7 +41,8 @@ class Inventory {
 
 class InventoryStateController extends StateNotifier<Inventory> {
   InventoryStateController(GameEventManager gameEventManager)
-      : super(Inventory(SyncedList.load(BoxKey.INVENTORY))) {
+      : super(Inventory(
+            SyncedList2.load(BoxKey.INVENTORY, ItemInstance.fromJson))) {
     if (state.itemSlots.length < 5) {
       addSlots(5 - state.itemSlots.length);
     }
@@ -185,9 +187,10 @@ class InventoryStateController extends StateNotifier<Inventory> {
     if (startSlot != null &&
         destSlot != null &&
         startSlot.itemId == destSlot.itemId) {
-      final definition = destSlot.itemId._definition();
+      final definition = destSlot.itemId.definition();
       if (definition is Stackable) {
-        final maxSize = definition.maxStackSize;
+        final def2Temp = definition as Stackable;
+        final maxSize = def2Temp.maxStackSize;
         destSlot as StackInstance;
         startSlot as StackInstance;
         final count = destSlot.quantity + startSlot.quantity;

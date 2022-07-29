@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/assets.dart';
 import 'package:mining_game/planet/planet_manager.dart';
+import 'package:mining_game/widgets/planet_page.dart';
 
 class HexagonPlanetRenderer extends HookConsumerWidget {
   const HexagonPlanetRenderer({
@@ -90,7 +91,9 @@ class TileWidget extends ConsumerWidget {
             onTap: () {
               final selectedTileController =
                   ref.read(selectedTileControllerProvider.notifier);
-              if (selectedTileController.state == _controller) {
+              if (!tileController.hasDoodad &&
+                  supportedItemsToBuy(tileController).isNotEmpty &&
+                  selectedTileController.state == _controller) {
                 ref.read(panelVisibilityState.notifier).state =
                     PanelVisibility.BuyMenu;
               } else {
@@ -124,7 +127,7 @@ class TileWidget extends ConsumerWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       backgroundColor: Colors.black,
-                      fontSize: 8),
+                      fontSize: 7),
                 )),
               ],
             ),

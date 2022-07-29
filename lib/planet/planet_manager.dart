@@ -5,9 +5,9 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/doodads/base/doodad_definition.dart';
+import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-
-import 'widgets/buildings.dart';
 
 part 'planet_manager.freezed.dart';
 
@@ -290,7 +290,7 @@ class TileStateController extends ChangeNotifier {
 
   bool get hasDoodad => doodadInstance != null;
 
-  void addDoodad(Doodad doodad) {
+  void addDoodad(DoodadDefinition doodad) {
     doodadInstance = doodad.create(
         _ref, _planetManager, this, doodad, () => notifyListeners());
     notifyListeners();
@@ -303,7 +303,7 @@ class TileStateController extends ChangeNotifier {
 }
 
 class BuildMenuItem {
-  final Doodad doodad;
+  final DoodadDefinition doodad;
 
   final ItemRequirement cost;
 

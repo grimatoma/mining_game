@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:mining_game/planet/planet_manager.dart';
-import 'package:mining_game/planet/widgets/buildings.dart';
+
+import 'doodads/base/doodad_definition.dart';
 
 class Assets {
   static Image getTile(TileType tileType, Hexagon location,

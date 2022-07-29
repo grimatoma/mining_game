@@ -132,6 +132,7 @@ flutter:
     - assets/images/forestTest/forest75.png
     - assets/images/forestTest/forest90.png
     - assets/images/forestTest/forest100.png
+    - assets/images/tiles/13-Icons/smithy.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

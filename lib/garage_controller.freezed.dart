@@ -229,8 +229,11 @@ abstract class _$$SlotWithMinerCopyWith<$Res>
   factory _$$SlotWithMinerCopyWith(
           _$SlotWithMiner value, $Res Function(_$SlotWithMiner) then) =
       __$$SlotWithMinerCopyWithImpl<$Res>;
+
   @override
   $Res call({@HiveField(1) ItemInstanceId minerId, @HiveField(2) int index});
+
+  $ItemInstanceIdCopyWith<$Res> get minerId;
 }
 
 /// @nodoc
@@ -258,6 +261,13 @@ class __$$SlotWithMinerCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
           : index // ignore: cast_nullable_to_non_nullable
               as int,
     ));
+  }
+
+  @override
+  $ItemInstanceIdCopyWith<$Res> get minerId {
+    return $ItemInstanceIdCopyWith<$Res>(_value.minerId, (value) {
+      return _then(_value.copyWith(minerId: value));
+    });
   }
 }
 
