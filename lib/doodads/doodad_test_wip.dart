@@ -6,7 +6,7 @@ import 'base/doodad_definition.dart';
 import 'base/doodad_id.dart';
 
 final doodadDefinitionsExample = [
-  const DiggerDoodadDefinition(
+  DiggerDoodadDefinition(
     id: DoodadId.ironDigger,
     name: 'Iron Digger',
     description:
@@ -16,8 +16,9 @@ final doodadDefinitionsExample = [
     supportedLocations: {TileType.IronDeposit},
     ticksRequired: 5,
     ticksName: 'Digging',
+    itemMined: [ItemInstanceGenerator(Items.IRON.id, 1)].build(),
   ),
-  const TreeDoodadDefinition(
+  const RegenerativeHarvestableDoodadDefinition(
       id: DoodadId.tree,
       name: 'Tree',
       description:
@@ -26,8 +27,23 @@ final doodadDefinitionsExample = [
       storeImageAsset: 'assets/images/tiles/03Trees/jungle_heavy.png',
       supportedLocations: {TileType.Grass},
       ticksRequired: 5,
-      ticksName: 'Chopping'),
-  const TreeCutterHutDoodadDefinition(
+      ticksName: 'Chopping',
+      resourceRequiredToHarvestOne: 0.25,
+      resourceMax: 1.0,
+      resourceIncreasePerTick: 0.1,
+      manualEffortToHarvest: 5,
+      dynamicImageAssets: {
+        100: 'assets/images/forestTest/forest100.png',
+        90: 'assets/images/forestTest/forest90.png',
+        75: 'assets/images/forestTest/forest75.png',
+        65: 'assets/images/forestTest/forest65.png',
+        60: 'assets/images/forestTest/forest60.png',
+        50: 'assets/images/forestTest/forest50.png',
+        25: 'assets/images/forestTest/forest25.png',
+        1: 'assets/images/forestTest/forest10.png',
+        0: 'assets/images/forestTest/forest0.png',
+      }),
+  const AreaHarvestableDoodadDefinition(
       id: DoodadId.treeCutterHut,
       name: 'Tree cutter hut',
       description: 'Cuts down trees within 1 range.',
@@ -35,7 +51,8 @@ final doodadDefinitionsExample = [
       storeImageAsset: 'assets/images/doodad/lumberHut.jpg',
       supportedLocations: {TileType.Grass},
       ticksRequired: 20,
-      ticksName: 'Cutting'),
+      ticksName: 'Cutting',
+      range: 1),
   MaterialProcessorDoodadDefinition(
       id: DoodadId.ironSmelter,
       name: 'Iron smelter',

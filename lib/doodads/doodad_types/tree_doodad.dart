@@ -9,43 +9,80 @@ import 'package:mining_game/widgets/planet_page.dart';
 import '../base/doodad_definition.dart';
 import '../base/tickable_doodad.dart';
 
-class TreeInstance extends TickableDoodadInstance<TreeDoodadDefinition> {
-  static const treeCost = 0.25;
-  static const treeMax = 1.0;
-  double treeCount = 1;
-  int chopCount = 0;
-  static const chopsPerTree = 5;
+abstract class RegenerativeHarvestableDoodadInterface
+    extends TickableDoodadInterface {
+  double get resourceRequiredToHarvestOne;
 
-  TreeInstance(super.ref, super.planetManager, super.parent, super.definition,
-      super.notifyListeners) {
+  double get resourceMax;
+
+  double get resourceIncreasePerTick;
+
+  int get manualEffortToHarvest;
+
+  Map<int, String>? get dynamicImageAssets;
+}
+
+class RegenerativeHarvestableDoodadInstance
+    extends TickableDoodadInstance<RegenerativeHarvestableDoodadDefinition>
+    implements RegenerativeHarvestableDoodadInterface {
+  @override
+  double get resourceRequiredToHarvestOne =>
+      definition.resourceRequiredToHarvestOne;
+
+  @override
+  double get resourceMax => definition.resourceMax;
+
+  @override
+  double get resourceIncreasePerTick => definition.resourceIncreasePerTick;
+
+  @override
+  int get manualEffortToHarvest => definition.manualEffortToHarvest;
+
+  double currentResources = 1;
+  int effortCount = 0;
+
+  late final int? lowestDynamicAssetIndex;
+
+  RegenerativeHarvestableDoodadInstance(super.ref, super.planetManager,
+      super.parent, super.definition, super.notifyListeners) {
+    final assets = dynamicImageAssets;
+    if (assets != null) {
+      lowestDynamicAssetIndex = assets.keys.fold<int>(
+          assets.keys.first,
+          (previousValue, element) =>
+              previousValue > element ? element : previousValue);
+    }
     imageAsset = _newImageAsset;
   }
 
   @override
-  bool canTick() => treeCount < 1;
+  bool canTick() => currentResources < 1;
 
   @override
   void ticksMet() {
-    if (treeCount < treeMax) {
-      treeCount = min(treeCount + 0.1, treeMax);
+    if (currentResources < resourceMax) {
+      currentResources = min(
+          currentResources + resourceIncreasePerTick, resourceMax.toDouble());
       _refreshImageAsset();
     }
   }
 
-  void cutTree() {
-    if (treeCount < treeCost) return;
-    treeCount -= treeCost;
+  void harvest() {
+    if (currentResources < resourceRequiredToHarvestOne) return;
+    currentResources -= resourceRequiredToHarvestOne;
     ref
         .read(inventoryStateProvider.notifier)
         .addItems(Items.WOOD.generateItemInstance(1));
+    _refreshImageAsset();
     notifyListeners();
   }
 
-  void chopTree() {
-    chopCount++;
-    if (chopCount >= chopsPerTree) {
-      cutTree();
-      chopCount = 0;
+  // Deal with later maybe add a special mixin for this
+  void manualHarvest() {
+    effortCount++;
+    if (effortCount >= manualEffortToHarvest) {
+      harvest();
+      effortCount = 0;
       notifyListeners();
     }
   }
@@ -58,32 +95,20 @@ class TreeInstance extends TickableDoodadInstance<TreeDoodadDefinition> {
     }
   }
 
+  @override
+  Map<int, String>? get dynamicImageAssets => definition.dynamicImageAssets;
+
   String get _newImageAsset {
-    if (treeCount >= 1) {
-      return 'assets/images/forestTest/forest100.png';
+    final assets = dynamicImageAssets;
+    if (assets == null) {
+      return imageAsset;
     }
-    if (treeCount >= .90) {
-      return 'assets/images/forestTest/forest90.png';
-    }
-    if (treeCount >= .75) {
-      return 'assets/images/forestTest/forest75.png';
-    }
-    if (treeCount >= .65) {
-      return 'assets/images/forestTest/forest65.png';
-    }
-    if (treeCount >= .60) {
-      return 'assets/images/forestTest/forest60.png';
-    }
-    if (treeCount >= .50) {
-      return 'assets/images/forestTest/forest50.png';
-    }
-    if (treeCount >= .25) {
-      return 'assets/images/forestTest/forest25.png';
-    }
-    if (treeCount >= .10) {
-      return 'assets/images/forestTest/forest10.png';
-    }
-    return 'assets/images/forestTest/forest0.png';
+
+    final percent = (currentResources / resourceMax * 100).toInt();
+    return assets[assets.keys.fold<int>(
+        lowestDynamicAssetIndex!,
+        (previousValue, e) =>
+            previousValue < e && e <= percent ? e : previousValue)]!;
   }
 
   @override
@@ -94,7 +119,7 @@ class TreeInstance extends TickableDoodadInstance<TreeDoodadDefinition> {
 }
 
 class TreeStatusWidget extends ConsumerWidget {
-  final TreeInstance _treeInstance;
+  final RegenerativeHarvestableDoodadInstance _treeInstance;
 
   const TreeStatusWidget(
     this._treeInstance, {
@@ -113,11 +138,12 @@ class TreeStatusWidget extends ConsumerWidget {
             children: [
               const Text('Forest growth:'),
               Text(
-                  '${(_treeInstance.treeCount * 100).toInt()}/${(TreeInstance.treeMax * 100).toInt()}'),
-              Text('Trees cost ${(TreeInstance.treeCost * 100).toInt()} each'),
+                  '${(_treeInstance.currentResources * 100).toInt()}/${(_treeInstance.resourceMax * 100).toInt()}'),
+              Text(
+                  'Trees cost ${(_treeInstance.resourceRequiredToHarvestOne * 100).toInt()} each'),
               TextButton(
                   onPressed: () {
-                    _treeInstance.chopTree();
+                    _treeInstance.manualHarvest();
                   },
                   child: const Text('Chop')),
             ],

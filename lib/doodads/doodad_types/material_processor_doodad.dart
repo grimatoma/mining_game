@@ -5,6 +5,13 @@ import 'package:mining_game/planet/planet_manager.dart';
 
 import '../base/tickable_doodad.dart';
 
+abstract class MaterialProcessorDoodadInterface
+    implements TickableDoodadInterface {
+  ItemRequirement get consumedMaterials;
+
+  BuiltList<ItemInstance> get itemsProduced;
+}
+
 class MaterialProcessorDoodadInstance
     extends TickableDoodadInstance<MaterialProcessorDoodadInterface>
     implements MaterialProcessorDoodadInterface {

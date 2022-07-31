@@ -1,6 +1,4 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 import 'doodad_interface_and_instance.dart';
@@ -9,13 +7,6 @@ abstract class TickableDoodadInterface implements DoodadInterface {
   int get ticksRequired;
 
   String get ticksName;
-}
-
-abstract class MaterialProcessorDoodadInterface
-    implements TickableDoodadInterface {
-  ItemRequirement get consumedMaterials;
-
-  BuiltList<ItemInstance> get itemsProduced;
 }
 
 abstract class TickableDoodadInstance<
@@ -31,9 +22,7 @@ abstract class TickableDoodadInstance<
 
   TickableDoodadInstance(super.ref, super.planetManager, super.parent,
       super.definition, super.notifyListeners)
-      : currentTickState = SimpleStateProvider<int>(ref, (ref) => 0) {
-    print('created instance');
-  }
+      : currentTickState = SimpleStateProvider<int>(ref, (ref) => 0);
 
   bool canTick();
 

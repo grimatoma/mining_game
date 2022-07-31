@@ -4,13 +4,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
+import '../doodad_types/area_harvestable_doodad.dart';
 import '../doodad_types/digger_doodad.dart';
 import '../doodad_types/material_processor_doodad.dart';
-import '../doodad_types/tree_cutter_doodad.dart';
 import '../doodad_types/tree_doodad.dart';
 import 'doodad_id.dart';
 import 'doodad_interface_and_instance.dart';
-import 'tickable_doodad.dart';
 
 part 'doodad_definition.freezed.dart';
 
@@ -41,7 +40,7 @@ enum TileType {
 class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
   const DoodadDefinition._();
 
-  @Implements<TickableDoodadInterface>()
+  @Implements<DiggerDoodadInterface>()
   const factory DoodadDefinition.digger({
     required DoodadId id,
     required String name,
@@ -51,22 +50,23 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
     required Set<TileType> supportedLocations,
     required int ticksRequired,
     required String ticksName,
+    required BuiltList<ItemInstanceGenerator> itemMined,
   }) = DiggerDoodadDefinition;
 
-  @Implements<TickableDoodadInterface>()
-  const factory DoodadDefinition.tree({
-    required DoodadId id,
-    required String name,
-    required String description,
-    required String imageAsset,
-    required String storeImageAsset,
-    required Set<TileType> supportedLocations,
-    required int ticksRequired,
-    required String ticksName,
-  }) = TreeDoodadDefinition;
+  // @Implements<TickableDoodadInterface>()
+  // const factory DoodadDefinition.harvestable({
+  //   required DoodadId id,
+  //   required String name,
+  //   required String description,
+  //   required String imageAsset,
+  //   required String storeImageAsset,
+  //   required Set<TileType> supportedLocations,
+  //   required int ticksRequired,
+  //   required String ticksName,
+  // }) = HarvestableDoodadDefinition;
 
-  @Implements<TickableDoodadInterface>()
-  const factory DoodadDefinition.treeCutterHut({
+  @Implements<RegenerativeHarvestableDoodadInterface>()
+  const factory DoodadDefinition.regenerativeHarvestable({
     required DoodadId id,
     required String name,
     required String description,
@@ -75,7 +75,25 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
     required Set<TileType> supportedLocations,
     required int ticksRequired,
     required String ticksName,
-  }) = TreeCutterHutDoodadDefinition;
+    required double resourceRequiredToHarvestOne,
+    required double resourceMax,
+    required double resourceIncreasePerTick,
+    required int manualEffortToHarvest,
+    Map<int, String>? dynamicImageAssets,
+  }) = RegenerativeHarvestableDoodadDefinition;
+
+  @Implements<AreaHarvestableDoodadInterface>()
+  const factory DoodadDefinition.areaHarvestable({
+    required DoodadId id,
+    required String name,
+    required String description,
+    required String imageAsset,
+    required String storeImageAsset,
+    required Set<TileType> supportedLocations,
+    required int ticksRequired,
+    required String ticksName,
+    required int range,
+  }) = AreaHarvestableDoodadDefinition;
 
   @Implements<MaterialProcessorDoodadInterface>()
   const factory DoodadDefinition.materialProcessor({
@@ -98,13 +116,13 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
       DoodadDefinition doodadDefinition,
       Function() notifyListeners) {
     return doodadDefinition.map(
-        digger: (d) =>
-            DiggerInstance(ref, planetManager, controller, d, notifyListeners),
-        tree: (d) =>
-            TreeInstance(ref, planetManager, controller, d, notifyListeners),
+        digger: (d) => DiggerDoodadInstance(
+            ref, planetManager, controller, d, notifyListeners),
+        regenerativeHarvestable: (d) => RegenerativeHarvestableDoodadInstance(
+            ref, planetManager, controller, d, notifyListeners),
         materialProcessor: (d) => MaterialProcessorDoodadInstance(
             ref, planetManager, controller, d, notifyListeners),
-        treeCutterHut: (d) => TreeCutterHutInstance(
+        areaHarvestable: (d) => AreaHarvestableDoodadInstance(
             ref, planetManager, controller, d, notifyListeners));
   }
 

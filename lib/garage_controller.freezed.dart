@@ -229,7 +229,6 @@ abstract class _$$SlotWithMinerCopyWith<$Res>
   factory _$$SlotWithMinerCopyWith(
           _$SlotWithMiner value, $Res Function(_$SlotWithMiner) then) =
       __$$SlotWithMinerCopyWithImpl<$Res>;
-
   @override
   $Res call({@HiveField(1) ItemInstanceId minerId, @HiveField(2) int index});
 

@@ -65,7 +65,7 @@ class InventoryStateController extends StateNotifier<Inventory> {
   bool addItem(ItemInstance item) => addItems([item]);
 
   bool addItems(Iterable<ItemInstance> items) {
-    final initalInventoryCopy = state.itemSlots.list;
+    final initialInventoryCopy = state.itemSlots.list;
     var success = true;
     final newState = state.rebuild((p0) {
       for (final item in items) {
@@ -120,7 +120,7 @@ class InventoryStateController extends StateNotifier<Inventory> {
     if (!success) {
       state = state.rebuild((p0) => p0
         ..clear()
-        ..addAll(initalInventoryCopy.asMap()));
+        ..addAll(initialInventoryCopy.asMap()));
     } else {
       state = newState;
     }

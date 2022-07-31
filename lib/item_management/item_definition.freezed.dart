@@ -1625,12 +1625,9 @@ abstract class MinerDefinition extends ItemDefinition {
   int get baseDamage =>
       throw _privateConstructorUsedError; // Should this be for all resources or per resource?
   int get baseHopperSize => throw _privateConstructorUsedError;
-
   int get fuelConsumption => throw _privateConstructorUsedError;
-
   @override
   String get image => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$MinerDefinitionCopyWith<_$MinerDefinition> get copyWith =>
@@ -1656,7 +1653,6 @@ ItemInstance _$ItemInstanceFromJson(Map<String, dynamic> json) {
 mixin _$ItemInstance {
   @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -1727,7 +1723,6 @@ mixin _$ItemInstance {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $ItemInstanceCopyWith<ItemInstance> get copyWith =>
@@ -1739,12 +1734,10 @@ abstract class $ItemInstanceCopyWith<$Res> {
   factory $ItemInstanceCopyWith(
           ItemInstance value, $Res Function(ItemInstance) then) =
       _$ItemInstanceCopyWithImpl<$Res>;
-
   $Res call(
       {@HiveField(0) ItemInstanceId id, @HiveField(1) ItemDefinitionId itemId});
 
   $ItemInstanceIdCopyWith<$Res> get id;
-
   $ItemDefinitionIdCopyWith<$Res> get itemId;
 }
 
@@ -1794,14 +1787,12 @@ abstract class _$$BasicInstanceCopyWith<$Res>
   factory _$$BasicInstanceCopyWith(
           _$BasicInstance value, $Res Function(_$BasicInstance) then) =
       __$$BasicInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@HiveField(0) ItemInstanceId id, @HiveField(1) ItemDefinitionId itemId});
 
   @override
   $ItemInstanceIdCopyWith<$Res> get id;
-
   @override
   $ItemDefinitionIdCopyWith<$Res> get itemId;
 }
@@ -1987,7 +1978,6 @@ abstract class BasicInstance extends ItemInstance {
   factory BasicInstance(
       {@HiveField(0) required final ItemInstanceId id,
       @HiveField(1) required final ItemDefinitionId itemId}) = _$BasicInstance;
-
   BasicInstance._() : super._();
 
   factory BasicInstance.fromJson(Map<String, dynamic> json) =
@@ -1996,11 +1986,9 @@ abstract class BasicInstance extends ItemInstance {
   @override
   @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$BasicInstanceCopyWith<_$BasicInstance> get copyWith =>
@@ -2013,7 +2001,6 @@ abstract class _$$MinerInstanceCopyWith<$Res>
   factory _$$MinerInstanceCopyWith(
           _$MinerInstance value, $Res Function(_$MinerInstance) then) =
       __$$MinerInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@HiveField(0) ItemInstanceId id,
@@ -2022,10 +2009,8 @@ abstract class _$$MinerInstanceCopyWith<$Res>
 
   @override
   $ItemInstanceIdCopyWith<$Res> get id;
-
   @override
   $ItemDefinitionIdCopyWith<$Res> get itemId;
-
   $ItemDefinitionIdCopyWith<$Res>? get drillId;
 }
 
@@ -2233,7 +2218,6 @@ abstract class MinerInstance extends ItemInstance implements MinerMethods {
       {@HiveField(0) required final ItemInstanceId id,
       @HiveField(1) required final ItemDefinitionId itemId,
       @HiveField(2) final ItemDefinitionId? drillId}) = _$MinerInstance;
-
   MinerInstance._() : super._();
 
   factory MinerInstance.fromJson(Map<String, dynamic> json) =
@@ -2242,14 +2226,11 @@ abstract class MinerInstance extends ItemInstance implements MinerMethods {
   @override
   @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-
   @HiveField(2)
   ItemDefinitionId? get drillId => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$MinerInstanceCopyWith<_$MinerInstance> get copyWith =>
@@ -2262,7 +2243,6 @@ abstract class _$$StackInstanceCopyWith<$Res>
   factory _$$StackInstanceCopyWith(
           _$StackInstance value, $Res Function(_$StackInstance) then) =
       __$$StackInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@HiveField(0) ItemInstanceId id,
@@ -2271,7 +2251,6 @@ abstract class _$$StackInstanceCopyWith<$Res>
 
   @override
   $ItemInstanceIdCopyWith<$Res> get id;
-
   @override
   $ItemDefinitionIdCopyWith<$Res> get itemId;
 }
@@ -2469,7 +2448,6 @@ abstract class StackInstance extends ItemInstance implements StackMethods {
       {@HiveField(0) required final ItemInstanceId id,
       @HiveField(1) required final ItemDefinitionId itemId,
       @HiveField(2) required final int quantity}) = _$StackInstance;
-
   StackInstance._() : super._();
 
   factory StackInstance.fromJson(Map<String, dynamic> json) =
@@ -2478,14 +2456,11 @@ abstract class StackInstance extends ItemInstance implements StackMethods {
   @override
   @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @override
   @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-
   @HiveField(2)
   int get quantity => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$StackInstanceCopyWith<_$StackInstance> get copyWith =>

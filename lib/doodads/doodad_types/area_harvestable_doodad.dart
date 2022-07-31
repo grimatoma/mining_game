@@ -7,37 +7,46 @@ import '../base/doodad_definition.dart';
 import '../base/tickable_doodad.dart';
 import 'tree_doodad.dart';
 
-class TreeCutterHutInstance
-    extends TickableDoodadInstance<TreeCutterHutDoodadDefinition> {
-  TreeCutterHutInstance(super.ref, super.planetManager, super.parent,
+abstract class AreaHarvestableDoodadInterface extends TickableDoodadInterface {
+  int get range;
+}
+
+class AreaHarvestableDoodadInstance
+    extends TickableDoodadInstance<AreaHarvestableDoodadDefinition>
+    implements AreaHarvestableDoodadInterface {
+  AreaHarvestableDoodadInstance(super.ref, super.planetManager, super.parent,
       super.definition, super.notifyListeners) {
-    tilesInRange = planetManager.getTilesInRange(parent.hexagon, 1);
+    tilesInRange = planetManager.getTilesInRange(parent.hexagon, range);
   }
 
-  var cuttingTree = false;
+  var isHarvestingTile = false;
   late final BuiltList<TileStateController> tilesInRange;
 
   @override
   bool canTick() {
     if (tilesInRange.isEmpty) return false;
-    if (!cuttingTree) {
+    if (!isHarvestingTile) {
       final treesInRange = tilesInRange
           .map((p0) => p0.doodadInstance)
-          .whereType<TreeInstance>()
-          .where((element) => element.treeCount >= TreeInstance.treeCost)
+          .whereType<RegenerativeHarvestableDoodadInstance>()
+          .where((element) =>
+              element.currentResources >= element.resourceRequiredToHarvestOne)
           .toList(growable: false);
       if (treesInRange.isEmpty) return false;
 
       final targetIndex = Random().nextInt(treesInRange.length);
       final target = treesInRange[targetIndex];
-      target.cutTree();
-      cuttingTree = true;
+      target.harvest();
+      isHarvestingTile = true;
     }
     return true;
   }
 
   @override
   void ticksMet() {
-    cuttingTree = false;
+    isHarvestingTile = false;
   }
+
+  @override
+  int get range => definition.range;
 }
