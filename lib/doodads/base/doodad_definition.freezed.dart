@@ -38,6 +38,9 @@ mixin _$DoodadDefinition {
   String get description => throw _privateConstructorUsedError;
   String get imageAsset => throw _privateConstructorUsedError;
   String get storeImageAsset => throw _privateConstructorUsedError;
+
+  bool get userCanBuild => throw _privateConstructorUsedError;
+
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
   int get ticksRequired => throw _privateConstructorUsedError;
   String get ticksName => throw _privateConstructorUsedError;
@@ -49,6 +52,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -60,13 +64,14 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
@@ -75,6 +80,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -86,6 +92,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -102,6 +109,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -113,13 +121,14 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -128,6 +137,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -139,6 +149,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -155,6 +166,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -166,13 +178,14 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -181,6 +194,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -192,6 +206,7 @@ mixin _$DoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -250,6 +265,7 @@ abstract class $DoodadDefinitionCopyWith<$Res> {
       String description,
       String imageAsset,
       String storeImageAsset,
+      bool userCanBuild,
       Set<TileType> supportedLocations,
       int ticksRequired,
       String ticksName});
@@ -273,6 +289,7 @@ class _$DoodadDefinitionCopyWithImpl<$Res>
     Object? description = freezed,
     Object? imageAsset = freezed,
     Object? storeImageAsset = freezed,
+    Object? userCanBuild = freezed,
     Object? supportedLocations = freezed,
     Object? ticksRequired = freezed,
     Object? ticksName = freezed,
@@ -298,6 +315,10 @@ class _$DoodadDefinitionCopyWithImpl<$Res>
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
+      userCanBuild: userCanBuild == freezed
+          ? _value.userCanBuild
+          : userCanBuild // ignore: cast_nullable_to_non_nullable
+              as bool,
       supportedLocations: supportedLocations == freezed
           ? _value.supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
@@ -334,6 +355,7 @@ abstract class _$$DiggerDoodadDefinitionCopyWith<$Res>
       String description,
       String imageAsset,
       String storeImageAsset,
+      bool userCanBuild,
       Set<TileType> supportedLocations,
       int ticksRequired,
       String ticksName,
@@ -362,6 +384,7 @@ class __$$DiggerDoodadDefinitionCopyWithImpl<$Res>
     Object? description = freezed,
     Object? imageAsset = freezed,
     Object? storeImageAsset = freezed,
+    Object? userCanBuild = freezed,
     Object? supportedLocations = freezed,
     Object? ticksRequired = freezed,
     Object? ticksName = freezed,
@@ -388,6 +411,10 @@ class __$$DiggerDoodadDefinitionCopyWithImpl<$Res>
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
+      userCanBuild: userCanBuild == freezed
+          ? _value.userCanBuild
+          : userCanBuild // ignore: cast_nullable_to_non_nullable
+              as bool,
       supportedLocations: supportedLocations == freezed
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
@@ -417,6 +444,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
       required this.description,
       required this.imageAsset,
       required this.storeImageAsset,
+      this.userCanBuild = true,
       required final Set<TileType> supportedLocations,
       required this.ticksRequired,
       required this.ticksName,
@@ -439,7 +467,11 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   final String imageAsset;
   @override
   final String storeImageAsset;
+  @override
+  @JsonKey()
+  final bool userCanBuild;
   final Set<TileType> _supportedLocations;
+
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -458,7 +490,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
 
   @override
   String toString() {
-    return 'DoodadDefinition.digger(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, itemMined: $itemMined)';
+    return 'DoodadDefinition.digger(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, userCanBuild: $userCanBuild, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, itemMined: $itemMined)';
   }
 
   @override
@@ -474,6 +506,8 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
                 .equals(other.imageAsset, imageAsset) &&
             const DeepCollectionEquality()
                 .equals(other.storeImageAsset, storeImageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other.userCanBuild, userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
             const DeepCollectionEquality()
@@ -491,6 +525,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imageAsset),
       const DeepCollectionEquality().hash(storeImageAsset),
+      const DeepCollectionEquality().hash(userCanBuild),
       const DeepCollectionEquality().hash(_supportedLocations),
       const DeepCollectionEquality().hash(ticksRequired),
       const DeepCollectionEquality().hash(ticksName),
@@ -511,6 +546,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -522,13 +558,14 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
@@ -537,6 +574,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -548,6 +586,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -556,7 +595,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
         materialProcessor,
   }) {
     return digger(id, name, description, imageAsset, storeImageAsset,
-        supportedLocations, ticksRequired, ticksName, itemMined);
+        userCanBuild, supportedLocations, ticksRequired, ticksName, itemMined);
   }
 
   @override
@@ -568,6 +607,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -579,13 +619,14 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -594,6 +635,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -605,6 +647,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -613,7 +656,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
         materialProcessor,
   }) {
     return digger?.call(id, name, description, imageAsset, storeImageAsset,
-        supportedLocations, ticksRequired, ticksName, itemMined);
+        userCanBuild, supportedLocations, ticksRequired, ticksName, itemMined);
   }
 
   @override
@@ -625,6 +668,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -636,13 +680,14 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -651,6 +696,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -662,6 +708,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -671,8 +718,17 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
     required TResult orElse(),
   }) {
     if (digger != null) {
-      return digger(id, name, description, imageAsset, storeImageAsset,
-          supportedLocations, ticksRequired, ticksName, itemMined);
+      return digger(
+          id,
+          name,
+          description,
+          imageAsset,
+          storeImageAsset,
+          userCanBuild,
+          supportedLocations,
+          ticksRequired,
+          ticksName,
+          itemMined);
     }
     return orElse();
   }
@@ -735,6 +791,7 @@ abstract class DiggerDoodadDefinition extends DoodadDefinition
           required final String description,
           required final String imageAsset,
           required final String storeImageAsset,
+          final bool userCanBuild,
           required final Set<TileType> supportedLocations,
           required final int ticksRequired,
           required final String ticksName,
@@ -747,22 +804,34 @@ abstract class DiggerDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
+
   @override
   String get name => throw _privateConstructorUsedError;
+
   @override
   String get description => throw _privateConstructorUsedError;
+
   @override
   String get imageAsset => throw _privateConstructorUsedError;
+
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
+
+  @override
+  bool get userCanBuild => throw _privateConstructorUsedError;
+
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
+
   @override
   int get ticksRequired => throw _privateConstructorUsedError;
+
   @override
   String get ticksName => throw _privateConstructorUsedError;
+
   BuiltList<ItemInstanceGenerator> get itemMined =>
       throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$DiggerDoodadDefinitionCopyWith<_$DiggerDoodadDefinition> get copyWith =>
@@ -783,13 +852,14 @@ abstract class _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res>
       String description,
       String imageAsset,
       String storeImageAsset,
+      bool userCanBuild,
       Set<TileType> supportedLocations,
       int ticksRequired,
       String ticksName,
       double resourceRequiredToHarvestOne,
       double resourceMax,
       double resourceIncreasePerTick,
-      int manualEffortToHarvest,
+      int? manualEffortToHarvest,
       Map<int, String>? dynamicImageAssets});
 
   @override
@@ -817,6 +887,7 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
     Object? description = freezed,
     Object? imageAsset = freezed,
     Object? storeImageAsset = freezed,
+    Object? userCanBuild = freezed,
     Object? supportedLocations = freezed,
     Object? ticksRequired = freezed,
     Object? ticksName = freezed,
@@ -847,6 +918,10 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
+      userCanBuild: userCanBuild == freezed
+          ? _value.userCanBuild
+          : userCanBuild // ignore: cast_nullable_to_non_nullable
+              as bool,
       supportedLocations: supportedLocations == freezed
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
@@ -874,7 +949,7 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
       manualEffortToHarvest: manualEffortToHarvest == freezed
           ? _value.manualEffortToHarvest
           : manualEffortToHarvest // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       dynamicImageAssets: dynamicImageAssets == freezed
           ? _value._dynamicImageAssets
           : dynamicImageAssets // ignore: cast_nullable_to_non_nullable
@@ -893,13 +968,14 @@ class _$RegenerativeHarvestableDoodadDefinition
       required this.description,
       required this.imageAsset,
       required this.storeImageAsset,
+      this.userCanBuild = true,
       required final Set<TileType> supportedLocations,
       required this.ticksRequired,
       required this.ticksName,
       required this.resourceRequiredToHarvestOne,
       required this.resourceMax,
       required this.resourceIncreasePerTick,
-      required this.manualEffortToHarvest,
+      this.manualEffortToHarvest,
       final Map<int, String>? dynamicImageAssets,
       final String? $type})
       : _supportedLocations = supportedLocations,
@@ -921,7 +997,11 @@ class _$RegenerativeHarvestableDoodadDefinition
   final String imageAsset;
   @override
   final String storeImageAsset;
+  @override
+  @JsonKey()
+  final bool userCanBuild;
   final Set<TileType> _supportedLocations;
+
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -939,8 +1019,9 @@ class _$RegenerativeHarvestableDoodadDefinition
   @override
   final double resourceIncreasePerTick;
   @override
-  final int manualEffortToHarvest;
+  final int? manualEffortToHarvest;
   final Map<int, String>? _dynamicImageAssets;
+
   @override
   Map<int, String>? get dynamicImageAssets {
     final value = _dynamicImageAssets;
@@ -954,7 +1035,7 @@ class _$RegenerativeHarvestableDoodadDefinition
 
   @override
   String toString() {
-    return 'DoodadDefinition.regenerativeHarvestable(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, resourceRequiredToHarvestOne: $resourceRequiredToHarvestOne, resourceMax: $resourceMax, resourceIncreasePerTick: $resourceIncreasePerTick, manualEffortToHarvest: $manualEffortToHarvest, dynamicImageAssets: $dynamicImageAssets)';
+    return 'DoodadDefinition.regenerativeHarvestable(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, userCanBuild: $userCanBuild, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, resourceRequiredToHarvestOne: $resourceRequiredToHarvestOne, resourceMax: $resourceMax, resourceIncreasePerTick: $resourceIncreasePerTick, manualEffortToHarvest: $manualEffortToHarvest, dynamicImageAssets: $dynamicImageAssets)';
   }
 
   @override
@@ -970,6 +1051,8 @@ class _$RegenerativeHarvestableDoodadDefinition
                 .equals(other.imageAsset, imageAsset) &&
             const DeepCollectionEquality()
                 .equals(other.storeImageAsset, storeImageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other.userCanBuild, userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
             const DeepCollectionEquality()
@@ -997,6 +1080,7 @@ class _$RegenerativeHarvestableDoodadDefinition
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imageAsset),
       const DeepCollectionEquality().hash(storeImageAsset),
+      const DeepCollectionEquality().hash(userCanBuild),
       const DeepCollectionEquality().hash(_supportedLocations),
       const DeepCollectionEquality().hash(ticksRequired),
       const DeepCollectionEquality().hash(ticksName),
@@ -1022,6 +1106,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1033,13 +1118,14 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
@@ -1048,6 +1134,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1059,6 +1146,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1072,6 +1160,7 @@ class _$RegenerativeHarvestableDoodadDefinition
         description,
         imageAsset,
         storeImageAsset,
+        userCanBuild,
         supportedLocations,
         ticksRequired,
         ticksName,
@@ -1091,6 +1180,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1102,13 +1192,14 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -1117,6 +1208,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1128,6 +1220,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1141,6 +1234,7 @@ class _$RegenerativeHarvestableDoodadDefinition
         description,
         imageAsset,
         storeImageAsset,
+        userCanBuild,
         supportedLocations,
         ticksRequired,
         ticksName,
@@ -1160,6 +1254,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1171,13 +1266,14 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -1186,6 +1282,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1197,6 +1294,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1212,6 +1310,7 @@ class _$RegenerativeHarvestableDoodadDefinition
           description,
           imageAsset,
           storeImageAsset,
+          userCanBuild,
           supportedLocations,
           ticksRequired,
           ticksName,
@@ -1277,18 +1376,19 @@ class _$RegenerativeHarvestableDoodadDefinition
 abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
     implements RegenerativeHarvestableDoodadInterface {
   const factory RegenerativeHarvestableDoodadDefinition(
-          {required final DoodadId id,
+      {required final DoodadId id,
           required final String name,
           required final String description,
           required final String imageAsset,
           required final String storeImageAsset,
+          final bool userCanBuild,
           required final Set<TileType> supportedLocations,
           required final int ticksRequired,
           required final String ticksName,
           required final double resourceRequiredToHarvestOne,
           required final double resourceMax,
           required final double resourceIncreasePerTick,
-          required final int manualEffortToHarvest,
+          final int? manualEffortToHarvest,
           final Map<int, String>? dynamicImageAssets}) =
       _$RegenerativeHarvestableDoodadDefinition;
   const RegenerativeHarvestableDoodadDefinition._() : super._();
@@ -1299,24 +1399,39 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
+
   @override
   String get name => throw _privateConstructorUsedError;
+
   @override
   String get description => throw _privateConstructorUsedError;
+
   @override
   String get imageAsset => throw _privateConstructorUsedError;
+
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
+
+  @override
+  bool get userCanBuild => throw _privateConstructorUsedError;
+
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
+
   @override
   int get ticksRequired => throw _privateConstructorUsedError;
+
   @override
   String get ticksName => throw _privateConstructorUsedError;
+
   double get resourceRequiredToHarvestOne => throw _privateConstructorUsedError;
+
   double get resourceMax => throw _privateConstructorUsedError;
+
   double get resourceIncreasePerTick => throw _privateConstructorUsedError;
-  int get manualEffortToHarvest => throw _privateConstructorUsedError;
+
+  int? get manualEffortToHarvest => throw _privateConstructorUsedError;
+
   Map<int, String>? get dynamicImageAssets =>
       throw _privateConstructorUsedError;
   @override
@@ -1340,6 +1455,7 @@ abstract class _$$AreaHarvestableDoodadDefinitionCopyWith<$Res>
       String description,
       String imageAsset,
       String storeImageAsset,
+      bool userCanBuild,
       Set<TileType> supportedLocations,
       int ticksRequired,
       String ticksName,
@@ -1369,6 +1485,7 @@ class __$$AreaHarvestableDoodadDefinitionCopyWithImpl<$Res>
     Object? description = freezed,
     Object? imageAsset = freezed,
     Object? storeImageAsset = freezed,
+    Object? userCanBuild = freezed,
     Object? supportedLocations = freezed,
     Object? ticksRequired = freezed,
     Object? ticksName = freezed,
@@ -1395,6 +1512,10 @@ class __$$AreaHarvestableDoodadDefinitionCopyWithImpl<$Res>
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
+      userCanBuild: userCanBuild == freezed
+          ? _value.userCanBuild
+          : userCanBuild // ignore: cast_nullable_to_non_nullable
+              as bool,
       supportedLocations: supportedLocations == freezed
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
@@ -1425,6 +1546,7 @@ class _$AreaHarvestableDoodadDefinition
       required this.description,
       required this.imageAsset,
       required this.storeImageAsset,
+      this.userCanBuild = true,
       required final Set<TileType> supportedLocations,
       required this.ticksRequired,
       required this.ticksName,
@@ -1448,7 +1570,11 @@ class _$AreaHarvestableDoodadDefinition
   final String imageAsset;
   @override
   final String storeImageAsset;
+  @override
+  @JsonKey()
+  final bool userCanBuild;
   final Set<TileType> _supportedLocations;
+
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -1467,7 +1593,7 @@ class _$AreaHarvestableDoodadDefinition
 
   @override
   String toString() {
-    return 'DoodadDefinition.areaHarvestable(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, range: $range)';
+    return 'DoodadDefinition.areaHarvestable(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, userCanBuild: $userCanBuild, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, range: $range)';
   }
 
   @override
@@ -1483,6 +1609,8 @@ class _$AreaHarvestableDoodadDefinition
                 .equals(other.imageAsset, imageAsset) &&
             const DeepCollectionEquality()
                 .equals(other.storeImageAsset, storeImageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other.userCanBuild, userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
             const DeepCollectionEquality()
@@ -1500,6 +1628,7 @@ class _$AreaHarvestableDoodadDefinition
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imageAsset),
       const DeepCollectionEquality().hash(storeImageAsset),
+      const DeepCollectionEquality().hash(userCanBuild),
       const DeepCollectionEquality().hash(_supportedLocations),
       const DeepCollectionEquality().hash(ticksRequired),
       const DeepCollectionEquality().hash(ticksName),
@@ -1520,6 +1649,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1531,13 +1661,14 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
@@ -1546,6 +1677,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1557,6 +1689,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1565,7 +1698,7 @@ class _$AreaHarvestableDoodadDefinition
         materialProcessor,
   }) {
     return areaHarvestable(id, name, description, imageAsset, storeImageAsset,
-        supportedLocations, ticksRequired, ticksName, range);
+        userCanBuild, supportedLocations, ticksRequired, ticksName, range);
   }
 
   @override
@@ -1577,6 +1710,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1588,13 +1722,14 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -1603,6 +1738,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1614,6 +1750,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1621,8 +1758,17 @@ class _$AreaHarvestableDoodadDefinition
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
   }) {
-    return areaHarvestable?.call(id, name, description, imageAsset,
-        storeImageAsset, supportedLocations, ticksRequired, ticksName, range);
+    return areaHarvestable?.call(
+        id,
+        name,
+        description,
+        imageAsset,
+        storeImageAsset,
+        userCanBuild,
+        supportedLocations,
+        ticksRequired,
+        ticksName,
+        range);
   }
 
   @override
@@ -1634,6 +1780,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1645,13 +1792,14 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -1660,6 +1808,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1671,6 +1820,7 @@ class _$AreaHarvestableDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1681,7 +1831,7 @@ class _$AreaHarvestableDoodadDefinition
   }) {
     if (areaHarvestable != null) {
       return areaHarvestable(id, name, description, imageAsset, storeImageAsset,
-          supportedLocations, ticksRequired, ticksName, range);
+          userCanBuild, supportedLocations, ticksRequired, ticksName, range);
     }
     return orElse();
   }
@@ -1744,6 +1894,7 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
       required final String description,
       required final String imageAsset,
       required final String storeImageAsset,
+      final bool userCanBuild,
       required final Set<TileType> supportedLocations,
       required final int ticksRequired,
       required final String ticksName,
@@ -1755,21 +1906,33 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
+
   @override
   String get name => throw _privateConstructorUsedError;
+
   @override
   String get description => throw _privateConstructorUsedError;
+
   @override
   String get imageAsset => throw _privateConstructorUsedError;
+
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
+
+  @override
+  bool get userCanBuild => throw _privateConstructorUsedError;
+
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
+
   @override
   int get ticksRequired => throw _privateConstructorUsedError;
+
   @override
   String get ticksName => throw _privateConstructorUsedError;
+
   int get range => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$AreaHarvestableDoodadDefinitionCopyWith<_$AreaHarvestableDoodadDefinition>
@@ -1790,6 +1953,7 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
       String description,
       String imageAsset,
       String storeImageAsset,
+      bool userCanBuild,
       Set<TileType> supportedLocations,
       int ticksRequired,
       String ticksName,
@@ -1820,6 +1984,7 @@ class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
     Object? description = freezed,
     Object? imageAsset = freezed,
     Object? storeImageAsset = freezed,
+    Object? userCanBuild = freezed,
     Object? supportedLocations = freezed,
     Object? ticksRequired = freezed,
     Object? ticksName = freezed,
@@ -1847,6 +2012,10 @@ class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
+      userCanBuild: userCanBuild == freezed
+          ? _value.userCanBuild
+          : userCanBuild // ignore: cast_nullable_to_non_nullable
+              as bool,
       supportedLocations: supportedLocations == freezed
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
@@ -1881,6 +2050,7 @@ class _$MaterialProcessorDoodadDefinition
       required this.description,
       required this.imageAsset,
       required this.storeImageAsset,
+      this.userCanBuild = true,
       required final Set<TileType> supportedLocations,
       required this.ticksRequired,
       required this.ticksName,
@@ -1905,7 +2075,11 @@ class _$MaterialProcessorDoodadDefinition
   final String imageAsset;
   @override
   final String storeImageAsset;
+  @override
+  @JsonKey()
+  final bool userCanBuild;
   final Set<TileType> _supportedLocations;
+
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -1926,7 +2100,7 @@ class _$MaterialProcessorDoodadDefinition
 
   @override
   String toString() {
-    return 'DoodadDefinition.materialProcessor(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, consumedMaterials: $consumedMaterials, itemsProduced: $itemsProduced)';
+    return 'DoodadDefinition.materialProcessor(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, userCanBuild: $userCanBuild, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, consumedMaterials: $consumedMaterials, itemsProduced: $itemsProduced)';
   }
 
   @override
@@ -1942,6 +2116,8 @@ class _$MaterialProcessorDoodadDefinition
                 .equals(other.imageAsset, imageAsset) &&
             const DeepCollectionEquality()
                 .equals(other.storeImageAsset, storeImageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other.userCanBuild, userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
             const DeepCollectionEquality()
@@ -1962,6 +2138,7 @@ class _$MaterialProcessorDoodadDefinition
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(imageAsset),
       const DeepCollectionEquality().hash(storeImageAsset),
+      const DeepCollectionEquality().hash(userCanBuild),
       const DeepCollectionEquality().hash(_supportedLocations),
       const DeepCollectionEquality().hash(ticksRequired),
       const DeepCollectionEquality().hash(ticksName),
@@ -1984,6 +2161,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -1995,13 +2173,14 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
@@ -2010,6 +2189,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2021,6 +2201,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2034,6 +2215,7 @@ class _$MaterialProcessorDoodadDefinition
         description,
         imageAsset,
         storeImageAsset,
+        userCanBuild,
         supportedLocations,
         ticksRequired,
         ticksName,
@@ -2050,6 +2232,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2061,13 +2244,14 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -2076,6 +2260,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2087,6 +2272,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2100,6 +2286,7 @@ class _$MaterialProcessorDoodadDefinition
         description,
         imageAsset,
         storeImageAsset,
+        userCanBuild,
         supportedLocations,
         ticksRequired,
         ticksName,
@@ -2116,6 +2303,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2127,13 +2315,14 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            int manualEffortToHarvest,
+            int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
@@ -2142,6 +2331,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2153,6 +2343,7 @@ class _$MaterialProcessorDoodadDefinition
             String description,
             String imageAsset,
             String storeImageAsset,
+            bool userCanBuild,
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
@@ -2168,6 +2359,7 @@ class _$MaterialProcessorDoodadDefinition
           description,
           imageAsset,
           storeImageAsset,
+          userCanBuild,
           supportedLocations,
           ticksRequired,
           ticksName,
@@ -2235,6 +2427,7 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
           required final String description,
           required final String imageAsset,
           required final String storeImageAsset,
+          final bool userCanBuild,
           required final Set<TileType> supportedLocations,
           required final int ticksRequired,
           required final String ticksName,
@@ -2248,23 +2441,36 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
+
   @override
   String get name => throw _privateConstructorUsedError;
+
   @override
   String get description => throw _privateConstructorUsedError;
+
   @override
   String get imageAsset => throw _privateConstructorUsedError;
+
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
+
+  @override
+  bool get userCanBuild => throw _privateConstructorUsedError;
+
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
+
   @override
   int get ticksRequired => throw _privateConstructorUsedError;
+
   @override
   String get ticksName => throw _privateConstructorUsedError;
+
   ItemRequirement get consumedMaterials => throw _privateConstructorUsedError;
+
   BuiltList<ItemInstance> get itemsProduced =>
       throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$MaterialProcessorDoodadDefinitionCopyWith<

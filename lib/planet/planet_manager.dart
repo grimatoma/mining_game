@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
+import 'package:mining_game/doodads/doodad_types/house_doodad.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 
 part 'planet_manager.freezed.dart';
@@ -102,12 +103,13 @@ class Planet {}
 // Maybe add a state.
 class PlanetManager {
   final Ref _ref;
+  final houseManager = HouseManager();
 
   late final BuiltMap<Hexagon, TileStateController> tiles;
 
   // Load or for now generate the planet
-  final width = 9;
-  final height = 9;
+  final width = 27;
+  final height = 27;
 
   PlanetManager(this._ref) {
     final planetBuilder = MapBuilder<Hexagon, TileStateController>();
@@ -122,7 +124,7 @@ class PlanetManager {
     final water = cubeRing(const Hexagon(0, 0), 4);
 
     var index = 0;
-    for (final hexagon in generateHexagonMapOfSize2(4)) {
+    for (final hexagon in generateHexagonMapOfSize2(32)) {
       var type = TileType.Grass;
       if (index == 29) {
         type = TileType.IronDeposit;
@@ -164,6 +166,7 @@ class PlanetManager {
     for (final tile in tilesIterable) {
       tile.update();
     }
+    houseManager.update();
   }
 
   Iterable<TileStateController> get tilesIterable {
@@ -297,6 +300,7 @@ class TileStateController extends ChangeNotifier {
   }
 
   void removeDoodad() {
+    doodadInstance?.onDestroy();
     doodadInstance = null;
     notifyListeners();
   }

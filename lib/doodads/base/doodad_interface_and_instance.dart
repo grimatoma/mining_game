@@ -19,6 +19,8 @@ abstract class DoodadInterface {
   String get description;
 
   Set<TileType> get supportedLocations;
+
+  bool get userCanBuild;
 }
 
 abstract class DoodadInstance<DefinitionT extends DoodadInterface>
@@ -57,4 +59,9 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
 
   @override
   Set<TileType> get supportedLocations => definition.supportedLocations;
+
+  @override
+  bool get userCanBuild => definition.userCanBuild;
+
+  void onDestroy() {}
 }

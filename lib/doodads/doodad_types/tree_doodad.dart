@@ -17,7 +17,7 @@ abstract class RegenerativeHarvestableDoodadInterface
 
   double get resourceIncreasePerTick;
 
-  int get manualEffortToHarvest;
+  int? get manualEffortToHarvest;
 
   Map<int, String>? get dynamicImageAssets;
 }
@@ -36,7 +36,7 @@ class RegenerativeHarvestableDoodadInstance
   double get resourceIncreasePerTick => definition.resourceIncreasePerTick;
 
   @override
-  int get manualEffortToHarvest => definition.manualEffortToHarvest;
+  int? get manualEffortToHarvest => definition.manualEffortToHarvest;
 
   double currentResources = 1;
   int effortCount = 0;
@@ -79,6 +79,8 @@ class RegenerativeHarvestableDoodadInstance
 
   // Deal with later maybe add a special mixin for this
   void manualHarvest() {
+    final manualEffortToHarvest = this.manualEffortToHarvest;
+    if (manualEffortToHarvest == null) return;
     effortCount++;
     if (effortCount >= manualEffortToHarvest) {
       harvest();

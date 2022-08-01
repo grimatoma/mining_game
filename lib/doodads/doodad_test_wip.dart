@@ -6,6 +6,20 @@ import 'base/doodad_definition.dart';
 import 'base/doodad_id.dart';
 
 final doodadDefinitionsExample = [
+  const RegenerativeHarvestableDoodadDefinition(
+      id: DoodadId.rawFish,
+      name: 'School of fish',
+      description:
+          'A group of playful fish that are so friendly. Why is your mouth watering? Do you not care at all about these beatiful creatures? o... You care about how they taste..',
+      imageAsset: 'assets/images/drills/5.png',
+      storeImageAsset: 'assets/images/drills/5.png',
+      supportedLocations: {TileType.Water},
+      ticksRequired: 10,
+      ticksName: 'Populating',
+      resourceRequiredToHarvestOne: 1,
+      resourceMax: 4,
+      resourceIncreasePerTick: 0.25,
+      manualEffortToHarvest: 5),
   DiggerDoodadDefinition(
     id: DoodadId.ironDigger,
     name: 'Iron Digger',

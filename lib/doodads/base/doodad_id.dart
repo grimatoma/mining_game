@@ -14,6 +14,7 @@ class DoodadId with _$DoodadId {
   static const DoodadId tree = DoodadId('TREE');
   static const DoodadId treeCutterHut = DoodadId('TREE_CUTTER_HUT');
   static const DoodadId ironSmelter = DoodadId('TREE_CUTTER_HUT');
+  static const DoodadId rawFish = DoodadId('RAW_FISH');
 
   factory DoodadId.fromJson(Map<String, dynamic> json) =>
       _$DoodadIdFromJson(json);

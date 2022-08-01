@@ -14,6 +14,7 @@ _$DiggerDoodadDefinition _$$DiggerDoodadDefinitionFromJson(
       description: json['description'] as String,
       imageAsset: json['imageAsset'] as String,
       storeImageAsset: json['storeImageAsset'] as String,
+      userCanBuild: json['userCanBuild'] as bool? ?? true,
       supportedLocations: (json['supportedLocations'] as List<dynamic>)
           .map((e) => $enumDecode(_$TileTypeEnumMap, e))
           .toSet(),
@@ -33,6 +34,7 @@ Map<String, dynamic> _$$DiggerDoodadDefinitionToJson(
       'description': instance.description,
       'imageAsset': instance.imageAsset,
       'storeImageAsset': instance.storeImageAsset,
+      'userCanBuild': instance.userCanBuild,
       'supportedLocations': instance.supportedLocations
           .map((e) => _$TileTypeEnumMap[e]!)
           .toList(),
@@ -60,6 +62,7 @@ _$RegenerativeHarvestableDoodadDefinition
           description: json['description'] as String,
           imageAsset: json['imageAsset'] as String,
           storeImageAsset: json['storeImageAsset'] as String,
+          userCanBuild: json['userCanBuild'] as bool? ?? true,
           supportedLocations: (json['supportedLocations'] as List<dynamic>)
               .map((e) => $enumDecode(_$TileTypeEnumMap, e))
               .toSet(),
@@ -70,7 +73,7 @@ _$RegenerativeHarvestableDoodadDefinition
           resourceMax: (json['resourceMax'] as num).toDouble(),
           resourceIncreasePerTick:
               (json['resourceIncreasePerTick'] as num).toDouble(),
-          manualEffortToHarvest: json['manualEffortToHarvest'] as int,
+          manualEffortToHarvest: json['manualEffortToHarvest'] as int?,
           dynamicImageAssets:
               (json['dynamicImageAssets'] as Map<String, dynamic>?)?.map(
             (k, e) => MapEntry(int.parse(k), e as String),
@@ -86,6 +89,7 @@ Map<String, dynamic> _$$RegenerativeHarvestableDoodadDefinitionToJson(
       'description': instance.description,
       'imageAsset': instance.imageAsset,
       'storeImageAsset': instance.storeImageAsset,
+      'userCanBuild': instance.userCanBuild,
       'supportedLocations': instance.supportedLocations
           .map((e) => _$TileTypeEnumMap[e]!)
           .toList(),
@@ -108,6 +112,7 @@ _$AreaHarvestableDoodadDefinition _$$AreaHarvestableDoodadDefinitionFromJson(
       description: json['description'] as String,
       imageAsset: json['imageAsset'] as String,
       storeImageAsset: json['storeImageAsset'] as String,
+      userCanBuild: json['userCanBuild'] as bool? ?? true,
       supportedLocations: (json['supportedLocations'] as List<dynamic>)
           .map((e) => $enumDecode(_$TileTypeEnumMap, e))
           .toSet(),
@@ -125,6 +130,7 @@ Map<String, dynamic> _$$AreaHarvestableDoodadDefinitionToJson(
       'description': instance.description,
       'imageAsset': instance.imageAsset,
       'storeImageAsset': instance.storeImageAsset,
+      'userCanBuild': instance.userCanBuild,
       'supportedLocations': instance.supportedLocations
           .map((e) => _$TileTypeEnumMap[e]!)
           .toList(),
@@ -142,6 +148,7 @@ _$MaterialProcessorDoodadDefinition
           description: json['description'] as String,
           imageAsset: json['imageAsset'] as String,
           storeImageAsset: json['storeImageAsset'] as String,
+          userCanBuild: json['userCanBuild'] as bool? ?? true,
           supportedLocations: (json['supportedLocations'] as List<dynamic>)
               .map((e) => $enumDecode(_$TileTypeEnumMap, e))
               .toSet(),
@@ -163,6 +170,7 @@ Map<String, dynamic> _$$MaterialProcessorDoodadDefinitionToJson(
       'description': instance.description,
       'imageAsset': instance.imageAsset,
       'storeImageAsset': instance.storeImageAsset,
+      'userCanBuild': instance.userCanBuild,
       'supportedLocations': instance.supportedLocations
           .map((e) => _$TileTypeEnumMap[e]!)
           .toList(),
