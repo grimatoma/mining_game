@@ -65,6 +65,32 @@ class MiningGameWidget extends HookConsumerWidget {
   }
 }
 
+class AppDrawerNavigation extends ConsumerWidget {
+  const AppDrawerNavigation({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final routes = ref.watch(mainNavigationPagesProvider);
+    final currentIndex = ref.watch(navigationIndexProvider);
+    return Scaffold(
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            for (int i = 0; i < routes.length; i++)
+              RouteBaseWidget(
+                // false,
+                i != currentIndex,
+                routes[i],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class AppRootWidget extends HookConsumerWidget {
   const AppRootWidget({
     Key? key,

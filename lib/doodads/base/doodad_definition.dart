@@ -6,6 +6,7 @@ import 'package:mining_game/planet/planet_manager.dart';
 
 import '../doodad_types/area_harvestable_doodad.dart';
 import '../doodad_types/digger_doodad.dart';
+import '../doodad_types/house_doodad.dart';
 import '../doodad_types/material_processor_doodad.dart';
 import '../doodad_types/tree_doodad.dart';
 import 'doodad_id.dart';
@@ -113,6 +114,19 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
     required BuiltList<ItemInstance> itemsProduced,
   }) = MaterialProcessorDoodadDefinition;
 
+  @Implements<HouseDoodadInterface>()
+  const factory DoodadDefinition.house({
+    required DoodadId id,
+    required String name,
+    required String description,
+    required String imageAsset,
+    required String storeImageAsset,
+    @Default(true) bool userCanBuild,
+    required Set<TileType> supportedLocations,
+    required int populationLimit,
+    required PersonType peopleType,
+  }) = HouseDoodadDefinition;
+
   DoodadInstance create(
       Ref ref,
       PlanetManager planetManager,
@@ -120,14 +134,17 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
       DoodadDefinition doodadDefinition,
       Function() notifyListeners) {
     return doodadDefinition.map(
-        digger: (d) => DiggerDoodadInstance(
-            ref, planetManager, controller, d, notifyListeners),
-        regenerativeHarvestable: (d) => RegenerativeHarvestableDoodadInstance(
-            ref, planetManager, controller, d, notifyListeners),
-        materialProcessor: (d) => MaterialProcessorDoodadInstance(
-            ref, planetManager, controller, d, notifyListeners),
-        areaHarvestable: (d) => AreaHarvestableDoodadInstance(
-            ref, planetManager, controller, d, notifyListeners));
+      digger: (d) => DiggerDoodadInstance(
+          ref, planetManager, controller, d, notifyListeners),
+      regenerativeHarvestable: (d) => RegenerativeHarvestableDoodadInstance(
+          ref, planetManager, controller, d, notifyListeners),
+      materialProcessor: (d) => MaterialProcessorDoodadInstance(
+          ref, planetManager, controller, d, notifyListeners),
+      areaHarvestable: (d) => AreaHarvestableDoodadInstance(
+          ref, planetManager, controller, d, notifyListeners),
+      house: (d) => HouseDoodadInstance(
+          ref, planetManager, controller, d, notifyListeners),
+    );
   }
 
   factory DoodadDefinition.fromJson(Map<String, dynamic> json) =>

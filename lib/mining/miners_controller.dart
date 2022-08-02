@@ -130,6 +130,7 @@ class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
 class MinerInstancesNotifier extends StateNotifier<Miners> {
   final GameEventManager _gameEventManager;
 
+  // ignore: unused_field
   final InventoryStateController _inventoryController;
 
   MinerInstancesNotifier(this._gameEventManager, this._inventoryController)

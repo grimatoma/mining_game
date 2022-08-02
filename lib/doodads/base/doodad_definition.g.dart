@@ -180,3 +180,43 @@ Map<String, dynamic> _$$MaterialProcessorDoodadDefinitionToJson(
       'itemsProduced': instance.itemsProduced.map((e) => e.toJson()).toList(),
       'runtimeType': instance.$type,
     };
+
+_$HouseDoodadDefinition _$$HouseDoodadDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$HouseDoodadDefinition(
+      id: DoodadId.fromJson(json['id'] as Map<String, dynamic>),
+      name: json['name'] as String,
+      description: json['description'] as String,
+      imageAsset: json['imageAsset'] as String,
+      storeImageAsset: json['storeImageAsset'] as String,
+      userCanBuild: json['userCanBuild'] as bool? ?? true,
+      supportedLocations: (json['supportedLocations'] as List<dynamic>)
+          .map((e) => $enumDecode(_$TileTypeEnumMap, e))
+          .toSet(),
+      populationLimit: json['populationLimit'] as int,
+      peopleType: $enumDecode(_$PersonTypeEnumMap, json['peopleType']),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$HouseDoodadDefinitionToJson(
+        _$HouseDoodadDefinition instance) =>
+    <String, dynamic>{
+      'id': instance.id.toJson(),
+      'name': instance.name,
+      'description': instance.description,
+      'imageAsset': instance.imageAsset,
+      'storeImageAsset': instance.storeImageAsset,
+      'userCanBuild': instance.userCanBuild,
+      'supportedLocations': instance.supportedLocations
+          .map((e) => _$TileTypeEnumMap[e]!)
+          .toList(),
+      'populationLimit': instance.populationLimit,
+      'peopleType': _$PersonTypeEnumMap[instance.peopleType]!,
+      'runtimeType': instance.$type,
+    };
+
+const _$PersonTypeEnumMap = {
+  PersonType.peasent: 'peasent',
+  PersonType.worker: 'worker',
+  PersonType.middleClass: 'middleClass',
+};

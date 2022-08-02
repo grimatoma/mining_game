@@ -24,6 +24,8 @@ DoodadDefinition _$DoodadDefinitionFromJson(Map<String, dynamic> json) {
       return AreaHarvestableDoodadDefinition.fromJson(json);
     case 'materialProcessor':
       return MaterialProcessorDoodadDefinition.fromJson(json);
+    case 'house':
+      return HouseDoodadDefinition.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'DoodadDefinition',
@@ -38,12 +40,8 @@ mixin _$DoodadDefinition {
   String get description => throw _privateConstructorUsedError;
   String get imageAsset => throw _privateConstructorUsedError;
   String get storeImageAsset => throw _privateConstructorUsedError;
-
   bool get userCanBuild => throw _privateConstructorUsedError;
-
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-  int get ticksRequired => throw _privateConstructorUsedError;
-  String get ticksName => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
@@ -99,6 +97,17 @@ mixin _$DoodadDefinition {
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)
         materialProcessor,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)
+        house,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -156,6 +165,17 @@ mixin _$DoodadDefinition {
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -213,6 +233,17 @@ mixin _$DoodadDefinition {
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -225,6 +256,7 @@ mixin _$DoodadDefinition {
         areaHarvestable,
     required TResult Function(MaterialProcessorDoodadDefinition value)
         materialProcessor,
+    required TResult Function(HouseDoodadDefinition value) house,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -235,6 +267,7 @@ mixin _$DoodadDefinition {
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -245,6 +278,7 @@ mixin _$DoodadDefinition {
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -259,6 +293,7 @@ abstract class $DoodadDefinitionCopyWith<$Res> {
   factory $DoodadDefinitionCopyWith(
           DoodadDefinition value, $Res Function(DoodadDefinition) then) =
       _$DoodadDefinitionCopyWithImpl<$Res>;
+
   $Res call(
       {DoodadId id,
       String name,
@@ -266,9 +301,7 @@ abstract class $DoodadDefinitionCopyWith<$Res> {
       String imageAsset,
       String storeImageAsset,
       bool userCanBuild,
-      Set<TileType> supportedLocations,
-      int ticksRequired,
-      String ticksName});
+      Set<TileType> supportedLocations});
 
   $DoodadIdCopyWith<$Res> get id;
 }
@@ -291,8 +324,6 @@ class _$DoodadDefinitionCopyWithImpl<$Res>
     Object? storeImageAsset = freezed,
     Object? userCanBuild = freezed,
     Object? supportedLocations = freezed,
-    Object? ticksRequired = freezed,
-    Object? ticksName = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -323,14 +354,6 @@ class _$DoodadDefinitionCopyWithImpl<$Res>
           ? _value.supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
-      ticksRequired: ticksRequired == freezed
-          ? _value.ticksRequired
-          : ticksRequired // ignore: cast_nullable_to_non_nullable
-              as int,
-      ticksName: ticksName == freezed
-          ? _value.ticksName
-          : ticksName // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 
@@ -471,7 +494,6 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   @JsonKey()
   final bool userCanBuild;
   final Set<TileType> _supportedLocations;
-
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -593,6 +615,17 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)
         materialProcessor,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)
+        house,
   }) {
     return digger(id, name, description, imageAsset, storeImageAsset,
         userCanBuild, supportedLocations, ticksRequired, ticksName, itemMined);
@@ -654,6 +687,17 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
   }) {
     return digger?.call(id, name, description, imageAsset, storeImageAsset,
         userCanBuild, supportedLocations, ticksRequired, ticksName, itemMined);
@@ -715,6 +759,17 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
     required TResult orElse(),
   }) {
     if (digger != null) {
@@ -743,6 +798,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
         areaHarvestable,
     required TResult Function(MaterialProcessorDoodadDefinition value)
         materialProcessor,
+    required TResult Function(HouseDoodadDefinition value) house,
   }) {
     return digger(this);
   }
@@ -756,6 +812,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
   }) {
     return digger?.call(this);
   }
@@ -769,6 +826,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
     required TResult orElse(),
   }) {
     if (digger != null) {
@@ -804,34 +862,22 @@ abstract class DiggerDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get imageAsset => throw _privateConstructorUsedError;
-
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
-
   @override
   bool get userCanBuild => throw _privateConstructorUsedError;
-
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-
-  @override
   int get ticksRequired => throw _privateConstructorUsedError;
-
-  @override
   String get ticksName => throw _privateConstructorUsedError;
-
   BuiltList<ItemInstanceGenerator> get itemMined =>
       throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$DiggerDoodadDefinitionCopyWith<_$DiggerDoodadDefinition> get copyWith =>
@@ -1001,7 +1047,6 @@ class _$RegenerativeHarvestableDoodadDefinition
   @JsonKey()
   final bool userCanBuild;
   final Set<TileType> _supportedLocations;
-
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -1021,7 +1066,6 @@ class _$RegenerativeHarvestableDoodadDefinition
   @override
   final int? manualEffortToHarvest;
   final Map<int, String>? _dynamicImageAssets;
-
   @override
   Map<int, String>? get dynamicImageAssets {
     final value = _dynamicImageAssets;
@@ -1153,6 +1197,17 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)
         materialProcessor,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)
+        house,
   }) {
     return regenerativeHarvestable(
         id,
@@ -1227,6 +1282,17 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
   }) {
     return regenerativeHarvestable?.call(
         id,
@@ -1301,6 +1367,17 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
     required TResult orElse(),
   }) {
     if (regenerativeHarvestable != null) {
@@ -1333,6 +1410,7 @@ class _$RegenerativeHarvestableDoodadDefinition
         areaHarvestable,
     required TResult Function(MaterialProcessorDoodadDefinition value)
         materialProcessor,
+    required TResult Function(HouseDoodadDefinition value) house,
   }) {
     return regenerativeHarvestable(this);
   }
@@ -1346,6 +1424,7 @@ class _$RegenerativeHarvestableDoodadDefinition
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
   }) {
     return regenerativeHarvestable?.call(this);
   }
@@ -1359,6 +1438,7 @@ class _$RegenerativeHarvestableDoodadDefinition
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
     required TResult orElse(),
   }) {
     if (regenerativeHarvestable != null) {
@@ -1399,39 +1479,24 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get imageAsset => throw _privateConstructorUsedError;
-
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
-
   @override
   bool get userCanBuild => throw _privateConstructorUsedError;
-
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-
-  @override
   int get ticksRequired => throw _privateConstructorUsedError;
-
-  @override
   String get ticksName => throw _privateConstructorUsedError;
-
   double get resourceRequiredToHarvestOne => throw _privateConstructorUsedError;
-
   double get resourceMax => throw _privateConstructorUsedError;
-
   double get resourceIncreasePerTick => throw _privateConstructorUsedError;
-
   int? get manualEffortToHarvest => throw _privateConstructorUsedError;
-
   Map<int, String>? get dynamicImageAssets =>
       throw _privateConstructorUsedError;
   @override
@@ -1574,7 +1639,6 @@ class _$AreaHarvestableDoodadDefinition
   @JsonKey()
   final bool userCanBuild;
   final Set<TileType> _supportedLocations;
-
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -1696,6 +1760,17 @@ class _$AreaHarvestableDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)
         materialProcessor,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)
+        house,
   }) {
     return areaHarvestable(id, name, description, imageAsset, storeImageAsset,
         userCanBuild, supportedLocations, ticksRequired, ticksName, range);
@@ -1757,6 +1832,17 @@ class _$AreaHarvestableDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
   }) {
     return areaHarvestable?.call(
         id,
@@ -1827,6 +1913,17 @@ class _$AreaHarvestableDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
     required TResult orElse(),
   }) {
     if (areaHarvestable != null) {
@@ -1846,6 +1943,7 @@ class _$AreaHarvestableDoodadDefinition
         areaHarvestable,
     required TResult Function(MaterialProcessorDoodadDefinition value)
         materialProcessor,
+    required TResult Function(HouseDoodadDefinition value) house,
   }) {
     return areaHarvestable(this);
   }
@@ -1859,6 +1957,7 @@ class _$AreaHarvestableDoodadDefinition
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
   }) {
     return areaHarvestable?.call(this);
   }
@@ -1872,6 +1971,7 @@ class _$AreaHarvestableDoodadDefinition
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
     required TResult orElse(),
   }) {
     if (areaHarvestable != null) {
@@ -1906,33 +2006,21 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get imageAsset => throw _privateConstructorUsedError;
-
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
-
   @override
   bool get userCanBuild => throw _privateConstructorUsedError;
-
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-
-  @override
   int get ticksRequired => throw _privateConstructorUsedError;
-
-  @override
   String get ticksName => throw _privateConstructorUsedError;
-
   int get range => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$AreaHarvestableDoodadDefinitionCopyWith<_$AreaHarvestableDoodadDefinition>
@@ -2079,7 +2167,6 @@ class _$MaterialProcessorDoodadDefinition
   @JsonKey()
   final bool userCanBuild;
   final Set<TileType> _supportedLocations;
-
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -2208,6 +2295,17 @@ class _$MaterialProcessorDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)
         materialProcessor,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)
+        house,
   }) {
     return materialProcessor(
         id,
@@ -2279,6 +2377,17 @@ class _$MaterialProcessorDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
   }) {
     return materialProcessor?.call(
         id,
@@ -2350,6 +2459,17 @@ class _$MaterialProcessorDoodadDefinition
             ItemRequirement consumedMaterials,
             BuiltList<ItemInstance> itemsProduced)?
         materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
     required TResult orElse(),
   }) {
     if (materialProcessor != null) {
@@ -2379,6 +2499,7 @@ class _$MaterialProcessorDoodadDefinition
         areaHarvestable,
     required TResult Function(MaterialProcessorDoodadDefinition value)
         materialProcessor,
+    required TResult Function(HouseDoodadDefinition value) house,
   }) {
     return materialProcessor(this);
   }
@@ -2392,6 +2513,7 @@ class _$MaterialProcessorDoodadDefinition
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
   }) {
     return materialProcessor?.call(this);
   }
@@ -2405,6 +2527,7 @@ class _$MaterialProcessorDoodadDefinition
     TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
     TResult Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
     required TResult orElse(),
   }) {
     if (materialProcessor != null) {
@@ -2441,6 +2564,513 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
+  @override
+  String get name => throw _privateConstructorUsedError;
+  @override
+  String get description => throw _privateConstructorUsedError;
+  @override
+  String get imageAsset => throw _privateConstructorUsedError;
+  @override
+  String get storeImageAsset => throw _privateConstructorUsedError;
+  @override
+  bool get userCanBuild => throw _privateConstructorUsedError;
+  @override
+  Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
+
+  int get ticksRequired => throw _privateConstructorUsedError;
+
+  String get ticksName => throw _privateConstructorUsedError;
+
+  ItemRequirement get consumedMaterials => throw _privateConstructorUsedError;
+
+  BuiltList<ItemInstance> get itemsProduced =>
+      throw _privateConstructorUsedError;
+
+  @override
+  @JsonKey(ignore: true)
+  _$$MaterialProcessorDoodadDefinitionCopyWith<
+          _$MaterialProcessorDoodadDefinition>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$HouseDoodadDefinitionCopyWith<$Res>
+    implements $DoodadDefinitionCopyWith<$Res> {
+  factory _$$HouseDoodadDefinitionCopyWith(_$HouseDoodadDefinition value,
+          $Res Function(_$HouseDoodadDefinition) then) =
+      __$$HouseDoodadDefinitionCopyWithImpl<$Res>;
+
+  @override
+  $Res call(
+      {DoodadId id,
+      String name,
+      String description,
+      String imageAsset,
+      String storeImageAsset,
+      bool userCanBuild,
+      Set<TileType> supportedLocations,
+      int populationLimit,
+      PersonType peopleType});
+
+  @override
+  $DoodadIdCopyWith<$Res> get id;
+}
+
+/// @nodoc
+class __$$HouseDoodadDefinitionCopyWithImpl<$Res>
+    extends _$DoodadDefinitionCopyWithImpl<$Res>
+    implements _$$HouseDoodadDefinitionCopyWith<$Res> {
+  __$$HouseDoodadDefinitionCopyWithImpl(_$HouseDoodadDefinition _value,
+      $Res Function(_$HouseDoodadDefinition) _then)
+      : super(_value, (v) => _then(v as _$HouseDoodadDefinition));
+
+  @override
+  _$HouseDoodadDefinition get _value => super._value as _$HouseDoodadDefinition;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? description = freezed,
+    Object? imageAsset = freezed,
+    Object? storeImageAsset = freezed,
+    Object? userCanBuild = freezed,
+    Object? supportedLocations = freezed,
+    Object? populationLimit = freezed,
+    Object? peopleType = freezed,
+  }) {
+    return _then(_$HouseDoodadDefinition(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as DoodadId,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageAsset: imageAsset == freezed
+          ? _value.imageAsset
+          : imageAsset // ignore: cast_nullable_to_non_nullable
+              as String,
+      storeImageAsset: storeImageAsset == freezed
+          ? _value.storeImageAsset
+          : storeImageAsset // ignore: cast_nullable_to_non_nullable
+              as String,
+      userCanBuild: userCanBuild == freezed
+          ? _value.userCanBuild
+          : userCanBuild // ignore: cast_nullable_to_non_nullable
+              as bool,
+      supportedLocations: supportedLocations == freezed
+          ? _value._supportedLocations
+          : supportedLocations // ignore: cast_nullable_to_non_nullable
+              as Set<TileType>,
+      populationLimit: populationLimit == freezed
+          ? _value.populationLimit
+          : populationLimit // ignore: cast_nullable_to_non_nullable
+              as int,
+      peopleType: peopleType == freezed
+          ? _value.peopleType
+          : peopleType // ignore: cast_nullable_to_non_nullable
+              as PersonType,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$HouseDoodadDefinition extends HouseDoodadDefinition {
+  const _$HouseDoodadDefinition(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.imageAsset,
+      required this.storeImageAsset,
+      this.userCanBuild = true,
+      required final Set<TileType> supportedLocations,
+      required this.populationLimit,
+      required this.peopleType,
+      final String? $type})
+      : _supportedLocations = supportedLocations,
+        $type = $type ?? 'house',
+        super._();
+
+  factory _$HouseDoodadDefinition.fromJson(Map<String, dynamic> json) =>
+      _$$HouseDoodadDefinitionFromJson(json);
+
+  @override
+  final DoodadId id;
+  @override
+  final String name;
+  @override
+  final String description;
+  @override
+  final String imageAsset;
+  @override
+  final String storeImageAsset;
+  @override
+  @JsonKey()
+  final bool userCanBuild;
+  final Set<TileType> _supportedLocations;
+
+  @override
+  Set<TileType> get supportedLocations {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(_supportedLocations);
+  }
+
+  @override
+  final int populationLimit;
+  @override
+  final PersonType peopleType;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'DoodadDefinition.house(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, userCanBuild: $userCanBuild, supportedLocations: $supportedLocations, populationLimit: $populationLimit, peopleType: $peopleType)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$HouseDoodadDefinition &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description) &&
+            const DeepCollectionEquality()
+                .equals(other.imageAsset, imageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other.storeImageAsset, storeImageAsset) &&
+            const DeepCollectionEquality()
+                .equals(other.userCanBuild, userCanBuild) &&
+            const DeepCollectionEquality()
+                .equals(other._supportedLocations, _supportedLocations) &&
+            const DeepCollectionEquality()
+                .equals(other.populationLimit, populationLimit) &&
+            const DeepCollectionEquality()
+                .equals(other.peopleType, peopleType));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(description),
+      const DeepCollectionEquality().hash(imageAsset),
+      const DeepCollectionEquality().hash(storeImageAsset),
+      const DeepCollectionEquality().hash(userCanBuild),
+      const DeepCollectionEquality().hash(_supportedLocations),
+      const DeepCollectionEquality().hash(populationLimit),
+      const DeepCollectionEquality().hash(peopleType));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$HouseDoodadDefinitionCopyWith<_$HouseDoodadDefinition> get copyWith =>
+      __$$HouseDoodadDefinitionCopyWithImpl<_$HouseDoodadDefinition>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            BuiltList<ItemInstanceGenerator> itemMined)
+        digger,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            double resourceRequiredToHarvestOne,
+            double resourceMax,
+            double resourceIncreasePerTick,
+            int? manualEffortToHarvest,
+            Map<int, String>? dynamicImageAssets)
+        regenerativeHarvestable,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            int range)
+        areaHarvestable,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            ItemRequirement consumedMaterials,
+            BuiltList<ItemInstance> itemsProduced)
+        materialProcessor,
+    required TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)
+        house,
+  }) {
+    return house(id, name, description, imageAsset, storeImageAsset,
+        userCanBuild, supportedLocations, populationLimit, peopleType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            BuiltList<ItemInstanceGenerator> itemMined)?
+        digger,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            double resourceRequiredToHarvestOne,
+            double resourceMax,
+            double resourceIncreasePerTick,
+            int? manualEffortToHarvest,
+            Map<int, String>? dynamicImageAssets)?
+        regenerativeHarvestable,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            int range)?
+        areaHarvestable,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            ItemRequirement consumedMaterials,
+            BuiltList<ItemInstance> itemsProduced)?
+        materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
+  }) {
+    return house?.call(id, name, description, imageAsset, storeImageAsset,
+        userCanBuild, supportedLocations, populationLimit, peopleType);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            BuiltList<ItemInstanceGenerator> itemMined)?
+        digger,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            double resourceRequiredToHarvestOne,
+            double resourceMax,
+            double resourceIncreasePerTick,
+            int? manualEffortToHarvest,
+            Map<int, String>? dynamicImageAssets)?
+        regenerativeHarvestable,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            int range)?
+        areaHarvestable,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int ticksRequired,
+            String ticksName,
+            ItemRequirement consumedMaterials,
+            BuiltList<ItemInstance> itemsProduced)?
+        materialProcessor,
+    TResult Function(
+            DoodadId id,
+            String name,
+            String description,
+            String imageAsset,
+            String storeImageAsset,
+            bool userCanBuild,
+            Set<TileType> supportedLocations,
+            int populationLimit,
+            PersonType peopleType)?
+        house,
+    required TResult orElse(),
+  }) {
+    if (house != null) {
+      return house(id, name, description, imageAsset, storeImageAsset,
+          userCanBuild, supportedLocations, populationLimit, peopleType);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(DiggerDoodadDefinition value) digger,
+    required TResult Function(RegenerativeHarvestableDoodadDefinition value)
+        regenerativeHarvestable,
+    required TResult Function(AreaHarvestableDoodadDefinition value)
+        areaHarvestable,
+    required TResult Function(MaterialProcessorDoodadDefinition value)
+        materialProcessor,
+    required TResult Function(HouseDoodadDefinition value) house,
+  }) {
+    return house(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DiggerDoodadDefinition value)? digger,
+    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+        regenerativeHarvestable,
+    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult Function(MaterialProcessorDoodadDefinition value)?
+        materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
+  }) {
+    return house?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DiggerDoodadDefinition value)? digger,
+    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+        regenerativeHarvestable,
+    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult Function(MaterialProcessorDoodadDefinition value)?
+        materialProcessor,
+    TResult Function(HouseDoodadDefinition value)? house,
+    required TResult orElse(),
+  }) {
+    if (house != null) {
+      return house(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$HouseDoodadDefinitionToJson(this);
+  }
+}
+
+abstract class HouseDoodadDefinition extends DoodadDefinition
+    implements HouseDoodadInterface {
+  const factory HouseDoodadDefinition(
+      {required final DoodadId id,
+      required final String name,
+      required final String description,
+      required final String imageAsset,
+      required final String storeImageAsset,
+      final bool userCanBuild,
+      required final Set<TileType> supportedLocations,
+      required final int populationLimit,
+      required final PersonType peopleType}) = _$HouseDoodadDefinition;
+
+  const HouseDoodadDefinition._() : super._();
+
+  factory HouseDoodadDefinition.fromJson(Map<String, dynamic> json) =
+      _$HouseDoodadDefinition.fromJson;
+
+  @override
+  DoodadId get id => throw _privateConstructorUsedError;
 
   @override
   String get name => throw _privateConstructorUsedError;
@@ -2460,20 +3090,12 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
 
-  @override
-  int get ticksRequired => throw _privateConstructorUsedError;
+  int get populationLimit => throw _privateConstructorUsedError;
 
-  @override
-  String get ticksName => throw _privateConstructorUsedError;
-
-  ItemRequirement get consumedMaterials => throw _privateConstructorUsedError;
-
-  BuiltList<ItemInstance> get itemsProduced =>
-      throw _privateConstructorUsedError;
+  PersonType get peopleType => throw _privateConstructorUsedError;
 
   @override
   @JsonKey(ignore: true)
-  _$$MaterialProcessorDoodadDefinitionCopyWith<
-          _$MaterialProcessorDoodadDefinition>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$HouseDoodadDefinitionCopyWith<_$HouseDoodadDefinition> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -14,26 +14,36 @@ class HexagonPlanetRenderer extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selectedPlanet = ref.watch(selectedPlanetProvider);
-    return InteractiveViewer(
-      boundaryMargin: const EdgeInsets.all(double.infinity),
-      constrained: true,
-      minScale: 0.25,
-      maxScale: 3,
-      child: Center(
-        child: Container(
-          width: selectedPlanet.width * tileSize2 * 2,
-          height: selectedPlanet.height * tileSize2 * sqrt(3),
-          color: Colors.teal,
-          child: Stack(
-            children: [
-              for (final tile in selectedPlanet.tilesIterable)
-                // for (final tile in [selectedPlanet.tilesIterable.last])
-                Transform.translate(
-                  offset: flatHexToPixel(41, tile.hexagon),
-                  child: TileWidget(tile),
-                ),
-              const SelectedTileWidget(),
-            ],
+    return Container(
+      color: Colors.blue[500],
+      child: InteractiveViewer(
+        boundaryMargin: const EdgeInsets.all(double.infinity),
+        constrained: true,
+        minScale: 0.25,
+        maxScale: 3,
+        child: Center(
+          child: Container(
+            width: selectedPlanet.width * tileSize2 * 2,
+            height: selectedPlanet.height * tileSize2 * sqrt(3),
+            // color: Colors.teal,
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                  selectedPlanet.width * tileSize2 / (selectedPlanet.width / 2),
+                  0,
+                  0,
+                  0),
+              child: Stack(
+                children: [
+                  for (final tile in selectedPlanet.tilesIterable)
+                    // for (final tile in [selectedPlanet.tilesIterable.last])
+                    Transform.translate(
+                      offset: flatHexToPixel(41, tile.hexagon),
+                      child: TileWidget(tile),
+                    ),
+                  const SelectedTileWidget(),
+                ],
+              ),
+            ),
           ),
         ),
       ),

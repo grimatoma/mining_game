@@ -15,6 +15,8 @@ part 'planet_manager.freezed.dart';
 class PlanetsManager {
   final Ref _ref;
   final List<PlanetManager> planets;
+
+  // ignore: unused_field
   late final Timer _timer;
 
   PlanetsManager(this._ref) : planets = [PlanetManager(_ref)] {
@@ -108,8 +110,8 @@ class PlanetManager {
   late final BuiltMap<Hexagon, TileStateController> tiles;
 
   // Load or for now generate the planet
-  final width = 27;
-  final height = 27;
+  final width = 11;
+  final height = 11;
 
   PlanetManager(this._ref) {
     final planetBuilder = MapBuilder<Hexagon, TileStateController>();
@@ -121,12 +123,12 @@ class PlanetManager {
     //   planetBuilder.add(rowBuilder.build());
     // }
 
-    final water = cubeRing(const Hexagon(0, 0), 4);
+    final water = cubeRing(const Hexagon(0, 0), 5);
 
     var index = 0;
-    for (final hexagon in generateHexagonMapOfSize2(32)) {
+    for (final hexagon in generateHexagonMapOfSize2(5)) {
       var type = TileType.Grass;
-      if (index == 29) {
+      if (index == 55) {
         type = TileType.IronDeposit;
       }
       if (index == 15) {
