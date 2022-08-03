@@ -15,7 +15,7 @@ enum BoxKey {
   COMPLETED_QUESTS,
 }
 
-const keyIncrement = '15';
+const keyIncrement = '16';
 
 class HiveManager {
   static final openedBoxes = <BoxKey, Box>{};
