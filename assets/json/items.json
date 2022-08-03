@@ -12,6 +12,17 @@
   },
   {
     "id": {
+      "itemId": "FOOD"
+    },
+    "runtimeType": "resourceDefinition",
+    "name": "Food",
+    "namePlural": "Food",
+    "description": "Test food object",
+    "image": "assets/images/all/foodTest1.png",
+    "maxStackSize": 1000
+  },
+  {
+    "id": {
       "itemId": "SWORD"
     },
     "runtimeType": "swordDefinition",

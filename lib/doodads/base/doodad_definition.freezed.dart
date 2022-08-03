@@ -69,6 +69,7 @@ mixin _$DoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -137,6 +138,7 @@ mixin _$DoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -205,6 +207,7 @@ mixin _$DoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -293,7 +296,6 @@ abstract class $DoodadDefinitionCopyWith<$Res> {
   factory $DoodadDefinitionCopyWith(
           DoodadDefinition value, $Res Function(DoodadDefinition) then) =
       _$DoodadDefinitionCopyWithImpl<$Res>;
-
   $Res call(
       {DoodadId id,
       String name,
@@ -587,6 +589,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -659,6 +662,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -731,6 +735,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -905,6 +910,7 @@ abstract class _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res>
       double resourceRequiredToHarvestOne,
       double resourceMax,
       double resourceIncreasePerTick,
+      BuiltList<ItemInstanceGenerator> resourceGenerated,
       int? manualEffortToHarvest,
       Map<int, String>? dynamicImageAssets});
 
@@ -940,6 +946,7 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
     Object? resourceRequiredToHarvestOne = freezed,
     Object? resourceMax = freezed,
     Object? resourceIncreasePerTick = freezed,
+    Object? resourceGenerated = freezed,
     Object? manualEffortToHarvest = freezed,
     Object? dynamicImageAssets = freezed,
   }) {
@@ -992,6 +999,10 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
           ? _value.resourceIncreasePerTick
           : resourceIncreasePerTick // ignore: cast_nullable_to_non_nullable
               as double,
+      resourceGenerated: resourceGenerated == freezed
+          ? _value.resourceGenerated
+          : resourceGenerated // ignore: cast_nullable_to_non_nullable
+              as BuiltList<ItemInstanceGenerator>,
       manualEffortToHarvest: manualEffortToHarvest == freezed
           ? _value.manualEffortToHarvest
           : manualEffortToHarvest // ignore: cast_nullable_to_non_nullable
@@ -1021,6 +1032,7 @@ class _$RegenerativeHarvestableDoodadDefinition
       required this.resourceRequiredToHarvestOne,
       required this.resourceMax,
       required this.resourceIncreasePerTick,
+      required this.resourceGenerated,
       this.manualEffortToHarvest,
       final Map<int, String>? dynamicImageAssets,
       final String? $type})
@@ -1064,6 +1076,8 @@ class _$RegenerativeHarvestableDoodadDefinition
   @override
   final double resourceIncreasePerTick;
   @override
+  final BuiltList<ItemInstanceGenerator> resourceGenerated;
+  @override
   final int? manualEffortToHarvest;
   final Map<int, String>? _dynamicImageAssets;
   @override
@@ -1079,7 +1093,7 @@ class _$RegenerativeHarvestableDoodadDefinition
 
   @override
   String toString() {
-    return 'DoodadDefinition.regenerativeHarvestable(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, userCanBuild: $userCanBuild, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, resourceRequiredToHarvestOne: $resourceRequiredToHarvestOne, resourceMax: $resourceMax, resourceIncreasePerTick: $resourceIncreasePerTick, manualEffortToHarvest: $manualEffortToHarvest, dynamicImageAssets: $dynamicImageAssets)';
+    return 'DoodadDefinition.regenerativeHarvestable(id: $id, name: $name, description: $description, imageAsset: $imageAsset, storeImageAsset: $storeImageAsset, userCanBuild: $userCanBuild, supportedLocations: $supportedLocations, ticksRequired: $ticksRequired, ticksName: $ticksName, resourceRequiredToHarvestOne: $resourceRequiredToHarvestOne, resourceMax: $resourceMax, resourceIncreasePerTick: $resourceIncreasePerTick, resourceGenerated: $resourceGenerated, manualEffortToHarvest: $manualEffortToHarvest, dynamicImageAssets: $dynamicImageAssets)';
   }
 
   @override
@@ -1110,6 +1124,8 @@ class _$RegenerativeHarvestableDoodadDefinition
             const DeepCollectionEquality().equals(
                 other.resourceIncreasePerTick, resourceIncreasePerTick) &&
             const DeepCollectionEquality()
+                .equals(other.resourceGenerated, resourceGenerated) &&
+            const DeepCollectionEquality()
                 .equals(other.manualEffortToHarvest, manualEffortToHarvest) &&
             const DeepCollectionEquality()
                 .equals(other._dynamicImageAssets, _dynamicImageAssets));
@@ -1131,6 +1147,7 @@ class _$RegenerativeHarvestableDoodadDefinition
       const DeepCollectionEquality().hash(resourceRequiredToHarvestOne),
       const DeepCollectionEquality().hash(resourceMax),
       const DeepCollectionEquality().hash(resourceIncreasePerTick),
+      const DeepCollectionEquality().hash(resourceGenerated),
       const DeepCollectionEquality().hash(manualEffortToHarvest),
       const DeepCollectionEquality().hash(_dynamicImageAssets));
 
@@ -1169,6 +1186,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -1222,6 +1240,7 @@ class _$RegenerativeHarvestableDoodadDefinition
         resourceRequiredToHarvestOne,
         resourceMax,
         resourceIncreasePerTick,
+        resourceGenerated,
         manualEffortToHarvest,
         dynamicImageAssets);
   }
@@ -1254,6 +1273,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -1307,6 +1327,7 @@ class _$RegenerativeHarvestableDoodadDefinition
         resourceRequiredToHarvestOne,
         resourceMax,
         resourceIncreasePerTick,
+        resourceGenerated,
         manualEffortToHarvest,
         dynamicImageAssets);
   }
@@ -1339,6 +1360,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -1394,6 +1416,7 @@ class _$RegenerativeHarvestableDoodadDefinition
           resourceRequiredToHarvestOne,
           resourceMax,
           resourceIncreasePerTick,
+          resourceGenerated,
           manualEffortToHarvest,
           dynamicImageAssets);
     }
@@ -1456,7 +1479,7 @@ class _$RegenerativeHarvestableDoodadDefinition
 abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
     implements RegenerativeHarvestableDoodadInterface {
   const factory RegenerativeHarvestableDoodadDefinition(
-      {required final DoodadId id,
+          {required final DoodadId id,
           required final String name,
           required final String description,
           required final String imageAsset,
@@ -1468,6 +1491,7 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
           required final double resourceRequiredToHarvestOne,
           required final double resourceMax,
           required final double resourceIncreasePerTick,
+          required final BuiltList<ItemInstanceGenerator> resourceGenerated,
           final int? manualEffortToHarvest,
           final Map<int, String>? dynamicImageAssets}) =
       _$RegenerativeHarvestableDoodadDefinition;
@@ -1496,6 +1520,8 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
   double get resourceRequiredToHarvestOne => throw _privateConstructorUsedError;
   double get resourceMax => throw _privateConstructorUsedError;
   double get resourceIncreasePerTick => throw _privateConstructorUsedError;
+  BuiltList<ItemInstanceGenerator> get resourceGenerated =>
+      throw _privateConstructorUsedError;
   int? get manualEffortToHarvest => throw _privateConstructorUsedError;
   Map<int, String>? get dynamicImageAssets =>
       throw _privateConstructorUsedError;
@@ -1732,6 +1758,7 @@ class _$AreaHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -1804,6 +1831,7 @@ class _$AreaHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -1885,6 +1913,7 @@ class _$AreaHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -2267,6 +2296,7 @@ class _$MaterialProcessorDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -2349,6 +2379,7 @@ class _$MaterialProcessorDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -2431,6 +2462,7 @@ class _$MaterialProcessorDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -2576,16 +2608,11 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
   bool get userCanBuild => throw _privateConstructorUsedError;
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-
   int get ticksRequired => throw _privateConstructorUsedError;
-
   String get ticksName => throw _privateConstructorUsedError;
-
   ItemRequirement get consumedMaterials => throw _privateConstructorUsedError;
-
   BuiltList<ItemInstance> get itemsProduced =>
       throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$MaterialProcessorDoodadDefinitionCopyWith<
@@ -2599,7 +2626,6 @@ abstract class _$$HouseDoodadDefinitionCopyWith<$Res>
   factory _$$HouseDoodadDefinitionCopyWith(_$HouseDoodadDefinition value,
           $Res Function(_$HouseDoodadDefinition) then) =
       __$$HouseDoodadDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {DoodadId id,
@@ -2715,7 +2741,6 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
   @JsonKey()
   final bool userCanBuild;
   final Set<TileType> _supportedLocations;
-
   @override
   Set<TileType> get supportedLocations {
     // ignore: implicit_dynamic_type
@@ -2806,6 +2831,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -2878,6 +2904,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -2950,6 +2977,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
+            BuiltList<ItemInstanceGenerator> resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -3063,7 +3091,6 @@ abstract class HouseDoodadDefinition extends DoodadDefinition
       required final Set<TileType> supportedLocations,
       required final int populationLimit,
       required final PersonType peopleType}) = _$HouseDoodadDefinition;
-
   const HouseDoodadDefinition._() : super._();
 
   factory HouseDoodadDefinition.fromJson(Map<String, dynamic> json) =
@@ -3071,29 +3098,20 @@ abstract class HouseDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get imageAsset => throw _privateConstructorUsedError;
-
   @override
   String get storeImageAsset => throw _privateConstructorUsedError;
-
   @override
   bool get userCanBuild => throw _privateConstructorUsedError;
-
   @override
   Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-
   int get populationLimit => throw _privateConstructorUsedError;
-
   PersonType get peopleType => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$HouseDoodadDefinitionCopyWith<_$HouseDoodadDefinition> get copyWith =>

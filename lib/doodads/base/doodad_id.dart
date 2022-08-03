@@ -16,6 +16,7 @@ class DoodadId with _$DoodadId {
   static const DoodadId ironSmelter = DoodadId('TREE_CUTTER_HUT');
   static const DoodadId rawFish = DoodadId('RAW_FISH');
   static const DoodadId houseLevel1 = DoodadId('HOUSE_LEVEL_1');
+  static const DoodadId fisherman = DoodadId('FISHERMAN');
 
   factory DoodadId.fromJson(Map<String, dynamic> json) =>
       _$DoodadIdFromJson(json);

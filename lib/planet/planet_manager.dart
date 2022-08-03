@@ -105,7 +105,7 @@ class Planet {}
 // Maybe add a state.
 class PlanetManager {
   final Ref _ref;
-  final houseManager = HouseManager();
+  late final HouseManager houseManager;
 
   late final BuiltMap<Hexagon, TileStateController> tiles;
 
@@ -114,6 +114,7 @@ class PlanetManager {
   final height = 11;
 
   PlanetManager(this._ref) {
+    houseManager = HouseManager(_ref);
     final planetBuilder = MapBuilder<Hexagon, TileStateController>();
     // for (int y = 0; y < height; y++) {
     //   final rowBuilder = ListBuilder<TileStateController>();

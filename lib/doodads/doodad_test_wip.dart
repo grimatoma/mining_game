@@ -15,21 +15,32 @@ final doodadDefinitionsExample = [
       storeImageAsset: 'assets/images/all/house1.png',
       supportedLocations: {TileType.Grass},
       populationLimit: 10,
-      peopleType: PersonType.peasent),
-  const RegenerativeHarvestableDoodadDefinition(
+      peopleType: PersonType.peasant),
+  RegenerativeHarvestableDoodadDefinition(
       id: DoodadId.rawFish,
       name: 'School of fish',
       description:
           'A group of playful fish that are so friendly. Why is your mouth watering? Do you not care at all about these beatiful creatures? o... You care about how they taste..',
-      imageAsset: 'assets/images/drills/5.png',
-      storeImageAsset: 'assets/images/drills/5.png',
+      imageAsset: 'assets/images/all/fishing.png',
+      storeImageAsset: 'assets/images/all/fishing.png',
       supportedLocations: {TileType.Water},
       ticksRequired: 10,
       ticksName: 'Populating',
       resourceRequiredToHarvestOne: 1,
       resourceMax: 4,
       resourceIncreasePerTick: 0.25,
-      manualEffortToHarvest: 5),
+      manualEffortToHarvest: 5,
+      resourceGenerated: [ItemInstanceGenerator(Items.FOOD.id, 1)].build()),
+  const AreaHarvestableDoodadDefinition(
+      id: DoodadId.fisherman,
+      name: 'Fisherman',
+      description: '',
+      imageAsset: 'assets/images/all/fishingHut.png',
+      storeImageAsset: 'assets/images/all/fishingHut.png',
+      supportedLocations: {TileType.Grass},
+      ticksRequired: 10,
+      ticksName: 'Fishing',
+      range: 1),
   DiggerDoodadDefinition(
     id: DoodadId.ironDigger,
     name: 'Iron Digger',
@@ -42,7 +53,7 @@ final doodadDefinitionsExample = [
     ticksName: 'Digging',
     itemMined: [ItemInstanceGenerator(Items.IRON.id, 1)].build(),
   ),
-  const RegenerativeHarvestableDoodadDefinition(
+  RegenerativeHarvestableDoodadDefinition(
       id: DoodadId.tree,
       name: 'Tree',
       description:
@@ -66,7 +77,8 @@ final doodadDefinitionsExample = [
         25: 'assets/images/forestTest/forest25.png',
         1: 'assets/images/forestTest/forest10.png',
         0: 'assets/images/forestTest/forest0.png',
-      }),
+      },
+      resourceGenerated: [ItemInstanceGenerator(Items.WOOD.id, 1)].build()),
   const AreaHarvestableDoodadDefinition(
       id: DoodadId.treeCutterHut,
       name: 'Tree cutter hut',

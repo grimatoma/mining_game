@@ -73,6 +73,9 @@ _$RegenerativeHarvestableDoodadDefinition
           resourceMax: (json['resourceMax'] as num).toDouble(),
           resourceIncreasePerTick:
               (json['resourceIncreasePerTick'] as num).toDouble(),
+          resourceGenerated: ((json['resourceGenerated'] as List).map((e) =>
+                  ItemInstanceGenerator.fromJson(e as Map<String, dynamic>)))
+              .toBuiltList(),
           manualEffortToHarvest: json['manualEffortToHarvest'] as int?,
           dynamicImageAssets:
               (json['dynamicImageAssets'] as Map<String, dynamic>?)?.map(
@@ -98,6 +101,8 @@ Map<String, dynamic> _$$RegenerativeHarvestableDoodadDefinitionToJson(
       'resourceRequiredToHarvestOne': instance.resourceRequiredToHarvestOne,
       'resourceMax': instance.resourceMax,
       'resourceIncreasePerTick': instance.resourceIncreasePerTick,
+      'resourceGenerated':
+          instance.resourceGenerated.map((e) => e.toJson()).toList(),
       'manualEffortToHarvest': instance.manualEffortToHarvest,
       'dynamicImageAssets':
           instance.dynamicImageAssets?.map((k, e) => MapEntry(k.toString(), e)),
@@ -216,7 +221,7 @@ Map<String, dynamic> _$$HouseDoodadDefinitionToJson(
     };
 
 const _$PersonTypeEnumMap = {
-  PersonType.peasent: 'peasent',
+  PersonType.peasant: 'peasant',
   PersonType.worker: 'worker',
   PersonType.middleClass: 'middleClass',
 };

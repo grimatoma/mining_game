@@ -1,4 +1,12 @@
+import 'dart:math';
+
+import 'package:flutter/widgets.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
+import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/widgets/planet_page.dart';
 
 abstract class HouseDoodadInterface extends DoodadInterface {
   int get populationLimit;
@@ -29,19 +37,69 @@ class HouseDoodadInstance extends DoodadInstance<HouseDoodadInterface>
   void onDestroy() {
     _houseManager.deregister(this);
   }
+
+  int _currentPopulationValue = 0;
+
+  int get currentPopulation => _currentPopulationValue;
+
+  set _currentPopulation(int populationCount) {
+    _currentPopulationValue = populationCount;
+    notifyListeners();
+  }
+
+  @override
+  Widget? get statusWidget => HouseStatusWidget(this);
 }
 
 enum PersonType {
-  peasent,
+  peasant,
   worker,
   middleClass,
 }
 
+const personConsumptionRates = {
+  PersonType.peasant: 1,
+  PersonType.worker: 2,
+};
+
 class HouseManager {
+  // final InventoryStateController _inventory;
+  final Ref _ref;
   final Set<HouseDoodadInstance> houses = {};
+
+  HouseManager(this._ref);
 
   void update() {
     // Dont update every time. instead do updates every 10?
+
+    final startingFood =
+        _ref.read(inventoryCountsStateProvider)[Items.FOOD.id] ?? 0;
+    var remainingFood = startingFood;
+    // var consumedFood = 0;
+    final r = Random();
+    const personIncreaseRandomOdds = 2;
+    for (final house in houses.toList()..shuffle()) {
+      if (remainingFood > house.currentPopulation) {
+        remainingFood -= house.currentPopulation;
+        // Well fed, can grow?
+        if (house.currentPopulation < house.populationLimit) {
+          if (r.nextInt(personIncreaseRandomOdds) == 0) {
+            house._currentPopulation = house.currentPopulation + 1;
+          }
+        }
+      } else {
+        if (house.currentPopulation > 0 && r.nextInt(2) == 0) {
+          house._currentPopulation = house.currentPopulation - 1;
+        }
+      }
+
+      remainingFood = max(0, remainingFood - house.currentPopulation);
+    }
+    final consumedFood = startingFood - remainingFood;
+    _ref.read(inventoryStateProvider.notifier).subtractItemRequirement(
+        ItemRequirement.single(Items.FOOD.id, consumedFood));
+    // determine how much consuption is needed
+    // subtract food and if left over randomly(random chance) add new pop.
   }
 
   void register(HouseDoodadInstance instance) {
@@ -77,3 +135,54 @@ class HouseManager {
  * Population requires resources like farming/fishing
  * Population has quests asking for items to make them happy
  */
+
+class HouseStatusWidget extends ConsumerWidget {
+  final HouseDoodadInstance _instance;
+
+  const HouseStatusWidget(
+    this._instance, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(_instance.parent.provider);
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(0, 0, 16, 0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Population: ${_instance.currentPopulation}'),
+              // Text(
+              //     '${(_instance.currentResources * 100).toInt()}/${(_instance.resourceMax * 100).toInt()}'),
+              // Text(
+              //     'Trees cost ${(_instance.resourceRequiredToHarvestOne * 100).toInt()} each'),
+              // TextButton(
+              //     onPressed: () {
+              //       _instance.manualHarvest();
+              //     },
+              //     child: const Text('Chop')),
+            ],
+          ),
+        ),
+        Expanded(flex: 1, child: DoodadStatus(_instance)),
+        // Expanded(
+        //   flex: 1,
+        //   child: Column(
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
+        //           ':'
+        //           '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
+        //       LinearProgressIndicator(
+        //         value: currentTick.toDouble() / _treeInstance.ticksRequired,
+        //       ),
+        //     ],
+        //   ),
+        // )
+      ],
+    );
+  }
+}

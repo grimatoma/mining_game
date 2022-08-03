@@ -81,6 +81,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
     required double resourceRequiredToHarvestOne,
     required double resourceMax,
     required double resourceIncreasePerTick,
+    required BuiltList<ItemInstanceGenerator> resourceGenerated,
     int? manualEffortToHarvest,
     Map<int, String>? dynamicImageAssets,
   }) = RegenerativeHarvestableDoodadDefinition;

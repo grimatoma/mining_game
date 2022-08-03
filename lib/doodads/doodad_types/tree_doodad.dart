@@ -1,9 +1,10 @@
 import 'dart:math';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/widgets/planet_page.dart';
 
 import '../base/doodad_definition.dart';
@@ -20,6 +21,8 @@ abstract class RegenerativeHarvestableDoodadInterface
   int? get manualEffortToHarvest;
 
   Map<int, String>? get dynamicImageAssets;
+
+  BuiltList<ItemInstanceGenerator> get resourceGenerated;
 }
 
 class RegenerativeHarvestableDoodadInstance
@@ -70,9 +73,11 @@ class RegenerativeHarvestableDoodadInstance
   void harvest() {
     if (currentResources < resourceRequiredToHarvestOne) return;
     currentResources -= resourceRequiredToHarvestOne;
-    ref
-        .read(inventoryStateProvider.notifier)
-        .addItems(Items.WOOD.generateItemInstance(1));
+    for (final resourceGenerator in resourceGenerated) {
+      ref
+          .read(inventoryStateProvider.notifier)
+          .addItemWithGenerator(resourceGenerator);
+    }
     _refreshImageAsset();
     notifyListeners();
   }
@@ -103,7 +108,7 @@ class RegenerativeHarvestableDoodadInstance
   String get _newImageAsset {
     final assets = dynamicImageAssets;
     if (assets == null) {
-      return imageAsset;
+      return super.imageAsset;
     }
 
     final percent = (currentResources / resourceMax * 100).toInt();
@@ -118,6 +123,10 @@ class RegenerativeHarvestableDoodadInstance
 
   @override
   Widget get statusWidget => TreeStatusWidget(this);
+
+  @override
+  BuiltList<ItemInstanceGenerator> get resourceGenerated =>
+      definition.resourceGenerated;
 }
 
 class TreeStatusWidget extends ConsumerWidget {

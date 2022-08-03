@@ -14,6 +14,7 @@ class Items {
   static final CREDIT = _getItemDefinition('CREDIT');
   static final WOOD = _getItemDefinition('WOOD');
   static final PLANK = _getItemDefinition('PLANK');
+  static final FOOD = _getItemDefinition('FOOD');
 
   static ItemDefinition _getItemDefinition(String key) {
     return ItemDirectory.getItem(ItemDefinitionId(key));

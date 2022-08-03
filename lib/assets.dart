@@ -16,7 +16,6 @@ class Assets {
           'assets/images/tiles/02Grass/plains.png',
           'assets/images/tiles/02Grass/prairie.png',
           'assets/images/tiles/02Grass/shrubland.png',
-          // 'assets/images/all/grass1.png',
         ];
         break;
       case TileType.Mountain:
