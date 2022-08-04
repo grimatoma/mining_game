@@ -9,11 +9,34 @@ abstract class TickableDoodadInterface implements DoodadInterface {
   String get ticksName;
 }
 
+mixin Tickable {
+  @protected
+  late final SimpleStateProvider<int> currentTickStateProvider;
+
+  ReadOnlySimpleStateProvider get currentTickState => currentTickStateProvider;
+
+  int get ticksRequired;
+
+  bool canTick();
+
+  @mustCallSuper
+  void update() {
+    if (!canTick()) return;
+    final newVal = currentTickStateProvider.read + 1;
+    currentTickStateProvider.updateState = newVal;
+    if (newVal <= ticksRequired) return;
+    currentTickStateProvider.updateState = 0;
+    ticksMet();
+  }
+
+  void ticksMet();
+}
+
 abstract class TickableDoodadInstance<
         DefinitionT extends TickableDoodadInterface>
-    extends DoodadInstance<DefinitionT> implements TickableDoodadInterface {
-  final SimpleStateProvider<int> currentTickState;
-
+    extends DoodadInstance<DefinitionT>
+    with Tickable
+    implements TickableDoodadInterface {
   @override
   int get ticksRequired => definition.ticksRequired;
 
@@ -21,22 +44,7 @@ abstract class TickableDoodadInstance<
   String get ticksName => definition.ticksName;
 
   TickableDoodadInstance(super.ref, super.planetManager, super.parent,
-      super.definition, super.notifyListeners)
-      : currentTickState = SimpleStateProvider<int>(ref, (ref) => 0);
-
-  bool canTick();
-
-  @override
-  @mustCallSuper
-  void update() {
-    if (!canTick()) return;
-    final newVal = currentTickState.read + 1;
-    currentTickState.updateState = newVal;
-    if (newVal <= ticksRequired) return;
-    currentTickState.updateState = 0;
-    print('Updating Digger!');
-    ticksMet();
+      super.definition, super.notifyListeners) {
+    currentTickStateProvider = SimpleStateProvider<int>(ref, (ref) => 0);
   }
-
-  void ticksMet();
 }

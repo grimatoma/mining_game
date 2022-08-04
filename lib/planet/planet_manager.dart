@@ -403,24 +403,36 @@ abstract class ReadOnlySimpleStateProvider<T> {
 }
 
 class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
-  final Ref _ref;
+  @protected
+  final Ref ref;
+  @protected
   final StateProvider<T> stateProvider;
 
-  SimpleStateProvider(this._ref, T Function(Ref ref) initialValue)
+  SimpleStateProvider(this.ref, T Function(Ref ref) initialValue)
       : stateProvider = StateProvider<T>(initialValue);
 
   AlwaysAliveProviderBase<StateController<T>> get notifier =>
       stateProvider.notifier;
 
   @override
-  T get read => _ref.read(notifier).state;
+  T get read => ref.read(notifier).state;
 
   @override
   T watch(WidgetRef ref) => ref.watch(stateProvider);
 
+  @mustCallSuper
   set updateState(T newState) {
-    _ref.read(stateProvider.notifier).state = newState;
+    ref.read(stateProvider.notifier).state = newState;
   }
+
+// SimpleStateProvider.fromJson(Map<String, dynamic> json) {
+//   stateProvider.state = T.fromJson(json);
+// }
+//
+// Map<String, dynamic> toJson() => {
+//       'name': name,
+//       'email': email,
+//     };
 }
 
 // class Smelter extends TickableDoodad {

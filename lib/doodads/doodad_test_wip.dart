@@ -24,7 +24,7 @@ final doodadDefinitionsExample = [
       imageAsset: 'assets/images/all/fishing.png',
       storeImageAsset: 'assets/images/all/fishing.png',
       supportedLocations: {TileType.Water},
-      ticksRequired: 10,
+      ticksRequired: 4,
       ticksName: 'Populating',
       resourceRequiredToHarvestOne: 1,
       resourceMax: 4,

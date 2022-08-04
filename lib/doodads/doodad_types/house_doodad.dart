@@ -3,9 +3,11 @@ import 'dart:math';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
+import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/widgets/planet_page.dart';
 
 abstract class HouseDoodadInterface extends DoodadInterface {
@@ -62,14 +64,16 @@ const personConsumptionRates = {
   PersonType.worker: 2,
 };
 
-class HouseManager {
-  // final InventoryStateController _inventory;
+class HouseManager with Tickable {
   final Ref _ref;
   final Set<HouseDoodadInstance> houses = {};
 
-  HouseManager(this._ref);
+  HouseManager(this._ref) {
+    currentTickStateProvider = SimpleStateProvider<int>(_ref, (ref) => 0);
+  }
 
-  void update() {
+  @override
+  void ticksMet() {
     // Dont update every time. instead do updates every 10?
 
     final startingFood =
@@ -109,7 +113,12 @@ class HouseManager {
   void deregister(HouseDoodadInstance instance) {
     houses.remove(instance);
   }
-// register
+
+  @override
+  bool canTick() => true;
+
+  @override
+  final int ticksRequired = 10;
 }
 
 /**

@@ -25,6 +25,11 @@ abstract class RegenerativeHarvestableDoodadInterface
   BuiltList<ItemInstanceGenerator> get resourceGenerated;
 }
 
+// class RegenerativeHarvestableDoodadState extends DoodadState {
+//   double currentResources = 1;
+//   int effortCount = 0;
+// }
+
 class RegenerativeHarvestableDoodadInstance
     extends TickableDoodadInstance<RegenerativeHarvestableDoodadDefinition>
     implements RegenerativeHarvestableDoodadInterface {
@@ -41,7 +46,7 @@ class RegenerativeHarvestableDoodadInstance
   @override
   int? get manualEffortToHarvest => definition.manualEffortToHarvest;
 
-  double currentResources = 1;
+  double currentResources = 0;
   int effortCount = 0;
 
   late final int? lowestDynamicAssetIndex;
@@ -59,7 +64,7 @@ class RegenerativeHarvestableDoodadInstance
   }
 
   @override
-  bool canTick() => currentResources < 1;
+  bool canTick() => currentResources < resourceMax;
 
   @override
   void ticksMet() {

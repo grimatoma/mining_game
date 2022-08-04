@@ -339,97 +339,93 @@ class TileDetailWidget extends ConsumerWidget {
     return Container(
         color: Colors.red[100],
         height: 150,
-        child: Center(
-          child: LayoutBuilder(builder: (context, constraints) {
-            final width = min(constraints.maxWidth, 500.0);
-            return Container(
-              color: Colors.red[400],
-              width: width,
-              child: Column(
-                children: [
-                  ModalTitleWidget(
-                    title:
-                        '${selectedTile.tileType.name} ${selectedTile.hexagon}',
-                    leftCharms: [
-                      if (selectedTile.hasDoodad)
-                        AutoSizeText(
-                          maxLines: 1,
-                          '${selectedTile.doodadInstance.runtimeType}',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                    ],
-                    rightCharms: [
-                      if (selectedTile.hasDoodad)
-                        TextButton(
-                            onPressed: () {
-                              selectedTile.removeDoodad();
-                              ref.read(panelVisibilityState.notifier).state =
-                                  PanelVisibility.None;
-                            },
-                            child: const Text('Remove')),
+        child: Center(child: LayoutBuilder(builder: (context, constraints) {
+          final width = min(constraints.maxWidth, 500.0);
+          return Container(
+            color: Colors.red[400],
+            width: width,
+            child: Column(
+              children: [
+                ModalTitleWidget(
+                  title:
+                      '${selectedTile.tileType.name} ${selectedTile.hexagon}',
+                  leftCharms: [
+                    if (selectedTile.hasDoodad)
+                      AutoSizeText(
+                        maxLines: 1,
+                        '${selectedTile.doodadInstance.runtimeType}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                  ],
+                  rightCharms: [
+                    if (selectedTile.hasDoodad)
                       TextButton(
                           onPressed: () {
+                            selectedTile.removeDoodad();
                             ref.read(panelVisibilityState.notifier).state =
                                 PanelVisibility.None;
-                            ref
-                                .read(selectedTileControllerProvider.notifier)
-                                .state = null;
                           },
-                          child: const Text('Close')),
+                          child: const Text('Remove')),
+                    TextButton(
+                        onPressed: () {
+                          ref.read(panelVisibilityState.notifier).state =
+                              PanelVisibility.None;
+                          ref
+                              .read(selectedTileControllerProvider.notifier)
+                              .state = null;
+                        },
+                        child: const Text('Close')),
+                  ],
+                ),
+                Expanded(
+                  flex: 1,
+                  // fit: FlexFit.loose,
+                  child: Column(
+                    // fit: StackFit.expand,
+                    // mainAxisAlignment: MainAxisAlignment.start,
+                    // mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Expanded(
+                      //     child: Container(
+                      //
+                      //
+                      //   color: Colors.purple,
+                      // )),
+                      if (selectedTile.doodadInstance != null)
+                        Expanded(
+                          child: SizedBox(
+                            width: width * 0.8,
+                            child: selectedTile.doodadInstance?.statusWidget ??
+                                DoodadStatus(selectedTile.doodadInstance!),
+                          ),
+                        ),
+                      if (!selectedTile.hasDoodad)
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Column(
+                            children: [
+                              TextButton(
+                                  onPressed: canBuild
+                                      ? () {
+                                          ref
+                                              .read(
+                                                  panelVisibilityState.notifier)
+                                              .state = PanelVisibility.BuyMenu;
+                                        }
+                                      : null,
+                                  child: const Text('Build')),
+                            ],
+                          ),
+                        ),
                     ],
                   ),
-                  Expanded(
-                    flex: 1,
-                    // fit: FlexFit.loose,
-                    child: Column(
-                      // fit: StackFit.expand,
-                      // mainAxisAlignment: MainAxisAlignment.start,
-                      // mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Expanded(
-                        //     child: Container(
-                        //
-                        //
-                        //   color: Colors.purple,
-                        // )),
-                        if (selectedTile.doodadInstance != null)
-                          Expanded(
-                            child: SizedBox(
-                              width: width * 0.8,
-                              child: selectedTile
-                                      .doodadInstance?.statusWidget ??
-                                  DoodadStatus(selectedTile.doodadInstance!),
-                            ),
-                          ),
-                        if (!selectedTile.hasDoodad)
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Column(
-                              children: [
-                                TextButton(
-                                    onPressed: canBuild
-                                        ? () {
-                                            ref
-                                                    .read(panelVisibilityState
-                                                        .notifier)
-                                                    .state =
-                                                PanelVisibility.BuyMenu;
-                                          }
-                                        : null,
-                                    child: const Text('Build')),
-                              ],
-                            ),
-                          ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }),
-        ));
+                ),
+              ],
+            ),
+          );
+        })));
   }
 }
 

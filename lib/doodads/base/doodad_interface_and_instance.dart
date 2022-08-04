@@ -65,3 +65,18 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
 
   void onDestroy() {}
 }
+
+// abstract class StatefulDoodadInstance<DefinitionT extends DoodadInterface,
+//     StateT extends DoodadState> extends DoodadInstance<DefinitionT> {
+//   StatefulDoodadInstance(super.ref, super.planetManager, super.parent,
+//       super.definition, super.notifyListeners);
+// }
+//
+// abstract class DoodadState {}
+//
+// @freezed
+// class DoodadStateMap with _$DoodadStateMap {
+//   const DoodadStateMap._();
+//
+//   const factory DoodadStateMap(Map<String, dynamic> map) = _DoodadStateMap;
+// }

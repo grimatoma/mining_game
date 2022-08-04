@@ -22,7 +22,7 @@ class HexagonPlanetRenderer extends HookConsumerWidget {
         minScale: 0.25,
         maxScale: 3,
         child: Center(
-          child: Container(
+          child: SizedBox(
             width: selectedPlanet.width * tileSize2 * 2,
             height: selectedPlanet.height * tileSize2 * sqrt(3),
             // color: Colors.teal,
