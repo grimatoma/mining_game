@@ -12,6 +12,8 @@ import 'package:mining_game/item_management/item_definition.dart';
 
 part 'planet_manager.freezed.dart';
 
+part 'planet_manager.g.dart';
+
 class PlanetsManager {
   final Ref _ref;
   final List<PlanetManager> planets;
@@ -291,6 +293,9 @@ class TileStateController extends ChangeNotifier {
       ChangeNotifierProvider((ref) => this);
 
   void update() {
+    if (doodadInstance != null) {
+      print(doodadInstance?.toJson());
+    }
     doodadInstance?.update();
   }
 
@@ -402,19 +407,32 @@ abstract class ReadOnlySimpleStateProvider<T> {
   T watch(WidgetRef ref);
 }
 
+const _valueField = 'value';
+
+@JsonSerializable(
+  ignoreUnannotated: true,
+  createFactory: false,
+  genericArgumentFactories: true,
+)
 class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
+  final T Function(T value)? valueToJson;
+
+  Map<String, dynamic> toJson() =>
+      _$SimpleStateProviderToJson(this, valueToJson!);
   @protected
   final Ref ref;
   @protected
   final StateProvider<T> stateProvider;
 
-  SimpleStateProvider(this.ref, T Function(Ref ref) initialValue)
+  SimpleStateProvider(
+      this.ref, this.valueToJson, T Function(Ref ref) initialValue)
       : stateProvider = StateProvider<T>(initialValue);
 
   AlwaysAliveProviderBase<StateController<T>> get notifier =>
       stateProvider.notifier;
 
   @override
+  @JsonKey(name: _valueField)
   T get read => ref.read(notifier).state;
 
   @override
@@ -424,15 +442,6 @@ class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
   set updateState(T newState) {
     ref.read(stateProvider.notifier).state = newState;
   }
-
-// SimpleStateProvider.fromJson(Map<String, dynamic> json) {
-//   stateProvider.state = T.fromJson(json);
-// }
-//
-// Map<String, dynamic> toJson() => {
-//       'name': name,
-//       'email': email,
-//     };
 }
 
 // class Smelter extends TickableDoodad {

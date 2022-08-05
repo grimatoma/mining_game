@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 import 'doodad_definition.dart';
@@ -23,20 +24,48 @@ abstract class DoodadInterface {
   bool get userCanBuild;
 }
 
+class DoodadInstancePack<DefinitionT extends DoodadInterface> {
+  final Ref ref;
+  final PlanetManager planetManager;
+  final TileStateController parent;
+  final DefinitionT definition;
+  final void Function() notifyListeners;
+  final Map<String, dynamic>? json;
+
+  DoodadInstancePack(
+      {required this.ref,
+      required this.planetManager,
+      required this.parent,
+      required this.definition,
+      required this.notifyListeners,
+      this.json});
+}
+
+const doodadDefintionIdField = 'doodadDefinitionId';
+
 abstract class DoodadInstance<DefinitionT extends DoodadInterface>
     implements DoodadInterface {
   @protected
-  final Ref ref;
-  @protected
-  final PlanetManager planetManager;
-  @protected
-  final TileStateController parent;
-  final DefinitionT definition;
-  @protected
-  final void Function() notifyListeners;
+  final DoodadInstancePack<DefinitionT> pack;
 
-  DoodadInstance(this.ref, this.planetManager, this.parent, this.definition,
-      this.notifyListeners);
+  @protected
+  Ref get ref => pack.ref;
+
+  @protected
+  PlanetManager get planetManager => pack.planetManager;
+
+  @protected
+  TileStateController get parent => pack.parent;
+
+  DefinitionT get definition => pack.definition;
+
+  @JsonKey(name: doodadDefintionIdField)
+  DoodadId get doodadId => definition.id;
+
+  @protected
+  void Function() get notifyListeners => pack.notifyListeners;
+
+  DoodadInstance(this.pack);
 
   void update();
 
@@ -64,6 +93,8 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
   bool get userCanBuild => definition.userCanBuild;
 
   void onDestroy() {}
+
+  Map<String, dynamic> toJson();
 }
 
 // abstract class StatefulDoodadInstance<DefinitionT extends DoodadInterface,

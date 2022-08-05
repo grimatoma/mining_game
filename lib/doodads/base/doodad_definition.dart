@@ -133,18 +133,23 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
       PlanetManager planetManager,
       TileStateController controller,
       DoodadDefinition doodadDefinition,
-      Function() notifyListeners) {
+      Function() notifyListeners,
+      [Map<String, dynamic>? json]) {
+    DoodadInstancePack<T> getPack<T extends DoodadDefinition>(T definition) =>
+        DoodadInstancePack(
+            ref: ref,
+            planetManager: planetManager,
+            parent: controller,
+            definition: definition,
+            notifyListeners: notifyListeners,
+            json: json);
     return doodadDefinition.map(
-      digger: (d) => DiggerDoodadInstance(
-          ref, planetManager, controller, d, notifyListeners),
-      regenerativeHarvestable: (d) => RegenerativeHarvestableDoodadInstance(
-          ref, planetManager, controller, d, notifyListeners),
-      materialProcessor: (d) => MaterialProcessorDoodadInstance(
-          ref, planetManager, controller, d, notifyListeners),
-      areaHarvestable: (d) => AreaHarvestableDoodadInstance(
-          ref, planetManager, controller, d, notifyListeners),
-      house: (d) => HouseDoodadInstance(
-          ref, planetManager, controller, d, notifyListeners),
+      digger: (d) => DiggerDoodadInstance(getPack(d)),
+      regenerativeHarvestable: (d) =>
+          RegenerativeHarvestableDoodadInstance(getPack(d)),
+      materialProcessor: (d) => MaterialProcessorDoodadInstance(getPack(d)),
+      areaHarvestable: (d) => AreaHarvestableDoodadInstance(getPack(d)),
+      house: (d) => HouseDoodadInstance(getPack(d)),
     );
   }
 

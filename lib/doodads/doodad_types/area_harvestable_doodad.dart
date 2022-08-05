@@ -1,25 +1,39 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 import '../base/doodad_definition.dart';
 import '../base/tickable_doodad.dart';
 import 'tree_doodad.dart';
 
+part 'area_harvestable_doodad.g.dart';
+
 abstract class AreaHarvestableDoodadInterface extends TickableDoodadInterface {
   int get range;
 }
 
+const isHarvestingTileField = 'isHarvestingTile';
+
+@JsonSerializable(
+  ignoreUnannotated: true,
+  createFactory: false,
+)
 class AreaHarvestableDoodadInstance
     extends TickableDoodadInstance<AreaHarvestableDoodadDefinition>
     implements AreaHarvestableDoodadInterface {
-  AreaHarvestableDoodadInstance(super.ref, super.planetManager, super.parent,
-      super.definition, super.notifyListeners) {
+  @override
+  Map<String, dynamic> toJson() => _$AreaHarvestableDoodadInstanceToJson(this);
+
+  AreaHarvestableDoodadInstance(super.pack) {
     tilesInRange = planetManager.getTilesInRange(parent.hexagon, range);
+    isHarvestingTile =
+        getOrDefaultFromJson(pack.json, isHarvestingTileField, () => false);
   }
 
-  var isHarvestingTile = false;
+  @JsonKey(name: isHarvestingTileField)
+  late bool isHarvestingTile;
   late final BuiltList<TileStateController> tilesInRange;
 
   @override

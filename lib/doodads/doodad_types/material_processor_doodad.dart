@@ -1,9 +1,13 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 import '../base/tickable_doodad.dart';
+
+part 'material_processor_doodad.g.dart';
 
 abstract class MaterialProcessorDoodadInterface
     implements TickableDoodadInterface {
@@ -12,10 +16,16 @@ abstract class MaterialProcessorDoodadInterface
   BuiltList<ItemInstance> get itemsProduced;
 }
 
+const _isProcessingField = 'isProcessing';
+
+@JsonSerializable(
+  ignoreUnannotated: true,
+  createFactory: false,
+)
 class MaterialProcessorDoodadInstance
-    extends TickableDoodadInstance<MaterialProcessorDoodadInterface>
+    extends TickableDoodadInstance<MaterialProcessorDoodadDefinition>
     implements MaterialProcessorDoodadInterface {
-  final InventoryStateController _inventoryController;
+  late final InventoryStateController _inventoryController;
 
   @override
   ItemRequirement get consumedMaterials => definition.consumedMaterials;
@@ -23,20 +33,27 @@ class MaterialProcessorDoodadInstance
   @override
   BuiltList<ItemInstance> get itemsProduced => definition.itemsProduced;
 
-  final SimpleStateProvider<bool> _hasResourceState;
+  @JsonKey(name: _isProcessingField)
+  late final SimpleStateProvider<bool> _isProcessingResourceState;
 
-  ReadOnlySimpleStateProvider<bool> get hasResources => _hasResourceState;
+  ReadOnlySimpleStateProvider<bool> get isProcessing =>
+      _isProcessingResourceState;
 
-  MaterialProcessorDoodadInstance(super.ref, super.planetManager, super.parent,
-      super.definition, super.notifyListeners)
-      : _inventoryController = ref.read(inventoryStateProvider.notifier),
-        _hasResourceState = SimpleStateProvider<bool>(ref, (ref) => false);
+  MaterialProcessorDoodadInstance(super.pack) {
+    _inventoryController = ref.read(inventoryStateProvider.notifier);
+
+    _isProcessingResourceState = SimpleStateProvider<bool>(
+        ref,
+        boolToJson,
+        (ref) =>
+            getOrDefaultFromJson(pack.json, _isProcessingField, () => false));
+  }
 
   @override
   bool canTick() {
-    if (hasResources.read) return true;
+    if (isProcessing.read) return true;
     if (_inventoryController.subtractItemRequirement(consumedMaterials)) {
-      _hasResourceState.updateState = true;
+      _isProcessingResourceState.updateState = true;
       return true;
     }
     return false;
@@ -47,4 +64,7 @@ class MaterialProcessorDoodadInstance
     _inventoryController.addItems(itemsProduced);
     ref.read(inventoryStateProvider.notifier).addItems(itemsProduced);
   }
+
+  Map<String, dynamic> toJson() =>
+      _$MaterialProcessorDoodadInstanceToJson(this);
 }

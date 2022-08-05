@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 import 'doodad_interface_and_instance.dart';
@@ -9,7 +10,9 @@ abstract class TickableDoodadInterface implements DoodadInterface {
   String get ticksName;
 }
 
+const _currentTickField = 'currentTick';
 mixin Tickable {
+  @JsonKey(name: _currentTickField)
   @protected
   late final SimpleStateProvider<int> currentTickStateProvider;
 
@@ -43,8 +46,16 @@ abstract class TickableDoodadInstance<
   @override
   String get ticksName => definition.ticksName;
 
-  TickableDoodadInstance(super.ref, super.planetManager, super.parent,
-      super.definition, super.notifyListeners) {
-    currentTickStateProvider = SimpleStateProvider<int>(ref, (ref) => 0);
+  TickableDoodadInstance(super.pack) {
+    currentTickStateProvider = SimpleStateProvider<int>(ref, intToJson,
+        (ref) => getOrDefaultFromJson(pack.json, _currentTickField, () => 0));
   }
 }
+
+T getOrDefaultFromJson<T>(
+        Map<String, dynamic>? json, String key, T Function() defaultValue) =>
+    json?[key] ?? defaultValue.call();
+
+int intToJson(int i) => i;
+
+bool boolToJson(bool b) => b;

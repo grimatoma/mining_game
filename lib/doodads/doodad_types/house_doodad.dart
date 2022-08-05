@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
@@ -10,19 +12,27 @@ import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/widgets/planet_page.dart';
 
+part 'house_doodad.g.dart';
+
 abstract class HouseDoodadInterface extends DoodadInterface {
   int get populationLimit;
 
   PersonType get peopleType;
 }
 
-class HouseDoodadInstance extends DoodadInstance<HouseDoodadInterface>
+@JsonSerializable(
+  ignoreUnannotated: true,
+  createFactory: false,
+)
+class HouseDoodadInstance extends DoodadInstance<HouseDoodadDefinition>
     implements HouseDoodadInterface {
-  final HouseManager _houseManager;
+  @override
+  Map<String, dynamic> toJson() => _$HouseDoodadInstanceToJson(this);
 
-  HouseDoodadInstance(super.ref, super.planetManager, super.parent,
-      super.definition, super.notifyListeners)
-      : _houseManager = planetManager.houseManager {
+  late final HouseManager _houseManager;
+
+  HouseDoodadInstance(super.pack) {
+    _houseManager = planetManager.houseManager;
     _houseManager.register(this);
   }
 
@@ -69,7 +79,8 @@ class HouseManager with Tickable {
   final Set<HouseDoodadInstance> houses = {};
 
   HouseManager(this._ref) {
-    currentTickStateProvider = SimpleStateProvider<int>(_ref, (ref) => 0);
+    currentTickStateProvider =
+        SimpleStateProvider<int>(_ref, intToJson, (ref) => 0);
   }
 
   @override

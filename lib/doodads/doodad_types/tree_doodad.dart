@@ -3,12 +3,15 @@ import 'dart:math';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/widgets/planet_page.dart';
 
 import '../base/doodad_definition.dart';
 import '../base/tickable_doodad.dart';
+
+part 'tree_doodad.g.dart';
 
 abstract class RegenerativeHarvestableDoodadInterface
     extends TickableDoodadInterface {
@@ -30,9 +33,20 @@ abstract class RegenerativeHarvestableDoodadInterface
 //   int effortCount = 0;
 // }
 
+const currentResourcesField = 'currentResources';
+const effortCountField = 'effortCount';
+
+@JsonSerializable(
+  ignoreUnannotated: true,
+  createFactory: false,
+)
 class RegenerativeHarvestableDoodadInstance
     extends TickableDoodadInstance<RegenerativeHarvestableDoodadDefinition>
     implements RegenerativeHarvestableDoodadInterface {
+  @override
+  Map<String, dynamic> toJson() =>
+      _$RegenerativeHarvestableDoodadInstanceToJson(this);
+
   @override
   double get resourceRequiredToHarvestOne =>
       definition.resourceRequiredToHarvestOne;
@@ -46,13 +60,19 @@ class RegenerativeHarvestableDoodadInstance
   @override
   int? get manualEffortToHarvest => definition.manualEffortToHarvest;
 
-  double currentResources = 0;
-  int effortCount = 0;
+  @JsonKey(name: currentResourcesField)
+  late double currentResources;
+
+  @JsonKey(name: effortCountField)
+  late int effortCount;
 
   late final int? lowestDynamicAssetIndex;
 
-  RegenerativeHarvestableDoodadInstance(super.ref, super.planetManager,
-      super.parent, super.definition, super.notifyListeners) {
+  RegenerativeHarvestableDoodadInstance(super.pack) {
+    currentResources =
+        getOrDefaultFromJson(pack.json, currentResourcesField, () => 0);
+    effortCount = getOrDefaultFromJson(pack.json, effortCountField, () => 0);
+
     final assets = dynamicImageAssets;
     if (assets != null) {
       lowestDynamicAssetIndex = assets.keys.fold<int>(
