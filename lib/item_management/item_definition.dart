@@ -6,8 +6,11 @@ import 'package:mining_game/item_management/item_directory.dart';
 import 'instance_id.dart';
 
 part 'item_definition.freezed.dart';
+
 part 'item_definition.g.dart';
+
 part 'item_definition_attributes.dart';
+
 part 'item_instance.dart';
 
 @freezed
@@ -37,46 +40,46 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
   @Implements<Resource>()
   @Implements<Stackable>()
   @Implements<ShowInWallet>()
-  @Implements<HasPluralName>()
-  const factory ItemDefinition.resourceDefinition(
-    ItemDefinitionId id,
-    String name,
-    String namePlural,
-    String description,
-    String image,
-    int maxStackSize,
-  ) = ResourceDefinition;
+  @Implements<CanHavePluralName>()
+  const factory ItemDefinition.resourceDefinition({
+    required ItemDefinitionId id,
+    required String name,
+    String? namePlural,
+    required String description,
+    required String image,
+    required int maxStackSize,
+  }) = ResourceDefinition;
 
-  const factory ItemDefinition.drillDefinition(
-    ItemDefinitionId id,
-    String name,
-    String description,
-    String image,
-    int damage,
-  ) = DrillDefinition;
+  const factory ItemDefinition.drillDefinition({
+    required ItemDefinitionId id,
+    required String name,
+    required String description,
+    required String image,
+    required int damage,
+  }) = DrillDefinition;
 
-  @Implements<HasPluralName>()
-  const factory ItemDefinition.swordDefinition(
-    ItemDefinitionId id,
-    String name,
-    String namePlural,
-    String description,
-    String image,
-    BuiltMap<WeaponAttributes, double> attributes,
-  ) = SwordDefinition;
+  @Implements<CanHavePluralName>()
+  const factory ItemDefinition.swordDefinition({
+    required ItemDefinitionId id,
+    required String name,
+    String? namePlural,
+    required String description,
+    required String image,
+    required BuiltMap<WeaponAttributes, double> attributes,
+  }) = SwordDefinition;
 
-  const factory ItemDefinition.minerDefinition(
-    ItemDefinitionId id,
-    String name,
-    String description,
-    int radius,
-    int depth,
-    int baseDamage,
+  const factory ItemDefinition.minerDefinition({
+    required ItemDefinitionId id,
+    required String name,
+    required String description,
+    required int radius,
+    required int depth,
+    required int baseDamage,
     // Should this be for all resources or per resource?
-    int baseHopperSize,
-    int fuelConsumption,
-    String image,
-  ) = MinerDefinition;
+    required int baseHopperSize,
+    required int fuelConsumption,
+    required String image,
+  }) = MinerDefinition;
 
   BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
       ItemInstanceGenerator(id, countIfStack).generate();

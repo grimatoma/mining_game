@@ -14,10 +14,17 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+Hexagon _$HexagonFromJson(Map<String, dynamic> json) {
+  return _Hexagon.fromJson(json);
+}
+
 /// @nodoc
 mixin _$Hexagon {
   int get q => throw _privateConstructorUsedError;
+
   int get r => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $HexagonCopyWith<Hexagon> get copyWith => throw _privateConstructorUsedError;
@@ -27,6 +34,7 @@ mixin _$Hexagon {
 abstract class $HexagonCopyWith<$Res> {
   factory $HexagonCopyWith(Hexagon value, $Res Function(Hexagon) then) =
       _$HexagonCopyWithImpl<$Res>;
+
   $Res call({int q, int r});
 }
 
@@ -35,6 +43,7 @@ class _$HexagonCopyWithImpl<$Res> implements $HexagonCopyWith<$Res> {
   _$HexagonCopyWithImpl(this._value, this._then);
 
   final Hexagon _value;
+
   // ignore: unused_field
   final $Res Function(Hexagon) _then;
 
@@ -61,6 +70,7 @@ abstract class _$$_HexagonCopyWith<$Res> implements $HexagonCopyWith<$Res> {
   factory _$$_HexagonCopyWith(
           _$_Hexagon value, $Res Function(_$_Hexagon) then) =
       __$$_HexagonCopyWithImpl<$Res>;
+
   @override
   $Res call({int q, int r});
 }
@@ -93,9 +103,12 @@ class __$$_HexagonCopyWithImpl<$Res> extends _$HexagonCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_Hexagon extends _Hexagon {
   const _$_Hexagon(this.q, this.r) : super._();
+
+  factory _$_Hexagon.fromJson(Map<String, dynamic> json) =>
+      _$$_HexagonFromJson(json);
 
   @override
   final int q;
@@ -111,6 +124,7 @@ class _$_Hexagon extends _Hexagon {
             const DeepCollectionEquality().equals(other.r, r));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -121,16 +135,26 @@ class _$_Hexagon extends _Hexagon {
   @override
   _$$_HexagonCopyWith<_$_Hexagon> get copyWith =>
       __$$_HexagonCopyWithImpl<_$_Hexagon>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_HexagonToJson(this);
+  }
 }
 
 abstract class _Hexagon extends Hexagon {
   const factory _Hexagon(final int q, final int r) = _$_Hexagon;
+
   const _Hexagon._() : super._();
+
+  factory _Hexagon.fromJson(Map<String, dynamic> json) = _$_Hexagon.fromJson;
 
   @override
   int get q => throw _privateConstructorUsedError;
+
   @override
   int get r => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$_HexagonCopyWith<_$_Hexagon> get copyWith =>

@@ -215,8 +215,11 @@ class ItemRenderWidget extends ConsumerWidget {
   String _getName(ItemInstance? itemInstance) {
     if (itemInstance == null) return '';
     final definition = _itemInstance!.itemId.definition();
-    if (definition is HasPluralName) {
-      return (definition as HasPluralName).namePlural;
+    if (definition is CanHavePluralName) {
+      final namePlural = (definition as CanHavePluralName).namePlural;
+      if (namePlural != null) {
+        return namePlural;
+      }
     }
     return definition.name;
   }

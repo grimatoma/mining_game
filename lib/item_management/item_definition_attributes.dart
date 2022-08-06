@@ -18,8 +18,8 @@ abstract class HideInInventory {}
 
 abstract class Resource {}
 
-abstract class HasPluralName {
-  String get namePlural;
+abstract class CanHavePluralName {
+  String? get namePlural;
 }
 
 abstract class Stackable {

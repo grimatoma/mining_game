@@ -244,12 +244,12 @@ Map<String, dynamic> _$$_ItemDefinitionIdToJson(_$_ItemDefinitionId instance) =>
 
 _$ResourceDefinition _$$ResourceDefinitionFromJson(Map<String, dynamic> json) =>
     _$ResourceDefinition(
-      ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
-      json['name'] as String,
-      json['namePlural'] as String,
-      json['description'] as String,
-      json['image'] as String,
-      json['maxStackSize'] as int,
+      id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
+      name: json['name'] as String,
+      namePlural: json['namePlural'] as String?,
+      description: json['description'] as String,
+      image: json['image'] as String,
+      maxStackSize: json['maxStackSize'] as int,
       $type: json['runtimeType'] as String?,
     );
 
@@ -267,11 +267,11 @@ Map<String, dynamic> _$$ResourceDefinitionToJson(
 
 _$DrillDefinition _$$DrillDefinitionFromJson(Map<String, dynamic> json) =>
     _$DrillDefinition(
-      ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
-      json['name'] as String,
-      json['description'] as String,
-      json['image'] as String,
-      json['damage'] as int,
+      id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
+      name: json['name'] as String,
+      description: json['description'] as String,
+      image: json['image'] as String,
+      damage: json['damage'] as int,
       $type: json['runtimeType'] as String?,
     );
 
@@ -287,12 +287,12 @@ Map<String, dynamic> _$$DrillDefinitionToJson(_$DrillDefinition instance) =>
 
 _$SwordDefinition _$$SwordDefinitionFromJson(Map<String, dynamic> json) =>
     _$SwordDefinition(
-      ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
-      json['name'] as String,
-      json['namePlural'] as String,
-      json['description'] as String,
-      json['image'] as String,
-      BuiltMap<WeaponAttributes, double>.of(
+      id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
+      name: json['name'] as String,
+      namePlural: json['namePlural'] as String?,
+      description: json['description'] as String,
+      image: json['image'] as String,
+      attributes: BuiltMap<WeaponAttributes, double>.of(
           (json['attributes'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(
             $enumDecode(_$WeaponAttributesEnumMap, k), (e as num).toDouble()),
@@ -321,15 +321,15 @@ const _$WeaponAttributesEnumMap = {
 
 _$MinerDefinition _$$MinerDefinitionFromJson(Map<String, dynamic> json) =>
     _$MinerDefinition(
-      ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
-      json['name'] as String,
-      json['description'] as String,
-      json['radius'] as int,
-      json['depth'] as int,
-      json['baseDamage'] as int,
-      json['baseHopperSize'] as int,
-      json['fuelConsumption'] as int,
-      json['image'] as String,
+      id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
+      name: json['name'] as String,
+      description: json['description'] as String,
+      radius: json['radius'] as int,
+      depth: json['depth'] as int,
+      baseDamage: json['baseDamage'] as int,
+      baseHopperSize: json['baseHopperSize'] as int,
+      fuelConsumption: json['fuelConsumption'] as int,
+      image: json['image'] as String,
       $type: json['runtimeType'] as String?,
     );
 

@@ -27,11 +27,13 @@ class StatusBarWidget extends HookConsumerWidget {
                 for (final item in itemEntry)
                   TableRow(children: [
                     Center(
-                        child: Text(item.key.definition() is HasPluralName &&
-                                item.value > 1
-                            ? (item.key.definition() as HasPluralName)
-                                .namePlural
-                            : item.key.itemName)),
+                        child: Text(
+                            item.key.definition() is CanHavePluralName &&
+                                    item.value > 1
+                                ? (item.key.definition() as CanHavePluralName)
+                                        .namePlural ??
+                                    item.key.itemName
+                                : item.key.itemName)),
                     Center(child: Text(item.value.toString())),
                   ]),
               ],

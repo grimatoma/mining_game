@@ -175,7 +175,7 @@ mixin _$ItemDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             int maxStackSize)
@@ -186,7 +186,7 @@ mixin _$ItemDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)
@@ -206,7 +206,7 @@ mixin _$ItemDefinition {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -215,7 +215,7 @@ mixin _$ItemDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -235,7 +235,7 @@ mixin _$ItemDefinition {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -244,7 +244,7 @@ mixin _$ItemDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -359,7 +359,7 @@ abstract class _$$ResourceDefinitionCopyWith<$Res>
   $Res call(
       {ItemDefinitionId id,
       String name,
-      String namePlural,
+      String? namePlural,
       String description,
       String image,
       int maxStackSize});
@@ -389,27 +389,27 @@ class __$$ResourceDefinitionCopyWithImpl<$Res>
     Object? maxStackSize = freezed,
   }) {
     return _then(_$ResourceDefinition(
-      id == freezed
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name == freezed
+      name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      namePlural == freezed
+      namePlural: namePlural == freezed
           ? _value.namePlural
           : namePlural // ignore: cast_nullable_to_non_nullable
-              as String,
-      description == freezed
+              as String?,
+      description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image == freezed
+      image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
-      maxStackSize == freezed
+      maxStackSize: maxStackSize == freezed
           ? _value.maxStackSize
           : maxStackSize // ignore: cast_nullable_to_non_nullable
               as int,
@@ -420,9 +420,14 @@ class __$$ResourceDefinitionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ResourceDefinition extends ResourceDefinition {
-  const _$ResourceDefinition(this.id, this.name, this.namePlural,
-      this.description, this.image, this.maxStackSize,
-      {final String? $type})
+  const _$ResourceDefinition(
+      {required this.id,
+      required this.name,
+      this.namePlural,
+      required this.description,
+      required this.image,
+      required this.maxStackSize,
+      final String? $type})
       : $type = $type ?? 'resourceDefinition',
         super._();
 
@@ -434,7 +439,7 @@ class _$ResourceDefinition extends ResourceDefinition {
   @override
   final String name;
   @override
-  final String namePlural;
+  final String? namePlural;
   @override
   final String description;
   @override
@@ -489,7 +494,7 @@ class _$ResourceDefinition extends ResourceDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             int maxStackSize)
@@ -500,7 +505,7 @@ class _$ResourceDefinition extends ResourceDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)
@@ -524,7 +529,7 @@ class _$ResourceDefinition extends ResourceDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -533,7 +538,7 @@ class _$ResourceDefinition extends ResourceDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -557,7 +562,7 @@ class _$ResourceDefinition extends ResourceDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -566,7 +571,7 @@ class _$ResourceDefinition extends ResourceDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -635,14 +640,15 @@ class _$ResourceDefinition extends ResourceDefinition {
 }
 
 abstract class ResourceDefinition extends ItemDefinition
-    implements Resource, Stackable, ShowInWallet, HasPluralName {
+    implements Resource, Stackable, ShowInWallet, CanHavePluralName {
   const factory ResourceDefinition(
-      final ItemDefinitionId id,
-      final String name,
-      final String namePlural,
-      final String description,
-      final String image,
-      final int maxStackSize) = _$ResourceDefinition;
+      {required final ItemDefinitionId id,
+      required final String name,
+      final String? namePlural,
+      required final String description,
+      required final String image,
+      required final int maxStackSize}) = _$ResourceDefinition;
+
   const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
@@ -650,14 +656,20 @@ abstract class ResourceDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
+
   @override
   String get name => throw _privateConstructorUsedError;
-  String get namePlural => throw _privateConstructorUsedError;
+
+  String? get namePlural => throw _privateConstructorUsedError;
+
   @override
   String get description => throw _privateConstructorUsedError;
+
   @override
   String get image => throw _privateConstructorUsedError;
+
   int get maxStackSize => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$ResourceDefinitionCopyWith<_$ResourceDefinition> get copyWith =>
@@ -702,23 +714,23 @@ class __$$DrillDefinitionCopyWithImpl<$Res>
     Object? damage = freezed,
   }) {
     return _then(_$DrillDefinition(
-      id == freezed
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name == freezed
+      name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description == freezed
+      description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image == freezed
+      image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
-      damage == freezed
+      damage: damage == freezed
           ? _value.damage
           : damage // ignore: cast_nullable_to_non_nullable
               as int,
@@ -730,8 +742,12 @@ class __$$DrillDefinitionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$DrillDefinition extends DrillDefinition {
   const _$DrillDefinition(
-      this.id, this.name, this.description, this.image, this.damage,
-      {final String? $type})
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.image,
+      required this.damage,
+      final String? $type})
       : $type = $type ?? 'drillDefinition',
         super._();
 
@@ -791,7 +807,7 @@ class _$DrillDefinition extends DrillDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             int maxStackSize)
@@ -802,7 +818,7 @@ class _$DrillDefinition extends DrillDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)
@@ -825,7 +841,7 @@ class _$DrillDefinition extends DrillDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -834,7 +850,7 @@ class _$DrillDefinition extends DrillDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -857,7 +873,7 @@ class _$DrillDefinition extends DrillDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -866,7 +882,7 @@ class _$DrillDefinition extends DrillDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -935,11 +951,11 @@ class _$DrillDefinition extends DrillDefinition {
 
 abstract class DrillDefinition extends ItemDefinition {
   const factory DrillDefinition(
-      final ItemDefinitionId id,
-      final String name,
-      final String description,
-      final String image,
-      final int damage) = _$DrillDefinition;
+      {required final ItemDefinitionId id,
+      required final String name,
+      required final String description,
+      required final String image,
+      required final int damage}) = _$DrillDefinition;
   const DrillDefinition._() : super._();
 
   factory DrillDefinition.fromJson(Map<String, dynamic> json) =
@@ -970,7 +986,7 @@ abstract class _$$SwordDefinitionCopyWith<$Res>
   $Res call(
       {ItemDefinitionId id,
       String name,
-      String namePlural,
+      String? namePlural,
       String description,
       String image,
       BuiltMap<WeaponAttributes, double> attributes});
@@ -1000,27 +1016,27 @@ class __$$SwordDefinitionCopyWithImpl<$Res>
     Object? attributes = freezed,
   }) {
     return _then(_$SwordDefinition(
-      id == freezed
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name == freezed
+      name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      namePlural == freezed
+      namePlural: namePlural == freezed
           ? _value.namePlural
           : namePlural // ignore: cast_nullable_to_non_nullable
-              as String,
-      description == freezed
+              as String?,
+      description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image == freezed
+      image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
-      attributes == freezed
+      attributes: attributes == freezed
           ? _value.attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as BuiltMap<WeaponAttributes, double>,
@@ -1031,9 +1047,14 @@ class __$$SwordDefinitionCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SwordDefinition extends SwordDefinition {
-  const _$SwordDefinition(this.id, this.name, this.namePlural, this.description,
-      this.image, this.attributes,
-      {final String? $type})
+  const _$SwordDefinition(
+      {required this.id,
+      required this.name,
+      this.namePlural,
+      required this.description,
+      required this.image,
+      required this.attributes,
+      final String? $type})
       : $type = $type ?? 'swordDefinition',
         super._();
 
@@ -1045,7 +1066,7 @@ class _$SwordDefinition extends SwordDefinition {
   @override
   final String name;
   @override
-  final String namePlural;
+  final String? namePlural;
   @override
   final String description;
   @override
@@ -1099,7 +1120,7 @@ class _$SwordDefinition extends SwordDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             int maxStackSize)
@@ -1110,7 +1131,7 @@ class _$SwordDefinition extends SwordDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)
@@ -1134,7 +1155,7 @@ class _$SwordDefinition extends SwordDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -1143,7 +1164,7 @@ class _$SwordDefinition extends SwordDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -1167,7 +1188,7 @@ class _$SwordDefinition extends SwordDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -1176,7 +1197,7 @@ class _$SwordDefinition extends SwordDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -1244,14 +1265,17 @@ class _$SwordDefinition extends SwordDefinition {
   }
 }
 
-abstract class SwordDefinition extends ItemDefinition implements HasPluralName {
+abstract class SwordDefinition extends ItemDefinition
+    implements CanHavePluralName {
   const factory SwordDefinition(
-      final ItemDefinitionId id,
-      final String name,
-      final String namePlural,
-      final String description,
-      final String image,
-      final BuiltMap<WeaponAttributes, double> attributes) = _$SwordDefinition;
+          {required final ItemDefinitionId id,
+          required final String name,
+          final String? namePlural,
+          required final String description,
+          required final String image,
+          required final BuiltMap<WeaponAttributes, double> attributes}) =
+      _$SwordDefinition;
+
   const SwordDefinition._() : super._();
 
   factory SwordDefinition.fromJson(Map<String, dynamic> json) =
@@ -1259,15 +1283,21 @@ abstract class SwordDefinition extends ItemDefinition implements HasPluralName {
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
+
   @override
   String get name => throw _privateConstructorUsedError;
-  String get namePlural => throw _privateConstructorUsedError;
+
+  String? get namePlural => throw _privateConstructorUsedError;
+
   @override
   String get description => throw _privateConstructorUsedError;
+
   @override
   String get image => throw _privateConstructorUsedError;
+
   BuiltMap<WeaponAttributes, double> get attributes =>
       throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$SwordDefinitionCopyWith<_$SwordDefinition> get copyWith =>
@@ -1320,39 +1350,39 @@ class __$$MinerDefinitionCopyWithImpl<$Res>
     Object? image = freezed,
   }) {
     return _then(_$MinerDefinition(
-      id == freezed
+      id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name == freezed
+      name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description == freezed
+      description: description == freezed
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      radius == freezed
+      radius: radius == freezed
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
               as int,
-      depth == freezed
+      depth: depth == freezed
           ? _value.depth
           : depth // ignore: cast_nullable_to_non_nullable
               as int,
-      baseDamage == freezed
+      baseDamage: baseDamage == freezed
           ? _value.baseDamage
           : baseDamage // ignore: cast_nullable_to_non_nullable
               as int,
-      baseHopperSize == freezed
+      baseHopperSize: baseHopperSize == freezed
           ? _value.baseHopperSize
           : baseHopperSize // ignore: cast_nullable_to_non_nullable
               as int,
-      fuelConsumption == freezed
+      fuelConsumption: fuelConsumption == freezed
           ? _value.fuelConsumption
           : fuelConsumption // ignore: cast_nullable_to_non_nullable
               as int,
-      image == freezed
+      image: image == freezed
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1364,16 +1394,16 @@ class __$$MinerDefinitionCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MinerDefinition extends MinerDefinition {
   const _$MinerDefinition(
-      this.id,
-      this.name,
-      this.description,
-      this.radius,
-      this.depth,
-      this.baseDamage,
-      this.baseHopperSize,
-      this.fuelConsumption,
-      this.image,
-      {final String? $type})
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.radius,
+      required this.depth,
+      required this.baseDamage,
+      required this.baseHopperSize,
+      required this.fuelConsumption,
+      required this.image,
+      final String? $type})
       : $type = $type ?? 'minerDefinition',
         super._();
 
@@ -1453,7 +1483,7 @@ class _$MinerDefinition extends MinerDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             int maxStackSize)
@@ -1464,7 +1494,7 @@ class _$MinerDefinition extends MinerDefinition {
     required TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)
@@ -1488,7 +1518,7 @@ class _$MinerDefinition extends MinerDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -1497,7 +1527,7 @@ class _$MinerDefinition extends MinerDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -1521,7 +1551,7 @@ class _$MinerDefinition extends MinerDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemDefinitionId id, String name, String namePlural,
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
             String description, String image, int maxStackSize)?
         resourceDefinition,
     TResult Function(ItemDefinitionId id, String name, String description,
@@ -1530,7 +1560,7 @@ class _$MinerDefinition extends MinerDefinition {
     TResult Function(
             ItemDefinitionId id,
             String name,
-            String namePlural,
+            String? namePlural,
             String description,
             String image,
             BuiltMap<WeaponAttributes, double> attributes)?
@@ -1600,15 +1630,15 @@ class _$MinerDefinition extends MinerDefinition {
 
 abstract class MinerDefinition extends ItemDefinition {
   const factory MinerDefinition(
-      final ItemDefinitionId id,
-      final String name,
-      final String description,
-      final int radius,
-      final int depth,
-      final int baseDamage,
-      final int baseHopperSize,
-      final int fuelConsumption,
-      final String image) = _$MinerDefinition;
+      {required final ItemDefinitionId id,
+      required final String name,
+      required final String description,
+      required final int radius,
+      required final int depth,
+      required final int baseDamage,
+      required final int baseHopperSize,
+      required final int fuelConsumption,
+      required final String image}) = _$MinerDefinition;
   const MinerDefinition._() : super._();
 
   factory MinerDefinition.fromJson(Map<String, dynamic> json) =
