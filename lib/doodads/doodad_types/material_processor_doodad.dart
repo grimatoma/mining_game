@@ -65,6 +65,7 @@ class MaterialProcessorDoodadInstance
     ref.read(inventoryStateProvider.notifier).addItems(itemsProduced);
   }
 
+  @override
   Map<String, dynamic> toJson() =>
       _$MaterialProcessorDoodadInstanceToJson(this);
 }

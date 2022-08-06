@@ -186,20 +186,6 @@ class TreeStatusWidget extends ConsumerWidget {
           ),
         ),
         Expanded(flex: 1, child: DoodadStatus(_treeInstance)),
-        // Expanded(
-        //   flex: 1,
-        //   child: Column(
-        //     mainAxisAlignment: MainAxisAlignment.center,
-        //     children: [
-        //       Text('${(ticksLeft ~/ 60).toString().padLeft(2, '0')}'
-        //           ':'
-        //           '${(ticksLeft % 60).toString().padLeft(2, '0')}'),
-        //       LinearProgressIndicator(
-        //         value: currentTick.toDouble() / _treeInstance.ticksRequired,
-        //       ),
-        //     ],
-        //   ),
-        // )
       ],
     );
   }

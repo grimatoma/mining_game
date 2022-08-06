@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
+import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/doodads/doodad_types/house_doodad.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 
@@ -105,52 +106,73 @@ final panelVisibilityState =
 class Planet {}
 
 // Maybe add a state.
+const tilesField = 'tiles';
+const widthField = 'width';
+const heightField = 'height';
+
+@JsonSerializable(
+  ignoreUnannotated: true,
+  createFactory: false,
+)
 class PlanetManager {
+  Map<String, dynamic> toJson() => _$PlanetManagerToJson(this);
   final Ref _ref;
   late final HouseManager houseManager;
 
   late final BuiltMap<Hexagon, TileStateController> tiles;
 
+  @JsonKey(name: tilesField)
+  List<TileStateController> get tilesForExport =>
+      tiles.values.toList(growable: false);
+
   // Load or for now generate the planet
-  final width = 11;
-  final height = 11;
+  @JsonKey(name: widthField)
+  late final int width;
+  @JsonKey(name: heightField)
+  late final int height;
 
-  PlanetManager(this._ref) {
-    houseManager = HouseManager(_ref);
-    final planetBuilder = MapBuilder<Hexagon, TileStateController>();
-    // for (int y = 0; y < height; y++) {
-    //   final rowBuilder = ListBuilder<TileStateController>();
-    //   for (int x = 0; x < width; x++) {
-    //     rowBuilder.add(TileStateController(_ref, Hexagon(x, y)));
-    //   }
-    //   planetBuilder.add(rowBuilder.build());
-    // }
+  PlanetManager(this._ref, [Map<String, dynamic>? json]) {
+    width = getOrDefaultFromJson(json, widthField, () => 11);
+    height = getOrDefaultFromJson(json, heightField, () => 11);
+    // TODO fix this need to make this from list to map
+    tiles = getOrDefaultFromJson(json, tilesField, () {
+      houseManager = HouseManager(_ref);
+      final planetBuilder = MapBuilder<Hexagon, TileStateController>();
+      // for (int y = 0; y < height; y++) {
+      //   final rowBuilder = ListBuilder<TileStateController>();
+      //   for (int x = 0; x < width; x++) {
+      //     rowBuilder.add(TileStateController(_ref, Hexagon(x, y)));
+      //   }
+      //   planetBuilder.add(rowBuilder.build());
+      // }
 
-    final water = cubeRing(const Hexagon(0, 0), 5);
+      final water = cubeRing(const Hexagon(0, 0), 5);
 
-    var index = 0;
-    for (final hexagon in generateHexagonMapOfSize2(5)) {
-      var type = TileType.Grass;
-      if (index == 55) {
-        type = TileType.IronDeposit;
+      var index = 0;
+      for (final hexagon in generateHexagonMapOfSize2(5)) {
+        var type = TileType.Grass;
+        if (index == 55) {
+          type = TileType.IronDeposit;
+        }
+        if (index == 15) {
+          type = TileType.Mountain;
+        }
+
+        if (water.contains(hexagon)) {
+          type = TileType.Water;
+        }
+        planetBuilder[hexagon] =
+            TileStateController(_ref, this, hexagon, type, null);
+        index++;
       }
-      if (index == 15) {
-        type = TileType.Mountain;
-      }
-
-      if (water.contains(hexagon)) {
-        type = TileType.Water;
-      }
-      planetBuilder[hexagon] = TileStateController(_ref, this, hexagon, type);
-      index++;
-    }
-    print(planetBuilder);
-    //
-    // planetBuilder
-    //     .putIfAbsent(const Hexagon(0, 0),
-    //         () => TileStateController(_ref, const Hexagon(0, 0)))
-    //     .addDoodad((c) => Tree(c));
-    tiles = planetBuilder.build();
+      print(planetBuilder);
+      //
+      // planetBuilder
+      //     .putIfAbsent(const Hexagon(0, 0),
+      //         () => TileStateController(_ref, const Hexagon(0, 0)))
+      //     .addDoodad((c) => Tree(c));
+      return planetBuilder.build();
+    });
   }
 
   BuiltSet<Hexagon> cubeRing(Hexagon center, int radius) {
@@ -172,6 +194,8 @@ class PlanetManager {
       tile.update();
     }
     houseManager.update();
+
+    print(toJson());
   }
 
   Iterable<TileStateController> get tilesIterable {
@@ -260,6 +284,9 @@ class Hexagon with _$Hexagon {
   Hexagon operator -(Hexagon other) => Hexagon(q - other.q, r - other.r);
 
   Hexagon operator *(int scale) => Hexagon(q * scale, r * scale);
+
+  factory Hexagon.fromJson(Map<String, dynamic> json) =>
+      _$HexagonFromJson(json);
 }
 
 // @freezed
@@ -279,23 +306,37 @@ class Hexagon with _$Hexagon {
 //   bool get hasDoodad => doodadInstance != null;
 // }
 
+const _hexagonField = 'hexagon';
+const _tileTypeField = 'tileType';
+const _doodadInstanceField = 'doodadInstance';
+
+@JsonSerializable(
+  ignoreUnannotated: true,
+  createFactory: false,
+)
 class TileStateController extends ChangeNotifier {
-  final Hexagon hexagon;
+  Map<String, dynamic> toJson() => _$TileStateControllerToJson(this);
+  @JsonKey(name: _hexagonField)
+  late final Hexagon hexagon;
   final Ref _ref;
   final PlanetManager _planetManager;
-  final TileType tileType;
+  @JsonKey(name: _tileTypeField)
+  late final TileType tileType;
+  @JsonKey(name: _doodadInstanceField)
   DoodadInstance? doodadInstance;
 
-  TileStateController(
-      this._ref, this._planetManager, this.hexagon, this.tileType);
+  TileStateController(this._ref, this._planetManager, Hexagon? hexagon,
+      TileType? tileType, Map<String, dynamic>? json) {
+    this.hexagon = getOrDefaultFromJson(json, _hexagonField, () => hexagon!);
+    this.tileType = getOrDefaultFromJson(json, _tileTypeField, () => tileType!);
+    doodadInstance =
+        getOrDefaultFromJson(json, _doodadInstanceField, () => null);
+  }
 
   ChangeNotifierProvider<TileStateController> get provider =>
       ChangeNotifierProvider((ref) => this);
 
   void update() {
-    if (doodadInstance != null) {
-      print(doodadInstance?.toJson());
-    }
     doodadInstance?.update();
   }
 

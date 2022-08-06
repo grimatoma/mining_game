@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/services.dart';
+import 'package:mining_game/doodads/base/doodad_definition.dart';
+import 'package:mining_game/doodads/base/doodad_id.dart';
+import 'package:mining_game/doodads/doodad_test_wip.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 
 import 'item_definition.dart';
@@ -9,6 +12,8 @@ import 'item_definition.dart';
 class ItemDirectory {
   static BuiltMap<ItemDefinitionId, ItemDefinition> _allItems = BuiltMap();
   static BuiltMap<String, ItemDefinitionId>? _loadItemsFromDbMapping;
+  static BuiltMap<DoodadId, DoodadDefinition> doodadDefinitions =
+      {for (var i in doodadDefinitionsExample) i.id: i}.build();
   static Future<BuiltList<QuestDefinition>> allQuests =
       Future.value(BuiltList());
 
