@@ -975,7 +975,6 @@ abstract class _$$SwordDefinitionCopyWith<$Res>
   factory _$$SwordDefinitionCopyWith(
           _$SwordDefinition value, $Res Function(_$SwordDefinition) then) =
       __$$SwordDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -1067,7 +1066,6 @@ class _$SwordDefinition extends SwordDefinition {
   @override
   final String image;
   final Map<WeaponAttributes, double> _attributes;
-
   @override
   Map<WeaponAttributes, double> get attributes {
     // ignore: implicit_dynamic_type
@@ -1287,13 +1285,10 @@ abstract class SwordDefinition extends ItemDefinition
   String? get namePlural => throw _privateConstructorUsedError;
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get image => throw _privateConstructorUsedError;
-
   Map<WeaponAttributes, double> get attributes =>
       throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$SwordDefinitionCopyWith<_$SwordDefinition> get copyWith =>
@@ -1745,7 +1740,6 @@ abstract class $ItemInstanceCopyWith<$Res> {
   factory $ItemInstanceCopyWith(
           ItemInstance value, $Res Function(ItemInstance) then) =
       _$ItemInstanceCopyWithImpl<$Res>;
-
   $Res call({ItemInstanceId id, ItemDefinitionId itemId});
 
   $ItemInstanceIdCopyWith<$Res> get id;
@@ -1798,7 +1792,6 @@ abstract class _$$BasicInstanceCopyWith<$Res>
   factory _$$BasicInstanceCopyWith(
           _$BasicInstance value, $Res Function(_$BasicInstance) then) =
       __$$BasicInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call({ItemInstanceId id, ItemDefinitionId itemId});
 
@@ -1991,7 +1984,6 @@ abstract class _$$MinerInstanceCopyWith<$Res>
   factory _$$MinerInstanceCopyWith(
           _$MinerInstance value, $Res Function(_$MinerInstance) then) =
       __$$MinerInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemInstanceId id, ItemDefinitionId itemId, ItemDefinitionId? drillId});
@@ -2212,7 +2204,6 @@ abstract class _$$StackInstanceCopyWith<$Res>
   factory _$$StackInstanceCopyWith(
           _$StackInstance value, $Res Function(_$StackInstance) then) =
       __$$StackInstanceCopyWithImpl<$Res>;
-
   @override
   $Res call({ItemInstanceId id, ItemDefinitionId itemId, int quantity});
 
@@ -2405,12 +2396,9 @@ abstract class StackInstance extends ItemInstance implements StackMethods {
 
   @override
   ItemInstanceId get id => throw _privateConstructorUsedError;
-
   @override
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-
   int get quantity => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$StackInstanceCopyWith<_$StackInstance> get copyWith =>
@@ -2428,7 +2416,6 @@ mixin _$ItemRequirement {
       throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $ItemRequirementCopyWith<ItemRequirement> get copyWith =>
       throw _privateConstructorUsedError;
@@ -2439,7 +2426,6 @@ abstract class $ItemRequirementCopyWith<$Res> {
   factory $ItemRequirementCopyWith(
           ItemRequirement value, $Res Function(ItemRequirement) then) =
       _$ItemRequirementCopyWithImpl<$Res>;
-
   $Res call(
       {@ItemDefinitionIdKeyedMapConverter()
           Map<ItemDefinitionId, int> requiredItems});
@@ -2451,7 +2437,6 @@ class _$ItemRequirementCopyWithImpl<$Res>
   _$ItemRequirementCopyWithImpl(this._value, this._then);
 
   final ItemRequirement _value;
-
   // ignore: unused_field
   final $Res Function(ItemRequirement) _then;
 
@@ -2474,7 +2459,6 @@ abstract class _$$_ItemRequirementCopyWith<$Res>
   factory _$$_ItemRequirementCopyWith(
           _$_ItemRequirement value, $Res Function(_$_ItemRequirement) then) =
       __$$_ItemRequirementCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {@ItemDefinitionIdKeyedMapConverter()
@@ -2518,7 +2502,6 @@ class _$_ItemRequirement extends _ItemRequirement {
       _$$_ItemRequirementFromJson(json);
 
   final Map<ItemDefinitionId, int> _requiredItems;
-
   @override
   @ItemDefinitionIdKeyedMapConverter()
   Map<ItemDefinitionId, int> get requiredItems {
@@ -2560,7 +2543,6 @@ abstract class _ItemRequirement extends ItemRequirement {
   const factory _ItemRequirement(
       @ItemDefinitionIdKeyedMapConverter()
           final Map<ItemDefinitionId, int> requiredItems) = _$_ItemRequirement;
-
   const _ItemRequirement._() : super._();
 
   factory _ItemRequirement.fromJson(Map<String, dynamic> json) =
@@ -2570,7 +2552,6 @@ abstract class _ItemRequirement extends ItemRequirement {
   @ItemDefinitionIdKeyedMapConverter()
   Map<ItemDefinitionId, int> get requiredItems =>
       throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$_ItemRequirementCopyWith<_$_ItemRequirement> get copyWith =>

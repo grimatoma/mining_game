@@ -1,48 +1,67 @@
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
-import 'package:mining_game/hive3/hive_tester.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
-import 'package:mining_game/persistence/synced.dart';
 import 'package:tuple/tuple.dart';
 
+part 'inventory.freezed.dart';
+
+zed.dart';
+
+part 'inventory.g.dart';
+
 final inventoryCountsStateProvider =
-    StateProvider<BuiltMap<ItemDefinitionId, int>>((ref) {
+StateProvider<BuiltMap<ItemDefinitionId, int>>((ref) {
   print('inventory count updated');
   final itemCounts = MapBuilder<ItemDefinitionId, int>();
-  final inventory = ref.watch(inventoryStateProvider).itemSlots.list.values;
-  for (final item in inventory) {
+  for (final item in ref
+      .watch(inventoryStateProvider)
+      .itemSlots) {
     if (item == null) continue;
     final count = itemCounts.putIfAbsent(item.itemId, () => 0);
     itemCounts[item.itemId] = count +
         item.maybeMap(
-            stackInstance: (stack) => stack.quantity, orElse: () => 1);
+            stackInstance: (stack) => stack.quantity, orElse: () => 1) as int;
   }
   return itemCounts.build();
 });
 
 final inventoryStateProvider =
-    StateNotifierProvider<InventoryStateController, Inventory>((ref) {
+StateNotifierProvider<InventoryStateController, Inventory>((ref) {
   return InventoryStateController(ref.watch(gameEventManagerProvider));
 });
 
-class Inventory {
-  final SyncedList2<ItemInstance?> itemSlots;
+// class Inventory {
+//   final SyncedList2<ItemInstance?> itemSlots;
+//
+//   Inventory(this.itemSlots);
+//
+//   Inventory rebuild(Function(SyncedListBuilder<ItemInstance?>) updates) =>
+//       Inventory(itemSlots.syncWithBuilder(itemSlots.rebuild(updates)));
+// }
 
-  Inventory(this.itemSlots);
+@freezed
+class Inventory with _$Inventory {
+  const Inventory._();
 
-  Inventory rebuild(Function(SyncedListBuilder<ItemInstance?>) updates) =>
-      Inventory(itemSlots.syncWithBuilder(itemSlots.rebuild(updates)));
+  const factory Inventory(BuiltList<ItemInstance?> itemSlots) = _Inventory;
+
+  factory Inventory.fromJson(Map<String, Object?> json) =>
+      _$InventoryFromJson(json);
+
+  Inventory rebuild(Function(ListBuilder<ItemInstance?>) updates) =>
+      copyWith(itemSlots: itemSlots.rebuild((p0) => updates));
 }
 
 class InventoryStateController extends StateNotifier<Inventory> {
   InventoryStateController(GameEventManager gameEventManager)
-      : super(Inventory(
-            SyncedList2.load(BoxKey.INVENTORY, ItemInstance.fromJson))) {
+      : super(HiveManager.getData(BoxKey.INVENTORY, Inventory.fromJson,
+          () => Inventory(<ItemInstance?>[].build()))) {
     if (state.itemSlots.length < 5) {
       addSlots(5 - state.itemSlots.length);
     }
@@ -55,8 +74,8 @@ class InventoryStateController extends StateNotifier<Inventory> {
 
   void addSlots(int count) {
     state = state.rebuild((p0) => p0.addAll({
-          for (int i = 0; i < count; i++) state.itemSlots.length + i: null,
-        }));
+      for (int i = 0; i < count; i++) null,
+    }));
   }
 
   bool addItemWithGenerator(ItemInstanceGenerator generator) =>
@@ -65,13 +84,13 @@ class InventoryStateController extends StateNotifier<Inventory> {
   bool addItem(ItemInstance item) => addItems([item]);
 
   bool addItems(Iterable<ItemInstance> items) {
-    final initialInventoryCopy = state.itemSlots.list;
+    // final initialInventoryCopy = state.itemSlots;
     var success = true;
     final newState = state.rebuild((p0) {
       for (final item in items) {
         item.maybeMap(stackInstance: (stack) {
           final stackLimit = stack.maxStackSize;
-          final similarItemStacks = p0.readOnlyList.toMap()
+          final similarItemStacks = p0.build().asMap()
             ..removeWhere((key, value) => (value?.itemId != item.itemId));
           var remainingItemsToAdd = stack.quantity;
           for (final entry in similarItemStacks.entries) {
@@ -85,12 +104,14 @@ class InventoryStateController extends StateNotifier<Inventory> {
             remainingItemsToAdd -= amountToAdd;
           }
           if (remainingItemsToAdd > 0) {
-            int getNextOpenSlot() => p0.readOnlyList
-                .asMap()
-                .entries
-                .firstWhere((element) => element.value == null,
+            int getNextOpenSlot() =>
+                p0
+                    .build()
+                    .asMap()
+                    .entries
+                    .firstWhere((element) => element.value == null,
                     orElse: () => const MapEntry(-1, null))
-                .key;
+                    .key;
             var nextOpenSlot = getNextOpenSlot();
             while (nextOpenSlot != -1 && remainingItemsToAdd > 0) {
               final itemsAdded = min(remainingItemsToAdd, stackLimit);
@@ -103,10 +124,13 @@ class InventoryStateController extends StateNotifier<Inventory> {
           success = remainingItemsToAdd <= 0;
         }, orElse: () {
           /// Returns -1 if there is no free space.
-          int _nextFreeIndex() => state.itemSlots.list.entries
-              .firstWhere((element) => element.value == null,
+          int _nextFreeIndex() =>
+              state.itemSlots
+                  .asMap()
+                  .entries
+                  .firstWhere((element) => element.value == null,
                   orElse: () => const MapEntry(-1, null))
-              .key;
+                  .key;
 
           final nextOpenSpaceIndex = _nextFreeIndex();
           if (nextOpenSpaceIndex == -1) {
@@ -117,11 +141,11 @@ class InventoryStateController extends StateNotifier<Inventory> {
         });
       }
     });
-    if (!success) {
-      state = state.rebuild((p0) => p0
-        ..clear()
-        ..addAll(initialInventoryCopy.asMap()));
-    } else {
+    if (success) {
+      // state = state.rebuild((p0) => p0
+      //   ..clear()
+      //   ..addAll(initialInventoryCopy.asMap()));
+      // } else {
       state = newState;
     }
     return success;
@@ -137,7 +161,7 @@ class InventoryStateController extends StateNotifier<Inventory> {
   }
 
   bool meetsRequirements(ItemRequirement requirement) =>
-      requirement.meetsRequirement(state.itemSlots.list.values);
+      requirement.meetsRequirement(state.itemSlots);
 
   bool subtractItemRequirement(ItemRequirement requirement) {
     if (!meetsRequirements(requirement)) return false;
@@ -146,7 +170,7 @@ class InventoryStateController extends StateNotifier<Inventory> {
 
     state = state.rebuild((p0) {
       final itemsNeeded = {...requirement.requiredItems};
-      for (var index = state.itemSlots.list.length - 1; index >= 0; index--) {
+      for (var index = state.itemSlots.length - 1; index >= 0; index--) {
         final item = p0[index] as ItemInstance?;
         if (item == null) continue;
         final itemId = item.itemId;

@@ -73,7 +73,6 @@ abstract class $ShopListingCopyWith<$Res> {
   factory $ShopListingCopyWith(
           ShopListing value, $Res Function(ShopListing) then) =
       _$ShopListingCopyWithImpl<$Res>;
-
   $Res call(
       {int id,
       ItemRequirement cost,
@@ -132,7 +131,6 @@ abstract class _$$ItemShopListingCopyWith<$Res>
   factory _$$ItemShopListingCopyWith(
           _$ItemShopListing value, $Res Function(_$ItemShopListing) then) =
       __$$ItemShopListingCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,

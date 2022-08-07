@@ -27,8 +27,8 @@ class CompletedQuestsController extends StateController<BuiltSet<int>> {
 
   CompletedQuestsController(this._inventoryController) : super(BuiltSet()) {
     void init() async {
-      state =
-          HiveManager.getBox<int>(BoxKey.COMPLETED_QUESTS).values.toBuiltSet();
+      state = HiveManager.getIterable(BoxKey.COMPLETED_QUESTS,
+          (list) => list.map((e) => int.parse(e)).toBuiltSet());
     }
 
     init();
@@ -37,13 +37,13 @@ class CompletedQuestsController extends StateController<BuiltSet<int>> {
   void markCompleted(QuestDefinition questDefinition) {
     if (_inventoryController
         .subtractItemRequirement(questDefinition.completeRequirement.cost)) {
-      HiveManager.getBox<int>(BoxKey.COMPLETED_QUESTS).add(questDefinition.id);
+      // HiveManager.getBox<int>(BoxKey.COMPLETED_QUESTS).add(questDefinition.id);
       state = state.rebuild((p0) => p0.add(questDefinition.id));
     }
   }
 
   void resetQuests() {
-    HiveManager.getBox<int>(BoxKey.COMPLETED_QUESTS).clear();
+    // HiveManager.getBox<int>(BoxKey.COMPLETED_QUESTS).clear();
     state = state.rebuild((p0) => p0.clear());
   }
 }
@@ -71,8 +71,8 @@ final activeQuestStatusProvider = StateProvider<BuiltList<QuestStatus>>((ref) {
       }
     }
 
-    final ownedFeatures = activeFeatures.set
-      ..where((p0) => requirements.features.contains(p0));
+    final ownedFeatures =
+        activeFeatures.where((p0) => requirements.features.contains(p0));
     if (ownedFeatures.length != requirements.features.length) {
       meetsRequirements = false;
     }

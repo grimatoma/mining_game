@@ -25,7 +25,7 @@ class InventoryPageWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
-    final inventory = ref.watch(inventoryStateProvider).itemSlots.list;
+    final inventory = ref.watch(inventoryStateProvider).itemSlots;
     return StatusBarWrappedPageWidget(
       title: 'Inventory',
       builder: (context, ref) => Column(

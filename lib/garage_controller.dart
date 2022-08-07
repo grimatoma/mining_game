@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
@@ -10,64 +9,61 @@ import 'package:mining_game/garage_events.dart';
 import 'package:mining_game/item_management/instance_id.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/persistence/synced.dart';
 
 import 'item_management/inventory/inventory.dart';
 import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
 
+freezed.dart';
+
 part 'garage_controller.g.dart';
 
 final garageProvider = StateNotifierProvider<GarageNotifier, GarageState>(
-    (ref) => GarageNotifier(
-        ref.watch(gameEventManagerProvider),
-        ref.watch(inventoryStateProvider.notifier),
-        ref.watch(gameConfigsProvider).maxGarageSlots));
+        (ref) =>
+        GarageNotifier(
+            ref.watch(gameEventManagerProvider),
+            ref.watch(inventoryStateProvider.notifier),
+            ref
+                .watch(gameConfigsProvider)
+                .maxGarageSlots));
 
 @freezed
 class GarageState with _$GarageState {
   const GarageState._();
 
-  // @HiveType(typeId: 42, adapterName: 'GarageStateAdapter')
-  const factory GarageState(
-      // @HiveField(1)
-      SyncedMap<int, SlotState, int, SlotState> slotsSyncedMap) = _GarageState;
-
-  BuiltMap<int, SlotState> get slots => slotsSyncedMap.map;
+  const factory GarageState(BuiltMap<int, SlotState> slots) = _GarageState;
 
   SlotState getSlot(int index) => slots[index] ?? LockedSlot(index: index);
 
-  GarageState rebuild({
-    Map<int, SlotState>? addOrUpdate,
-    Iterable<int>? remove,
-  }) =>
-      GarageState(
-          slotsSyncedMap.rebuild(addOrUpdate: addOrUpdate, remove: remove));
+  GarageState rebuild(Function(MapBuilder<int, SlotState>) rebuild) =>
+      copyWith(slots: slots.rebuild(rebuild));
+
+  factory GarageState.fromJson(Map<String, Object?> json) =>
+      _$GarageStateFromJson(json);
 }
 
 @freezed
 class SlotState with _$SlotState {
-  @HiveType(typeId: 43, adapterName: 'SlotStateMinerAdapter')
   const factory SlotState.withMiner(
-      {@HiveField(1) required ItemInstanceId minerId,
-      @HiveField(2) required int index}) = SlotWithMiner;
+      {required ItemInstanceId minerId, required int index}) = SlotWithMiner;
 
-  @HiveType(typeId: 44, adapterName: 'SlotStateLockedAdapter')
-  const factory SlotState.locked({@HiveField(2) required int index}) =
-      LockedSlot;
+  const factory SlotState.locked({required int index}) = LockedSlot;
 
-  @HiveType(typeId: 45, adapterName: 'SlotStateEmptyAdapter')
-  const factory SlotState.empty({@HiveField(2) required int index}) = EmptySlot;
+  const factory SlotState.empty({required int index}) = EmptySlot;
+
+  factory SlotState.fromJson(Map<String, Object?> json) =>
+      _$SlotStateFromJson(json);
 }
 
 class GarageNotifier extends StateNotifier<GarageState> {
   final InventoryStateController _inventoryStateController;
   final GameEventManager _gameEventManager;
 
-  GarageNotifier(
-      this._gameEventManager, this._inventoryStateController, intMaxSlots)
-      : super(GarageState(SyncedMap.loadSimpleSyncedMap(BoxKey.GARAGE))) {
+  GarageNotifier(this._gameEventManager, this._inventoryStateController,
+      intMaxSlots)
+      : super(HiveManager.getData(BoxKey.GARAGE, GarageState.fromJson,
+          () => GarageState(<int, SlotState>{}.build()))) {
     _gameEventManager.streamForEventType<GarageEvent>().listen((event) {
       switch (event.type) {
         case GarageEventType.UNLOCK_SLOT:
@@ -93,8 +89,8 @@ class GarageNotifier extends StateNotifier<GarageState> {
     final cost = unlockCost(index);
     if (canUnlock(cost)) {
       _inventoryStateController.subtractItemRequirement(cost);
-      state = state.rebuild(addOrUpdate: {
-        index: EmptySlot(index: index),
+      state = state.rebuild((p0) {
+        p0[index] = EmptySlot(index: index);
       });
     } else {
       print('Attempting to unlock without money');
@@ -102,8 +98,8 @@ class GarageNotifier extends StateNotifier<GarageState> {
   }
 
   void _addMinerToSlot(EmptySlot slot, ItemInstanceId minerInstance) {
-    state = state.rebuild(addOrUpdate: {
-      slot.index: SlotWithMiner(minerId: minerInstance, index: slot.index)
+    state = state.rebuild((p0) {
+      p0[slot.index] = SlotWithMiner(minerId: minerInstance, index: slot.index);
     });
   }
 }

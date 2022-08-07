@@ -8,8 +8,6 @@ import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/quests/quests_page.dart';
 
-import 'garage_controller.dart';
-import 'widgets/garage_page.dart';
 import 'widgets/inventory_page.dart';
 import 'widgets/planet_page.dart';
 import 'widgets/status_bar_wrapped_page.dart';
@@ -26,9 +24,9 @@ void main() async {
   // Hive.registerAdapter(PlanetTileAdapter());
   // Hive.registerAdapter(PlanetPointAdapter());
   // Hive.registerAdapter(PlanetAdapter());
-  Hive.registerAdapter(SlotStateEmptyAdapter());
-  Hive.registerAdapter(SlotStateLockedAdapter());
-  Hive.registerAdapter(SlotStateMinerAdapter());
+  // Hive.registerAdapter(SlotStateEmptyAdapter());
+  // Hive.registerAdapter(SlotStateLockedAdapter());
+  // Hive.registerAdapter(SlotStateMinerAdapter());
 
   await Hive.initFlutter();
 
@@ -224,10 +222,10 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
         name: 'Inventory',
         icon: Icons.storage,
         builder: (context, _) => const InventoryPageWidget()),
-    RootRoute(
-        name: 'Garage',
-        builder: (context, _) => const GaragePageWidget(),
-        icon: Icons.garage),
+    // RootRoute(
+    //     name: 'Garage',
+    //     builder: (context, _) => const GaragePageWidget(),
+    //     icon: Icons.garage),
     RootRoute(
         name: 'Quests',
         builder: (context, rootRoute) => QuestListPageWidget(rootRoute),

@@ -2079,7 +2079,6 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
 
   @override
   $DoodadIdCopyWith<$Res> get id;
-
   $ItemRequirementCopyWith<$Res> get consumedMaterials;
 }
 
