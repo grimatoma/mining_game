@@ -12,28 +12,25 @@ abstract class BaseItemInstance {
 class ItemInstance extends BaseItemInstance with _$ItemInstance {
   const ItemInstance._();
 
-  @HiveType(typeId: 10, adapterName: 'BasicInstanceAdapter')
   factory ItemInstance.basicInstance({
-    @HiveField(0) required ItemInstanceId id,
-    @HiveField(1) required ItemDefinitionId itemId,
+    required ItemInstanceId id,
+    required ItemDefinitionId itemId,
   }) = BasicInstance;
 
-  @HiveType(typeId: 104, adapterName: 'MinerInstanceAdapter')
   // @With<InstanceDefinition<MinerDefinition>>()
   @With<MinerMethods>()
   factory ItemInstance.minerInstance({
-    @HiveField(0) required ItemInstanceId id,
-    @HiveField(1) required ItemDefinitionId itemId,
-    @HiveField(2) ItemDefinitionId? drillId,
+    required ItemInstanceId id,
+    required ItemDefinitionId itemId,
+    ItemDefinitionId? drillId,
     // @HiveField(4) required ItemContainer hopper,
   }) = MinerInstance;
 
-  @HiveType(typeId: 72, adapterName: 'StackInstanceAdapter')
   @With<StackMethods>()
   factory ItemInstance.stackInstance({
-    @HiveField(0) required ItemInstanceId id,
-    @HiveField(1) required ItemDefinitionId itemId,
-    @HiveField(2) required int quantity,
+    required ItemInstanceId id,
+    required ItemDefinitionId itemId,
+    required int quantity,
   }) = StackInstance;
 
   factory ItemInstance.fromJson(Map<String, dynamic> json) =>
@@ -79,12 +76,9 @@ abstract class StackMethods {
       (ItemDirectory.getItem(itemId) as Stackable).maxStackSize;
 }
 
-@HiveType(typeId: 81)
 @JsonSerializable()
 class ItemInstanceGenerator {
-  @HiveField(0)
   final ItemDefinitionId id;
-  @HiveField(2)
   final int countIfStack;
 
   ItemInstanceGenerator(this.id, [this.countIfStack = 1]);
@@ -116,15 +110,9 @@ class ItemInstanceGenerator {
           ItemDefinitionId id, int count) =>
       ItemInstanceGenerator(id, count).generate();
 
-  // factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) =>
-  //     _$ItemInstanceGeneratorFromJson(json);
-  //
-  // Map<String, dynamic> toJson() => _$ItemInstanceGeneratorToJson(this);
-
   factory ItemInstanceGenerator.fromJson(Map<String, dynamic> json) {
     final entry = json.entries.first;
-    return ItemInstanceGenerator(
-        ItemDirectory.loadIdFromDb(entry.key), entry.value);
+    return ItemInstanceGenerator(ItemDefinitionId(entry.key), entry.value);
   }
 
   Map<String, dynamic> toJson() => {
@@ -132,26 +120,27 @@ class ItemInstanceGenerator {
       };
 }
 
-@HiveType(typeId: 82)
-class ItemRequirement {
-  @HiveField(0)
-  final BuiltMap<ItemDefinitionId, int> requiredItems;
+@freezed
+class ItemRequirement with _$ItemRequirement {
+  const ItemRequirement._();
 
-  ItemRequirement(this.requiredItems);
+  const factory ItemRequirement(
+      @ItemDefinitionIdKeyedMapConverter()
+          Map<ItemDefinitionId, int> requiredItems) = _ItemRequirement;
 
-  factory ItemRequirement.fromMap(Map<ItemDefinitionId, int> items) =>
-      ItemRequirement(items.build());
+  factory ItemRequirement.fromJson(Map<String, dynamic> json) =>
+      _$ItemRequirementFromJson(json);
 
   factory ItemRequirement.single(ItemDefinitionId itemDefinitionId,
           [int count = 1]) =>
-      ItemRequirement.fromMap({itemDefinitionId: count});
+      ItemRequirement({itemDefinitionId: count});
 
-  factory ItemRequirement.empty() => ItemRequirement.fromMap({});
+  static const empty = ItemRequirement({});
 
   bool meetsRequirement(Iterable<ItemInstance?> existingItems) {
     if (requiredItems.isEmpty) return true;
 
-    final remainingRequiredItems = requiredItems.toMap();
+    final remainingRequiredItems = <ItemDefinitionId, int>{...requiredItems};
     for (final item in existingItems) {
       if (item != null) {
         final id = item.itemId;
@@ -175,21 +164,29 @@ class ItemRequirement {
     }
     return false;
   }
+}
+
+class ItemDefinitionIdKeyedMapConverter
+    extends ObjectKeyedMapConverter<ItemDefinitionId, int> {
+  const ItemDefinitionIdKeyedMapConverter();
 
   @override
-  String toString() => [
-        for (final item in requiredItems.entries)
-          '${item.key.itemName}: ${item.value}',
-      ].join('\n');
+  ItemDefinitionId genKey(String keyVal) => ItemDefinitionId(keyVal);
+}
 
-  factory ItemRequirement.fromJson(Map<String, dynamic> json) =>
-      ItemRequirement.fromMap({
-        for (final item in json.entries)
-          ItemDirectory.loadIdFromDb(item.key): item.value as int,
-      });
+abstract class ObjectKeyedMapConverter<K, V>
+    implements JsonConverter<Map<K, V>, Map<String, dynamic>> {
+  const ObjectKeyedMapConverter();
 
-  Map<String, dynamic> toJson() => {
-        for (final item in requiredItems.entries)
-          item.key.toString(): item.value,
+  K genKey(String keyVal);
+
+  @override
+  Map<K, V> fromJson(Map<String, dynamic> json) => {
+        for (final item in json.entries) genKey(item.key): item.value as V,
+      };
+
+  @override
+  Map<String, dynamic> toJson(Map<K, V> map) => {
+        for (final item in map.entries) jsonEncode(item.key): item.value,
       };
 }

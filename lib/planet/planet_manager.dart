@@ -195,7 +195,7 @@ class PlanetManager {
     }
     houseManager.update();
 
-    print(toJson());
+    // print(toJson());
   }
 
   Iterable<TileStateController> get tilesIterable {

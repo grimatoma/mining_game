@@ -73,11 +73,14 @@ abstract class $ShopListingCopyWith<$Res> {
   factory $ShopListingCopyWith(
           ShopListing value, $Res Function(ShopListing) then) =
       _$ShopListingCopyWithImpl<$Res>;
+
   $Res call(
       {int id,
       ItemRequirement cost,
       ItemInstanceGenerator item,
       bool consumable});
+
+  $ItemRequirementCopyWith<$Res> get cost;
 }
 
 /// @nodoc
@@ -114,6 +117,13 @@ class _$ShopListingCopyWithImpl<$Res> implements $ShopListingCopyWith<$Res> {
               as bool,
     ));
   }
+
+  @override
+  $ItemRequirementCopyWith<$Res> get cost {
+    return $ItemRequirementCopyWith<$Res>(_value.cost, (value) {
+      return _then(_value.copyWith(cost: value));
+    });
+  }
 }
 
 /// @nodoc
@@ -122,12 +132,16 @@ abstract class _$$ItemShopListingCopyWith<$Res>
   factory _$$ItemShopListingCopyWith(
           _$ItemShopListing value, $Res Function(_$ItemShopListing) then) =
       __$$ItemShopListingCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {int id,
       ItemRequirement cost,
       ItemInstanceGenerator item,
       bool consumable});
+
+  @override
+  $ItemRequirementCopyWith<$Res> get cost;
 }
 
 /// @nodoc

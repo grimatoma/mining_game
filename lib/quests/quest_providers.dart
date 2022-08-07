@@ -14,12 +14,7 @@ final allQuestsProvider =
 
 class AllQuestsController extends StateController<BuiltList<QuestDefinition>> {
   AllQuestsController() : super(BuiltList()) {
-    void init() async {
-      state = await ItemDirectory.allQuests;
-      print(state);
-    }
-
-    init();
+    state = ItemDirectory.allQuests;
   }
 }
 
@@ -86,8 +81,8 @@ final activeQuestStatusProvider = StateProvider<BuiltList<QuestStatus>>((ref) {
     return QuestStatus(
         definition: questDefinition,
         requirementsMet: meetsRequirements,
-        itemsProgress: ItemRequirement.fromMap(questProgress),
-        featuresProgress: ownedFeatures);
+        itemsProgress: ItemRequirement(questProgress),
+        featuresProgress: ownedFeatures.toSet());
   }
 
   final questStatusListBuilder = ListBuilder<QuestStatus>();

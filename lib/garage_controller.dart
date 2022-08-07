@@ -83,7 +83,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
   }
 
   ItemRequirement unlockCost(int index) =>
-      ItemRequirement.fromMap({Items.CREDIT.id: pow(2, index + 1).round()});
+      ItemRequirement({Items.CREDIT: pow(2, index + 1).round()});
 
   void _unlockSlot(LockedSlot slot) async {
     bool canUnlock(ItemRequirement unlockCost) =>

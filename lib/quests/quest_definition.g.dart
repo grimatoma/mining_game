@@ -8,11 +8,17 @@ part of 'quest_definition.dart';
 
 _$_Requirement _$$_RequirementFromJson(Map<String, dynamic> json) =>
     _$_Requirement(
-      features: ((json['features'] as List)
-          .map((e) => $enumDecode(_$FeatureEnumMap, e))).toBuiltSet(),
-      cost: ItemRequirement.fromJson(json['cost'] as Map<String, dynamic>),
-      itemsOwned:
-          ItemRequirement.fromJson(json['itemsOwned'] as Map<String, dynamic>),
+      features: (json['features'] as List<dynamic>?)
+              ?.map((e) => $enumDecode(_$FeatureEnumMap, e))
+              .toSet() ??
+          const <Feature>{},
+      cost: json['cost'] == null
+          ? ItemRequirement.empty
+          : ItemRequirement.fromJson(json['cost'] as Map<String, dynamic>),
+      itemsOwned: json['itemsOwned'] == null
+          ? ItemRequirement.empty
+          : ItemRequirement.fromJson(
+              json['itemsOwned'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_RequirementToJson(_$_Requirement instance) =>
@@ -28,19 +34,18 @@ const _$FeatureEnumMap = {
 
 _$_QuestReward _$$_QuestRewardFromJson(Map<String, dynamic> json) =>
     _$_QuestReward(
-      features: json['features'] != null
-          ? ((json['features'] as List)
-              .map((e) => $enumDecode(_$FeatureEnumMap, e))).toBuiltSet()
-          : null,
-      reward: json['reward'] == null
+      features: (json['features'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$FeatureEnumMap, e))
+          .toSet(),
+      items: json['items'] == null
           ? null
-          : ItemContainer.fromJson(json['reward'] as Map<String, dynamic>),
+          : ItemContainer.fromJson(json['items'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$_QuestRewardToJson(_$_QuestReward instance) =>
     <String, dynamic>{
       'features': instance.features?.map((e) => _$FeatureEnumMap[e]!).toList(),
-      'reward': instance.reward?.toJson(),
+      'items': instance.items?.toJson(),
     };
 
 _$_QuestDefinition _$$_QuestDefinitionFromJson(Map<String, dynamic> json) =>

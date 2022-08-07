@@ -51,8 +51,8 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                           ref.read(inventoryStateProvider.notifier).addItems(
                               ref.read(planetControllerProvider.notifier).dig(
                                   selectedTile.point,
-                                  ItemRequirement.fromMap({
-                                    Items.IRON.id: 1,
+                                  ItemRequirement({
+                                    Items.IRON: 1,
                                   })));
                         },
                         child: const Text('dig')),

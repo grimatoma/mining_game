@@ -145,7 +145,7 @@ class InventoryStateController extends StateNotifier<Inventory> {
     if (requirement.requiredItems.isEmpty) return true;
 
     state = state.rebuild((p0) {
-      final itemsNeeded = requirement.requiredItems.toMap();
+      final itemsNeeded = {...requirement.requiredItems};
       for (var index = state.itemSlots.list.length - 1; index >= 0; index--) {
         final item = p0[index] as ItemInstance?;
         if (item == null) continue;

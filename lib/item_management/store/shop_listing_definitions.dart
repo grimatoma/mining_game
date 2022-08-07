@@ -2,19 +2,20 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 
 part 'shop_listing_definitions.freezed.dart';
+
 part 'shop_listing_definitions.g.dart';
 
 abstract class ShopListingInterface {
   bool get consumable;
 }
 
-abstract class BuyShopListing extends ShopListingInterface {
-  ItemRequirement get cost;
-}
-
-abstract class SellShopListing extends ShopListingInterface {
-  ItemRequirement get cost;
-}
+// abstract class BuyShopListing extends ShopListingInterface {
+//   ItemRequirement get cost;
+// }
+//
+// abstract class SellShopListing extends ShopListingInterface {
+//   ItemRequirement get cost;
+// }
 
 @freezed
 class ShopListing with _$ShopListing implements ShopListingInterface {

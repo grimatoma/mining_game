@@ -189,7 +189,7 @@ mixin _$ItemDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)
+            Map<WeaponAttributes, double> attributes)
         swordDefinition,
     required TResult Function(
             ItemDefinitionId id,
@@ -218,7 +218,7 @@ mixin _$ItemDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -247,7 +247,7 @@ mixin _$ItemDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -508,7 +508,7 @@ class _$ResourceDefinition extends ResourceDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)
+            Map<WeaponAttributes, double> attributes)
         swordDefinition,
     required TResult Function(
             ItemDefinitionId id,
@@ -541,7 +541,7 @@ class _$ResourceDefinition extends ResourceDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -574,7 +574,7 @@ class _$ResourceDefinition extends ResourceDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -648,7 +648,6 @@ abstract class ResourceDefinition extends ItemDefinition
       required final String description,
       required final String image,
       required final int maxStackSize}) = _$ResourceDefinition;
-
   const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
@@ -656,20 +655,14 @@ abstract class ResourceDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   String? get namePlural => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
-
   @override
   String get image => throw _privateConstructorUsedError;
-
   int get maxStackSize => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$ResourceDefinitionCopyWith<_$ResourceDefinition> get copyWith =>
@@ -821,7 +814,7 @@ class _$DrillDefinition extends DrillDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)
+            Map<WeaponAttributes, double> attributes)
         swordDefinition,
     required TResult Function(
             ItemDefinitionId id,
@@ -853,7 +846,7 @@ class _$DrillDefinition extends DrillDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -885,7 +878,7 @@ class _$DrillDefinition extends DrillDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -982,6 +975,7 @@ abstract class _$$SwordDefinitionCopyWith<$Res>
   factory _$$SwordDefinitionCopyWith(
           _$SwordDefinition value, $Res Function(_$SwordDefinition) then) =
       __$$SwordDefinitionCopyWithImpl<$Res>;
+
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -989,7 +983,7 @@ abstract class _$$SwordDefinitionCopyWith<$Res>
       String? namePlural,
       String description,
       String image,
-      BuiltMap<WeaponAttributes, double> attributes});
+      Map<WeaponAttributes, double> attributes});
 
   @override
   $ItemDefinitionIdCopyWith<$Res> get id;
@@ -1037,9 +1031,9 @@ class __$$SwordDefinitionCopyWithImpl<$Res>
           : image // ignore: cast_nullable_to_non_nullable
               as String,
       attributes: attributes == freezed
-          ? _value.attributes
+          ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
-              as BuiltMap<WeaponAttributes, double>,
+              as Map<WeaponAttributes, double>,
     ));
   }
 }
@@ -1053,9 +1047,10 @@ class _$SwordDefinition extends SwordDefinition {
       this.namePlural,
       required this.description,
       required this.image,
-      required this.attributes,
+      required final Map<WeaponAttributes, double> attributes,
       final String? $type})
-      : $type = $type ?? 'swordDefinition',
+      : _attributes = attributes,
+        $type = $type ?? 'swordDefinition',
         super._();
 
   factory _$SwordDefinition.fromJson(Map<String, dynamic> json) =>
@@ -1071,8 +1066,13 @@ class _$SwordDefinition extends SwordDefinition {
   final String description;
   @override
   final String image;
+  final Map<WeaponAttributes, double> _attributes;
+
   @override
-  final BuiltMap<WeaponAttributes, double> attributes;
+  Map<WeaponAttributes, double> get attributes {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_attributes);
+  }
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -1095,7 +1095,7 @@ class _$SwordDefinition extends SwordDefinition {
                 .equals(other.description, description) &&
             const DeepCollectionEquality().equals(other.image, image) &&
             const DeepCollectionEquality()
-                .equals(other.attributes, attributes));
+                .equals(other._attributes, _attributes));
   }
 
   @JsonKey(ignore: true)
@@ -1107,7 +1107,7 @@ class _$SwordDefinition extends SwordDefinition {
       const DeepCollectionEquality().hash(namePlural),
       const DeepCollectionEquality().hash(description),
       const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(attributes));
+      const DeepCollectionEquality().hash(_attributes));
 
   @JsonKey(ignore: true)
   @override
@@ -1134,7 +1134,7 @@ class _$SwordDefinition extends SwordDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)
+            Map<WeaponAttributes, double> attributes)
         swordDefinition,
     required TResult Function(
             ItemDefinitionId id,
@@ -1167,7 +1167,7 @@ class _$SwordDefinition extends SwordDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -1200,7 +1200,7 @@ class _$SwordDefinition extends SwordDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -1273,9 +1273,8 @@ abstract class SwordDefinition extends ItemDefinition
           final String? namePlural,
           required final String description,
           required final String image,
-          required final BuiltMap<WeaponAttributes, double> attributes}) =
+          required final Map<WeaponAttributes, double> attributes}) =
       _$SwordDefinition;
-
   const SwordDefinition._() : super._();
 
   factory SwordDefinition.fromJson(Map<String, dynamic> json) =
@@ -1283,19 +1282,16 @@ abstract class SwordDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id => throw _privateConstructorUsedError;
-
   @override
   String get name => throw _privateConstructorUsedError;
-
   String? get namePlural => throw _privateConstructorUsedError;
-
   @override
   String get description => throw _privateConstructorUsedError;
 
   @override
   String get image => throw _privateConstructorUsedError;
 
-  BuiltMap<WeaponAttributes, double> get attributes =>
+  Map<WeaponAttributes, double> get attributes =>
       throw _privateConstructorUsedError;
 
   @override
@@ -1497,7 +1493,7 @@ class _$MinerDefinition extends MinerDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)
+            Map<WeaponAttributes, double> attributes)
         swordDefinition,
     required TResult Function(
             ItemDefinitionId id,
@@ -1530,7 +1526,7 @@ class _$MinerDefinition extends MinerDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -1563,7 +1559,7 @@ class _$MinerDefinition extends MinerDefinition {
             String? namePlural,
             String description,
             String image,
-            BuiltMap<WeaponAttributes, double> attributes)?
+            Map<WeaponAttributes, double> attributes)?
         swordDefinition,
     TResult Function(
             ItemDefinitionId id,
@@ -1681,52 +1677,37 @@ ItemInstance _$ItemInstanceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ItemInstance {
-  @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
-  @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
         basicInstance,
-    required TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)
         minerInstance,
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
+    required TResult Function(
+            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
         stackInstance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
     required TResult orElse(),
   }) =>
@@ -1764,8 +1745,8 @@ abstract class $ItemInstanceCopyWith<$Res> {
   factory $ItemInstanceCopyWith(
           ItemInstance value, $Res Function(ItemInstance) then) =
       _$ItemInstanceCopyWithImpl<$Res>;
-  $Res call(
-      {@HiveField(0) ItemInstanceId id, @HiveField(1) ItemDefinitionId itemId});
+
+  $Res call({ItemInstanceId id, ItemDefinitionId itemId});
 
   $ItemInstanceIdCopyWith<$Res> get id;
   $ItemDefinitionIdCopyWith<$Res> get itemId;
@@ -1817,9 +1798,9 @@ abstract class _$$BasicInstanceCopyWith<$Res>
   factory _$$BasicInstanceCopyWith(
           _$BasicInstance value, $Res Function(_$BasicInstance) then) =
       __$$BasicInstanceCopyWithImpl<$Res>;
+
   @override
-  $Res call(
-      {@HiveField(0) ItemInstanceId id, @HiveField(1) ItemDefinitionId itemId});
+  $Res call({ItemInstanceId id, ItemDefinitionId itemId});
 
   @override
   $ItemInstanceIdCopyWith<$Res> get id;
@@ -1858,12 +1839,8 @@ class __$$BasicInstanceCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@HiveType(typeId: 10, adapterName: 'BasicInstanceAdapter')
 class _$BasicInstance extends BasicInstance {
-  _$BasicInstance(
-      {@HiveField(0) required this.id,
-      @HiveField(1) required this.itemId,
-      final String? $type})
+  _$BasicInstance({required this.id, required this.itemId, final String? $type})
       : $type = $type ?? 'basicInstance',
         super._();
 
@@ -1871,10 +1848,8 @@ class _$BasicInstance extends BasicInstance {
       _$$BasicInstanceFromJson(json);
 
   @override
-  @HiveField(0)
   final ItemInstanceId id;
   @override
-  @HiveField(1)
   final ItemDefinitionId itemId;
 
   @JsonKey(name: 'runtimeType')
@@ -1909,16 +1884,13 @@ class _$BasicInstance extends BasicInstance {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
         basicInstance,
-    required TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)
         minerInstance,
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
+    required TResult Function(
+            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
         stackInstance,
   }) {
     return basicInstance(id, itemId);
@@ -1927,16 +1899,11 @@ class _$BasicInstance extends BasicInstance {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
   }) {
     return basicInstance?.call(id, itemId);
@@ -1945,16 +1912,11 @@ class _$BasicInstance extends BasicInstance {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
     required TResult orElse(),
   }) {
@@ -2006,18 +1968,16 @@ class _$BasicInstance extends BasicInstance {
 
 abstract class BasicInstance extends ItemInstance {
   factory BasicInstance(
-      {@HiveField(0) required final ItemInstanceId id,
-      @HiveField(1) required final ItemDefinitionId itemId}) = _$BasicInstance;
+      {required final ItemInstanceId id,
+      required final ItemDefinitionId itemId}) = _$BasicInstance;
   BasicInstance._() : super._();
 
   factory BasicInstance.fromJson(Map<String, dynamic> json) =
       _$BasicInstance.fromJson;
 
   @override
-  @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
   @override
-  @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
@@ -2031,11 +1991,10 @@ abstract class _$$MinerInstanceCopyWith<$Res>
   factory _$$MinerInstanceCopyWith(
           _$MinerInstance value, $Res Function(_$MinerInstance) then) =
       __$$MinerInstanceCopyWithImpl<$Res>;
+
   @override
   $Res call(
-      {@HiveField(0) ItemInstanceId id,
-      @HiveField(1) ItemDefinitionId itemId,
-      @HiveField(2) ItemDefinitionId? drillId});
+      {ItemInstanceId id, ItemDefinitionId itemId, ItemDefinitionId? drillId});
 
   @override
   $ItemInstanceIdCopyWith<$Res> get id;
@@ -2091,12 +2050,11 @@ class __$$MinerInstanceCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@HiveType(typeId: 104, adapterName: 'MinerInstanceAdapter')
 class _$MinerInstance extends MinerInstance with MinerMethods {
   _$MinerInstance(
-      {@HiveField(0) required this.id,
-      @HiveField(1) required this.itemId,
-      @HiveField(2) this.drillId,
+      {required this.id,
+      required this.itemId,
+      this.drillId,
       final String? $type})
       : $type = $type ?? 'minerInstance',
         super._();
@@ -2105,13 +2063,10 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
       _$$MinerInstanceFromJson(json);
 
   @override
-  @HiveField(0)
   final ItemInstanceId id;
   @override
-  @HiveField(1)
   final ItemDefinitionId itemId;
   @override
-  @HiveField(2)
   final ItemDefinitionId? drillId;
 
   @JsonKey(name: 'runtimeType')
@@ -2148,16 +2103,13 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
         basicInstance,
-    required TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)
         minerInstance,
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
+    required TResult Function(
+            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
         stackInstance,
   }) {
     return minerInstance(id, itemId, drillId);
@@ -2166,16 +2118,11 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
   }) {
     return minerInstance?.call(id, itemId, drillId);
@@ -2184,16 +2131,11 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
     required TResult orElse(),
   }) {
@@ -2245,21 +2187,18 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
 
 abstract class MinerInstance extends ItemInstance implements MinerMethods {
   factory MinerInstance(
-      {@HiveField(0) required final ItemInstanceId id,
-      @HiveField(1) required final ItemDefinitionId itemId,
-      @HiveField(2) final ItemDefinitionId? drillId}) = _$MinerInstance;
+      {required final ItemInstanceId id,
+      required final ItemDefinitionId itemId,
+      final ItemDefinitionId? drillId}) = _$MinerInstance;
   MinerInstance._() : super._();
 
   factory MinerInstance.fromJson(Map<String, dynamic> json) =
       _$MinerInstance.fromJson;
 
   @override
-  @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
   @override
-  @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-  @HiveField(2)
   ItemDefinitionId? get drillId => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
@@ -2273,11 +2212,9 @@ abstract class _$$StackInstanceCopyWith<$Res>
   factory _$$StackInstanceCopyWith(
           _$StackInstance value, $Res Function(_$StackInstance) then) =
       __$$StackInstanceCopyWithImpl<$Res>;
+
   @override
-  $Res call(
-      {@HiveField(0) ItemInstanceId id,
-      @HiveField(1) ItemDefinitionId itemId,
-      @HiveField(2) int quantity});
+  $Res call({ItemInstanceId id, ItemDefinitionId itemId, int quantity});
 
   @override
   $ItemInstanceIdCopyWith<$Res> get id;
@@ -2321,12 +2258,11 @@ class __$$StackInstanceCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-@HiveType(typeId: 72, adapterName: 'StackInstanceAdapter')
 class _$StackInstance extends StackInstance with StackMethods {
   _$StackInstance(
-      {@HiveField(0) required this.id,
-      @HiveField(1) required this.itemId,
-      @HiveField(2) required this.quantity,
+      {required this.id,
+      required this.itemId,
+      required this.quantity,
       final String? $type})
       : $type = $type ?? 'stackInstance',
         super._();
@@ -2335,13 +2271,10 @@ class _$StackInstance extends StackInstance with StackMethods {
       _$$StackInstanceFromJson(json);
 
   @override
-  @HiveField(0)
   final ItemInstanceId id;
   @override
-  @HiveField(1)
   final ItemDefinitionId itemId;
   @override
-  @HiveField(2)
   final int quantity;
 
   @JsonKey(name: 'runtimeType')
@@ -2378,16 +2311,13 @@ class _$StackInstance extends StackInstance with StackMethods {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
         basicInstance,
-    required TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)
+    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)
         minerInstance,
-    required TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)
+    required TResult Function(
+            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
         stackInstance,
   }) {
     return stackInstance(id, itemId, quantity);
@@ -2396,16 +2326,11 @@ class _$StackInstance extends StackInstance with StackMethods {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
   }) {
     return stackInstance?.call(id, itemId, quantity);
@@ -2414,16 +2339,11 @@ class _$StackInstance extends StackInstance with StackMethods {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId)?
-        basicInstance,
-    TResult Function(
-            @HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId,
-            @HiveField(2) ItemDefinitionId? drillId)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
+            ItemDefinitionId? drillId)?
         minerInstance,
-    TResult Function(@HiveField(0) ItemInstanceId id,
-            @HiveField(1) ItemDefinitionId itemId, @HiveField(2) int quantity)?
+    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
         stackInstance,
     required TResult orElse(),
   }) {
@@ -2475,24 +2395,184 @@ class _$StackInstance extends StackInstance with StackMethods {
 
 abstract class StackInstance extends ItemInstance implements StackMethods {
   factory StackInstance(
-      {@HiveField(0) required final ItemInstanceId id,
-      @HiveField(1) required final ItemDefinitionId itemId,
-      @HiveField(2) required final int quantity}) = _$StackInstance;
+      {required final ItemInstanceId id,
+      required final ItemDefinitionId itemId,
+      required final int quantity}) = _$StackInstance;
   StackInstance._() : super._();
 
   factory StackInstance.fromJson(Map<String, dynamic> json) =
       _$StackInstance.fromJson;
 
   @override
-  @HiveField(0)
   ItemInstanceId get id => throw _privateConstructorUsedError;
+
   @override
-  @HiveField(1)
   ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-  @HiveField(2)
+
   int get quantity => throw _privateConstructorUsedError;
+
   @override
   @JsonKey(ignore: true)
   _$$StackInstanceCopyWith<_$StackInstance> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+ItemRequirement _$ItemRequirementFromJson(Map<String, dynamic> json) {
+  return _ItemRequirement.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ItemRequirement {
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get requiredItems =>
+      throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $ItemRequirementCopyWith<ItemRequirement> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ItemRequirementCopyWith<$Res> {
+  factory $ItemRequirementCopyWith(
+          ItemRequirement value, $Res Function(ItemRequirement) then) =
+      _$ItemRequirementCopyWithImpl<$Res>;
+
+  $Res call(
+      {@ItemDefinitionIdKeyedMapConverter()
+          Map<ItemDefinitionId, int> requiredItems});
+}
+
+/// @nodoc
+class _$ItemRequirementCopyWithImpl<$Res>
+    implements $ItemRequirementCopyWith<$Res> {
+  _$ItemRequirementCopyWithImpl(this._value, this._then);
+
+  final ItemRequirement _value;
+
+  // ignore: unused_field
+  final $Res Function(ItemRequirement) _then;
+
+  @override
+  $Res call({
+    Object? requiredItems = freezed,
+  }) {
+    return _then(_value.copyWith(
+      requiredItems: requiredItems == freezed
+          ? _value.requiredItems
+          : requiredItems // ignore: cast_nullable_to_non_nullable
+              as Map<ItemDefinitionId, int>,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_ItemRequirementCopyWith<$Res>
+    implements $ItemRequirementCopyWith<$Res> {
+  factory _$$_ItemRequirementCopyWith(
+          _$_ItemRequirement value, $Res Function(_$_ItemRequirement) then) =
+      __$$_ItemRequirementCopyWithImpl<$Res>;
+
+  @override
+  $Res call(
+      {@ItemDefinitionIdKeyedMapConverter()
+          Map<ItemDefinitionId, int> requiredItems});
+}
+
+/// @nodoc
+class __$$_ItemRequirementCopyWithImpl<$Res>
+    extends _$ItemRequirementCopyWithImpl<$Res>
+    implements _$$_ItemRequirementCopyWith<$Res> {
+  __$$_ItemRequirementCopyWithImpl(
+      _$_ItemRequirement _value, $Res Function(_$_ItemRequirement) _then)
+      : super(_value, (v) => _then(v as _$_ItemRequirement));
+
+  @override
+  _$_ItemRequirement get _value => super._value as _$_ItemRequirement;
+
+  @override
+  $Res call({
+    Object? requiredItems = freezed,
+  }) {
+    return _then(_$_ItemRequirement(
+      requiredItems == freezed
+          ? _value._requiredItems
+          : requiredItems // ignore: cast_nullable_to_non_nullable
+              as Map<ItemDefinitionId, int>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ItemRequirement extends _ItemRequirement {
+  const _$_ItemRequirement(
+      @ItemDefinitionIdKeyedMapConverter()
+          final Map<ItemDefinitionId, int> requiredItems)
+      : _requiredItems = requiredItems,
+        super._();
+
+  factory _$_ItemRequirement.fromJson(Map<String, dynamic> json) =>
+      _$$_ItemRequirementFromJson(json);
+
+  final Map<ItemDefinitionId, int> _requiredItems;
+
+  @override
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get requiredItems {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_requiredItems);
+  }
+
+  @override
+  String toString() {
+    return 'ItemRequirement(requiredItems: $requiredItems)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ItemRequirement &&
+            const DeepCollectionEquality()
+                .equals(other._requiredItems, _requiredItems));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_requiredItems));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_ItemRequirementCopyWith<_$_ItemRequirement> get copyWith =>
+      __$$_ItemRequirementCopyWithImpl<_$_ItemRequirement>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ItemRequirementToJson(this);
+  }
+}
+
+abstract class _ItemRequirement extends ItemRequirement {
+  const factory _ItemRequirement(
+      @ItemDefinitionIdKeyedMapConverter()
+          final Map<ItemDefinitionId, int> requiredItems) = _$_ItemRequirement;
+
+  const _ItemRequirement._() : super._();
+
+  factory _ItemRequirement.fromJson(Map<String, dynamic> json) =
+      _$_ItemRequirement.fromJson;
+
+  @override
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get requiredItems =>
+      throw _privateConstructorUsedError;
+
+  @override
+  @JsonKey(ignore: true)
+  _$$_ItemRequirementCopyWith<_$_ItemRequirement> get copyWith =>
       throw _privateConstructorUsedError;
 }

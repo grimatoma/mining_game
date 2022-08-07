@@ -1,10 +1,9 @@
 import 'package:built_collection/built_collection.dart';
+import 'package:mining_game/doodads/base/doodad_definition.dart';
+import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/doodads/doodad_types/house_doodad.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-
-import 'base/doodad_definition.dart';
-import 'base/doodad_id.dart';
 
 final doodadDefinitionsExample = [
   const HouseDoodadDefinition(
@@ -30,7 +29,7 @@ final doodadDefinitionsExample = [
       resourceMax: 4,
       resourceIncreasePerTick: 0.25,
       manualEffortToHarvest: 5,
-      resourceGenerated: [ItemInstanceGenerator(Items.FOOD.id, 1)].build()),
+      resourceGenerated: [ItemInstanceGenerator(Items.FOOD, 1)].build()),
   const AreaHarvestableDoodadDefinition(
       id: DoodadId.fisherman,
       name: 'Fisherman',
@@ -51,7 +50,7 @@ final doodadDefinitionsExample = [
     supportedLocations: {TileType.IronDeposit},
     ticksRequired: 5,
     ticksName: 'Digging',
-    itemMined: [ItemInstanceGenerator(Items.IRON.id, 1)].build(),
+    itemMined: [ItemInstanceGenerator(Items.IRON, 1)].build(),
   ),
   RegenerativeHarvestableDoodadDefinition(
       id: DoodadId.tree,
@@ -78,7 +77,7 @@ final doodadDefinitionsExample = [
         1: 'assets/images/forestTest/forest10.png',
         0: 'assets/images/forestTest/forest0.png',
       },
-      resourceGenerated: [ItemInstanceGenerator(Items.WOOD.id, 1)].build()),
+      resourceGenerated: [ItemInstanceGenerator(Items.WOOD, 1)].build()),
   const AreaHarvestableDoodadDefinition(
       id: DoodadId.treeCutterHut,
       name: 'Tree cutter hut',
@@ -98,6 +97,6 @@ final doodadDefinitionsExample = [
       supportedLocations: {TileType.Grass},
       ticksRequired: 15,
       ticksName: 'Smelting',
-      consumedMaterials: ItemRequirement.single(Items.IRON.id, 2),
+      consumedMaterials: ItemRequirement.single(Items.IRON, 2),
       itemsProduced: Items.IRON_BAR.generateItemInstance(1)),
 ].build();

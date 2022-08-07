@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:built_collection/built_collection.dart';
 import 'package:hive/hive.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/item_management/item_directory.dart';
 
 part 'item_container.g.dart';
 
@@ -13,9 +12,6 @@ class ItemContainer {
   final BuiltMap<ItemDefinitionId, int> items;
 
   ItemContainer(this.items);
-
-  factory ItemContainer.create(Map<ItemDefinitionId, int> items) =>
-      ItemContainer(items.build());
 
   factory ItemContainer.single(ItemDefinitionId key, int quantity) =>
       ItemContainer({key: quantity}.build());
@@ -71,8 +67,9 @@ class ItemContainer {
 
   factory ItemContainer.fromJson(Map<String, dynamic> json) => ItemContainer({
         for (final item in json.entries)
-          ItemDirectory.loadIdFromDb(item.key): item.value as int,
+          ItemDefinitionId(item.key): item.value as int,
       }.build());
+
   Map<String, dynamic> toJson() => {
         for (final item in items.entries) item.key.toString(): item.value,
       };

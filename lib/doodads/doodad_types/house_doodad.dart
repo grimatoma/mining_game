@@ -88,7 +88,7 @@ class HouseManager with Tickable {
     // Dont update every time. instead do updates every 10?
 
     final startingFood =
-        _ref.read(inventoryCountsStateProvider)[Items.FOOD.id] ?? 0;
+        _ref.read(inventoryCountsStateProvider)[Items.FOOD] ?? 0;
     var remainingFood = startingFood;
     // var consumedFood = 0;
     final r = Random();
@@ -112,7 +112,7 @@ class HouseManager with Tickable {
     }
     final consumedFood = startingFood - remainingFood;
     _ref.read(inventoryStateProvider.notifier).subtractItemRequirement(
-        ItemRequirement.single(Items.FOOD.id, consumedFood));
+        ItemRequirement.single(Items.FOOD, consumedFood));
     // determine how much consuption is needed
     // subtract food and if left over randomly(random chance) add new pop.
   }

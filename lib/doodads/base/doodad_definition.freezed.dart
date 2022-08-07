@@ -2079,6 +2079,8 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
 
   @override
   $DoodadIdCopyWith<$Res> get id;
+
+  $ItemRequirementCopyWith<$Res> get consumedMaterials;
 }
 
 /// @nodoc
@@ -2154,6 +2156,13 @@ class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
           : itemsProduced // ignore: cast_nullable_to_non_nullable
               as BuiltList<ItemInstance>,
     ));
+  }
+
+  @override
+  $ItemRequirementCopyWith<$Res> get consumedMaterials {
+    return $ItemRequirementCopyWith<$Res>(_value.consumedMaterials, (value) {
+      return _then(_value.copyWith(consumedMaterials: value));
+    });
   }
 }
 

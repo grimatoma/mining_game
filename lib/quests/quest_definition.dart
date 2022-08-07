@@ -1,4 +1,3 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
@@ -11,24 +10,20 @@ part 'quest_definition.g.dart';
 @freezed
 class Requirement with _$Requirement {
   const factory Requirement(
-      {required BuiltSet<Feature> features,
-      required ItemRequirement cost,
-      required ItemRequirement itemsOwned}) = _Requirement;
+          {@Default(<Feature>{}) Set<Feature> features,
+          @Default(ItemRequirement.empty) ItemRequirement cost,
+          @Default(ItemRequirement.empty) ItemRequirement itemsOwned}) =
+      _Requirement;
 
-  factory Requirement.none() => Requirement(
-      features: BuiltSet(),
-      cost: ItemRequirement.empty(),
-      itemsOwned: ItemRequirement.empty());
+  static const none = Requirement();
 
-  factory Requirement.featureOnly(BuiltSet<Feature> features) => Requirement(
+  factory Requirement.featureOnly(Set<Feature> features) => Requirement(
       features: features,
-      cost: ItemRequirement.empty(),
-      itemsOwned: ItemRequirement.empty());
+      cost: ItemRequirement.empty,
+      itemsOwned: ItemRequirement.empty);
 
   factory Requirement.itemOwnedOnly(ItemRequirement itemsOwned) => Requirement(
-      features: BuiltSet(),
-      cost: ItemRequirement.empty(),
-      itemsOwned: itemsOwned);
+      features: {}, cost: ItemRequirement.empty, itemsOwned: itemsOwned);
 
   factory Requirement.fromJson(Map<String, dynamic> json) =>
       _$RequirementFromJson(json);
@@ -36,8 +31,8 @@ class Requirement with _$Requirement {
 
 @freezed
 class QuestReward with _$QuestReward {
-  const factory QuestReward(
-      {BuiltSet<Feature>? features, ItemContainer? reward}) = _QuestReward;
+  const factory QuestReward({Set<Feature>? features, ItemContainer? items}) =
+      _QuestReward;
 
   factory QuestReward.fromJson(Map<String, dynamic> json) =>
       _$QuestRewardFromJson(json);
@@ -63,7 +58,7 @@ class QuestStatus with _$QuestStatus {
   const factory QuestStatus({
     required QuestDefinition definition,
     required bool requirementsMet,
-    required BuiltSet<Feature> featuresProgress,
+    required Set<Feature> featuresProgress,
     required ItemRequirement itemsProgress,
   }) = _QuestStatus;
 }

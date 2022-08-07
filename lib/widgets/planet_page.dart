@@ -6,7 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
-import 'package:mining_game/doodads/doodad_test_wip.dart';
+import 'package:mining_game/model_assets/doodad_models.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
@@ -159,7 +159,7 @@ class BuildMenuWidget extends HookConsumerWidget {
                         children: [
                           for (final item in supportedItemsToBuy(selectedTile))
                             DoodadBuildItemWidget(BuildMenuItem(
-                                doodad: item, cost: ItemRequirement.empty())),
+                                doodad: item, cost: ItemRequirement.empty)),
                         ],
                       ),
                     ),

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
@@ -12,6 +14,11 @@ part 'item_definition.g.dart';
 part 'item_definition_attributes.dart';
 
 part 'item_instance.dart';
+
+// part 'item_instance.g.dart';
+//
+
+// part 'item_instance.freezed.dart';
 
 @freezed
 class ItemDefinitionId with _$ItemDefinitionId {
@@ -28,6 +35,9 @@ class ItemDefinitionId with _$ItemDefinitionId {
       ItemDirectory.getItem(this) as DefT;
 
   String get itemName => definition().name;
+
+  BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
+      definition().generateItemInstance(countIfStack);
 
   factory ItemDefinitionId.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionIdFromJson(json);
@@ -65,7 +75,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     String? namePlural,
     required String description,
     required String image,
-    required BuiltMap<WeaponAttributes, double> attributes,
+    required Map<WeaponAttributes, double> attributes,
   }) = SwordDefinition;
 
   const factory ItemDefinition.minerDefinition({

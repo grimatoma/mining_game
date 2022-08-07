@@ -101,7 +101,7 @@ class ActiveMinerLocationsNotifier extends StateNotifier<ActiveMiners> {
       //     miner.hopper.items.values.fold(0, (p, c) => p + c)) return;
 
       final resources = _planetController.dig(
-          point, ItemRequirement.fromMap({Items.IRON.id: miner.totalDamage}));
+          point, ItemRequirement({Items.IRON: miner.totalDamage}));
       if (resources.isEmpty) return;
 
       _inventoryController.addItems(resources);
