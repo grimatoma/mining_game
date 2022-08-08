@@ -1,0 +1,69 @@
+import 'dart:async';
+
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
+import 'package:mining_game/persistence/hive_manager.dart';
+
+import 'planet_manager.dart';
+
+// part 'planets_manager.freezed.dart';
+
+// @freezed
+// class PlanetsData with _$PlanetsData {
+//   const factory PlanetsData(List<PlanetManager> planets) = _PlanetsData;
+//
+//   factory PlanetsData.fromJson(Map<String, dynamic> json) =>
+//       _$PlanetsDataFromJson(json);
+// }
+
+class PlanetsManager {
+  final Ref _ref;
+  final planets = <PlanetManager>[];
+
+  // ignore: unused_field
+  late final Timer _timer;
+
+  PlanetsManager(this._ref) {
+    // try {
+    final json = HiveManager.getIterableJson(BoxKey.PLANETS);
+    print(json);
+    if (json != null) {
+      for (final planetJson in json) {
+        planets.add(PlanetManager(_ref, planetJson));
+      }
+    } else {
+      createPlanet();
+    }
+    // } catch (e) {
+    //   print(e);
+    //   rethrow;
+    // }
+    // Init all Doodads
+    for (final planet in planets) {
+      for (final tile in planet.tiles.values) {
+        tile.doodadInstance?.init();
+      }
+    }
+    DoodadInstance.canInit = true;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _updateAllPlanets();
+    });
+  }
+
+  void createPlanet() {
+    final newPlanet = PlanetManager(_ref);
+    // planets.add(newPlanet);
+    _ref.read(selectedPlanetProvider.notifier).state = newPlanet;
+  }
+
+  void _updateAllPlanets() {
+    for (final planet in planets) {
+      planet.update();
+    }
+  }
+}
+
+final planetsManagerProvider =
+    StateProvider<PlanetsManager>((ref) => PlanetsManager(ref));
+final selectedPlanetProvider = StateProvider<PlanetManager>(
+    (ref) => ref.watch(planetsManagerProvider).planets.first);

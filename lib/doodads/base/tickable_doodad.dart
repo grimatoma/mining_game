@@ -52,9 +52,13 @@ abstract class TickableDoodadInstance<
   }
 }
 
-T getOrDefaultFromJson<T>(
-        Map<String, dynamic>? json, String key, T Function() defaultValue) =>
-    json?[key] ?? defaultValue.call();
+T getOrDefaultFromJson<T>(Map<String, dynamic>? json, String key,
+    [T Function()? defaultValue, T Function(dynamic)? customParse]) {
+  final data = json?[key];
+  if (data == null && defaultValue != null) return defaultValue();
+  if (customParse != null) return customParse(data);
+  return data;
+}
 
 int intToJson(int i) => i;
 

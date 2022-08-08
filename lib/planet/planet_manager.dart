@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:math';
 
 import 'package:built_collection/built_collection.dart';
@@ -6,45 +5,16 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
+import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/doodads/doodad_types/house_doodad.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 
 part 'planet_manager.freezed.dart';
 
 part 'planet_manager.g.dart';
-
-class PlanetsManager {
-  final Ref _ref;
-  final List<PlanetManager> planets;
-
-  // ignore: unused_field
-  late final Timer _timer;
-
-  PlanetsManager(this._ref) : planets = [PlanetManager(_ref)] {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _updateAllPlanets();
-    });
-  }
-
-  void createPlanet() {
-    final newPlanet = PlanetManager(_ref);
-    planets.add(newPlanet);
-    _ref.read(selectedPlanetProvider.notifier).state = newPlanet;
-  }
-
-  void _updateAllPlanets() {
-    for (final planet in planets) {
-      planet.update();
-    }
-  }
-}
-
-final planetsManagerProvider =
-    StateProvider<PlanetsManager>((ref) => PlanetsManager(ref));
-final selectedPlanetProvider = StateProvider<PlanetManager>(
-    (ref) => ref.watch(planetsManagerProvider).planets.first);
 
 final selectedTileControllerProvider =
     StateProvider<TileStateController?>((ref) => null);
@@ -102,9 +72,6 @@ const tileSize3 = 41.0;
 final panelVisibilityState =
     StateProvider<PanelVisibility>((ref) => PanelVisibility.None);
 
-// Contains planet specifics and state
-class Planet {}
-
 // Maybe add a state.
 const tilesField = 'tiles';
 const widthField = 'width';
@@ -138,14 +105,6 @@ class PlanetManager {
     tiles = getOrDefaultFromJson(json, tilesField, () {
       houseManager = HouseManager(_ref);
       final planetBuilder = MapBuilder<Hexagon, TileStateController>();
-      // for (int y = 0; y < height; y++) {
-      //   final rowBuilder = ListBuilder<TileStateController>();
-      //   for (int x = 0; x < width; x++) {
-      //     rowBuilder.add(TileStateController(_ref, Hexagon(x, y)));
-      //   }
-      //   planetBuilder.add(rowBuilder.build());
-      // }
-
       final water = cubeRing(const Hexagon(0, 0), 5);
 
       var index = 0;
@@ -161,17 +120,22 @@ class PlanetManager {
         if (water.contains(hexagon)) {
           type = TileType.Water;
         }
-        planetBuilder[hexagon] =
-            TileStateController(_ref, this, hexagon, type, null);
+        planetBuilder[hexagon] = TileStateController(_ref, this, hexagon, type);
         index++;
       }
-      print(planetBuilder);
-      //
-      // planetBuilder
-      //     .putIfAbsent(const Hexagon(0, 0),
-      //         () => TileStateController(_ref, const Hexagon(0, 0)))
-      //     .addDoodad((c) => Tree(c));
       return planetBuilder.build();
+    }, (data) {
+      houseManager = HouseManager(_ref);
+      data as List<dynamic>;
+      print(data);
+      print(data);
+      final tiles = data
+          .map((e) => TileStateController.fromJson(
+              _ref, this, e as Map<String, dynamic>))
+          .toList();
+      return {
+        for (final t in tiles) t.hexagon: t,
+      }.build();
     });
   }
 
@@ -325,12 +289,19 @@ class TileStateController extends ChangeNotifier {
   @JsonKey(name: _doodadInstanceField)
   DoodadInstance? doodadInstance;
 
-  TileStateController(this._ref, this._planetManager, Hexagon? hexagon,
-      TileType? tileType, Map<String, dynamic>? json) {
-    this.hexagon = getOrDefaultFromJson(json, _hexagonField, () => hexagon!);
-    this.tileType = getOrDefaultFromJson(json, _tileTypeField, () => tileType!);
-    doodadInstance =
-        getOrDefaultFromJson(json, _doodadInstanceField, () => null);
+  TileStateController(
+      this._ref, this._planetManager, Hexagon? hexagon, TileType? tileType);
+
+  TileStateController.fromJson(
+      this._ref, this._planetManager, Map<String, dynamic> json) {
+    hexagon = Hexagon.fromJson(json[_hexagonField]);
+    tileType = tileTypeMap.inverse[json[_tileTypeField]]!;
+    final doodadInstanceJson = json[_doodadInstanceField];
+    if (doodadInstanceJson == null) return;
+    final definitionId =
+        DoodadId.fromJson(doodadInstanceJson['doodadDefinitionId']);
+    final def = ItemDirectory.doodadDefinitions[definitionId]!;
+    addDoodad(def, doodadInstanceJson);
   }
 
   ChangeNotifierProvider<TileStateController> get provider =>
@@ -342,9 +313,9 @@ class TileStateController extends ChangeNotifier {
 
   bool get hasDoodad => doodadInstance != null;
 
-  void addDoodad(DoodadDefinition doodad) {
+  void addDoodad(DoodadDefinition doodad, [Map<String, dynamic>? json]) {
     doodadInstance = doodad.create(
-        _ref, _planetManager, this, doodad, () => notifyListeners());
+        _ref, _planetManager, this, doodad, () => notifyListeners(), json);
     notifyListeners();
   }
 

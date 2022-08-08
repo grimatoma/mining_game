@@ -37,6 +37,9 @@ class HouseDoodadInstance extends DoodadInstance<HouseDoodadDefinition>
   }
 
   @override
+  void init() {}
+
+  @override
   PersonType get peopleType => definition.peopleType;
 
   @override

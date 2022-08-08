@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
@@ -36,6 +37,8 @@ enum TileType {
   Tree,
   Water,
 }
+
+final tileTypeMap = buildEnumMap(TileType.values);
 
 @freezed
 class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {

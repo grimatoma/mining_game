@@ -26,10 +26,14 @@ class AreaHarvestableDoodadInstance
   @override
   Map<String, dynamic> toJson() => _$AreaHarvestableDoodadInstanceToJson(this);
 
-  AreaHarvestableDoodadInstance(super.pack) {
-    tilesInRange = planetManager.getTilesInRange(parent.hexagon, range);
+  AreaHarvestableDoodadInstance(super.pack, {bool shouldInit = true}) {
     isHarvestingTile =
         getOrDefaultFromJson(pack.json, isHarvestingTileField, () => false);
+  }
+
+  @override
+  void init() {
+    tilesInRange = planetManager.getTilesInRange(parent.hexagon, range);
   }
 
   @JsonKey(name: isHarvestingTileField)

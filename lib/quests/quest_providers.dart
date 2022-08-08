@@ -27,8 +27,7 @@ class CompletedQuestsController extends StateController<BuiltSet<int>> {
 
   CompletedQuestsController(this._inventoryController) : super(BuiltSet()) {
     void init() async {
-      state = HiveManager.getIterable(BoxKey.COMPLETED_QUESTS,
-          (list) => list.map((e) => int.parse(e)).toBuiltSet());
+      state = HiveManager.getIterable(BoxKey.COMPLETED_QUESTS, intSetFromJson);
     }
 
     init();

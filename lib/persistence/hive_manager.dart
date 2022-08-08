@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mining_game/persistence/save_syncer.dart';
 
@@ -10,21 +11,23 @@ enum BoxKey {
   FEATURES,
   INVENTORY,
   COMPLETED_QUESTS,
+  CONSUMED_STORE_LISTINGS,
+  PLANETS,
 }
 
 const keyIncrement = '16';
 
 class HiveManager {
   static final openedBoxes = <BoxKey, Box>{};
-  static late final Box<String> _box;
+  static late final Box<String> box;
 
   static T getData<T>(
       BoxKey key,
       T Function(Map<String, Object?> json) fromJson,
       T Function() defaultValue) {
     try {
-      final data = _box.get(key.name) ?? '';
-      if (data.isEmpty) return defaultValue();
+      final data = box.get(key.name);
+      if (data == null) return defaultValue();
       return fromJson(jsonDecode(data));
     } catch (e) {
       print('JSON PARSING FAILED');
@@ -33,10 +36,22 @@ class HiveManager {
     }
   }
 
-  static T getIterable<T>(BoxKey key, T Function(List<String> json) fromJson) {
+  static List<dynamic>? getIterableJson(BoxKey key) {
     try {
-      final data = _box.get(key.name) ?? '';
-      if (data.isEmpty) return fromJson([]);
+      final data = box.get(key.name);
+      if (data == null) return null;
+      return jsonDecode(data);
+    } catch (e) {
+      print('JSON PARSING FAILED');
+      print(e);
+      rethrow;
+    }
+  }
+
+  static T getIterable<T>(BoxKey key, T Function(List<dynamic> json) fromJson) {
+    try {
+      final data = box.get(key.name);
+      if (data == null) return fromJson([]);
       return fromJson(jsonDecode(data));
     } catch (e) {
       print('JSON PARSING FAILED');
@@ -46,7 +61,8 @@ class HiveManager {
   }
 
   static Future<void> init() async {
-    _box = await Hive.openBox(SaveSyncer.coreBox);
+    box = await Hive.openBox(SaveSyncer.coreBox);
+    // await box.deleteFromDisk();
     // final futures = <Future>[];
     // for (final key in BoxKey.values) {
     //   final boxName = key.name + keyIncrement;
@@ -103,3 +119,8 @@ class HiveManager {
     }
   }
 }
+
+BuiltSet<int> Function(List<dynamic> json) intSetFromJson =
+    (list) => list.map((e) => e as int).toBuiltSet();
+BuiltList<int> Function(List<dynamic> json) intListFromJson =
+    (list) => list.map((e) => int.parse(e)).toBuiltList();

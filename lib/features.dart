@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
+import 'package:quiver/collection.dart';
 
 final activeFeaturesProvider =
     StateNotifierProvider<ActiveFeaturesProvider, BuiltSet<Feature>>(
@@ -35,5 +36,5 @@ enum Feature {
 
 final _featuresMap = buildEnumMap(Feature.values);
 
-Map<E, String> buildEnumMap<E extends Enum>(Iterable<E> values) =>
-    {for (var i in values) i: i.toString()};
+HashBiMap<E, String> buildEnumMap<E extends Enum>(Iterable<E> values) =>
+    HashBiMap()..addAll({for (var i in values) i: i.name});

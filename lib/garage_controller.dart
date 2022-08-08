@@ -15,18 +15,13 @@ import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
 
-freezed.dart';
-
 part 'garage_controller.g.dart';
 
 final garageProvider = StateNotifierProvider<GarageNotifier, GarageState>(
-        (ref) =>
-        GarageNotifier(
-            ref.watch(gameEventManagerProvider),
-            ref.watch(inventoryStateProvider.notifier),
-            ref
-                .watch(gameConfigsProvider)
-                .maxGarageSlots));
+    (ref) => GarageNotifier(
+        ref.watch(gameEventManagerProvider),
+        ref.watch(inventoryStateProvider.notifier),
+        ref.watch(gameConfigsProvider).maxGarageSlots));
 
 @freezed
 class GarageState with _$GarageState {
@@ -60,10 +55,10 @@ class GarageNotifier extends StateNotifier<GarageState> {
   final InventoryStateController _inventoryStateController;
   final GameEventManager _gameEventManager;
 
-  GarageNotifier(this._gameEventManager, this._inventoryStateController,
-      intMaxSlots)
+  GarageNotifier(
+      this._gameEventManager, this._inventoryStateController, intMaxSlots)
       : super(HiveManager.getData(BoxKey.GARAGE, GarageState.fromJson,
-          () => GarageState(<int, SlotState>{}.build()))) {
+            () => GarageState(<int, SlotState>{}.build()))) {
     _gameEventManager.streamForEventType<GarageEvent>().listen((event) {
       switch (event.type) {
         case GarageEventType.UNLOCK_SLOT:

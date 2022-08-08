@@ -2,6 +2,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/model_assets/store_listing_models.dart';
+import 'package:mining_game/persistence/hive_manager.dart';
 
 import 'shop_listing_definitions.dart';
 
@@ -11,11 +12,14 @@ final storeControllerProvider =
 
 class StoreListings {
   final BuiltList<ShopListing> listings;
+  final BuiltSet<int> consumedListing;
 
-  StoreListings(this.listings);
+  StoreListings(this.listings, this.consumedListing);
 
-  StoreListings rebuild(Function(ListBuilder<ShopListing>) updates) =>
-      StoreListings(listings.rebuild(updates));
+  StoreListings rebuild(Function(ListBuilder<ShopListing>) updates,
+          Function(SetBuilder<int>) setUpdates) =>
+      StoreListings(
+          listings.rebuild(updates), consumedListing.rebuild(setUpdates));
 }
 
 class StoreController extends StateNotifier<StoreListings> {
@@ -23,14 +27,14 @@ class StoreController extends StateNotifier<StoreListings> {
 
   StoreController(
     this._inventory,
-  ) : super(StoreListings(<ShopListing>[].build())) {
-    void initStore() async {
-      state = StoreListings(storeListing.build());
-      // state = StoreListings(await ItemDirectory.parseJsonList(
-      //     'assets/json/store_listings.json', ShopListing.fromJson));
-    }
-
-    initStore();
+  ) : super(StoreListings(BuiltList(), BuiltSet())) {
+    final consumed =
+        HiveManager.getIterable(BoxKey.CONSUMED_STORE_LISTINGS, intSetFromJson);
+    state = StoreListings(
+        storeListing
+            .where((element) => !consumed.contains(element.id))
+            .toBuiltList(),
+        consumed);
   }
 
   bool canBuy(ShopListing listing) =>
@@ -44,7 +48,8 @@ class StoreController extends StateNotifier<StoreListings> {
       if (!canBuy(listing)) return;
       _inventory.subtractItemRequirement(listing.cost);
       if (listing.consumable) {
-        state = state.rebuild((p0) => p0.remove(listing));
+        state = state.rebuild(
+            (p0) => p0.remove(listing), (p0) => p0.add(listing.id));
       }
       _inventory.addItemWithGenerator(listing.item);
     });

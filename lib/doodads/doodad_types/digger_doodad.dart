@@ -25,6 +25,9 @@ class DiggerDoodadInstance
   DiggerDoodadInstance(super.pack);
 
   @override
+  void init() {}
+
+  @override
   void ticksMet() {
     for (final generator in itemMined) {
       ref.read(inventoryStateProvider.notifier).addItemWithGenerator(generator);

@@ -84,6 +84,9 @@ class RegenerativeHarvestableDoodadInstance
   }
 
   @override
+  void init() {}
+
+  @override
   bool canTick() => currentResources < resourceMax;
 
   @override

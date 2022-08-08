@@ -45,6 +45,12 @@ const doodadDefintionIdField = 'doodadDefinitionId';
 
 abstract class DoodadInstance<DefinitionT extends DoodadInterface>
     implements DoodadInterface {
+  static var canInit = false;
+
+  DoodadInstance(this.pack) {
+    if (canInit) init();
+  }
+
   @protected
   final DoodadInstancePack<DefinitionT> pack;
 
@@ -65,9 +71,10 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
   @protected
   void Function() get notifyListeners => pack.notifyListeners;
 
-  DoodadInstance(this.pack);
-
+  @mustCallSuper
   void update();
+
+  void init();
 
   Widget? get statusWidget => null;
 

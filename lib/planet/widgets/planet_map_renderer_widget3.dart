@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/assets.dart';
 import 'package:mining_game/planet/planet_manager.dart';
+import 'package:mining_game/planet/planets_manager.dart';
 import 'package:mining_game/widgets/planet_page.dart';
 
 class HexagonPlanetRenderer extends HookConsumerWidget {
