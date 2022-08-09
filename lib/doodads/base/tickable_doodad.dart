@@ -47,8 +47,10 @@ abstract class TickableDoodadInstance<
   String get ticksName => definition.ticksName;
 
   TickableDoodadInstance(super.pack) {
-    currentTickStateProvider = SimpleStateProvider<int>(ref, intToJson,
-        (ref) => getOrDefaultFromJson(pack.json, _currentTickField, () => 0));
+    currentTickStateProvider = SimpleStateProvider<int>(ref, (ref) => 0,
+        valueToJson: intToJson,
+        valueFromJson: (ref, json) => json,
+        json: getOrDefaultFromJson(pack.json, _currentTickField, () => null));
   }
 }
 
@@ -60,6 +62,18 @@ T getOrDefaultFromJson<T>(Map<String, dynamic>? json, String key,
   return data;
 }
 
+// T getOrDefaultIntFromJson<T>(int? json, String key,
+//     [T Function()? defaultValue, T Function(dynamic)? customParse]) {
+//   final data = json?[key];
+//   if (data == null && defaultValue != null) return defaultValue();
+//   if (customParse != null) return customParse(data);
+//   return data;
+// }
+
 int intToJson(int i) => i;
 
+int intFromJson(dynamic i) => i;
+
 bool boolToJson(bool b) => b;
+
+bool boolFromJson(dynamic b) => b;

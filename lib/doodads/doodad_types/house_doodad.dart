@@ -82,8 +82,8 @@ class HouseManager with Tickable {
   final Set<HouseDoodadInstance> houses = {};
 
   HouseManager(this._ref) {
-    currentTickStateProvider =
-        SimpleStateProvider<int>(_ref, intToJson, (ref) => 0);
+    print('not loading json');
+    currentTickStateProvider = SimpleStateProvider<int>(_ref, (ref) => 0);
   }
 
   @override

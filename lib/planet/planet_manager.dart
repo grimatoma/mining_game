@@ -432,27 +432,35 @@ class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
   Map<String, dynamic> toJson() =>
       _$SimpleStateProviderToJson(this, valueToJson!);
   @protected
-  final Ref ref;
+  final Ref _ref;
   @protected
-  final StateProvider<T> stateProvider;
+  late final StateProvider<T> stateProvider;
 
-  SimpleStateProvider(
-      this.ref, this.valueToJson, T Function(Ref ref) initialValue)
-      : stateProvider = StateProvider<T>(initialValue);
+  SimpleStateProvider(this._ref, T Function(Ref ref) defaultValue,
+      {this.valueToJson,
+      T Function(Ref ref, dynamic json)? valueFromJson,
+      Map<String, dynamic>? json}) {
+    if (json != null && valueFromJson != null) {
+      stateProvider =
+          StateProvider<T>((ref) => valueFromJson(ref, json[_valueField]));
+    } else {
+      stateProvider = StateProvider<T>(defaultValue);
+    }
+  }
 
   AlwaysAliveProviderBase<StateController<T>> get notifier =>
       stateProvider.notifier;
 
   @override
   @JsonKey(name: _valueField)
-  T get read => ref.read(notifier).state;
+  T get read => _ref.read(notifier).state;
 
   @override
   T watch(WidgetRef ref) => ref.watch(stateProvider);
 
   @mustCallSuper
   set updateState(T newState) {
-    ref.read(stateProvider.notifier).state = newState;
+    _ref.read(stateProvider.notifier).state = newState;
   }
 }
 

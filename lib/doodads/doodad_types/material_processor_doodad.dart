@@ -41,11 +41,10 @@ class MaterialProcessorDoodadInstance
 
   MaterialProcessorDoodadInstance(super.pack) {
     _inventoryController = ref.read(inventoryStateProvider.notifier);
-    _isProcessingResourceState = SimpleStateProvider<bool>(
-        ref,
-        boolToJson,
-        (ref) =>
-            getOrDefaultFromJson(pack.json, _isProcessingField, () => false));
+    _isProcessingResourceState = SimpleStateProvider<bool>(ref, (_) => false,
+        valueFromJson: (ref, json) => json,
+        valueToJson: boolToJson,
+        json: getOrDefaultFromJson(pack.json, _isProcessingField, () => null));
   }
 
   @override
