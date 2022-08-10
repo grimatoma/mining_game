@@ -14,10 +14,12 @@ import 'package:mining_game/item_management/item_directory.dart';
 
 part 'planet_manager.freezed.dart';
 
+reezed.dart';
+
 part 'planet_manager.g.dart';
 
 final selectedTileControllerProvider =
-    StateProvider<TileStateController?>((ref) => null);
+StateProvider<TileStateController?>((ref) => null);
 
 // only uses
 List<Hexagon> generateHexagonMapOfSize(int width) {
@@ -289,17 +291,17 @@ class TileStateController extends ChangeNotifier {
   @JsonKey(name: _doodadInstanceField)
   DoodadInstance? doodadInstance;
 
-  TileStateController(
-      this._ref, this._planetManager, Hexagon? hexagon, TileType? tileType);
+  TileStateController(this._ref, this._planetManager, this.hexagon,
+      this.tileType);
 
-  TileStateController.fromJson(
-      this._ref, this._planetManager, Map<String, dynamic> json) {
+  TileStateController.fromJson(this._ref, this._planetManager,
+      Map<String, dynamic> json) {
     hexagon = Hexagon.fromJson(json[_hexagonField]);
     tileType = tileTypeMap.inverse[json[_tileTypeField]]!;
     final doodadInstanceJson = json[_doodadInstanceField];
     if (doodadInstanceJson == null) return;
     final definitionId =
-        DoodadId.fromJson(doodadInstanceJson['doodadDefinitionId']);
+    DoodadId.fromJson(doodadInstanceJson['doodadDefinitionId']);
     final def = ItemDirectory.doodadDefinitions[definitionId]!;
     addDoodad(def, doodadInstanceJson);
   }

@@ -6,33 +6,55 @@ import 'package:mining_game/persistence/hive_manager.dart';
 
 import 'shop_listing_definitions.dart';
 
-final storeControllerProvider =
-    StateNotifierProvider<StoreController, StoreListings>(
-        (ref) => StoreController(ref.watch(inventoryStateProvider.notifier)));
+enum Shop {
+  PLANET_BUY_MENU,
+  STORE_MAIN_NAV,
+}
 
-class StoreListings {
-  final BuiltList<ShopListing> listings;
+final storeMainNavControllerProvider =
+    StateNotifierProvider<StoreController, StoreListings>((ref) =>
+        StoreController(
+            ref.watch(inventoryStateProvider.notifier), Shop.STORE_MAIN_NAV));
+final storePlanetBuyMenuControllerProvider = StateNotifierProvider<
+        StoreController<DoodadShopListing>, StoreListings<DoodadShopListing>>(
+    (ref) => StoreController<DoodadShopListing>(
+        ref.watch(inventoryStateProvider.notifier), Shop.PLANET_BUY_MENU));
+
+class StoreListings<ListingTypeT extends ShopListing> {
+  final BuiltList<ListingTypeT> listings;
   final BuiltSet<int> consumedListing;
 
   StoreListings(this.listings, this.consumedListing);
 
-  StoreListings rebuild(Function(ListBuilder<ShopListing>) updates,
+  StoreListings<ListingTypeT> rebuild(
+          Function(ListBuilder<ShopListing>) updates,
           Function(SetBuilder<int>) setUpdates) =>
       StoreListings(
           listings.rebuild(updates), consumedListing.rebuild(setUpdates));
 }
 
-class StoreController extends StateNotifier<StoreListings> {
+class StoreController<ListingTypeT extends ShopListing>
+    extends StateNotifier<StoreListings<ListingTypeT>> {
+  final Shop shop;
   final InventoryStateController _inventory;
 
   StoreController(
     this._inventory,
+    this.shop,
   ) : super(StoreListings(BuiltList(), BuiltSet())) {
-    final consumed =
-        HiveManager.getIterable(BoxKey.CONSUMED_STORE_LISTINGS, intSetFromJson);
-    state = StoreListings(
-        storeListing
+    final BuiltSet<int> consumed = HiveManager.getData(
+        BoxKey.CONSUMED_STORE_LISTINGS, (Map<String, dynamic> json) {
+      final fromJsonConsumed = json[shop.name];
+      if (fromJsonConsumed != null) {
+        return intSetFromJson(fromJsonConsumed);
+      } else {
+        return <int>{}.build();
+      }
+    }, () => <int>{}.build());
+    state = StoreListings<ListingTypeT>(
+        getShopListings(shop)
             .where((element) => !consumed.contains(element.id))
+            .whereType<ListingTypeT>()
             .toBuiltList(),
         consumed);
   }
@@ -44,14 +66,16 @@ class StoreController extends StateNotifier<StoreListings> {
   //     _inventory.meetsRequirements(listing.items);
 
   void clickListing(ShopListing listing) {
-    listing.map(itemListing: (listing) {
-      if (!canBuy(listing)) return;
-      _inventory.subtractItemRequirement(listing.cost);
-      if (listing.consumable) {
-        state = state.rebuild(
-            (p0) => p0.remove(listing), (p0) => p0.add(listing.id));
-      }
-      _inventory.addItemWithGenerator(listing.item);
-    });
+    listing.map(
+        itemListing: (listing) {
+          if (!canBuy(listing)) return;
+          _inventory.subtractItemRequirement(listing.cost);
+          if (listing.consumable) {
+            state = state.rebuild(
+                (p0) => p0.remove(listing), (p0) => p0.add(listing.id));
+          }
+          _inventory.addItemWithGenerator(listing.item);
+        },
+        doodadListing: (DoodadShopListing value) {});
   }
 }

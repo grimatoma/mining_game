@@ -1,8 +1,61 @@
+import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
+import 'package:mining_game/item_management/store/store.dart';
 
-final storeListing = [
+final _storesListings = <Shop, Iterable<ShopListing>>{
+  Shop.PLANET_BUY_MENU: [
+    ShopListing.doodadListing(
+      id: 8,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.tree,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
+      id: 9,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.treeCutterHut,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
+      id: 13,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.houseLevel1,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
+      id: 10,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.rawFish,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
+      id: 11,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.fisherman,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
+      id: 12,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.ironDigger,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
+      id: 14,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.ironSmelter,
+      consumable: false,
+    ),
+  ],
+  Shop.STORE_MAIN_NAV: _mainNavStore,
+};
+
+Iterable<ShopListing> getShopListings(Shop shop) =>
+    _storesListings[shop] ?? <ShopListing>[];
+
+final _mainNavStore = [
   ShopListing.itemListing(
       id: 1,
       cost: ItemRequirement.single(Items.IRON, 5),

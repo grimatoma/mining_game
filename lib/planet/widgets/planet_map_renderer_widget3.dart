@@ -103,7 +103,7 @@ class TileWidget extends ConsumerWidget {
               final selectedTileController =
                   ref.read(selectedTileControllerProvider.notifier);
               if (!tileController.hasDoodad &&
-                  supportedItemsToBuy(tileController).isNotEmpty &&
+                  ref.watch(buildableItemShopListingsProvider).isNotEmpty &&
                   selectedTileController.state == _controller) {
                 ref.read(panelVisibilityState.notifier).state =
                     PanelVisibility.BuyMenu;

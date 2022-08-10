@@ -42,9 +42,18 @@ class SaveSyncer {
     HiveManager.box
         .put(BoxKey.COMPLETED_QUESTS.name, jsonEncode(quests.toList()));
 
-    final store = _ref.read(storeControllerProvider).consumedListing;
-    HiveManager.box
-        .put(BoxKey.CONSUMED_STORE_LISTINGS.name, jsonEncode(store.toList()));
+    HiveManager.box.put(
+        BoxKey.CONSUMED_STORE_LISTINGS.name,
+        jsonEncode({
+          Shop.PLANET_BUY_MENU.name: _ref
+              .read(storePlanetBuyMenuControllerProvider)
+              .consumedListing
+              .toList(growable: false),
+          Shop.STORE_MAIN_NAV.name: _ref
+              .read(storeMainNavControllerProvider)
+              .consumedListing
+              .toList(growable: false),
+        }));
 
     final planets = _ref.read(planetsManagerProvider).planets;
     HiveManager.box.put(BoxKey.PLANETS.name, jsonEncode(planets));

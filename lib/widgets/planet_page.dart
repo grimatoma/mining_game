@@ -3,14 +3,14 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
-import 'package:mining_game/model_assets/doodad_models.dart';
+import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
+import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
-import '../item_management/item_definition.dart';
+import '../item_management/store/shop_listing_definitions.dart';
 import 'status_bar_wrapped_page.dart';
 
 class PlanetPageWidget extends HookConsumerWidget {
@@ -99,6 +99,29 @@ class ModalTitleWidget extends StatelessWidget {
   }
 }
 
+final buildableItemShopListingsProvider =
+    StateProvider<List<DoodadShopListing>>((ref) {
+  final selectedTile = ref.watch(selectedTileControllerProvider);
+  if (selectedTile == null) return [];
+  return [
+    for (final item in ref.watch(storePlanetBuyMenuControllerProvider).listings)
+      if (!selectedTile.hasDoodad &&
+          item.doodadId.definition.supportedLocations
+              .contains(selectedTile.tileType))
+        item,
+  ];
+});
+
+// Iterable<DoodadDefinition> supportedItemsToBuy(
+//     TileStateController tileStateController) {
+//   return [
+//     for (final item in doodadDefinitionsExample)
+//       if (!tileStateController.hasDoodad &&
+//           item.supportedLocations.contains(tileStateController.tileType))
+//         item,
+//   ];
+// }
+
 class BuildMenuWidget extends HookConsumerWidget {
   static const menuItemPadding = 8.0;
 
@@ -157,9 +180,9 @@ class BuildMenuWidget extends HookConsumerWidget {
                                 .floor()
                                 .clamp(3, 5),
                         children: [
-                          for (final item in supportedItemsToBuy(selectedTile))
-                            DoodadBuildItemWidget(BuildMenuItem(
-                                doodad: item, cost: ItemRequirement.empty)),
+                          for (final listing
+                              in ref.watch(buildableItemShopListingsProvider))
+                            DoodadBuildItemWidget(listing),
                         ],
                       ),
                     ),
@@ -175,17 +198,8 @@ class BuildMenuWidget extends HookConsumerWidget {
   }
 }
 
-Iterable<DoodadDefinition> supportedItemsToBuy(
-    TileStateController tileStateController) {
-  return [
-    for (final item in doodadDefinitionsExample)
-      if (!tileStateController.hasDoodad &&
-          item.supportedLocations.contains(tileStateController.tileType))
-        item,
-  ];
-}
-
-final buildMenuItemFocusProvider = StateProvider<BuildMenuItem?>((ref) => null);
+final buyListingFocusProvider =
+    StateProvider<DoodadShopListing?>((ref) => null);
 
 class BuildMenuFocusDetail extends ConsumerWidget {
   const BuildMenuFocusDetail({
@@ -194,9 +208,9 @@ class BuildMenuFocusDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final item = ref.watch(buildMenuItemFocusProvider);
-    if (item == null) return Container();
-    final doodad = item.doodad;
+    final listing = ref.watch(buyListingFocusProvider);
+    if (listing == null) return Container();
+    final doodad = listing.doodadId.definition;
     return Container(
       color: Colors.green[100],
       height: 200,
@@ -265,31 +279,32 @@ class BuildMenuFocusDetail extends ConsumerWidget {
 }
 
 void buyDoodad(WidgetRef ref) {
-  final item = ref.watch(buildMenuItemFocusProvider);
+  final listing = ref.watch(buyListingFocusProvider);
   final selectedTile = ref.read(selectedTileControllerProvider);
-  if (item == null || selectedTile == null) return;
+  if (listing == null || selectedTile == null) return;
 
-  selectedTile.addDoodad(item.doodad);
+  selectedTile.addDoodad(listing.doodadId.definition);
   ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
   ref.read(selectedTileControllerProvider.notifier).state = null;
-  ref.read(buildMenuItemFocusProvider.notifier).state = null;
+  ref.read(buyListingFocusProvider.notifier).state = null;
 }
 
 void closeBuyMenu(WidgetRef ref) {
   ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
-  ref.read(buildMenuItemFocusProvider.notifier).state = null;
+  ref.read(buyListingFocusProvider.notifier).state = null;
 }
 
 class DoodadBuildItemWidget extends HookConsumerWidget {
-  final BuildMenuItem _item;
+  final DoodadShopListing _listing;
 
   const DoodadBuildItemWidget(
-    this._item, {
+    this._listing, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final doodadDefinition = _listing.doodadId.definition;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 3),
@@ -301,22 +316,22 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
         child: InkResponse(
           onTap: () {
             final focusedItemProvider =
-                ref.read(buildMenuItemFocusProvider.notifier);
-            if (focusedItemProvider.state == _item) {
+                ref.read(buyListingFocusProvider.notifier);
+            if (focusedItemProvider.state == _listing) {
               buyDoodad(ref);
             } else {
-              focusedItemProvider.state = _item;
+              focusedItemProvider.state = _listing;
             }
           },
           child: Stack(
             children: [
               Center(
                 child: Image.asset(
-                  _item.doodad.storeImageAsset,
+                  doodadDefinition.storeImageAsset,
                   fit: BoxFit.fill,
                 ),
               ),
-              Text(_item.doodad.name),
+              Text(doodadDefinition.name),
             ],
           ),
         ),
@@ -335,7 +350,7 @@ class TileDetailWidget extends ConsumerWidget {
     final selectedTile = ref.watch(selectedTileControllerProvider);
     if (selectedTile == null) return Container();
 
-    final canBuild = supportedItemsToBuy(selectedTile).isNotEmpty;
+    final canBuild = ref.watch(buildableItemShopListingsProvider).isNotEmpty;
     return Container(
         color: Colors.red[100],
         height: 150,

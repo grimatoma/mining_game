@@ -15,7 +15,7 @@ class StorePageWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen to changes in money (For failed purchases);
     ref.watch(inventoryStateProvider);
-    final storeListings = ref.watch(storeControllerProvider);
+    final storeListings = ref.watch(storeMainNavControllerProvider);
 
     return StatusBarWrappedPageWidget(
         title: 'Store',
@@ -26,6 +26,7 @@ class StorePageWidget extends HookConsumerWidget {
                 final listing = storeListings.listings[index];
                 return listing.map(
                   itemListing: (l) => ItemShopListingWidget(l),
+                  doodadListing: (DoodadShopListing value) => null!,
                 );
               },
               itemCount: storeListings.listings.length,
@@ -169,7 +170,8 @@ class BuyButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final storeListingsController = ref.watch(storeControllerProvider.notifier);
+    final storeListingsController =
+        ref.watch(storeMainNavControllerProvider.notifier);
 
     return ShopButton(
         cost: listing.cost,

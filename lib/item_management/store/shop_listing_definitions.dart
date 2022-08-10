@@ -1,7 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mining_game/doodads/base/doodad_id.dart';
+import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 
 part 'shop_listing_definitions.freezed.dart';
+
+rt';
 
 part 'shop_listing_definitions.g.dart';
 
@@ -25,6 +29,14 @@ class ShopListing with _$ShopListing implements ShopListingInterface {
     required ItemInstanceGenerator item,
     @Default(true) bool consumable,
   }) = ItemShopListing;
+
+  const factory ShopListing.doodadListing({
+    required int id,
+    required ItemRequirement cost,
+    required DoodadId doodadId,
+    Set<Feature>? requiredFeatures,
+    @Default(true) bool consumable,
+  }) = DoodadShopListing;
 
   factory ShopListing.fromJson(Map<String, dynamic> json) =>
       _$ShopListingFromJson(json);

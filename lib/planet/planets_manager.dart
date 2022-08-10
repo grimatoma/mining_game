@@ -24,20 +24,21 @@ class PlanetsManager {
   late final Timer _timer;
 
   PlanetsManager(this._ref) {
-    // try {
-    final json = HiveManager.getIterableJson(BoxKey.PLANETS);
-    print(json);
-    if (json != null) {
-      for (final planetJson in json) {
-        planets.add(PlanetManager(_ref, planetJson));
+    print('created planets manager');
+    try {
+      final json = HiveManager.getIterableJson(BoxKey.PLANETS);
+      print(json);
+      if (json != null) {
+        for (final planetJson in json) {
+          planets.add(PlanetManager(_ref, planetJson));
+        }
+      } else {
+        createPlanet(false);
       }
-    } else {
-      createPlanet();
+    } catch (e) {
+      print(e);
+      rethrow;
     }
-    // } catch (e) {
-    //   print(e);
-    //   rethrow;
-    // }
     // Init all Doodads
     for (final planet in planets) {
       for (final tile in planet.tiles.values) {
@@ -50,10 +51,12 @@ class PlanetsManager {
     });
   }
 
-  void createPlanet() {
+  void createPlanet([bool selectPlanet = true]) {
     final newPlanet = PlanetManager(_ref);
-    // planets.add(newPlanet);
-    _ref.read(selectedPlanetProvider.notifier).state = newPlanet;
+    planets.add(newPlanet);
+    if (selectPlanet) {
+      _ref.read(selectedPlanetProvider.notifier).state = newPlanet;
+    }
   }
 
   void _updateAllPlanets() {
@@ -63,7 +66,16 @@ class PlanetsManager {
   }
 }
 
-final planetsManagerProvider =
-    StateProvider<PlanetsManager>((ref) => PlanetsManager(ref));
+final planetsManagerProvider = StateProvider<PlanetsManager>((ref) {
+  PlanetsManager q;
+  try {
+    q = PlanetsManager(ref);
+  } catch (e) {
+    print('fuck $e');
+    print(e);
+    q = PlanetsManager(ref);
+  }
+  return q;
+});
 final selectedPlanetProvider = StateProvider<PlanetManager>(
-    (ref) => ref.watch(planetsManagerProvider).planets.first);
+    (ref) => ref.read(planetsManagerProvider).planets.first);
