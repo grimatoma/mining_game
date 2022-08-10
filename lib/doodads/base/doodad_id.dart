@@ -5,8 +5,6 @@ import 'doodad_definition.dart';
 
 part 'doodad_id.freezed.dart';
 
-rt';
-
 part 'doodad_id.g.dart';
 
 @freezed

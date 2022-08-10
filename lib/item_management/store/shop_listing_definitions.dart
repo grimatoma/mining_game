@@ -5,8 +5,6 @@ import 'package:mining_game/item_management/item_definition.dart';
 
 part 'shop_listing_definitions.freezed.dart';
 
-rt';
-
 part 'shop_listing_definitions.g.dart';
 
 abstract class ShopListingInterface {
