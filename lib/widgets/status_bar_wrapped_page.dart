@@ -6,6 +6,7 @@ import 'status_bar.dart';
 class StatusBarWrappedPageWidget extends ConsumerWidget {
   final String title;
   final Widget Function(BuildContext context, WidgetRef ref) builder;
+
   const StatusBarWrappedPageWidget({
     required this.title,
     required this.builder,
@@ -15,10 +16,12 @@ class StatusBarWrappedPageWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-        centerTitle: true,
-      ),
+      appBar: title.isNotEmpty
+          ? AppBar(
+              title: Text(title),
+              centerTitle: true,
+            )
+          : null,
       body: Center(
         child: SizedBox(
           // width: max(MediaQuery.of(context).size.width, 900),

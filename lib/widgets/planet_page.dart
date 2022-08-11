@@ -19,7 +19,7 @@ class PlanetPageWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return StatusBarWrappedPageWidget(
-      title: 'Planet',
+      title: '',
       builder: (context, ref) => Stack(fit: StackFit.expand, children: [
         const HexagonPlanetRenderer(),
         Align(
@@ -172,13 +172,14 @@ class BuildMenuWidget extends HookConsumerWidget {
                     ),
                     Expanded(
                       child: GridView.count(
+                        childAspectRatio: 2,
                         padding: const EdgeInsets.all(menuItemPadding),
                         mainAxisSpacing: menuItemPadding,
                         crossAxisSpacing: menuItemPadding,
                         crossAxisCount:
-                            (MediaQuery.of(context).size.width / 128)
+                            (MediaQuery.of(context).size.width / 256)
                                 .floor()
-                                .clamp(3, 5),
+                                .clamp(1, 3),
                         children: [
                           for (final listing
                               in ref.watch(buildableItemShopListingsProvider))
@@ -305,10 +306,11 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final doodadDefinition = _listing.doodadId.definition;
+    final focusedItem = ref.watch(buyListingFocusProvider);
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black, width: 3),
-        // color: Colors.purple,
+        color: focusedItem == _listing ? Colors.green : Colors.white,
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: ClipRRect(
@@ -316,22 +318,37 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
         child: InkResponse(
           onTap: () {
             final focusedItemProvider =
-                ref.read(buyListingFocusProvider.notifier);
+                ref.watch(buyListingFocusProvider.notifier);
             if (focusedItemProvider.state == _listing) {
               buyDoodad(ref);
             } else {
               focusedItemProvider.state = _listing;
             }
           },
-          child: Stack(
+          child: Row(
             children: [
-              Center(
-                child: Image.asset(
-                  doodadDefinition.storeImageAsset,
-                  fit: BoxFit.fill,
+              Flexible(
+                flex: 1,
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        doodadDefinition.storeImageAsset,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              Text(doodadDefinition.name),
+              Flexible(
+                flex: 1,
+                child: Column(
+                  children: [
+                    AutoSizeText(doodadDefinition.name),
+                    AutoSizeText(_listing.cost.requiredItems.toString()),
+                  ],
+                ),
+              )
             ],
           ),
         ),

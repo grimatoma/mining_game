@@ -99,7 +99,7 @@ final itemModels = [
       baseDamage: 1,
       baseHopperSize: 50,
       fuelConsumption: 5,
-      image: 'assets/images/drills/3.jpg'),
+      image: 'assets/images/drills/3.png'),
   const ItemDefinition.minerDefinition(
       id: Items.MINER4,
       name: 'Test miner 4',

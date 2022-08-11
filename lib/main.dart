@@ -211,7 +211,7 @@ class TestWi extends HookConsumerWidget {
 final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
   return [
     RootRoute(
-        name: 'planet',
+        name: 'Planet',
         icon: Icons.circle,
         builder: (context, _) => const PlanetPageWidget()),
     RootRoute(

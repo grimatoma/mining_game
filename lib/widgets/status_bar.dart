@@ -23,18 +23,36 @@ class StatusBarWidget extends HookConsumerWidget {
         child: Column(
           children: [
             Table(
+              columnWidths: {
+                0: IntrinsicColumnWidth(),
+                1: IntrinsicColumnWidth(),
+              },
               children: [
                 for (final item in itemEntry)
                   TableRow(children: [
-                    Center(
-                        child: Text(
-                            item.key.definition() is CanHavePluralName &&
-                                    item.value > 1
-                                ? (item.key.definition() as CanHavePluralName)
-                                        .namePlural ??
-                                    item.key.itemName
-                                : item.key.itemName)),
-                    Center(child: Text(item.value.toString())),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          item.key.definition().image,
+                          height: 25,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                          child: Text(
+                              item.key.definition() is CanHavePluralName &&
+                                      item.value > 1
+                                  ? (item.key.definition() as CanHavePluralName)
+                                          .namePlural ??
+                                      item.key.itemName
+                                  : item.key.itemName),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                      child: Text(item.value.toString()),
+                    ),
                   ]),
               ],
             ),
