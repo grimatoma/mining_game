@@ -23,7 +23,7 @@ class StatusBarWidget extends HookConsumerWidget {
         child: Column(
           children: [
             Table(
-              columnWidths: {
+              columnWidths: const {
                 0: IntrinsicColumnWidth(),
                 1: IntrinsicColumnWidth(),
               },

@@ -157,8 +157,8 @@ class PlanetController extends StateNotifier<Planet> {
     planet = planet.rebuild((p0) {
       p0[p] = tile.copyWith(resources: tile.resources - resolvedDamage);
     });
-    return Items.IRON
-        .generateItemInstance(resolvedDamage.items[Items.IRON] ?? 0);
+    return Items.IRON_ORE
+        .generateItemInstance(resolvedDamage.items[Items.IRON_ORE] ?? 0);
   }
 
   void scanForResources(PlanetPoint p, int radius) {
@@ -188,7 +188,7 @@ class PlanetController extends StateNotifier<Planet> {
       min(
               255,
               (255 *
-                  planetTile.resources.get(Items.IRON) /
+                  planetTile.resources.get(Items.IRON_ORE) /
                   planet.maxResourceSize))
           .toInt(),
       0,
@@ -205,9 +205,9 @@ class PlanetController extends StateNotifier<Planet> {
         int index = y * width + x;
         var tile = map[PlanetPoint(x, y, 0)]!;
 
-        final color =
-            min(255, (255 * tile.resources.get(Items.IRON) / maxResourceSize))
-                .toInt();
+        final color = min(255,
+                (255 * tile.resources.get(Items.IRON_ORE) / maxResourceSize))
+            .toInt();
         pixels[index] = Color.fromRGBO(
                 tile.visible ? color : 20,
                 tile.visible ? r.nextInt(1) : 100 + r.nextInt(100),

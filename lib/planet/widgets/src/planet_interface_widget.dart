@@ -48,7 +48,7 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                               ref.read(planetControllerProvider.notifier).dig(
                                   selectedTile.point,
                                   ItemRequirement({
-                                    Items.IRON: 1,
+                                    Items.IRON_ORE: 1,
                                   })));
                         },
                         child: const Text('dig')),

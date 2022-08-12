@@ -5,7 +5,7 @@ import 'item_definition.dart';
 class Items {
   static const ROCK = ItemDefinitionId('ROCK');
   static const SHARP_ROCK = ItemDefinitionId('SHARP_ROCK');
-  static const IRON = ItemDefinitionId('IRON');
+  static const IRON_ORE = ItemDefinitionId('IRON');
   static const IRON_BAR = ItemDefinitionId('IRON_BAR');
   static const COPPER = ItemDefinitionId('COPPER');
   static const TEST_DRILL = ItemDefinitionId('TEST_DRILL');

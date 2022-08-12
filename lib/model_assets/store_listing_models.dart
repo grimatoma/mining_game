@@ -19,6 +19,12 @@ final _storesListings = <Shop, Iterable<ShopListing>>{
       consumable: false,
     ),
     ShopListing.doodadListing(
+      id: 15,
+      cost: ItemRequirement.single(Items.CREDIT, 1),
+      doodadId: DoodadId.sawMill,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
       id: 13,
       cost: ItemRequirement.single(Items.CREDIT, 1),
       doodadId: DoodadId.houseLevel1,
@@ -58,7 +64,7 @@ Iterable<ShopListing> getShopListings(Shop shop) =>
 final _mainNavStore = [
   ShopListing.itemListing(
       id: 1,
-      cost: ItemRequirement.single(Items.IRON, 5),
+      cost: ItemRequirement.single(Items.IRON_ORE, 5),
       item: ItemInstanceGenerator(Items.CREDIT, 25)),
   ShopListing.itemListing(
       id: 2,

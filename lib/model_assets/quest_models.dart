@@ -11,7 +11,7 @@ final quests = [
       description:
           'This is an example quest. Please give me 5 credits so I can give you 25 rocks.',
       enabledRequirement:
-          Requirement(itemsOwned: ItemRequirement.single(Items.IRON, 5)),
+          Requirement(itemsOwned: ItemRequirement.single(Items.IRON_ORE, 5)),
       completeRequirement: Requirement(
         cost: ItemRequirement.single(Items.CREDIT, 5),
       ),
@@ -33,7 +33,7 @@ final quests = [
       description: 'This quest checks that you own Iron',
       enabledRequirement: const Requirement(),
       completeRequirement:
-          Requirement(itemsOwned: ItemRequirement.single(Items.IRON, 5)),
+          Requirement(itemsOwned: ItemRequirement.single(Items.IRON_ORE, 5)),
       reward: QuestReward(
         items: ItemContainer.single(Items.ROCK, 25),
       )),
@@ -45,7 +45,7 @@ final quests = [
       enabledRequirement: const Requirement(),
       completeRequirement: Requirement(
           cost: ItemRequirement({
-        Items.IRON: 50,
+        Items.IRON_ORE: 50,
         Items.CREDIT: 25,
       })),
       reward: const QuestReward(

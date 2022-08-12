@@ -284,6 +284,12 @@ void buyDoodad(WidgetRef ref) {
   final selectedTile = ref.read(selectedTileControllerProvider);
   if (listing == null || selectedTile == null) return;
 
+  final shopController =
+      ref.read(storePlanetBuyMenuControllerProvider.notifier);
+  if (shopController.canBuy(listing)) {
+    shopController.clickListing(listing);
+  }
+
   selectedTile.addDoodad(listing.doodadId.definition);
   ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
   ref.read(selectedTileControllerProvider.notifier).state = null;
@@ -346,6 +352,10 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
                   children: [
                     AutoSizeText(doodadDefinition.name),
                     AutoSizeText(_listing.cost.requiredItems.toString()),
+                    // AutoSizeText(
+                    //   doodadDefinition.description,
+                    //   minFontSize: 4,
+                    // ),
                   ],
                 ),
               )

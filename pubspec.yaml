@@ -86,53 +86,28 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/placeholder.png
-    - assets/images/tree.png
-    - assets/images/empty_inventory_slot.png
-    - assets/images/drills/1.jpg
-    - assets/images/drills/2.jpg
-    - assets/images/drills/3.png
-    - assets/images/drills/4.jpg
-    - assets/images/drills/5.png
-    - assets/images/drills/6.jpg
-    - assets/images/drills/7.png
+    - assets/images/
+    - assets/images/drills/
     - assets/json/miners.json
-    - assets/images/minerals/iron.png
-    - assets/images/minerals/copper.png
+    - assets/images/minerals/
     - assets/json/store_listings.json
     - assets/json/items.json
     - assets/json/quests.json
     - assets/images/money.png
-    - assets/images/tiles/02Grass/farmland.png
-    - assets/images/tiles/02Grass/plains.png
-    - assets/images/tiles/02Grass/prairie.png
-    - assets/images/tiles/02Grass/shrubland.png
+    - assets/images/tiles/02Grass/
     - assets/images/tiles/03Trees/jungle_heavy.png
-    - assets/images/tiles/13-Icons/windmill.png
-    - assets/images/tiles/13-Icons/bridge.png
+    - assets/images/tiles/13-Icons/
     - assets/images/tiles/11-mountains/mountain_range.png
     - assets/images/tiles/08-hot_weather/desert_rocky.png
     - assets/images/tiles/10-barren_terrain/open_underdark.png
-    - assets/images/tiles/03Trees/jungle_light.png
-    - assets/images/tiles/03Trees/trees_heavy.png
-    - assets/images/tiles/03Trees/trees_light.png
-    - assets/images/tiles/03Trees/forest_heavy.png
-    - assets/images/tiles/03Trees/forest_light.png
+    - assets/images/tiles/03Trees/
     - assets/images/tiles/09-water/sea.png
     - assets/images/tiles/09-water/shoals.png
     - assets/images/doodad/sawmill.png
-    - assets/images/doodad/lumberHut.jpg
+    - assets/images/doodad/lumberHut.png
     - assets/images/1Icons/wood.png
     - assets/images/1Icons/plank.png
-    - assets/images/forestTest/forest0.png
-    - assets/images/forestTest/forest10.png
-    - assets/images/forestTest/forest25.png
-    - assets/images/forestTest/forest50.png
-    - assets/images/forestTest/forest60.png
-    - assets/images/forestTest/forest65.png
-    - assets/images/forestTest/forest75.png
-    - assets/images/forestTest/forest90.png
-    - assets/images/forestTest/forest100.png
+    - assets/images/forestTest/
     - assets/images/tiles/13-Icons/smithy.png
     - assets/images/all/
 

@@ -24,11 +24,11 @@ final itemModels = [
       image: 'assets/images/placeholder.png',
       attributes: {WeaponAttributes.SHARP: 10.0}),
   const ItemDefinition.resourceDefinition(
-      id: Items.IRON,
-      name: 'Iron',
-      namePlural: 'Iron',
+      id: Items.IRON_ORE,
+      name: 'Iron ore',
+      namePlural: 'Iron ore',
       description: 'Can be mined',
-      image: 'assets/images/minerals/iron.png',
+      image: 'assets/images/all/ironOre.png',
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.IRON_BAR,
