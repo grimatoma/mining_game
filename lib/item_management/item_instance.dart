@@ -161,8 +161,9 @@ class ItemRequirement with _$ItemRequirement {
             remainingRequiredItems[id] = newRemainingCount;
           } else {
             remainingRequiredItems.remove(id);
-            if (remainingRequiredItems.isEmpty)
+            if (remainingRequiredItems.isEmpty) {
               return BuiltMap<ItemDefinitionId, int>();
+            }
           }
         }
       }
