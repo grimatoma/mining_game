@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/planet/planet_manager.dart';
@@ -263,9 +264,7 @@ class BuildMenuFocusDetail extends ConsumerWidget {
                         ),
                       ),
                       TextButton(
-                          onPressed: () {
-                            buyDoodad(ref);
-                          },
+                          onPressed: tryBuyDoodad(ref),
                           child: const Center(child: Text('Buy'))),
                     ],
                   ),
@@ -279,21 +278,26 @@ class BuildMenuFocusDetail extends ConsumerWidget {
   }
 }
 
-void buyDoodad(WidgetRef ref) {
-  final listing = ref.watch(buyListingFocusProvider);
-  final selectedTile = ref.read(selectedTileControllerProvider);
-  if (listing == null || selectedTile == null) return;
-
+void Function()? tryBuyDoodad(WidgetRef ref, [void Function()? after]) {
   final shopController =
       ref.read(storePlanetBuyMenuControllerProvider.notifier);
-  if (shopController.canBuy(listing)) {
-    shopController.clickListing(listing);
-  }
+  final listing = ref.read(buyListingFocusProvider);
+  final selectedTile = ref.read(selectedTileControllerProvider);
+  if (listing == null ||
+      selectedTile == null ||
+      !shopController.canBuy(listing)) return null;
 
-  selectedTile.addDoodad(listing.doodadId.definition);
-  ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
-  ref.read(selectedTileControllerProvider.notifier).state = null;
-  ref.read(buyListingFocusProvider.notifier).state = null;
+  return () {
+    final shopController =
+        ref.read(storePlanetBuyMenuControllerProvider.notifier);
+    shopController.clickListing(listing);
+
+    selectedTile.addDoodad(listing.doodadId.definition);
+    ref.read(panelVisibilityState.notifier).state = PanelVisibility.None;
+    ref.read(selectedTileControllerProvider.notifier).state = null;
+    ref.read(buyListingFocusProvider.notifier).state = null;
+    after?.call();
+  };
 }
 
 void closeBuyMenu(WidgetRef ref) {
@@ -326,7 +330,7 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
             final focusedItemProvider =
                 ref.watch(buyListingFocusProvider.notifier);
             if (focusedItemProvider.state == _listing) {
-              buyDoodad(ref);
+              tryBuyDoodad(ref);
             } else {
               focusedItemProvider.state = _listing;
             }
@@ -351,7 +355,10 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
                 child: Column(
                   children: [
                     AutoSizeText(doodadDefinition.name),
-                    AutoSizeText(_listing.cost.requiredItems.toString()),
+                    ItemRequirementRenderer(
+                      itemRequirement: _listing.cost,
+                      checkInventoryForItems: true,
+                    ),
                     // AutoSizeText(
                     //   doodadDefinition.description,
                     //   minFontSize: 4,

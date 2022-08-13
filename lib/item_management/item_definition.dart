@@ -1,8 +1,12 @@
 import 'dart:convert';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 
 import 'instance_id.dart';

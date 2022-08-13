@@ -60,7 +60,7 @@ class StoreController<ListingTypeT extends ShopListing>
   }
 
   bool canBuy(ShopListing listing) =>
-      _inventory.meetsRequirements(listing.cost);
+      _inventory.state.meetsRequirements(listing.cost);
 
   // bool canSellItemListing(SellItemsShopListing listing) =>
   //     _inventory.meetsRequirements(listing.items);

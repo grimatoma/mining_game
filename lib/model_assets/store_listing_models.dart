@@ -14,7 +14,10 @@ final _storesListings = <Shop, Iterable<ShopListing>>{
     ),
     ShopListing.doodadListing(
       id: 9,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
+      cost: ItemRequirement({
+        Items.CREDIT: 5,
+        Items.WOOD: 10,
+      }),
       doodadId: DoodadId.treeCutterHut,
       consumable: false,
     ),

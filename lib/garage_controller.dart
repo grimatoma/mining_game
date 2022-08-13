@@ -78,7 +78,7 @@ class GarageNotifier extends StateNotifier<GarageState> {
 
   void _unlockSlot(LockedSlot slot) async {
     bool canUnlock(ItemRequirement unlockCost) =>
-        _inventoryStateController.meetsRequirements(unlockCost);
+        _inventoryStateController.state.meetsRequirements(unlockCost);
 
     final index = slot.index;
     final cost = unlockCost(index);

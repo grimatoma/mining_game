@@ -137,8 +137,12 @@ class ItemRequirement with _$ItemRequirement {
 
   static const empty = ItemRequirement({});
 
-  bool meetsRequirement(Iterable<ItemInstance?> existingItems) {
-    if (requiredItems.isEmpty) return true;
+  bool meetsRequirement(Iterable<ItemInstance?> existingItems) =>
+      subtractRequirement(existingItems).isEmpty;
+
+  BuiltMap<ItemDefinitionId, int> subtractRequirement(
+      Iterable<ItemInstance?> existingItems) {
+    if (requiredItems.isEmpty) return BuiltMap<ItemDefinitionId, int>();
 
     final remainingRequiredItems = <ItemDefinitionId, int>{...requiredItems};
     for (final item in existingItems) {
@@ -157,12 +161,13 @@ class ItemRequirement with _$ItemRequirement {
             remainingRequiredItems[id] = newRemainingCount;
           } else {
             remainingRequiredItems.remove(id);
-            if (remainingRequiredItems.isEmpty) return true;
+            if (remainingRequiredItems.isEmpty)
+              return BuiltMap<ItemDefinitionId, int>();
           }
         }
       }
     }
-    return false;
+    return remainingRequiredItems.build();
   }
 }
 
@@ -189,4 +194,47 @@ abstract class ObjectKeyedMapConverter<K, V>
   Map<String, dynamic> toJson(Map<K, V> map) => {
         for (final item in map.entries) jsonEncode(item.key): item.value,
       };
+}
+
+class ItemRequirementRenderer extends ConsumerWidget {
+  final ItemRequirement itemRequirement;
+  final bool checkInventoryForItems;
+
+  const ItemRequirementRenderer(
+      {required this.itemRequirement,
+      this.checkInventoryForItems = false,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var missingItems = BuiltMap<ItemDefinitionId, int>();
+    if (checkInventoryForItems) {
+      missingItems = itemRequirement
+          .subtractRequirement(ref.watch(inventoryStateProvider).itemSlots);
+    }
+    return Column(
+      children: [
+        for (final item in itemRequirement.requiredItems.entries)
+          _buildItem(item, missingItems[item.key]),
+      ],
+    );
+  }
+
+  Widget _buildItem(MapEntry<ItemDefinitionId, int> entry, int? missing) {
+    final definition = entry.key.definition();
+    Widget renderItem() {
+      return Row(children: [
+        Image.asset(definition.image),
+        Text('${entry.value}${missing == null ? '' : '($missing)'}'),
+      ]);
+    }
+
+    return missing != null
+        ? ColorFiltered(
+            colorFilter: ColorFilter.mode(Colors.red[200]!, BlendMode.color),
+            child: renderItem(),
+          )
+        : renderItem();
+  }
 }

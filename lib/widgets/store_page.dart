@@ -155,7 +155,10 @@ class ShopButton extends ConsumerWidget {
         onPrimary: active ? Colors.grey[800] : Colors.grey[500],
         primary: active ? Colors.green[300] : Colors.grey[100],
       ),
-      child: Text(cost.toString()),
+      child: ItemRequirementRenderer(
+        itemRequirement: cost,
+        checkInventoryForItems: true,
+      ),
     );
   }
 }

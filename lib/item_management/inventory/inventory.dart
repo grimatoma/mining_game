@@ -52,6 +52,9 @@ class Inventory with _$Inventory {
 
   Inventory rebuild(Function(ListBuilder<ItemInstance?>) updates) =>
       copyWith(itemSlots: itemSlots.rebuild(updates));
+
+  bool meetsRequirements(ItemRequirement requirement) =>
+      requirement.meetsRequirement(itemSlots);
 }
 
 class InventoryStateController extends StateNotifier<Inventory> {
@@ -150,11 +153,8 @@ class InventoryStateController extends StateNotifier<Inventory> {
     return returnItem;
   }
 
-  bool meetsRequirements(ItemRequirement requirement) =>
-      requirement.meetsRequirement(state.itemSlots);
-
   bool subtractItemRequirement(ItemRequirement requirement) {
-    if (!meetsRequirements(requirement)) return false;
+    if (!state.meetsRequirements(requirement)) return false;
     // Do logic that removes the requirements from the inventory from the first seen.
     if (requirement.requiredItems.isEmpty) return true;
 
