@@ -30,12 +30,13 @@ part 'doodad_definition.g.dart';
 // }
 
 enum TileType {
-  Empty,
-  Mountain, // Can get stone
-  Grass,
-  IronDeposit,
-  Tree,
-  Water,
+  EMPTY,
+  MOUNTAIN, // Can get stone
+  GRASS,
+  IRON_DEPOSIT,
+  TREE,
+  WATER,
+  COASTAL,
 }
 
 final tileTypeMap = buildEnumMap(TileType.values);

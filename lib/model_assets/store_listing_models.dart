@@ -6,9 +6,9 @@ import 'package:mining_game/item_management/store/store.dart';
 
 final _storesListings = <Shop, Iterable<ShopListing>>{
   Shop.PLANET_BUY_MENU: [
-    ShopListing.doodadListing(
+    const ShopListing.doodadListing(
       id: 8,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
+      cost: ItemRequirement({}),
       doodadId: DoodadId.tree,
       consumable: false,
     ),

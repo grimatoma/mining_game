@@ -10,30 +10,30 @@ class Assets {
       [double? width, double? height]) {
     var sourceMap = <String>[];
     switch (tileType) {
-      case TileType.Grass:
+      case TileType.GRASS:
         sourceMap = const [
-          'assets/images/tiles/02Grass/farmland.png',
-          'assets/images/tiles/02Grass/plains.png',
-          'assets/images/tiles/02Grass/prairie.png',
-          'assets/images/tiles/02Grass/shrubland.png',
+          'assets/images/all/grass1.png',
+          'assets/images/all/grass2.png',
+          'assets/images/all/grass3.png',
+          'assets/images/all/grass4.png',
         ];
         break;
-      case TileType.Mountain:
+      case TileType.MOUNTAIN:
         sourceMap = const [
           'assets/images/tiles/11-mountains/mountain_range.png',
         ];
         break;
-      case TileType.Empty:
+      case TileType.EMPTY:
         sourceMap = const [
           'assets/images/tiles/08-hot_weather/desert_rocky.png',
         ];
         break;
-      case TileType.IronDeposit:
+      case TileType.IRON_DEPOSIT:
         sourceMap = const [
           'assets/images/tiles/08-hot_weather/desert_rocky.png',
         ];
         break;
-      case TileType.Tree:
+      case TileType.TREE:
         sourceMap = const [
           'assets/images/tree.png',
           'assets/images/tiles/03Trees/jungle_light.png',
@@ -43,10 +43,13 @@ class Assets {
           'assets/images/tiles/03Trees/forest_light.png',
         ];
         break;
-      case TileType.Water:
+      case TileType.WATER:
         sourceMap = const [
-          'assets/images/tiles/09-water/sea.png',
-          'assets/images/tiles/09-water/shoals.png',
+          'assets/images/all/water1.png',
+          'assets/images/all/water2.png',
+          'assets/images/all/water3.png',
+          'assets/images/all/water4.png',
+          'assets/images/all/water5.png',
         ];
         break;
       // case TileType.Stone:
@@ -54,6 +57,13 @@ class Assets {
       //     'assets/images/tiles/11-mountains/mountain_range.png',
       //   ];
       //   break;
+      case TileType.COASTAL:
+        sourceMap = const [
+          'assets/images/all/coastal1.png',
+          'assets/images/all/coastal2.png',
+          'assets/images/all/coastal3.png',
+        ];
+        break;
     }
     return Image.asset(
       _getAsset(location, sourceMap),

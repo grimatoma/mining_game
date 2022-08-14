@@ -63,7 +63,7 @@ class HiveManager {
   static Future<void> init() async {
     box = await Hive.openBox(SaveSyncer.coreBox);
     // await box.deleteFromDisk();
-    // final futures = <Future>[];
+    final futures = <Future>[];
     // for (final key in BoxKey.values) {
     //   final boxName = key.name + keyIncrement;
     //   futures.add(Hive.openBox<String>(boxName)

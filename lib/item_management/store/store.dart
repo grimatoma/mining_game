@@ -76,6 +76,7 @@ class StoreController<ListingTypeT extends ShopListing>
           }
           _inventory.addItemWithGenerator(listing.item);
         },
-        doodadListing: (DoodadShopListing value) {});
+        doodadListing: (DoodadShopListing value) {},
+        featureListing: (FeatureShopListing value) {});
   }
 }

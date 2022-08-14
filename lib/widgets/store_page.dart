@@ -27,6 +27,7 @@ class StorePageWidget extends HookConsumerWidget {
                 return listing.map(
                   itemListing: (l) => ItemShopListingWidget(l),
                   doodadListing: (DoodadShopListing value) => null!,
+                  featureListing: (FeatureShopListing value) => null!,
                 );
               },
               itemCount: storeListings.listings.length,

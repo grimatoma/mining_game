@@ -51,3 +51,27 @@ Map<String, dynamic> _$$DoodadShopListingToJson(_$DoodadShopListing instance) =>
 const _$FeatureEnumMap = {
   Feature.SMELTING: 'SMELTING',
 };
+
+_$FeatureShopListing _$$FeatureShopListingFromJson(Map<String, dynamic> json) =>
+    _$FeatureShopListing(
+      id: json['id'] as int,
+      cost: ItemRequirement.fromJson(json['cost'] as Map<String, dynamic>),
+      feature: $enumDecode(_$FeatureEnumMap, json['feature']),
+      requiredFeatures: (json['requiredFeatures'] as List<dynamic>?)
+          ?.map((e) => $enumDecode(_$FeatureEnumMap, e))
+          .toSet(),
+      consumable: json['consumable'] as bool? ?? true,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$FeatureShopListingToJson(
+        _$FeatureShopListing instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'cost': instance.cost.toJson(),
+      'feature': _$FeatureEnumMap[instance.feature]!,
+      'requiredFeatures':
+          instance.requiredFeatures?.map((e) => _$FeatureEnumMap[e]!).toList(),
+      'consumable': instance.consumable,
+      'runtimeType': instance.$type,
+    };

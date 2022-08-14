@@ -106,19 +106,23 @@ class PlanetManager {
       houseManager = HouseManager(_ref);
       final planetBuilder = MapBuilder<Hexagon, TileStateController>();
       final water = cubeRing(const Hexagon(0, 0), 5);
+      final coastal = cubeRing(const Hexagon(0, 0), 4);
 
       var index = 0;
       for (final hexagon in generateHexagonMapOfSize2(5)) {
-        var type = TileType.Grass;
+        var type = TileType.GRASS;
         if (index == 55) {
-          type = TileType.IronDeposit;
+          type = TileType.IRON_DEPOSIT;
         }
         if (index == 15) {
-          type = TileType.Mountain;
+          type = TileType.MOUNTAIN;
         }
 
         if (water.contains(hexagon)) {
-          type = TileType.Water;
+          type = TileType.WATER;
+        }
+        if (coastal.contains(hexagon)) {
+          type = TileType.COASTAL;
         }
         planetBuilder[hexagon] = TileStateController(_ref, this, hexagon, type);
         index++;

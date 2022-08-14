@@ -36,6 +36,14 @@ class ShopListing with _$ShopListing implements ShopListingInterface {
     @Default(true) bool consumable,
   }) = DoodadShopListing;
 
+  const factory ShopListing.featureListing({
+    required int id,
+    required ItemRequirement cost,
+    required Feature feature,
+    Set<Feature>? requiredFeatures,
+    @Default(true) bool consumable,
+  }) = FeatureShopListing;
+
   factory ShopListing.fromJson(Map<String, dynamic> json) =>
       _$ShopListingFromJson(json);
 }

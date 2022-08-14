@@ -20,6 +20,8 @@ ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
       return ItemShopListing.fromJson(json);
     case 'doodadListing':
       return DoodadShopListing.fromJson(json);
+    case 'featureListing':
+      return FeatureShopListing.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'ShopListing',
@@ -30,11 +32,8 @@ ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ShopListing {
   int get id => throw _privateConstructorUsedError;
-
   ItemRequirement get cost => throw _privateConstructorUsedError;
-
   bool get consumable => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int id, ItemRequirement cost,
@@ -43,9 +42,11 @@ mixin _$ShopListing {
     required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)
         doodadListing,
+    required TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)
+        featureListing,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
@@ -54,6 +55,9 @@ mixin _$ShopListing {
     TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,33 +68,35 @@ mixin _$ShopListing {
     TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ItemShopListing value) itemListing,
     required TResult Function(DoodadShopListing value) doodadListing,
+    required TResult Function(FeatureShopListing value) featureListing,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ItemShopListing value)? itemListing,
     TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ItemShopListing value)? itemListing,
     TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $ShopListingCopyWith<ShopListing> get copyWith =>
       throw _privateConstructorUsedError;
@@ -101,7 +107,6 @@ abstract class $ShopListingCopyWith<$Res> {
   factory $ShopListingCopyWith(
           ShopListing value, $Res Function(ShopListing) then) =
       _$ShopListingCopyWithImpl<$Res>;
-
   $Res call({int id, ItemRequirement cost, bool consumable});
 
   $ItemRequirementCopyWith<$Res> get cost;
@@ -112,7 +117,6 @@ class _$ShopListingCopyWithImpl<$Res> implements $ShopListingCopyWith<$Res> {
   _$ShopListingCopyWithImpl(this._value, this._then);
 
   final ShopListing _value;
-
   // ignore: unused_field
   final $Res Function(ShopListing) _then;
 
@@ -152,7 +156,6 @@ abstract class _$$ItemShopListingCopyWith<$Res>
   factory _$$ItemShopListingCopyWith(
           _$ItemShopListing value, $Res Function(_$ItemShopListing) then) =
       __$$ItemShopListingCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -270,6 +273,9 @@ class _$ItemShopListing implements ItemShopListing {
     required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)
         doodadListing,
+    required TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)
+        featureListing,
   }) {
     return itemListing(id, cost, item, consumable);
   }
@@ -283,6 +289,9 @@ class _$ItemShopListing implements ItemShopListing {
     TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
   }) {
     return itemListing?.call(id, cost, item, consumable);
   }
@@ -296,6 +305,9 @@ class _$ItemShopListing implements ItemShopListing {
     TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
     required TResult orElse(),
   }) {
     if (itemListing != null) {
@@ -309,6 +321,7 @@ class _$ItemShopListing implements ItemShopListing {
   TResult map<TResult extends Object?>({
     required TResult Function(ItemShopListing value) itemListing,
     required TResult Function(DoodadShopListing value) doodadListing,
+    required TResult Function(FeatureShopListing value) featureListing,
   }) {
     return itemListing(this);
   }
@@ -318,6 +331,7 @@ class _$ItemShopListing implements ItemShopListing {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ItemShopListing value)? itemListing,
     TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
   }) {
     return itemListing?.call(this);
   }
@@ -327,6 +341,7 @@ class _$ItemShopListing implements ItemShopListing {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ItemShopListing value)? itemListing,
     TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
     required TResult orElse(),
   }) {
     if (itemListing != null) {
@@ -353,15 +368,11 @@ abstract class ItemShopListing implements ShopListing {
 
   @override
   int get id => throw _privateConstructorUsedError;
-
   @override
   ItemRequirement get cost => throw _privateConstructorUsedError;
-
   ItemInstanceGenerator get item => throw _privateConstructorUsedError;
-
   @override
   bool get consumable => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$ItemShopListingCopyWith<_$ItemShopListing> get copyWith =>
@@ -374,7 +385,6 @@ abstract class _$$DoodadShopListingCopyWith<$Res>
   factory _$$DoodadShopListingCopyWith(
           _$DoodadShopListing value, $Res Function(_$DoodadShopListing) then) =
       __$$DoodadShopListingCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
@@ -385,7 +395,6 @@ abstract class _$$DoodadShopListingCopyWith<$Res>
 
   @override
   $ItemRequirementCopyWith<$Res> get cost;
-
   $DoodadIdCopyWith<$Res> get doodadId;
 }
 
@@ -463,7 +472,6 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   final DoodadId doodadId;
   final Set<Feature>? _requiredFeatures;
-
   @override
   Set<Feature>? get requiredFeatures {
     final value = _requiredFeatures;
@@ -522,6 +530,9 @@ class _$DoodadShopListing implements DoodadShopListing {
     required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)
         doodadListing,
+    required TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)
+        featureListing,
   }) {
     return doodadListing(id, cost, doodadId, requiredFeatures, consumable);
   }
@@ -535,6 +546,9 @@ class _$DoodadShopListing implements DoodadShopListing {
     TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
   }) {
     return doodadListing?.call(
         id, cost, doodadId, requiredFeatures, consumable);
@@ -549,6 +563,9 @@ class _$DoodadShopListing implements DoodadShopListing {
     TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
     required TResult orElse(),
   }) {
     if (doodadListing != null) {
@@ -562,6 +579,7 @@ class _$DoodadShopListing implements DoodadShopListing {
   TResult map<TResult extends Object?>({
     required TResult Function(ItemShopListing value) itemListing,
     required TResult Function(DoodadShopListing value) doodadListing,
+    required TResult Function(FeatureShopListing value) featureListing,
   }) {
     return doodadListing(this);
   }
@@ -571,6 +589,7 @@ class _$DoodadShopListing implements DoodadShopListing {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ItemShopListing value)? itemListing,
     TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
   }) {
     return doodadListing?.call(this);
   }
@@ -580,6 +599,7 @@ class _$DoodadShopListing implements DoodadShopListing {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(ItemShopListing value)? itemListing,
     TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
     required TResult orElse(),
   }) {
     if (doodadListing != null) {
@@ -607,19 +627,267 @@ abstract class DoodadShopListing implements ShopListing {
 
   @override
   int get id => throw _privateConstructorUsedError;
-
   @override
   ItemRequirement get cost => throw _privateConstructorUsedError;
-
   DoodadId get doodadId => throw _privateConstructorUsedError;
-
   Set<Feature>? get requiredFeatures => throw _privateConstructorUsedError;
-
   @override
   bool get consumable => throw _privateConstructorUsedError;
-
   @override
   @JsonKey(ignore: true)
   _$$DoodadShopListingCopyWith<_$DoodadShopListing> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$FeatureShopListingCopyWith<$Res>
+    implements $ShopListingCopyWith<$Res> {
+  factory _$$FeatureShopListingCopyWith(_$FeatureShopListing value,
+          $Res Function(_$FeatureShopListing) then) =
+      __$$FeatureShopListingCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int id,
+      ItemRequirement cost,
+      Feature feature,
+      Set<Feature>? requiredFeatures,
+      bool consumable});
+
+  @override
+  $ItemRequirementCopyWith<$Res> get cost;
+}
+
+/// @nodoc
+class __$$FeatureShopListingCopyWithImpl<$Res>
+    extends _$ShopListingCopyWithImpl<$Res>
+    implements _$$FeatureShopListingCopyWith<$Res> {
+  __$$FeatureShopListingCopyWithImpl(
+      _$FeatureShopListing _value, $Res Function(_$FeatureShopListing) _then)
+      : super(_value, (v) => _then(v as _$FeatureShopListing));
+
+  @override
+  _$FeatureShopListing get _value => super._value as _$FeatureShopListing;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? cost = freezed,
+    Object? feature = freezed,
+    Object? requiredFeatures = freezed,
+    Object? consumable = freezed,
+  }) {
+    return _then(_$FeatureShopListing(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      cost: cost == freezed
+          ? _value.cost
+          : cost // ignore: cast_nullable_to_non_nullable
+              as ItemRequirement,
+      feature: feature == freezed
+          ? _value.feature
+          : feature // ignore: cast_nullable_to_non_nullable
+              as Feature,
+      requiredFeatures: requiredFeatures == freezed
+          ? _value._requiredFeatures
+          : requiredFeatures // ignore: cast_nullable_to_non_nullable
+              as Set<Feature>?,
+      consumable: consumable == freezed
+          ? _value.consumable
+          : consumable // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$FeatureShopListing implements FeatureShopListing {
+  const _$FeatureShopListing(
+      {required this.id,
+      required this.cost,
+      required this.feature,
+      final Set<Feature>? requiredFeatures,
+      this.consumable = true,
+      final String? $type})
+      : _requiredFeatures = requiredFeatures,
+        $type = $type ?? 'featureListing';
+
+  factory _$FeatureShopListing.fromJson(Map<String, dynamic> json) =>
+      _$$FeatureShopListingFromJson(json);
+
+  @override
+  final int id;
+  @override
+  final ItemRequirement cost;
+  @override
+  final Feature feature;
+  final Set<Feature>? _requiredFeatures;
+  @override
+  Set<Feature>? get requiredFeatures {
+    final value = _requiredFeatures;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableSetView(value);
+  }
+
+  @override
+  @JsonKey()
+  final bool consumable;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  String toString() {
+    return 'ShopListing.featureListing(id: $id, cost: $cost, feature: $feature, requiredFeatures: $requiredFeatures, consumable: $consumable)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$FeatureShopListing &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.cost, cost) &&
+            const DeepCollectionEquality().equals(other.feature, feature) &&
+            const DeepCollectionEquality()
+                .equals(other._requiredFeatures, _requiredFeatures) &&
+            const DeepCollectionEquality()
+                .equals(other.consumable, consumable));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(cost),
+      const DeepCollectionEquality().hash(feature),
+      const DeepCollectionEquality().hash(_requiredFeatures),
+      const DeepCollectionEquality().hash(consumable));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$FeatureShopListingCopyWith<_$FeatureShopListing> get copyWith =>
+      __$$FeatureShopListingCopyWithImpl<_$FeatureShopListing>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int id, ItemRequirement cost,
+            ItemInstanceGenerator item, bool consumable)
+        itemListing,
+    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+            Set<Feature>? requiredFeatures, bool consumable)
+        doodadListing,
+    required TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)
+        featureListing,
+  }) {
+    return featureListing(id, cost, feature, requiredFeatures, consumable);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
+            bool consumable)?
+        itemListing,
+    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
+  }) {
+    return featureListing?.call(
+        id, cost, feature, requiredFeatures, consumable);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
+            bool consumable)?
+        itemListing,
+    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        doodadListing,
+    TResult Function(int id, ItemRequirement cost, Feature feature,
+            Set<Feature>? requiredFeatures, bool consumable)?
+        featureListing,
+    required TResult orElse(),
+  }) {
+    if (featureListing != null) {
+      return featureListing(id, cost, feature, requiredFeatures, consumable);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ItemShopListing value) itemListing,
+    required TResult Function(DoodadShopListing value) doodadListing,
+    required TResult Function(FeatureShopListing value) featureListing,
+  }) {
+    return featureListing(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ItemShopListing value)? itemListing,
+    TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
+  }) {
+    return featureListing?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ItemShopListing value)? itemListing,
+    TResult Function(DoodadShopListing value)? doodadListing,
+    TResult Function(FeatureShopListing value)? featureListing,
+    required TResult orElse(),
+  }) {
+    if (featureListing != null) {
+      return featureListing(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$FeatureShopListingToJson(this);
+  }
+}
+
+abstract class FeatureShopListing implements ShopListing {
+  const factory FeatureShopListing(
+      {required final int id,
+      required final ItemRequirement cost,
+      required final Feature feature,
+      final Set<Feature>? requiredFeatures,
+      final bool consumable}) = _$FeatureShopListing;
+
+  factory FeatureShopListing.fromJson(Map<String, dynamic> json) =
+      _$FeatureShopListing.fromJson;
+
+  @override
+  int get id => throw _privateConstructorUsedError;
+  @override
+  ItemRequirement get cost => throw _privateConstructorUsedError;
+  Feature get feature => throw _privateConstructorUsedError;
+  Set<Feature>? get requiredFeatures => throw _privateConstructorUsedError;
+  @override
+  bool get consumable => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$FeatureShopListingCopyWith<_$FeatureShopListing> get copyWith =>
       throw _privateConstructorUsedError;
 }

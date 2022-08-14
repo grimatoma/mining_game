@@ -6,6 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
+import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
@@ -72,16 +73,20 @@ enum PersonType {
   middleClass,
 }
 
-const personConsumptionRates = {
-  PersonType.peasant: 1,
-  PersonType.worker: 2,
-};
+// const personConsumptionRates = {
+//   PersonType.peasant: 0.5,
+//   PersonType.worker: 2,
+// };
 
 class HouseManager with Tickable {
+  // // TODO make this scalable
+  // double personFoodConsumption = 1;
   final Ref _ref;
   final Set<HouseDoodadInstance> houses = {};
 
-  HouseManager(this._ref) {
+  HouseManager(this._ref)
+      : ticksRequired =
+            _ref.read(gameConfigsProvider).houseManagerTicksPerUpdate {
     print('not loading json');
     currentTickStateProvider = SimpleStateProvider<int>(_ref, (ref) => 0);
   }
@@ -132,7 +137,7 @@ class HouseManager with Tickable {
   bool canTick() => true;
 
   @override
-  final int ticksRequired = 10;
+  final int ticksRequired;
 }
 
 /**

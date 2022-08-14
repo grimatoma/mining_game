@@ -330,7 +330,7 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
             final focusedItemProvider =
                 ref.watch(buyListingFocusProvider.notifier);
             if (focusedItemProvider.state == _listing) {
-              tryBuyDoodad(ref);
+              tryBuyDoodad(ref)?.call();
             } else {
               focusedItemProvider.state = _listing;
             }

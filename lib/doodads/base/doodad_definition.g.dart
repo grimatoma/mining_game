@@ -45,12 +45,13 @@ Map<String, dynamic> _$$DiggerDoodadDefinitionToJson(
     };
 
 const _$TileTypeEnumMap = {
-  TileType.Empty: 'Empty',
-  TileType.Mountain: 'Mountain',
-  TileType.Grass: 'Grass',
-  TileType.IronDeposit: 'IronDeposit',
-  TileType.Tree: 'Tree',
-  TileType.Water: 'Water',
+  TileType.EMPTY: 'EMPTY',
+  TileType.MOUNTAIN: 'MOUNTAIN',
+  TileType.GRASS: 'GRASS',
+  TileType.IRON_DEPOSIT: 'IRON_DEPOSIT',
+  TileType.TREE: 'TREE',
+  TileType.WATER: 'WATER',
+  TileType.COASTAL: 'COASTAL',
 };
 
 _$RegenerativeHarvestableDoodadDefinition
