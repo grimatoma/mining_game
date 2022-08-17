@@ -14,7 +14,7 @@ final saveProvider = Provider((ref) => SaveSyncer(ref));
 
 class SaveSyncer {
   final Ref _ref;
-  static const coreBox = 'coreBox';
+  static const coreBox = 'coreBox2';
   final Box<String> core;
 
   SaveSyncer(this._ref) : core = Hive.box(coreBox);

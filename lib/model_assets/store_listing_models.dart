@@ -15,45 +15,52 @@ final _storesListings = <Shop, Iterable<ShopListing>>{
     ShopListing.doodadListing(
       id: 9,
       cost: ItemRequirement({
-        Items.CREDIT: 5,
-        Items.WOOD: 10,
+        Items.WOOD: 4,
       }),
       doodadId: DoodadId.treeCutterHut,
       consumable: false,
     ),
     ShopListing.doodadListing(
       id: 15,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
+      cost: ItemRequirement.single(Items.WOOD, 8),
       doodadId: DoodadId.sawMill,
       consumable: false,
     ),
-    ShopListing.doodadListing(
-      id: 13,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
-      doodadId: DoodadId.houseLevel1,
-      consumable: false,
-    ),
-    ShopListing.doodadListing(
+    const ShopListing.doodadListing(
       id: 10,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
+      cost: ItemRequirement.empty,
       doodadId: DoodadId.rawFish,
       consumable: false,
     ),
     ShopListing.doodadListing(
       id: 11,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
+      cost: ItemRequirement({
+        Items.WOOD: 4,
+      }),
       doodadId: DoodadId.fisherman,
       consumable: false,
     ),
     ShopListing.doodadListing(
+      id: 13,
+      cost: ItemRequirement.single(Items.PLANK, 2),
+      doodadId: DoodadId.houseLevel1,
+      consumable: false,
+    ),
+    ShopListing.doodadListing(
       id: 12,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
+      cost: ItemRequirement({
+        Items.PLANK: 2,
+        Items.CREDIT: 5,
+      }),
       doodadId: DoodadId.ironDigger,
       consumable: false,
     ),
     ShopListing.doodadListing(
       id: 14,
-      cost: ItemRequirement.single(Items.CREDIT, 1),
+      cost: ItemRequirement({
+        Items.PLANK: 4,
+        Items.CREDIT: 5,
+      }),
       doodadId: DoodadId.ironSmelter,
       consumable: false,
     ),

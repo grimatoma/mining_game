@@ -101,6 +101,7 @@ class HouseManager with Tickable {
     // var consumedFood = 0;
     final r = Random();
     const personIncreaseRandomOdds = 2;
+    int taxesCollected = 0;
     for (final house in houses.toList()..shuffle()) {
       if (remainingFood > house.currentPopulation) {
         remainingFood -= house.currentPopulation;
@@ -116,11 +117,14 @@ class HouseManager with Tickable {
         }
       }
 
+      taxesCollected += house.currentPopulation;
       remainingFood = max(0, remainingFood - house.currentPopulation);
     }
     final consumedFood = startingFood - remainingFood;
-    _ref.read(inventoryStateProvider.notifier).subtractItemRequirement(
-        ItemRequirement.single(Items.FOOD, consumedFood));
+    _ref.read(inventoryStateProvider.notifier)
+      ..subtractItemRequirement(
+          ItemRequirement.single(Items.FOOD, consumedFood))
+      ..addItems(Items.CREDIT.generateItemInstance(taxesCollected));
     // determine how much consuption is needed
     // subtract food and if left over randomly(random chance) add new pop.
   }
