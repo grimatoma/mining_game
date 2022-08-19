@@ -226,7 +226,10 @@ class ItemRequirementRenderer extends ConsumerWidget {
     final definition = entry.key.definition();
     Widget renderItem() {
       return Row(children: [
-        Image.asset(definition.image),
+        Image.asset(
+          definition.image,
+          width: 24,
+        ),
         Text('${entry.value}${missing == null ? '' : '($missing)'}'),
       ]);
     }

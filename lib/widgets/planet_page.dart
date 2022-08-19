@@ -12,34 +12,30 @@ import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
 
 import '../item_management/store/shop_listing_definitions.dart';
-import 'status_bar_wrapped_page.dart';
 
 class PlanetPageWidget extends HookConsumerWidget {
   const PlanetPageWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return StatusBarWrappedPageWidget(
-      title: '',
-      builder: (context, ref) => Stack(fit: StackFit.expand, children: [
-        const HexagonPlanetRenderer(),
-        Align(
-          alignment: FractionalOffset.bottomCenter,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              TextButton(onPressed: null, child: Text('Settings')),
-            ],
-          ),
+    return Stack(fit: StackFit.expand, children: [
+      const HexagonPlanetRenderer(),
+      Align(
+        alignment: FractionalOffset.bottomCenter,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            TextButton(onPressed: null, child: Text('Settings')),
+          ],
         ),
-        if (ref.watch(panelVisibilityState) == PanelVisibility.BuyMenu)
-          const BuildMenuWidget(),
-        if (ref.watch(panelVisibilityState) == PanelVisibility.TileDetail)
-          const Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: TileDetailWidget()),
-      ]),
-    );
+      ),
+      if (ref.watch(panelVisibilityState) == PanelVisibility.BuyMenu)
+        const BuildMenuWidget(),
+      if (ref.watch(panelVisibilityState) == PanelVisibility.TileDetail)
+        const Align(
+            alignment: FractionalOffset.bottomCenter,
+            child: TileDetailWidget()),
+    ]);
   }
 }
 
