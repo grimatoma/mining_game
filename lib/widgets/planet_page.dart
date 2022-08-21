@@ -109,16 +109,6 @@ final buildableItemShopListingsProvider =
   ];
 });
 
-// Iterable<DoodadDefinition> supportedItemsToBuy(
-//     TileStateController tileStateController) {
-//   return [
-//     for (final item in doodadDefinitionsExample)
-//       if (!tileStateController.hasDoodad &&
-//           item.supportedLocations.contains(tileStateController.tileType))
-//         item,
-//   ];
-// }
-
 class BuildMenuWidget extends HookConsumerWidget {
   static const menuItemPadding = 8.0;
 

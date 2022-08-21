@@ -8,28 +8,12 @@ import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/quests/quests_page.dart';
-import 'package:mining_game/widgets/status_bar.dart';
 
 import 'widgets/inventory_page.dart';
 import 'widgets/planet_page.dart';
-import 'widgets/status_bar_wrapped_page.dart';
 import 'widgets/store_page.dart';
 
 void main() async {
-  // Hive.registerAdapter(BuiltMapAdapter<PlanetPoint, PlanetTile>(30));
-  // Hive.registerAdapter(MinerInstanceAdapter());
-  // Hive.registerAdapter(ItemDefinitionIdAdapter());
-  // Hive.registerAdapter(StackInstanceAdapter());
-  // Hive.registerAdapter(ItemContainerAdapter());
-  // Hive.registerAdapter(InstanceIdAdapter());
-  // Hive.registerAdapter(BuiltMapAdapter<ItemDefinitionId, int>(32));
-  // Hive.registerAdapter(PlanetTileAdapter());
-  // Hive.registerAdapter(PlanetPointAdapter());
-  // Hive.registerAdapter(PlanetAdapter());
-  // Hive.registerAdapter(SlotStateEmptyAdapter());
-  // Hive.registerAdapter(SlotStateLockedAdapter());
-  // Hive.registerAdapter(SlotStateMinerAdapter());
-
   await Hive.initFlutter();
 
   await HiveManager.init();
@@ -51,25 +35,15 @@ class MiningGameWidget extends HookConsumerWidget {
     return Scaffold(
       body: Row(children: [
         NavigationRail(
-          destinations: const [
-            NavigationRailDestination(
-                icon: Icon(Icons.ac_unit), label: Text('test')),
-            NavigationRailDestination(
-                icon: Icon(Icons.add), label: Text('test')),
-            NavigationRailDestination(
-                icon: Icon(Icons.add), label: Text('test')),
+          destinations: [
+            for (final route in ref.watch(mainNavigationPagesProvider))
+              NavigationRailDestination(
+                  icon: Icon(route.icon), label: Text(route.name)),
           ],
           selectedIndex: currentIndex,
           onDestinationSelected: (index) {
             ref.read(navIndexProvider.notifier).state = index;
-            switch (index) {
-              case 0:
-                router.go('/inventory');
-                break;
-              case 1:
-                router.go('/store');
-                break;
-            }
+            router.go(ref.read(mainNavigationPagesProvider)[index].path);
           },
         ),
         const VerticalDivider(
@@ -79,7 +53,7 @@ class MiningGameWidget extends HookConsumerWidget {
         Expanded(
           child: Column(
             children: [
-              const StatusBarWidget(),
+              // const StatusBarWidget(),
               Expanded(
                 child: MaterialApp.router(
                   routeInformationProvider: router.routeInformationProvider,
@@ -92,103 +66,6 @@ class MiningGameWidget extends HookConsumerWidget {
           ),
         ),
       ]),
-    );
-  }
-}
-
-// class AppDrawerNavigation extends ConsumerWidget {
-//   const AppDrawerNavigation({
-//     Key? key,
-//   }) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     final routes = ref.watch(mainNavigationPagesProvider);
-//     final routess = ref.watch(goRouterProvider);
-//     // final currentIndex = ref.watch(navigationIndexProvider);
-//     return Scaffold(
-//       drawer: Drawer(
-//         child: ListView(
-//           children: [
-//             for (int i = 0; i < routes.length; i++)
-//               RouteBaseWidget(
-//                 // false,
-//                 i != currentIndex,
-//                 routes[i],
-//               ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-class AppRootWidget extends HookConsumerWidget {
-  const AppRootWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final routes = ref.watch(mainNavigationPagesProvider);
-    final currentIndex = ref.watch(navigationIndexProvider);
-    return WillPopScope(
-        child: Scaffold(
-          body: Stack(
-            children: [
-              for (int i = 0; i < routes.length; i++)
-                RouteBaseWidget(
-                  // false,
-                  i != currentIndex,
-                  routes[i],
-                ),
-            ],
-          ),
-          bottomNavigationBar: const BottomNavigationWidget(),
-        ),
-        onWillPop: () async {
-          final currentTab = routes[currentIndex];
-          final isFirstRouteInCurrentTab =
-              await currentTab.key.currentState?.maybePop() ?? false;
-          if (isFirstRouteInCurrentTab) {
-            // if not on the 'main' tab
-            if (currentTab != routes[0]) {
-              ref
-                  .read(navigationIndexProvider.notifier)
-                  .updateIndex(currentIndex);
-              return false;
-            }
-          }
-          return isFirstRouteInCurrentTab;
-        });
-  }
-}
-
-class BottomNavigationWidget extends ConsumerWidget {
-  const BottomNavigationWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return BottomNavigationBar(
-      showUnselectedLabels: true,
-      unselectedItemColor: Colors.blue,
-      items: [
-        for (final route in ref.watch(mainNavigationPagesProvider))
-          // TODO
-          BottomNavigationBarItem(
-              label: route.name,
-              icon: Icon(
-                route.icon,
-                color: Colors.blue,
-              ))
-      ],
-      onTap: (index) {
-        ref.read(navigationIndexProvider.notifier).updateIndex(index);
-      },
-      currentIndex: ref.watch(navigationIndexProvider),
-      selectedItemColor: Colors.red,
     );
   }
 }
@@ -214,9 +91,19 @@ class RootRoute {
   final key = GlobalKey<NavigatorState>();
   final String name;
   final Widget Function(BuildContext context, RootRoute rootRoute) builder;
+  final Widget Function(
+    BuildContext context,
+    GoRouterState state,
+  ) goRouterWidgetBuilder;
   final IconData icon;
+  final String path;
 
-  RootRoute({required this.name, required this.builder, required this.icon});
+  RootRoute(
+      {required this.path,
+      required this.name,
+      required this.builder,
+      required this.goRouterWidgetBuilder,
+      required this.icon});
 }
 
 final navigationIndexProvider =
@@ -228,49 +115,41 @@ class IndexNotifier extends StateNotifier<int> with HistoryMixin<int> {
   void updateIndex(int i) => state = i;
 }
 
-class TestWi extends HookConsumerWidget {
-  const TestWi({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return StatusBarWrappedPageWidget(
-      title: 'testwi',
-      builder: (context, ref) => DefaultTextStyle(
-        style: Theme.of(context).textTheme.headline4!,
-        child: Container(
-          color: Colors.white,
-          alignment: Alignment.center,
-          child: const Text('Home Page'),
-        ),
-      ),
-    );
-  }
-}
-
 final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
   return [
     RootRoute(
-        name: 'Planet',
-        icon: Icons.circle,
-        builder: (context, _) => const PlanetPageWidget()),
+      name: 'Planet',
+      path: '/',
+      icon: Icons.circle,
+      builder: (context, _) => const PlanetPageWidget(),
+      goRouterWidgetBuilder: (context, _) => const PlanetPageWidget(),
+    ),
+
     RootRoute(
-        name: 'Store',
-        icon: Icons.store,
-        builder: (context, _) => const StorePageWidget()),
+      name: 'Store',
+      path: '/store',
+      icon: Icons.store,
+      builder: (context, _) => const StorePageWidget(),
+      goRouterWidgetBuilder: (context, _) => const StorePageWidget(),
+    ),
     RootRoute(
-        name: 'Inventory',
-        icon: Icons.storage,
-        builder: (context, _) => const InventoryPageWidget()),
+      name: 'Inventory',
+      path: '/inventory',
+      icon: Icons.storage,
+      builder: (context, _) => const InventoryPageWidget(),
+      goRouterWidgetBuilder: (context, _) => const InventoryPageWidget(),
+    ),
     // RootRoute(
     //     name: 'Garage',
     //     builder: (context, _) => const GaragePageWidget(),
     //     icon: Icons.garage),
     RootRoute(
-        name: 'Quests',
-        builder: (context, rootRoute) => QuestListPageWidget(rootRoute),
-        icon: Icons.attractions)
+      name: 'Quests',
+      path: '/quests',
+      builder: (context, rootRoute) => QuestListPageWidget(rootRoute),
+      goRouterWidgetBuilder: (context, _) => const PlanetPageWidget(),
+      icon: Icons.attractions,
+    )
   ].build();
 });
 
@@ -280,13 +159,15 @@ final goRouterProvider = StateProvider<GoRouter>((ref) {
         path: '/',
         builder: (context, state) => const PlanetPageWidget(),
         routes: [
-          GoRoute(
-              path: 'store',
-              builder: (context, state) => const StorePageWidget()),
-          GoRoute(
-              path: 'inventory',
-              builder: (context, state) => const InventoryPageWidget()),
-// GoRoute(path: 'quests', builder: (context, state) => const QuestListPageWidget() ),
+          for (final route in ref.watch(mainNavigationPagesProvider))
+            GoRoute(
+              path: route.name,
+              builder: route.goRouterWidgetBuilder,
+              pageBuilder: (context, state) => NoTransitionPage<void>(
+                key: state.pageKey,
+                child: route.goRouterWidgetBuilder(context, state),
+              ),
+            ),
         ]),
   ]);
 });
