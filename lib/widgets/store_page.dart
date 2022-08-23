@@ -6,7 +6,7 @@ import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
 
-import 'status_bar_wrapped_page.dart';
+import 'status_bar.dart';
 
 class StorePageWidget extends HookConsumerWidget {
   const StorePageWidget({Key? key}) : super(key: key);
@@ -17,22 +17,25 @@ class StorePageWidget extends HookConsumerWidget {
     ref.watch(inventoryStateProvider);
     final storeListings = ref.watch(storeMainNavControllerProvider);
 
-    return StatusBarWrappedPageWidget(
-        title: 'Store',
-        builder: (context, ref) => ListView.separated(
-              controller: ScrollController(),
-              shrinkWrap: true,
-              itemBuilder: (_, index) {
-                final listing = storeListings.listings[index];
-                return listing.map(
-                  itemListing: (l) => ItemShopListingWidget(l),
-                  doodadListing: (DoodadShopListing value) => null!,
-                  featureListing: (FeatureShopListing value) => null!,
-                );
-              },
-              itemCount: storeListings.listings.length,
-              separatorBuilder: (_, __) => const Divider(),
-            ));
+    return Material(
+      child: Column(children: [
+        const StatusBarWidget(),
+        ListView.separated(
+          controller: ScrollController(),
+          shrinkWrap: true,
+          itemBuilder: (_, index) {
+            final listing = storeListings.listings[index];
+            return listing.map(
+              itemListing: (l) => ItemShopListingWidget(l),
+              doodadListing: (DoodadShopListing value) => null!,
+              featureListing: (FeatureShopListing value) => null!,
+            );
+          },
+          itemCount: storeListings.listings.length,
+          separatorBuilder: (_, __) => const Divider(),
+        )
+      ]),
+    );
   }
 }
 

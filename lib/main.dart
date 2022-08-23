@@ -23,6 +23,35 @@ void main() async {
 
 final navIndexProvider = StateProvider<int>((ref) => 0);
 
+class MinerNavigationRail extends ConsumerWidget {
+  const MinerNavigationRail({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(goRouterProvider);
+    return NavigationRail(
+      useIndicator: true,
+      indicatorColor: Colors.cyan[100],
+      labelType: NavigationRailLabelType.all,
+      selectedLabelTextStyle: TextStyle(color: Colors.lightBlue[500]),
+      destinations: [
+        for (final route in ref.watch(mainNavigationPagesProvider))
+          NavigationRailDestination(
+              icon: route.iconWidget, label: route.labelWidget),
+      ],
+      selectedIndex: ref.watch(navIndexProvider),
+      onDestinationSelected: (index) {
+        ref.read(navIndexProvider.notifier).state = index;
+        router.go(ref.read(mainNavigationPagesProvider)[index].path);
+      },
+    );
+  }
+}
+
+const smallScreenMaxSize = 640;
+
 class MiningGameWidget extends HookConsumerWidget {
   const MiningGameWidget({Key? key}) : super(key: key);
 
@@ -30,26 +59,40 @@ class MiningGameWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(gameCoreProvider);
     final router = ref.watch(goRouterProvider);
-    final currentIndex = ref.watch(navIndexProvider);
+    final smallScreen = MediaQuery.of(context).size.width <= smallScreenMaxSize;
 
     return Scaffold(
+      bottomNavigationBar: !smallScreen
+          ? null
+          : BottomNavigationBar(
+              selectedItemColor: Colors.lightBlue[500],
+              unselectedItemColor: Colors.grey,
+              unselectedLabelStyle: const TextStyle(color: Colors.grey),
+              showUnselectedLabels: true,
+              selectedLabelStyle: const TextStyle(color: Colors.red),
+              currentIndex: ref.watch(navIndexProvider),
+              onTap: (index) {
+                ref.read(navIndexProvider.notifier).state = index;
+                router.go(ref.read(mainNavigationPagesProvider)[index].path);
+              },
+              items: [
+                for (final route in ref.watch(mainNavigationPagesProvider))
+                  BottomNavigationBarItem(
+                      icon: route.iconWidget, label: route.label),
+              ],
+            ),
+      appBar: AppBar(
+        title: const Text('test'),
+      ),
+      // drawer: Container(width: 150, child: const MinerNavigationRail()),
       body: Row(children: [
-        NavigationRail(
-          destinations: [
-            for (final route in ref.watch(mainNavigationPagesProvider))
-              NavigationRailDestination(
-                  icon: Icon(route.icon), label: Text(route.name)),
-          ],
-          selectedIndex: currentIndex,
-          onDestinationSelected: (index) {
-            ref.read(navIndexProvider.notifier).state = index;
-            router.go(ref.read(mainNavigationPagesProvider)[index].path);
-          },
-        ),
-        const VerticalDivider(
-          thickness: 1,
-          width: 1,
-        ),
+        if (!smallScreen) ...[
+          const MinerNavigationRail(),
+          const VerticalDivider(
+            thickness: 1,
+            width: 1,
+          ),
+        ],
         Expanded(
           child: Column(
             children: [
@@ -89,7 +132,7 @@ class RouteBaseWidget extends ConsumerWidget {
 
 class RootRoute {
   final key = GlobalKey<NavigatorState>();
-  final String name;
+  final String label;
   final Widget Function(BuildContext context, RootRoute rootRoute) builder;
   final Widget Function(
     BuildContext context,
@@ -98,9 +141,13 @@ class RootRoute {
   final IconData icon;
   final String path;
 
+  Icon get iconWidget => Icon(icon);
+
+  Text get labelWidget => Text(label);
+
   RootRoute(
       {required this.path,
-      required this.name,
+      required this.label,
       required this.builder,
       required this.goRouterWidgetBuilder,
       required this.icon});
@@ -118,7 +165,7 @@ class IndexNotifier extends StateNotifier<int> with HistoryMixin<int> {
 final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
   return [
     RootRoute(
-      name: 'Planet',
+      label: 'Planet',
       path: '/',
       icon: Icons.circle,
       builder: (context, _) => const PlanetPageWidget(),
@@ -126,14 +173,14 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
     ),
 
     RootRoute(
-      name: 'Store',
+      label: 'Store',
       path: '/store',
       icon: Icons.store,
       builder: (context, _) => const StorePageWidget(),
       goRouterWidgetBuilder: (context, _) => const StorePageWidget(),
     ),
     RootRoute(
-      name: 'Inventory',
+      label: 'Inventory',
       path: '/inventory',
       icon: Icons.storage,
       builder: (context, _) => const InventoryPageWidget(),
@@ -144,7 +191,7 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
     //     builder: (context, _) => const GaragePageWidget(),
     //     icon: Icons.garage),
     RootRoute(
-      name: 'Quests',
+      label: 'Quests',
       path: '/quests',
       builder: (context, rootRoute) => QuestListPageWidget(rootRoute),
       goRouterWidgetBuilder: (context, _) => const PlanetPageWidget(),
@@ -161,7 +208,7 @@ final goRouterProvider = StateProvider<GoRouter>((ref) {
         routes: [
           for (final route in ref.watch(mainNavigationPagesProvider))
             GoRoute(
-              path: route.name,
+              path: route.label,
               builder: route.goRouterWidgetBuilder,
               pageBuilder: (context, state) => NoTransitionPage<void>(
                 key: state.pageKey,

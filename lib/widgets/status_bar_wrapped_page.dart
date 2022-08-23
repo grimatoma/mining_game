@@ -15,26 +15,12 @@ class StatusBarWrappedPageWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      appBar: title.isNotEmpty
-          ? AppBar(
-              title: Text(title),
-              centerTitle: true,
-            )
-          : null,
-      body: Center(
-        child: SizedBox(
-          // width: max(MediaQuery.of(context).size.width, 900),
-          // height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const StatusBarWidget(),
-              Expanded(child: builder(context, ref)),
-            ],
-          ),
-        ),
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const StatusBarWidget(),
+        Expanded(child: builder(context, ref)),
+      ],
     );
   }
 }

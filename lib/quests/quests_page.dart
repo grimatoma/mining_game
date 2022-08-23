@@ -18,57 +18,44 @@ class QuestListPageWidget extends HookConsumerWidget {
     Key? key,
   }) : super(key: key);
 
+  // Iterable<GoRoute> get routes => [
+  //   GoRoute(path: 'quest', builder: )
+  // ];
+  // '/detail': (context) =>
+  // QuestDetailWidget(ref.watch(activeQuestStatusProvider)[0]),
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     print('rebuilding quest page');
     final scrollController = useScrollController();
-    Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
-      return {
-        '/': (context) => StatusBarWrappedPageWidget(
-            title: 'Quests',
-            builder: (context, ref) {
-              final quests = ref.watch(activeQuestStatusProvider);
-              return Column(
-                children: [
-                  TextButton(
-                      onPressed: () {
-                        ref
-                            .read(completedQuestsProvider.notifier)
-                            .resetQuests();
+    return StatusBarWrappedPageWidget(
+        title: 'Quests',
+        builder: (context, ref) {
+          final quests = ref.watch(activeQuestStatusProvider);
+          return Column(
+            children: [
+              TextButton(
+                  onPressed: () {
+                    ref.read(completedQuestsProvider.notifier).resetQuests();
+                  },
+                  child: const Text("Reset quests")),
+              ListView.separated(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  itemBuilder: (_, index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    QuestDetailWidget(quests[index])));
                       },
-                      child: const Text("Reset quests")),
-                  ListView.separated(
-                      shrinkWrap: true,
-                      controller: scrollController,
-                      itemBuilder: (_, index) => InkWell(
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        QuestDetailWidget(quests[index])));
-                          },
-                          child: QuestListDetail(quests[index])),
-                      separatorBuilder: (_, __) => const Divider(),
-                      itemCount: quests.length),
-                ],
-              );
-            }),
-        '/detail': (context) =>
-            QuestDetailWidget(ref.watch(activeQuestStatusProvider)[0]),
-      };
-    }
-
-    final routeBuilders = _routeBuilders(context);
-
-    return Navigator(
-      key: _rootRoute.key,
-      onGenerateRoute: (routeSettings) {
-        return MaterialPageRoute(
-          builder: (context) => routeBuilders[routeSettings.name!]!(context),
-        );
-      },
-    );
+                      child: QuestListDetail(quests[index])),
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemCount: quests.length),
+            ],
+          );
+        });
   }
 }
 
