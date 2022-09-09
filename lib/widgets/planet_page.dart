@@ -18,24 +18,26 @@ class PlanetPageWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(fit: StackFit.expand, children: [
-      const HexagonPlanetRenderer(),
-      Align(
-        alignment: FractionalOffset.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            TextButton(onPressed: null, child: Text('Settings')),
-          ],
+    return Material(
+      child: Stack(fit: StackFit.expand, children: [
+        const HexagonPlanetRenderer(),
+        Align(
+          alignment: FractionalOffset.bottomCenter,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              TextButton(onPressed: null, child: Text('Settings')),
+            ],
+          ),
         ),
-      ),
-      if (ref.watch(panelVisibilityState) == PanelVisibility.BuyMenu)
-        const BuildMenuWidget(),
-      if (ref.watch(panelVisibilityState) == PanelVisibility.TileDetail)
-        const Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: TileDetailWidget()),
-    ]);
+        if (ref.watch(panelVisibilityState) == PanelVisibility.BuyMenu)
+          const BuildMenuWidget(),
+        if (ref.watch(panelVisibilityState) == PanelVisibility.TileDetail)
+          const Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: TileDetailWidget()),
+      ]),
+    );
   }
 }
 
