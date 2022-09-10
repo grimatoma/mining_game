@@ -21,21 +21,23 @@ class QuestDetailWidget extends ConsumerWidget {
         Navigator.pop(context);
       });
     }
-    return StatusBarWrappedPageWidget(
-        title: _questStatus.definition.name,
-        builder: (_, __) => Column(
-              children: [
-                Text(_questStatus.toString()),
-                QuestListDetail(_questStatus),
-                if (_questStatus.requirementsMet)
-                  TextButton(
-                      onPressed: () {
-                        ref
-                            .read(completedQuestsProvider.notifier)
-                            .markCompleted(_questStatus.definition);
-                      },
-                      child: const Text('Compelte Quest')),
-              ],
-            ));
+    return Material(
+      child: StatusBarWrappedPageWidget(
+          title: _questStatus.definition.name,
+          builder: (_, __) => Column(
+                children: [
+                  Text(_questStatus.toString()),
+                  QuestListDetail(_questStatus),
+                  if (_questStatus.requirementsMet)
+                    TextButton(
+                        onPressed: () {
+                          ref
+                              .read(completedQuestsProvider.notifier)
+                              .markCompleted(_questStatus.definition);
+                        },
+                        child: const Text('Compelte Quest')),
+                ],
+              )),
+    );
   }
 }

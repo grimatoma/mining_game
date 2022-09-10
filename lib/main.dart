@@ -140,6 +140,7 @@ class RootRoute {
   ) goRouterWidgetBuilder;
   final IconData icon;
   final String path;
+  final List<GoRoute> routes;
 
   Icon get iconWidget => Icon(icon);
 
@@ -150,7 +151,8 @@ class RootRoute {
       required this.label,
       required this.builder,
       required this.goRouterWidgetBuilder,
-      required this.icon});
+      required this.icon,
+      this.routes = const []});
 }
 
 final navigationIndexProvider =
@@ -193,8 +195,8 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
     RootRoute(
       label: 'Quests',
       path: '/quests',
-      builder: (context, rootRoute) => QuestListPageWidget(rootRoute),
-      goRouterWidgetBuilder: (context, _) => const PlanetPageWidget(),
+      builder: (context, rootRoute) => const QuestListPageWidget(),
+      goRouterWidgetBuilder: (context, _) => const QuestListPageWidget(),
       icon: Icons.attractions,
     )
   ].build();
