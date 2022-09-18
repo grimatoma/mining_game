@@ -9,11 +9,12 @@ import 'package:mining_game/persistence/hive_manager.dart';
 import 'quest_definition.dart';
 
 final allQuestsProvider =
-    StateNotifierProvider<AllQuestsController, BuiltList<QuestDefinition>>(
+    StateNotifierProvider<AllQuestsController, BuiltMap<int, QuestDefinition>>(
         (ref) => AllQuestsController());
 
-class AllQuestsController extends StateController<BuiltList<QuestDefinition>> {
-  AllQuestsController() : super(BuiltList()) {
+class AllQuestsController
+    extends StateController<BuiltMap<int, QuestDefinition>> {
+  AllQuestsController() : super(BuiltMap()) {
     state = ItemDirectory.allQuests;
   }
 }
@@ -47,7 +48,7 @@ class CompletedQuestsController extends StateController<BuiltSet<int>> {
   }
 }
 
-final activeQuestStatusProvider = StateProvider<BuiltList<QuestStatus>>((ref) {
+final questStatusProvider = StateProvider<BuiltMap<int, QuestStatus>>((ref) {
   final allQuests = ref.watch(allQuestsProvider);
   final completedQuests = ref.watch(completedQuestsProvider);
   final activeFeatures = ref.watch(activeFeaturesProvider);
@@ -84,17 +85,16 @@ final activeQuestStatusProvider = StateProvider<BuiltList<QuestStatus>>((ref) {
         featuresProgress: ownedFeatures.toSet());
   }
 
-  final questStatusListBuilder = ListBuilder<QuestStatus>();
+  final mapBuilder = MapBuilder<int, QuestStatus>();
 
-  for (final quest in allQuests) {
+  for (final quest in allQuests.values) {
     if (completedQuests.contains(quest.id)) continue;
     if (!checkRequirements(quest.enabledRequirement, quest).requirementsMet) {
       continue;
     }
 
-    questStatusListBuilder
-        .add(checkRequirements(quest.completeRequirement, quest));
+    mapBuilder[quest.id] = checkRequirements(quest.completeRequirement, quest);
   }
 
-  return questStatusListBuilder.build();
+  return mapBuilder.build();
 });

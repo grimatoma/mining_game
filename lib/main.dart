@@ -9,6 +9,7 @@ import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/quests/quests_page.dart';
 
+import 'quests/quest_detail_widget.dart';
 import 'widgets/inventory_page.dart';
 import 'widgets/planet_page.dart';
 import 'widgets/store_page.dart';
@@ -30,7 +31,6 @@ class MinerNavigationRail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(goRouterProvider);
     return NavigationRail(
       useIndicator: true,
       indicatorColor: Colors.cyan[100],
@@ -44,7 +44,9 @@ class MinerNavigationRail extends ConsumerWidget {
       selectedIndex: ref.watch(navIndexProvider),
       onDestinationSelected: (index) {
         ref.read(navIndexProvider.notifier).state = index;
-        router.go(ref.read(mainNavigationPagesProvider)[index].path);
+        ref
+            .read(goRouterProvider)
+            .go('/${ref.read(mainNavigationPagesProvider)[index].path}');
       },
     );
   }
@@ -81,9 +83,9 @@ class MiningGameWidget extends HookConsumerWidget {
                       icon: route.iconWidget, label: route.label),
               ],
             ),
-      appBar: AppBar(
-        title: const Text('test'),
-      ),
+      // appBar: AppBar(
+      //   title: const Text('test'),
+      // ),
       // drawer: Container(width: 150, child: const MinerNavigationRail()),
       body: Row(children: [
         if (!smallScreen) ...[
@@ -168,22 +170,21 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
   return [
     RootRoute(
       label: 'Planet',
-      path: '/',
+      path: 'planet',
       icon: Icons.circle,
       builder: (context, _) => const PlanetPageWidget(),
       goRouterWidgetBuilder: (context, _) => const PlanetPageWidget(),
     ),
-
     RootRoute(
       label: 'Store',
-      path: '/store',
+      path: 'store',
       icon: Icons.store,
       builder: (context, _) => const StorePageWidget(),
       goRouterWidgetBuilder: (context, _) => const StorePageWidget(),
     ),
     RootRoute(
       label: 'Inventory',
-      path: '/inventory',
+      path: 'inventory',
       icon: Icons.storage,
       builder: (context, _) => const InventoryPageWidget(),
       goRouterWidgetBuilder: (context, _) => const InventoryPageWidget(),
@@ -194,28 +195,35 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
     //     icon: Icons.garage),
     RootRoute(
       label: 'Quests',
-      path: '/quests',
+      path: 'quests',
       builder: (context, rootRoute) => const QuestListPageWidget(),
       goRouterWidgetBuilder: (context, _) => const QuestListPageWidget(),
       icon: Icons.attractions,
+      routes: [
+        GoRoute(
+            path: 'quest/:questid',
+            builder: (context, state) {
+              return QuestDetailWidget(int.parse(state.params['questid']!));
+            })
+      ],
     )
   ].build();
 });
 
 final goRouterProvider = StateProvider<GoRouter>((ref) {
-  return GoRouter(routes: [
-    GoRoute(
-        path: '/',
-        builder: (context, state) => const PlanetPageWidget(),
+  return GoRouter(initialLocation: '/', routes: [
+    GoRoute(path: '/', redirect: (_) => '/planet',
+        // builder: (context, state) => const PlanetPageWidget(),
         routes: [
           for (final route in ref.watch(mainNavigationPagesProvider))
             GoRoute(
-              path: route.label,
+              path: route.path,
               builder: route.goRouterWidgetBuilder,
               pageBuilder: (context, state) => NoTransitionPage<void>(
                 key: state.pageKey,
                 child: route.goRouterWidgetBuilder(context, state),
               ),
+              routes: route.routes,
             ),
         ]),
   ]);

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
 
-import 'quest_detail_widget.dart';
 import 'quest_providers.dart';
 
 class QuestListPageWidget extends HookConsumerWidget {
@@ -24,11 +24,15 @@ class QuestListPageWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     print('rebuilding quest page');
     final scrollController = useScrollController();
-    return Material(
-      child: StatusBarWrappedPageWidget(
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('test'),
+      ),
+      body: StatusBarWrappedPageWidget(
           title: 'Quests',
           builder: (context, ref) {
-            final quests = ref.watch(activeQuestStatusProvider);
+            final quests = ref.watch(questStatusProvider).values.toList();
             return Column(
               children: [
                 TextButton(
@@ -41,11 +45,13 @@ class QuestListPageWidget extends HookConsumerWidget {
                     controller: scrollController,
                     itemBuilder: (_, index) => InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      QuestDetailWidget(quests[index])));
+                          context.push(
+                              '/quests/quest/${quests[index].definition.id}');
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => QuestDetailWidget(
+                          //             quests[index]!.definition.id)));
                         },
                         child: QuestListDetail(quests[index])),
                     separatorBuilder: (_, __) => const Divider(),

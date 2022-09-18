@@ -15,7 +15,9 @@ class ItemDirectory {
   // static BuiltMap<String, ItemDefinitionId>? _loadItemsFromDbMapping;
   static final BuiltMap<DoodadId, DoodadDefinition> doodadDefinitions =
       {for (var i in doodadDefinitionsExample) i.id: i}.build();
-  static final BuiltList<QuestDefinition> allQuests = quests.build();
+  static final BuiltMap<int, QuestDefinition> allQuests = {
+    for (final quest in quests) quest.id: quest,
+  }.build();
 
   static Future<void> init() async {
     // final miners = await parseJsonMap<ItemDefinitionId, ItemDefinition>(
