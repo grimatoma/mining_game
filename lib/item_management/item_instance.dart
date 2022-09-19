@@ -224,21 +224,62 @@ class ItemRequirementRenderer extends ConsumerWidget {
 
   Widget _buildItem(MapEntry<ItemDefinitionId, int> entry, int? missing) {
     final definition = entry.key.definition();
-    Widget renderItem() {
-      return Row(children: [
-        Image.asset(
-          definition.image,
-          width: 24,
-        ),
-        Text('${entry.value}${missing == null ? '' : '($missing)'}'),
-      ]);
-    }
+    // Widget renderItem() {
+    //   return Row(children: [
+    //     Image.asset(
+    //       definition.image,
+    //       width: 24,
+    //     ),
+    //     Text('${entry.value}${missing == null ? '' : '($missing)'}'),
+    //   ]);
+    // }
 
+    final itemWidget = ItemRenderer(
+      definition: definition,
+      count: entry.value,
+      suffixText: missing == null ? '' : '($missing)',
+    );
     return missing != null
         ? ColorFiltered(
             colorFilter: ColorFilter.mode(Colors.red[200]!, BlendMode.color),
-            child: renderItem(),
+            child: itemWidget,
           )
-        : renderItem();
+        : itemWidget;
+  }
+}
+
+class ItemRenderer extends StatelessWidget {
+  final ItemDefinition definition;
+  final int count;
+  final String? suffixText;
+  final bool showItemName;
+
+  const ItemRenderer(
+      {Key? key,
+      required this.definition,
+      required this.count,
+      this.suffixText = '',
+      this.showItemName = false})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(children: [
+      Image.asset(
+        definition.image,
+        width: 24,
+      ),
+      Text(' $count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
+    ]);
+  }
+
+  String get maybeName {
+    if (!showItemName) return '';
+    final def = definition;
+    if (def is CanHavePluralName) {
+      final pluralName = (def as CanHavePluralName).namePlural;
+      if (pluralName != null) return pluralName;
+    }
+    return def.name;
   }
 }

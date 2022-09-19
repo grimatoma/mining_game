@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/digging_site.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
@@ -188,6 +189,13 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
       icon: Icons.storage,
       builder: (context, _) => const InventoryPageWidget(),
       goRouterWidgetBuilder: (context, _) => const InventoryPageWidget(),
+    ),
+    RootRoute(
+      label: 'Digging Site',
+      path: 'dig_site',
+      icon: Icons.golf_course,
+      builder: (context, _) => const DigSite(),
+      goRouterWidgetBuilder: (context, _) => const DigSite(),
     ),
     // RootRoute(
     //     name: 'Garage',

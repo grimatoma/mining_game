@@ -44,6 +44,20 @@ final itemModels = [
       description: 'Can be mined',
       image: 'assets/images/minerals/copper.png',
       maxStackSize: 100),
+  const ItemDefinition.resourceDefinition(
+      id: Items.SHARP_ROCK,
+      name: 'Sharp rock',
+      namePlural: 'Sharp rocks',
+      description: 'A useless rock',
+      image: 'assets/images/minerals/copper.png',
+      maxStackSize: 100),
+  const ItemDefinition.resourceDefinition(
+      id: Items.SMALL_ROCK,
+      name: 'Small rock',
+      namePlural: 'Small rocks',
+      description: 'A useless rock',
+      image: 'assets/images/minerals/copper.png',
+      maxStackSize: 100),
   const ItemDefinition.drillDefinition(
       id: Items.TEST_DRILL,
       name: 'Test drill',
