@@ -10,33 +10,43 @@ import 'package:mining_game/item_management/store/shop_listing_definitions.dart'
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
-
-import '../item_management/store/shop_listing_definitions.dart';
+import 'package:mining_game/widgets/status_bar.dart';
 
 class PlanetPageWidget extends HookConsumerWidget {
   const PlanetPageWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Material(
-      child: Stack(fit: StackFit.expand, children: [
-        const HexagonPlanetRenderer(),
-        Align(
-          alignment: FractionalOffset.bottomCenter,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              TextButton(onPressed: null, child: Text('Settings')),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Quests'),
+      ),
+      body: Column(
+        children: [
+          const StatusBarWidget(),
+          Expanded(
+            child: Stack(fit: StackFit.expand, children: [
+              const HexagonPlanetRenderer(),
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    TextButton(onPressed: null, child: Text('Settings')),
+                  ],
+                ),
+              ),
+              if (ref.watch(panelVisibilityState) == PanelVisibility.BuyMenu)
+                const BuildMenuWidget(),
+              if (ref.watch(panelVisibilityState) == PanelVisibility.TileDetail)
+                const Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: TileDetailWidget()),
+            ]),
           ),
-        ),
-        if (ref.watch(panelVisibilityState) == PanelVisibility.BuyMenu)
-          const BuildMenuWidget(),
-        if (ref.watch(panelVisibilityState) == PanelVisibility.TileDetail)
-          const Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: TileDetailWidget()),
-      ]),
+        ],
+      ),
     );
   }
 }

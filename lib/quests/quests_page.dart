@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/quests/quest_definition.dart';
-import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
+import 'package:mining_game/widgets/status_bar.dart';
 
 import 'quest_providers.dart';
 
@@ -24,42 +24,38 @@ class QuestListPageWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     print('rebuilding quest page');
     final scrollController = useScrollController();
+    final quests = ref.watch(questStatusProvider).values.toList();
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('test'),
-      ),
-      body: StatusBarWrappedPageWidget(
-          title: 'Quests',
-          builder: (context, ref) {
-            final quests = ref.watch(questStatusProvider).values.toList();
-            return Column(
-              children: [
-                TextButton(
-                    onPressed: () {
-                      ref.read(completedQuestsProvider.notifier).resetQuests();
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: const Text('Quests'),
+        ),
+        body: Column(
+          children: [
+            const StatusBarWidget(),
+            TextButton(
+                onPressed: () {
+                  ref.read(completedQuestsProvider.notifier).resetQuests();
+                },
+                child: const Text("Reset quests")),
+            ListView.separated(
+                shrinkWrap: true,
+                controller: scrollController,
+                itemBuilder: (_, index) => InkWell(
+                    onTap: () {
+                      context
+                          .push('/quests/quest/${quests[index].definition.id}');
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) => QuestDetailWidget(
+                      //             quests[index]!.definition.id)));
                     },
-                    child: const Text("Reset quests")),
-                ListView.separated(
-                    shrinkWrap: true,
-                    controller: scrollController,
-                    itemBuilder: (_, index) => InkWell(
-                        onTap: () {
-                          context.push(
-                              '/quests/quest/${quests[index].definition.id}');
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => QuestDetailWidget(
-                          //             quests[index]!.definition.id)));
-                        },
-                        child: QuestListDetail(quests[index])),
-                    separatorBuilder: (_, __) => const Divider(),
-                    itemCount: quests.length),
-              ],
-            );
-          }),
-    );
+                    child: QuestListDetail(quests[index])),
+                separatorBuilder: (_, __) => const Divider(),
+                itemCount: quests.length),
+          ],
+        ));
   }
 }
 

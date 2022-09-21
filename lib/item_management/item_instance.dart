@@ -269,7 +269,8 @@ class ItemRenderer extends StatelessWidget {
         definition.image,
         width: 24,
       ),
-      Text(' $count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
+      AutoSizeText(
+          ' $count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
     ]);
   }
 

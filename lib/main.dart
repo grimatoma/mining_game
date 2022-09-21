@@ -9,6 +9,7 @@ import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/quests/quests_page.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'quests/quest_detail_widget.dart';
 import 'widgets/inventory_page.dart';
@@ -20,6 +21,23 @@ void main() async {
 
   await HiveManager.init();
   await ItemDirectory.init();
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
+
+  WindowOptions windowOptions = const WindowOptions(
+    size: Size(800, 600),
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    titleBarStyle: TitleBarStyle.normal,
+    minimumSize: Size(400, 400),
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
   runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
 }
 
@@ -220,19 +238,19 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
 
 final goRouterProvider = StateProvider<GoRouter>((ref) {
   return GoRouter(initialLocation: '/', routes: [
-    GoRoute(path: '/', redirect: (_) => '/planet',
-        // builder: (context, state) => const PlanetPageWidget(),
-        routes: [
-          for (final route in ref.watch(mainNavigationPagesProvider))
-            GoRoute(
-              path: route.path,
-              builder: route.goRouterWidgetBuilder,
-              pageBuilder: (context, state) => NoTransitionPage<void>(
-                key: state.pageKey,
-                child: route.goRouterWidgetBuilder(context, state),
-              ),
-              routes: route.routes,
-            ),
-        ]),
+    GoRoute(
+      path: '/',
+      redirect: (_) => '/planet',
+    ),
+    for (final route in ref.watch(mainNavigationPagesProvider))
+      GoRoute(
+        path: '/${route.path}',
+        builder: route.goRouterWidgetBuilder,
+        pageBuilder: (context, state) => NoTransitionPage<void>(
+          key: state.pageKey,
+          child: route.goRouterWidgetBuilder(context, state),
+        ),
+        routes: route.routes,
+      ),
   ]);
 });

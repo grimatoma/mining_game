@@ -6,7 +6,7 @@ import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 
-import 'status_bar_wrapped_page.dart';
+import 'status_bar.dart';
 
 final selectedItemProvider =
     StateNotifierProvider<SelectedItem, int?>((ref) => SelectedItem());
@@ -26,68 +26,69 @@ class InventoryPageWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
     final inventory = ref.watch(inventoryStateProvider).itemSlots;
-    return Material(
-      child: StatusBarWrappedPageWidget(
-        title: 'Inventory',
-        builder: (context, ref) => Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Quests'),
+      ),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          const StatusBarWidget(),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                  onPressed: () {
+                    ref
+                        .read(inventoryStateProvider.notifier)
+                        .addItems(Items.CREDIT.generateItemInstance(42));
+                  },
+                  child: const Text('Add Credits')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider.notifier).addItems(
+                        ItemDirectory.getItem(const ItemDefinitionId('MINER1'))
+                            .generateItemInstance());
+                  },
+                  child: const Text('Add Miner')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider.notifier).addSlots(1);
+                  },
+                  child: const Text('Add Empty slot')),
+              TextButton(
+                  onPressed: () {
+                    ref.read(inventoryStateProvider.notifier).clear();
+                  },
+                  child: const Text('Clear')),
+            ],
+          ),
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
               children: [
-                TextButton(
-                    onPressed: () {
-                      ref
-                          .read(inventoryStateProvider.notifier)
-                          .addItems(Items.CREDIT.generateItemInstance(42));
-                    },
-                    child: const Text('Add Credits')),
-                TextButton(
-                    onPressed: () {
-                      ref.read(inventoryStateProvider.notifier).addItems(
-                          ItemDirectory.getItem(
-                                  const ItemDefinitionId('MINER1'))
-                              .generateItemInstance());
-                    },
-                    child: const Text('Add Miner')),
-                TextButton(
-                    onPressed: () {
-                      ref.read(inventoryStateProvider.notifier).addSlots(1);
-                    },
-                    child: const Text('Add Empty slot')),
-                TextButton(
-                    onPressed: () {
-                      ref.read(inventoryStateProvider.notifier).clear();
-                    },
-                    child: const Text('Clear')),
+                Flexible(
+                  flex: 3,
+                  child: GridView.builder(
+                    controller: scrollController,
+                    gridDelegate:
+                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 100,
+                      childAspectRatio: 1 / 1,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 5,
+                    ),
+                    itemBuilder: (_, index) =>
+                        ItemWidget(inventory[index], index),
+                    itemCount: inventory.length,
+                  ),
+                ),
+                const Flexible(flex: 1, child: ItemDetailWidget()),
               ],
             ),
-            Expanded(
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Flexible(
-                    flex: 3,
-                    child: GridView.builder(
-                      controller: scrollController,
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: 100,
-                        childAspectRatio: 1 / 1,
-                        crossAxisSpacing: 5,
-                        mainAxisSpacing: 5,
-                      ),
-                      itemBuilder: (_, index) =>
-                          ItemWidget(inventory[index], index),
-                      itemCount: inventory.length,
-                    ),
-                  ),
-                  const Flexible(flex: 1, child: ItemDetailWidget()),
-                ],
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventory.dart';
@@ -10,51 +11,32 @@ class StatusBarWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemEntry = ref
+    final items = ref
         .watch(inventoryCountsStateProvider)
         .entries
-        .where((element) => element.key.definition() is ShowInWallet);
+        .where((element) => element.key.definition() is ShowInWallet)
+        .toBuiltList();
     return Container(
-      // width: 400,
-      // height: 200,
       color: Colors.cyanAccent[100],
       alignment: Alignment.topLeft,
       child: Center(
         child: Column(
           children: [
-            Table(
-              columnWidths: const {
-                0: IntrinsicColumnWidth(),
-                1: IntrinsicColumnWidth(),
+            GridView.builder(
+              physics: const ClampingScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                childAspectRatio: 6,
+              ),
+              itemBuilder: (_, index) {
+                final item = items[index];
+                return ItemRenderer(
+                    showItemName: true,
+                    definition: item.key.definition(),
+                    count: item.value);
               },
-              children: [
-                for (final item in itemEntry)
-                  TableRow(children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          item.key.definition().image,
-                          height: 25,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-                          child: Text(
-                              item.key.definition() is CanHavePluralName &&
-                                      item.value > 1
-                                  ? (item.key.definition() as CanHavePluralName)
-                                          .namePlural ??
-                                      item.key.itemName
-                                  : item.key.itemName),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-                      child: Text(item.value.toString()),
-                    ),
-                  ]),
-              ],
+              itemCount: items.length,
             ),
           ],
         ),

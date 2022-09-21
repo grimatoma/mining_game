@@ -17,22 +17,28 @@ class StorePageWidget extends HookConsumerWidget {
     ref.watch(inventoryStateProvider);
     final storeListings = ref.watch(storeMainNavControllerProvider);
 
-    return Material(
-      child: Column(children: [
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Store'),
+      ),
+      body: Column(children: [
         const StatusBarWidget(),
-        ListView.separated(
-          controller: ScrollController(),
-          shrinkWrap: true,
-          itemBuilder: (_, index) {
-            final listing = storeListings.listings[index];
-            return listing.map(
-              itemListing: (l) => ItemShopListingWidget(l),
-              doodadListing: (DoodadShopListing value) => null!,
-              featureListing: (FeatureShopListing value) => null!,
-            );
-          },
-          itemCount: storeListings.listings.length,
-          separatorBuilder: (_, __) => const Divider(),
+        Expanded(
+          child: ListView.separated(
+            controller: ScrollController(),
+            shrinkWrap: true,
+            itemBuilder: (_, index) {
+              final listing = storeListings.listings[index];
+              return listing.map(
+                itemListing: (l) => ItemShopListingWidget(l),
+                doodadListing: (DoodadShopListing value) => null!,
+                featureListing: (FeatureShopListing value) => null!,
+              );
+            },
+            itemCount: storeListings.listings.length,
+            separatorBuilder: (_, __) => const Divider(),
+          ),
         )
       ]),
     );
@@ -153,11 +159,11 @@ class ShopButton extends ConsumerWidget {
     return ElevatedButton(
       onPressed: onClick,
       style: ElevatedButton.styleFrom(
+        foregroundColor: active ? Colors.grey[800] : Colors.grey[500],
+        backgroundColor: active ? Colors.green[300] : Colors.grey[100],
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(2))),
         padding: const EdgeInsets.symmetric(horizontal: 8),
-        onPrimary: active ? Colors.grey[800] : Colors.grey[500],
-        primary: active ? Colors.green[300] : Colors.grey[100],
       ),
       child: ItemRequirementRenderer(
         itemRequirement: cost,
