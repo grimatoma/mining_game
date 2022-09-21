@@ -26,12 +26,12 @@ void main() async {
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
-    size: Size(800, 600),
+    size: Size(1200, 800),
     center: true,
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
     titleBarStyle: TitleBarStyle.normal,
-    minimumSize: Size(400, 400),
+    minimumSize: Size(800, 600),
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
@@ -240,7 +240,7 @@ final goRouterProvider = StateProvider<GoRouter>((ref) {
   return GoRouter(initialLocation: '/', routes: [
     GoRoute(
       path: '/',
-      redirect: (_) => '/planet',
+      redirect: (_) => '/dig_site',
     ),
     for (final route in ref.watch(mainNavigationPagesProvider))
       GoRoute(

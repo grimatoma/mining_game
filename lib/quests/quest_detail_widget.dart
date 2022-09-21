@@ -18,7 +18,7 @@ class QuestDetailWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     void noQuestReturn() {
       Future.delayed(Duration.zero, () {
-        Navigator.pop(context);
+        context.go('/quests');
       });
     }
 
