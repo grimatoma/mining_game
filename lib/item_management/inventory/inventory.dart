@@ -22,7 +22,7 @@ final inventoryCountsStateProvider =
     final count = itemCounts.putIfAbsent(item.itemId, () => 0);
     itemCounts[item.itemId] = count +
         item.maybeMap(
-            stackInstance: (stack) => stack.quantity, orElse: () => 1) as int;
+            stackInstance: (stack) => stack.quantity, orElse: () => 20) as int;
   }
   return itemCounts.build();
 });

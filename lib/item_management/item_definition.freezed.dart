@@ -126,13 +126,16 @@ class _$_ItemDefinitionId extends _ItemDefinitionId {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ItemDefinitionIdToJson(this);
+    return _$$_ItemDefinitionIdToJson(
+      this,
+    );
   }
 }
 
 abstract class _ItemDefinitionId extends ItemDefinitionId {
   const factory _ItemDefinitionId(@HiveField(0) final String itemId) =
       _$_ItemDefinitionId;
+
   const _ItemDefinitionId._() : super._();
 
   factory _ItemDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -140,7 +143,8 @@ abstract class _ItemDefinitionId extends ItemDefinitionId {
 
   @override
   @HiveField(0)
-  String get itemId => throw _privateConstructorUsedError;
+  String get itemId;
+
   @override
   @JsonKey(ignore: true)
   _$$_ItemDefinitionIdCopyWith<_$_ItemDefinitionId> get copyWith =>
@@ -635,7 +639,9 @@ class _$ResourceDefinition extends ResourceDefinition {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ResourceDefinitionToJson(this);
+    return _$$ResourceDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -648,21 +654,28 @@ abstract class ResourceDefinition extends ItemDefinition
       required final String description,
       required final String image,
       required final int maxStackSize}) = _$ResourceDefinition;
+
   const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
       _$ResourceDefinition.fromJson;
 
   @override
-  ItemDefinitionId get id => throw _privateConstructorUsedError;
+  ItemDefinitionId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
-  String? get namePlural => throw _privateConstructorUsedError;
+  String get name;
+
+  String? get namePlural;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get image => throw _privateConstructorUsedError;
-  int get maxStackSize => throw _privateConstructorUsedError;
+  String get image;
+
+  int get maxStackSize;
+
   @override
   @JsonKey(ignore: true)
   _$$ResourceDefinitionCopyWith<_$ResourceDefinition> get copyWith =>
@@ -938,7 +951,9 @@ class _$DrillDefinition extends DrillDefinition {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DrillDefinitionToJson(this);
+    return _$$DrillDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -949,20 +964,26 @@ abstract class DrillDefinition extends ItemDefinition {
       required final String description,
       required final String image,
       required final int damage}) = _$DrillDefinition;
+
   const DrillDefinition._() : super._();
 
   factory DrillDefinition.fromJson(Map<String, dynamic> json) =
       _$DrillDefinition.fromJson;
 
   @override
-  ItemDefinitionId get id => throw _privateConstructorUsedError;
+  ItemDefinitionId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get image => throw _privateConstructorUsedError;
-  int get damage => throw _privateConstructorUsedError;
+  String get image;
+
+  int get damage;
+
   @override
   @JsonKey(ignore: true)
   _$$DrillDefinitionCopyWith<_$DrillDefinition> get copyWith =>
@@ -1259,7 +1280,9 @@ class _$SwordDefinition extends SwordDefinition {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SwordDefinitionToJson(this);
+    return _$$SwordDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -1273,22 +1296,28 @@ abstract class SwordDefinition extends ItemDefinition
           required final String image,
           required final Map<WeaponAttributes, double> attributes}) =
       _$SwordDefinition;
+
   const SwordDefinition._() : super._();
 
   factory SwordDefinition.fromJson(Map<String, dynamic> json) =
       _$SwordDefinition.fromJson;
 
   @override
-  ItemDefinitionId get id => throw _privateConstructorUsedError;
+  ItemDefinitionId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
-  String? get namePlural => throw _privateConstructorUsedError;
+  String get name;
+
+  String? get namePlural;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get image => throw _privateConstructorUsedError;
-  Map<WeaponAttributes, double> get attributes =>
-      throw _privateConstructorUsedError;
+  String get image;
+
+  Map<WeaponAttributes, double> get attributes;
+
   @override
   @JsonKey(ignore: true)
   _$$SwordDefinitionCopyWith<_$SwordDefinition> get copyWith =>
@@ -1615,7 +1644,9 @@ class _$MinerDefinition extends MinerDefinition {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MinerDefinitionToJson(this);
+    return _$$MinerDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -1630,25 +1661,33 @@ abstract class MinerDefinition extends ItemDefinition {
       required final int baseHopperSize,
       required final int fuelConsumption,
       required final String image}) = _$MinerDefinition;
+
   const MinerDefinition._() : super._();
 
   factory MinerDefinition.fromJson(Map<String, dynamic> json) =
       _$MinerDefinition.fromJson;
 
   @override
-  ItemDefinitionId get id => throw _privateConstructorUsedError;
+  ItemDefinitionId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+
   @override
-  String get description => throw _privateConstructorUsedError;
-  int get radius => throw _privateConstructorUsedError;
-  int get depth => throw _privateConstructorUsedError;
-  int get baseDamage =>
-      throw _privateConstructorUsedError; // Should this be for all resources or per resource?
-  int get baseHopperSize => throw _privateConstructorUsedError;
-  int get fuelConsumption => throw _privateConstructorUsedError;
+  String get description;
+
+  int get radius;
+
+  int get depth;
+
+  int get baseDamage; // Should this be for all resources or per resource?
+  int get baseHopperSize;
+
+  int get fuelConsumption;
+
   @override
-  String get image => throw _privateConstructorUsedError;
+  String get image;
+
   @override
   @JsonKey(ignore: true)
   _$$MinerDefinitionCopyWith<_$MinerDefinition> get copyWith =>
@@ -1955,7 +1994,9 @@ class _$BasicInstance extends BasicInstance {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$BasicInstanceToJson(this);
+    return _$$BasicInstanceToJson(
+      this,
+    );
   }
 }
 
@@ -1963,15 +2004,18 @@ abstract class BasicInstance extends ItemInstance {
   factory BasicInstance(
       {required final ItemInstanceId id,
       required final ItemDefinitionId itemId}) = _$BasicInstance;
+
   BasicInstance._() : super._();
 
   factory BasicInstance.fromJson(Map<String, dynamic> json) =
       _$BasicInstance.fromJson;
 
   @override
-  ItemInstanceId get id => throw _privateConstructorUsedError;
+  ItemInstanceId get id;
+
   @override
-  ItemDefinitionId get itemId => throw _privateConstructorUsedError;
+  ItemDefinitionId get itemId;
+
   @override
   @JsonKey(ignore: true)
   _$$BasicInstanceCopyWith<_$BasicInstance> get copyWith =>
@@ -2173,25 +2217,30 @@ class _$MinerInstance extends MinerInstance with MinerMethods {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MinerInstanceToJson(this);
+    return _$$MinerInstanceToJson(
+      this,
+    );
   }
 }
 
 abstract class MinerInstance extends ItemInstance implements MinerMethods {
-  factory MinerInstance(
-      {required final ItemInstanceId id,
-      required final ItemDefinitionId itemId,
-      final ItemDefinitionId? drillId}) = _$MinerInstance;
+  factory MinerInstance({required final ItemInstanceId id,
+    required final ItemDefinitionId itemId,
+    final ItemDefinitionId? drillId}) = _$MinerInstance;
+
   MinerInstance._() : super._();
 
   factory MinerInstance.fromJson(Map<String, dynamic> json) =
-      _$MinerInstance.fromJson;
+  _$MinerInstance.fromJson;
 
   @override
-  ItemInstanceId get id => throw _privateConstructorUsedError;
+  ItemInstanceId get id;
+
   @override
-  ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-  ItemDefinitionId? get drillId => throw _privateConstructorUsedError;
+  ItemDefinitionId get itemId;
+
+  ItemDefinitionId? get drillId;
+
   @override
   @JsonKey(ignore: true)
   _$$MinerInstanceCopyWith<_$MinerInstance> get copyWith =>
@@ -2380,25 +2429,30 @@ class _$StackInstance extends StackInstance with StackMethods {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$StackInstanceToJson(this);
+    return _$$StackInstanceToJson(
+      this,
+    );
   }
 }
 
 abstract class StackInstance extends ItemInstance implements StackMethods {
-  factory StackInstance(
-      {required final ItemInstanceId id,
-      required final ItemDefinitionId itemId,
-      required final int quantity}) = _$StackInstance;
+  factory StackInstance({required final ItemInstanceId id,
+    required final ItemDefinitionId itemId,
+    required final int quantity}) = _$StackInstance;
+
   StackInstance._() : super._();
 
   factory StackInstance.fromJson(Map<String, dynamic> json) =
-      _$StackInstance.fromJson;
+  _$StackInstance.fromJson;
 
   @override
-  ItemInstanceId get id => throw _privateConstructorUsedError;
+  ItemInstanceId get id;
+
   @override
-  ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-  int get quantity => throw _privateConstructorUsedError;
+  ItemDefinitionId get itemId;
+
+  int get quantity;
+
   @override
   @JsonKey(ignore: true)
   _$$StackInstanceCopyWith<_$StackInstance> get copyWith =>
@@ -2535,7 +2589,9 @@ class _$_ItemRequirement extends _ItemRequirement {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ItemRequirementToJson(this);
+    return _$$_ItemRequirementToJson(
+      this,
+    );
   }
 }
 
@@ -2543,6 +2599,7 @@ abstract class _ItemRequirement extends ItemRequirement {
   const factory _ItemRequirement(
       @ItemDefinitionIdKeyedMapConverter()
           final Map<ItemDefinitionId, int> requiredItems) = _$_ItemRequirement;
+
   const _ItemRequirement._() : super._();
 
   factory _ItemRequirement.fromJson(Map<String, dynamic> json) =
@@ -2550,8 +2607,8 @@ abstract class _ItemRequirement extends ItemRequirement {
 
   @override
   @ItemDefinitionIdKeyedMapConverter()
-  Map<ItemDefinitionId, int> get requiredItems =>
-      throw _privateConstructorUsedError;
+  Map<ItemDefinitionId, int> get requiredItems;
+
   @override
   @JsonKey(ignore: true)
   _$$_ItemRequirementCopyWith<_$_ItemRequirement> get copyWith =>

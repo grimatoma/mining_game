@@ -23,6 +23,7 @@ mixin _$ItemInstanceId {
   String get guid => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $ItemInstanceIdCopyWith<ItemInstanceId> get copyWith =>
       throw _privateConstructorUsedError;
@@ -33,6 +34,7 @@ abstract class $ItemInstanceIdCopyWith<$Res> {
   factory $ItemInstanceIdCopyWith(
           ItemInstanceId value, $Res Function(ItemInstanceId) then) =
       _$ItemInstanceIdCopyWithImpl<$Res>;
+
   $Res call({String guid});
 }
 
@@ -42,6 +44,7 @@ class _$ItemInstanceIdCopyWithImpl<$Res>
   _$ItemInstanceIdCopyWithImpl(this._value, this._then);
 
   final ItemInstanceId _value;
+
   // ignore: unused_field
   final $Res Function(ItemInstanceId) _then;
 
@@ -64,6 +67,7 @@ abstract class _$$_ItemInstanceIdCopyWith<$Res>
   factory _$$_ItemInstanceIdCopyWith(
           _$_ItemInstanceId value, $Res Function(_$_ItemInstanceId) then) =
       __$$_ItemInstanceIdCopyWithImpl<$Res>;
+
   @override
   $Res call({String guid});
 }
@@ -128,7 +132,9 @@ class _$_ItemInstanceId implements _ItemInstanceId {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ItemInstanceIdToJson(this);
+    return _$$_ItemInstanceIdToJson(
+      this,
+    );
   }
 }
 
@@ -139,7 +145,8 @@ abstract class _ItemInstanceId implements ItemInstanceId {
       _$_ItemInstanceId.fromJson;
 
   @override
-  String get guid => throw _privateConstructorUsedError;
+  String get guid;
+
   @override
   @JsonKey(ignore: true)
   _$$_ItemInstanceIdCopyWith<_$_ItemInstanceId> get copyWith =>

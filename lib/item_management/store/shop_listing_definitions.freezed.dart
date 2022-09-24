@@ -352,7 +352,9 @@ class _$ItemShopListing implements ItemShopListing {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ItemShopListingToJson(this);
+    return _$$ItemShopListingToJson(
+      this,
+    );
   }
 }
 
@@ -367,12 +369,16 @@ abstract class ItemShopListing implements ShopListing {
       _$ItemShopListing.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
+
   @override
-  ItemRequirement get cost => throw _privateConstructorUsedError;
-  ItemInstanceGenerator get item => throw _privateConstructorUsedError;
+  ItemRequirement get cost;
+
+  ItemInstanceGenerator get item;
+
   @override
-  bool get consumable => throw _privateConstructorUsedError;
+  bool get consumable;
+
   @override
   @JsonKey(ignore: true)
   _$$ItemShopListingCopyWith<_$ItemShopListing> get copyWith =>
@@ -610,29 +616,35 @@ class _$DoodadShopListing implements DoodadShopListing {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DoodadShopListingToJson(this);
+    return _$$DoodadShopListingToJson(
+      this,
+    );
   }
 }
 
 abstract class DoodadShopListing implements ShopListing {
-  const factory DoodadShopListing(
-      {required final int id,
-      required final ItemRequirement cost,
-      required final DoodadId doodadId,
-      final Set<Feature>? requiredFeatures,
-      final bool consumable}) = _$DoodadShopListing;
+  const factory DoodadShopListing({required final int id,
+    required final ItemRequirement cost,
+    required final DoodadId doodadId,
+    final Set<Feature>? requiredFeatures,
+    final bool consumable}) = _$DoodadShopListing;
 
   factory DoodadShopListing.fromJson(Map<String, dynamic> json) =
-      _$DoodadShopListing.fromJson;
+  _$DoodadShopListing.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
+
   @override
-  ItemRequirement get cost => throw _privateConstructorUsedError;
-  DoodadId get doodadId => throw _privateConstructorUsedError;
-  Set<Feature>? get requiredFeatures => throw _privateConstructorUsedError;
+  ItemRequirement get cost;
+
+  DoodadId get doodadId;
+
+  Set<Feature>? get requiredFeatures;
+
   @override
-  bool get consumable => throw _privateConstructorUsedError;
+  bool get consumable;
+
   @override
   @JsonKey(ignore: true)
   _$$DoodadShopListingCopyWith<_$DoodadShopListing> get copyWith =>
@@ -863,29 +875,35 @@ class _$FeatureShopListing implements FeatureShopListing {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$FeatureShopListingToJson(this);
+    return _$$FeatureShopListingToJson(
+      this,
+    );
   }
 }
 
 abstract class FeatureShopListing implements ShopListing {
-  const factory FeatureShopListing(
-      {required final int id,
-      required final ItemRequirement cost,
-      required final Feature feature,
-      final Set<Feature>? requiredFeatures,
-      final bool consumable}) = _$FeatureShopListing;
+  const factory FeatureShopListing({required final int id,
+    required final ItemRequirement cost,
+    required final Feature feature,
+    final Set<Feature>? requiredFeatures,
+    final bool consumable}) = _$FeatureShopListing;
 
   factory FeatureShopListing.fromJson(Map<String, dynamic> json) =
-      _$FeatureShopListing.fromJson;
+  _$FeatureShopListing.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
+
   @override
-  ItemRequirement get cost => throw _privateConstructorUsedError;
-  Feature get feature => throw _privateConstructorUsedError;
-  Set<Feature>? get requiredFeatures => throw _privateConstructorUsedError;
+  ItemRequirement get cost;
+
+  Feature get feature;
+
+  Set<Feature>? get requiredFeatures;
+
   @override
-  bool get consumable => throw _privateConstructorUsedError;
+  bool get consumable;
+
   @override
   @JsonKey(ignore: true)
   _$$FeatureShopListingCopyWith<_$FeatureShopListing> get copyWith =>

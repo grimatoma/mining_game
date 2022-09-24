@@ -23,6 +23,7 @@ mixin _$DoodadId {
   String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
   @JsonKey(ignore: true)
   $DoodadIdCopyWith<DoodadId> get copyWith =>
       throw _privateConstructorUsedError;
@@ -32,6 +33,7 @@ mixin _$DoodadId {
 abstract class $DoodadIdCopyWith<$Res> {
   factory $DoodadIdCopyWith(DoodadId value, $Res Function(DoodadId) then) =
       _$DoodadIdCopyWithImpl<$Res>;
+
   $Res call({String id});
 }
 
@@ -40,6 +42,7 @@ class _$DoodadIdCopyWithImpl<$Res> implements $DoodadIdCopyWith<$Res> {
   _$DoodadIdCopyWithImpl(this._value, this._then);
 
   final DoodadId _value;
+
   // ignore: unused_field
   final $Res Function(DoodadId) _then;
 
@@ -61,6 +64,7 @@ abstract class _$$_DoodadIdCopyWith<$Res> implements $DoodadIdCopyWith<$Res> {
   factory _$$_DoodadIdCopyWith(
           _$_DoodadId value, $Res Function(_$_DoodadId) then) =
       __$$_DoodadIdCopyWithImpl<$Res>;
+
   @override
   $Res call({String id});
 }
@@ -124,18 +128,22 @@ class _$_DoodadId extends _DoodadId {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_DoodadIdToJson(this);
+    return _$$_DoodadIdToJson(
+      this,
+    );
   }
 }
 
 abstract class _DoodadId extends DoodadId {
   const factory _DoodadId(final String id) = _$_DoodadId;
+
   const _DoodadId._() : super._();
 
   factory _DoodadId.fromJson(Map<String, dynamic> json) = _$_DoodadId.fromJson;
 
   @override
-  String get id => throw _privateConstructorUsedError;
+  String get id;
+
   @override
   @JsonKey(ignore: true)
   _$$_DoodadIdCopyWith<_$_DoodadId> get copyWith =>

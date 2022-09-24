@@ -224,24 +224,14 @@ class ItemRequirementRenderer extends ConsumerWidget {
 
   Widget _buildItem(MapEntry<ItemDefinitionId, int> entry, int? missing) {
     final definition = entry.key.definition();
-    // Widget renderItem() {
-    //   return Row(children: [
-    //     Image.asset(
-    //       definition.image,
-    //       width: 24,
-    //     ),
-    //     Text('${entry.value}${missing == null ? '' : '($missing)'}'),
-    //   ]);
-    // }
-
     final itemWidget = ItemRenderer(
       definition: definition,
       count: entry.value,
       suffixText: missing == null ? '' : '($missing)',
     );
     return missing != null
-        ? ColorFiltered(
-            colorFilter: ColorFilter.mode(Colors.red[200]!, BlendMode.color),
+        ? Container(
+            color: Colors.red[200],
             child: itemWidget,
           )
         : itemWidget;

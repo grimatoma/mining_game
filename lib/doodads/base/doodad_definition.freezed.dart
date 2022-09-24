@@ -842,7 +842,9 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$DiggerDoodadDefinitionToJson(this);
+    return _$$DiggerDoodadDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -860,29 +862,39 @@ abstract class DiggerDoodadDefinition extends DoodadDefinition
           required final String ticksName,
           required final BuiltList<ItemInstanceGenerator> itemMined}) =
       _$DiggerDoodadDefinition;
+
   const DiggerDoodadDefinition._() : super._();
 
   factory DiggerDoodadDefinition.fromJson(Map<String, dynamic> json) =
       _$DiggerDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id => throw _privateConstructorUsedError;
+  DoodadId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get imageAsset => throw _privateConstructorUsedError;
+  String get imageAsset;
+
   @override
-  String get storeImageAsset => throw _privateConstructorUsedError;
+  String get storeImageAsset;
+
   @override
-  bool get userCanBuild => throw _privateConstructorUsedError;
+  bool get userCanBuild;
+
   @override
-  Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-  int get ticksRequired => throw _privateConstructorUsedError;
-  String get ticksName => throw _privateConstructorUsedError;
-  BuiltList<ItemInstanceGenerator> get itemMined =>
-      throw _privateConstructorUsedError;
+  Set<TileType> get supportedLocations;
+
+  int get ticksRequired;
+
+  String get ticksName;
+
+  BuiltList<ItemInstanceGenerator> get itemMined;
+
   @override
   @JsonKey(ignore: true)
   _$$DiggerDoodadDefinitionCopyWith<_$DiggerDoodadDefinition> get copyWith =>
@@ -1472,7 +1484,9 @@ class _$RegenerativeHarvestableDoodadDefinition
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RegenerativeHarvestableDoodadDefinitionToJson(this);
+    return _$$RegenerativeHarvestableDoodadDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -1495,6 +1509,7 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
           final int? manualEffortToHarvest,
           final Map<int, String>? dynamicImageAssets}) =
       _$RegenerativeHarvestableDoodadDefinition;
+
   const RegenerativeHarvestableDoodadDefinition._() : super._();
 
   factory RegenerativeHarvestableDoodadDefinition.fromJson(
@@ -1502,29 +1517,42 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
       _$RegenerativeHarvestableDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id => throw _privateConstructorUsedError;
+  DoodadId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get imageAsset => throw _privateConstructorUsedError;
+  String get imageAsset;
+
   @override
-  String get storeImageAsset => throw _privateConstructorUsedError;
+  String get storeImageAsset;
+
   @override
-  bool get userCanBuild => throw _privateConstructorUsedError;
+  bool get userCanBuild;
+
   @override
-  Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-  int get ticksRequired => throw _privateConstructorUsedError;
-  String get ticksName => throw _privateConstructorUsedError;
-  double get resourceRequiredToHarvestOne => throw _privateConstructorUsedError;
-  double get resourceMax => throw _privateConstructorUsedError;
-  double get resourceIncreasePerTick => throw _privateConstructorUsedError;
-  BuiltList<ItemInstanceGenerator> get resourceGenerated =>
-      throw _privateConstructorUsedError;
-  int? get manualEffortToHarvest => throw _privateConstructorUsedError;
-  Map<int, String>? get dynamicImageAssets =>
-      throw _privateConstructorUsedError;
+  Set<TileType> get supportedLocations;
+
+  int get ticksRequired;
+
+  String get ticksName;
+
+  double get resourceRequiredToHarvestOne;
+
+  double get resourceMax;
+
+  double get resourceIncreasePerTick;
+
+  BuiltList<ItemInstanceGenerator> get resourceGenerated;
+
+  int? get manualEffortToHarvest;
+
+  Map<int, String>? get dynamicImageAssets;
+
   @override
   @JsonKey(ignore: true)
   _$$RegenerativeHarvestableDoodadDefinitionCopyWith<
@@ -2011,7 +2039,9 @@ class _$AreaHarvestableDoodadDefinition
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$AreaHarvestableDoodadDefinitionToJson(this);
+    return _$$AreaHarvestableDoodadDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -2028,28 +2058,39 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
       required final int ticksRequired,
       required final String ticksName,
       required final int range}) = _$AreaHarvestableDoodadDefinition;
+
   const AreaHarvestableDoodadDefinition._() : super._();
 
   factory AreaHarvestableDoodadDefinition.fromJson(Map<String, dynamic> json) =
       _$AreaHarvestableDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id => throw _privateConstructorUsedError;
+  DoodadId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get imageAsset => throw _privateConstructorUsedError;
+  String get imageAsset;
+
   @override
-  String get storeImageAsset => throw _privateConstructorUsedError;
+  String get storeImageAsset;
+
   @override
-  bool get userCanBuild => throw _privateConstructorUsedError;
+  bool get userCanBuild;
+
   @override
-  Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-  int get ticksRequired => throw _privateConstructorUsedError;
-  String get ticksName => throw _privateConstructorUsedError;
-  int get range => throw _privateConstructorUsedError;
+  Set<TileType> get supportedLocations;
+
+  int get ticksRequired;
+
+  String get ticksName;
+
+  int get range;
+
   @override
   @JsonKey(ignore: true)
   _$$AreaHarvestableDoodadDefinitionCopyWith<_$AreaHarvestableDoodadDefinition>
@@ -2578,7 +2619,9 @@ class _$MaterialProcessorDoodadDefinition
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$MaterialProcessorDoodadDefinitionToJson(this);
+    return _$$MaterialProcessorDoodadDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -2597,30 +2640,41 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
           required final ItemRequirement consumedMaterials,
           required final BuiltList<ItemInstance> itemsProduced}) =
       _$MaterialProcessorDoodadDefinition;
+
   const MaterialProcessorDoodadDefinition._() : super._();
 
   factory MaterialProcessorDoodadDefinition.fromJson(
       Map<String, dynamic> json) = _$MaterialProcessorDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id => throw _privateConstructorUsedError;
+  DoodadId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get imageAsset => throw _privateConstructorUsedError;
+  String get imageAsset;
+
   @override
-  String get storeImageAsset => throw _privateConstructorUsedError;
+  String get storeImageAsset;
+
   @override
-  bool get userCanBuild => throw _privateConstructorUsedError;
+  bool get userCanBuild;
+
   @override
-  Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-  int get ticksRequired => throw _privateConstructorUsedError;
-  String get ticksName => throw _privateConstructorUsedError;
-  ItemRequirement get consumedMaterials => throw _privateConstructorUsedError;
-  BuiltList<ItemInstance> get itemsProduced =>
-      throw _privateConstructorUsedError;
+  Set<TileType> get supportedLocations;
+
+  int get ticksRequired;
+
+  String get ticksName;
+
+  ItemRequirement get consumedMaterials;
+
+  BuiltList<ItemInstance> get itemsProduced;
+
   @override
   @JsonKey(ignore: true)
   _$$MaterialProcessorDoodadDefinitionCopyWith<
@@ -3083,7 +3137,9 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$HouseDoodadDefinitionToJson(this);
+    return _$$HouseDoodadDefinitionToJson(
+      this,
+    );
   }
 }
 
@@ -3099,27 +3155,37 @@ abstract class HouseDoodadDefinition extends DoodadDefinition
       required final Set<TileType> supportedLocations,
       required final int populationLimit,
       required final PersonType peopleType}) = _$HouseDoodadDefinition;
+
   const HouseDoodadDefinition._() : super._();
 
   factory HouseDoodadDefinition.fromJson(Map<String, dynamic> json) =
       _$HouseDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id => throw _privateConstructorUsedError;
+  DoodadId get id;
+
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
+
   @override
-  String get description => throw _privateConstructorUsedError;
+  String get description;
+
   @override
-  String get imageAsset => throw _privateConstructorUsedError;
+  String get imageAsset;
+
   @override
-  String get storeImageAsset => throw _privateConstructorUsedError;
+  String get storeImageAsset;
+
   @override
-  bool get userCanBuild => throw _privateConstructorUsedError;
+  bool get userCanBuild;
+
   @override
-  Set<TileType> get supportedLocations => throw _privateConstructorUsedError;
-  int get populationLimit => throw _privateConstructorUsedError;
-  PersonType get peopleType => throw _privateConstructorUsedError;
+  Set<TileType> get supportedLocations;
+
+  int get populationLimit;
+
+  PersonType get peopleType;
+
   @override
   @JsonKey(ignore: true)
   _$$HouseDoodadDefinitionCopyWith<_$HouseDoodadDefinition> get copyWith =>

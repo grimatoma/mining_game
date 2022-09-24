@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
-part of 'inventory.dart';
+part of 'inventoryv3.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -20,7 +20,10 @@ Inventory _$InventoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Inventory {
-  BuiltList<ItemInstance?> get itemSlots => throw _privateConstructorUsedError;
+  int get maxItems => throw _privateConstructorUsedError;
+
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get items => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
@@ -34,7 +37,9 @@ abstract class $InventoryCopyWith<$Res> {
   factory $InventoryCopyWith(Inventory value, $Res Function(Inventory) then) =
       _$InventoryCopyWithImpl<$Res>;
 
-  $Res call({BuiltList<ItemInstance?> itemSlots});
+  $Res call(
+      {int maxItems,
+      @ItemDefinitionIdKeyedMapConverter() Map<ItemDefinitionId, int> items});
 }
 
 /// @nodoc
@@ -48,13 +53,18 @@ class _$InventoryCopyWithImpl<$Res> implements $InventoryCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? itemSlots = freezed,
+    Object? maxItems = freezed,
+    Object? items = freezed,
   }) {
     return _then(_value.copyWith(
-      itemSlots: itemSlots == freezed
-          ? _value.itemSlots
-          : itemSlots // ignore: cast_nullable_to_non_nullable
-              as BuiltList<ItemInstance?>,
+      maxItems: maxItems == freezed
+          ? _value.maxItems
+          : maxItems // ignore: cast_nullable_to_non_nullable
+              as int,
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as Map<ItemDefinitionId, int>,
     ));
   }
 }
@@ -66,7 +76,9 @@ abstract class _$$_InventoryCopyWith<$Res> implements $InventoryCopyWith<$Res> {
       __$$_InventoryCopyWithImpl<$Res>;
 
   @override
-  $Res call({BuiltList<ItemInstance?> itemSlots});
+  $Res call(
+      {int maxItems,
+      @ItemDefinitionIdKeyedMapConverter() Map<ItemDefinitionId, int> items});
 }
 
 /// @nodoc
@@ -81,13 +93,18 @@ class __$$_InventoryCopyWithImpl<$Res> extends _$InventoryCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? itemSlots = freezed,
+    Object? maxItems = freezed,
+    Object? items = freezed,
   }) {
     return _then(_$_Inventory(
-      itemSlots == freezed
-          ? _value.itemSlots
-          : itemSlots // ignore: cast_nullable_to_non_nullable
-              as BuiltList<ItemInstance?>,
+      maxItems == freezed
+          ? _value.maxItems
+          : maxItems // ignore: cast_nullable_to_non_nullable
+              as int,
+      items == freezed
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as Map<ItemDefinitionId, int>,
     ));
   }
 }
@@ -95,17 +112,30 @@ class __$$_InventoryCopyWithImpl<$Res> extends _$InventoryCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Inventory extends _Inventory {
-  const _$_Inventory(this.itemSlots) : super._();
+  const _$_Inventory(
+      this.maxItems,
+      @ItemDefinitionIdKeyedMapConverter()
+          final Map<ItemDefinitionId, int> items)
+      : _items = items,
+        super._();
 
   factory _$_Inventory.fromJson(Map<String, dynamic> json) =>
       _$$_InventoryFromJson(json);
 
   @override
-  final BuiltList<ItemInstance?> itemSlots;
+  final int maxItems;
+  final Map<ItemDefinitionId, int> _items;
+
+  @override
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get items {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_items);
+  }
 
   @override
   String toString() {
-    return 'Inventory(itemSlots: $itemSlots)';
+    return 'Inventory(maxItems: $maxItems, items: $items)';
   }
 
   @override
@@ -113,13 +143,16 @@ class _$_Inventory extends _Inventory {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Inventory &&
-            const DeepCollectionEquality().equals(other.itemSlots, itemSlots));
+            const DeepCollectionEquality().equals(other.maxItems, maxItems) &&
+            const DeepCollectionEquality().equals(other._items, _items));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(itemSlots));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(maxItems),
+      const DeepCollectionEquality().hash(_items));
 
   @JsonKey(ignore: true)
   @override
@@ -135,8 +168,10 @@ class _$_Inventory extends _Inventory {
 }
 
 abstract class _Inventory extends Inventory {
-  const factory _Inventory(final BuiltList<ItemInstance?> itemSlots) =
-      _$_Inventory;
+  const factory _Inventory(
+      final int maxItems,
+      @ItemDefinitionIdKeyedMapConverter()
+          final Map<ItemDefinitionId, int> items) = _$_Inventory;
 
   const _Inventory._() : super._();
 
@@ -144,7 +179,11 @@ abstract class _Inventory extends Inventory {
       _$_Inventory.fromJson;
 
   @override
-  BuiltList<ItemInstance?> get itemSlots;
+  int get maxItems;
+
+  @override
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get items;
 
   @override
   @JsonKey(ignore: true)

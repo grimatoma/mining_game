@@ -247,7 +247,7 @@ final goRouterProvider = StateProvider<GoRouter>((ref) {
   return GoRouter(initialLocation: '/', routes: [
     GoRoute(
       path: '/',
-      redirect: (_) => '/dig_site',
+      redirect: (_, __) => '/dig_site',
     ),
     for (final route in ref.watch(mainNavigationPagesProvider))
       GoRoute(

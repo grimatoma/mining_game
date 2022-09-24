@@ -126,20 +126,24 @@ class _$_GarageState extends _GarageState {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_GarageStateToJson(this);
+    return _$$_GarageStateToJson(
+      this,
+    );
   }
 }
 
 abstract class _GarageState extends GarageState {
   const factory _GarageState(final BuiltMap<int, SlotState> slots) =
       _$_GarageState;
+
   const _GarageState._() : super._();
 
   factory _GarageState.fromJson(Map<String, dynamic> json) =
       _$_GarageState.fromJson;
 
   @override
-  BuiltMap<int, SlotState> get slots => throw _privateConstructorUsedError;
+  BuiltMap<int, SlotState> get slots;
+
   @override
   @JsonKey(ignore: true)
   _$$_GarageStateCopyWith<_$_GarageState> get copyWith =>
@@ -403,7 +407,9 @@ class _$SlotWithMiner implements SlotWithMiner {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$SlotWithMinerToJson(this);
+    return _$$SlotWithMinerToJson(
+      this,
+    );
   }
 }
 
@@ -415,9 +421,11 @@ abstract class SlotWithMiner implements SlotState {
   factory SlotWithMiner.fromJson(Map<String, dynamic> json) =
       _$SlotWithMiner.fromJson;
 
-  ItemInstanceId get minerId => throw _privateConstructorUsedError;
+  ItemInstanceId get minerId;
+
   @override
-  int get index => throw _privateConstructorUsedError;
+  int get index;
+
   @override
   @JsonKey(ignore: true)
   _$$SlotWithMinerCopyWith<_$SlotWithMiner> get copyWith =>
@@ -564,7 +572,9 @@ class _$LockedSlot implements LockedSlot {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$LockedSlotToJson(this);
+    return _$$LockedSlotToJson(
+      this,
+    );
   }
 }
 
@@ -575,7 +585,8 @@ abstract class LockedSlot implements SlotState {
       _$LockedSlot.fromJson;
 
   @override
-  int get index => throw _privateConstructorUsedError;
+  int get index;
+
   @override
   @JsonKey(ignore: true)
   _$$LockedSlotCopyWith<_$LockedSlot> get copyWith =>
@@ -722,7 +733,9 @@ class _$EmptySlot implements EmptySlot {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$EmptySlotToJson(this);
+    return _$$EmptySlotToJson(
+      this,
+    );
   }
 }
 
@@ -732,7 +745,8 @@ abstract class EmptySlot implements SlotState {
   factory EmptySlot.fromJson(Map<String, dynamic> json) = _$EmptySlot.fromJson;
 
   @override
-  int get index => throw _privateConstructorUsedError;
+  int get index;
+
   @override
   @JsonKey(ignore: true)
   _$$EmptySlotCopyWith<_$EmptySlot> get copyWith =>
