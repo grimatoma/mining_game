@@ -6,28 +6,6 @@ part 'quest_definition.freezed.dart';
 
 part 'quest_definition.g.dart';
 
-// @freezed
-// class Requirement with _$Requirement {
-//   const factory Requirement(
-//           {@Default(<Feature>{}) Set<Feature> features,
-//           @Default(ItemRequirement.empty) ItemRequirement cost,
-//           @Default(ItemRequirement.empty) ItemRequirement itemsOwned}) =
-//       _Requirement;
-//
-//   static const none = Requirement();
-//
-//   factory Requirement.featureOnly(Set<Feature> features) => Requirement(
-//       features: features,
-//       cost: ItemRequirement.empty,
-//       itemsOwned: ItemRequirement.empty);
-//
-//   factory Requirement.itemOwnedOnly(ItemRequirement itemsOwned) => Requirement(
-//       features: {}, cost: ItemRequirement.empty, itemsOwned: itemsOwned);
-//
-//   factory Requirement.fromJson(Map<String, dynamic> json) =>
-//       _$RequirementFromJson(json);
-// }
-
 @freezed
 class QuestReward with _$QuestReward {
   const factory QuestReward({Set<Feature>? features, ItemContainer? items}) =

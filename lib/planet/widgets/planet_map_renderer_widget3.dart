@@ -195,39 +195,6 @@ class SelectedTileMarkerClipper extends CustomClipper<Path> {
   }
 }
 
-// //focus tile
-// class SelectedTileMarker extends CustomPainter {
-//   final Tile _tile;
-//
-//   SelectedTileMarker(this._tile);
-//
-//   @override
-//   void paint(Canvas canvas, Size size) {
-//     final center = flatHexToPixel(tileSize2, _tile.hexagon)
-//         .translate(tileSize2, tileSize2 * sqrt(3) / 2);
-//     final paint = Paint()
-//       ..color = Colors.red
-//       ..strokeWidth = 5;
-//     for (int i = 0; i < 6; i++) {
-//       int next = (i + 1) % 6;
-//       canvas.drawLine(flatHexCorner(center, tileSize2, i),
-//           flatHexCorner(center, tileSize2, next), paint);
-//     }
-//   }
-//
-//   @override
-//   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-//     return false;
-//   }
-// // canvas.drawLine(
-// //     Offset(0, length),
-// //     Offset(length, length),
-// //     Paint()
-// //       ..color = Colors.red
-// //       ..strokeWidth = 5);
-// // TODO: implement paint
-// }
-
 Offset flatHexCorner(Offset center, double size, int i) {
   var angleDeg = 60 * i;
   var angleRad = pi / 180 * angleDeg;

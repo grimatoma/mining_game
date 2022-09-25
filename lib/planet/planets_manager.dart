@@ -6,16 +6,6 @@ import 'package:mining_game/persistence/hive_manager.dart';
 
 import 'planet_manager.dart';
 
-// part 'planets_manager.freezed.dart';
-
-// @freezed
-// class PlanetsData with _$PlanetsData {
-//   const factory PlanetsData(List<PlanetManager> planets) = _PlanetsData;
-//
-//   factory PlanetsData.fromJson(Map<String, dynamic> json) =>
-//       _$PlanetsDataFromJson(json);
-// }
-
 class PlanetsManager {
   final Ref _ref;
   final planets = <PlanetManager>[];

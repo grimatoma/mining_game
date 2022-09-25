@@ -19,9 +19,6 @@ class PlanetTile with _$PlanetTile {
       @HiveField(2) required bool visible,
       @HiveField(3) @Default(TileType.Empty) TileType tileType}) = _PlanetTile;
 
-  // factory PlanetTile.fromJson(Map<String, dynamic> json) =>
-  //     _$PlanetTileFromJson(json);
-
   bool get isValid => point.isNotNegative;
 }
 

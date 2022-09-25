@@ -88,9 +88,6 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String image,
   }) = MinerDefinition;
 
-  // BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
-  //     ItemInstanceGenerator(id, countIfStack).generate();
-
   factory ItemDefinition.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionFromJson(json);
 }

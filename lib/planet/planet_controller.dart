@@ -45,26 +45,10 @@ class PlanetController extends StateNotifier<Planet> {
 
   PlanetController({required GameConfigs configs}) : super(Planet.empty()) {
     void loadInitialData() async {
-      // final loadedBox =
-      //     await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
-      // final loadedPlanet = loadedBox.get(databaseKey);
-      // if (loadedPlanet == null) {
       planet = _generatePlanet(configs);
-      // } else {
-      //   planet = loadedPlanet;
-      // }
     }
 
-    // void updateBox() async {
-    //   final loadedBox =
-    //       await Hive.openBox<Planet>(DatabaseName.planet000p223ds.name);
-    //   stream.listen((event) {
-    //     loadedBox.put(databaseKey, planet);
-    //   });
-    // }
-
     loadInitialData();
-    // updateBox();
   }
 
   Planet _generatePlanet(GameConfigs configs) {
@@ -72,30 +56,6 @@ class PlanetController extends StateNotifier<Planet> {
     // change to spare populating
     final planetMap = <PlanetPoint, PlanetTile>{};
     var maxResourceSize = 0;
-
-    // for (var x = 0; x < configs.width; x++) {
-    //   for (var y = 0; y < configs.height; y++) {
-    //     const resourceSize = 1;
-    //     final p = PlanetPoint(x, y, z);
-    //     planetMap[p] = PlanetTile(
-    //         point: p,
-    //         resources: ItemContainer.single(Items.IRON.id, resourceSize),
-    //         visible: false);
-    //     maxResourceSize =
-    //         maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
-    //   }
-    // }
-
-    // for (final hexagon in generateHexagonMapOfSize(5)) {
-    //   const resourceSize = 1;
-    //   final p = PlanetPoint(hexagon.r, hexagon.q, z);
-    //   planetMap[p] = PlanetTile(
-    //       point: p,
-    //       resources: ItemContainer.single(Items.IRON.id, resourceSize),
-    //       visible: false);
-    //   maxResourceSize =
-    //       maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
-    // }
 
     void remap(int x, int y, TileType tileType) {
       final point = PlanetPoint(x, y, z);
@@ -109,45 +69,6 @@ class PlanetController extends StateNotifier<Planet> {
     return Planet.newPlanet(
         configs: configs, maxResources: maxResourceSize, map: planetMap);
   }
-
-  // Planet _generatePlanetOld(GameConfigs configs) {
-  //   int _skew(double i) {
-  //     const multiplier = 10000;
-  //     var out = i;
-  //     out = i * multiplier;
-  //     out = out.abs();
-  //     // Change to .35
-  //     out -= multiplier * .15;
-  //     out = max(0, out);
-  //
-  //     return out.toInt();
-  //   }
-  //
-  //   const z = 0;
-  //
-  //   // change to spare populating
-  //   final planetMap = <PlanetPoint, PlanetTile>{};
-  //   var maxResourceSize = 0;
-  //
-  //   final resourceMap =
-  //       executeNoise(configs.width, configs.height, configs.seed);
-  //
-  //   for (var x = 0; x < configs.width; x++) {
-  //     for (var y = 0; y < configs.height; y++) {
-  //       final resourceSize = _skew(resourceMap[x][y]);
-  //       final p = PlanetPoint(x, y, z);
-  //       planetMap[p] = PlanetTile(
-  //           point: p,
-  //           resources: ItemContainer.single(Items.IRON.id, resourceSize),
-  //           visible: false);
-  //       maxResourceSize =
-  //           maxResourceSize > resourceSize ? maxResourceSize : resourceSize;
-  //     }
-  //   }
-  //
-  //   return Planet.newPlanet(
-  //       configs: configs, maxResources: maxResourceSize, map: planetMap);
-  // }
 
   ItemContainer dig(PlanetPoint p, ItemContainer damage) {
     final tile = planet.map[p];
@@ -229,25 +150,3 @@ class PlanetController extends StateNotifier<Planet> {
     );
   }
 }
-//
-// class Hexagon {
-//   final int q;
-//   final int r;
-//
-//   const Hexagon(this.q, this.r);
-//
-//   @override
-//   String toString() => '$q,$r';
-// }
-//
-// // only uses
-// List<Hexagon> generateHexagonMapOfSize(int width) {
-//   print('generating map of size $width');
-//   int indexStart = -(width / 2).floor();
-//   int indexEndInclusive = width + indexStart - 1;
-//
-//   return [
-//     for (int q = indexStart; q <= indexEndInclusive; q++)
-//       for (int r = indexStart; r <= indexEndInclusive; r++) Hexagon(q, r),
-//   ];
-// }

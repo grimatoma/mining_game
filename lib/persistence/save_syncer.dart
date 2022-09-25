@@ -59,10 +59,3 @@ class SaveSyncer {
     HiveManager.box.put(BoxKey.PLANETS.name, jsonEncode(planets));
   }
 }
-
-// enum SyncKeys {
-//   INVENTORY,
-// }
-// class SyncLoader {
-//
-// }

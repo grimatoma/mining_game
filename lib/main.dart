@@ -8,7 +8,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/digging_site.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
-import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/quests/quests_page.dart';
@@ -23,7 +22,6 @@ void main() async {
   await Hive.initFlutter();
 
   await HiveManager.init();
-  await ItemDirectory.init();
 
   if (!kIsWeb) {
     if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {

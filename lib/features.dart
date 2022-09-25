@@ -8,19 +8,6 @@ final activeFeaturesProvider =
     StateNotifierProvider<ActiveFeaturesProvider, BuiltSet<Feature>>(
         (ref) => ActiveFeaturesProvider());
 
-// @freezed
-// class ActiveFeatures with _$ActiveFeatures {
-//   const ActiveFeatures._();
-//
-//   const factory ActiveFeatures(BuiltSet<Feature> features) = _ActiveFeatures;
-//
-//   factory ActiveFeatures.fromJson(Map<String, Object?> json) =>
-//       _$ActiveFeaturesFromJson(json);
-//
-//   ActiveFeatures rebuild(Function(SetBuilder<Feature>) updates) =>
-//       copyWith(features: features.rebuild((p0) => updates));
-// }
-
 class ActiveFeaturesProvider extends StateNotifier<BuiltSet<Feature>> {
   ActiveFeaturesProvider()
       : super(HiveManager.getIterable(
