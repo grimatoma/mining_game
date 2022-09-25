@@ -154,16 +154,14 @@ class HouseManager with Tickable {
  * For credits/gold currency?//Taxes? adjustable (Food to taxes ratio?)
  */
 
-/**
- * What is the game loop?
- *
- * Population sizes needed to unlock new areas of land.
- * The more population the less time it takes to unlock (clean up the land)
- * Can upgrade the population with better tools which makes them more efficent
- *
- * Population requires resources like farming/fishing
- * Population has quests asking for items to make them happy
- */
+/// What is the game loop?
+///
+/// Population sizes needed to unlock new areas of land.
+/// The more population the less time it takes to unlock (clean up the land)
+/// Can upgrade the population with better tools which makes them more efficent
+///
+/// Population requires resources like farming/fishing
+/// Population has quests asking for items to make them happy
 
 class HouseStatusWidget extends ConsumerWidget {
   final HouseDoodadInstance _instance;

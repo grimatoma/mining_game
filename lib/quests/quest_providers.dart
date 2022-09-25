@@ -64,7 +64,7 @@ final questStatusProvider = StateProvider<BuiltMap<int, QuestStatus>>((ref) {
         final itemDefinitionId = requiredItem.key;
         final requiredCount = requiredItem.value;
         final currentCount = questProgress.putIfAbsent(
-            itemDefinitionId, () => inventoryCounts[itemDefinitionId] ?? 0);
+            itemDefinitionId, () => inventoryCounts[itemDefinitionId]);
         if (currentCount < requiredCount) {
           meetsRequirements = false;
         }

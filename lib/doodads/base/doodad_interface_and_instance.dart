@@ -60,7 +60,6 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
   @protected
   PlanetManager get planetManager => pack.planetManager;
 
-  @protected
   TileStateController get parent => pack.parent;
 
   DefinitionT get definition => pack.definition;

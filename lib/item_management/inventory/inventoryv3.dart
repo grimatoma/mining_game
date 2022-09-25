@@ -25,7 +25,7 @@ class Inventory with _$Inventory {
 
   Iterable<MapEntry<ItemDefinitionId, int>> get entries => items.entries;
 
-  int operator [](ItemDefinitionId key) => items[key] ?? 0;
+  int operator [](ItemDefinitionId key) => items[key];
 
   bool canRemove(ItemContainer otherItems) {
     return items.canSubtract(otherItems);

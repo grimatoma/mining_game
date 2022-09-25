@@ -162,7 +162,7 @@ class TreeStatusWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentTick = _treeInstance.currentTickState.watch(ref);
+    _treeInstance.currentTickState.watch(ref);
     return Row(
       children: [
         Padding(
