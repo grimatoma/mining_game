@@ -2,8 +2,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/doodads/doodad_types/house_doodad.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
 final doodadDefinitionsExample = [
   ..._housing,
@@ -34,19 +34,20 @@ final _mining = [
     supportedLocations: {TileType.IRON_DEPOSIT},
     ticksRequired: 5,
     ticksName: 'Digging',
-    itemMined: [ItemInstanceGenerator(Items.IRON_ORE, 1)].build(),
+    itemMined: ItemContainer.single(Items.IRON_ORE),
   ),
   MaterialProcessorDoodadDefinition(
-      id: DoodadId.ironSmelter,
-      name: 'Iron smelter',
-      description: 'Smelts iron ore into iron bars.',
-      imageAsset: 'assets/images/tiles/13-Icons/smithy.png',
-      storeImageAsset: 'assets/images/tiles/13-Icons/smithy.png',
-      supportedLocations: {TileType.GRASS},
-      ticksRequired: 15,
-      ticksName: 'Smelting',
-      consumedMaterials: ItemRequirement.single(Items.IRON_ORE, 2),
-      itemsProduced: Items.IRON_BAR.generateItemInstance(1)),
+    id: DoodadId.ironSmelter,
+    name: 'Iron smelter',
+    description: 'Smelts iron ore into iron bars.',
+    imageAsset: 'assets/images/tiles/13-Icons/smithy.png',
+    storeImageAsset: 'assets/images/tiles/13-Icons/smithy.png',
+    supportedLocations: {TileType.GRASS},
+    ticksRequired: 15,
+    ticksName: 'Smelting',
+    consumedMaterials: ItemContainer.single(Items.IRON_ORE, 2),
+    itemsProduced: ItemContainer.single(Items.IRON_BAR),
+  ),
 ];
 final _lumber = [
   RegenerativeHarvestableDoodadDefinition(
@@ -74,7 +75,7 @@ final _lumber = [
         0: 'assets/images/forestTest/forest10.png',
         // 0: 'assets/images/forestTest/forest0.png',
       },
-      resourceGenerated: [ItemInstanceGenerator(Items.WOOD, 1)].build()),
+      resourceGenerated: ItemContainer.single(Items.WOOD)),
   const AreaHarvestableDoodadDefinition(
       id: DoodadId.treeCutterHut,
       name: 'Tree cutter hut',
@@ -94,8 +95,8 @@ final _lumber = [
       supportedLocations: {TileType.GRASS},
       ticksRequired: 15,
       ticksName: 'Cutting',
-      consumedMaterials: ItemRequirement.single(Items.WOOD, 2),
-      itemsProduced: Items.PLANK.generateItemInstance(1)),
+      consumedMaterials: ItemContainer.single(Items.WOOD, 2),
+      itemsProduced: ItemContainer.single(Items.PLANK)),
 ];
 final _fishing = [
   RegenerativeHarvestableDoodadDefinition(
@@ -111,7 +112,7 @@ final _fishing = [
       resourceRequiredToHarvestOne: 1,
       resourceMax: 5,
       resourceIncreasePerTick: 1,
-      resourceGenerated: [ItemInstanceGenerator(Items.FOOD, 1)].build()),
+      resourceGenerated: ItemContainer.single(Items.FOOD)),
   const AreaHarvestableDoodadDefinition(
       id: DoodadId.fisherman,
       name: 'Fisherman',

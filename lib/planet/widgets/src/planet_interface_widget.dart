@@ -1,27 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/planet/planet_controller.dart';
 import 'package:mining_game/planet/view_to_planet_controller.dart';
-
-// final selectedMinerFromDropdownProvider =
-//     StateProvider.autoDispose<MinerInstance?>((ref) {
-//   final minerLocations = ref.watch(minerLocationsProvider);
-//   if (minerLocations.storedMiners.isNotEmpty) {
-//     return minerLocations.storedMiners.first;
-//   }
-//   return null;
-// });
 
 class PlanetInterfaceWidget extends HookConsumerWidget {
   const PlanetInterfaceWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final minerLocations = ref.watch(minerLocationsProvider);
-    // final storedMiners = minerLocations.storedMiners;
     final selectedTile = ref.watch(markerLocationProvider);
     if (selectedTile == null || !selectedTile.isValid) {
       return Scaffold(
@@ -44,12 +33,10 @@ class PlanetInterfaceWidget extends HookConsumerWidget {
                   children: [
                     TextButton(
                         onPressed: () {
-                          ref.read(inventoryStateProvider.notifier).addItems(
-                              ref.read(planetControllerProvider.notifier).dig(
-                                  selectedTile.point,
-                                  ItemRequirement({
-                                    Items.IRON_ORE: 1,
-                                  })));
+                          ref.read(inventoryProvider.notifier).addItems(ref
+                              .read(planetControllerProvider.notifier)
+                              .dig(selectedTile.point,
+                                  ItemContainer.single(Items.IRON_ORE, 1)));
                         },
                         child: const Text('dig')),
                     if (!selectedTile.visible)

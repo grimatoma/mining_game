@@ -1,11 +1,10 @@
 import 'dart:math';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/widgets/planet_page.dart';
 
 import '../base/doodad_definition.dart';
@@ -25,7 +24,7 @@ abstract class RegenerativeHarvestableDoodadInterface
 
   Map<int, String>? get dynamicImageAssets;
 
-  BuiltList<ItemInstanceGenerator> get resourceGenerated;
+  ItemContainer get resourceGenerated;
 }
 
 // class RegenerativeHarvestableDoodadState extends DoodadState {
@@ -101,11 +100,8 @@ class RegenerativeHarvestableDoodadInstance
   void harvest() {
     if (currentResources < resourceRequiredToHarvestOne) return;
     currentResources -= resourceRequiredToHarvestOne;
-    for (final resourceGenerator in resourceGenerated) {
-      ref
-          .read(inventoryStateProvider.notifier)
-          .addItemWithGenerator(resourceGenerator);
-    }
+    ref.read(inventoryProvider.notifier).addItems(resourceGenerated);
+
     _refreshImageAsset();
     notifyListeners();
   }
@@ -153,8 +149,7 @@ class RegenerativeHarvestableDoodadInstance
   Widget get statusWidget => TreeStatusWidget(this);
 
   @override
-  BuiltList<ItemInstanceGenerator> get resourceGenerated =>
-      definition.resourceGenerated;
+  ItemContainer get resourceGenerated => definition.resourceGenerated;
 }
 
 class TreeStatusWidget extends ConsumerWidget {

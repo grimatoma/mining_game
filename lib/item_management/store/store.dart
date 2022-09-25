@@ -1,6 +1,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/model_assets/store_listing_models.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 
@@ -14,11 +14,11 @@ enum Shop {
 final storeMainNavControllerProvider =
     StateNotifierProvider<StoreController, StoreListings>((ref) =>
         StoreController(
-            ref.watch(inventoryStateProvider.notifier), Shop.STORE_MAIN_NAV));
+            ref.watch(inventoryProvider.notifier), Shop.STORE_MAIN_NAV));
 final storePlanetBuyMenuControllerProvider = StateNotifierProvider<
         StoreController<DoodadShopListing>, StoreListings<DoodadShopListing>>(
     (ref) => StoreController<DoodadShopListing>(
-        ref.watch(inventoryStateProvider.notifier), Shop.PLANET_BUY_MENU));
+        ref.watch(inventoryProvider.notifier), Shop.PLANET_BUY_MENU));
 
 class StoreListings<ListingTypeT extends ShopListing> {
   final BuiltList<ListingTypeT> listings;
@@ -36,7 +36,7 @@ class StoreListings<ListingTypeT extends ShopListing> {
 class StoreController<ListingTypeT extends ShopListing>
     extends StateNotifier<StoreListings<ListingTypeT>> {
   final Shop shop;
-  final InventoryStateController _inventory;
+  final InventoryStateProvider _inventory;
 
   StoreController(
     this._inventory,
@@ -59,24 +59,24 @@ class StoreController<ListingTypeT extends ShopListing>
         consumed);
   }
 
-  bool canBuy(ShopListing listing) =>
-      _inventory.state.meetsRequirements(listing.cost);
+  bool canBuy(ShopListing listing) => _inventory.state.canRemove(listing.cost);
 
   // bool canSellItemListing(SellItemsShopListing listing) =>
   //     _inventory.meetsRequirements(listing.items);
 
   void clickListing(ShopListing listing) {
     listing.map(
-        itemListing: (listing) {
-          if (!canBuy(listing)) return;
-          _inventory.subtractItemRequirement(listing.cost);
-          if (listing.consumable) {
-            state = state.rebuild(
-                (p0) => p0.remove(listing), (p0) => p0.add(listing.id));
-          }
-          _inventory.addItemWithGenerator(listing.item);
-        },
-        doodadListing: (DoodadShopListing value) {},
-        featureListing: (FeatureShopListing value) {});
+      itemListing: (listing) {
+        if (!canBuy(listing)) return;
+        _inventory.removeItems(listing.cost);
+        if (listing.consumable) {
+          state = state.rebuild(
+              (p0) => p0.remove(listing), (p0) => p0.add(listing.id));
+        }
+        _inventory.addItem(listing.item, listing.quantity);
+      },
+      doodadListing: (DoodadShopListing value) {},
+      featureListing: (FeatureShopListing value) {},
+    );
   }
 }

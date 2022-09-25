@@ -1,8 +1,7 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 import '../base/tickable_doodad.dart';
@@ -11,9 +10,9 @@ part 'material_processor_doodad.g.dart';
 
 abstract class MaterialProcessorDoodadInterface
     implements TickableDoodadInterface {
-  ItemRequirement get consumedMaterials;
+  ItemContainer get consumedMaterials;
 
-  BuiltList<ItemInstance> get itemsProduced;
+  ItemContainer get itemsProduced;
 }
 
 const _isProcessingField = 'isProcessing';
@@ -25,13 +24,13 @@ const _isProcessingField = 'isProcessing';
 class MaterialProcessorDoodadInstance
     extends TickableDoodadInstance<MaterialProcessorDoodadDefinition>
     implements MaterialProcessorDoodadInterface {
-  late final InventoryStateController _inventoryController;
+  late final InventoryStateProvider _inventoryController;
 
   @override
-  ItemRequirement get consumedMaterials => definition.consumedMaterials;
+  ItemContainer get consumedMaterials => definition.consumedMaterials;
 
   @override
-  BuiltList<ItemInstance> get itemsProduced => definition.itemsProduced;
+  ItemContainer get itemsProduced => definition.itemsProduced;
 
   @JsonKey(name: _isProcessingField)
   late final SimpleStateProvider<bool> _isProcessingResourceState;
@@ -40,7 +39,7 @@ class MaterialProcessorDoodadInstance
       _isProcessingResourceState;
 
   MaterialProcessorDoodadInstance(super.pack) {
-    _inventoryController = ref.read(inventoryStateProvider.notifier);
+    _inventoryController = ref.read(inventoryProvider.notifier);
     _isProcessingResourceState = SimpleStateProvider<bool>(ref, (_) => false,
         valueFromJson: (ref, json) => json,
         valueToJson: boolToJson,
@@ -53,7 +52,7 @@ class MaterialProcessorDoodadInstance
   @override
   bool canTick() {
     if (isProcessing.read) return true;
-    if (_inventoryController.subtractItemRequirement(consumedMaterials)) {
+    if (_inventoryController.removeItems(consumedMaterials)) {
       _isProcessingResourceState.updateState = true;
       return true;
     }
@@ -63,7 +62,7 @@ class MaterialProcessorDoodadInstance
   @override
   void ticksMet() {
     _inventoryController.addItems(itemsProduced);
-    ref.read(inventoryStateProvider.notifier).addItems(itemsProduced);
+    ref.read(inventoryProvider.notifier).addItems(itemsProduced);
   }
 
   @override

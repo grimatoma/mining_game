@@ -1,9 +1,10 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 
 import 'quest_definition.dart';
@@ -21,10 +22,10 @@ class AllQuestsController
 
 final completedQuestsProvider =
     StateNotifierProvider<CompletedQuestsController, BuiltSet<int>>((ref) =>
-        CompletedQuestsController(ref.watch(inventoryStateProvider.notifier)));
+        CompletedQuestsController(ref.watch(inventoryProvider.notifier)));
 
 class CompletedQuestsController extends StateController<BuiltSet<int>> {
-  final InventoryStateController _inventoryController;
+  final InventoryStateProvider _inventoryController;
 
   CompletedQuestsController(this._inventoryController) : super(BuiltSet()) {
     void init() async {
@@ -36,8 +37,7 @@ class CompletedQuestsController extends StateController<BuiltSet<int>> {
 
   void markCompleted(QuestDefinition questDefinition) {
     if (_inventoryController
-        .subtractItemRequirement(questDefinition.completeRequirement.cost)) {
-      // HiveManager.getBox<int>(BoxKey.COMPLETED_QUESTS).add(questDefinition.id);
+        .removeItems(questDefinition.completeRequirement.itemCost)) {
       state = state.rebuild((p0) => p0.add(questDefinition.id));
     }
   }
@@ -52,15 +52,15 @@ final questStatusProvider = StateProvider<BuiltMap<int, QuestStatus>>((ref) {
   final allQuests = ref.watch(allQuestsProvider);
   final completedQuests = ref.watch(completedQuestsProvider);
   final activeFeatures = ref.watch(activeFeaturesProvider);
-  final inventoryCounts = ref.watch(inventoryCountsStateProvider);
+  final inventoryCounts = ref.watch(inventoryProvider);
 
   QuestStatus checkRequirements(
       Requirement requirements, QuestDefinition questDefinition) {
     var meetsRequirements = true;
     final questProgress = <ItemDefinitionId, int>{};
 
-    void processRequirement(ItemRequirement itemRequirements) {
-      for (final requiredItem in itemRequirements.requiredItems.entries) {
+    void processRequirement(ItemContainer items) {
+      for (final requiredItem in items.entries) {
         final itemDefinitionId = requiredItem.key;
         final requiredCount = requiredItem.value;
         final currentCount = questProgress.putIfAbsent(
@@ -76,12 +76,12 @@ final questStatusProvider = StateProvider<BuiltMap<int, QuestStatus>>((ref) {
     if (ownedFeatures.length != requirements.features.length) {
       meetsRequirements = false;
     }
-    processRequirement(requirements.cost);
+    processRequirement(requirements.itemCost);
     processRequirement(requirements.itemsOwned);
     return QuestStatus(
         definition: questDefinition,
         requirementsMet: meetsRequirements,
-        itemsProgress: ItemRequirement(questProgress),
+        itemsProgress: ItemContainer(questProgress),
         featuresProgress: ownedFeatures.toSet());
   }
 

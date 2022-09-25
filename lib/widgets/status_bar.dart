@@ -1,7 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 
 class StatusBarWidget extends HookConsumerWidget {
@@ -12,9 +12,9 @@ class StatusBarWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref
-        .watch(inventoryCountsStateProvider)
+        .watch(inventoryProvider)
         .entries
-        .where((element) => element.key.definition() is ShowInWallet)
+        .where((entry) => entry.key.definition() is ShowInWallet)
         .toBuiltList();
     return Container(
       color: Colors.cyanAccent[100],

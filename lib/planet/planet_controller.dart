@@ -8,8 +8,8 @@ import 'package:built_collection/built_collection.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/game_management/game_configs.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
 import 'planet.dart';
 import 'planet_tile.dart';
@@ -149,16 +149,18 @@ class PlanetController extends StateNotifier<Planet> {
   //       configs: configs, maxResources: maxResourceSize, map: planetMap);
   // }
 
-  BuiltList<ItemInstance> dig(PlanetPoint p, ItemRequirement damage) {
+  ItemContainer dig(PlanetPoint p, ItemContainer damage) {
     final tile = planet.map[p];
-    if (tile == null || tile.resources.empty) return BuiltList();
+    if (tile == null || tile.resources.isEmpty) {
+      return ItemContainer.getDefault;
+    }
 
-    final resolvedDamage = tile.resources.maxCanBeRemoved(damage);
+    final resolvedDamage = tile.resources.removeLimit(damage);
     planet = planet.rebuild((p0) {
       p0[p] = tile.copyWith(resources: tile.resources - resolvedDamage);
     });
-    return Items.IRON_ORE
-        .generateItemInstance(resolvedDamage.items[Items.IRON_ORE] ?? 0);
+    return ItemContainer.single(
+        Items.IRON_ORE, resolvedDamage.items[Items.IRON_ORE] ?? 0);
   }
 
   void scanForResources(PlanetPoint p, int radius) {
@@ -188,7 +190,7 @@ class PlanetController extends StateNotifier<Planet> {
       min(
               255,
               (255 *
-                  planetTile.resources.get(Items.IRON_ORE) /
+                  planetTile.resources[Items.IRON_ORE] /
                   planet.maxResourceSize))
           .toInt(),
       0,
@@ -205,9 +207,9 @@ class PlanetController extends StateNotifier<Planet> {
         int index = y * width + x;
         var tile = map[PlanetPoint(x, y, 0)]!;
 
-        final color = min(255,
-                (255 * tile.resources.get(Items.IRON_ORE) / maxResourceSize))
-            .toInt();
+        final color =
+            min(255, (255 * tile.resources[Items.IRON_ORE] / maxResourceSize))
+                .toInt();
         pixels[index] = Color.fromRGBO(
                 tile.visible ? color : 20,
                 tile.visible ? r.nextInt(1) : 100 + r.nextInt(100),

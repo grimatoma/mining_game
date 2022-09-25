@@ -1,33 +1,32 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
 part 'quest_definition.freezed.dart';
 
 part 'quest_definition.g.dart';
 
-@freezed
-class Requirement with _$Requirement {
-  const factory Requirement(
-          {@Default(<Feature>{}) Set<Feature> features,
-          @Default(ItemRequirement.empty) ItemRequirement cost,
-          @Default(ItemRequirement.empty) ItemRequirement itemsOwned}) =
-      _Requirement;
-
-  static const none = Requirement();
-
-  factory Requirement.featureOnly(Set<Feature> features) => Requirement(
-      features: features,
-      cost: ItemRequirement.empty,
-      itemsOwned: ItemRequirement.empty);
-
-  factory Requirement.itemOwnedOnly(ItemRequirement itemsOwned) => Requirement(
-      features: {}, cost: ItemRequirement.empty, itemsOwned: itemsOwned);
-
-  factory Requirement.fromJson(Map<String, dynamic> json) =>
-      _$RequirementFromJson(json);
-}
+// @freezed
+// class Requirement with _$Requirement {
+//   const factory Requirement(
+//           {@Default(<Feature>{}) Set<Feature> features,
+//           @Default(ItemRequirement.empty) ItemRequirement cost,
+//           @Default(ItemRequirement.empty) ItemRequirement itemsOwned}) =
+//       _Requirement;
+//
+//   static const none = Requirement();
+//
+//   factory Requirement.featureOnly(Set<Feature> features) => Requirement(
+//       features: features,
+//       cost: ItemRequirement.empty,
+//       itemsOwned: ItemRequirement.empty);
+//
+//   factory Requirement.itemOwnedOnly(ItemRequirement itemsOwned) => Requirement(
+//       features: {}, cost: ItemRequirement.empty, itemsOwned: itemsOwned);
+//
+//   factory Requirement.fromJson(Map<String, dynamic> json) =>
+//       _$RequirementFromJson(json);
+// }
 
 @freezed
 class QuestReward with _$QuestReward {
@@ -59,6 +58,6 @@ class QuestStatus with _$QuestStatus {
     required QuestDefinition definition,
     required bool requirementsMet,
     required Set<Feature> featuresProgress,
-    required ItemRequirement itemsProgress,
+    required ItemContainer itemsProgress,
   }) = _QuestStatus;
 }

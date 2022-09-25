@@ -1,15 +1,13 @@
 import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_directory.dart';
-
-import 'instance_id.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
 part 'item_definition.freezed.dart';
 
@@ -35,8 +33,8 @@ class ItemDefinitionId with _$ItemDefinitionId {
 
   String get itemName => definition().name;
 
-  BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
-      definition().generateItemInstance(countIfStack);
+  // BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
+  //     definition().generateItemInstance(countIfStack);
 
   factory ItemDefinitionId.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionIdFromJson(json);
@@ -90,8 +88,8 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String image,
   }) = MinerDefinition;
 
-  BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
-      ItemInstanceGenerator(id, countIfStack).generate();
+  // BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
+  //     ItemInstanceGenerator(id, countIfStack).generate();
 
   factory ItemDefinition.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionFromJson(json);

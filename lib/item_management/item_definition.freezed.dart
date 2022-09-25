@@ -135,7 +135,6 @@ class _$_ItemDefinitionId extends _ItemDefinitionId {
 abstract class _ItemDefinitionId extends ItemDefinitionId {
   const factory _ItemDefinitionId(@HiveField(0) final String itemId) =
       _$_ItemDefinitionId;
-
   const _ItemDefinitionId._() : super._();
 
   factory _ItemDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -144,7 +143,6 @@ abstract class _ItemDefinitionId extends ItemDefinitionId {
   @override
   @HiveField(0)
   String get itemId;
-
   @override
   @JsonKey(ignore: true)
   _$$_ItemDefinitionIdCopyWith<_$_ItemDefinitionId> get copyWith =>
@@ -654,7 +652,6 @@ abstract class ResourceDefinition extends ItemDefinition
       required final String description,
       required final String image,
       required final int maxStackSize}) = _$ResourceDefinition;
-
   const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
@@ -662,20 +659,14 @@ abstract class ResourceDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id;
-
   @override
   String get name;
-
   String? get namePlural;
-
   @override
   String get description;
-
   @override
   String get image;
-
   int get maxStackSize;
-
   @override
   @JsonKey(ignore: true)
   _$$ResourceDefinitionCopyWith<_$ResourceDefinition> get copyWith =>
@@ -964,7 +955,6 @@ abstract class DrillDefinition extends ItemDefinition {
       required final String description,
       required final String image,
       required final int damage}) = _$DrillDefinition;
-
   const DrillDefinition._() : super._();
 
   factory DrillDefinition.fromJson(Map<String, dynamic> json) =
@@ -972,18 +962,13 @@ abstract class DrillDefinition extends ItemDefinition {
 
   @override
   ItemDefinitionId get id;
-
   @override
   String get name;
-
   @override
   String get description;
-
   @override
   String get image;
-
   int get damage;
-
   @override
   @JsonKey(ignore: true)
   _$$DrillDefinitionCopyWith<_$DrillDefinition> get copyWith =>
@@ -1296,7 +1281,6 @@ abstract class SwordDefinition extends ItemDefinition
           required final String image,
           required final Map<WeaponAttributes, double> attributes}) =
       _$SwordDefinition;
-
   const SwordDefinition._() : super._();
 
   factory SwordDefinition.fromJson(Map<String, dynamic> json) =
@@ -1304,20 +1288,14 @@ abstract class SwordDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id;
-
   @override
   String get name;
-
   String? get namePlural;
-
   @override
   String get description;
-
   @override
   String get image;
-
   Map<WeaponAttributes, double> get attributes;
-
   @override
   @JsonKey(ignore: true)
   _$$SwordDefinitionCopyWith<_$SwordDefinition> get copyWith =>
@@ -1661,7 +1639,6 @@ abstract class MinerDefinition extends ItemDefinition {
       required final int baseHopperSize,
       required final int fuelConsumption,
       required final String image}) = _$MinerDefinition;
-
   const MinerDefinition._() : super._();
 
   factory MinerDefinition.fromJson(Map<String, dynamic> json) =
@@ -1669,948 +1646,19 @@ abstract class MinerDefinition extends ItemDefinition {
 
   @override
   ItemDefinitionId get id;
-
   @override
   String get name;
-
   @override
   String get description;
-
   int get radius;
-
   int get depth;
-
   int get baseDamage; // Should this be for all resources or per resource?
   int get baseHopperSize;
-
   int get fuelConsumption;
-
   @override
   String get image;
-
   @override
   @JsonKey(ignore: true)
   _$$MinerDefinitionCopyWith<_$MinerDefinition> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ItemInstance _$ItemInstanceFromJson(Map<String, dynamic> json) {
-  switch (json['runtimeType']) {
-    case 'basicInstance':
-      return BasicInstance.fromJson(json);
-    case 'minerInstance':
-      return MinerInstance.fromJson(json);
-    case 'stackInstance':
-      return StackInstance.fromJson(json);
-
-    default:
-      throw CheckedFromJsonException(json, 'runtimeType', 'ItemInstance',
-          'Invalid union type "${json['runtimeType']}"!');
-  }
-}
-
-/// @nodoc
-mixin _$ItemInstance {
-  ItemInstanceId get id => throw _privateConstructorUsedError;
-  ItemDefinitionId get itemId => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
-        basicInstance,
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)
-        minerInstance,
-    required TResult Function(
-            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
-        stackInstance,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicInstance value) basicInstance,
-    required TResult Function(MinerInstance value) minerInstance,
-    required TResult Function(StackInstance value) stackInstance,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ItemInstanceCopyWith<ItemInstance> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ItemInstanceCopyWith<$Res> {
-  factory $ItemInstanceCopyWith(
-          ItemInstance value, $Res Function(ItemInstance) then) =
-      _$ItemInstanceCopyWithImpl<$Res>;
-  $Res call({ItemInstanceId id, ItemDefinitionId itemId});
-
-  $ItemInstanceIdCopyWith<$Res> get id;
-  $ItemDefinitionIdCopyWith<$Res> get itemId;
-}
-
-/// @nodoc
-class _$ItemInstanceCopyWithImpl<$Res> implements $ItemInstanceCopyWith<$Res> {
-  _$ItemInstanceCopyWithImpl(this._value, this._then);
-
-  final ItemInstance _value;
-  // ignore: unused_field
-  final $Res Function(ItemInstance) _then;
-
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? itemId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as ItemInstanceId,
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemDefinitionId,
-    ));
-  }
-
-  @override
-  $ItemInstanceIdCopyWith<$Res> get id {
-    return $ItemInstanceIdCopyWith<$Res>(_value.id, (value) {
-      return _then(_value.copyWith(id: value));
-    });
-  }
-
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get itemId {
-    return $ItemDefinitionIdCopyWith<$Res>(_value.itemId, (value) {
-      return _then(_value.copyWith(itemId: value));
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$BasicInstanceCopyWith<$Res>
-    implements $ItemInstanceCopyWith<$Res> {
-  factory _$$BasicInstanceCopyWith(
-          _$BasicInstance value, $Res Function(_$BasicInstance) then) =
-      __$$BasicInstanceCopyWithImpl<$Res>;
-  @override
-  $Res call({ItemInstanceId id, ItemDefinitionId itemId});
-
-  @override
-  $ItemInstanceIdCopyWith<$Res> get id;
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get itemId;
-}
-
-/// @nodoc
-class __$$BasicInstanceCopyWithImpl<$Res>
-    extends _$ItemInstanceCopyWithImpl<$Res>
-    implements _$$BasicInstanceCopyWith<$Res> {
-  __$$BasicInstanceCopyWithImpl(
-      _$BasicInstance _value, $Res Function(_$BasicInstance) _then)
-      : super(_value, (v) => _then(v as _$BasicInstance));
-
-  @override
-  _$BasicInstance get _value => super._value as _$BasicInstance;
-
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? itemId = freezed,
-  }) {
-    return _then(_$BasicInstance(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as ItemInstanceId,
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemDefinitionId,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$BasicInstance extends BasicInstance {
-  _$BasicInstance({required this.id, required this.itemId, final String? $type})
-      : $type = $type ?? 'basicInstance',
-        super._();
-
-  factory _$BasicInstance.fromJson(Map<String, dynamic> json) =>
-      _$$BasicInstanceFromJson(json);
-
-  @override
-  final ItemInstanceId id;
-  @override
-  final ItemDefinitionId itemId;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ItemInstance.basicInstance(id: $id, itemId: $itemId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$BasicInstance &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.itemId, itemId));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(itemId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$BasicInstanceCopyWith<_$BasicInstance> get copyWith =>
-      __$$BasicInstanceCopyWithImpl<_$BasicInstance>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
-        basicInstance,
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)
-        minerInstance,
-    required TResult Function(
-            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
-        stackInstance,
-  }) {
-    return basicInstance(id, itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-  }) {
-    return basicInstance?.call(id, itemId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-    required TResult orElse(),
-  }) {
-    if (basicInstance != null) {
-      return basicInstance(id, itemId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicInstance value) basicInstance,
-    required TResult Function(MinerInstance value) minerInstance,
-    required TResult Function(StackInstance value) stackInstance,
-  }) {
-    return basicInstance(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-  }) {
-    return basicInstance?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-    required TResult orElse(),
-  }) {
-    if (basicInstance != null) {
-      return basicInstance(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$BasicInstanceToJson(
-      this,
-    );
-  }
-}
-
-abstract class BasicInstance extends ItemInstance {
-  factory BasicInstance(
-      {required final ItemInstanceId id,
-      required final ItemDefinitionId itemId}) = _$BasicInstance;
-
-  BasicInstance._() : super._();
-
-  factory BasicInstance.fromJson(Map<String, dynamic> json) =
-      _$BasicInstance.fromJson;
-
-  @override
-  ItemInstanceId get id;
-
-  @override
-  ItemDefinitionId get itemId;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$BasicInstanceCopyWith<_$BasicInstance> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$MinerInstanceCopyWith<$Res>
-    implements $ItemInstanceCopyWith<$Res> {
-  factory _$$MinerInstanceCopyWith(
-          _$MinerInstance value, $Res Function(_$MinerInstance) then) =
-      __$$MinerInstanceCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {ItemInstanceId id, ItemDefinitionId itemId, ItemDefinitionId? drillId});
-
-  @override
-  $ItemInstanceIdCopyWith<$Res> get id;
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get itemId;
-  $ItemDefinitionIdCopyWith<$Res>? get drillId;
-}
-
-/// @nodoc
-class __$$MinerInstanceCopyWithImpl<$Res>
-    extends _$ItemInstanceCopyWithImpl<$Res>
-    implements _$$MinerInstanceCopyWith<$Res> {
-  __$$MinerInstanceCopyWithImpl(
-      _$MinerInstance _value, $Res Function(_$MinerInstance) _then)
-      : super(_value, (v) => _then(v as _$MinerInstance));
-
-  @override
-  _$MinerInstance get _value => super._value as _$MinerInstance;
-
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? itemId = freezed,
-    Object? drillId = freezed,
-  }) {
-    return _then(_$MinerInstance(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as ItemInstanceId,
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemDefinitionId,
-      drillId: drillId == freezed
-          ? _value.drillId
-          : drillId // ignore: cast_nullable_to_non_nullable
-              as ItemDefinitionId?,
-    ));
-  }
-
-  @override
-  $ItemDefinitionIdCopyWith<$Res>? get drillId {
-    if (_value.drillId == null) {
-      return null;
-    }
-
-    return $ItemDefinitionIdCopyWith<$Res>(_value.drillId!, (value) {
-      return _then(_value.copyWith(drillId: value));
-    });
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$MinerInstance extends MinerInstance with MinerMethods {
-  _$MinerInstance(
-      {required this.id,
-      required this.itemId,
-      this.drillId,
-      final String? $type})
-      : $type = $type ?? 'minerInstance',
-        super._();
-
-  factory _$MinerInstance.fromJson(Map<String, dynamic> json) =>
-      _$$MinerInstanceFromJson(json);
-
-  @override
-  final ItemInstanceId id;
-  @override
-  final ItemDefinitionId itemId;
-  @override
-  final ItemDefinitionId? drillId;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ItemInstance.minerInstance(id: $id, itemId: $itemId, drillId: $drillId)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$MinerInstance &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.itemId, itemId) &&
-            const DeepCollectionEquality().equals(other.drillId, drillId));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(itemId),
-      const DeepCollectionEquality().hash(drillId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$MinerInstanceCopyWith<_$MinerInstance> get copyWith =>
-      __$$MinerInstanceCopyWithImpl<_$MinerInstance>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
-        basicInstance,
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)
-        minerInstance,
-    required TResult Function(
-            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
-        stackInstance,
-  }) {
-    return minerInstance(id, itemId, drillId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-  }) {
-    return minerInstance?.call(id, itemId, drillId);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-    required TResult orElse(),
-  }) {
-    if (minerInstance != null) {
-      return minerInstance(id, itemId, drillId);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicInstance value) basicInstance,
-    required TResult Function(MinerInstance value) minerInstance,
-    required TResult Function(StackInstance value) stackInstance,
-  }) {
-    return minerInstance(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-  }) {
-    return minerInstance?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-    required TResult orElse(),
-  }) {
-    if (minerInstance != null) {
-      return minerInstance(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MinerInstanceToJson(
-      this,
-    );
-  }
-}
-
-abstract class MinerInstance extends ItemInstance implements MinerMethods {
-  factory MinerInstance({required final ItemInstanceId id,
-    required final ItemDefinitionId itemId,
-    final ItemDefinitionId? drillId}) = _$MinerInstance;
-
-  MinerInstance._() : super._();
-
-  factory MinerInstance.fromJson(Map<String, dynamic> json) =
-  _$MinerInstance.fromJson;
-
-  @override
-  ItemInstanceId get id;
-
-  @override
-  ItemDefinitionId get itemId;
-
-  ItemDefinitionId? get drillId;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$MinerInstanceCopyWith<_$MinerInstance> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$StackInstanceCopyWith<$Res>
-    implements $ItemInstanceCopyWith<$Res> {
-  factory _$$StackInstanceCopyWith(
-          _$StackInstance value, $Res Function(_$StackInstance) then) =
-      __$$StackInstanceCopyWithImpl<$Res>;
-  @override
-  $Res call({ItemInstanceId id, ItemDefinitionId itemId, int quantity});
-
-  @override
-  $ItemInstanceIdCopyWith<$Res> get id;
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get itemId;
-}
-
-/// @nodoc
-class __$$StackInstanceCopyWithImpl<$Res>
-    extends _$ItemInstanceCopyWithImpl<$Res>
-    implements _$$StackInstanceCopyWith<$Res> {
-  __$$StackInstanceCopyWithImpl(
-      _$StackInstance _value, $Res Function(_$StackInstance) _then)
-      : super(_value, (v) => _then(v as _$StackInstance));
-
-  @override
-  _$StackInstance get _value => super._value as _$StackInstance;
-
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? itemId = freezed,
-    Object? quantity = freezed,
-  }) {
-    return _then(_$StackInstance(
-      id: id == freezed
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as ItemInstanceId,
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as ItemDefinitionId,
-      quantity: quantity == freezed
-          ? _value.quantity
-          : quantity // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$StackInstance extends StackInstance with StackMethods {
-  _$StackInstance(
-      {required this.id,
-      required this.itemId,
-      required this.quantity,
-      final String? $type})
-      : $type = $type ?? 'stackInstance',
-        super._();
-
-  factory _$StackInstance.fromJson(Map<String, dynamic> json) =>
-      _$$StackInstanceFromJson(json);
-
-  @override
-  final ItemInstanceId id;
-  @override
-  final ItemDefinitionId itemId;
-  @override
-  final int quantity;
-
-  @JsonKey(name: 'runtimeType')
-  final String $type;
-
-  @override
-  String toString() {
-    return 'ItemInstance.stackInstance(id: $id, itemId: $itemId, quantity: $quantity)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$StackInstance &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.itemId, itemId) &&
-            const DeepCollectionEquality().equals(other.quantity, quantity));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(itemId),
-      const DeepCollectionEquality().hash(quantity));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$StackInstanceCopyWith<_$StackInstance> get copyWith =>
-      __$$StackInstanceCopyWithImpl<_$StackInstance>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId)
-        basicInstance,
-    required TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)
-        minerInstance,
-    required TResult Function(
-            ItemInstanceId id, ItemDefinitionId itemId, int quantity)
-        stackInstance,
-  }) {
-    return stackInstance(id, itemId, quantity);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-  }) {
-    return stackInstance?.call(id, itemId, quantity);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId)? basicInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId,
-            ItemDefinitionId? drillId)?
-        minerInstance,
-    TResult Function(ItemInstanceId id, ItemDefinitionId itemId, int quantity)?
-        stackInstance,
-    required TResult orElse(),
-  }) {
-    if (stackInstance != null) {
-      return stackInstance(id, itemId, quantity);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(BasicInstance value) basicInstance,
-    required TResult Function(MinerInstance value) minerInstance,
-    required TResult Function(StackInstance value) stackInstance,
-  }) {
-    return stackInstance(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-  }) {
-    return stackInstance?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(BasicInstance value)? basicInstance,
-    TResult Function(MinerInstance value)? minerInstance,
-    TResult Function(StackInstance value)? stackInstance,
-    required TResult orElse(),
-  }) {
-    if (stackInstance != null) {
-      return stackInstance(this);
-    }
-    return orElse();
-  }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$StackInstanceToJson(
-      this,
-    );
-  }
-}
-
-abstract class StackInstance extends ItemInstance implements StackMethods {
-  factory StackInstance({required final ItemInstanceId id,
-    required final ItemDefinitionId itemId,
-    required final int quantity}) = _$StackInstance;
-
-  StackInstance._() : super._();
-
-  factory StackInstance.fromJson(Map<String, dynamic> json) =
-  _$StackInstance.fromJson;
-
-  @override
-  ItemInstanceId get id;
-
-  @override
-  ItemDefinitionId get itemId;
-
-  int get quantity;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$StackInstanceCopyWith<_$StackInstance> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-ItemRequirement _$ItemRequirementFromJson(Map<String, dynamic> json) {
-  return _ItemRequirement.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ItemRequirement {
-  @ItemDefinitionIdKeyedMapConverter()
-  Map<ItemDefinitionId, int> get requiredItems =>
-      throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ItemRequirementCopyWith<ItemRequirement> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ItemRequirementCopyWith<$Res> {
-  factory $ItemRequirementCopyWith(
-          ItemRequirement value, $Res Function(ItemRequirement) then) =
-      _$ItemRequirementCopyWithImpl<$Res>;
-  $Res call(
-      {@ItemDefinitionIdKeyedMapConverter()
-          Map<ItemDefinitionId, int> requiredItems});
-}
-
-/// @nodoc
-class _$ItemRequirementCopyWithImpl<$Res>
-    implements $ItemRequirementCopyWith<$Res> {
-  _$ItemRequirementCopyWithImpl(this._value, this._then);
-
-  final ItemRequirement _value;
-  // ignore: unused_field
-  final $Res Function(ItemRequirement) _then;
-
-  @override
-  $Res call({
-    Object? requiredItems = freezed,
-  }) {
-    return _then(_value.copyWith(
-      requiredItems: requiredItems == freezed
-          ? _value.requiredItems
-          : requiredItems // ignore: cast_nullable_to_non_nullable
-              as Map<ItemDefinitionId, int>,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$$_ItemRequirementCopyWith<$Res>
-    implements $ItemRequirementCopyWith<$Res> {
-  factory _$$_ItemRequirementCopyWith(
-          _$_ItemRequirement value, $Res Function(_$_ItemRequirement) then) =
-      __$$_ItemRequirementCopyWithImpl<$Res>;
-  @override
-  $Res call(
-      {@ItemDefinitionIdKeyedMapConverter()
-          Map<ItemDefinitionId, int> requiredItems});
-}
-
-/// @nodoc
-class __$$_ItemRequirementCopyWithImpl<$Res>
-    extends _$ItemRequirementCopyWithImpl<$Res>
-    implements _$$_ItemRequirementCopyWith<$Res> {
-  __$$_ItemRequirementCopyWithImpl(
-      _$_ItemRequirement _value, $Res Function(_$_ItemRequirement) _then)
-      : super(_value, (v) => _then(v as _$_ItemRequirement));
-
-  @override
-  _$_ItemRequirement get _value => super._value as _$_ItemRequirement;
-
-  @override
-  $Res call({
-    Object? requiredItems = freezed,
-  }) {
-    return _then(_$_ItemRequirement(
-      requiredItems == freezed
-          ? _value._requiredItems
-          : requiredItems // ignore: cast_nullable_to_non_nullable
-              as Map<ItemDefinitionId, int>,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_ItemRequirement extends _ItemRequirement {
-  const _$_ItemRequirement(
-      @ItemDefinitionIdKeyedMapConverter()
-          final Map<ItemDefinitionId, int> requiredItems)
-      : _requiredItems = requiredItems,
-        super._();
-
-  factory _$_ItemRequirement.fromJson(Map<String, dynamic> json) =>
-      _$$_ItemRequirementFromJson(json);
-
-  final Map<ItemDefinitionId, int> _requiredItems;
-  @override
-  @ItemDefinitionIdKeyedMapConverter()
-  Map<ItemDefinitionId, int> get requiredItems {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_requiredItems);
-  }
-
-  @override
-  String toString() {
-    return 'ItemRequirement(requiredItems: $requiredItems)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ItemRequirement &&
-            const DeepCollectionEquality()
-                .equals(other._requiredItems, _requiredItems));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_requiredItems));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_ItemRequirementCopyWith<_$_ItemRequirement> get copyWith =>
-      __$$_ItemRequirementCopyWithImpl<_$_ItemRequirement>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ItemRequirementToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ItemRequirement extends ItemRequirement {
-  const factory _ItemRequirement(
-      @ItemDefinitionIdKeyedMapConverter()
-          final Map<ItemDefinitionId, int> requiredItems) = _$_ItemRequirement;
-
-  const _ItemRequirement._() : super._();
-
-  factory _ItemRequirement.fromJson(Map<String, dynamic> json) =
-      _$_ItemRequirement.fromJson;
-
-  @override
-  @ItemDefinitionIdKeyedMapConverter()
-  Map<ItemDefinitionId, int> get requiredItems;
-
-  @override
-  @JsonKey(ignore: true)
-  _$$_ItemRequirementCopyWith<_$_ItemRequirement> get copyWith =>
       throw _privateConstructorUsedError;
 }

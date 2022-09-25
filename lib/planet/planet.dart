@@ -6,8 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:hive/hive.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
-import '../item_management/items/item_container.dart';
 import 'planet_tile.dart';
 import 'point.dart';
 
@@ -59,11 +59,7 @@ class Planet {
 
   tileColor(PlanetTile planetTile) => Color.fromARGB(
       255,
-      min(
-              255,
-              (255 *
-                  planetTile.resources.get(Items.IRON_ORE) /
-                  maxResourceSize))
+      min(255, (255 * planetTile.resources[Items.IRON_ORE] / maxResourceSize))
           .toInt(),
       0,
       0);
@@ -76,7 +72,7 @@ class Planet {
     return tile ??
         PlanetTile(
             point: const PlanetPoint(-1, -1, -1),
-            resources: ItemContainer.empty(),
+            resources: ItemContainer.getDefault,
             visible: false);
   }
 

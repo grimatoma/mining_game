@@ -7,8 +7,7 @@ import 'package:mining_game/doodads/base/doodad_definition.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/game_management/game_configs.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
-import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/widgets/planet_page.dart';
@@ -95,8 +94,7 @@ class HouseManager with Tickable {
   void ticksMet() {
     // Dont update every time. instead do updates every 10?
 
-    final startingFood =
-        _ref.read(inventoryCountsStateProvider)[Items.FOOD] ?? 0;
+    final startingFood = _ref.read(inventoryProvider)[Items.FOOD];
     var remainingFood = startingFood;
     // var consumedFood = 0;
     final r = Random();
@@ -121,10 +119,9 @@ class HouseManager with Tickable {
       remainingFood = max(0, remainingFood - house.currentPopulation);
     }
     final consumedFood = startingFood - remainingFood;
-    _ref.read(inventoryStateProvider.notifier)
-      ..subtractItemRequirement(
-          ItemRequirement.single(Items.FOOD, consumedFood))
-      ..addItems(Items.CREDIT.generateItemInstance(taxesCollected));
+    _ref.read(inventoryProvider.notifier)
+      ..removeItem(Items.FOOD, consumedFood)
+      ..addItem(Items.CREDIT, taxesCollected);
     // determine how much consuption is needed
     // subtract food and if left over randomly(random chance) add new pop.
   }

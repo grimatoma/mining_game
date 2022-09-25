@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/widgets/status_bar.dart';
 
 import 'item_management/item_keys.dart';
@@ -13,7 +13,7 @@ import 'item_management/item_keys.dart';
 class DigEvent {
   final DateTime timestamp;
   final count = globalCount++;
-  final BuiltList<ItemInstance> items;
+  final ItemContainer items;
 
   DigEvent(this.items, this.timestamp);
 
@@ -25,12 +25,11 @@ class DigEvent {
               const Text('Dig and found: '),
               Column(
                 children: [
-                  for (final item in items)
+                  for (final item in items.entries)
                     ItemRenderer(
                         showItemName: true,
-                        definition: item.itemId.definition(),
-                        count: item.maybeMap(
-                            stackInstance: (s) => s.quantity, orElse: () => 1)),
+                        definition: item.key.definition(),
+                        count: item.value),
                 ],
               ),
             ],
@@ -53,8 +52,8 @@ class DigDropManager {
   static final r = Random();
 
   static DigEvent get digEvent => DigEvent(
-      ItemDirectory.getItem(possibleDrops[r.nextInt(possibleDrops.length)])
-          .generateItemInstance(r.nextInt(5) + 1),
+      ItemContainer.single(
+          possibleDrops[r.nextInt(possibleDrops.length)], r.nextInt(5) + 1),
       DateTime.now());
 }
 
@@ -92,7 +91,7 @@ class DigSite extends ConsumerWidget {
                       }
                     });
                     ref
-                        .read(inventoryStateProvider.notifier)
+                        .read(inventoryProvider.notifier)
                         .addItems(digEvent.items);
                   },
                   child: const Text('Dig', style: TextStyle(fontSize: 64))),

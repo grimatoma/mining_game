@@ -7,10 +7,10 @@ import 'package:mining_game/event_manager/game_event_manager.dart';
 import 'package:mining_game/game_management/game_configs.dart';
 import 'package:mining_game/garage_events.dart';
 import 'package:mining_game/item_management/instance_id.dart';
-import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
-import 'item_management/inventory/inventory.dart';
 import 'persistence/hive_manager.dart';
 
 part 'garage_controller.freezed.dart';
@@ -20,7 +20,7 @@ part 'garage_controller.g.dart';
 final garageProvider = StateNotifierProvider<GarageNotifier, GarageState>(
     (ref) => GarageNotifier(
         ref.watch(gameEventManagerProvider),
-        ref.watch(inventoryStateProvider.notifier),
+        ref.watch(inventoryProvider.notifier),
         ref.watch(gameConfigsProvider).maxGarageSlots));
 
 @freezed
@@ -52,7 +52,7 @@ class SlotState with _$SlotState {
 }
 
 class GarageNotifier extends StateNotifier<GarageState> {
-  final InventoryStateController _inventoryStateController;
+  final InventoryStateProvider _inventoryStateController;
   final GameEventManager _gameEventManager;
 
   GarageNotifier(
@@ -73,17 +73,17 @@ class GarageNotifier extends StateNotifier<GarageState> {
     });
   }
 
-  ItemRequirement unlockCost(int index) =>
-      ItemRequirement({Items.CREDIT: pow(2, index + 1).round()});
+  Requirement unlockCost(int index) => Requirement(
+      itemCost: ItemContainer.single(Items.CREDIT, pow(2, index + 1).round()));
 
   void _unlockSlot(LockedSlot slot) async {
-    bool canUnlock(ItemRequirement unlockCost) =>
-        _inventoryStateController.state.meetsRequirements(unlockCost);
+    bool canUnlock(Requirement unlockCost) =>
+        _inventoryStateController.state.canRemove(unlockCost.itemCost);
 
     final index = slot.index;
     final cost = unlockCost(index);
     if (canUnlock(cost)) {
-      _inventoryStateController.subtractItemRequirement(cost);
+      _inventoryStateController.removeItems(cost.itemCost);
       state = state.rebuild((p0) {
         p0[index] = EmptySlot(index: index);
       });

@@ -54,7 +54,7 @@ mixin _$DoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)
+            ItemContainer itemMined)
         digger,
     required TResult Function(
             DoodadId id,
@@ -69,7 +69,7 @@ mixin _$DoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -95,8 +95,8 @@ mixin _$DoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
             DoodadId id,
@@ -123,7 +123,7 @@ mixin _$DoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -138,7 +138,7 @@ mixin _$DoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -164,8 +164,8 @@ mixin _$DoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -192,7 +192,7 @@ mixin _$DoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -207,7 +207,7 @@ mixin _$DoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -233,8 +233,8 @@ mixin _$DoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -384,10 +384,11 @@ abstract class _$$DiggerDoodadDefinitionCopyWith<$Res>
       Set<TileType> supportedLocations,
       int ticksRequired,
       String ticksName,
-      BuiltList<ItemInstanceGenerator> itemMined});
+      ItemContainer itemMined});
 
   @override
   $DoodadIdCopyWith<$Res> get id;
+  $ItemContainerCopyWith<$Res> get itemMined;
 }
 
 /// @nodoc
@@ -455,8 +456,15 @@ class __$$DiggerDoodadDefinitionCopyWithImpl<$Res>
       itemMined: itemMined == freezed
           ? _value.itemMined
           : itemMined // ignore: cast_nullable_to_non_nullable
-              as BuiltList<ItemInstanceGenerator>,
+              as ItemContainer,
     ));
+  }
+
+  @override
+  $ItemContainerCopyWith<$Res> get itemMined {
+    return $ItemContainerCopyWith<$Res>(_value.itemMined, (value) {
+      return _then(_value.copyWith(itemMined: value));
+    });
   }
 }
 
@@ -507,7 +515,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   @override
   final String ticksName;
   @override
-  final BuiltList<ItemInstanceGenerator> itemMined;
+  final ItemContainer itemMined;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -574,7 +582,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)
+            ItemContainer itemMined)
         digger,
     required TResult Function(
             DoodadId id,
@@ -589,7 +597,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -615,8 +623,8 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
             DoodadId id,
@@ -647,7 +655,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -662,7 +670,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -688,8 +696,8 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -720,7 +728,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -735,7 +743,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -761,8 +769,8 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -851,18 +859,16 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
 abstract class DiggerDoodadDefinition extends DoodadDefinition
     implements DiggerDoodadInterface {
   const factory DiggerDoodadDefinition(
-          {required final DoodadId id,
-          required final String name,
-          required final String description,
-          required final String imageAsset,
-          required final String storeImageAsset,
-          final bool userCanBuild,
-          required final Set<TileType> supportedLocations,
-          required final int ticksRequired,
-          required final String ticksName,
-          required final BuiltList<ItemInstanceGenerator> itemMined}) =
-      _$DiggerDoodadDefinition;
-
+      {required final DoodadId id,
+      required final String name,
+      required final String description,
+      required final String imageAsset,
+      required final String storeImageAsset,
+      final bool userCanBuild,
+      required final Set<TileType> supportedLocations,
+      required final int ticksRequired,
+      required final String ticksName,
+      required final ItemContainer itemMined}) = _$DiggerDoodadDefinition;
   const DiggerDoodadDefinition._() : super._();
 
   factory DiggerDoodadDefinition.fromJson(Map<String, dynamic> json) =
@@ -870,31 +876,21 @@ abstract class DiggerDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id;
-
   @override
   String get name;
-
   @override
   String get description;
-
   @override
   String get imageAsset;
-
   @override
   String get storeImageAsset;
-
   @override
   bool get userCanBuild;
-
   @override
   Set<TileType> get supportedLocations;
-
   int get ticksRequired;
-
   String get ticksName;
-
-  BuiltList<ItemInstanceGenerator> get itemMined;
-
+  ItemContainer get itemMined;
   @override
   @JsonKey(ignore: true)
   _$$DiggerDoodadDefinitionCopyWith<_$DiggerDoodadDefinition> get copyWith =>
@@ -922,12 +918,13 @@ abstract class _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res>
       double resourceRequiredToHarvestOne,
       double resourceMax,
       double resourceIncreasePerTick,
-      BuiltList<ItemInstanceGenerator> resourceGenerated,
+      ItemContainer resourceGenerated,
       int? manualEffortToHarvest,
       Map<int, String>? dynamicImageAssets});
 
   @override
   $DoodadIdCopyWith<$Res> get id;
+  $ItemContainerCopyWith<$Res> get resourceGenerated;
 }
 
 /// @nodoc
@@ -1014,7 +1011,7 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
       resourceGenerated: resourceGenerated == freezed
           ? _value.resourceGenerated
           : resourceGenerated // ignore: cast_nullable_to_non_nullable
-              as BuiltList<ItemInstanceGenerator>,
+              as ItemContainer,
       manualEffortToHarvest: manualEffortToHarvest == freezed
           ? _value.manualEffortToHarvest
           : manualEffortToHarvest // ignore: cast_nullable_to_non_nullable
@@ -1024,6 +1021,13 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
           : dynamicImageAssets // ignore: cast_nullable_to_non_nullable
               as Map<int, String>?,
     ));
+  }
+
+  @override
+  $ItemContainerCopyWith<$Res> get resourceGenerated {
+    return $ItemContainerCopyWith<$Res>(_value.resourceGenerated, (value) {
+      return _then(_value.copyWith(resourceGenerated: value));
+    });
   }
 }
 
@@ -1088,7 +1092,7 @@ class _$RegenerativeHarvestableDoodadDefinition
   @override
   final double resourceIncreasePerTick;
   @override
-  final BuiltList<ItemInstanceGenerator> resourceGenerated;
+  final ItemContainer resourceGenerated;
   @override
   final int? manualEffortToHarvest;
   final Map<int, String>? _dynamicImageAssets;
@@ -1183,7 +1187,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)
+            ItemContainer itemMined)
         digger,
     required TResult Function(
             DoodadId id,
@@ -1198,7 +1202,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -1224,8 +1228,8 @@ class _$RegenerativeHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
             DoodadId id,
@@ -1270,7 +1274,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -1285,7 +1289,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -1311,8 +1315,8 @@ class _$RegenerativeHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -1357,7 +1361,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -1372,7 +1376,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -1398,8 +1402,8 @@ class _$RegenerativeHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -1505,11 +1509,10 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
           required final double resourceRequiredToHarvestOne,
           required final double resourceMax,
           required final double resourceIncreasePerTick,
-          required final BuiltList<ItemInstanceGenerator> resourceGenerated,
+          required final ItemContainer resourceGenerated,
           final int? manualEffortToHarvest,
           final Map<int, String>? dynamicImageAssets}) =
       _$RegenerativeHarvestableDoodadDefinition;
-
   const RegenerativeHarvestableDoodadDefinition._() : super._();
 
   factory RegenerativeHarvestableDoodadDefinition.fromJson(
@@ -1518,41 +1521,26 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id;
-
   @override
   String get name;
-
   @override
   String get description;
-
   @override
   String get imageAsset;
-
   @override
   String get storeImageAsset;
-
   @override
   bool get userCanBuild;
-
   @override
   Set<TileType> get supportedLocations;
-
   int get ticksRequired;
-
   String get ticksName;
-
   double get resourceRequiredToHarvestOne;
-
   double get resourceMax;
-
   double get resourceIncreasePerTick;
-
-  BuiltList<ItemInstanceGenerator> get resourceGenerated;
-
+  ItemContainer get resourceGenerated;
   int? get manualEffortToHarvest;
-
   Map<int, String>? get dynamicImageAssets;
-
   @override
   @JsonKey(ignore: true)
   _$$RegenerativeHarvestableDoodadDefinitionCopyWith<
@@ -1771,7 +1759,7 @@ class _$AreaHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)
+            ItemContainer itemMined)
         digger,
     required TResult Function(
             DoodadId id,
@@ -1786,7 +1774,7 @@ class _$AreaHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -1812,8 +1800,8 @@ class _$AreaHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
             DoodadId id,
@@ -1844,7 +1832,7 @@ class _$AreaHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -1859,7 +1847,7 @@ class _$AreaHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -1885,8 +1873,8 @@ class _$AreaHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -1926,7 +1914,7 @@ class _$AreaHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -1941,7 +1929,7 @@ class _$AreaHarvestableDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -1967,8 +1955,8 @@ class _$AreaHarvestableDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -2058,7 +2046,6 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
       required final int ticksRequired,
       required final String ticksName,
       required final int range}) = _$AreaHarvestableDoodadDefinition;
-
   const AreaHarvestableDoodadDefinition._() : super._();
 
   factory AreaHarvestableDoodadDefinition.fromJson(Map<String, dynamic> json) =
@@ -2066,31 +2053,21 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id;
-
   @override
   String get name;
-
   @override
   String get description;
-
   @override
   String get imageAsset;
-
   @override
   String get storeImageAsset;
-
   @override
   bool get userCanBuild;
-
   @override
   Set<TileType> get supportedLocations;
-
   int get ticksRequired;
-
   String get ticksName;
-
   int get range;
-
   @override
   @JsonKey(ignore: true)
   _$$AreaHarvestableDoodadDefinitionCopyWith<_$AreaHarvestableDoodadDefinition>
@@ -2115,12 +2092,13 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
       Set<TileType> supportedLocations,
       int ticksRequired,
       String ticksName,
-      ItemRequirement consumedMaterials,
-      BuiltList<ItemInstance> itemsProduced});
+      ItemContainer consumedMaterials,
+      ItemContainer itemsProduced});
 
   @override
   $DoodadIdCopyWith<$Res> get id;
-  $ItemRequirementCopyWith<$Res> get consumedMaterials;
+  $ItemContainerCopyWith<$Res> get consumedMaterials;
+  $ItemContainerCopyWith<$Res> get itemsProduced;
 }
 
 /// @nodoc
@@ -2190,18 +2168,25 @@ class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
       consumedMaterials: consumedMaterials == freezed
           ? _value.consumedMaterials
           : consumedMaterials // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
       itemsProduced: itemsProduced == freezed
           ? _value.itemsProduced
           : itemsProduced // ignore: cast_nullable_to_non_nullable
-              as BuiltList<ItemInstance>,
+              as ItemContainer,
     ));
   }
 
   @override
-  $ItemRequirementCopyWith<$Res> get consumedMaterials {
-    return $ItemRequirementCopyWith<$Res>(_value.consumedMaterials, (value) {
+  $ItemContainerCopyWith<$Res> get consumedMaterials {
+    return $ItemContainerCopyWith<$Res>(_value.consumedMaterials, (value) {
       return _then(_value.copyWith(consumedMaterials: value));
+    });
+  }
+
+  @override
+  $ItemContainerCopyWith<$Res> get itemsProduced {
+    return $ItemContainerCopyWith<$Res>(_value.itemsProduced, (value) {
+      return _then(_value.copyWith(itemsProduced: value));
     });
   }
 }
@@ -2256,9 +2241,9 @@ class _$MaterialProcessorDoodadDefinition
   @override
   final String ticksName;
   @override
-  final ItemRequirement consumedMaterials;
+  final ItemContainer consumedMaterials;
   @override
-  final BuiltList<ItemInstance> itemsProduced;
+  final ItemContainer itemsProduced;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -2330,7 +2315,7 @@ class _$MaterialProcessorDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)
+            ItemContainer itemMined)
         digger,
     required TResult Function(
             DoodadId id,
@@ -2345,7 +2330,7 @@ class _$MaterialProcessorDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -2371,8 +2356,8 @@ class _$MaterialProcessorDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
             DoodadId id,
@@ -2413,7 +2398,7 @@ class _$MaterialProcessorDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -2428,7 +2413,7 @@ class _$MaterialProcessorDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -2454,8 +2439,8 @@ class _$MaterialProcessorDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -2496,7 +2481,7 @@ class _$MaterialProcessorDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -2511,7 +2496,7 @@ class _$MaterialProcessorDoodadDefinition
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -2537,8 +2522,8 @@ class _$MaterialProcessorDoodadDefinition
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -2637,10 +2622,9 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
           required final Set<TileType> supportedLocations,
           required final int ticksRequired,
           required final String ticksName,
-          required final ItemRequirement consumedMaterials,
-          required final BuiltList<ItemInstance> itemsProduced}) =
+          required final ItemContainer consumedMaterials,
+          required final ItemContainer itemsProduced}) =
       _$MaterialProcessorDoodadDefinition;
-
   const MaterialProcessorDoodadDefinition._() : super._();
 
   factory MaterialProcessorDoodadDefinition.fromJson(
@@ -2648,33 +2632,22 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id;
-
   @override
   String get name;
-
   @override
   String get description;
-
   @override
   String get imageAsset;
-
   @override
   String get storeImageAsset;
-
   @override
   bool get userCanBuild;
-
   @override
   Set<TileType> get supportedLocations;
-
   int get ticksRequired;
-
   String get ticksName;
-
-  ItemRequirement get consumedMaterials;
-
-  BuiltList<ItemInstance> get itemsProduced;
-
+  ItemContainer get consumedMaterials;
+  ItemContainer get itemsProduced;
   @override
   @JsonKey(ignore: true)
   _$$MaterialProcessorDoodadDefinitionCopyWith<
@@ -2878,7 +2851,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)
+            ItemContainer itemMined)
         digger,
     required TResult Function(
             DoodadId id,
@@ -2893,7 +2866,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
@@ -2919,8 +2892,8 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
             DoodadId id,
@@ -2951,7 +2924,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -2966,7 +2939,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -2992,8 +2965,8 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -3024,7 +2997,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            BuiltList<ItemInstanceGenerator> itemMined)?
+            ItemContainer itemMined)?
         digger,
     TResult Function(
             DoodadId id,
@@ -3039,7 +3012,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             double resourceRequiredToHarvestOne,
             double resourceMax,
             double resourceIncreasePerTick,
-            BuiltList<ItemInstanceGenerator> resourceGenerated,
+            ItemContainer resourceGenerated,
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
@@ -3065,8 +3038,8 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Set<TileType> supportedLocations,
             int ticksRequired,
             String ticksName,
-            ItemRequirement consumedMaterials,
-            BuiltList<ItemInstance> itemsProduced)?
+            ItemContainer consumedMaterials,
+            ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
             DoodadId id,
@@ -3155,7 +3128,6 @@ abstract class HouseDoodadDefinition extends DoodadDefinition
       required final Set<TileType> supportedLocations,
       required final int populationLimit,
       required final PersonType peopleType}) = _$HouseDoodadDefinition;
-
   const HouseDoodadDefinition._() : super._();
 
   factory HouseDoodadDefinition.fromJson(Map<String, dynamic> json) =
@@ -3163,29 +3135,20 @@ abstract class HouseDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadId get id;
-
   @override
   String get name;
-
   @override
   String get description;
-
   @override
   String get imageAsset;
-
   @override
   String get storeImageAsset;
-
   @override
   bool get userCanBuild;
-
   @override
   Set<TileType> get supportedLocations;
-
   int get populationLimit;
-
   PersonType get peopleType;
-
   @override
   @JsonKey(ignore: true)
   _$$HouseDoodadDefinitionCopyWith<_$HouseDoodadDefinition> get copyWith =>

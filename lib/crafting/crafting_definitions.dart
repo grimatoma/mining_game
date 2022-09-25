@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
 part 'crafting_definitions.freezed.dart';
 
@@ -11,13 +11,13 @@ part 'crafting_definitions.g.dart';
 class CraftingRecipe with _$CraftingRecipe {
   const factory CraftingRecipe.itemListing({
     required int id,
-    required ItemRequirement cost,
-    required ItemInstanceGenerator item,
+    required ItemContainer cost,
+    required ItemContainer item,
   }) = ItemCraftingRecipe;
 
   const factory CraftingRecipe.doodadListing({
     required int id,
-    required ItemRequirement cost,
+    required ItemContainer cost,
     required DoodadId doodadId,
     Set<Feature>? requiredFeatures,
   }) = DoodadCraftingRecipe;

@@ -135,7 +135,6 @@ class _$_GarageState extends _GarageState {
 abstract class _GarageState extends GarageState {
   const factory _GarageState(final BuiltMap<int, SlotState> slots) =
       _$_GarageState;
-
   const _GarageState._() : super._();
 
   factory _GarageState.fromJson(Map<String, dynamic> json) =
@@ -143,7 +142,6 @@ abstract class _GarageState extends GarageState {
 
   @override
   BuiltMap<int, SlotState> get slots;
-
   @override
   @JsonKey(ignore: true)
   _$$_GarageStateCopyWith<_$_GarageState> get copyWith =>
@@ -422,10 +420,8 @@ abstract class SlotWithMiner implements SlotState {
       _$SlotWithMiner.fromJson;
 
   ItemInstanceId get minerId;
-
   @override
   int get index;
-
   @override
   @JsonKey(ignore: true)
   _$$SlotWithMinerCopyWith<_$SlotWithMiner> get copyWith =>
@@ -586,7 +582,6 @@ abstract class LockedSlot implements SlotState {
 
   @override
   int get index;
-
   @override
   @JsonKey(ignore: true)
   _$$LockedSlotCopyWith<_$LockedSlot> get copyWith =>
@@ -746,7 +741,6 @@ abstract class EmptySlot implements SlotState {
 
   @override
   int get index;
-
   @override
   @JsonKey(ignore: true)
   _$$EmptySlotCopyWith<_$EmptySlot> get copyWith =>

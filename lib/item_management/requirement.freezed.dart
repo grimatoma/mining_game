@@ -14,20 +14,167 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+ItemContainer _$ItemContainerFromJson(Map<String, dynamic> json) {
+  return _ItemContainer2.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ItemContainer {
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get items => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ItemContainerCopyWith<ItemContainer> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ItemContainerCopyWith<$Res> {
+  factory $ItemContainerCopyWith(
+          ItemContainer value, $Res Function(ItemContainer) then) =
+      _$ItemContainerCopyWithImpl<$Res>;
+  $Res call(
+      {@ItemDefinitionIdKeyedMapConverter() Map<ItemDefinitionId, int> items});
+}
+
+/// @nodoc
+class _$ItemContainerCopyWithImpl<$Res>
+    implements $ItemContainerCopyWith<$Res> {
+  _$ItemContainerCopyWithImpl(this._value, this._then);
+
+  final ItemContainer _value;
+  // ignore: unused_field
+  final $Res Function(ItemContainer) _then;
+
+  @override
+  $Res call({
+    Object? items = freezed,
+  }) {
+    return _then(_value.copyWith(
+      items: items == freezed
+          ? _value.items
+          : items // ignore: cast_nullable_to_non_nullable
+              as Map<ItemDefinitionId, int>,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_ItemContainer2CopyWith<$Res>
+    implements $ItemContainerCopyWith<$Res> {
+  factory _$$_ItemContainer2CopyWith(
+          _$_ItemContainer2 value, $Res Function(_$_ItemContainer2) then) =
+      __$$_ItemContainer2CopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@ItemDefinitionIdKeyedMapConverter() Map<ItemDefinitionId, int> items});
+}
+
+/// @nodoc
+class __$$_ItemContainer2CopyWithImpl<$Res>
+    extends _$ItemContainerCopyWithImpl<$Res>
+    implements _$$_ItemContainer2CopyWith<$Res> {
+  __$$_ItemContainer2CopyWithImpl(
+      _$_ItemContainer2 _value, $Res Function(_$_ItemContainer2) _then)
+      : super(_value, (v) => _then(v as _$_ItemContainer2));
+
+  @override
+  _$_ItemContainer2 get _value => super._value as _$_ItemContainer2;
+
+  @override
+  $Res call({
+    Object? items = freezed,
+  }) {
+    return _then(_$_ItemContainer2(
+      items == freezed
+          ? _value._items
+          : items // ignore: cast_nullable_to_non_nullable
+              as Map<ItemDefinitionId, int>,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_ItemContainer2 extends _ItemContainer2 {
+  const _$_ItemContainer2(
+      @ItemDefinitionIdKeyedMapConverter()
+          final Map<ItemDefinitionId, int> items)
+      : _items = items,
+        super._();
+
+  factory _$_ItemContainer2.fromJson(Map<String, dynamic> json) =>
+      _$$_ItemContainer2FromJson(json);
+
+  final Map<ItemDefinitionId, int> _items;
+  @override
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get items {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_items);
+  }
+
+  @override
+  String toString() {
+    return 'ItemContainer(items: $items)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_ItemContainer2 &&
+            const DeepCollectionEquality().equals(other._items, _items));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_ItemContainer2CopyWith<_$_ItemContainer2> get copyWith =>
+      __$$_ItemContainer2CopyWithImpl<_$_ItemContainer2>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ItemContainer2ToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ItemContainer2 extends ItemContainer {
+  const factory _ItemContainer2(
+      @ItemDefinitionIdKeyedMapConverter()
+          final Map<ItemDefinitionId, int> items) = _$_ItemContainer2;
+  const _ItemContainer2._() : super._();
+
+  factory _ItemContainer2.fromJson(Map<String, dynamic> json) =
+      _$_ItemContainer2.fromJson;
+
+  @override
+  @ItemDefinitionIdKeyedMapConverter()
+  Map<ItemDefinitionId, int> get items;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ItemContainer2CopyWith<_$_ItemContainer2> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 Requirement _$RequirementFromJson(Map<String, dynamic> json) {
   return _Requirement.fromJson(json);
 }
 
 /// @nodoc
 mixin _$Requirement {
-  @ItemDefinitionIdKeyedMapConverter()
-  Map<ItemDefinitionId, int> get requiredItems =>
-      throw _privateConstructorUsedError;
-
-  Set<Feature> get requiredFeatures => throw _privateConstructorUsedError;
+  ItemContainer get itemCost => throw _privateConstructorUsedError;
+  Set<Feature> get features => throw _privateConstructorUsedError;
+  ItemContainer get itemsOwned => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $RequirementCopyWith<Requirement> get copyWith =>
       throw _privateConstructorUsedError;
@@ -38,11 +185,13 @@ abstract class $RequirementCopyWith<$Res> {
   factory $RequirementCopyWith(
           Requirement value, $Res Function(Requirement) then) =
       _$RequirementCopyWithImpl<$Res>;
-
   $Res call(
-      {@ItemDefinitionIdKeyedMapConverter()
-          Map<ItemDefinitionId, int> requiredItems,
-      Set<Feature> requiredFeatures});
+      {ItemContainer itemCost,
+      Set<Feature> features,
+      ItemContainer itemsOwned});
+
+  $ItemContainerCopyWith<$Res> get itemCost;
+  $ItemContainerCopyWith<$Res> get itemsOwned;
 }
 
 /// @nodoc
@@ -50,25 +199,43 @@ class _$RequirementCopyWithImpl<$Res> implements $RequirementCopyWith<$Res> {
   _$RequirementCopyWithImpl(this._value, this._then);
 
   final Requirement _value;
-
   // ignore: unused_field
   final $Res Function(Requirement) _then;
 
   @override
   $Res call({
-    Object? requiredItems = freezed,
-    Object? requiredFeatures = freezed,
+    Object? itemCost = freezed,
+    Object? features = freezed,
+    Object? itemsOwned = freezed,
   }) {
     return _then(_value.copyWith(
-      requiredItems: requiredItems == freezed
-          ? _value.requiredItems
-          : requiredItems // ignore: cast_nullable_to_non_nullable
-              as Map<ItemDefinitionId, int>,
-      requiredFeatures: requiredFeatures == freezed
-          ? _value.requiredFeatures
-          : requiredFeatures // ignore: cast_nullable_to_non_nullable
+      itemCost: itemCost == freezed
+          ? _value.itemCost
+          : itemCost // ignore: cast_nullable_to_non_nullable
+              as ItemContainer,
+      features: features == freezed
+          ? _value.features
+          : features // ignore: cast_nullable_to_non_nullable
               as Set<Feature>,
+      itemsOwned: itemsOwned == freezed
+          ? _value.itemsOwned
+          : itemsOwned // ignore: cast_nullable_to_non_nullable
+              as ItemContainer,
     ));
+  }
+
+  @override
+  $ItemContainerCopyWith<$Res> get itemCost {
+    return $ItemContainerCopyWith<$Res>(_value.itemCost, (value) {
+      return _then(_value.copyWith(itemCost: value));
+    });
+  }
+
+  @override
+  $ItemContainerCopyWith<$Res> get itemsOwned {
+    return $ItemContainerCopyWith<$Res>(_value.itemsOwned, (value) {
+      return _then(_value.copyWith(itemsOwned: value));
+    });
   }
 }
 
@@ -78,12 +245,16 @@ abstract class _$$_RequirementCopyWith<$Res>
   factory _$$_RequirementCopyWith(
           _$_Requirement value, $Res Function(_$_Requirement) then) =
       __$$_RequirementCopyWithImpl<$Res>;
-
   @override
   $Res call(
-      {@ItemDefinitionIdKeyedMapConverter()
-          Map<ItemDefinitionId, int> requiredItems,
-      Set<Feature> requiredFeatures});
+      {ItemContainer itemCost,
+      Set<Feature> features,
+      ItemContainer itemsOwned});
+
+  @override
+  $ItemContainerCopyWith<$Res> get itemCost;
+  @override
+  $ItemContainerCopyWith<$Res> get itemsOwned;
 }
 
 /// @nodoc
@@ -98,18 +269,23 @@ class __$$_RequirementCopyWithImpl<$Res> extends _$RequirementCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? requiredItems = freezed,
-    Object? requiredFeatures = freezed,
+    Object? itemCost = freezed,
+    Object? features = freezed,
+    Object? itemsOwned = freezed,
   }) {
     return _then(_$_Requirement(
-      requiredItems: requiredItems == freezed
-          ? _value._requiredItems
-          : requiredItems // ignore: cast_nullable_to_non_nullable
-              as Map<ItemDefinitionId, int>,
-      requiredFeatures: requiredFeatures == freezed
-          ? _value._requiredFeatures
-          : requiredFeatures // ignore: cast_nullable_to_non_nullable
+      itemCost: itemCost == freezed
+          ? _value.itemCost
+          : itemCost // ignore: cast_nullable_to_non_nullable
+              as ItemContainer,
+      features: features == freezed
+          ? _value._features
+          : features // ignore: cast_nullable_to_non_nullable
               as Set<Feature>,
+      itemsOwned: itemsOwned == freezed
+          ? _value.itemsOwned
+          : itemsOwned // ignore: cast_nullable_to_non_nullable
+              as ItemContainer,
     ));
   }
 }
@@ -118,36 +294,33 @@ class __$$_RequirementCopyWithImpl<$Res> extends _$RequirementCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Requirement extends _Requirement {
   const _$_Requirement(
-      {@ItemDefinitionIdKeyedMapConverter()
-          required final Map<ItemDefinitionId, int> requiredItems,
-      required final Set<Feature> requiredFeatures})
-      : _requiredItems = requiredItems,
-        _requiredFeatures = requiredFeatures,
+      {this.itemCost = ItemContainer.getDefault,
+      final Set<Feature> features = const <Feature>{},
+      this.itemsOwned = ItemContainer.getDefault})
+      : _features = features,
         super._();
 
   factory _$_Requirement.fromJson(Map<String, dynamic> json) =>
       _$$_RequirementFromJson(json);
 
-  final Map<ItemDefinitionId, int> _requiredItems;
-
   @override
-  @ItemDefinitionIdKeyedMapConverter()
-  Map<ItemDefinitionId, int> get requiredItems {
+  @JsonKey()
+  final ItemContainer itemCost;
+  final Set<Feature> _features;
+  @override
+  @JsonKey()
+  Set<Feature> get features {
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_requiredItems);
+    return EqualUnmodifiableSetView(_features);
   }
 
-  final Set<Feature> _requiredFeatures;
-
   @override
-  Set<Feature> get requiredFeatures {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_requiredFeatures);
-  }
+  @JsonKey()
+  final ItemContainer itemsOwned;
 
   @override
   String toString() {
-    return 'Requirement(requiredItems: $requiredItems, requiredFeatures: $requiredFeatures)';
+    return 'Requirement(itemCost: $itemCost, features: $features, itemsOwned: $itemsOwned)';
   }
 
   @override
@@ -155,18 +328,19 @@ class _$_Requirement extends _Requirement {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Requirement &&
+            const DeepCollectionEquality().equals(other.itemCost, itemCost) &&
+            const DeepCollectionEquality().equals(other._features, _features) &&
             const DeepCollectionEquality()
-                .equals(other._requiredItems, _requiredItems) &&
-            const DeepCollectionEquality()
-                .equals(other._requiredFeatures, _requiredFeatures));
+                .equals(other.itemsOwned, itemsOwned));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_requiredItems),
-      const DeepCollectionEquality().hash(_requiredFeatures));
+      const DeepCollectionEquality().hash(itemCost),
+      const DeepCollectionEquality().hash(_features),
+      const DeepCollectionEquality().hash(itemsOwned));
 
   @JsonKey(ignore: true)
   @override
@@ -183,22 +357,20 @@ class _$_Requirement extends _Requirement {
 
 abstract class _Requirement extends Requirement {
   const factory _Requirement(
-      {@ItemDefinitionIdKeyedMapConverter()
-          required final Map<ItemDefinitionId, int> requiredItems,
-      required final Set<Feature> requiredFeatures}) = _$_Requirement;
-
+      {final ItemContainer itemCost,
+      final Set<Feature> features,
+      final ItemContainer itemsOwned}) = _$_Requirement;
   const _Requirement._() : super._();
 
   factory _Requirement.fromJson(Map<String, dynamic> json) =
       _$_Requirement.fromJson;
 
   @override
-  @ItemDefinitionIdKeyedMapConverter()
-  Map<ItemDefinitionId, int> get requiredItems;
-
+  ItemContainer get itemCost;
   @override
-  Set<Feature> get requiredFeatures;
-
+  Set<Feature> get features;
+  @override
+  ItemContainer get itemsOwned;
   @override
   @JsonKey(ignore: true)
   _$$_RequirementCopyWith<_$_Requirement> get copyWith =>

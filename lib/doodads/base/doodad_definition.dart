@@ -1,8 +1,7 @@
-import 'package:built_collection/built_collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 
 import '../doodad_types/area_harvestable_doodad.dart';
@@ -56,7 +55,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
     required Set<TileType> supportedLocations,
     required int ticksRequired,
     required String ticksName,
-    required BuiltList<ItemInstanceGenerator> itemMined,
+    required ItemContainer itemMined,
   }) = DiggerDoodadDefinition;
 
   // @Implements<TickableDoodadInterface>()
@@ -85,7 +84,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
     required double resourceRequiredToHarvestOne,
     required double resourceMax,
     required double resourceIncreasePerTick,
-    required BuiltList<ItemInstanceGenerator> resourceGenerated,
+    required ItemContainer resourceGenerated,
     int? manualEffortToHarvest,
     Map<int, String>? dynamicImageAssets,
   }) = RegenerativeHarvestableDoodadDefinition;
@@ -115,8 +114,8 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
     required Set<TileType> supportedLocations,
     required int ticksRequired,
     required String ticksName,
-    required ItemRequirement consumedMaterials,
-    required BuiltList<ItemInstance> itemsProduced,
+    required ItemContainer consumedMaterials,
+    required ItemContainer itemsProduced,
   }) = MaterialProcessorDoodadDefinition;
 
   @Implements<HouseDoodadInterface>()

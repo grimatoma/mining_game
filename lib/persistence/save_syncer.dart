@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/planet/planets_manager.dart';
@@ -31,7 +31,7 @@ class SaveSyncer {
   }
 
   void save() {
-    final inventory = _ref.read(inventoryStateProvider);
+    final inventory = _ref.read(inventoryProvider);
     HiveManager.box.put(BoxKey.INVENTORY.name, jsonEncode(inventory));
 
     final features = _ref.read(activeFeaturesProvider);

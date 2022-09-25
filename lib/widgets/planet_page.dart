@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/planet/planet_manager.dart';
@@ -353,8 +354,8 @@ class DoodadBuildItemWidget extends HookConsumerWidget {
                 child: Column(
                   children: [
                     AutoSizeText(doodadDefinition.name),
-                    ItemRequirementRenderer(
-                      itemRequirement: _listing.cost,
+                    RequirementRenderer(
+                      requirement: Requirement(itemCost: _listing.cost),
                       checkInventoryForItems: true,
                     ),
                     // AutoSizeText(

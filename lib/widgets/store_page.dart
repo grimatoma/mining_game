@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/inventory/inventory.dart';
+import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/item_management/store/shop_listing_definitions.dart';
 import 'package:mining_game/item_management/store/store.dart';
 
@@ -14,7 +15,7 @@ class StorePageWidget extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Listen to changes in money (For failed purchases);
-    ref.watch(inventoryStateProvider);
+    ref.watch(inventoryProvider);
     final storeListings = ref.watch(storeMainNavControllerProvider);
 
     return Scaffold(
@@ -52,7 +53,7 @@ class ItemShopListingWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final definition = ItemDirectory.getItem(listing.item.id);
+    final definition = ItemDirectory.getItem(listing.item);
 
     return ListingWidget(
       imagePath: definition.image,
@@ -143,7 +144,7 @@ class ListingWidget extends ConsumerWidget {
 }
 
 class ShopButton extends ConsumerWidget {
-  final ItemRequirement cost;
+  final ItemContainer cost;
   final bool active;
   final void Function() onClick;
 
@@ -165,8 +166,8 @@ class ShopButton extends ConsumerWidget {
             borderRadius: BorderRadius.all(Radius.circular(2))),
         padding: const EdgeInsets.symmetric(horizontal: 8),
       ),
-      child: ItemRequirementRenderer(
-        itemRequirement: cost,
+      child: RequirementRenderer(
+        requirement: Requirement(itemsOwned: cost),
         checkInventoryForItems: true,
       ),
     );

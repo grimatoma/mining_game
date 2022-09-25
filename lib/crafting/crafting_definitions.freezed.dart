@@ -30,47 +30,41 @@ CraftingRecipe _$CraftingRecipeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CraftingRecipe {
   int get id => throw _privateConstructorUsedError;
-
-  ItemRequirement get cost => throw _privateConstructorUsedError;
-
+  ItemContainer get cost => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            int id, ItemRequirement cost, ItemInstanceGenerator item)
+    required TResult Function(int id, ItemContainer cost, ItemContainer item)
         itemListing,
-    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    required TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)
         doodadListing,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item)?
+    TResult Function(int id, ItemContainer cost, ItemContainer item)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)?
         doodadListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item)?
+    TResult Function(int id, ItemContainer cost, ItemContainer item)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)?
         doodadListing,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ItemCraftingRecipe value) itemListing,
     required TResult Function(DoodadCraftingRecipe value) doodadListing,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ItemCraftingRecipe value)? itemListing,
@@ -84,9 +78,7 @@ mixin _$CraftingRecipe {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $CraftingRecipeCopyWith<CraftingRecipe> get copyWith =>
       throw _privateConstructorUsedError;
@@ -97,10 +89,9 @@ abstract class $CraftingRecipeCopyWith<$Res> {
   factory $CraftingRecipeCopyWith(
           CraftingRecipe value, $Res Function(CraftingRecipe) then) =
       _$CraftingRecipeCopyWithImpl<$Res>;
+  $Res call({int id, ItemContainer cost});
 
-  $Res call({int id, ItemRequirement cost});
-
-  $ItemRequirementCopyWith<$Res> get cost;
+  $ItemContainerCopyWith<$Res> get cost;
 }
 
 /// @nodoc
@@ -109,7 +100,6 @@ class _$CraftingRecipeCopyWithImpl<$Res>
   _$CraftingRecipeCopyWithImpl(this._value, this._then);
 
   final CraftingRecipe _value;
-
   // ignore: unused_field
   final $Res Function(CraftingRecipe) _then;
 
@@ -126,13 +116,13 @@ class _$CraftingRecipeCopyWithImpl<$Res>
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
     ));
   }
 
   @override
-  $ItemRequirementCopyWith<$Res> get cost {
-    return $ItemRequirementCopyWith<$Res>(_value.cost, (value) {
+  $ItemContainerCopyWith<$Res> get cost {
+    return $ItemContainerCopyWith<$Res>(_value.cost, (value) {
       return _then(_value.copyWith(cost: value));
     });
   }
@@ -144,12 +134,12 @@ abstract class _$$ItemCraftingRecipeCopyWith<$Res>
   factory _$$ItemCraftingRecipeCopyWith(_$ItemCraftingRecipe value,
           $Res Function(_$ItemCraftingRecipe) then) =
       __$$ItemCraftingRecipeCopyWithImpl<$Res>;
+  @override
+  $Res call({int id, ItemContainer cost, ItemContainer item});
 
   @override
-  $Res call({int id, ItemRequirement cost, ItemInstanceGenerator item});
-
-  @override
-  $ItemRequirementCopyWith<$Res> get cost;
+  $ItemContainerCopyWith<$Res> get cost;
+  $ItemContainerCopyWith<$Res> get item;
 }
 
 /// @nodoc
@@ -177,12 +167,19 @@ class __$$ItemCraftingRecipeCopyWithImpl<$Res>
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
       item: item == freezed
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
-              as ItemInstanceGenerator,
+              as ItemContainer,
     ));
+  }
+
+  @override
+  $ItemContainerCopyWith<$Res> get item {
+    return $ItemContainerCopyWith<$Res>(_value.item, (value) {
+      return _then(_value.copyWith(item: value));
+    });
   }
 }
 
@@ -202,9 +199,9 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   final int id;
   @override
-  final ItemRequirement cost;
+  final ItemContainer cost;
   @override
-  final ItemInstanceGenerator item;
+  final ItemContainer item;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -241,10 +238,9 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            int id, ItemRequirement cost, ItemInstanceGenerator item)
+    required TResult Function(int id, ItemContainer cost, ItemContainer item)
         itemListing,
-    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    required TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)
         doodadListing,
   }) {
@@ -254,9 +250,9 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item)?
+    TResult Function(int id, ItemContainer cost, ItemContainer item)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)?
         doodadListing,
   }) {
@@ -266,9 +262,9 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item)?
+    TResult Function(int id, ItemContainer cost, ItemContainer item)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)?
         doodadListing,
     required TResult orElse(),
@@ -321,20 +317,17 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
 abstract class ItemCraftingRecipe implements CraftingRecipe {
   const factory ItemCraftingRecipe(
       {required final int id,
-      required final ItemRequirement cost,
-      required final ItemInstanceGenerator item}) = _$ItemCraftingRecipe;
+      required final ItemContainer cost,
+      required final ItemContainer item}) = _$ItemCraftingRecipe;
 
   factory ItemCraftingRecipe.fromJson(Map<String, dynamic> json) =
       _$ItemCraftingRecipe.fromJson;
 
   @override
   int get id;
-
   @override
-  ItemRequirement get cost;
-
-  ItemInstanceGenerator get item;
-
+  ItemContainer get cost;
+  ItemContainer get item;
   @override
   @JsonKey(ignore: true)
   _$$ItemCraftingRecipeCopyWith<_$ItemCraftingRecipe> get copyWith =>
@@ -347,17 +340,15 @@ abstract class _$$DoodadCraftingRecipeCopyWith<$Res>
   factory _$$DoodadCraftingRecipeCopyWith(_$DoodadCraftingRecipe value,
           $Res Function(_$DoodadCraftingRecipe) then) =
       __$$DoodadCraftingRecipeCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {int id,
-      ItemRequirement cost,
+      ItemContainer cost,
       DoodadId doodadId,
       Set<Feature>? requiredFeatures});
 
   @override
-  $ItemRequirementCopyWith<$Res> get cost;
-
+  $ItemContainerCopyWith<$Res> get cost;
   $DoodadIdCopyWith<$Res> get doodadId;
 }
 
@@ -387,7 +378,7 @@ class __$$DoodadCraftingRecipeCopyWithImpl<$Res>
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
       doodadId: doodadId == freezed
           ? _value.doodadId
           : doodadId // ignore: cast_nullable_to_non_nullable
@@ -425,11 +416,10 @@ class _$DoodadCraftingRecipe implements DoodadCraftingRecipe {
   @override
   final int id;
   @override
-  final ItemRequirement cost;
+  final ItemContainer cost;
   @override
   final DoodadId doodadId;
   final Set<Feature>? _requiredFeatures;
-
   @override
   Set<Feature>? get requiredFeatures {
     final value = _requiredFeatures;
@@ -476,10 +466,9 @@ class _$DoodadCraftingRecipe implements DoodadCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            int id, ItemRequirement cost, ItemInstanceGenerator item)
+    required TResult Function(int id, ItemContainer cost, ItemContainer item)
         itemListing,
-    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    required TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)
         doodadListing,
   }) {
@@ -489,9 +478,9 @@ class _$DoodadCraftingRecipe implements DoodadCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item)?
+    TResult Function(int id, ItemContainer cost, ItemContainer item)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)?
         doodadListing,
   }) {
@@ -501,9 +490,9 @@ class _$DoodadCraftingRecipe implements DoodadCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item)?
+    TResult Function(int id, ItemContainer cost, ItemContainer item)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures)?
         doodadListing,
     required TResult orElse(),
@@ -556,7 +545,7 @@ class _$DoodadCraftingRecipe implements DoodadCraftingRecipe {
 abstract class DoodadCraftingRecipe implements CraftingRecipe {
   const factory DoodadCraftingRecipe(
       {required final int id,
-      required final ItemRequirement cost,
+      required final ItemContainer cost,
       required final DoodadId doodadId,
       final Set<Feature>? requiredFeatures}) = _$DoodadCraftingRecipe;
 
@@ -565,14 +554,10 @@ abstract class DoodadCraftingRecipe implements CraftingRecipe {
 
   @override
   int get id;
-
   @override
-  ItemRequirement get cost;
-
+  ItemContainer get cost;
   DoodadId get doodadId;
-
   Set<Feature>? get requiredFeatures;
-
   @override
   @JsonKey(ignore: true)
   _$$DoodadCraftingRecipeCopyWith<_$DoodadCraftingRecipe> get copyWith =>

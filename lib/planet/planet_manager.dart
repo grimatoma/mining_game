@@ -9,8 +9,8 @@ import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/doodads/doodad_types/house_doodad.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
 part 'planet_manager.freezed.dart';
 
@@ -333,7 +333,7 @@ class TileStateController extends ChangeNotifier {
 class BuildMenuItem {
   final DoodadDefinition doodad;
 
-  final ItemRequirement cost;
+  final ItemContainer cost;
 
   BuildMenuItem({required this.doodad, required this.cost});
 }

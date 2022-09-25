@@ -1,7 +1,6 @@
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/item_management/items/item_container.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 
 final quests = [
@@ -11,9 +10,9 @@ final quests = [
       description:
           'This is an example quest. Please give me 5 credits so I can give you 25 rocks.',
       enabledRequirement:
-          Requirement(itemsOwned: ItemRequirement.single(Items.IRON_ORE, 5)),
+          Requirement(itemsOwned: ItemContainer.single(Items.IRON_ORE, 5)),
       completeRequirement: Requirement(
-        cost: ItemRequirement.single(Items.CREDIT, 5),
+        itemCost: ItemContainer.single(Items.CREDIT, 5),
       ),
       reward: QuestReward(
         items: ItemContainer.single(Items.ROCK, 25),
@@ -33,7 +32,7 @@ final quests = [
       description: 'This quest checks that you own Iron',
       enabledRequirement: const Requirement(),
       completeRequirement:
-          Requirement(itemsOwned: ItemRequirement.single(Items.IRON_ORE, 5)),
+          Requirement(itemsOwned: ItemContainer.single(Items.IRON_ORE, 5)),
       reward: QuestReward(
         items: ItemContainer.single(Items.ROCK, 25),
       )),
@@ -44,7 +43,7 @@ final quests = [
           'We need to build a smelter but this costs a lot of resources please help me gather these items so I can start building a smelter.',
       enabledRequirement: const Requirement(),
       completeRequirement: Requirement(
-          cost: ItemRequirement({
+          itemCost: ItemContainer({
         Items.IRON_ORE: 50,
         Items.CREDIT: 25,
       })),
@@ -57,7 +56,7 @@ final quests = [
       description: 'I am short some credits. Give them to me',
       enabledRequirement: const Requirement(),
       completeRequirement:
-          Requirement(cost: ItemRequirement.single(Items.CREDIT, 17)),
+          Requirement(itemCost: ItemContainer.single(Items.CREDIT, 17)),
       reward: QuestReward(
         items: ItemContainer.single(Items.CREDIT, 25),
       )),

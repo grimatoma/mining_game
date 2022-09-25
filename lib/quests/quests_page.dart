@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/widgets/status_bar.dart';
 
@@ -13,12 +14,6 @@ class QuestListPageWidget extends HookConsumerWidget {
   const QuestListPageWidget({
     Key? key,
   }) : super(key: key);
-
-  // Iterable<GoRoute> get routes => [
-  //   GoRoute(path: 'quest', builder: )
-  // ];
-  // '/detail': (context) =>
-  // QuestDetailWidget(ref.watch(activeQuestStatusProvider)[0]),
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -45,11 +40,6 @@ class QuestListPageWidget extends HookConsumerWidget {
                     onTap: () {
                       context
                           .push('/quests/quest/${quests[index].definition.id}');
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) => QuestDetailWidget(
-                      //             quests[index]!.definition.id)));
                     },
                     child: QuestListDetail(quests[index])),
                 separatorBuilder: (_, __) => const Divider(),
@@ -87,9 +77,9 @@ class QuestListDetail extends ConsumerWidget {
     }
 
     TableRow getItemRequiredStatus(MapEntry<ItemDefinitionId, int> itemRequired,
-        ItemRequirement currentItems,
+        ItemContainer currentItemProgress,
         [String? suffix]) {
-      final currentCount = currentItems.requiredItems[itemRequired.key] ?? 0;
+      final currentCount = currentItemProgress[itemRequired.key];
       final reqMet = currentCount >= itemRequired.value;
       final color = getQuestColor(reqMet);
       return TableRow(children: [
@@ -110,9 +100,9 @@ class QuestListDetail extends ConsumerWidget {
       children: [
         for (final feature in features)
           getFeatureStatus(feature, _questStatus.featuresProgress),
-        for (final itemRequired in unlockReq.cost.requiredItems.entries)
+        for (final itemRequired in unlockReq.itemCost.entries)
           getItemRequiredStatus(itemRequired, _questStatus.itemsProgress),
-        for (final itemRequired in unlockReq.itemsOwned.requiredItems.entries)
+        for (final itemRequired in unlockReq.itemsOwned.entries)
           getItemRequiredStatus(
               itemRequired, _questStatus.itemsProgress, 'Owned'),
       ],
