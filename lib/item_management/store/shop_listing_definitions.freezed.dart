@@ -32,43 +32,43 @@ ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ShopListing {
   int get id => throw _privateConstructorUsedError;
-  ItemRequirement get cost => throw _privateConstructorUsedError;
+  ItemContainer get cost => throw _privateConstructorUsedError;
   bool get consumable => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, ItemRequirement cost,
-            ItemInstanceGenerator item, bool consumable)
+    required TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)
         itemListing,
-    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    required TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)
         doodadListing,
-    required TResult Function(int id, ItemRequirement cost, Feature feature,
+    required TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)
         featureListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
     required TResult orElse(),
@@ -107,9 +107,9 @@ abstract class $ShopListingCopyWith<$Res> {
   factory $ShopListingCopyWith(
           ShopListing value, $Res Function(ShopListing) then) =
       _$ShopListingCopyWithImpl<$Res>;
-  $Res call({int id, ItemRequirement cost, bool consumable});
+  $Res call({int id, ItemContainer cost, bool consumable});
 
-  $ItemRequirementCopyWith<$Res> get cost;
+  $ItemContainerCopyWith<$Res> get cost;
 }
 
 /// @nodoc
@@ -134,7 +134,7 @@ class _$ShopListingCopyWithImpl<$Res> implements $ShopListingCopyWith<$Res> {
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
       consumable: consumable == freezed
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
@@ -143,8 +143,8 @@ class _$ShopListingCopyWithImpl<$Res> implements $ShopListingCopyWith<$Res> {
   }
 
   @override
-  $ItemRequirementCopyWith<$Res> get cost {
-    return $ItemRequirementCopyWith<$Res>(_value.cost, (value) {
+  $ItemContainerCopyWith<$Res> get cost {
+    return $ItemContainerCopyWith<$Res>(_value.cost, (value) {
       return _then(_value.copyWith(cost: value));
     });
   }
@@ -159,12 +159,14 @@ abstract class _$$ItemShopListingCopyWith<$Res>
   @override
   $Res call(
       {int id,
-      ItemRequirement cost,
-      ItemInstanceGenerator item,
-      bool consumable});
+      ItemContainer cost,
+      ItemDefinitionId item,
+      bool consumable,
+      int quantity});
 
   @override
-  $ItemRequirementCopyWith<$Res> get cost;
+  $ItemContainerCopyWith<$Res> get cost;
+  $ItemDefinitionIdCopyWith<$Res> get item;
 }
 
 /// @nodoc
@@ -184,6 +186,7 @@ class __$$ItemShopListingCopyWithImpl<$Res>
     Object? cost = freezed,
     Object? item = freezed,
     Object? consumable = freezed,
+    Object? quantity = freezed,
   }) {
     return _then(_$ItemShopListing(
       id: id == freezed
@@ -193,16 +196,27 @@ class __$$ItemShopListingCopyWithImpl<$Res>
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
       item: item == freezed
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
-              as ItemInstanceGenerator,
+              as ItemDefinitionId,
       consumable: consumable == freezed
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
               as bool,
+      quantity: quantity == freezed
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
+  }
+
+  @override
+  $ItemDefinitionIdCopyWith<$Res> get item {
+    return $ItemDefinitionIdCopyWith<$Res>(_value.item, (value) {
+      return _then(_value.copyWith(item: value));
+    });
   }
 }
 
@@ -214,6 +228,7 @@ class _$ItemShopListing implements ItemShopListing {
       required this.cost,
       required this.item,
       this.consumable = true,
+      this.quantity = 1,
       final String? $type})
       : $type = $type ?? 'itemListing';
 
@@ -223,19 +238,22 @@ class _$ItemShopListing implements ItemShopListing {
   @override
   final int id;
   @override
-  final ItemRequirement cost;
+  final ItemContainer cost;
   @override
-  final ItemInstanceGenerator item;
+  final ItemDefinitionId item;
   @override
   @JsonKey()
   final bool consumable;
+  @override
+  @JsonKey()
+  final int quantity;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
 
   @override
   String toString() {
-    return 'ShopListing.itemListing(id: $id, cost: $cost, item: $item, consumable: $consumable)';
+    return 'ShopListing.itemListing(id: $id, cost: $cost, item: $item, consumable: $consumable, quantity: $quantity)';
   }
 
   @override
@@ -247,7 +265,8 @@ class _$ItemShopListing implements ItemShopListing {
             const DeepCollectionEquality().equals(other.cost, cost) &&
             const DeepCollectionEquality().equals(other.item, item) &&
             const DeepCollectionEquality()
-                .equals(other.consumable, consumable));
+                .equals(other.consumable, consumable) &&
+            const DeepCollectionEquality().equals(other.quantity, quantity));
   }
 
   @JsonKey(ignore: true)
@@ -257,7 +276,8 @@ class _$ItemShopListing implements ItemShopListing {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(cost),
       const DeepCollectionEquality().hash(item),
-      const DeepCollectionEquality().hash(consumable));
+      const DeepCollectionEquality().hash(consumable),
+      const DeepCollectionEquality().hash(quantity));
 
   @JsonKey(ignore: true)
   @override
@@ -267,51 +287,51 @@ class _$ItemShopListing implements ItemShopListing {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, ItemRequirement cost,
-            ItemInstanceGenerator item, bool consumable)
+    required TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)
         itemListing,
-    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    required TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)
         doodadListing,
-    required TResult Function(int id, ItemRequirement cost, Feature feature,
+    required TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)
         featureListing,
   }) {
-    return itemListing(id, cost, item, consumable);
+    return itemListing(id, cost, item, consumable, quantity);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) {
-    return itemListing?.call(id, cost, item, consumable);
+    return itemListing?.call(id, cost, item, consumable, quantity);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
     required TResult orElse(),
   }) {
     if (itemListing != null) {
-      return itemListing(id, cost, item, consumable);
+      return itemListing(id, cost, item, consumable, quantity);
     }
     return orElse();
   }
@@ -361,24 +381,22 @@ class _$ItemShopListing implements ItemShopListing {
 abstract class ItemShopListing implements ShopListing {
   const factory ItemShopListing(
       {required final int id,
-      required final ItemRequirement cost,
-      required final ItemInstanceGenerator item,
-      final bool consumable}) = _$ItemShopListing;
+      required final ItemContainer cost,
+      required final ItemDefinitionId item,
+      final bool consumable,
+      final int quantity}) = _$ItemShopListing;
 
   factory ItemShopListing.fromJson(Map<String, dynamic> json) =
       _$ItemShopListing.fromJson;
 
   @override
   int get id;
-
   @override
-  ItemRequirement get cost;
-
-  ItemInstanceGenerator get item;
-
+  ItemContainer get cost;
+  ItemDefinitionId get item;
   @override
   bool get consumable;
-
+  int get quantity;
   @override
   @JsonKey(ignore: true)
   _$$ItemShopListingCopyWith<_$ItemShopListing> get copyWith =>
@@ -394,13 +412,13 @@ abstract class _$$DoodadShopListingCopyWith<$Res>
   @override
   $Res call(
       {int id,
-      ItemRequirement cost,
+      ItemContainer cost,
       DoodadId doodadId,
       Set<Feature>? requiredFeatures,
       bool consumable});
 
   @override
-  $ItemRequirementCopyWith<$Res> get cost;
+  $ItemContainerCopyWith<$Res> get cost;
   $DoodadIdCopyWith<$Res> get doodadId;
 }
 
@@ -431,7 +449,7 @@ class __$$DoodadShopListingCopyWithImpl<$Res>
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
       doodadId: doodadId == freezed
           ? _value.doodadId
           : doodadId // ignore: cast_nullable_to_non_nullable
@@ -474,7 +492,7 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   final int id;
   @override
-  final ItemRequirement cost;
+  final ItemContainer cost;
   @override
   final DoodadId doodadId;
   final Set<Feature>? _requiredFeatures;
@@ -530,13 +548,13 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, ItemRequirement cost,
-            ItemInstanceGenerator item, bool consumable)
+    required TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)
         itemListing,
-    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    required TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)
         doodadListing,
-    required TResult Function(int id, ItemRequirement cost, Feature feature,
+    required TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)
         featureListing,
   }) {
@@ -546,13 +564,13 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) {
@@ -563,13 +581,13 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
     required TResult orElse(),
@@ -623,28 +641,24 @@ class _$DoodadShopListing implements DoodadShopListing {
 }
 
 abstract class DoodadShopListing implements ShopListing {
-  const factory DoodadShopListing({required final int id,
-    required final ItemRequirement cost,
-    required final DoodadId doodadId,
-    final Set<Feature>? requiredFeatures,
-    final bool consumable}) = _$DoodadShopListing;
+  const factory DoodadShopListing(
+      {required final int id,
+      required final ItemContainer cost,
+      required final DoodadId doodadId,
+      final Set<Feature>? requiredFeatures,
+      final bool consumable}) = _$DoodadShopListing;
 
   factory DoodadShopListing.fromJson(Map<String, dynamic> json) =
-  _$DoodadShopListing.fromJson;
+      _$DoodadShopListing.fromJson;
 
   @override
   int get id;
-
   @override
-  ItemRequirement get cost;
-
+  ItemContainer get cost;
   DoodadId get doodadId;
-
   Set<Feature>? get requiredFeatures;
-
   @override
   bool get consumable;
-
   @override
   @JsonKey(ignore: true)
   _$$DoodadShopListingCopyWith<_$DoodadShopListing> get copyWith =>
@@ -660,13 +674,13 @@ abstract class _$$FeatureShopListingCopyWith<$Res>
   @override
   $Res call(
       {int id,
-      ItemRequirement cost,
+      ItemContainer cost,
       Feature feature,
       Set<Feature>? requiredFeatures,
       bool consumable});
 
   @override
-  $ItemRequirementCopyWith<$Res> get cost;
+  $ItemContainerCopyWith<$Res> get cost;
 }
 
 /// @nodoc
@@ -696,7 +710,7 @@ class __$$FeatureShopListingCopyWithImpl<$Res>
       cost: cost == freezed
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
-              as ItemRequirement,
+              as ItemContainer,
       feature: feature == freezed
           ? _value.feature
           : feature // ignore: cast_nullable_to_non_nullable
@@ -732,7 +746,7 @@ class _$FeatureShopListing implements FeatureShopListing {
   @override
   final int id;
   @override
-  final ItemRequirement cost;
+  final ItemContainer cost;
   @override
   final Feature feature;
   final Set<Feature>? _requiredFeatures;
@@ -789,13 +803,13 @@ class _$FeatureShopListing implements FeatureShopListing {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, ItemRequirement cost,
-            ItemInstanceGenerator item, bool consumable)
+    required TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)
         itemListing,
-    required TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    required TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)
         doodadListing,
-    required TResult Function(int id, ItemRequirement cost, Feature feature,
+    required TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)
         featureListing,
   }) {
@@ -805,13 +819,13 @@ class _$FeatureShopListing implements FeatureShopListing {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) {
@@ -822,13 +836,13 @@ class _$FeatureShopListing implements FeatureShopListing {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemRequirement cost, ItemInstanceGenerator item,
-            bool consumable)?
+    TResult Function(int id, ItemContainer cost, ItemDefinitionId item,
+            bool consumable, int quantity)?
         itemListing,
-    TResult Function(int id, ItemRequirement cost, DoodadId doodadId,
+    TResult Function(int id, ItemContainer cost, DoodadId doodadId,
             Set<Feature>? requiredFeatures, bool consumable)?
         doodadListing,
-    TResult Function(int id, ItemRequirement cost, Feature feature,
+    TResult Function(int id, ItemContainer cost, Feature feature,
             Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
     required TResult orElse(),
@@ -882,28 +896,24 @@ class _$FeatureShopListing implements FeatureShopListing {
 }
 
 abstract class FeatureShopListing implements ShopListing {
-  const factory FeatureShopListing({required final int id,
-    required final ItemRequirement cost,
-    required final Feature feature,
-    final Set<Feature>? requiredFeatures,
-    final bool consumable}) = _$FeatureShopListing;
+  const factory FeatureShopListing(
+      {required final int id,
+      required final ItemContainer cost,
+      required final Feature feature,
+      final Set<Feature>? requiredFeatures,
+      final bool consumable}) = _$FeatureShopListing;
 
   factory FeatureShopListing.fromJson(Map<String, dynamic> json) =
-  _$FeatureShopListing.fromJson;
+      _$FeatureShopListing.fromJson;
 
   @override
   int get id;
-
   @override
-  ItemRequirement get cost;
-
+  ItemContainer get cost;
   Feature get feature;
-
   Set<Feature>? get requiredFeatures;
-
   @override
   bool get consumable;
-
   @override
   @JsonKey(ignore: true)
   _$$FeatureShopListingCopyWith<_$FeatureShopListing> get copyWith =>

@@ -7,14 +7,14 @@ part 'requirement.freezed.dart';
 part 'requirement.g.dart';
 
 @freezed
-class ItemContainer with _$ItemContainer2 {
+class ItemContainer with _$ItemContainer {
   static const ItemContainer getDefault = ItemContainer({});
 
   const ItemContainer._();
 
   const factory ItemContainer(
       @ItemDefinitionIdKeyedMapConverter()
-          Map<ItemDefinitionId, int> items) = _ItemContainer2;
+          Map<ItemDefinitionId, int> items) = _ItemContainer;
 
   factory ItemContainer.single(ItemDefinitionId id, [int count = 1]) =>
       ItemContainer({id: count});
@@ -55,7 +55,7 @@ class ItemContainer with _$ItemContainer2 {
   bool canSubtract(ItemContainer other) => removeLimit(other).isEmpty;
 
   factory ItemContainer.fromJson(Map<String, dynamic> json) =>
-      _$ItemContainer2FromJson(json);
+      _$ItemContainerFromJson(json);
 }
 
 @freezed
