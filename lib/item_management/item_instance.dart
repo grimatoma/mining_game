@@ -5,7 +5,8 @@ class ItemDefinitionIdKeyedMapConverter
   const ItemDefinitionIdKeyedMapConverter();
 
   @override
-  ItemDefinitionId genKey(String keyVal) => ItemDefinitionId(keyVal);
+  ItemDefinitionId genKey(String keyVal) =>
+      ItemDefinitionId.fromJson(jsonDecode(keyVal));
 }
 
 abstract class ObjectKeyedMapConverter<K, V>
@@ -16,12 +17,12 @@ abstract class ObjectKeyedMapConverter<K, V>
 
   @override
   Map<K, V> fromJson(Map<String, dynamic> json) => {
-        for (final item in json.entries) genKey(item.key): item.value as V,
+        for (final entry in json.entries) genKey(entry.key): entry.value as V,
       };
 
   @override
   Map<String, dynamic> toJson(Map<K, V> map) => {
-        for (final item in map.entries) jsonEncode(item.key): item.value,
+        for (final entry in map.entries) jsonEncode(entry.key): entry.value,
       };
 }
 
@@ -44,19 +45,19 @@ class RequirementRenderer extends ConsumerWidget {
     return Column(
       children: [
         for (final item in requirement.itemCost.entries)
-          _buildItem(item, missingItems[item.key]),
+          _buildItem(item, min(0, missingItems[item.key])),
       ],
     );
   }
 
-  Widget _buildItem(MapEntry<ItemDefinitionId, int> entry, int? missing) {
+  Widget _buildItem(MapEntry<ItemDefinitionId, int> entry, int missing) {
     final definition = entry.key.definition();
     final itemWidget = ItemRenderer(
       definition: definition,
       count: entry.value,
-      suffixText: missing == null ? '' : '($missing)',
+      suffixText: missing == 0 ? '' : '($missing)',
     );
-    return missing != null
+    return missing > 0
         ? Container(
             color: Colors.red[200],
             child: itemWidget,

@@ -3,7 +3,7 @@ import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 
-final quests = [
+final questsModels = [
   QuestDefinition(
       id: 1,
       name: 'Test quest 1',

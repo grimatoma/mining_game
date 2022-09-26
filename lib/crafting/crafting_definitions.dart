@@ -1,26 +1,34 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/doodads/base/doodad_id.dart';
-import 'package:mining_game/features.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/requirement.dart';
 
 part 'crafting_definitions.freezed.dart';
 
 part 'crafting_definitions.g.dart';
 
+/// Potential idea for standarizing the echanging item sbut
+/// then the nouns might not allign as well. It might be worth making
+/// util converters instead
+// abstract class ItemExchange {
+//   ItemContainer get input;
+//   ItemContainer get output;
+// }
+
 @freezed
 class CraftingRecipe with _$CraftingRecipe {
   const factory CraftingRecipe.itemListing({
     required int id,
-    required ItemContainer cost,
-    required ItemContainer item,
+    required ItemContainer input,
+    required ItemDefinitionId output,
+    required int craftingDuration,
   }) = ItemCraftingRecipe;
 
-  const factory CraftingRecipe.doodadListing({
-    required int id,
-    required ItemContainer cost,
-    required DoodadId doodadId,
-    Set<Feature>? requiredFeatures,
-  }) = DoodadCraftingRecipe;
+  // const factory CraftingRecipe.doodadListing({
+  //   required int id,
+  //   required ItemContainer input,
+  //   required DoodadId createdDoodadId,
+  //   Set<Feature>? requiredFeatures,
+  // }) = DoodadCraftingRecipe;
 
   //
   // const factory CraftingRecipe.featureListing({

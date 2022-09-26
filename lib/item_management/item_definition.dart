@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -31,10 +32,12 @@ class ItemDefinitionId with _$ItemDefinitionId {
   DefT definition<DefT extends ItemDefinition>() =>
       ItemDirectory.getItem(this) as DefT;
 
+  ItemDefinition get definitionGet => ItemDirectory.getItem(this);
+
   String get itemName => definition().name;
 
-  // BuiltList<ItemInstance> generateItemInstance([int countIfStack = 1]) =>
-  //     definition().generateItemInstance(countIfStack);
+  ItemContainer createSingleContainer([quantity = 1]) =>
+      ItemContainer.single(this, quantity);
 
   factory ItemDefinitionId.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionIdFromJson(json);

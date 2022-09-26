@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 
 part 'instance_id.freezed.dart';
 
@@ -39,28 +38,4 @@ String get _generateId {
   final buffer = StringBuffer();
   buffer.writeAll(uuid);
   return buffer.toString();
-}
-
-class InstanceIdAdapter extends TypeAdapter<ItemInstanceId> {
-  @override
-  final typeId = 31;
-
-  @override
-  ItemInstanceId read(BinaryReader reader) =>
-      ItemInstanceId(reader.readString());
-
-  @override
-  void write(BinaryWriter writer, ItemInstanceId obj) {
-    writer.writeString(obj.guid);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is InstanceIdAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
 }

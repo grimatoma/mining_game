@@ -54,6 +54,8 @@ class ItemContainer with _$ItemContainer {
 
   bool canSubtract(ItemContainer other) => removeLimit(other).isEmpty;
 
+  Requirement get toRequirement => Requirement(itemCost: this);
+
   factory ItemContainer.fromJson(Map<String, dynamic> json) =>
       _$ItemContainerFromJson(json);
 }

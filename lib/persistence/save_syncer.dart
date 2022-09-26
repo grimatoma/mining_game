@@ -32,7 +32,7 @@ class SaveSyncer {
 
   void save() {
     final inventory = _ref.read(inventoryProvider);
-    HiveManager.box.put(BoxKey.INVENTORY.name, jsonEncode(inventory));
+    HiveManager.box.put(BoxKey.INVENTORY4.name, jsonEncode(inventory));
 
     final features = _ref.read(activeFeaturesProvider);
     HiveManager.box.put(BoxKey.FEATURES.name,

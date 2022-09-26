@@ -34,7 +34,7 @@ class Inventory with _$Inventory {
 
 class InventoryStateProvider extends StateNotifier<Inventory> {
   InventoryStateProvider()
-      : super(HiveManager.getData(BoxKey.INVENTORYv3, Inventory.fromJson,
+      : super(HiveManager.getData(BoxKey.INVENTORY4, Inventory.fromJson,
             () => const Inventory(1000, ItemContainer.getDefault)));
 
   void addItem(ItemDefinitionId id, [int count = 1]) {

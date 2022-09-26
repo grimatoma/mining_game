@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/crafting/crafting_page.dart';
 import 'package:mining_game/digging_site.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
@@ -139,27 +140,26 @@ class MiningGameWidget extends HookConsumerWidget {
   }
 }
 
-class RouteBaseWidget extends ConsumerWidget {
-  final RootRoute _rootRoute;
-  final bool _visible;
-
-  const RouteBaseWidget(
-    this._visible,
-    this._rootRoute, {
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Offstage(
-        offstage: _visible, child: _rootRoute.builder(context, _rootRoute));
-  }
-}
+// class RouteBaseWidget extends ConsumerWidget {
+//   final RootRoute _rootRoute;
+//   final bool _visible;
+//
+//   const RouteBaseWidget(
+//     this._visible,
+//     this._rootRoute, {
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return Offstage(
+//         offstage: _visible, child: _rootRoute.builder(context, _rootRoute));
+//   }
+// }
 
 class RootRoute {
   final key = GlobalKey<NavigatorState>();
   final String label;
-  final Widget Function(BuildContext context, RootRoute rootRoute) builder;
   final Widget Function(
     BuildContext context,
     GoRouterState state,
@@ -175,7 +175,6 @@ class RootRoute {
   RootRoute(
       {required this.path,
       required this.label,
-      required this.builder,
       required this.goRouterWidgetBuilder,
       required this.icon,
       this.routes = const []});
@@ -196,28 +195,24 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
       label: 'Planet',
       path: 'planet',
       icon: Icons.circle,
-      builder: (context, _) => const PlanetPageWidget(),
       goRouterWidgetBuilder: (context, _) => const PlanetPageWidget(),
     ),
     RootRoute(
       label: 'Store',
       path: 'store',
       icon: Icons.store,
-      builder: (context, _) => const StorePageWidget(),
       goRouterWidgetBuilder: (context, _) => const StorePageWidget(),
     ),
     RootRoute(
       label: 'Inventory',
       path: 'inventory',
       icon: Icons.storage,
-      builder: (context, _) => const InventoryPageWidget(),
       goRouterWidgetBuilder: (context, _) => const InventoryPageWidget(),
     ),
     RootRoute(
       label: 'Digging Site',
       path: 'dig_site',
       icon: Icons.golf_course,
-      builder: (context, _) => const DigSite(),
       goRouterWidgetBuilder: (context, _) => const DigSite(),
     ),
     // RootRoute(
@@ -227,7 +222,6 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
     RootRoute(
       label: 'Quests',
       path: 'quests',
-      builder: (context, rootRoute) => const QuestListPageWidget(),
       goRouterWidgetBuilder: (context, _) => const QuestListPageWidget(),
       icon: Icons.attractions,
       routes: [
@@ -237,7 +231,13 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
               return QuestDetailWidget(int.parse(state.params['questid']!));
             })
       ],
-    )
+    ),
+    RootRoute(
+      label: 'Crafting',
+      path: 'crafting',
+      icon: Icons.handyman,
+      goRouterWidgetBuilder: (context, _) => const CraftingPageWidget(),
+    ),
   ].build();
 });
 

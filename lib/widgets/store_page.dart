@@ -169,7 +169,7 @@ class ShopButton extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8),
       ),
       child: RequirementRenderer(
-        requirement: Requirement(itemsOwned: cost),
+        requirement: Requirement(itemCost: cost),
         checkInventoryForItems: true,
       ),
     );
