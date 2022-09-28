@@ -192,6 +192,12 @@ class IndexNotifier extends StateNotifier<int> with HistoryMixin<int> {
 final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
   return [
     RootRoute(
+      label: 'Digging Site',
+      path: 'dig_site',
+      icon: Icons.golf_course,
+      goRouterWidgetBuilder: (context, _) => const DigSite(),
+    ),
+    RootRoute(
       label: 'Planet',
       path: 'planet',
       icon: Icons.circle,
@@ -209,12 +215,7 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
       icon: Icons.storage,
       goRouterWidgetBuilder: (context, _) => const InventoryPageWidget(),
     ),
-    RootRoute(
-      label: 'Digging Site',
-      path: 'dig_site',
-      icon: Icons.golf_course,
-      goRouterWidgetBuilder: (context, _) => const DigSite(),
-    ),
+
     // RootRoute(
     //     name: 'Garage',
     //     builder: (context, _) => const GaragePageWidget(),

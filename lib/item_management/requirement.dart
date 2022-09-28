@@ -46,10 +46,14 @@ class ItemContainer with _$ItemContainer {
     return ItemContainer(newMap);
   }
 
+  /// Max amount that can be removed of the requested amount.
+  ///
+  /// If 0 then that means that the removal is not limited and can be safely
+  /// removed.
   ItemContainer removeLimit(ItemContainer other) => ItemContainer({
-        for (final entry in other.entries)
-          if (this[entry.key] - entry.value < 0)
-            entry.key: entry.value - (this[entry.key] - entry.value).abs(),
+        for (final otherEntry in other.entries)
+          if (this[otherEntry.key] - otherEntry.value < 0)
+            otherEntry.key: (this[otherEntry.key] - otherEntry.value).abs(),
       });
 
   bool canSubtract(ItemContainer other) => removeLimit(other).isEmpty;

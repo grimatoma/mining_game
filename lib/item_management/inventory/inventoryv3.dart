@@ -50,10 +50,12 @@ class InventoryStateProvider extends StateNotifier<Inventory> {
   }
 
   bool removeItems(ItemContainer items) {
-    if (!state.items.canSubtract(items)) return false;
+    if (!canRemove(items)) return false;
     state = state.copyWith(items: state.items - items);
     return true;
   }
+
+  bool canRemove(ItemContainer items) => state.items.canSubtract(items);
 
   void increaseMaxItems({required int amount}) {
     state = state.copyWith(maxItems: state.maxItems + amount);

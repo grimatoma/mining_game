@@ -40,28 +40,28 @@ class CraftingSessionController extends StateNotifier<CraftingSession?> {
   }
 
   void updateState() {
+    CraftingSession? finishSession() {
+      final next = _popQueue();
+      if (next == null) return null;
+      return CraftingSession(recipe: next, remaining: next.craftingDuration);
+    }
+
     print('update');
     final session = state;
     if (session == null) {
       if (_queue.isNotEmpty) {
-        state = _finishSession();
+        state = finishSession();
       }
       return;
     }
     final updatedSession = session.copyWith(remaining: session.remaining - 1);
     if (updatedSession.remaining <= 0) {
-      state = _finishSession();
+      state = finishSession();
       _inventoryStateProvider
           .addItems(updatedSession.recipe.output.createSingleContainer());
     } else {
       state = updatedSession;
     }
-  }
-
-  CraftingSession? _finishSession() {
-    final next = _popQueue();
-    if (next == null) return null;
-    return CraftingSession(recipe: next, remaining: next.craftingDuration);
   }
 
   CraftingRecipe? _popQueue() {
@@ -79,10 +79,11 @@ class CraftingSessionController extends StateNotifier<CraftingSession?> {
     }
   }
 
-  void remove(int index) {
+  void removeFromQueue(int index) {
     final craftingQueue = _ref.read(craftingQueueProvider.notifier);
-    craftingQueue.state =
-        craftingQueue.state.rebuild((p0) => p0.removeAt(index));
+    craftingQueue.state = craftingQueue.state.rebuild((p0) {
+      _inventoryStateProvider.addItems(p0.removeAt(index).input);
+    });
     if (index == 0) {
       state = null;
     }
