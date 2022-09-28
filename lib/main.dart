@@ -100,7 +100,8 @@ class MiningGameWidget extends HookConsumerWidget {
               currentIndex: ref.watch(navIndexProvider),
               onTap: (index) {
                 ref.read(navIndexProvider.notifier).state = index;
-                router.go(ref.read(mainNavigationPagesProvider)[index].path);
+                ref.read(goRouterProvider).go(
+                    '/${ref.read(mainNavigationPagesProvider)[index].path}');
               },
               items: [
                 for (final route in ref.watch(mainNavigationPagesProvider))
