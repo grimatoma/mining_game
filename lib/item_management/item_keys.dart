@@ -6,9 +6,10 @@ class Items {
   static const ROCK = ItemDefinitionId('ROCK');
   static const SHARP_ROCK = ItemDefinitionId('SHARP_ROCK');
   static const SMALL_ROCK = ItemDefinitionId('SMALL_ROCK');
-  static const IRON_ORE = ItemDefinitionId('IRON');
+  static const IRON_ORE = ItemDefinitionId('IRON_ORE');
   static const IRON_BAR = ItemDefinitionId('IRON_BAR');
   static const COPPER = ItemDefinitionId('COPPER');
+  static const COPPER_ORE = ItemDefinitionId('COPPER_ORE');
   static const TEST_DRILL = ItemDefinitionId('TEST_DRILL');
   static const CREDIT = ItemDefinitionId('CREDIT');
   static const WOOD = ItemDefinitionId('WOOD');

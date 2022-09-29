@@ -34,7 +34,7 @@ class ItemContainer with _$ItemContainer {
       final oldVal = newMap.putIfAbsent(entry.key, () => 0);
       newMap[entry.key] = oldVal - entry.value;
     }
-    return ItemContainer(newMap);
+    return ItemContainer(newMap..removeWhere((key, value) => value == 0));
   }
 
   ItemContainer operator +(ItemContainer other) {

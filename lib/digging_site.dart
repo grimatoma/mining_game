@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,6 +7,7 @@ import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/widgets/status_bar.dart';
 
 import 'item_management/item_keys.dart';
+import 'loot_table.dart';
 
 class DigEvent {
   final DateTime timestamp;
@@ -41,20 +40,24 @@ class DigEvent {
   static var globalCount = 1;
 }
 
-class DigDropManager {
-  static const possibleDrops = [
-    Items.ROCK,
-    Items.SMALL_ROCK,
-    Items.SHARP_ROCK,
-    Items.IRON_ORE,
-    Items.COPPER,
-  ];
-  static final r = Random();
+final digSiteLootTableProvider =
+    StateProvider<LootTable>((ref) => LootTable(const [
+          ItemProbability(Items.IRON_ORE, 5, max: 2),
+          ItemProbability(Items.ROCK, 5),
+          ItemProbability(Items.SMALL_ROCK, 5, max: 3),
+          ItemProbability(Items.SHARP_ROCK, 5, max: 7),
+          ItemProbability(Items.COPPER_ORE, 5),
+        ]));
 
-  static DigEvent get digEvent => DigEvent(
-      ItemContainer.single(
-          possibleDrops[r.nextInt(possibleDrops.length)], r.nextInt(5) + 1),
-      DateTime.now());
+final digDropManagerProvider = Provider<DigDropManager>(
+    (ref) => DigDropManager(ref.watch(digSiteLootTableProvider)));
+
+class DigDropManager {
+  final LootTable _lootTable;
+
+  DigDropManager(this._lootTable);
+
+  DigEvent get digEvent => DigEvent(_lootTable.pullLoot, DateTime.now());
 }
 
 final digEventsHistoryProvider =
@@ -83,7 +86,7 @@ class DigSite extends ConsumerWidget {
                   onPressed: () {
                     final digEventsState =
                         ref.read(digEventsHistoryProvider.state);
-                    final digEvent = DigDropManager.digEvent;
+                    final digEvent = ref.read(digDropManagerProvider).digEvent;
                     digEventsState.state = digEventsState.state.rebuild((p0) {
                       p0.add(digEvent);
                       if (p0.length > 100) {

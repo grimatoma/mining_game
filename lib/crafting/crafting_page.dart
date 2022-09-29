@@ -62,8 +62,7 @@ class CraftRowWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final itemDefinition = _recipe.output.definitionGet;
-    final canBuy =
-        ref.watch(inventoryProvider.notifier).canRemove(_recipe.input);
+    final canBuy = ref.watch(inventoryProvider).canRemove(_recipe.input);
     return Row(
       // mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

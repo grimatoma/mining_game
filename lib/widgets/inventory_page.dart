@@ -61,22 +61,33 @@ class InventoryPageWidget extends HookConsumerWidget {
             ],
           ),
           Expanded(
-            child: GridView.builder(
-              controller: scrollController,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 100,
-                childAspectRatio: 1 / 1,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: RadialGradient(colors: [
+                  Colors.grey[800]!,
+                  Colors.black,
+                ], radius: 1.0, focal: Alignment.center),
               ),
-              itemBuilder: (_, index) {
-                final entry = inventoryItemEntries[index];
-                return ItemRenderWidget(
-                    itemDefinition: entry.key.definition(),
-                    quantity: entry.value);
-              },
-              itemCount: inventoryItemEntries.length,
-              shrinkWrap: true,
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: GridView.builder(
+                  controller: scrollController,
+                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 100,
+                    childAspectRatio: 1 / 1,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                  ),
+                  itemBuilder: (_, index) {
+                    final entry = inventoryItemEntries[index];
+                    return ItemRenderWidget(
+                        itemDefinition: entry.key.definition(),
+                        quantity: entry.value);
+                  },
+                  itemCount: inventoryItemEntries.length,
+                  shrinkWrap: true,
+                ),
+              ),
             ),
           ),
         ],
@@ -95,31 +106,41 @@ class ItemRenderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Center(
-            child: SizedBox.expand(
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Image.asset(itemDefinition.image),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Center(
+                  child: SizedBox.expand(
+                    child: FittedBox(
+                      fit: BoxFit.fill,
+                      child: Image.asset(itemDefinition.image),
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  _getName(itemDefinition),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                    itemDefinition is Stackable ? quantity.toString() : ''),
+              ),
+            ],
           ),
         ),
-        Align(
-          alignment: Alignment.topLeft,
-          child: Text(
-            _getName(itemDefinition),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Text(itemDefinition is Stackable ? quantity.toString() : ''),
-        ),
-      ],
+      ),
     );
   }
 

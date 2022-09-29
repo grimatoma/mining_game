@@ -38,6 +38,13 @@ final itemModels = [
       image: 'assets/images/minerals/iron.png',
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
+      id: Items.COPPER_ORE,
+      name: 'Copper ore',
+      namePlural: 'Copper ore',
+      description: 'Can be mined',
+      image: 'assets/images/minerals/copper.png',
+      maxStackSize: 100),
+  const ItemDefinition.resourceDefinition(
       id: Items.COPPER,
       name: 'Copper',
       namePlural: 'Copper',

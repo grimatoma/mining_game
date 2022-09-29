@@ -1,4 +1,4 @@
-name: Mining Game v0.2
+name: mining_game
 description: A WIP incremental managing mining game about digging.
 
 # The following line prevents the package from being accidentally published to
