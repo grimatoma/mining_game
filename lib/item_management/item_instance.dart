@@ -71,25 +71,34 @@ class ItemRenderer extends StatelessWidget {
   final int count;
   final String? suffixText;
   final bool showItemName;
+  final bool linkedToDetailPage;
 
   const ItemRenderer(
       {Key? key,
       required this.definition,
       required this.count,
       this.suffixText = '',
-      this.showItemName = false})
+      this.showItemName = false,
+      this.linkedToDetailPage = true})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Image.asset(
-        definition.imagePath,
-        width: 24,
-      ),
-      AutoSizeText(
-          ' $count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
-    ]);
+    return GestureDetector(
+      onTap: linkedToDetailPage
+          ? () {
+              context.push('/inventory/item/${definition.id.itemId}');
+            }
+          : null,
+      child: Row(children: [
+        Image.asset(
+          definition.imagePath,
+          width: 24,
+        ),
+        AutoSizeText(
+            ' $count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
+      ]),
+    );
   }
 
   String get maybeName {

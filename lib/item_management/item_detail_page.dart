@@ -27,7 +27,7 @@ class _ItemDetailPageWidgetState extends ConsumerState<ItemDetailPageWidget> {
     final ownedCount = ref.watch(inventoryProvider).items[item.id];
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        // automaticallyImplyLeading: false,
         title: Text(item.name),
       ),
       body: Column(children: [
