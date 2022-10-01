@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flame/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/requirement.dart';
+import 'package:mining_game/main.dart';
 
 part 'item_definition.freezed.dart';
 
@@ -22,19 +23,17 @@ part 'item_instance.dart';
 class ItemDefinitionId with _$ItemDefinitionId {
   const ItemDefinitionId._();
 
-  @HiveType(typeId: 66, adapterName: 'ItemDefinitionIdAdapter')
-  const factory ItemDefinitionId(@HiveField(0) String itemId) =
-      _ItemDefinitionId;
+  const factory ItemDefinitionId(String itemId) = _ItemDefinitionId;
 
   @override
   String toString() => itemId;
 
-  DefT definition<DefT extends ItemDefinition>() =>
-      ItemDirectory.getItem(this) as DefT;
+  // DefT definition<DefT extends ItemDefinition>() =>
+  //     ItemDirectory.getItem(this) as DefT;
 
-  ItemDefinition get definitionGet => ItemDirectory.getItem(this);
+  ItemDefinition get definition => ItemDirectory.getItem(this);
 
-  String get itemName => definition().name;
+  String get itemName => definition.name;
 
   ItemContainer createSingleContainer([quantity = 1]) =>
       ItemContainer.single(this, quantity);
@@ -56,7 +55,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String name,
     String? namePlural,
     required String description,
-    required String image,
+    required ImageDefinition image,
     required int maxStackSize,
   }) = ResourceDefinition;
 
@@ -64,7 +63,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required ItemDefinitionId id,
     required String name,
     required String description,
-    required String image,
+    required ImageDefinition image,
     required int damage,
   }) = DrillDefinition;
 
@@ -74,7 +73,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String name,
     String? namePlural,
     required String description,
-    required String image,
+    required ImageDefinition image,
     required Map<WeaponAttributes, double> attributes,
   }) = SwordDefinition;
 
@@ -88,9 +87,34 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     // Should this be for all resources or per resource?
     required int baseHopperSize,
     required int fuelConsumption,
-    required String image,
+    required ImageDefinition image,
   }) = MinerDefinition;
+
+  String get imagePath => image.path;
+
+  Widget get imageWidget {
+    if (image.row == null) {
+      return Image.asset(
+        imagePath,
+        fit: BoxFit.fitWidth,
+      );
+    }
+    return SpriteWidget(
+      sprite: spriteSheets[imagePath]!.getSprite(image.row!, image.column!),
+    );
+  }
 
   factory ItemDefinition.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionFromJson(json);
+}
+
+@freezed
+class ImageDefinition with _$ImageDefinition {
+  const ImageDefinition._();
+
+  const factory ImageDefinition(String path, {int? row, int? column}) =
+      _ImageDefinition;
+
+  factory ImageDefinition.fromJson(Map<String, dynamic> json) =>
+      _$ImageDefinitionFromJson(json);
 }

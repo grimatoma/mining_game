@@ -10,11 +10,8 @@ final activeFeaturesProvider =
 
 class ActiveFeaturesProvider extends StateNotifier<BuiltSet<Feature>> {
   ActiveFeaturesProvider()
-      : super(HiveManager.getIterable(
-            BoxKey.FEATURES,
-            (list) => list
-                .map<Feature>((e) => $enumDecode(_featuresMap, e))
-                .toBuiltSet()));
+      : super(HiveManager.getIterableOfType<Feature>(
+            BoxKey.FEATURES, (e) => $enumDecode(_featuresMap, e)).toBuiltSet());
 }
 
 enum Feature {

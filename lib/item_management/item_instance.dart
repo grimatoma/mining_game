@@ -51,7 +51,7 @@ class RequirementRenderer extends ConsumerWidget {
   }
 
   Widget _buildItem(MapEntry<ItemDefinitionId, int> entry, int missing) {
-    final definition = entry.key.definition();
+    final definition = entry.key.definition;
     final itemWidget = ItemRenderer(
       definition: definition,
       count: entry.value,
@@ -84,7 +84,7 @@ class ItemRenderer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       Image.asset(
-        definition.image,
+        definition.imagePath,
         width: 24,
       ),
       AutoSizeText(

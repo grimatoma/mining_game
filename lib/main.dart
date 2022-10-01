@@ -1,6 +1,8 @@
 import 'dart:io' show Platform;
 
 import 'package:built_collection/built_collection.dart';
+import 'package:flame/flame.dart';
+import 'package:flame/sprite.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +11,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/crafting/crafting_page.dart';
 import 'package:mining_game/digging_site.dart';
 import 'package:mining_game/game_management/game_core_provider.dart';
+import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/item_management/item_detail_page.dart';
 import 'package:mining_game/mixins/history_mixin.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 import 'package:mining_game/quests/quests_page.dart';
@@ -19,10 +23,19 @@ import 'widgets/inventory_page.dart';
 import 'widgets/planet_page.dart';
 import 'widgets/store_page.dart';
 
+late final Map<String, SpriteSheet> spriteSheets;
+
 void main() async {
   await Hive.initFlutter();
 
   await HiveManager.init();
+
+  final image = await Flame.images.load('all/resources_sprite_page.png');
+
+  spriteSheets = {
+    'all/resources_sprite_page.png':
+        SpriteSheet.fromColumnsAndRows(image: image, columns: 11, rows: 11)
+  };
 
   if (!kIsWeb) {
     if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
@@ -215,6 +228,14 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
       path: 'inventory',
       icon: Icons.storage,
       goRouterWidgetBuilder: (context, _) => const InventoryPageWidget(),
+      routes: [
+        GoRoute(
+            path: 'item/:itemId',
+            builder: (context, state) {
+              return ItemDetailPageWidget(
+                  ItemDefinitionId(state.params['itemId']!).definition);
+            })
+      ],
     ),
 
     // RootRoute(
@@ -228,9 +249,9 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
       icon: Icons.attractions,
       routes: [
         GoRoute(
-            path: 'quest/:questid',
+            path: 'quest/:questId',
             builder: (context, state) {
-              return QuestDetailWidget(int.parse(state.params['questid']!));
+              return QuestDetailWidget(int.parse(state.params['questId']!));
             })
       ],
     ),

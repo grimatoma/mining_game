@@ -14,10 +14,8 @@ class PlanetsManager {
   late final Timer _timer;
 
   PlanetsManager(this._ref) {
-    print('created planets manager');
     try {
       final json = HiveManager.getIterableJson(BoxKey.PLANETS);
-      print(json);
       if (json != null) {
         for (final planetJson in json) {
           planets.add(PlanetManager(_ref, planetJson));

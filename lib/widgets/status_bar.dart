@@ -14,7 +14,7 @@ class StatusBarWidget extends HookConsumerWidget {
     final items = ref
         .watch(inventoryProvider)
         .entries
-        .where((entry) => entry.key.definition() is ShowInWallet)
+        .where((entry) => entry.key.definition is ShowInWallet)
         .toBuiltList();
     return Container(
       color: Colors.cyanAccent[100],
@@ -33,7 +33,7 @@ class StatusBarWidget extends HookConsumerWidget {
                 final item = items[index];
                 return ItemRenderer(
                     showItemName: true,
-                    definition: item.key.definition(),
+                    definition: item.key.definition,
                     count: item.value);
               },
               itemCount: items.length,

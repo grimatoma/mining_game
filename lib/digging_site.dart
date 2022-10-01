@@ -27,7 +27,7 @@ class DigEvent {
                   for (final item in items.entries)
                     ItemRenderer(
                         showItemName: true,
-                        definition: item.key.definition(),
+                        definition: item.key.definition,
                         count: item.value),
                 ],
               ),

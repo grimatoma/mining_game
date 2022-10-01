@@ -3,44 +3,6 @@
 part of 'item_definition.dart';
 
 // **************************************************************************
-// TypeAdapterGenerator
-// **************************************************************************
-
-class ItemDefinitionIdAdapter extends TypeAdapter<_$_ItemDefinitionId> {
-  @override
-  final int typeId = 66;
-
-  @override
-  _$_ItemDefinitionId read(BinaryReader reader) {
-    final numOfFields = reader.readByte();
-    final fields = <int, dynamic>{
-      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
-    };
-    return _$_ItemDefinitionId(
-      fields[0] as String,
-    );
-  }
-
-  @override
-  void write(BinaryWriter writer, _$_ItemDefinitionId obj) {
-    writer
-      ..writeByte(1)
-      ..writeByte(0)
-      ..write(obj.itemId);
-  }
-
-  @override
-  int get hashCode => typeId.hashCode;
-
-  @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ItemDefinitionIdAdapter &&
-          runtimeType == other.runtimeType &&
-          typeId == other.typeId;
-}
-
-// **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
@@ -60,7 +22,7 @@ _$ResourceDefinition _$$ResourceDefinitionFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
-      image: json['image'] as String,
+      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
       maxStackSize: json['maxStackSize'] as int,
       $type: json['runtimeType'] as String?,
     );
@@ -72,7 +34,7 @@ Map<String, dynamic> _$$ResourceDefinitionToJson(
       'name': instance.name,
       'namePlural': instance.namePlural,
       'description': instance.description,
-      'image': instance.image,
+      'image': instance.image.toJson(),
       'maxStackSize': instance.maxStackSize,
       'runtimeType': instance.$type,
     };
@@ -82,7 +44,7 @@ _$DrillDefinition _$$DrillDefinitionFromJson(Map<String, dynamic> json) =>
       id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
-      image: json['image'] as String,
+      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
       damage: json['damage'] as int,
       $type: json['runtimeType'] as String?,
     );
@@ -92,7 +54,7 @@ Map<String, dynamic> _$$DrillDefinitionToJson(_$DrillDefinition instance) =>
       'id': instance.id.toJson(),
       'name': instance.name,
       'description': instance.description,
-      'image': instance.image,
+      'image': instance.image.toJson(),
       'damage': instance.damage,
       'runtimeType': instance.$type,
     };
@@ -103,7 +65,7 @@ _$SwordDefinition _$$SwordDefinitionFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
-      image: json['image'] as String,
+      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
       attributes: (json['attributes'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(
             $enumDecode(_$WeaponAttributesEnumMap, k), (e as num).toDouble()),
@@ -117,7 +79,7 @@ Map<String, dynamic> _$$SwordDefinitionToJson(_$SwordDefinition instance) =>
       'name': instance.name,
       'namePlural': instance.namePlural,
       'description': instance.description,
-      'image': instance.image,
+      'image': instance.image.toJson(),
       'attributes': instance.attributes
           .map((k, e) => MapEntry(_$WeaponAttributesEnumMap[k]!, e)),
       'runtimeType': instance.$type,
@@ -139,7 +101,7 @@ _$MinerDefinition _$$MinerDefinitionFromJson(Map<String, dynamic> json) =>
       baseDamage: json['baseDamage'] as int,
       baseHopperSize: json['baseHopperSize'] as int,
       fuelConsumption: json['fuelConsumption'] as int,
-      image: json['image'] as String,
+      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
@@ -153,6 +115,20 @@ Map<String, dynamic> _$$MinerDefinitionToJson(_$MinerDefinition instance) =>
       'baseDamage': instance.baseDamage,
       'baseHopperSize': instance.baseHopperSize,
       'fuelConsumption': instance.fuelConsumption,
-      'image': instance.image,
+      'image': instance.image.toJson(),
       'runtimeType': instance.$type,
+    };
+
+_$_ImageDefinition _$$_ImageDefinitionFromJson(Map<String, dynamic> json) =>
+    _$_ImageDefinition(
+      json['path'] as String,
+      row: json['row'] as int?,
+      column: json['column'] as int?,
+    );
+
+Map<String, dynamic> _$$_ImageDefinitionToJson(_$_ImageDefinition instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'row': instance.row,
+      'column': instance.column,
     };

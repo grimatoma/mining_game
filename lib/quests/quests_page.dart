@@ -27,6 +27,16 @@ class QuestListPageWidget extends HookConsumerWidget {
         ),
         body: Column(
           children: [
+            // SizedBox(
+            //   width: 64,
+            //   height: 64,
+            //   child: FittedBox(
+            //     fit: BoxFit.fill,
+            //     child: SpriteWidget(
+            //       sprite: sheet.getSprite(2, 2),
+            //     ),
+            //   ),
+            // ),
             const StatusBarWidget(),
             TextButton(
                 onPressed: () {
@@ -84,7 +94,7 @@ class QuestListDetail extends ConsumerWidget {
       final color = getQuestColor(reqMet);
       return TableRow(children: [
         Text('-', style: TextStyle(color: color)),
-        Text('${itemRequired.key.definition().name}:',
+        Text('${itemRequired.key.definition.name}:',
             style: TextStyle(color: color)),
         Text(
             '$currentCount'

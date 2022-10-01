@@ -58,7 +58,7 @@ class ItemShopListingWidget extends ConsumerWidget {
     final definition = ItemDirectory.getItem(listing.item);
 
     return ListingWidget(
-      imagePath: definition.image,
+      imagePath: definition.imagePath,
       listingTitle: definition.name,
       listingDetails: Table(children: [
         if (definition is Stackable)

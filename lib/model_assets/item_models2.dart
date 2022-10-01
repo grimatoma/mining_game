@@ -7,63 +7,72 @@ final itemModels = [
       name: 'Black Rock',
       namePlural: 'Black rocks',
       description: 'Often found in dark caves',
-      image: ImageDefinition('assets/images/placeholder.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 8, column: 3),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.FOOD,
       name: 'Food',
       namePlural: 'Food',
       description: 'Test food object',
-      image: ImageDefinition('assets/images/all/foodTest1.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 6, column: 2),
       maxStackSize: 1000),
   const ItemDefinition.swordDefinition(
       id: Items.SWORD,
       name: 'Sword',
       namePlural: 'Swords',
       description: 'Point stick',
-      image: ImageDefinition('assets/images/placeholder.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 7, column: 6),
       attributes: {WeaponAttributes.SHARP: 10.0}),
   const ItemDefinition.resourceDefinition(
       id: Items.IRON_ORE,
       name: 'Iron ore',
       namePlural: 'Iron ore',
       description: 'Can be mined',
-      image: ImageDefinition('assets/images/all/ironOre.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 4, column: 1),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.IRON_BAR,
       name: 'Iron bar',
       namePlural: 'Iron bars',
       description: 'A smelted form of iron ready to be used for crafting.',
-      image: ImageDefinition('assets/images/minerals/iron.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 5, column: 1),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.COPPER_ORE,
       name: 'Copper ore',
       namePlural: 'Copper ore',
       description: 'Can be mined',
-      image: ImageDefinition('assets/images/minerals/copper.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 4, column: 0),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.COPPER,
       name: 'Copper',
       namePlural: 'Copper',
       description: 'Can be mined',
-      image: ImageDefinition('assets/images/minerals/copper.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 5, column: 0),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.SHARP_ROCK,
       name: 'Sharp rock',
       namePlural: 'Sharp rocks',
       description: 'A useless rock',
-      image: ImageDefinition('assets/images/minerals/copper.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 1, column: 0),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.SMALL_ROCK,
       name: 'Small rock',
       namePlural: 'Small rocks',
       description: 'A useless rock',
-      image: ImageDefinition('assets/images/minerals/copper.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 0, column: 5),
       maxStackSize: 100),
   const ItemDefinition.drillDefinition(
       id: Items.TEST_DRILL,
@@ -76,19 +85,22 @@ final itemModels = [
       name: 'Credit',
       namePlural: 'Credits',
       description: 'A form of currency.',
-      image: ImageDefinition('assets/images/money.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 4, column: 9),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.WOOD,
       name: 'Wood',
       description: 'Unprocessed wood',
-      image: ImageDefinition('assets/images/1Icons/wood.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 0, column: 0),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
       id: Items.PLANK,
       name: 'Plank',
       description: 'Processed wood',
-      image: ImageDefinition('assets/images/1Icons/plank.png'),
+      image:
+          ImageDefinition('all/resources_sprite_page.png', row: 0, column: 1),
       maxStackSize: 100),
   const ItemDefinition.minerDefinition(
     id: Items.MINER1,

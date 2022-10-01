@@ -131,8 +131,7 @@ class PlanetManager {
     }, (data) {
       houseManager = HouseManager(_ref);
       data as List<dynamic>;
-      print(data);
-      print(data);
+
       final tiles = data
           .map((e) => TileStateController.fromJson(
               _ref, this, e as Map<String, dynamic>))

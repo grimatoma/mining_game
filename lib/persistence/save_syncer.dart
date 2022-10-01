@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/crafting/crafting_manager.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/store/store.dart';
@@ -25,37 +26,41 @@ class SaveSyncer {
     }
 
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      print('saving!');
       save();
     });
   }
 
   void save() {
     final inventory = _ref.read(inventoryProvider);
-    HiveManager.box.put(BoxKey.INVENTORY4.name, jsonEncode(inventory));
+    store(BoxKey.INVENTORY4, inventory);
 
     final features = _ref.read(activeFeaturesProvider);
-    HiveManager.box.put(BoxKey.FEATURES.name,
-        jsonEncode(features.map((p0) => p0.name).toList()));
+    store(BoxKey.FEATURES, features.map((p0) => p0.name).toList());
 
     final quests = _ref.read(completedQuestsProvider);
-    HiveManager.box
-        .put(BoxKey.COMPLETED_QUESTS.name, jsonEncode(quests.toList()));
+    store(BoxKey.COMPLETED_QUESTS, quests.toList());
 
-    HiveManager.box.put(
-        BoxKey.CONSUMED_STORE_LISTINGS.name,
-        jsonEncode({
-          Shop.PLANET_BUY_MENU.name: _ref
-              .read(storePlanetBuyMenuControllerProvider)
-              .consumedListing
-              .toList(growable: false),
-          Shop.STORE_MAIN_NAV.name: _ref
-              .read(storeMainNavControllerProvider)
-              .consumedListing
-              .toList(growable: false),
-        }));
+    store(BoxKey.CONSUMED_STORE_LISTINGS, {
+      Shop.PLANET_BUY_MENU.name: _ref
+          .read(storePlanetBuyMenuControllerProvider)
+          .consumedListing
+          .toList(growable: false),
+      Shop.STORE_MAIN_NAV.name: _ref
+          .read(storeMainNavControllerProvider)
+          .consumedListing
+          .toList(growable: false),
+    });
 
     final planets = _ref.read(planetsManagerProvider).planets;
-    HiveManager.box.put(BoxKey.PLANETS.name, jsonEncode(planets));
+    store(BoxKey.PLANETS, planets);
+
+    final craftingQueue = _ref.read(craftingQueueProvider);
+    store(BoxKey.CRAFTING_QUEUE2, craftingQueue.toList(growable: false));
+    final craftingSession = _ref.read(craftingSessionProvider);
+    store(BoxKey.CRAFTING_SESSION2, craftingSession);
+  }
+
+  void store(BoxKey key, dynamic item) {
+    HiveManager.box.put(key.name, jsonEncode(item));
   }
 }

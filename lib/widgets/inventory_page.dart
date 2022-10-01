@@ -1,6 +1,7 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_definition.dart';
@@ -81,7 +82,7 @@ class InventoryPageWidget extends HookConsumerWidget {
                   itemBuilder: (_, index) {
                     final entry = inventoryItemEntries[index];
                     return ItemRenderWidget(
-                        itemDefinition: entry.key.definition(),
+                        itemDefinition: entry.key.definition,
                         quantity: entry.value);
                   },
                   itemCount: inventoryItemEntries.length,
@@ -108,36 +109,41 @@ class ItemRenderWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
-      child: Container(
-        color: Colors.white,
-        child: Padding(
-          padding: const EdgeInsets.all(4.0),
-          child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Center(
-                  child: SizedBox.expand(
-                    child: FittedBox(
-                      fit: BoxFit.fill,
-                      child: Image.asset(itemDefinition.image),
+      child: GestureDetector(
+        onTap: () {
+          context.push('/inventory/item/${itemDefinition.id.itemId}');
+        },
+        child: Container(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Center(
+                    child: SizedBox.expand(
+                      child: FittedBox(
+                        fit: BoxFit.fill,
+                        child: itemDefinition.imageWidget,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  _getName(itemDefinition),
-                  overflow: TextOverflow.ellipsis,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    _getName(itemDefinition),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Text(
-                    itemDefinition is Stackable ? quantity.toString() : ''),
-              ),
-            ],
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                      itemDefinition is Stackable ? quantity.toString() : ''),
+                ),
+              ],
+            ),
           ),
         ),
       ),

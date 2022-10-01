@@ -61,7 +61,7 @@ class CraftRowWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemDefinition = _recipe.output.definitionGet;
+    final itemDefinition = _recipe.output.definition;
     final canBuy = ref.watch(inventoryProvider).canRemove(_recipe.input);
     return Row(
       // mainAxisSize: MainAxisSize.min,
@@ -72,7 +72,7 @@ class CraftRowWidget extends ConsumerWidget {
             Padding(
               padding: const EdgeInsets.all(4.0),
               child: Image.asset(
-                itemDefinition.image,
+                itemDefinition.imagePath,
                 fit: BoxFit.fill,
                 height: 64,
               ),
@@ -108,12 +108,13 @@ class CraftingQueueWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final queueSize = ref.watch(craftingQueueProvider).length;
     return SizedBox(
       height: 120,
       child: Column(
         children: [
-          const Text(
-            'Crafting queue',
+          Text(
+            'Crafting queue (${queueSize})',
             style: textStyleTitle,
           ),
           Expanded(
@@ -136,7 +137,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
   Widget session(WidgetRef ref) {
     final session = ref.watch(craftingSessionProvider);
     if (session != null) {
-      final itemDefinition = session.recipe.output.definitionGet;
+      final itemDefinition = session.recipe.output.definition;
       return Container(
           color: Colors.green[100],
           width: 100,
@@ -156,7 +157,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
                       fit: StackFit.expand,
                       children: [
                         Image.asset(
-                          itemDefinition.image,
+                          itemDefinition.imagePath,
                           fit: BoxFit.fill,
                         ),
                         // Align(
@@ -212,7 +213,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
                   itemBuilder: (context, index) {
                     index++;
                     final item = items[index];
-                    final definition = item.output.definitionGet;
+                    final definition = item.output.definition;
                     return GestureDetector(
                       onTap: () {
                         ref
@@ -232,7 +233,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
                                   child: Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: Image.asset(
-                                      definition.image,
+                                      definition.imagePath,
                                       fit: BoxFit.fitWidth,
                                     ),
                                   ),

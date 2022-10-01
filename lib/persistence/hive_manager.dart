@@ -12,6 +12,8 @@ enum BoxKey {
   INVENTORY4,
   COMPLETED_QUESTS,
   CONSUMED_STORE_LISTINGS,
+  CRAFTING_SESSION2,
+  CRAFTING_QUEUE2,
   PLANETS,
 }
 
@@ -27,7 +29,7 @@ class HiveManager {
       T Function() defaultValue) {
     try {
       final data = box.get(key.name);
-      if (data == null) return defaultValue();
+      if (data == null || data == 'null') return defaultValue();
       return fromJson(jsonDecode(data));
     } catch (e) {
       print('JSON PARSING FAILED');
@@ -53,6 +55,19 @@ class HiveManager {
       final data = box.get(key.name);
       if (data == null) return fromJson([]);
       return fromJson(jsonDecode(data));
+    } catch (e) {
+      print('JSON PARSING FAILED');
+      print(e);
+      rethrow;
+    }
+  }
+
+  static Iterable<T> getIterableOfType<T>(
+      BoxKey key, T Function(Map<String, dynamic> json) fromJson) {
+    try {
+      final data = box.get(key.name);
+      if (data == null) return <T>[];
+      return (jsonDecode(data) as List<dynamic>).map((e) => fromJson(e));
     } catch (e) {
       print('JSON PARSING FAILED');
       print(e);

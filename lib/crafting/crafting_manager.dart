@@ -4,13 +4,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/crafting/crafting_definitions.dart';
 import 'package:mining_game/game_management/game_clock.dart';
 import 'package:mining_game/item_management/inventory/inventoryv3.dart';
+import 'package:mining_game/persistence/hive_manager.dart';
 
 part 'crafting_manager.freezed.dart';
 
 part 'crafting_manager.g.dart';
 
-final craftingQueueProvider = StateProvider<BuiltList<CraftingRecipe>>(
-    (ref) => BuiltList<CraftingRecipe>());
+final craftingQueueProvider = StateProvider<BuiltList<CraftingRecipe>>((ref) =>
+    HiveManager.getIterableOfType(
+            BoxKey.CRAFTING_QUEUE2, CraftingRecipe.fromJson)
+        .toBuiltList());
 
 final craftingSessionProvider =
     StateNotifierProvider<CraftingSessionController, CraftingSession?>((ref) =>
@@ -35,18 +38,18 @@ class CraftingSessionController extends StateNotifier<CraftingSession?> {
 
   CraftingSessionController(
       this._gameClock, this._ref, this._inventoryStateProvider)
-      : super(null) {
-    _gameClock.schedulePeriodicAction(1, updateState);
+      : super(HiveManager.getData(
+            BoxKey.CRAFTING_SESSION2, CraftingSession.fromJson, () => null)) {
+    _gameClock.schedulePeriodicAction(1, _updateState);
   }
 
-  void updateState() {
+  void _updateState() {
     CraftingSession? finishSession() {
       final next = _popQueue();
       if (next == null) return null;
       return CraftingSession(recipe: next, remaining: next.craftingDuration);
     }
 
-    print('update');
     final session = state;
     if (session == null) {
       if (_queue.isNotEmpty) {
