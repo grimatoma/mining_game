@@ -32,7 +32,7 @@ class SaveSyncer {
 
   void save() {
     final inventory = _ref.read(inventoryProvider);
-    store(BoxKey.INVENTORY4, inventory);
+    store(BoxKey.INVENTORY, inventory);
 
     final features = _ref.read(activeFeaturesProvider);
     store(BoxKey.FEATURES, features.map((p0) => p0.name).toList());
@@ -55,9 +55,9 @@ class SaveSyncer {
     store(BoxKey.PLANETS, planets);
 
     final craftingQueue = _ref.read(craftingQueueProvider);
-    store(BoxKey.CRAFTING_QUEUE2, craftingQueue.toList(growable: false));
+    store(BoxKey.CRAFTING_QUEUE, craftingQueue.toList(growable: false));
     final craftingSession = _ref.read(craftingSessionProvider);
-    store(BoxKey.CRAFTING_SESSION2, craftingSession);
+    store(BoxKey.CRAFTING_SESSION, craftingSession);
   }
 
   void store(BoxKey key, dynamic item) {

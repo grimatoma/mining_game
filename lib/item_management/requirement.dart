@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 part 'requirement.freezed.dart';
 

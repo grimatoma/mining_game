@@ -9,15 +9,13 @@ enum BoxKey {
   miners,
   GARAGE,
   FEATURES,
-  INVENTORY4,
+  INVENTORY,
   COMPLETED_QUESTS,
   CONSUMED_STORE_LISTINGS,
-  CRAFTING_SESSION2,
-  CRAFTING_QUEUE2,
+  CRAFTING_SESSION,
+  CRAFTING_QUEUE,
   PLANETS,
 }
-
-const keyIncrement = '17';
 
 class HiveManager {
   static final openedBoxes = <BoxKey, Box>{};

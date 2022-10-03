@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 part 'inventoryv3.freezed.dart';
 
@@ -34,7 +34,7 @@ class Inventory with _$Inventory {
 
 class InventoryStateProvider extends StateNotifier<Inventory> {
   InventoryStateProvider()
-      : super(HiveManager.getData(BoxKey.INVENTORY4, Inventory.fromJson,
+      : super(HiveManager.getData(BoxKey.INVENTORY, Inventory.fromJson,
             () => const Inventory(1000, ItemContainer.getDefault)));
 
   void addItem(ItemDefinitionId id, [int count = 1]) {

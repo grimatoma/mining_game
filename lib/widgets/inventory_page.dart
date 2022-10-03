@@ -114,8 +114,8 @@ class ItemRenderWidget extends ConsumerWidget {
       borderRadius: BorderRadius.circular(10.0),
       child: GestureDetector(
         onTap: () {
-          context.push(
-              '/inventory/item/${itemDefinition.id.itemId}?heroSrc=$_heroTag');
+          context
+              .push('/inventory/item/${itemDefinition.id}?heroSrc=$_heroTag');
         },
         child: Container(
           color: Colors.white,

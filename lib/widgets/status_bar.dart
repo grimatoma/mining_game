@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_definition.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 class StatusBarWidget extends HookConsumerWidget {
   final ItemDefinitionId? dontNavigateForItemId;

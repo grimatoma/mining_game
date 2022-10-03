@@ -7,6 +7,7 @@ import 'package:mining_game/model_assets/doodad_models.dart';
 import 'package:mining_game/model_assets/item_models.dart';
 import 'package:mining_game/model_assets/quest_models.dart';
 import 'package:mining_game/quests/quest_definition.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 import 'item_definition.dart';
 

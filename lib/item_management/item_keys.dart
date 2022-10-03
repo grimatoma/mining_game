@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'item_definition.dart';
+import '../quests/townsfolk_definition.dart';
 
 class Items {
   static const ROCK = ItemDefinitionId('ROCK');

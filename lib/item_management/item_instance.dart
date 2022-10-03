@@ -99,8 +99,8 @@ class ItemRenderer extends StatelessWidget {
                   '/inventory/item/:itemId') {
                 context.pop();
               }
-              context.push(
-                  '/inventory/item/${definition.id.itemId}?heroSrc=$_heroTag');
+              context
+                  .push('/inventory/item/${definition.id}?heroSrc=$_heroTag');
             }
           : null,
       child: Row(children: [

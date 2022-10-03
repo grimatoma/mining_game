@@ -9,6 +9,7 @@ import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/widgets/status_bar.dart';
 
 import 'quest_providers.dart';
+import 'townsfolk_definition.dart';
 
 class QuestListPageWidget extends HookConsumerWidget {
   const QuestListPageWidget({

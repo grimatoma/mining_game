@@ -80,7 +80,6 @@ abstract class $CraftingRecipeCopyWith<$Res> {
       int craftingDuration});
 
   $ItemContainerCopyWith<$Res> get input;
-  $ItemDefinitionIdCopyWith<$Res> get output;
 }
 
 /// @nodoc
@@ -125,13 +124,6 @@ class _$CraftingRecipeCopyWithImpl<$Res>
       return _then(_value.copyWith(input: value));
     });
   }
-
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get output {
-    return $ItemDefinitionIdCopyWith<$Res>(_value.output, (value) {
-      return _then(_value.copyWith(output: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -149,8 +141,6 @@ abstract class _$$ItemCraftingRecipeCopyWith<$Res>
 
   @override
   $ItemContainerCopyWith<$Res> get input;
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get output;
 }
 
 /// @nodoc

@@ -114,7 +114,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
       child: Column(
         children: [
           Text(
-            'Crafting queue (${queueSize})',
+            'Crafting queue ($queueSize)',
             style: textStyleTitle,
           ),
           Expanded(

@@ -6,16 +6,6 @@ part of 'item_definition.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ItemDefinitionId _$$_ItemDefinitionIdFromJson(Map<String, dynamic> json) =>
-    _$_ItemDefinitionId(
-      json['itemId'] as String,
-    );
-
-Map<String, dynamic> _$$_ItemDefinitionIdToJson(_$_ItemDefinitionId instance) =>
-    <String, dynamic>{
-      'itemId': instance.itemId,
-    };
-
 _$ResourceDefinition _$$ResourceDefinitionFromJson(Map<String, dynamic> json) =>
     _$ResourceDefinition(
       id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),

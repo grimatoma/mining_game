@@ -155,8 +155,6 @@ abstract class $ItemProbabilityCopyWith<$Res> {
           ItemProbability value, $Res Function(ItemProbability) then) =
       _$ItemProbabilityCopyWithImpl<$Res>;
   $Res call({ItemDefinitionId id, int weight, int min, int max});
-
-  $ItemDefinitionIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -194,13 +192,6 @@ class _$ItemProbabilityCopyWithImpl<$Res>
               as int,
     ));
   }
-
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get id {
-    return $ItemDefinitionIdCopyWith<$Res>(_value.id, (value) {
-      return _then(_value.copyWith(id: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -211,9 +202,6 @@ abstract class _$$_ItemProbabilityCopyWith<$Res>
       __$$_ItemProbabilityCopyWithImpl<$Res>;
   @override
   $Res call({ItemDefinitionId id, int weight, int min, int max});
-
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get id;
 }
 
 /// @nodoc

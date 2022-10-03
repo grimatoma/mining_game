@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/features.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/requirement.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 part 'shop_listing_definitions.freezed.dart';
 

@@ -166,7 +166,6 @@ abstract class _$$ItemShopListingCopyWith<$Res>
 
   @override
   $ItemContainerCopyWith<$Res> get cost;
-  $ItemDefinitionIdCopyWith<$Res> get item;
 }
 
 /// @nodoc
@@ -210,13 +209,6 @@ class __$$ItemShopListingCopyWithImpl<$Res>
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
     ));
-  }
-
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get item {
-    return $ItemDefinitionIdCopyWith<$Res>(_value.item, (value) {
-      return _then(_value.copyWith(item: value));
-    });
   }
 }
 

@@ -14,136 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ItemDefinitionId _$ItemDefinitionIdFromJson(Map<String, dynamic> json) {
-  return _ItemDefinitionId.fromJson(json);
-}
-
-/// @nodoc
-mixin _$ItemDefinitionId {
-  String get itemId => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $ItemDefinitionIdCopyWith<ItemDefinitionId> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $ItemDefinitionIdCopyWith<$Res> {
-  factory $ItemDefinitionIdCopyWith(
-          ItemDefinitionId value, $Res Function(ItemDefinitionId) then) =
-      _$ItemDefinitionIdCopyWithImpl<$Res>;
-  $Res call({String itemId});
-}
-
-/// @nodoc
-class _$ItemDefinitionIdCopyWithImpl<$Res>
-    implements $ItemDefinitionIdCopyWith<$Res> {
-  _$ItemDefinitionIdCopyWithImpl(this._value, this._then);
-
-  final ItemDefinitionId _value;
-  // ignore: unused_field
-  final $Res Function(ItemDefinitionId) _then;
-
-  @override
-  $Res call({
-    Object? itemId = freezed,
-  }) {
-    return _then(_value.copyWith(
-      itemId: itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-abstract class _$$_ItemDefinitionIdCopyWith<$Res>
-    implements $ItemDefinitionIdCopyWith<$Res> {
-  factory _$$_ItemDefinitionIdCopyWith(
-          _$_ItemDefinitionId value, $Res Function(_$_ItemDefinitionId) then) =
-      __$$_ItemDefinitionIdCopyWithImpl<$Res>;
-  @override
-  $Res call({String itemId});
-}
-
-/// @nodoc
-class __$$_ItemDefinitionIdCopyWithImpl<$Res>
-    extends _$ItemDefinitionIdCopyWithImpl<$Res>
-    implements _$$_ItemDefinitionIdCopyWith<$Res> {
-  __$$_ItemDefinitionIdCopyWithImpl(
-      _$_ItemDefinitionId _value, $Res Function(_$_ItemDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$_ItemDefinitionId));
-
-  @override
-  _$_ItemDefinitionId get _value => super._value as _$_ItemDefinitionId;
-
-  @override
-  $Res call({
-    Object? itemId = freezed,
-  }) {
-    return _then(_$_ItemDefinitionId(
-      itemId == freezed
-          ? _value.itemId
-          : itemId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$_ItemDefinitionId extends _ItemDefinitionId {
-  const _$_ItemDefinitionId(this.itemId) : super._();
-
-  factory _$_ItemDefinitionId.fromJson(Map<String, dynamic> json) =>
-      _$$_ItemDefinitionIdFromJson(json);
-
-  @override
-  final String itemId;
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_ItemDefinitionId &&
-            const DeepCollectionEquality().equals(other.itemId, itemId));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(itemId));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_ItemDefinitionIdCopyWith<_$_ItemDefinitionId> get copyWith =>
-      __$$_ItemDefinitionIdCopyWithImpl<_$_ItemDefinitionId>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$_ItemDefinitionIdToJson(
-      this,
-    );
-  }
-}
-
-abstract class _ItemDefinitionId extends ItemDefinitionId {
-  const factory _ItemDefinitionId(final String itemId) = _$_ItemDefinitionId;
-  const _ItemDefinitionId._() : super._();
-
-  factory _ItemDefinitionId.fromJson(Map<String, dynamic> json) =
-      _$_ItemDefinitionId.fromJson;
-
-  @override
-  String get itemId;
-  @override
-  @JsonKey(ignore: true)
-  _$$_ItemDefinitionIdCopyWith<_$_ItemDefinitionId> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
 ItemDefinition _$ItemDefinitionFromJson(Map<String, dynamic> json) {
   switch (json['runtimeType']) {
     case 'resourceDefinition':
@@ -318,7 +188,6 @@ abstract class $ItemDefinitionCopyWith<$Res> {
       String description,
       ImageDefinition image});
 
-  $ItemDefinitionIdCopyWith<$Res> get id;
   $ImageDefinitionCopyWith<$Res> get image;
 }
 
@@ -359,13 +228,6 @@ class _$ItemDefinitionCopyWithImpl<$Res>
   }
 
   @override
-  $ItemDefinitionIdCopyWith<$Res> get id {
-    return $ItemDefinitionIdCopyWith<$Res>(_value.id, (value) {
-      return _then(_value.copyWith(id: value));
-    });
-  }
-
-  @override
   $ImageDefinitionCopyWith<$Res> get image {
     return $ImageDefinitionCopyWith<$Res>(_value.image, (value) {
       return _then(_value.copyWith(image: value));
@@ -379,7 +241,6 @@ abstract class _$$ResourceDefinitionCopyWith<$Res>
   factory _$$ResourceDefinitionCopyWith(_$ResourceDefinition value,
           $Res Function(_$ResourceDefinition) then) =
       __$$ResourceDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -391,11 +252,7 @@ abstract class _$$ResourceDefinitionCopyWith<$Res>
       ItemContainer? sellPrice});
 
   @override
-  $ItemDefinitionIdCopyWith<$Res> get id;
-
-  @override
   $ImageDefinitionCopyWith<$Res> get image;
-
   $ItemContainerCopyWith<$Res>? get sellPrice;
 }
 
@@ -719,7 +576,6 @@ abstract class ResourceDefinition extends ItemDefinition
       required final ImageDefinition image,
       required final int maxStackSize,
       final ItemContainer? sellPrice}) = _$ResourceDefinition;
-
   const ResourceDefinition._() : super._();
 
   factory ResourceDefinition.fromJson(Map<String, dynamic> json) =
@@ -727,22 +583,15 @@ abstract class ResourceDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id;
-
   @override
   String get name;
-
   String? get namePlural;
-
   @override
   String get description;
-
   @override
   ImageDefinition get image;
-
   int get maxStackSize;
-
   ItemContainer? get sellPrice;
-
   @override
   @JsonKey(ignore: true)
   _$$ResourceDefinitionCopyWith<_$ResourceDefinition> get copyWith =>
@@ -763,8 +612,6 @@ abstract class _$$DrillDefinitionCopyWith<$Res>
       ImageDefinition image,
       int damage});
 
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get id;
   @override
   $ImageDefinitionCopyWith<$Res> get image;
 }
@@ -1075,7 +922,6 @@ abstract class _$$SwordDefinitionCopyWith<$Res>
   factory _$$SwordDefinitionCopyWith(
           _$SwordDefinition value, $Res Function(_$SwordDefinition) then) =
       __$$SwordDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call(
       {ItemDefinitionId id,
@@ -1087,11 +933,7 @@ abstract class _$$SwordDefinitionCopyWith<$Res>
       ItemContainer? sellPrice});
 
   @override
-  $ItemDefinitionIdCopyWith<$Res> get id;
-
-  @override
   $ImageDefinitionCopyWith<$Res> get image;
-
   $ItemContainerCopyWith<$Res>? get sellPrice;
 }
 
@@ -1190,7 +1032,6 @@ class _$SwordDefinition extends SwordDefinition {
   @override
   final ImageDefinition image;
   final Map<WeaponAttributes, double> _attributes;
-
   @override
   Map<WeaponAttributes, double> get attributes {
     // ignore: implicit_dynamic_type
@@ -1421,7 +1262,6 @@ abstract class SwordDefinition extends ItemDefinition
       required final ImageDefinition image,
       required final Map<WeaponAttributes, double> attributes,
       final ItemContainer? sellPrice}) = _$SwordDefinition;
-
   const SwordDefinition._() : super._();
 
   factory SwordDefinition.fromJson(Map<String, dynamic> json) =
@@ -1429,22 +1269,15 @@ abstract class SwordDefinition extends ItemDefinition
 
   @override
   ItemDefinitionId get id;
-
   @override
   String get name;
-
   String? get namePlural;
-
   @override
   String get description;
-
   @override
   ImageDefinition get image;
-
   Map<WeaponAttributes, double> get attributes;
-
   ItemContainer? get sellPrice;
-
   @override
   @JsonKey(ignore: true)
   _$$SwordDefinitionCopyWith<_$SwordDefinition> get copyWith =>
@@ -1469,8 +1302,6 @@ abstract class _$$MinerDefinitionCopyWith<$Res>
       int fuelConsumption,
       ImageDefinition image});
 
-  @override
-  $ItemDefinitionIdCopyWith<$Res> get id;
   @override
   $ImageDefinitionCopyWith<$Res> get image;
 }

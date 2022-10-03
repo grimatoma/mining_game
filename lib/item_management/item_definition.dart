@@ -11,6 +11,7 @@ import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/main.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 part 'item_definition.freezed.dart';
 
@@ -20,27 +21,13 @@ part 'item_definition_attributes.dart';
 
 part 'item_instance.dart';
 
-@freezed
-class ItemDefinitionId with _$ItemDefinitionId {
-  const ItemDefinitionId._();
-
-  const factory ItemDefinitionId(String itemId) = _ItemDefinitionId;
-
-  @override
-  String toString() => itemId;
-
-  // DefT definition<DefT extends ItemDefinition>() =>
-  //     ItemDirectory.getItem(this) as DefT;
-
+extension ItemDefinitionIdActions on ItemDefinitionId {
   ItemDefinition get definition => ItemDirectory.getItem(this);
 
   String get itemName => definition.name;
 
   ItemContainer createSingleContainer([int quantity = 1]) =>
       ItemContainer.single(this, quantity);
-
-  factory ItemDefinitionId.fromJson(Map<String, dynamic> json) =>
-      _$ItemDefinitionIdFromJson(json);
 }
 
 @freezed

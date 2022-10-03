@@ -18,6 +18,7 @@ import 'package:mining_game/quests/quests_page.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'quests/quest_detail_widget.dart';
+import 'quests/townsfolk_definition.dart';
 import 'widgets/inventory_page.dart';
 import 'widgets/planet_page.dart';
 import 'widgets/store_page.dart';

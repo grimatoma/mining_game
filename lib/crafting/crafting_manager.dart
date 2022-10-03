@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/crafting/crafting_definitions.dart';
 import 'package:mining_game/game_management/game_clock.dart';
 import 'package:mining_game/item_management/inventory/inventoryv3.dart';
+import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
 
 part 'crafting_manager.freezed.dart';
@@ -12,7 +13,7 @@ part 'crafting_manager.g.dart';
 
 final craftingQueueProvider = StateProvider<BuiltList<CraftingRecipe>>((ref) =>
     HiveManager.getIterableOfType(
-            BoxKey.CRAFTING_QUEUE2, CraftingRecipe.fromJson)
+            BoxKey.CRAFTING_QUEUE, CraftingRecipe.fromJson)
         .toBuiltList());
 
 final craftingSessionProvider =
@@ -39,13 +40,21 @@ class CraftingSessionController extends StateNotifier<CraftingSession?> {
   CraftingSessionController(
       this._gameClock, this._ref, this._inventoryStateProvider)
       : super(HiveManager.getData(
-            BoxKey.CRAFTING_SESSION2, CraftingSession.fromJson, () => null)) {
+            BoxKey.CRAFTING_SESSION, CraftingSession.fromJson, () => null)) {
     _gameClock.schedulePeriodicAction(1, _updateState);
   }
 
   void _updateState() {
+    CraftingRecipe? popQueue() {
+      if (_queue.isEmpty) return null;
+      final updatedQueue = _queue.toList();
+      final popped = updatedQueue.removeAt(0);
+      _updateQueue(updatedQueue.build());
+      return popped;
+    }
+
     CraftingSession? finishSession() {
-      final next = _popQueue();
+      final next = popQueue();
       if (next == null) return null;
       return CraftingSession(recipe: next, remaining: next.craftingDuration);
     }
@@ -65,14 +74,6 @@ class CraftingSessionController extends StateNotifier<CraftingSession?> {
     } else {
       state = updatedSession;
     }
-  }
-
-  CraftingRecipe? _popQueue() {
-    if (_queue.isEmpty) return null;
-    final updatedQueue = _queue.toList();
-    final popped = updatedQueue.removeAt(0);
-    _updateQueue(updatedQueue.build());
-    return popped;
   }
 
   void enqueue(CraftingRecipe recipe) {
