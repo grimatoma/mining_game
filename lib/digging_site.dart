@@ -9,12 +9,12 @@ import 'package:mining_game/widgets/status_bar.dart';
 import 'item_management/item_keys.dart';
 import 'loot_table.dart';
 
-class DigEvent {
+class ResourceCollectEvent {
   final DateTime timestamp;
   final count = globalCount++;
   final ItemContainer items;
 
-  DigEvent(this.items, this.timestamp);
+  ResourceCollectEvent(this.items, this.timestamp);
 
   Widget get widget => Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -40,41 +40,104 @@ class DigEvent {
   static var globalCount = 1;
 }
 
-final digSiteLootTableProvider =
-    StateProvider<LootTable>((ref) => LootTable(const [
+// final digSiteLootTableProvider =
+// StateProvider<LootTable>((ref) =>
+//     LootTable(const [
+//       ItemProbability(Items.IRON_ORE, 5, max: 2),
+//       ItemProbability(Items.ROCK, 5),
+//       ItemProbability(Items.SMALL_ROCK, 5, max: 3),
+//       ItemProbability(Items.SHARP_ROCK, 5, max: 7),
+//       ItemProbability(Items.COPPER_ORE, 5),
+//     ]));
+//
+// final digDropManagerProvider = Provider<DigDropManager>(
+//         (ref) => DigDropManager(ref.watch(digSiteLootTableProvider)));
+//
+// class DigDropManager {
+//   final LootTable _lootTable;
+//
+//   DigDropManager(this._lootTable);
+//
+//   ResourceCollectEvent get digEvent =>
+//       ResourceCollectEvent(_lootTable.pullLoot, DateTime.now());
+// }
+//
+// final digEventsHistoryProvider = StateProvider<BuiltList<ResourceCollectEvent>>(
+//         (ref) => BuiltList<ResourceCollectEvent>());
+
+final digSiteManagerProvider =
+    Provider<ResourceGatheringManager>((ref) => ResourceGatheringManager(ref,
+        probabilities: const [
           ItemProbability(Items.IRON_ORE, 5, max: 2),
           ItemProbability(Items.ROCK, 5),
           ItemProbability(Items.SMALL_ROCK, 5, max: 3),
           ItemProbability(Items.SHARP_ROCK, 5, max: 7),
           ItemProbability(Items.COPPER_ORE, 5),
-        ]));
+        ],
+        title: 'Dig Site',
+        action: 'Dig'));
+final forestManagerProvider =
+    Provider<ResourceGatheringManager>((ref) => ResourceGatheringManager(ref,
+        probabilities: const [
+          ItemProbability(Items.WOOD, 15),
+          ItemProbability(Items.WOOD, 2, min: 2),
+        ],
+        title: 'Forest',
+        action: 'Cut'));
 
-final digDropManagerProvider = Provider<DigDropManager>(
-    (ref) => DigDropManager(ref.watch(digSiteLootTableProvider)));
+class ResourceGatheringManager {
+  final String title;
+  final String action;
+  final Ref _ref;
+  LootTable _lootTable;
 
-class DigDropManager {
-  final LootTable _lootTable;
+  final eventHistoryProvider = StateProvider<BuiltList<ResourceCollectEvent>>(
+      (ref) => BuiltList<ResourceCollectEvent>());
 
-  DigDropManager(this._lootTable);
+  ResourceGatheringManager(
+    this._ref, {
+    required List<ItemProbability> probabilities,
+    required this.title,
+    required this.action,
+  }) : _lootTable = LootTable(probabilities);
 
-  DigEvent get digEvent => DigEvent(_lootTable.pullLoot, DateTime.now());
+  set updateLootTable(LootTable newLootTable) => _lootTable = newLootTable;
+
+  ResourceCollectEvent get gather {
+    final newEvent = ResourceCollectEvent(_lootTable.pullLoot, DateTime.now());
+    _ref.read(eventHistoryProvider.notifier).state =
+        _ref.read(eventHistoryProvider).rebuild((p0) {
+      p0.add(newEvent);
+      if (p0.length > 100) {
+        p0.remove(p0.first);
+      }
+    });
+    _ref.read(inventoryProvider.notifier).addItems(newEvent.items);
+    return newEvent;
+  }
+
+  Widget get page => ResourceSite(title, action, this);
 }
 
-final digEventsHistoryProvider =
-    StateProvider<BuiltList<DigEvent>>((ref) => BuiltList<DigEvent>());
+class ResourceSite extends ConsumerWidget {
+  final String title;
+  final String action;
+  final ResourceGatheringManager manager;
 
-class DigSite extends ConsumerWidget {
-  const DigSite({
+  const ResourceSite(
+    this.title,
+    this.action,
+    this.manager, {
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final digEvents = ref.watch(digEventsHistoryProvider);
+    final eventHistory = ref.watch(manager.eventHistoryProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Dig Site'),
+        title: Text(title),
       ),
       body: Column(
         children: [
@@ -84,30 +147,19 @@ class DigSite extends ConsumerWidget {
             child: Center(
               child: TextButton(
                   onPressed: () {
-                    final digEventsState =
-                        ref.read(digEventsHistoryProvider.state);
-                    final digEvent = ref.read(digDropManagerProvider).digEvent;
-                    digEventsState.state = digEventsState.state.rebuild((p0) {
-                      p0.add(digEvent);
-                      if (p0.length > 100) {
-                        p0.remove(p0.first);
-                      }
-                    });
-                    ref
-                        .read(inventoryProvider.notifier)
-                        .addItems(digEvent.items);
+                    manager.gather;
                   },
-                  child: const Text('Dig', style: TextStyle(fontSize: 64))),
+                  child: Text(action, style: const TextStyle(fontSize: 64))),
             ),
           ),
-          const Center(
-            child: Text('Dig History'),
+          Center(
+            child: Text('$action History'),
           ),
           Expanded(
             child: ListView.separated(
               itemBuilder: (_, index) =>
-                  digEvents[digEvents.length - index - 1].widget,
-              itemCount: digEvents.length,
+                  eventHistory[eventHistory.length - index - 1].widget,
+              itemCount: eventHistory.length,
               separatorBuilder: (_, __) => const Divider(),
             ),
           ),

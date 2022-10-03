@@ -21,7 +21,7 @@ class PlanetPageWidget extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Quests'),
+        title: const Text('Planet'),
       ),
       body: Column(
         children: [

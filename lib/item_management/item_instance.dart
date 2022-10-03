@@ -72,29 +72,43 @@ class ItemRenderer extends StatelessWidget {
   final String? suffixText;
   final bool showItemName;
   final bool linkedToDetailPage;
+  final bool hasItemHero;
+  late final _heroTag = Random().nextInt(99999999).toString();
 
-  const ItemRenderer(
+  ItemRenderer(
       {Key? key,
       required this.definition,
       required this.count,
       this.suffixText = '',
       this.showItemName = false,
-      this.linkedToDetailPage = true})
+      this.linkedToDetailPage = true,
+      this.hasItemHero = true})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final heroContent = Image.asset(
+      definition.imagePath,
+      width: 24,
+    );
     return GestureDetector(
       onTap: linkedToDetailPage
           ? () {
-              context.push('/inventory/item/${definition.id.itemId}');
+              if (ModalRoute.of(context)?.settings.name ==
+                  '/inventory/item/:itemId') {
+                context.pop();
+              }
+              context.push(
+                  '/inventory/item/${definition.id.itemId}?heroSrc=$_heroTag');
             }
           : null,
       child: Row(children: [
-        Image.asset(
-          definition.imagePath,
-          width: 24,
-        ),
+        if (hasItemHero)
+          Hero(
+            tag: _heroTag,
+            child: heroContent,
+          ),
+        if (!hasItemHero) heroContent,
         AutoSizeText(
             ' $count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
       ]),

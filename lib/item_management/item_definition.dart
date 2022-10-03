@@ -36,7 +36,7 @@ class ItemDefinitionId with _$ItemDefinitionId {
 
   String get itemName => definition.name;
 
-  ItemContainer createSingleContainer([quantity = 1]) =>
+  ItemContainer createSingleContainer([int quantity = 1]) =>
       ItemContainer.single(this, quantity);
 
   factory ItemDefinitionId.fromJson(Map<String, dynamic> json) =>
@@ -51,6 +51,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
   @Implements<Stackable>()
   @Implements<ShowInWallet>()
   @Implements<CanHavePluralName>()
+  @Implements<CanSell>()
   const factory ItemDefinition.resourceDefinition({
     required ItemDefinitionId id,
     required String name,
@@ -58,6 +59,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String description,
     required ImageDefinition image,
     required int maxStackSize,
+    ItemContainer? sellPrice,
   }) = ResourceDefinition;
 
   const factory ItemDefinition.drillDefinition({
@@ -69,6 +71,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
   }) = DrillDefinition;
 
   @Implements<CanHavePluralName>()
+  @Implements<CanSell>()
   const factory ItemDefinition.swordDefinition({
     required ItemDefinitionId id,
     required String name,
@@ -76,6 +79,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String description,
     required ImageDefinition image,
     required Map<WeaponAttributes, double> attributes,
+    ItemContainer? sellPrice,
   }) = SwordDefinition;
 
   const factory ItemDefinition.minerDefinition({
@@ -104,6 +108,9 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
       sprite: spriteSheets[imagePath]!.getSprite(image.row!, image.column!),
     );
   }
+
+  ItemContainer createSingleContainer([int quantity = 1]) =>
+      id.createSingleContainer(quantity);
 
   factory ItemDefinition.fromJson(Map<String, dynamic> json) =>
       _$ItemDefinitionFromJson(json);

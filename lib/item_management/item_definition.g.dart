@@ -24,6 +24,9 @@ _$ResourceDefinition _$$ResourceDefinitionFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String,
       image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
       maxStackSize: json['maxStackSize'] as int,
+      sellPrice: json['sellPrice'] == null
+          ? null
+          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
@@ -36,6 +39,7 @@ Map<String, dynamic> _$$ResourceDefinitionToJson(
       'description': instance.description,
       'image': instance.image.toJson(),
       'maxStackSize': instance.maxStackSize,
+      'sellPrice': instance.sellPrice?.toJson(),
       'runtimeType': instance.$type,
     };
 
@@ -70,6 +74,9 @@ _$SwordDefinition _$$SwordDefinitionFromJson(Map<String, dynamic> json) =>
         (k, e) => MapEntry(
             $enumDecode(_$WeaponAttributesEnumMap, k), (e as num).toDouble()),
       ),
+      sellPrice: json['sellPrice'] == null
+          ? null
+          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
@@ -82,6 +89,7 @@ Map<String, dynamic> _$$SwordDefinitionToJson(_$SwordDefinition instance) =>
       'image': instance.image.toJson(),
       'attributes': instance.attributes
           .map((k, e) => MapEntry(_$WeaponAttributesEnumMap[k]!, e)),
+      'sellPrice': instance.sellPrice?.toJson(),
       'runtimeType': instance.$type,
     };
 

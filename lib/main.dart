@@ -209,7 +209,15 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
       label: 'Digging Site',
       path: 'dig_site',
       icon: Icons.golf_course,
-      goRouterWidgetBuilder: (context, _) => const DigSite(),
+      goRouterWidgetBuilder: (context, _) =>
+          ref.watch(digSiteManagerProvider).page,
+    ),
+    RootRoute(
+      label: 'Forest',
+      path: 'forest',
+      icon: Icons.forest,
+      goRouterWidgetBuilder: (context, _) =>
+          ref.watch(forestManagerProvider).page,
     ),
     RootRoute(
       label: 'Planet',
@@ -230,11 +238,18 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
       goRouterWidgetBuilder: (context, _) => const InventoryPageWidget(),
       routes: [
         GoRoute(
-            path: 'item/:itemId',
-            builder: (context, state) {
-              return ItemDetailPageWidget(
-                  ItemDefinitionId(state.params['itemId']!).definition);
-            })
+          path: 'item/:itemId',
+          builder: (context, state) => ItemDetailPageWidget(
+              ItemDefinitionId(state.params['itemId']!).definition,
+              heroTag: state.queryParams['heroSrc']),
+          // // pageBuilder: (context, state) => NoTransitionPage<void>(
+          // //   key: state.pageKey,
+          // //   child: ItemDetailPageWidget(
+          // //     ItemDefinitionId(state.params['itemId']!).definition,
+          // //     source: state.queryParams['heroSrc'],
+          // //   ),
+          // ),
+        )
       ],
     ),
 
@@ -282,3 +297,19 @@ final goRouterProvider = StateProvider<GoRouter>((ref) {
       ),
   ]);
 });
+
+class SlideRightToLeftTransition extends CustomTransitionPage {
+  SlideRightToLeftTransition({required super.key, required super.child})
+      : super(transitionsBuilder: (BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1.0, 0.0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          );
+        });
+}

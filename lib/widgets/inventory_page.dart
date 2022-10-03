@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -24,7 +26,7 @@ class InventoryPageWidget extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Quests'),
+        title: const Text('Inventory'),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.max,
@@ -100,8 +102,9 @@ class InventoryPageWidget extends HookConsumerWidget {
 class ItemRenderWidget extends ConsumerWidget {
   final ItemDefinition itemDefinition;
   final int quantity;
+  late final _heroTag = Random().nextInt(9999999).toString();
 
-  const ItemRenderWidget(
+  ItemRenderWidget(
       {required this.itemDefinition, required this.quantity, Key? key})
       : super(key: key);
 
@@ -111,7 +114,8 @@ class ItemRenderWidget extends ConsumerWidget {
       borderRadius: BorderRadius.circular(10.0),
       child: GestureDetector(
         onTap: () {
-          context.push('/inventory/item/${itemDefinition.id.itemId}');
+          context.push(
+              '/inventory/item/${itemDefinition.id.itemId}?heroSrc=$_heroTag');
         },
         child: Container(
           color: Colors.white,
@@ -125,7 +129,10 @@ class ItemRenderWidget extends ConsumerWidget {
                     child: SizedBox.expand(
                       child: FittedBox(
                         fit: BoxFit.fill,
-                        child: itemDefinition.imageWidget,
+                        child: Hero(
+                          tag: _heroTag,
+                          child: itemDefinition.imageWidget,
+                        ),
                       ),
                     ),
                   ),

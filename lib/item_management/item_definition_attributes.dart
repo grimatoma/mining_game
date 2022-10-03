@@ -18,6 +18,11 @@ abstract class HideInInventory {}
 
 abstract class Resource {}
 
+/// An item is not sellable if it does not have a price.
+abstract class CanSell {
+  ItemContainer? get sellPrice;
+}
+
 abstract class CanHavePluralName {
   String? get namePlural;
 }

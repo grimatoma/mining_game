@@ -25,7 +25,7 @@ class CraftingPageWidget extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Quests'),
+        title: const Text('Crafting'),
       ),
       body: Column(
         children: [

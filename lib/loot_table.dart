@@ -27,7 +27,7 @@ class LootTable with _$LootTable {
       if (roll <= 0) {
         var count = item.min;
         if (item.max - item.min > 0) {
-          count += _random.nextInt(item.max - item.min);
+          count += _random.nextInt(item.max + 1 - item.min);
         }
         return ItemContainer.single(item.id, count);
       }
