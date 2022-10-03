@@ -56,6 +56,7 @@ class RequirementRenderer extends ConsumerWidget {
       definition: definition,
       count: entry.value,
       suffixText: missing == 0 ? '' : '($missing)',
+      linkedToDetailPage: false,
     );
     return missing > 0
         ? Container(
