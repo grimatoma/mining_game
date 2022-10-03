@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 
 import 'package:built_collection/built_collection.dart';
-import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -30,12 +29,12 @@ void main() async {
 
   await HiveManager.init();
 
-  final image = await Flame.images.load('all/resources_sprite_page.png');
+  // final image = await Flame.images.load('all/resources_sprite_page.png');
 
-  spriteSheets = {
-    'all/resources_sprite_page.png':
-        SpriteSheet.fromColumnsAndRows(image: image, columns: 11, rows: 11)
-  };
+  // spriteSheets = {
+  //   'all/resources_sprite_page.png':
+  //       SpriteSheet.fromColumnsAndRows(image: image, columns: 11, rows: 11)
+  // };
 
   if (!kIsWeb) {
     if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
@@ -57,7 +56,7 @@ void main() async {
     }
   }
 
-  runApp(const ProviderScope(child: MaterialApp(home: MiningGameWidget())));
+  runApp(const ProviderScope(child: MiningGameWidget()));
 }
 
 final navIndexProvider = StateProvider<int>((ref) => 0);
@@ -99,6 +98,24 @@ class MiningGameWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(gameCoreProvider);
     final router = ref.watch(goRouterProvider);
+
+    return MaterialApp.router(
+      routeInformationProvider: router.routeInformationProvider,
+      routeInformationParser: router.routeInformationParser,
+      routerDelegate: router.routerDelegate,
+      title: 'Lets mine',
+    );
+  }
+}
+
+class GameUiShellWidget extends HookConsumerWidget {
+  final Widget child;
+
+  const GameUiShellWidget({Key? key, required this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(gameCoreProvider);
     final smallScreen = MediaQuery.of(context).size.width <= smallScreenMaxSize;
 
     return Scaffold(
@@ -139,12 +156,7 @@ class MiningGameWidget extends HookConsumerWidget {
             children: [
               // const StatusBarWidget(),
               Expanded(
-                child: MaterialApp.router(
-                  routeInformationProvider: router.routeInformationProvider,
-                  routeInformationParser: router.routeInformationParser,
-                  routerDelegate: router.routerDelegate,
-                  title: 'Lets mine',
-                ),
+                child: child,
               ),
             ],
           ),
@@ -279,23 +291,37 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
   ].build();
 });
 
+final GlobalKey<NavigatorState> _rootNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'root');
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell');
 final goRouterProvider = StateProvider<GoRouter>((ref) {
-  return GoRouter(initialLocation: '/', routes: [
-    GoRoute(
-      path: '/',
-      redirect: (_, __) => '/dig_site',
-    ),
-    for (final route in ref.watch(mainNavigationPagesProvider))
-      GoRoute(
-        path: '/${route.path}',
-        builder: route.goRouterWidgetBuilder,
-        pageBuilder: (context, state) => NoTransitionPage<void>(
-          key: state.pageKey,
-          child: route.goRouterWidgetBuilder(context, state),
-        ),
-        routes: route.routes,
-      ),
-  ]);
+  return GoRouter(
+      navigatorKey: _rootNavigatorKey,
+      initialLocation: '/dig_site',
+      routes: [
+        ShellRoute(
+            navigatorKey: _shellNavigatorKey,
+            builder: (BuildContext context, GoRouterState state, Widget child) {
+              return GameUiShellWidget(child: child);
+            },
+            routes: [
+              GoRoute(
+                path: '/',
+                redirect: (_, __) => '/dig_site',
+              ),
+              for (final route in ref.watch(mainNavigationPagesProvider))
+                GoRoute(
+                  path: '/${route.path}',
+                  builder: route.goRouterWidgetBuilder,
+                  pageBuilder: (context, state) => NoTransitionPage<void>(
+                    key: state.pageKey,
+                    child: route.goRouterWidgetBuilder(context, state),
+                  ),
+                  routes: route.routes,
+                ),
+            ]),
+      ]);
 });
 
 class SlideRightToLeftTransition extends CustomTransitionPage {

@@ -26,7 +26,6 @@ class _ItemDetailPageWidgetState extends ConsumerState<ItemDetailPageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.heroTag);
     final ownedCount = ref.watch(inventoryProvider).items[itemId];
     return Scaffold(
       appBar: AppBar(
