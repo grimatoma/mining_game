@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/quests/townsfolk_definition.dart';
@@ -15,14 +14,14 @@ abstract class ShopListingInterface {
 @freezed
 class ShopListing with _$ShopListing implements ShopListingInterface {
   // const factory ShopListing.singleItemListing({
-  //   required int id,
+  //   required ShopListingDefinitionId id,
   //   required ItemContainer2 cost,
   //   required ItemDefinitionId item,
   //   @Default(true) bool consumable,
   // }) = SingleItemShopListing;
 
   const factory ShopListing.itemListing({
-    required int id,
+    required ShopListingDefinitionId id,
     required ItemContainer cost,
     required ItemDefinitionId item,
     @Default(true) bool consumable,
@@ -30,15 +29,15 @@ class ShopListing with _$ShopListing implements ShopListingInterface {
   }) = ItemShopListing;
 
   const factory ShopListing.doodadListing({
-    required int id,
+    required ShopListingDefinitionId id,
     required ItemContainer cost,
-    required DoodadId doodadId,
+    required DoodadDefinitionId doodadId,
     Set<Feature>? requiredFeatures,
     @Default(true) bool consumable,
   }) = DoodadShopListing;
 
   const factory ShopListing.featureListing({
-    required int id,
+    required ShopListingDefinitionId id,
     required ItemContainer cost,
     required Feature feature,
     Set<Feature>? requiredFeatures,

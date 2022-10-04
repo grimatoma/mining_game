@@ -11,6 +11,7 @@ import 'package:mining_game/item_management/store/shop_listing_definitions.dart'
 import 'package:mining_game/item_management/store/store.dart';
 import 'package:mining_game/planet/planet_manager.dart';
 import 'package:mining_game/planet/widgets/planet_map_renderer_widget3.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 import 'package:mining_game/widgets/status_bar.dart';
 
 class PlanetPageWidget extends HookConsumerWidget {

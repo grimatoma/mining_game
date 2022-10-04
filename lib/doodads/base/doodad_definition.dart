@@ -3,13 +3,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/planet/planet_manager.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 import '../doodad_types/area_harvestable_doodad.dart';
 import '../doodad_types/digger_doodad.dart';
 import '../doodad_types/house_doodad.dart';
 import '../doodad_types/material_processor_doodad.dart';
 import '../doodad_types/tree_doodad.dart';
-import 'doodad_id.dart';
 import 'doodad_interface_and_instance.dart';
 
 part 'doodad_definition.freezed.dart';
@@ -46,7 +46,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
 
   @Implements<DiggerDoodadInterface>()
   const factory DoodadDefinition.digger({
-    required DoodadId id,
+    required DoodadDefinitionId id,
     required String name,
     required String description,
     required String imageAsset,
@@ -60,7 +60,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
 
   // @Implements<TickableDoodadInterface>()
   // const factory DoodadDefinition.harvestable({
-  //   required DoodadId id,
+  //   required DoodadDefinitionId id,
   //   required String name,
   //   required String description,
   //   required String imageAsset,
@@ -72,7 +72,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
 
   @Implements<RegenerativeHarvestableDoodadInterface>()
   const factory DoodadDefinition.regenerativeHarvestable({
-    required DoodadId id,
+    required DoodadDefinitionId id,
     required String name,
     required String description,
     required String imageAsset,
@@ -91,7 +91,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
 
   @Implements<AreaHarvestableDoodadInterface>()
   const factory DoodadDefinition.areaHarvestable({
-    required DoodadId id,
+    required DoodadDefinitionId id,
     required String name,
     required String description,
     required String imageAsset,
@@ -105,7 +105,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
 
   @Implements<MaterialProcessorDoodadInterface>()
   const factory DoodadDefinition.materialProcessor({
-    required DoodadId id,
+    required DoodadDefinitionId id,
     required String name,
     required String description,
     required String imageAsset,
@@ -120,7 +120,7 @@ class DoodadDefinition with _$DoodadDefinition implements DoodadInterface {
 
   @Implements<HouseDoodadInterface>()
   const factory DoodadDefinition.house({
-    required DoodadId id,
+    required DoodadDefinitionId id,
     required String name,
     required String description,
     required String imageAsset,

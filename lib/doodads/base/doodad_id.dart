@@ -1,29 +1,16 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/item_management/item_directory.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
-import 'doodad_definition.dart';
-
-part 'doodad_id.freezed.dart';
-
-part 'doodad_id.g.dart';
-
-@freezed
-class DoodadId with _$DoodadId {
-  const DoodadId._();
-
-  const factory DoodadId(String id) = _DoodadId;
-
-  static const DoodadId ironDigger = DoodadId('IRON_DIGGER');
-  static const DoodadId tree = DoodadId('TREE');
-  static const DoodadId treeCutterHut = DoodadId('TREE_CUTTER_HUT');
-  static const DoodadId sawMill = DoodadId('SAW_MILL');
-  static const DoodadId ironSmelter = DoodadId('IRON_SMELTER');
-  static const DoodadId rawFish = DoodadId('RAW_FISH');
-  static const DoodadId houseLevel1 = DoodadId('HOUSE_LEVEL_1');
-  static const DoodadId fisherman = DoodadId('FISHERMAN');
-
-  DoodadDefinition get definition => ItemDirectory.doodadDefinitions[this]!;
-
-  factory DoodadId.fromJson(Map<String, dynamic> json) =>
-      _$DoodadIdFromJson(json);
+class DoodadId {
+  static const DoodadDefinitionId ironDigger =
+      DoodadDefinitionId('IRON_DIGGER');
+  static const DoodadDefinitionId tree = DoodadDefinitionId('TREE');
+  static const DoodadDefinitionId treeCutterHut =
+      DoodadDefinitionId('TREE_CUTTER_HUT');
+  static const DoodadDefinitionId sawMill = DoodadDefinitionId('SAW_MILL');
+  static const DoodadDefinitionId ironSmelter =
+      DoodadDefinitionId('IRON_SMELTER');
+  static const DoodadDefinitionId rawFish = DoodadDefinitionId('RAW_FISH');
+  static const DoodadDefinitionId houseLevel1 =
+      DoodadDefinitionId('HOUSE_LEVEL_1');
+  static const DoodadDefinitionId fisherman = DoodadDefinitionId('FISHERMAN');
 }

@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/item_management/inventory/inventoryv3.dart';
 import 'package:mining_game/model_assets/store_listing_models.dart';
 import 'package:mining_game/persistence/hive_manager.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 import 'shop_listing_definitions.dart';
 
@@ -22,13 +23,13 @@ final storePlanetBuyMenuControllerProvider = StateNotifierProvider<
 
 class StoreListings<ListingTypeT extends ShopListing> {
   final BuiltList<ListingTypeT> listings;
-  final BuiltSet<int> consumedListing;
+  final BuiltSet<ShopListingDefinitionId> consumedListing;
 
   StoreListings(this.listings, this.consumedListing);
 
   StoreListings<ListingTypeT> rebuild(
           Function(ListBuilder<ShopListing>) updates,
-          Function(SetBuilder<int>) setUpdates) =>
+          Function(SetBuilder<ShopListingDefinitionId>) setUpdates) =>
       StoreListings(
           listings.rebuild(updates), consumedListing.rebuild(setUpdates));
 }
@@ -42,15 +43,17 @@ class StoreController<ListingTypeT extends ShopListing>
     this._inventory,
     this.shop,
   ) : super(StoreListings(BuiltList(), BuiltSet())) {
-    final BuiltSet<int> consumed = HiveManager.getData(
+    final BuiltSet<ShopListingDefinitionId> consumed = HiveManager.getData(
         BoxKey.CONSUMED_STORE_LISTINGS, (Map<String, dynamic> json) {
-      final fromJsonConsumed = json[shop.name];
-      if (fromJsonConsumed != null) {
-        return intSetFromJson(fromJsonConsumed);
+      final fromJsonConsumed = json[shop.name] as List<dynamic>?;
+      if (fromJsonConsumed != null && fromJsonConsumed.isNotEmpty) {
+        return fromJsonConsumed
+            .map((e) => ShopListingDefinitionId.fromJson(e))
+            .toBuiltSet();
       } else {
-        return <int>{}.build();
+        return <ShopListingDefinitionId>{}.build();
       }
-    }, () => <int>{}.build());
+    }, () => <ShopListingDefinitionId>{}.build());
     state = StoreListings<ListingTypeT>(
         getShopListings(shop)
             .where((element) => !consumed.contains(element.id))

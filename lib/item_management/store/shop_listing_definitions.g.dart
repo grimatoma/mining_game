@@ -8,7 +8,7 @@ part of 'shop_listing_definitions.dart';
 
 _$ItemShopListing _$$ItemShopListingFromJson(Map<String, dynamic> json) =>
     _$ItemShopListing(
-      id: json['id'] as int,
+      id: ShopListingDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       cost: ItemContainer.fromJson(json['cost'] as Map<String, dynamic>),
       item: ItemDefinitionId.fromJson(json['item'] as Map<String, dynamic>),
       consumable: json['consumable'] as bool? ?? true,
@@ -18,7 +18,7 @@ _$ItemShopListing _$$ItemShopListingFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ItemShopListingToJson(_$ItemShopListing instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': instance.id.toJson(),
       'cost': instance.cost.toJson(),
       'item': instance.item.toJson(),
       'consumable': instance.consumable,
@@ -28,9 +28,10 @@ Map<String, dynamic> _$$ItemShopListingToJson(_$ItemShopListing instance) =>
 
 _$DoodadShopListing _$$DoodadShopListingFromJson(Map<String, dynamic> json) =>
     _$DoodadShopListing(
-      id: json['id'] as int,
+      id: ShopListingDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       cost: ItemContainer.fromJson(json['cost'] as Map<String, dynamic>),
-      doodadId: DoodadId.fromJson(json['doodadId'] as Map<String, dynamic>),
+      doodadId:
+          DoodadDefinitionId.fromJson(json['doodadId'] as Map<String, dynamic>),
       requiredFeatures: (json['requiredFeatures'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$FeatureEnumMap, e))
           .toSet(),
@@ -40,7 +41,7 @@ _$DoodadShopListing _$$DoodadShopListingFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$DoodadShopListingToJson(_$DoodadShopListing instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': instance.id.toJson(),
       'cost': instance.cost.toJson(),
       'doodadId': instance.doodadId.toJson(),
       'requiredFeatures':
@@ -55,7 +56,7 @@ const _$FeatureEnumMap = {
 
 _$FeatureShopListing _$$FeatureShopListingFromJson(Map<String, dynamic> json) =>
     _$FeatureShopListing(
-      id: json['id'] as int,
+      id: ShopListingDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       cost: ItemContainer.fromJson(json['cost'] as Map<String, dynamic>),
       feature: $enumDecode(_$FeatureEnumMap, json['feature']),
       requiredFeatures: (json['requiredFeatures'] as List<dynamic>?)
@@ -68,7 +69,7 @@ _$FeatureShopListing _$$FeatureShopListingFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$FeatureShopListingToJson(
         _$FeatureShopListing instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': instance.id.toJson(),
       'cost': instance.cost.toJson(),
       'feature': _$FeatureEnumMap[instance.feature]!,
       'requiredFeatures':

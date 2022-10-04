@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/requirement.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 part 'quest_definition.freezed.dart';
 
@@ -18,9 +19,10 @@ class QuestReward with _$QuestReward {
 @freezed
 class QuestDefinition with _$QuestDefinition {
   const factory QuestDefinition(
-      {required int id,
+      {required QuestDefinitionId id,
       required String name,
       required String description,
+      TownsfolkDefinitionId? questGiver,
       //TODO: This should be changed to look at the achievement metrics instead so it can always stay on.
       required Requirement enabledRequirement,
       required Requirement completeRequirement,

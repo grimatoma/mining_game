@@ -2,14 +2,14 @@ import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:mining_game/planet/planet_manager.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 import 'doodad_definition.dart';
-import 'doodad_id.dart';
 
 abstract class DoodadInterface {
   const DoodadInterface();
 
-  DoodadId get id;
+  DoodadDefinitionId get id;
 
   String get imageAsset;
 
@@ -65,7 +65,7 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
   DefinitionT get definition => pack.definition;
 
   @JsonKey(name: doodadDefintionIdField)
-  DoodadId get doodadId => definition.id;
+  DoodadDefinitionId get doodadId => definition.id;
 
   @protected
   void Function() get notifyListeners => pack.notifyListeners;
@@ -87,7 +87,7 @@ abstract class DoodadInstance<DefinitionT extends DoodadInterface>
   String get name => definition.name;
 
   @override
-  DoodadId get id => definition.id;
+  DoodadDefinitionId get id => definition.id;
 
   @override
   String get storeImageAsset => definition.storeImageAsset;

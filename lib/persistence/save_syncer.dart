@@ -15,12 +15,15 @@ final saveProvider = Provider((ref) => SaveSyncer(ref));
 
 class SaveSyncer {
   final Ref _ref;
-  static const coreBox = 'coreBox2';
+  static const coreBox = 'coreBox3';
   final Box<String> core;
 
   SaveSyncer(this._ref) : core = Hive.box(coreBox);
 
   Future<void> init() async {
+    // await Hive.deleteFromDisk();
+    // throw Exception('cleared');
+
     if (!Hive.isBoxOpen(coreBox)) {
       await Hive.openBox(coreBox);
     }

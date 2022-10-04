@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mining_game/doodads/base/doodad_definition.dart';
+import 'package:mining_game/item_management/item_directory.dart';
 
 part 'townsfolk_definition.freezed.dart';
 
@@ -15,7 +17,12 @@ class DefinitionId with _$DefinitionId {
 
   const factory DefinitionId.quest(String id) = QuestDefinitionId;
 
-  const factory DefinitionId.shop(String id) = ShopDefinitionId;
+  const factory DefinitionId.shop(String id) = ShopListingDefinitionId;
+
+  const factory DefinitionId.craftingRecipe(String id) =
+      CraftingRecipeDefinitionId;
+
+  const factory DefinitionId.doodad(String id) = DoodadDefinitionId;
 
   @override
   String toString() => id;
@@ -31,4 +38,8 @@ class Townsfolk with _$Townsfolk {
     required String name,
     required String image,
   }) = _Townsfolk;
+}
+
+extension GetDef on DoodadDefinitionId {
+  DoodadDefinition get definition => ItemDirectory.doodadDefinitions[this]!;
 }

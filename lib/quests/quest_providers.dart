@@ -9,27 +9,30 @@ import 'package:mining_game/persistence/hive_manager.dart';
 import 'quest_definition.dart';
 import 'townsfolk_definition.dart';
 
-final allQuestsProvider =
-    StateNotifierProvider<AllQuestsController, BuiltMap<int, QuestDefinition>>(
-        (ref) => AllQuestsController());
+final allQuestsProvider = StateNotifierProvider<AllQuestsController,
+        BuiltMap<QuestDefinitionId, QuestDefinition>>(
+    (ref) => AllQuestsController());
 
 class AllQuestsController
-    extends StateController<BuiltMap<int, QuestDefinition>> {
+    extends StateController<BuiltMap<QuestDefinitionId, QuestDefinition>> {
   AllQuestsController() : super(BuiltMap()) {
     state = ItemDirectory.allQuests;
   }
 }
 
-final completedQuestsProvider =
-    StateNotifierProvider<CompletedQuestsController, BuiltSet<int>>((ref) =>
-        CompletedQuestsController(ref.watch(inventoryProvider.notifier)));
+final completedQuestsProvider = StateNotifierProvider<CompletedQuestsController,
+        BuiltSet<QuestDefinitionId>>(
+    (ref) => CompletedQuestsController(ref.watch(inventoryProvider.notifier)));
 
-class CompletedQuestsController extends StateController<BuiltSet<int>> {
+class CompletedQuestsController
+    extends StateController<BuiltSet<QuestDefinitionId>> {
   final InventoryStateProvider _inventoryController;
 
   CompletedQuestsController(this._inventoryController) : super(BuiltSet()) {
     void init() async {
-      state = HiveManager.getIterable(BoxKey.COMPLETED_QUESTS, intSetFromJson);
+      state = HiveManager.getIterableOfType<QuestDefinitionId>(
+              BoxKey.COMPLETED_QUESTS, QuestDefinitionId.fromJson)
+          .toBuiltSet();
     }
 
     init();
@@ -48,7 +51,8 @@ class CompletedQuestsController extends StateController<BuiltSet<int>> {
   }
 }
 
-final questStatusProvider = StateProvider<BuiltMap<int, QuestStatus>>((ref) {
+final questStatusProvider =
+    StateProvider<BuiltMap<QuestDefinitionId, QuestStatus>>((ref) {
   final allQuests = ref.watch(allQuestsProvider);
   final completedQuests = ref.watch(completedQuestsProvider);
   final activeFeatures = ref.watch(activeFeaturesProvider);
@@ -85,7 +89,7 @@ final questStatusProvider = StateProvider<BuiltMap<int, QuestStatus>>((ref) {
         featuresProgress: ownedFeatures.toSet());
   }
 
-  final mapBuilder = MapBuilder<int, QuestStatus>();
+  final mapBuilder = MapBuilder<QuestDefinitionId, QuestStatus>();
 
   for (final quest in allQuests.values) {
     if (completedQuests.contains(quest.id)) continue;

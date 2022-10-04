@@ -5,8 +5,6 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mining_game/persistence/save_syncer.dart';
 
 enum BoxKey {
-  activeMiners,
-  miners,
   GARAGE,
   FEATURES,
   INVENTORY,

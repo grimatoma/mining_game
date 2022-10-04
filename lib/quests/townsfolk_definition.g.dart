@@ -44,13 +44,42 @@ Map<String, dynamic> _$$QuestDefinitionIdToJson(_$QuestDefinitionId instance) =>
       'runtimeType': instance.$type,
     };
 
-_$ShopDefinitionId _$$ShopDefinitionIdFromJson(Map<String, dynamic> json) =>
-    _$ShopDefinitionId(
+_$ShopListingDefinitionId _$$ShopListingDefinitionIdFromJson(
+        Map<String, dynamic> json) =>
+    _$ShopListingDefinitionId(
       json['id'] as String,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ShopDefinitionIdToJson(_$ShopDefinitionId instance) =>
+Map<String, dynamic> _$$ShopListingDefinitionIdToJson(
+        _$ShopListingDefinitionId instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'runtimeType': instance.$type,
+    };
+
+_$CraftingRecipeDefinitionId _$$CraftingRecipeDefinitionIdFromJson(
+        Map<String, dynamic> json) =>
+    _$CraftingRecipeDefinitionId(
+      json['id'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$CraftingRecipeDefinitionIdToJson(
+        _$CraftingRecipeDefinitionId instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'runtimeType': instance.$type,
+    };
+
+_$DoodadDefinitionId _$$DoodadDefinitionIdFromJson(Map<String, dynamic> json) =>
+    _$DoodadDefinitionId(
+      json['id'] as String,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$DoodadDefinitionIdToJson(
+        _$DoodadDefinitionId instance) =>
     <String, dynamic>{
       'id': instance.id,
       'runtimeType': instance.$type,

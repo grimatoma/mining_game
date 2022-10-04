@@ -35,7 +35,8 @@ DoodadDefinition _$DoodadDefinitionFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DoodadDefinition {
-  DoodadId get id => throw _privateConstructorUsedError;
+  DoodadDefinitionId get id => throw _privateConstructorUsedError;
+
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imageAsset => throw _privateConstructorUsedError;
@@ -45,7 +46,7 @@ mixin _$DoodadDefinition {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -57,7 +58,7 @@ mixin _$DoodadDefinition {
             ItemContainer itemMined)
         digger,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -74,7 +75,7 @@ mixin _$DoodadDefinition {
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -86,7 +87,7 @@ mixin _$DoodadDefinition {
             int range)
         areaHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -99,7 +100,7 @@ mixin _$DoodadDefinition {
             ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -114,7 +115,7 @@ mixin _$DoodadDefinition {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -126,7 +127,7 @@ mixin _$DoodadDefinition {
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -143,7 +144,7 @@ mixin _$DoodadDefinition {
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -155,7 +156,7 @@ mixin _$DoodadDefinition {
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -168,7 +169,7 @@ mixin _$DoodadDefinition {
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -183,7 +184,7 @@ mixin _$DoodadDefinition {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -195,7 +196,7 @@ mixin _$DoodadDefinition {
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -212,7 +213,7 @@ mixin _$DoodadDefinition {
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -224,7 +225,7 @@ mixin _$DoodadDefinition {
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -237,7 +238,7 @@ mixin _$DoodadDefinition {
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -297,15 +298,13 @@ abstract class $DoodadDefinitionCopyWith<$Res> {
           DoodadDefinition value, $Res Function(DoodadDefinition) then) =
       _$DoodadDefinitionCopyWithImpl<$Res>;
   $Res call(
-      {DoodadId id,
+      {DoodadDefinitionId id,
       String name,
       String description,
       String imageAsset,
       String storeImageAsset,
       bool userCanBuild,
       Set<TileType> supportedLocations});
-
-  $DoodadIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -331,7 +330,7 @@ class _$DoodadDefinitionCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as DoodadId,
+              as DoodadDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -358,13 +357,6 @@ class _$DoodadDefinitionCopyWithImpl<$Res>
               as Set<TileType>,
     ));
   }
-
-  @override
-  $DoodadIdCopyWith<$Res> get id {
-    return $DoodadIdCopyWith<$Res>(_value.id, (value) {
-      return _then(_value.copyWith(id: value));
-    });
-  }
 }
 
 /// @nodoc
@@ -375,7 +367,7 @@ abstract class _$$DiggerDoodadDefinitionCopyWith<$Res>
       __$$DiggerDoodadDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DoodadId id,
+      {DoodadDefinitionId id,
       String name,
       String description,
       String imageAsset,
@@ -386,8 +378,6 @@ abstract class _$$DiggerDoodadDefinitionCopyWith<$Res>
       String ticksName,
       ItemContainer itemMined});
 
-  @override
-  $DoodadIdCopyWith<$Res> get id;
   $ItemContainerCopyWith<$Res> get itemMined;
 }
 
@@ -420,7 +410,7 @@ class __$$DiggerDoodadDefinitionCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as DoodadId,
+              as DoodadDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -491,7 +481,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
       _$$DiggerDoodadDefinitionFromJson(json);
 
   @override
-  final DoodadId id;
+  final DoodadDefinitionId id;
   @override
   final String name;
   @override
@@ -573,7 +563,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -585,7 +575,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemContainer itemMined)
         digger,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -602,7 +592,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -614,7 +604,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             int range)
         areaHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -627,7 +617,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -646,7 +636,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -658,7 +648,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -675,7 +665,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -687,7 +677,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -700,7 +690,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -719,7 +709,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -731,7 +721,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -748,7 +738,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -760,7 +750,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -773,7 +763,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -859,7 +849,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
 abstract class DiggerDoodadDefinition extends DoodadDefinition
     implements DiggerDoodadInterface {
   const factory DiggerDoodadDefinition(
-      {required final DoodadId id,
+      {required final DoodadDefinitionId id,
       required final String name,
       required final String description,
       required final String imageAsset,
@@ -875,7 +865,8 @@ abstract class DiggerDoodadDefinition extends DoodadDefinition
       _$DiggerDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id;
+  DoodadDefinitionId get id;
+
   @override
   String get name;
   @override
@@ -906,7 +897,7 @@ abstract class _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res>
       __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DoodadId id,
+      {DoodadDefinitionId id,
       String name,
       String description,
       String imageAsset,
@@ -922,8 +913,6 @@ abstract class _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res>
       int? manualEffortToHarvest,
       Map<int, String>? dynamicImageAssets});
 
-  @override
-  $DoodadIdCopyWith<$Res> get id;
   $ItemContainerCopyWith<$Res> get resourceGenerated;
 }
 
@@ -963,7 +952,7 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as DoodadId,
+              as DoodadDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1062,7 +1051,7 @@ class _$RegenerativeHarvestableDoodadDefinition
       _$$RegenerativeHarvestableDoodadDefinitionFromJson(json);
 
   @override
-  final DoodadId id;
+  final DoodadDefinitionId id;
   @override
   final String name;
   @override
@@ -1178,7 +1167,7 @@ class _$RegenerativeHarvestableDoodadDefinition
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1190,7 +1179,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemContainer itemMined)
         digger,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1207,7 +1196,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1219,7 +1208,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             int range)
         areaHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1232,7 +1221,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1265,7 +1254,7 @@ class _$RegenerativeHarvestableDoodadDefinition
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1277,7 +1266,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1294,7 +1283,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1306,7 +1295,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1319,7 +1308,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1352,7 +1341,7 @@ class _$RegenerativeHarvestableDoodadDefinition
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1364,7 +1353,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1381,7 +1370,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1393,7 +1382,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1406,7 +1395,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1497,7 +1486,7 @@ class _$RegenerativeHarvestableDoodadDefinition
 abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
     implements RegenerativeHarvestableDoodadInterface {
   const factory RegenerativeHarvestableDoodadDefinition(
-          {required final DoodadId id,
+      {required final DoodadDefinitionId id,
           required final String name,
           required final String description,
           required final String imageAsset,
@@ -1520,7 +1509,8 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
       _$RegenerativeHarvestableDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id;
+  DoodadDefinitionId get id;
+
   @override
   String get name;
   @override
@@ -1557,7 +1547,7 @@ abstract class _$$AreaHarvestableDoodadDefinitionCopyWith<$Res>
       __$$AreaHarvestableDoodadDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DoodadId id,
+      {DoodadDefinitionId id,
       String name,
       String description,
       String imageAsset,
@@ -1567,9 +1557,6 @@ abstract class _$$AreaHarvestableDoodadDefinitionCopyWith<$Res>
       int ticksRequired,
       String ticksName,
       int range});
-
-  @override
-  $DoodadIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -1602,7 +1589,7 @@ class __$$AreaHarvestableDoodadDefinitionCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as DoodadId,
+              as DoodadDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -1668,7 +1655,7 @@ class _$AreaHarvestableDoodadDefinition
       _$$AreaHarvestableDoodadDefinitionFromJson(json);
 
   @override
-  final DoodadId id;
+  final DoodadDefinitionId id;
   @override
   final String name;
   @override
@@ -1750,7 +1737,7 @@ class _$AreaHarvestableDoodadDefinition
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1762,7 +1749,7 @@ class _$AreaHarvestableDoodadDefinition
             ItemContainer itemMined)
         digger,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1779,7 +1766,7 @@ class _$AreaHarvestableDoodadDefinition
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1791,7 +1778,7 @@ class _$AreaHarvestableDoodadDefinition
             int range)
         areaHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1804,7 +1791,7 @@ class _$AreaHarvestableDoodadDefinition
             ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1823,7 +1810,7 @@ class _$AreaHarvestableDoodadDefinition
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1835,7 +1822,7 @@ class _$AreaHarvestableDoodadDefinition
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1852,7 +1839,7 @@ class _$AreaHarvestableDoodadDefinition
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1864,7 +1851,7 @@ class _$AreaHarvestableDoodadDefinition
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1877,7 +1864,7 @@ class _$AreaHarvestableDoodadDefinition
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1905,7 +1892,7 @@ class _$AreaHarvestableDoodadDefinition
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1917,7 +1904,7 @@ class _$AreaHarvestableDoodadDefinition
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1934,7 +1921,7 @@ class _$AreaHarvestableDoodadDefinition
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1946,7 +1933,7 @@ class _$AreaHarvestableDoodadDefinition
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -1959,7 +1946,7 @@ class _$AreaHarvestableDoodadDefinition
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2036,7 +2023,7 @@ class _$AreaHarvestableDoodadDefinition
 abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
     implements AreaHarvestableDoodadInterface {
   const factory AreaHarvestableDoodadDefinition(
-      {required final DoodadId id,
+      {required final DoodadDefinitionId id,
       required final String name,
       required final String description,
       required final String imageAsset,
@@ -2052,7 +2039,8 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
       _$AreaHarvestableDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id;
+  DoodadDefinitionId get id;
+
   @override
   String get name;
   @override
@@ -2083,7 +2071,7 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
       __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DoodadId id,
+      {DoodadDefinitionId id,
       String name,
       String description,
       String imageAsset,
@@ -2095,8 +2083,6 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
       ItemContainer consumedMaterials,
       ItemContainer itemsProduced});
 
-  @override
-  $DoodadIdCopyWith<$Res> get id;
   $ItemContainerCopyWith<$Res> get consumedMaterials;
   $ItemContainerCopyWith<$Res> get itemsProduced;
 }
@@ -2132,7 +2118,7 @@ class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as DoodadId,
+              as DoodadDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2217,7 +2203,7 @@ class _$MaterialProcessorDoodadDefinition
       _$$MaterialProcessorDoodadDefinitionFromJson(json);
 
   @override
-  final DoodadId id;
+  final DoodadDefinitionId id;
   @override
   final String name;
   @override
@@ -2306,7 +2292,7 @@ class _$MaterialProcessorDoodadDefinition
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2318,7 +2304,7 @@ class _$MaterialProcessorDoodadDefinition
             ItemContainer itemMined)
         digger,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2335,7 +2321,7 @@ class _$MaterialProcessorDoodadDefinition
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2347,7 +2333,7 @@ class _$MaterialProcessorDoodadDefinition
             int range)
         areaHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2360,7 +2346,7 @@ class _$MaterialProcessorDoodadDefinition
             ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2389,7 +2375,7 @@ class _$MaterialProcessorDoodadDefinition
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2401,7 +2387,7 @@ class _$MaterialProcessorDoodadDefinition
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2418,7 +2404,7 @@ class _$MaterialProcessorDoodadDefinition
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2430,7 +2416,7 @@ class _$MaterialProcessorDoodadDefinition
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2443,7 +2429,7 @@ class _$MaterialProcessorDoodadDefinition
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2472,7 +2458,7 @@ class _$MaterialProcessorDoodadDefinition
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2484,7 +2470,7 @@ class _$MaterialProcessorDoodadDefinition
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2501,7 +2487,7 @@ class _$MaterialProcessorDoodadDefinition
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2513,7 +2499,7 @@ class _$MaterialProcessorDoodadDefinition
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2526,7 +2512,7 @@ class _$MaterialProcessorDoodadDefinition
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2613,7 +2599,7 @@ class _$MaterialProcessorDoodadDefinition
 abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
     implements MaterialProcessorDoodadInterface {
   const factory MaterialProcessorDoodadDefinition(
-          {required final DoodadId id,
+      {required final DoodadDefinitionId id,
           required final String name,
           required final String description,
           required final String imageAsset,
@@ -2631,7 +2617,8 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
       Map<String, dynamic> json) = _$MaterialProcessorDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id;
+  DoodadDefinitionId get id;
+
   @override
   String get name;
   @override
@@ -2663,7 +2650,7 @@ abstract class _$$HouseDoodadDefinitionCopyWith<$Res>
       __$$HouseDoodadDefinitionCopyWithImpl<$Res>;
   @override
   $Res call(
-      {DoodadId id,
+      {DoodadDefinitionId id,
       String name,
       String description,
       String imageAsset,
@@ -2672,9 +2659,6 @@ abstract class _$$HouseDoodadDefinitionCopyWith<$Res>
       Set<TileType> supportedLocations,
       int populationLimit,
       PersonType peopleType});
-
-  @override
-  $DoodadIdCopyWith<$Res> get id;
 }
 
 /// @nodoc
@@ -2704,7 +2688,7 @@ class __$$HouseDoodadDefinitionCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as DoodadId,
+              as DoodadDefinitionId,
       name: name == freezed
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -2763,7 +2747,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
       _$$HouseDoodadDefinitionFromJson(json);
 
   @override
-  final DoodadId id;
+  final DoodadDefinitionId id;
   @override
   final String name;
   @override
@@ -2842,7 +2826,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2854,7 +2838,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             ItemContainer itemMined)
         digger,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2871,7 +2855,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Map<int, String>? dynamicImageAssets)
         regenerativeHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2883,7 +2867,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             int range)
         areaHarvestable,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2896,7 +2880,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             ItemContainer itemsProduced)
         materialProcessor,
     required TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2915,7 +2899,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2927,7 +2911,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2944,7 +2928,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2956,7 +2940,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2969,7 +2953,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -2988,7 +2972,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -3000,7 +2984,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             ItemContainer itemMined)?
         digger,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -3017,7 +3001,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -3029,7 +3013,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             int range)?
         areaHarvestable,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -3042,7 +3026,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             ItemContainer itemsProduced)?
         materialProcessor,
     TResult Function(
-            DoodadId id,
+            DoodadDefinitionId id,
             String name,
             String description,
             String imageAsset,
@@ -3119,7 +3103,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
 abstract class HouseDoodadDefinition extends DoodadDefinition
     implements HouseDoodadInterface {
   const factory HouseDoodadDefinition(
-      {required final DoodadId id,
+      {required final DoodadDefinitionId id,
       required final String name,
       required final String description,
       required final String imageAsset,
@@ -3134,7 +3118,8 @@ abstract class HouseDoodadDefinition extends DoodadDefinition
       _$HouseDoodadDefinition.fromJson;
 
   @override
-  DoodadId get id;
+  DoodadDefinitionId get id;
+
   @override
   String get name;
   @override

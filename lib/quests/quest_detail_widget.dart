@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 import 'package:mining_game/widgets/status_bar_wrapped_page.dart';
 
 import 'quest_providers.dart';
 import 'quests_page.dart';
 
 class QuestDetailWidget extends ConsumerWidget {
-  final int _questId;
+  final QuestDefinitionId _questId;
 
   const QuestDetailWidget(
     this._questId, {

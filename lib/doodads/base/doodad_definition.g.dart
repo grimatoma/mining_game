@@ -9,7 +9,7 @@ part of 'doodad_definition.dart';
 _$DiggerDoodadDefinition _$$DiggerDoodadDefinitionFromJson(
         Map<String, dynamic> json) =>
     _$DiggerDoodadDefinition(
-      id: DoodadId.fromJson(json['id'] as Map<String, dynamic>),
+      id: DoodadDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
       imageAsset: json['imageAsset'] as String,
@@ -57,7 +57,7 @@ _$RegenerativeHarvestableDoodadDefinition
     _$$RegenerativeHarvestableDoodadDefinitionFromJson(
             Map<String, dynamic> json) =>
         _$RegenerativeHarvestableDoodadDefinition(
-          id: DoodadId.fromJson(json['id'] as Map<String, dynamic>),
+          id: DoodadDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
           name: json['name'] as String,
           description: json['description'] as String,
           imageAsset: json['imageAsset'] as String,
@@ -110,7 +110,7 @@ Map<String, dynamic> _$$RegenerativeHarvestableDoodadDefinitionToJson(
 _$AreaHarvestableDoodadDefinition _$$AreaHarvestableDoodadDefinitionFromJson(
         Map<String, dynamic> json) =>
     _$AreaHarvestableDoodadDefinition(
-      id: DoodadId.fromJson(json['id'] as Map<String, dynamic>),
+      id: DoodadDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
       imageAsset: json['imageAsset'] as String,
@@ -146,7 +146,7 @@ Map<String, dynamic> _$$AreaHarvestableDoodadDefinitionToJson(
 _$MaterialProcessorDoodadDefinition
     _$$MaterialProcessorDoodadDefinitionFromJson(Map<String, dynamic> json) =>
         _$MaterialProcessorDoodadDefinition(
-          id: DoodadId.fromJson(json['id'] as Map<String, dynamic>),
+          id: DoodadDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
           name: json['name'] as String,
           description: json['description'] as String,
           imageAsset: json['imageAsset'] as String,
@@ -186,7 +186,7 @@ Map<String, dynamic> _$$MaterialProcessorDoodadDefinitionToJson(
 _$HouseDoodadDefinition _$$HouseDoodadDefinitionFromJson(
         Map<String, dynamic> json) =>
     _$HouseDoodadDefinition(
-      id: DoodadId.fromJson(json['id'] as Map<String, dynamic>),
+      id: DoodadDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
       imageAsset: json['imageAsset'] as String,

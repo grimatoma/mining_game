@@ -23,7 +23,11 @@ DefinitionId _$DefinitionIdFromJson(Map<String, dynamic> json) {
     case 'quest':
       return QuestDefinitionId.fromJson(json);
     case 'shop':
-      return ShopDefinitionId.fromJson(json);
+      return ShopListingDefinitionId.fromJson(json);
+    case 'craftingRecipe':
+      return CraftingRecipeDefinitionId.fromJson(json);
+    case 'doodad':
+      return DoodadDefinitionId.fromJson(json);
 
     default:
       throw CheckedFromJsonException(json, 'runtimeType', 'DefinitionId',
@@ -34,22 +38,24 @@ DefinitionId _$DefinitionIdFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DefinitionId {
   String get id => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String id) item,
     required TResult Function(String id) townsfolk,
     required TResult Function(String id) quest,
     required TResult Function(String id) shop,
+    required TResult Function(String id) craftingRecipe,
+    required TResult Function(String id) doodad,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function(String id)? item,
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,25 +64,29 @@ mixin _$DefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(ItemDefinitionId value) item,
     required TResult Function(TownsfolkDefinitionId value) townsfolk,
     required TResult Function(QuestDefinitionId value) quest,
-    required TResult Function(ShopDefinitionId value) shop,
+    required TResult Function(ShopListingDefinitionId value) shop,
+    required TResult Function(CraftingRecipeDefinitionId value) craftingRecipe,
+    required TResult Function(DoodadDefinitionId value) doodad,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -84,13 +94,13 @@ mixin _$DefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-
   @JsonKey(ignore: true)
   $DefinitionIdCopyWith<DefinitionId> get copyWith =>
       throw _privateConstructorUsedError;
@@ -101,7 +111,6 @@ abstract class $DefinitionIdCopyWith<$Res> {
   factory $DefinitionIdCopyWith(
           DefinitionId value, $Res Function(DefinitionId) then) =
       _$DefinitionIdCopyWithImpl<$Res>;
-
   $Res call({String id});
 }
 
@@ -110,7 +119,6 @@ class _$DefinitionIdCopyWithImpl<$Res> implements $DefinitionIdCopyWith<$Res> {
   _$DefinitionIdCopyWithImpl(this._value, this._then);
 
   final DefinitionId _value;
-
   // ignore: unused_field
   final $Res Function(DefinitionId) _then;
 
@@ -133,7 +141,6 @@ abstract class _$$ItemDefinitionIdCopyWith<$Res>
   factory _$$ItemDefinitionIdCopyWith(
           _$ItemDefinitionId value, $Res Function(_$ItemDefinitionId) then) =
       __$$ItemDefinitionIdCopyWithImpl<$Res>;
-
   @override
   $Res call({String id});
 }
@@ -203,6 +210,8 @@ class _$ItemDefinitionId extends ItemDefinitionId {
     required TResult Function(String id) townsfolk,
     required TResult Function(String id) quest,
     required TResult Function(String id) shop,
+    required TResult Function(String id) craftingRecipe,
+    required TResult Function(String id) doodad,
   }) {
     return item(id);
   }
@@ -214,6 +223,8 @@ class _$ItemDefinitionId extends ItemDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
   }) {
     return item?.call(id);
   }
@@ -225,6 +236,8 @@ class _$ItemDefinitionId extends ItemDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
     required TResult orElse(),
   }) {
     if (item != null) {
@@ -239,7 +252,9 @@ class _$ItemDefinitionId extends ItemDefinitionId {
     required TResult Function(ItemDefinitionId value) item,
     required TResult Function(TownsfolkDefinitionId value) townsfolk,
     required TResult Function(QuestDefinitionId value) quest,
-    required TResult Function(ShopDefinitionId value) shop,
+    required TResult Function(ShopListingDefinitionId value) shop,
+    required TResult Function(CraftingRecipeDefinitionId value) craftingRecipe,
+    required TResult Function(DoodadDefinitionId value) doodad,
   }) {
     return item(this);
   }
@@ -250,7 +265,9 @@ class _$ItemDefinitionId extends ItemDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
   }) {
     return item?.call(this);
   }
@@ -261,7 +278,9 @@ class _$ItemDefinitionId extends ItemDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
     required TResult orElse(),
   }) {
     if (item != null) {
@@ -280,7 +299,6 @@ class _$ItemDefinitionId extends ItemDefinitionId {
 
 abstract class ItemDefinitionId extends DefinitionId {
   const factory ItemDefinitionId(final String id) = _$ItemDefinitionId;
-
   const ItemDefinitionId._() : super._();
 
   factory ItemDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -288,7 +306,6 @@ abstract class ItemDefinitionId extends DefinitionId {
 
   @override
   String get id;
-
   @override
   @JsonKey(ignore: true)
   _$$ItemDefinitionIdCopyWith<_$ItemDefinitionId> get copyWith =>
@@ -301,7 +318,6 @@ abstract class _$$TownsfolkDefinitionIdCopyWith<$Res>
   factory _$$TownsfolkDefinitionIdCopyWith(_$TownsfolkDefinitionId value,
           $Res Function(_$TownsfolkDefinitionId) then) =
       __$$TownsfolkDefinitionIdCopyWithImpl<$Res>;
-
   @override
   $Res call({String id});
 }
@@ -372,6 +388,8 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
     required TResult Function(String id) townsfolk,
     required TResult Function(String id) quest,
     required TResult Function(String id) shop,
+    required TResult Function(String id) craftingRecipe,
+    required TResult Function(String id) doodad,
   }) {
     return townsfolk(id);
   }
@@ -383,6 +401,8 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
   }) {
     return townsfolk?.call(id);
   }
@@ -394,6 +414,8 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
     required TResult orElse(),
   }) {
     if (townsfolk != null) {
@@ -408,7 +430,9 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
     required TResult Function(ItemDefinitionId value) item,
     required TResult Function(TownsfolkDefinitionId value) townsfolk,
     required TResult Function(QuestDefinitionId value) quest,
-    required TResult Function(ShopDefinitionId value) shop,
+    required TResult Function(ShopListingDefinitionId value) shop,
+    required TResult Function(CraftingRecipeDefinitionId value) craftingRecipe,
+    required TResult Function(DoodadDefinitionId value) doodad,
   }) {
     return townsfolk(this);
   }
@@ -419,7 +443,9 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
   }) {
     return townsfolk?.call(this);
   }
@@ -430,7 +456,9 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
     required TResult orElse(),
   }) {
     if (townsfolk != null) {
@@ -450,7 +478,6 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
 abstract class TownsfolkDefinitionId extends DefinitionId {
   const factory TownsfolkDefinitionId(final String id) =
       _$TownsfolkDefinitionId;
-
   const TownsfolkDefinitionId._() : super._();
 
   factory TownsfolkDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -458,7 +485,6 @@ abstract class TownsfolkDefinitionId extends DefinitionId {
 
   @override
   String get id;
-
   @override
   @JsonKey(ignore: true)
   _$$TownsfolkDefinitionIdCopyWith<_$TownsfolkDefinitionId> get copyWith =>
@@ -471,7 +497,6 @@ abstract class _$$QuestDefinitionIdCopyWith<$Res>
   factory _$$QuestDefinitionIdCopyWith(
           _$QuestDefinitionId value, $Res Function(_$QuestDefinitionId) then) =
       __$$QuestDefinitionIdCopyWithImpl<$Res>;
-
   @override
   $Res call({String id});
 }
@@ -541,6 +566,8 @@ class _$QuestDefinitionId extends QuestDefinitionId {
     required TResult Function(String id) townsfolk,
     required TResult Function(String id) quest,
     required TResult Function(String id) shop,
+    required TResult Function(String id) craftingRecipe,
+    required TResult Function(String id) doodad,
   }) {
     return quest(id);
   }
@@ -552,6 +579,8 @@ class _$QuestDefinitionId extends QuestDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
   }) {
     return quest?.call(id);
   }
@@ -563,6 +592,8 @@ class _$QuestDefinitionId extends QuestDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
     required TResult orElse(),
   }) {
     if (quest != null) {
@@ -577,7 +608,9 @@ class _$QuestDefinitionId extends QuestDefinitionId {
     required TResult Function(ItemDefinitionId value) item,
     required TResult Function(TownsfolkDefinitionId value) townsfolk,
     required TResult Function(QuestDefinitionId value) quest,
-    required TResult Function(ShopDefinitionId value) shop,
+    required TResult Function(ShopListingDefinitionId value) shop,
+    required TResult Function(CraftingRecipeDefinitionId value) craftingRecipe,
+    required TResult Function(DoodadDefinitionId value) doodad,
   }) {
     return quest(this);
   }
@@ -588,7 +621,9 @@ class _$QuestDefinitionId extends QuestDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
   }) {
     return quest?.call(this);
   }
@@ -599,7 +634,9 @@ class _$QuestDefinitionId extends QuestDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
     required TResult orElse(),
   }) {
     if (quest != null) {
@@ -618,7 +655,6 @@ class _$QuestDefinitionId extends QuestDefinitionId {
 
 abstract class QuestDefinitionId extends DefinitionId {
   const factory QuestDefinitionId(final String id) = _$QuestDefinitionId;
-
   const QuestDefinitionId._() : super._();
 
   factory QuestDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -626,7 +662,6 @@ abstract class QuestDefinitionId extends DefinitionId {
 
   @override
   String get id;
-
   @override
   @JsonKey(ignore: true)
   _$$QuestDefinitionIdCopyWith<_$QuestDefinitionId> get copyWith =>
@@ -634,32 +669,33 @@ abstract class QuestDefinitionId extends DefinitionId {
 }
 
 /// @nodoc
-abstract class _$$ShopDefinitionIdCopyWith<$Res>
+abstract class _$$ShopListingDefinitionIdCopyWith<$Res>
     implements $DefinitionIdCopyWith<$Res> {
-  factory _$$ShopDefinitionIdCopyWith(
-          _$ShopDefinitionId value, $Res Function(_$ShopDefinitionId) then) =
-      __$$ShopDefinitionIdCopyWithImpl<$Res>;
+  factory _$$ShopListingDefinitionIdCopyWith(_$ShopListingDefinitionId value,
+          $Res Function(_$ShopListingDefinitionId) then) =
+      __$$ShopListingDefinitionIdCopyWithImpl<$Res>;
 
   @override
   $Res call({String id});
 }
 
 /// @nodoc
-class __$$ShopDefinitionIdCopyWithImpl<$Res>
+class __$$ShopListingDefinitionIdCopyWithImpl<$Res>
     extends _$DefinitionIdCopyWithImpl<$Res>
-    implements _$$ShopDefinitionIdCopyWith<$Res> {
-  __$$ShopDefinitionIdCopyWithImpl(
-      _$ShopDefinitionId _value, $Res Function(_$ShopDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$ShopDefinitionId));
+    implements _$$ShopListingDefinitionIdCopyWith<$Res> {
+  __$$ShopListingDefinitionIdCopyWithImpl(_$ShopListingDefinitionId _value,
+      $Res Function(_$ShopListingDefinitionId) _then)
+      : super(_value, (v) => _then(v as _$ShopListingDefinitionId));
 
   @override
-  _$ShopDefinitionId get _value => super._value as _$ShopDefinitionId;
+  _$ShopListingDefinitionId get _value =>
+      super._value as _$ShopListingDefinitionId;
 
   @override
   $Res call({
     Object? id = freezed,
   }) {
-    return _then(_$ShopDefinitionId(
+    return _then(_$ShopListingDefinitionId(
       id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -670,13 +706,13 @@ class __$$ShopDefinitionIdCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ShopDefinitionId extends ShopDefinitionId {
-  const _$ShopDefinitionId(this.id, {final String? $type})
+class _$ShopListingDefinitionId extends ShopListingDefinitionId {
+  const _$ShopListingDefinitionId(this.id, {final String? $type})
       : $type = $type ?? 'shop',
         super._();
 
-  factory _$ShopDefinitionId.fromJson(Map<String, dynamic> json) =>
-      _$$ShopDefinitionIdFromJson(json);
+  factory _$ShopListingDefinitionId.fromJson(Map<String, dynamic> json) =>
+      _$$ShopListingDefinitionIdFromJson(json);
 
   @override
   final String id;
@@ -688,7 +724,7 @@ class _$ShopDefinitionId extends ShopDefinitionId {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ShopDefinitionId &&
+            other is _$ShopListingDefinitionId &&
             const DeepCollectionEquality().equals(other.id, id));
   }
 
@@ -699,8 +735,9 @@ class _$ShopDefinitionId extends ShopDefinitionId {
 
   @JsonKey(ignore: true)
   @override
-  _$$ShopDefinitionIdCopyWith<_$ShopDefinitionId> get copyWith =>
-      __$$ShopDefinitionIdCopyWithImpl<_$ShopDefinitionId>(this, _$identity);
+  _$$ShopListingDefinitionIdCopyWith<_$ShopListingDefinitionId> get copyWith =>
+      __$$ShopListingDefinitionIdCopyWithImpl<_$ShopListingDefinitionId>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -709,6 +746,8 @@ class _$ShopDefinitionId extends ShopDefinitionId {
     required TResult Function(String id) townsfolk,
     required TResult Function(String id) quest,
     required TResult Function(String id) shop,
+    required TResult Function(String id) craftingRecipe,
+    required TResult Function(String id) doodad,
   }) {
     return shop(id);
   }
@@ -720,6 +759,8 @@ class _$ShopDefinitionId extends ShopDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
   }) {
     return shop?.call(id);
   }
@@ -731,6 +772,8 @@ class _$ShopDefinitionId extends ShopDefinitionId {
     TResult Function(String id)? townsfolk,
     TResult Function(String id)? quest,
     TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
     required TResult orElse(),
   }) {
     if (shop != null) {
@@ -745,7 +788,9 @@ class _$ShopDefinitionId extends ShopDefinitionId {
     required TResult Function(ItemDefinitionId value) item,
     required TResult Function(TownsfolkDefinitionId value) townsfolk,
     required TResult Function(QuestDefinitionId value) quest,
-    required TResult Function(ShopDefinitionId value) shop,
+    required TResult Function(ShopListingDefinitionId value) shop,
+    required TResult Function(CraftingRecipeDefinitionId value) craftingRecipe,
+    required TResult Function(DoodadDefinitionId value) doodad,
   }) {
     return shop(this);
   }
@@ -756,7 +801,9 @@ class _$ShopDefinitionId extends ShopDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
   }) {
     return shop?.call(this);
   }
@@ -767,7 +814,9 @@ class _$ShopDefinitionId extends ShopDefinitionId {
     TResult Function(ItemDefinitionId value)? item,
     TResult Function(TownsfolkDefinitionId value)? townsfolk,
     TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopDefinitionId value)? shop,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
     required TResult orElse(),
   }) {
     if (shop != null) {
@@ -778,26 +827,393 @@ class _$ShopDefinitionId extends ShopDefinitionId {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ShopDefinitionIdToJson(
+    return _$$ShopListingDefinitionIdToJson(
       this,
     );
   }
 }
 
-abstract class ShopDefinitionId extends DefinitionId {
-  const factory ShopDefinitionId(final String id) = _$ShopDefinitionId;
+abstract class ShopListingDefinitionId extends DefinitionId {
+  const factory ShopListingDefinitionId(final String id) =
+      _$ShopListingDefinitionId;
 
-  const ShopDefinitionId._() : super._();
+  const ShopListingDefinitionId._() : super._();
 
-  factory ShopDefinitionId.fromJson(Map<String, dynamic> json) =
-      _$ShopDefinitionId.fromJson;
+  factory ShopListingDefinitionId.fromJson(Map<String, dynamic> json) =
+      _$ShopListingDefinitionId.fromJson;
 
   @override
   String get id;
 
   @override
   @JsonKey(ignore: true)
-  _$$ShopDefinitionIdCopyWith<_$ShopDefinitionId> get copyWith =>
+  _$$ShopListingDefinitionIdCopyWith<_$ShopListingDefinitionId> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CraftingRecipeDefinitionIdCopyWith<$Res>
+    implements $DefinitionIdCopyWith<$Res> {
+  factory _$$CraftingRecipeDefinitionIdCopyWith(
+          _$CraftingRecipeDefinitionId value,
+          $Res Function(_$CraftingRecipeDefinitionId) then) =
+      __$$CraftingRecipeDefinitionIdCopyWithImpl<$Res>;
+
+  @override
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$CraftingRecipeDefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res>
+    implements _$$CraftingRecipeDefinitionIdCopyWith<$Res> {
+  __$$CraftingRecipeDefinitionIdCopyWithImpl(
+      _$CraftingRecipeDefinitionId _value,
+      $Res Function(_$CraftingRecipeDefinitionId) _then)
+      : super(_value, (v) => _then(v as _$CraftingRecipeDefinitionId));
+
+  @override
+  _$CraftingRecipeDefinitionId get _value =>
+      super._value as _$CraftingRecipeDefinitionId;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(_$CraftingRecipeDefinitionId(
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CraftingRecipeDefinitionId extends CraftingRecipeDefinitionId {
+  const _$CraftingRecipeDefinitionId(this.id, {final String? $type})
+      : $type = $type ?? 'craftingRecipe',
+        super._();
+
+  factory _$CraftingRecipeDefinitionId.fromJson(Map<String, dynamic> json) =>
+      _$$CraftingRecipeDefinitionIdFromJson(json);
+
+  @override
+  final String id;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CraftingRecipeDefinitionId &&
+            const DeepCollectionEquality().equals(other.id, id));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$CraftingRecipeDefinitionIdCopyWith<_$CraftingRecipeDefinitionId>
+      get copyWith => __$$CraftingRecipeDefinitionIdCopyWithImpl<
+          _$CraftingRecipeDefinitionId>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id) item,
+    required TResult Function(String id) townsfolk,
+    required TResult Function(String id) quest,
+    required TResult Function(String id) shop,
+    required TResult Function(String id) craftingRecipe,
+    required TResult Function(String id) doodad,
+  }) {
+    return craftingRecipe(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String id)? item,
+    TResult Function(String id)? townsfolk,
+    TResult Function(String id)? quest,
+    TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
+  }) {
+    return craftingRecipe?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? item,
+    TResult Function(String id)? townsfolk,
+    TResult Function(String id)? quest,
+    TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
+    required TResult orElse(),
+  }) {
+    if (craftingRecipe != null) {
+      return craftingRecipe(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ItemDefinitionId value) item,
+    required TResult Function(TownsfolkDefinitionId value) townsfolk,
+    required TResult Function(QuestDefinitionId value) quest,
+    required TResult Function(ShopListingDefinitionId value) shop,
+    required TResult Function(CraftingRecipeDefinitionId value) craftingRecipe,
+    required TResult Function(DoodadDefinitionId value) doodad,
+  }) {
+    return craftingRecipe(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ItemDefinitionId value)? item,
+    TResult Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult Function(QuestDefinitionId value)? quest,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
+  }) {
+    return craftingRecipe?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ItemDefinitionId value)? item,
+    TResult Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult Function(QuestDefinitionId value)? quest,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
+    required TResult orElse(),
+  }) {
+    if (craftingRecipe != null) {
+      return craftingRecipe(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CraftingRecipeDefinitionIdToJson(
+      this,
+    );
+  }
+}
+
+abstract class CraftingRecipeDefinitionId extends DefinitionId {
+  const factory CraftingRecipeDefinitionId(final String id) =
+      _$CraftingRecipeDefinitionId;
+
+  const CraftingRecipeDefinitionId._() : super._();
+
+  factory CraftingRecipeDefinitionId.fromJson(Map<String, dynamic> json) =
+      _$CraftingRecipeDefinitionId.fromJson;
+
+  @override
+  String get id;
+
+  @override
+  @JsonKey(ignore: true)
+  _$$CraftingRecipeDefinitionIdCopyWith<_$CraftingRecipeDefinitionId>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DoodadDefinitionIdCopyWith<$Res>
+    implements $DefinitionIdCopyWith<$Res> {
+  factory _$$DoodadDefinitionIdCopyWith(_$DoodadDefinitionId value,
+          $Res Function(_$DoodadDefinitionId) then) =
+      __$$DoodadDefinitionIdCopyWithImpl<$Res>;
+
+  @override
+  $Res call({String id});
+}
+
+/// @nodoc
+class __$$DoodadDefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res>
+    implements _$$DoodadDefinitionIdCopyWith<$Res> {
+  __$$DoodadDefinitionIdCopyWithImpl(
+      _$DoodadDefinitionId _value, $Res Function(_$DoodadDefinitionId) _then)
+      : super(_value, (v) => _then(v as _$DoodadDefinitionId));
+
+  @override
+  _$DoodadDefinitionId get _value => super._value as _$DoodadDefinitionId;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+  }) {
+    return _then(_$DoodadDefinitionId(
+      id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DoodadDefinitionId extends DoodadDefinitionId {
+  const _$DoodadDefinitionId(this.id, {final String? $type})
+      : $type = $type ?? 'doodad',
+        super._();
+
+  factory _$DoodadDefinitionId.fromJson(Map<String, dynamic> json) =>
+      _$$DoodadDefinitionIdFromJson(json);
+
+  @override
+  final String id;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DoodadDefinitionId &&
+            const DeepCollectionEquality().equals(other.id, id));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$DoodadDefinitionIdCopyWith<_$DoodadDefinitionId> get copyWith =>
+      __$$DoodadDefinitionIdCopyWithImpl<_$DoodadDefinitionId>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String id) item,
+    required TResult Function(String id) townsfolk,
+    required TResult Function(String id) quest,
+    required TResult Function(String id) shop,
+    required TResult Function(String id) craftingRecipe,
+    required TResult Function(String id) doodad,
+  }) {
+    return doodad(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(String id)? item,
+    TResult Function(String id)? townsfolk,
+    TResult Function(String id)? quest,
+    TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
+  }) {
+    return doodad?.call(id);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String id)? item,
+    TResult Function(String id)? townsfolk,
+    TResult Function(String id)? quest,
+    TResult Function(String id)? shop,
+    TResult Function(String id)? craftingRecipe,
+    TResult Function(String id)? doodad,
+    required TResult orElse(),
+  }) {
+    if (doodad != null) {
+      return doodad(id);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(ItemDefinitionId value) item,
+    required TResult Function(TownsfolkDefinitionId value) townsfolk,
+    required TResult Function(QuestDefinitionId value) quest,
+    required TResult Function(ShopListingDefinitionId value) shop,
+    required TResult Function(CraftingRecipeDefinitionId value) craftingRecipe,
+    required TResult Function(DoodadDefinitionId value) doodad,
+  }) {
+    return doodad(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(ItemDefinitionId value)? item,
+    TResult Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult Function(QuestDefinitionId value)? quest,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
+  }) {
+    return doodad?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(ItemDefinitionId value)? item,
+    TResult Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult Function(QuestDefinitionId value)? quest,
+    TResult Function(ShopListingDefinitionId value)? shop,
+    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult Function(DoodadDefinitionId value)? doodad,
+    required TResult orElse(),
+  }) {
+    if (doodad != null) {
+      return doodad(this);
+    }
+    return orElse();
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DoodadDefinitionIdToJson(
+      this,
+    );
+  }
+}
+
+abstract class DoodadDefinitionId extends DefinitionId {
+  const factory DoodadDefinitionId(final String id) = _$DoodadDefinitionId;
+
+  const DoodadDefinitionId._() : super._();
+
+  factory DoodadDefinitionId.fromJson(Map<String, dynamic> json) =
+      _$DoodadDefinitionId.fromJson;
+
+  @override
+  String get id;
+
+  @override
+  @JsonKey(ignore: true)
+  _$$DoodadDefinitionIdCopyWith<_$DoodadDefinitionId> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -818,7 +1234,6 @@ mixin _$Townsfolk {
 abstract class $TownsfolkCopyWith<$Res> {
   factory $TownsfolkCopyWith(Townsfolk value, $Res Function(Townsfolk) then) =
       _$TownsfolkCopyWithImpl<$Res>;
-
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
 
@@ -827,7 +1242,6 @@ class _$TownsfolkCopyWithImpl<$Res> implements $TownsfolkCopyWith<$Res> {
   _$TownsfolkCopyWithImpl(this._value, this._then);
 
   final Townsfolk _value;
-
   // ignore: unused_field
   final $Res Function(Townsfolk) _then;
 
@@ -859,7 +1273,6 @@ abstract class _$$_TownsfolkCopyWith<$Res> implements $TownsfolkCopyWith<$Res> {
   factory _$$_TownsfolkCopyWith(
           _$_Townsfolk value, $Res Function(_$_Townsfolk) then) =
       __$$_TownsfolkCopyWithImpl<$Res>;
-
   @override
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
@@ -946,13 +1359,10 @@ abstract class _Townsfolk implements Townsfolk {
 
   @override
   TownsfolkDefinitionId get id;
-
   @override
   String get name;
-
   @override
   String get image;
-
   @override
   @JsonKey(ignore: true)
   _$$_TownsfolkCopyWith<_$_Townsfolk> get copyWith =>

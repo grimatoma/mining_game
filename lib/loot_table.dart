@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'dart:math';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/requirement.dart';
 
 import 'quests/townsfolk_definition.dart';
@@ -45,13 +43,4 @@ class ItemProbability with _$ItemProbability {
 
   factory ItemProbability.fromJson(Map<String, dynamic> json) =>
       _$ItemProbabilityFromJson(json);
-}
-
-class ItemDefinitionDoubleIdKeyedMapConverter
-    extends ObjectKeyedMapConverter<ItemDefinitionId, double> {
-  const ItemDefinitionDoubleIdKeyedMapConverter();
-
-  @override
-  ItemDefinitionId genKey(String keyVal) =>
-      ItemDefinitionId.fromJson(jsonDecode(keyVal));
 }

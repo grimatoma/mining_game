@@ -28,9 +28,13 @@ const _$FeatureEnumMap = {
 
 _$_QuestDefinition _$$_QuestDefinitionFromJson(Map<String, dynamic> json) =>
     _$_QuestDefinition(
-      id: json['id'] as int,
+      id: QuestDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
+      questGiver: json['questGiver'] == null
+          ? null
+          : TownsfolkDefinitionId.fromJson(
+              json['questGiver'] as Map<String, dynamic>),
       enabledRequirement: Requirement.fromJson(
           json['enabledRequirement'] as Map<String, dynamic>),
       completeRequirement: Requirement.fromJson(
@@ -40,9 +44,10 @@ _$_QuestDefinition _$$_QuestDefinitionFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$_QuestDefinitionToJson(_$_QuestDefinition instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': instance.id.toJson(),
       'name': instance.name,
       'description': instance.description,
+      'questGiver': instance.questGiver?.toJson(),
       'enabledRequirement': instance.enabledRequirement.toJson(),
       'completeRequirement': instance.completeRequirement.toJson(),
       'reward': instance.reward.toJson(),

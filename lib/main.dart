@@ -279,7 +279,8 @@ final mainNavigationPagesProvider = StateProvider<BuiltList<RootRoute>>((ref) {
         GoRoute(
             path: 'quest/:questId',
             builder: (context, state) {
-              return QuestDetailWidget(int.parse(state.params['questId']!));
+              return QuestDetailWidget(
+                  QuestDefinitionId(state.params['questId']!));
             })
       ],
     ),

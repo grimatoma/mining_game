@@ -5,12 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/doodads/base/doodad_definition.dart';
-import 'package:mining_game/doodads/base/doodad_id.dart';
 import 'package:mining_game/doodads/base/doodad_interface_and_instance.dart';
 import 'package:mining_game/doodads/base/tickable_doodad.dart';
 import 'package:mining_game/doodads/doodad_types/house_doodad.dart';
 import 'package:mining_game/item_management/item_directory.dart';
 import 'package:mining_game/item_management/requirement.dart';
+import 'package:mining_game/quests/townsfolk_definition.dart';
 
 part 'planet_manager.freezed.dart';
 
@@ -302,7 +302,7 @@ class TileStateController extends ChangeNotifier {
     final doodadInstanceJson = json[_doodadInstanceField];
     if (doodadInstanceJson == null) return;
     final definitionId =
-        DoodadId.fromJson(doodadInstanceJson['doodadDefinitionId']);
+        DoodadDefinitionId.fromJson(doodadInstanceJson['doodadDefinitionId']);
     final def = ItemDirectory.doodadDefinitions[definitionId]!;
     addDoodad(def, doodadInstanceJson);
   }
