@@ -32,12 +32,12 @@ class DefinitionId with _$DefinitionId {
 }
 
 @freezed
-class Townsfolk with _$Townsfolk {
-  const factory Townsfolk({
+class TownsfolkDefinition with _$TownsfolkDefinition {
+  const factory TownsfolkDefinition({
     required TownsfolkDefinitionId id,
     required String name,
     required String image,
-  }) = _Townsfolk;
+  }) = _TownsfolkDefinition;
 }
 
 extension GetDef on DoodadDefinitionId {

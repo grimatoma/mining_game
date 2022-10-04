@@ -674,7 +674,6 @@ abstract class _$$ShopListingDefinitionIdCopyWith<$Res>
   factory _$$ShopListingDefinitionIdCopyWith(_$ShopListingDefinitionId value,
           $Res Function(_$ShopListingDefinitionId) then) =
       __$$ShopListingDefinitionIdCopyWithImpl<$Res>;
-
   @override
   $Res call({String id});
 }
@@ -836,7 +835,6 @@ class _$ShopListingDefinitionId extends ShopListingDefinitionId {
 abstract class ShopListingDefinitionId extends DefinitionId {
   const factory ShopListingDefinitionId(final String id) =
       _$ShopListingDefinitionId;
-
   const ShopListingDefinitionId._() : super._();
 
   factory ShopListingDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -844,7 +842,6 @@ abstract class ShopListingDefinitionId extends DefinitionId {
 
   @override
   String get id;
-
   @override
   @JsonKey(ignore: true)
   _$$ShopListingDefinitionIdCopyWith<_$ShopListingDefinitionId> get copyWith =>
@@ -858,7 +855,6 @@ abstract class _$$CraftingRecipeDefinitionIdCopyWith<$Res>
           _$CraftingRecipeDefinitionId value,
           $Res Function(_$CraftingRecipeDefinitionId) then) =
       __$$CraftingRecipeDefinitionIdCopyWithImpl<$Res>;
-
   @override
   $Res call({String id});
 }
@@ -1021,7 +1017,6 @@ class _$CraftingRecipeDefinitionId extends CraftingRecipeDefinitionId {
 abstract class CraftingRecipeDefinitionId extends DefinitionId {
   const factory CraftingRecipeDefinitionId(final String id) =
       _$CraftingRecipeDefinitionId;
-
   const CraftingRecipeDefinitionId._() : super._();
 
   factory CraftingRecipeDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -1029,7 +1024,6 @@ abstract class CraftingRecipeDefinitionId extends DefinitionId {
 
   @override
   String get id;
-
   @override
   @JsonKey(ignore: true)
   _$$CraftingRecipeDefinitionIdCopyWith<_$CraftingRecipeDefinitionId>
@@ -1042,7 +1036,6 @@ abstract class _$$DoodadDefinitionIdCopyWith<$Res>
   factory _$$DoodadDefinitionIdCopyWith(_$DoodadDefinitionId value,
           $Res Function(_$DoodadDefinitionId) then) =
       __$$DoodadDefinitionIdCopyWithImpl<$Res>;
-
   @override
   $Res call({String id});
 }
@@ -1202,7 +1195,6 @@ class _$DoodadDefinitionId extends DoodadDefinitionId {
 
 abstract class DoodadDefinitionId extends DefinitionId {
   const factory DoodadDefinitionId(final String id) = _$DoodadDefinitionId;
-
   const DoodadDefinitionId._() : super._();
 
   factory DoodadDefinitionId.fromJson(Map<String, dynamic> json) =
@@ -1210,7 +1202,6 @@ abstract class DoodadDefinitionId extends DefinitionId {
 
   @override
   String get id;
-
   @override
   @JsonKey(ignore: true)
   _$$DoodadDefinitionIdCopyWith<_$DoodadDefinitionId> get copyWith =>
@@ -1218,7 +1209,7 @@ abstract class DoodadDefinitionId extends DefinitionId {
 }
 
 /// @nodoc
-mixin _$Townsfolk {
+mixin _$TownsfolkDefinition {
   TownsfolkDefinitionId get id => throw _privateConstructorUsedError;
 
   String get name => throw _privateConstructorUsedError;
@@ -1226,24 +1217,28 @@ mixin _$Townsfolk {
   String get image => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $TownsfolkCopyWith<Townsfolk> get copyWith =>
+  $TownsfolkDefinitionCopyWith<TownsfolkDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TownsfolkCopyWith<$Res> {
-  factory $TownsfolkCopyWith(Townsfolk value, $Res Function(Townsfolk) then) =
-      _$TownsfolkCopyWithImpl<$Res>;
+abstract class $TownsfolkDefinitionCopyWith<$Res> {
+  factory $TownsfolkDefinitionCopyWith(
+          TownsfolkDefinition value, $Res Function(TownsfolkDefinition) then) =
+      _$TownsfolkDefinitionCopyWithImpl<$Res>;
+
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
 
 /// @nodoc
-class _$TownsfolkCopyWithImpl<$Res> implements $TownsfolkCopyWith<$Res> {
-  _$TownsfolkCopyWithImpl(this._value, this._then);
+class _$TownsfolkDefinitionCopyWithImpl<$Res>
+    implements $TownsfolkDefinitionCopyWith<$Res> {
+  _$TownsfolkDefinitionCopyWithImpl(this._value, this._then);
 
-  final Townsfolk _value;
+  final TownsfolkDefinition _value;
+
   // ignore: unused_field
-  final $Res Function(Townsfolk) _then;
+  final $Res Function(TownsfolkDefinition) _then;
 
   @override
   $Res call({
@@ -1269,23 +1264,26 @@ class _$TownsfolkCopyWithImpl<$Res> implements $TownsfolkCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class _$$_TownsfolkCopyWith<$Res> implements $TownsfolkCopyWith<$Res> {
-  factory _$$_TownsfolkCopyWith(
-          _$_Townsfolk value, $Res Function(_$_Townsfolk) then) =
-      __$$_TownsfolkCopyWithImpl<$Res>;
+abstract class _$$_TownsfolkDefinitionCopyWith<$Res>
+    implements $TownsfolkDefinitionCopyWith<$Res> {
+  factory _$$_TownsfolkDefinitionCopyWith(_$_TownsfolkDefinition value,
+          $Res Function(_$_TownsfolkDefinition) then) =
+      __$$_TownsfolkDefinitionCopyWithImpl<$Res>;
+
   @override
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
 
 /// @nodoc
-class __$$_TownsfolkCopyWithImpl<$Res> extends _$TownsfolkCopyWithImpl<$Res>
-    implements _$$_TownsfolkCopyWith<$Res> {
-  __$$_TownsfolkCopyWithImpl(
-      _$_Townsfolk _value, $Res Function(_$_Townsfolk) _then)
-      : super(_value, (v) => _then(v as _$_Townsfolk));
+class __$$_TownsfolkDefinitionCopyWithImpl<$Res>
+    extends _$TownsfolkDefinitionCopyWithImpl<$Res>
+    implements _$$_TownsfolkDefinitionCopyWith<$Res> {
+  __$$_TownsfolkDefinitionCopyWithImpl(_$_TownsfolkDefinition _value,
+      $Res Function(_$_TownsfolkDefinition) _then)
+      : super(_value, (v) => _then(v as _$_TownsfolkDefinition));
 
   @override
-  _$_Townsfolk get _value => super._value as _$_Townsfolk;
+  _$_TownsfolkDefinition get _value => super._value as _$_TownsfolkDefinition;
 
   @override
   $Res call({
@@ -1293,7 +1291,7 @@ class __$$_TownsfolkCopyWithImpl<$Res> extends _$TownsfolkCopyWithImpl<$Res>
     Object? name = freezed,
     Object? image = freezed,
   }) {
-    return _then(_$_Townsfolk(
+    return _then(_$_TownsfolkDefinition(
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1312,8 +1310,8 @@ class __$$_TownsfolkCopyWithImpl<$Res> extends _$TownsfolkCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Townsfolk implements _Townsfolk {
-  const _$_Townsfolk(
+class _$_TownsfolkDefinition implements _TownsfolkDefinition {
+  const _$_TownsfolkDefinition(
       {required this.id, required this.name, required this.image});
 
   @override
@@ -1325,14 +1323,14 @@ class _$_Townsfolk implements _Townsfolk {
 
   @override
   String toString() {
-    return 'Townsfolk(id: $id, name: $name, image: $image)';
+    return 'TownsfolkDefinition(id: $id, name: $name, image: $image)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Townsfolk &&
+            other is _$_TownsfolkDefinition &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.image, image));
@@ -1347,24 +1345,28 @@ class _$_Townsfolk implements _Townsfolk {
 
   @JsonKey(ignore: true)
   @override
-  _$$_TownsfolkCopyWith<_$_Townsfolk> get copyWith =>
-      __$$_TownsfolkCopyWithImpl<_$_Townsfolk>(this, _$identity);
+  _$$_TownsfolkDefinitionCopyWith<_$_TownsfolkDefinition> get copyWith =>
+      __$$_TownsfolkDefinitionCopyWithImpl<_$_TownsfolkDefinition>(
+          this, _$identity);
 }
 
-abstract class _Townsfolk implements Townsfolk {
-  const factory _Townsfolk(
+abstract class _TownsfolkDefinition implements TownsfolkDefinition {
+  const factory _TownsfolkDefinition(
       {required final TownsfolkDefinitionId id,
       required final String name,
-      required final String image}) = _$_Townsfolk;
+      required final String image}) = _$_TownsfolkDefinition;
 
   @override
   TownsfolkDefinitionId get id;
+
   @override
   String get name;
+
   @override
   String get image;
+
   @override
   @JsonKey(ignore: true)
-  _$$_TownsfolkCopyWith<_$_Townsfolk> get copyWith =>
+  _$$_TownsfolkDefinitionCopyWith<_$_TownsfolkDefinition> get copyWith =>
       throw _privateConstructorUsedError;
 }

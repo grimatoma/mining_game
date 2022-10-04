@@ -113,6 +113,7 @@ flutter:
     - assets/images/forestTest/
     - assets/images/tiles/13-Icons/smithy.png
     - assets/images/all/
+    - assets/images/1Portraits/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

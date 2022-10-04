@@ -36,7 +36,6 @@ DoodadDefinition _$DoodadDefinitionFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$DoodadDefinition {
   DoodadDefinitionId get id => throw _privateConstructorUsedError;
-
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get imageAsset => throw _privateConstructorUsedError;
@@ -866,7 +865,6 @@ abstract class DiggerDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadDefinitionId get id;
-
   @override
   String get name;
   @override
@@ -1486,7 +1484,7 @@ class _$RegenerativeHarvestableDoodadDefinition
 abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
     implements RegenerativeHarvestableDoodadInterface {
   const factory RegenerativeHarvestableDoodadDefinition(
-      {required final DoodadDefinitionId id,
+          {required final DoodadDefinitionId id,
           required final String name,
           required final String description,
           required final String imageAsset,
@@ -1510,7 +1508,6 @@ abstract class RegenerativeHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadDefinitionId get id;
-
   @override
   String get name;
   @override
@@ -2040,7 +2037,6 @@ abstract class AreaHarvestableDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadDefinitionId get id;
-
   @override
   String get name;
   @override
@@ -2618,7 +2614,6 @@ abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadDefinitionId get id;
-
   @override
   String get name;
   @override
@@ -3119,7 +3114,6 @@ abstract class HouseDoodadDefinition extends DoodadDefinition
 
   @override
   DoodadDefinitionId get id;
-
   @override
   String get name;
   @override

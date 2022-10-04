@@ -32,7 +32,6 @@ ShopListing _$ShopListingFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ShopListing {
   ShopListingDefinitionId get id => throw _privateConstructorUsedError;
-
   ItemContainer get cost => throw _privateConstructorUsedError;
   bool get consumable => throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -120,7 +119,6 @@ abstract class $ShopListingCopyWith<$Res> {
   factory $ShopListingCopyWith(
           ShopListing value, $Res Function(ShopListing) then) =
       _$ShopListingCopyWithImpl<$Res>;
-
   $Res call({ShopListingDefinitionId id, ItemContainer cost, bool consumable});
 
   $ItemContainerCopyWith<$Res> get cost;
@@ -409,7 +407,6 @@ abstract class ItemShopListing implements ShopListing {
 
   @override
   ShopListingDefinitionId get id;
-
   @override
   ItemContainer get cost;
   ItemDefinitionId get item;
@@ -507,7 +504,6 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   final DoodadDefinitionId doodadId;
   final Set<Feature>? _requiredFeatures;
-
   @override
   Set<Feature>? get requiredFeatures {
     final value = _requiredFeatures;
@@ -677,12 +673,9 @@ abstract class DoodadShopListing implements ShopListing {
 
   @override
   ShopListingDefinitionId get id;
-
   @override
   ItemContainer get cost;
-
   DoodadDefinitionId get doodadId;
-
   Set<Feature>? get requiredFeatures;
   @override
   bool get consumable;
@@ -777,7 +770,6 @@ class _$FeatureShopListing implements FeatureShopListing {
   @override
   final Feature feature;
   final Set<Feature>? _requiredFeatures;
-
   @override
   Set<Feature>? get requiredFeatures {
     final value = _requiredFeatures;
@@ -948,7 +940,6 @@ abstract class FeatureShopListing implements ShopListing {
 
   @override
   ShopListingDefinitionId get id;
-
   @override
   ItemContainer get cost;
   Feature get feature;

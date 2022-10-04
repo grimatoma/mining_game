@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/requirement.dart';
+import 'package:mining_game/model_assets/townsfolkIds.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/widgets/status_bar.dart';
 
@@ -119,10 +120,20 @@ class QuestListDetail extends ConsumerWidget {
       ],
     );
 
+    final questGiverId = _questStatus.definition.questGiver;
     return Column(
       children: [
         Row(
-          children: [Text(_questStatus.definition.name)],
+          children: [
+            if (questGiverId != null)
+              Column(
+                children: [
+                  Image.asset(questGiverId.definition.image),
+                  Text(questGiverId.definition.name),
+                ],
+              ),
+            Text(_questStatus.definition.name)
+          ],
         ),
         if (_questStatus.requirementsMet)
           const Text(

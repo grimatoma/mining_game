@@ -1,6 +1,7 @@
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/requirement.dart';
+import 'package:mining_game/model_assets/townsfolkIds.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/quests/townsfolk_definition.dart';
 
@@ -8,6 +9,7 @@ final questsModels = [
   QuestDefinition(
       id: const QuestDefinitionId('1'),
       name: 'Test quest 1',
+      questGiver: Townsfolk.anna,
       description:
           'This is an example quest. Please give me 5 credits so I can give you 25 rocks.',
       enabledRequirement:
@@ -21,6 +23,7 @@ final questsModels = [
   QuestDefinition(
       id: const QuestDefinitionId('2'),
       name: 'Smelt iron',
+      questGiver: Townsfolk.kat,
       description: 'This quest makes sure that you can smelt iron',
       enabledRequirement: const Requirement(),
       completeRequirement: const Requirement(features: {Feature.SMELTING}),
@@ -30,6 +33,7 @@ final questsModels = [
   QuestDefinition(
       id: const QuestDefinitionId('3'),
       name: 'Own 5 iron',
+      questGiver: Townsfolk.kat,
       description: 'This quest checks that you own Iron',
       enabledRequirement: const Requirement(),
       completeRequirement:
@@ -40,6 +44,7 @@ final questsModels = [
   QuestDefinition(
       id: const QuestDefinitionId('4'),
       name: 'Unlock smelting',
+      questGiver: Townsfolk.hero,
       description:
           'We need to build a smelter but this costs a lot of resources please help me gather these items so I can start building a smelter.',
       enabledRequirement: const Requirement(),
@@ -54,6 +59,7 @@ final questsModels = [
   QuestDefinition(
       id: const QuestDefinitionId('5'),
       name: 'Give me credits',
+      questGiver: Townsfolk.okka,
       description: 'I am short some credits. Give them to me',
       enabledRequirement: const Requirement(),
       completeRequirement:
