@@ -45,17 +45,19 @@ class QuestListPageWidget extends HookConsumerWidget {
                   ref.read(completedQuestsProvider.notifier).resetQuests();
                 },
                 child: const Text("Reset quests")),
-            ListView.separated(
-                shrinkWrap: true,
-                controller: scrollController,
-                itemBuilder: (_, index) => InkWell(
-                    onTap: () {
-                      context
-                          .push('/quests/quest/${quests[index].definition.id}');
-                    },
-                    child: QuestListDetail(quests[index])),
-                separatorBuilder: (_, __) => const Divider(),
-                itemCount: quests.length),
+            Expanded(
+              child: ListView.separated(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  itemBuilder: (_, index) => InkWell(
+                      onTap: () {
+                        context.push(
+                            '/quests/quest/${quests[index].definition.id}');
+                      },
+                      child: QuestListDetail(quests[index])),
+                  separatorBuilder: (_, __) => const Divider(),
+                  itemCount: quests.length),
+            ),
           ],
         ));
   }
@@ -122,26 +124,41 @@ class QuestListDetail extends ConsumerWidget {
 
     final questGiverId = _questStatus.definition.questGiver;
     return Column(
+      // mainAxisAlignment: Mai,
       children: [
         Row(
           children: [
-            if (questGiverId != null)
-              Column(
-                children: [
-                  Image.asset(questGiverId.definition.image),
-                  Text(questGiverId.definition.name),
-                ],
-              ),
-            Text(_questStatus.definition.name)
+            Row(
+              children: [
+                if (questGiverId != null)
+                  Column(
+                    children: [
+                      Image.asset(questGiverId.definition.image),
+                      Text(questGiverId.definition.name),
+                    ],
+                  ),
+                Text(_questStatus.definition.name)
+              ],
+            ),
+            Expanded(child: Text(_questStatus.definition.reward.toString())),
           ],
         ),
-        if (_questStatus.requirementsMet)
-          const Text(
-            'Ready to turn in',
-            style: TextStyle(color: Colors.green),
-          )
-        else
-          requirements,
+        Column(
+          children: [
+            const Text('Requirements'),
+            requirements,
+          ],
+        ),
+        Column(
+          children: [
+            const Text('Buttons'),
+            if (_questStatus.requirementsMet)
+              const Text(
+                'Ready to turn in',
+                style: TextStyle(color: Colors.green),
+              )
+          ],
+        ),
       ],
     );
   }
