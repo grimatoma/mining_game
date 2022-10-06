@@ -18,7 +18,12 @@ final questsModels = [
         itemCost: ItemContainer.single(Items.CREDIT, 5),
       ),
       reward: QuestReward(
-        items: ItemContainer.single(Items.ROCK, 25),
+        items: ItemContainer({
+          Items.ROCK: 25,
+          Items.CREDIT: 5,
+          Items.WOOD: 25,
+          Items.IRON_ORE: 25,
+        }),
       )),
   QuestDefinition(
       id: const QuestDefinitionId('2'),

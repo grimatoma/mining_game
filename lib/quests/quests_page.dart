@@ -123,6 +123,9 @@ class QuestListDetail extends ConsumerWidget {
     );
 
     final questGiverId = _questStatus.definition.questGiver;
+    final rewardItems =
+        _questStatus.definition.reward.items?.entries.toList() ??
+            <MapEntry<ItemDefinitionId, int>>[];
     return Column(
       // mainAxisAlignment: Mai,
       children: [
@@ -133,14 +136,90 @@ class QuestListDetail extends ConsumerWidget {
                 if (questGiverId != null)
                   Column(
                     children: [
-                      Image.asset(questGiverId.definition.image),
+                      Container(
+                          margin: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.all(
+                                Radius.circular(
+                                    15.0) //                 <--- border radius here
+                                ),
+                            color: Colors.green[100],
+                            border: Border.all(
+                              color: Colors.blueAccent,
+                              width: 3.0,
+                            ),
+                          ),
+                          child: Image.asset(questGiverId.definition.image)),
                       Text(questGiverId.definition.name),
                     ],
                   ),
-                Text(_questStatus.definition.name)
               ],
             ),
-            Expanded(child: Text(_questStatus.definition.reward.toString())),
+            Expanded(
+                child: Column(
+              children: [
+                Text(_questStatus.definition.name),
+                const Align(
+                    alignment: Alignment.topLeft, child: Text('Rewards')),
+
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                    border: Border.all(
+                      color: Colors.blueAccent,
+                      width: 3.0,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: SizedBox(
+                      height: 50,
+                      child: RotatedBox(
+                        quarterTurns: 3,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemBuilder: (_, index) {
+                            final item = rewardItems[index];
+                            return RotatedBox(
+                              quarterTurns: 1,
+                              child: ItemRenderer(
+                                // showItemName: true,
+                                definition: item.key.definition,
+                                count: item.value,
+                                // linkedToDetailPage: dontNavigateForItemId != item.key,
+                              ),
+                            );
+                          },
+                          itemCount: rewardItems.length,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                // Text(_questStatus.definition.reward.items.toString()),
+                // LayoutGrid(
+                //   columnSizes: [1.fr, 1.fr, 1.fr, 1.fr],
+                //   rowSizes: [
+                //     1.fr,
+                //     1.fr,
+                //     1.fr,
+                //   ],
+                //   children: [
+                //     Text('sss'),
+                //     // if (_questStatus.definition.reward.items != null)
+                //     for (final item
+                //         in _questStatus.definition.reward.items!.entries)
+                //       Text('ss').inGridArea('red'),
+                //     // ItemRenderer(
+                //     //     definition: item.key.definition,
+                //     //     count: item.value),
+                //   ],
+                // )
+                // _questStatus.definition.reward.toString()),
+              ],
+            )),
           ],
         ),
         Column(
