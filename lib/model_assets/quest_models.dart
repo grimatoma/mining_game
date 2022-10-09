@@ -1,7 +1,7 @@
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 import 'package:mining_game/item_management/requirement.dart';
-import 'package:mining_game/model_assets/townsfolkIds.dart';
+import 'package:mining_game/model_assets/townsfolk_ids.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/quests/townsfolk_definition.dart';
 

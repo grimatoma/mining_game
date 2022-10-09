@@ -1,6 +1,6 @@
 import 'package:mining_game/quests/townsfolk_definition.dart';
 
-import 'townsfolkIds.dart';
+import 'townsfolk_ids.dart';
 
 const townsfolkModels = [
   TownsfolkDefinition(

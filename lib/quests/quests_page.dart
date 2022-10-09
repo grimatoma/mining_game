@@ -1,12 +1,13 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/model_assets/townsfolkIds.dart';
+import 'package:mining_game/model_assets/townsfolk_ids.dart';
 import 'package:mining_game/quests/quest_definition.dart';
 import 'package:mining_game/util/colors.dart';
 import 'package:mining_game/widgets/status_bar.dart';
@@ -70,9 +71,6 @@ class QuestListDetail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final questGiverId = _questStatus.definition.questGiver;
-    const kMinWidthOfLargeScreen = 900;
-    bool isScreenWide =
-        MediaQuery.of(context).size.width >= kMinWidthOfLargeScreen;
     return Row(
       children: [
         if (questGiverId != null)
@@ -321,9 +319,8 @@ class QuestSingleRequirementProgress extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        if (centerText != null) Text(centerText!),
-                        if (showProgressNumbers)
-                          Text('$currentAmount/$requiredAmount'),
+                        AutoSizeText(
+                            '$centerText ${showProgressNumbers ? '$currentAmount/$requiredAmount' : ''}'),
                       ],
                     ),
                   ),
