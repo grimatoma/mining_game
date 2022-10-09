@@ -70,7 +70,7 @@ class QuestListDetail extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final questGiverId = _questStatus.definition.questGiver;
-    const kMinWidthOfLargeScreen = 700;
+    const kMinWidthOfLargeScreen = 900;
     bool isScreenWide =
         MediaQuery.of(context).size.width >= kMinWidthOfLargeScreen;
     return Row(
@@ -98,50 +98,47 @@ class QuestListDetail extends ConsumerWidget {
           ),
         Expanded(
           child: Flex(
-            direction: isScreenWide ? Axis.horizontal : Axis.vertical,
+            direction: Axis.horizontal,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    Row(
+              Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        _questStatus.definition.name,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      if (_questStatus.requirementsMet)
+                        const Padding(
+                          padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                          child: Text(
+                            'Ready to turn in',
+                            style: TextStyle(color: Colors.green),
+                          ),
+                        )
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
                       children: [
-                        Text(
-                          _questStatus.definition.name,
-                          style: const TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        if (_questStatus.requirementsMet)
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
-                            child: Text(
-                              'Ready to turn in',
-                              style: TextStyle(color: Colors.green),
-                            ),
-                          )
+                        const Text('Rewards'),
+                        RewardsRenderer(_questStatus.definition),
                       ],
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          const Text('Rewards'),
-                          RewardsRenderer(_questStatus.definition),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Align(
-                alignment: Alignment.topCenter,
+              Flexible(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(
                     minWidth: 250,
-                    maxWidth: 500,
+                    maxWidth: 750,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
@@ -284,7 +281,6 @@ class QuestSingleRequirementProgress extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(currentAmount / requiredAmount);
     const boarderRadius = BorderRadius.all(Radius.circular(35.0));
     final color = getBackgroundColor(progress);
     return Padding(
@@ -304,8 +300,6 @@ class QuestSingleRequirementProgress extends ConsumerWidget {
           child: SizedBox(
             child: LayoutBuilder(
                 builder: (BuildContext context, BoxConstraints constraints) {
-              print(constraints.maxWidth *
-                  min(1, currentAmount / requiredAmount));
               return Stack(
                 children: [
                   if (showProgressBar)
