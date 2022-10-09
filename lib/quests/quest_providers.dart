@@ -75,18 +75,20 @@ final questStatusProvider =
       }
     }
 
-    final ownedFeatures =
-        activeFeatures.where((p0) => requirements.features.contains(p0));
-    if (ownedFeatures.length != requirements.features.length) {
+    final hasRequiredFeatures = requirements.features
+        .any((feature) => activeFeatures.contains(feature));
+    if (hasRequiredFeatures) {
       meetsRequirements = false;
     }
+
     processRequirement(requirements.itemCost);
     processRequirement(requirements.itemsOwned);
     return QuestStatus(
-        definition: questDefinition,
-        requirementsMet: meetsRequirements,
-        itemsProgress: ItemContainer(questProgress),
-        featuresProgress: ownedFeatures.toSet());
+      definition: questDefinition,
+      requirementsMet: meetsRequirements,
+      itemsProgress: ItemContainer(questProgress),
+      hasRequiredFeatures: hasRequiredFeatures,
+    );
   }
 
   final mapBuilder = MapBuilder<QuestDefinitionId, QuestStatus>();

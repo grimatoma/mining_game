@@ -497,7 +497,7 @@ abstract class _QuestDefinition implements QuestDefinition {
 mixin _$QuestStatus {
   QuestDefinition get definition => throw _privateConstructorUsedError;
   bool get requirementsMet => throw _privateConstructorUsedError;
-  Set<Feature> get featuresProgress => throw _privateConstructorUsedError;
+  bool get hasRequiredFeatures => throw _privateConstructorUsedError;
   ItemContainer get itemsProgress => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -513,7 +513,7 @@ abstract class $QuestStatusCopyWith<$Res> {
   $Res call(
       {QuestDefinition definition,
       bool requirementsMet,
-      Set<Feature> featuresProgress,
+      bool hasRequiredFeatures,
       ItemContainer itemsProgress});
 
   $QuestDefinitionCopyWith<$Res> get definition;
@@ -532,7 +532,7 @@ class _$QuestStatusCopyWithImpl<$Res> implements $QuestStatusCopyWith<$Res> {
   $Res call({
     Object? definition = freezed,
     Object? requirementsMet = freezed,
-    Object? featuresProgress = freezed,
+    Object? hasRequiredFeatures = freezed,
     Object? itemsProgress = freezed,
   }) {
     return _then(_value.copyWith(
@@ -544,10 +544,10 @@ class _$QuestStatusCopyWithImpl<$Res> implements $QuestStatusCopyWith<$Res> {
           ? _value.requirementsMet
           : requirementsMet // ignore: cast_nullable_to_non_nullable
               as bool,
-      featuresProgress: featuresProgress == freezed
-          ? _value.featuresProgress
-          : featuresProgress // ignore: cast_nullable_to_non_nullable
-              as Set<Feature>,
+      hasRequiredFeatures: hasRequiredFeatures == freezed
+          ? _value.hasRequiredFeatures
+          : hasRequiredFeatures // ignore: cast_nullable_to_non_nullable
+              as bool,
       itemsProgress: itemsProgress == freezed
           ? _value.itemsProgress
           : itemsProgress // ignore: cast_nullable_to_non_nullable
@@ -580,7 +580,7 @@ abstract class _$$_QuestStatusCopyWith<$Res>
   $Res call(
       {QuestDefinition definition,
       bool requirementsMet,
-      Set<Feature> featuresProgress,
+      bool hasRequiredFeatures,
       ItemContainer itemsProgress});
 
   @override
@@ -603,7 +603,7 @@ class __$$_QuestStatusCopyWithImpl<$Res> extends _$QuestStatusCopyWithImpl<$Res>
   $Res call({
     Object? definition = freezed,
     Object? requirementsMet = freezed,
-    Object? featuresProgress = freezed,
+    Object? hasRequiredFeatures = freezed,
     Object? itemsProgress = freezed,
   }) {
     return _then(_$_QuestStatus(
@@ -615,10 +615,10 @@ class __$$_QuestStatusCopyWithImpl<$Res> extends _$QuestStatusCopyWithImpl<$Res>
           ? _value.requirementsMet
           : requirementsMet // ignore: cast_nullable_to_non_nullable
               as bool,
-      featuresProgress: featuresProgress == freezed
-          ? _value._featuresProgress
-          : featuresProgress // ignore: cast_nullable_to_non_nullable
-              as Set<Feature>,
+      hasRequiredFeatures: hasRequiredFeatures == freezed
+          ? _value.hasRequiredFeatures
+          : hasRequiredFeatures // ignore: cast_nullable_to_non_nullable
+              as bool,
       itemsProgress: itemsProgress == freezed
           ? _value.itemsProgress
           : itemsProgress // ignore: cast_nullable_to_non_nullable
@@ -633,27 +633,21 @@ class _$_QuestStatus implements _QuestStatus {
   const _$_QuestStatus(
       {required this.definition,
       required this.requirementsMet,
-      required final Set<Feature> featuresProgress,
-      required this.itemsProgress})
-      : _featuresProgress = featuresProgress;
+      required this.hasRequiredFeatures,
+      required this.itemsProgress});
 
   @override
   final QuestDefinition definition;
   @override
   final bool requirementsMet;
-  final Set<Feature> _featuresProgress;
   @override
-  Set<Feature> get featuresProgress {
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableSetView(_featuresProgress);
-  }
-
+  final bool hasRequiredFeatures;
   @override
   final ItemContainer itemsProgress;
 
   @override
   String toString() {
-    return 'QuestStatus(definition: $definition, requirementsMet: $requirementsMet, featuresProgress: $featuresProgress, itemsProgress: $itemsProgress)';
+    return 'QuestStatus(definition: $definition, requirementsMet: $requirementsMet, hasRequiredFeatures: $hasRequiredFeatures, itemsProgress: $itemsProgress)';
   }
 
   @override
@@ -666,7 +660,7 @@ class _$_QuestStatus implements _QuestStatus {
             const DeepCollectionEquality()
                 .equals(other.requirementsMet, requirementsMet) &&
             const DeepCollectionEquality()
-                .equals(other._featuresProgress, _featuresProgress) &&
+                .equals(other.hasRequiredFeatures, hasRequiredFeatures) &&
             const DeepCollectionEquality()
                 .equals(other.itemsProgress, itemsProgress));
   }
@@ -676,7 +670,7 @@ class _$_QuestStatus implements _QuestStatus {
       runtimeType,
       const DeepCollectionEquality().hash(definition),
       const DeepCollectionEquality().hash(requirementsMet),
-      const DeepCollectionEquality().hash(_featuresProgress),
+      const DeepCollectionEquality().hash(hasRequiredFeatures),
       const DeepCollectionEquality().hash(itemsProgress));
 
   @JsonKey(ignore: true)
@@ -689,7 +683,7 @@ abstract class _QuestStatus implements QuestStatus {
   const factory _QuestStatus(
       {required final QuestDefinition definition,
       required final bool requirementsMet,
-      required final Set<Feature> featuresProgress,
+      required final bool hasRequiredFeatures,
       required final ItemContainer itemsProgress}) = _$_QuestStatus;
 
   @override
@@ -697,7 +691,7 @@ abstract class _QuestStatus implements QuestStatus {
   @override
   bool get requirementsMet;
   @override
-  Set<Feature> get featuresProgress;
+  bool get hasRequiredFeatures;
   @override
   ItemContainer get itemsProgress;
   @override

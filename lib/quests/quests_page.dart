@@ -1,16 +1,24 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mining_game/features.dart';
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/item_management/requirement.dart';
 import 'package:mining_game/model_assets/townsfolkIds.dart';
 import 'package:mining_game/quests/quest_definition.dart';
+import 'package:mining_game/util/colors.dart';
 import 'package:mining_game/widgets/status_bar.dart';
 
 import 'quest_providers.dart';
 import 'townsfolk_definition.dart';
+
+const borderColor = Color(0xFF448AFF);
+final border = Border.all(
+  color: borderColor,
+  width: 3.0,
+);
 
 class QuestListPageWidget extends HookConsumerWidget {
   const QuestListPageWidget({
@@ -19,8 +27,6 @@ class QuestListPageWidget extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print('rebuilding quest page');
-    final scrollController = useScrollController();
     final quests = ref.watch(questStatusProvider).values.toList();
     return Scaffold(
         appBar: AppBar(
@@ -29,16 +35,6 @@ class QuestListPageWidget extends HookConsumerWidget {
         ),
         body: Column(
           children: [
-            // SizedBox(
-            //   width: 64,
-            //   height: 64,
-            //   child: FittedBox(
-            //     fit: BoxFit.fill,
-            //     child: SpriteWidget(
-            //       sprite: sheet.getSprite(2, 2),
-            //     ),
-            //   ),
-            // ),
             const StatusBarWidget(),
             TextButton(
                 onPressed: () {
@@ -48,7 +44,7 @@ class QuestListPageWidget extends HookConsumerWidget {
             Expanded(
               child: ListView.separated(
                   shrinkWrap: true,
-                  controller: scrollController,
+                  controller: useScrollController(),
                   itemBuilder: (_, index) => InkWell(
                       onTap: () {
                         context.push(
@@ -73,164 +69,329 @@ class QuestListDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color getQuestColor(bool requirementMet) {
-      return requirementMet ? Colors.green : Colors.red;
-    }
-
-    TableRow getFeatureStatus(Feature feature, Set<Feature> currentFeatures) {
-      final reqMet = currentFeatures.contains(feature);
-      final color = getQuestColor(reqMet);
-      return TableRow(children: [
-        Text(
-          '-',
-          style: TextStyle(color: color),
-        ),
-        Text('${feature.name} unlocked:', style: TextStyle(color: color)),
-        Text('${reqMet ? 1 : 0} /1', style: TextStyle(color: color))
-      ]);
-    }
-
-    TableRow getItemRequiredStatus(MapEntry<ItemDefinitionId, int> itemRequired,
-        ItemContainer currentItemProgress,
-        [String? suffix]) {
-      final currentCount = currentItemProgress[itemRequired.key];
-      final reqMet = currentCount >= itemRequired.value;
-      final color = getQuestColor(reqMet);
-      return TableRow(children: [
-        Text('-', style: TextStyle(color: color)),
-        Text('${itemRequired.key.definition.name}:',
-            style: TextStyle(color: color)),
-        Text(
-            '$currentCount'
-            '/${itemRequired.value}',
-            style: TextStyle(color: color)),
-        if (suffix != null) Text(' $suffix', style: TextStyle(color: color)),
-      ]);
-    }
-
-    final unlockReq = _questStatus.definition.completeRequirement;
-    final features = unlockReq.features;
-    final requirements = Table(
-      children: [
-        for (final feature in features)
-          getFeatureStatus(feature, _questStatus.featuresProgress),
-        for (final itemRequired in unlockReq.itemCost.entries)
-          getItemRequiredStatus(itemRequired, _questStatus.itemsProgress),
-        for (final itemRequired in unlockReq.itemsOwned.entries)
-          getItemRequiredStatus(
-              itemRequired, _questStatus.itemsProgress, 'Owned'),
-      ],
-    );
-
     final questGiverId = _questStatus.definition.questGiver;
-    final rewardItems =
-        _questStatus.definition.reward.items?.entries.toList() ??
-            <MapEntry<ItemDefinitionId, int>>[];
+    const kMinWidthOfLargeScreen = 700;
+    bool isScreenWide =
+        MediaQuery.of(context).size.width >= kMinWidthOfLargeScreen;
     return Row(
       children: [
-        Row(
-          children: [
-            if (questGiverId != null)
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                      margin: const EdgeInsets.all(8.0),
-                      padding: const EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.all(Radius.circular(
-                                15.0) //                 <--- border radius here
-                            ),
-                        color: Colors.green[100],
-                        border: Border.all(
-                          color: Colors.blueAccent,
-                          width: 3.0,
-                        ),
-                      ),
-                      child: Image.asset(questGiverId.definition.image)),
-                  Text(questGiverId.definition.name),
-                ],
-              ),
-          ],
-        ),
+        if (questGiverId != null)
+          Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                    margin: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(4.0),
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(Radius.circular(
+                              15.0) //                 <--- border radius here
+                          ),
+                      color: Colors.green[100],
+                      border: border,
+                    ),
+                    child: Image.asset(questGiverId.definition.image)),
+                Text(questGiverId.definition.name),
+              ],
+            ),
+          ),
         Expanded(
-          child: Column(
+          child: Flex(
+            direction: isScreenWide ? Axis.horizontal : Axis.vertical,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                children: [
-                  Text(
-                    _questStatus.definition.name,
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text('Rewards'),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.red,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(15.0)),
-                          border: Border.all(
-                            color: Colors.blueAccent,
-                            width: 3.0,
-                          ),
+              Expanded(
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          _questStatus.definition.name,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
                         ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: ConstrainedBox(
-                            constraints: const BoxConstraints(
-                              minWidth: 200,
-                              maxHeight: 50,
+                        if (_questStatus.requirementsMet)
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
+                            child: Text(
+                              'Ready to turn in',
+                              style: TextStyle(color: Colors.green),
                             ),
-                            // height: 50,
-                            child: RotatedBox(
-                              quarterTurns: 3,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                itemBuilder: (_, index) {
-                                  final item = rewardItems[index];
-                                  return RotatedBox(
-                                    quarterTurns: 1,
-                                    child: ItemRenderer(
-                                      // showItemName: true,
-                                      definition: item.key.definition,
-                                      count: item.value,
-                                      // linkedToDetailPage: dontNavigateForItemId != item.key,
-                                    ),
-                                  );
-                                },
-                                itemCount: rewardItems.length,
-                              ),
-                            ),
-                          ),
-                        ),
+                          )
+                      ],
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          const Text('Rewards'),
+                          RewardsRenderer(_questStatus.definition),
+                        ],
                       ),
-                    ],
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(
+                    minWidth: 250,
+                    maxWidth: 500,
                   ),
-                ],
-              ),
-              Column(
-                children: [
-                  const Text('Requirements'),
-                  requirements,
-                ],
-              ),
-              Column(
-                children: [
-                  const Text('Buttons'),
-                  if (_questStatus.requirementsMet)
-                    const Text(
-                      'Ready to turn in',
-                      style: TextStyle(color: Colors.green),
-                    )
-                ],
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+                    child: Column(
+                      children: [
+                        const Text('Requirements'),
+                        QuestStatusRenderer(
+                            _questStatus, _questStatus.definition),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
         ),
       ],
+    );
+  }
+}
+
+class RewardsRenderer extends ConsumerWidget {
+  final QuestDefinition questDefinition;
+
+  const RewardsRenderer(
+    this.questDefinition, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final rewardItems = [
+      ...?questDefinition.reward.items?.entries,
+    ];
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+        border: border,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 5),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(
+            minWidth: 200,
+            maxHeight: 50,
+          ),
+          // height: 50,
+          child: RotatedBox(
+            quarterTurns: 3,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: (_, index) {
+                final item = rewardItems[index];
+                return RotatedBox(
+                  quarterTurns: 1,
+                  child: ItemRenderer(
+                    definition: item.key.definition,
+                    count: item.value,
+                  ),
+                );
+              },
+              itemCount: rewardItems.length,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class QuestStatusRenderer extends ConsumerWidget {
+  final QuestStatus questStatus;
+  final QuestDefinition _questDefinition;
+
+  const QuestStatusRenderer(this.questStatus, this._questDefinition, {Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      children: [
+        for (final feature in _questDefinition.completeRequirement.features)
+          FeatureRequirement(feature),
+        for (final itemRequired
+            in questStatus.definition.completeRequirement.itemCost.entries)
+          ItemRequirement(
+            itemId: itemRequired.key,
+            required: itemRequired.value,
+            questStatus: questStatus,
+          ),
+        for (final itemRequired
+            in questStatus.definition.completeRequirement.itemsOwned.entries)
+          ItemRequirement(
+            itemId: itemRequired.key,
+            required: itemRequired.value,
+            questStatus: questStatus,
+            ownsOnly: true,
+          ),
+      ],
+    );
+  }
+}
+
+enum RequirementProgress {
+  NOT_STARTED,
+  IN_PROGRESS,
+  MET,
+}
+
+Color getBackgroundColor(RequirementProgress progress) {
+  switch (progress) {
+    case RequirementProgress.NOT_STARTED:
+      return Colors.red[200]!;
+    case RequirementProgress.IN_PROGRESS:
+      return Colors.blue[200]!;
+    case RequirementProgress.MET:
+      return Colors.green[400]!;
+  }
+}
+
+class QuestSingleRequirementProgress extends ConsumerWidget {
+  final RequirementProgress progress;
+  final int currentAmount;
+  final int requiredAmount;
+  final String? centerText;
+
+  final bool showProgressBar;
+  final bool showProgressNumbers;
+
+  const QuestSingleRequirementProgress(
+      {required this.progress,
+      required this.showProgressNumbers,
+      required this.showProgressBar,
+      this.currentAmount = 1,
+      this.requiredAmount = 1,
+      this.centerText,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    print(currentAmount / requiredAmount);
+    const boarderRadius = BorderRadius.all(Radius.circular(35.0));
+    final color = getBackgroundColor(progress);
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Container(
+        height: 28,
+        decoration: BoxDecoration(
+            borderRadius: boarderRadius,
+            color: getBackgroundColor(progress),
+            border: Border.all(
+              color: color.darken(0.2),
+              style: BorderStyle.solid,
+              width: 2.0,
+            )),
+        child: ClipRRect(
+          borderRadius: boarderRadius,
+          child: SizedBox(
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              print(constraints.maxWidth *
+                  min(1, currentAmount / requiredAmount));
+              return Stack(
+                children: [
+                  if (showProgressBar)
+                    Row(
+                      children: [
+                        Container(
+                          color: color.darken(.3),
+                          width: constraints.maxWidth *
+                              min(1, currentAmount / requiredAmount),
+                        ),
+                        Container(
+                          color: Colors.grey[200],
+                        ),
+                      ],
+                    ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (centerText != null) Text(centerText!),
+                        if (showProgressNumbers)
+                          Text('$currentAmount/$requiredAmount'),
+                      ],
+                    ),
+                  ),
+                ],
+              );
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class FeatureRequirement extends ConsumerWidget {
+  final Feature _feature;
+
+  const FeatureRequirement(this._feature, {Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return QuestSingleRequirementProgress(
+        centerText: 'Unlocked ${_feature.name}',
+        progress: ref.watch(activeFeaturesProvider).contains(_feature)
+            ? RequirementProgress.MET
+            : RequirementProgress.NOT_STARTED,
+        showProgressNumbers: false,
+        showProgressBar: false);
+  }
+}
+
+class ItemRequirement extends ConsumerWidget {
+  final ItemDefinitionId itemId;
+  final QuestStatus questStatus;
+  final bool ownsOnly;
+  final int required;
+
+  const ItemRequirement(
+      {required this.itemId,
+      required this.required,
+      required this.questStatus,
+      this.ownsOnly = false,
+      Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final current = questStatus.itemsProgress[itemId];
+    final isCompleted = current >= required;
+    var status = RequirementProgress.NOT_STARTED;
+    if (isCompleted) {
+      status = RequirementProgress.MET;
+    } else if (!isCompleted && current > 0) {
+      status = RequirementProgress.IN_PROGRESS;
+    }
+
+    return QuestSingleRequirementProgress(
+      centerText: '${ownsOnly ? 'Own' : 'Required'} ${itemId.itemName} ',
+      progress: status,
+      showProgressNumbers: true,
+      showProgressBar: !isCompleted,
+      currentAmount: current,
+      requiredAmount: required,
     );
   }
 }

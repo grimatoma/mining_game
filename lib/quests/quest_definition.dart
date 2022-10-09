@@ -37,7 +37,7 @@ class QuestStatus with _$QuestStatus {
   const factory QuestStatus({
     required QuestDefinition definition,
     required bool requirementsMet,
-    required Set<Feature> featuresProgress,
+    required bool hasRequiredFeatures,
     required ItemContainer itemsProgress,
   }) = _QuestStatus;
 }

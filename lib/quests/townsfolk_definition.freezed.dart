@@ -1211,9 +1211,7 @@ abstract class DoodadDefinitionId extends DefinitionId {
 /// @nodoc
 mixin _$TownsfolkDefinition {
   TownsfolkDefinitionId get id => throw _privateConstructorUsedError;
-
   String get name => throw _privateConstructorUsedError;
-
   String get image => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -1226,7 +1224,6 @@ abstract class $TownsfolkDefinitionCopyWith<$Res> {
   factory $TownsfolkDefinitionCopyWith(
           TownsfolkDefinition value, $Res Function(TownsfolkDefinition) then) =
       _$TownsfolkDefinitionCopyWithImpl<$Res>;
-
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
 
@@ -1236,7 +1233,6 @@ class _$TownsfolkDefinitionCopyWithImpl<$Res>
   _$TownsfolkDefinitionCopyWithImpl(this._value, this._then);
 
   final TownsfolkDefinition _value;
-
   // ignore: unused_field
   final $Res Function(TownsfolkDefinition) _then;
 
@@ -1269,7 +1265,6 @@ abstract class _$$_TownsfolkDefinitionCopyWith<$Res>
   factory _$$_TownsfolkDefinitionCopyWith(_$_TownsfolkDefinition value,
           $Res Function(_$_TownsfolkDefinition) then) =
       __$$_TownsfolkDefinitionCopyWithImpl<$Res>;
-
   @override
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
@@ -1358,13 +1353,10 @@ abstract class _TownsfolkDefinition implements TownsfolkDefinition {
 
   @override
   TownsfolkDefinitionId get id;
-
   @override
   String get name;
-
   @override
   String get image;
-
   @override
   @JsonKey(ignore: true)
   _$$_TownsfolkDefinitionCopyWith<_$_TownsfolkDefinition> get copyWith =>

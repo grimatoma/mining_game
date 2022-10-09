@@ -2595,7 +2595,7 @@ class _$MaterialProcessorDoodadDefinition
 abstract class MaterialProcessorDoodadDefinition extends DoodadDefinition
     implements MaterialProcessorDoodadInterface {
   const factory MaterialProcessorDoodadDefinition(
-      {required final DoodadDefinitionId id,
+          {required final DoodadDefinitionId id,
           required final String name,
           required final String description,
           required final String imageAsset,
