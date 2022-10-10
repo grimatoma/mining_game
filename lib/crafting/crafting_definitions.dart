@@ -17,7 +17,7 @@ part 'crafting_definitions.g.dart';
 @freezed
 class CraftingRecipe with _$CraftingRecipe {
   const factory CraftingRecipe.itemListing({
-    required int id,
+    required CraftingRecipeDefinitionId id,
     required ItemContainer input,
     required ItemDefinitionId output,
     required int craftingDuration,

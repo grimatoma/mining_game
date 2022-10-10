@@ -20,28 +20,29 @@ CraftingRecipe _$CraftingRecipeFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CraftingRecipe {
-  int get id => throw _privateConstructorUsedError;
+  CraftingRecipeDefinitionId get id => throw _privateConstructorUsedError;
+
   ItemContainer get input => throw _privateConstructorUsedError;
   ItemDefinitionId get output => throw _privateConstructorUsedError;
   int get craftingDuration => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, ItemContainer input,
-            ItemDefinitionId output, int craftingDuration)
+    required TResult Function(CraftingRecipeDefinitionId id,
+            ItemContainer input, ItemDefinitionId output, int craftingDuration)
         itemListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemContainer input, ItemDefinitionId output,
-            int craftingDuration)?
+    TResult Function(CraftingRecipeDefinitionId id, ItemContainer input,
+            ItemDefinitionId output, int craftingDuration)?
         itemListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemContainer input, ItemDefinitionId output,
-            int craftingDuration)?
+    TResult Function(CraftingRecipeDefinitionId id, ItemContainer input,
+            ItemDefinitionId output, int craftingDuration)?
         itemListing,
     required TResult orElse(),
   }) =>
@@ -74,7 +75,7 @@ abstract class $CraftingRecipeCopyWith<$Res> {
           CraftingRecipe value, $Res Function(CraftingRecipe) then) =
       _$CraftingRecipeCopyWithImpl<$Res>;
   $Res call(
-      {int id,
+      {CraftingRecipeDefinitionId id,
       ItemContainer input,
       ItemDefinitionId output,
       int craftingDuration});
@@ -102,7 +103,7 @@ class _$CraftingRecipeCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as CraftingRecipeDefinitionId,
       input: input == freezed
           ? _value.input
           : input // ignore: cast_nullable_to_non_nullable
@@ -134,7 +135,7 @@ abstract class _$$ItemCraftingRecipeCopyWith<$Res>
       __$$ItemCraftingRecipeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {int id,
+      {CraftingRecipeDefinitionId id,
       ItemContainer input,
       ItemDefinitionId output,
       int craftingDuration});
@@ -165,7 +166,7 @@ class __$$ItemCraftingRecipeCopyWithImpl<$Res>
       id: id == freezed
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as CraftingRecipeDefinitionId,
       input: input == freezed
           ? _value.input
           : input // ignore: cast_nullable_to_non_nullable
@@ -195,7 +196,7 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
       _$$ItemCraftingRecipeFromJson(json);
 
   @override
-  final int id;
+  final CraftingRecipeDefinitionId id;
   @override
   final ItemContainer input;
   @override
@@ -238,8 +239,8 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(int id, ItemContainer input,
-            ItemDefinitionId output, int craftingDuration)
+    required TResult Function(CraftingRecipeDefinitionId id,
+            ItemContainer input, ItemDefinitionId output, int craftingDuration)
         itemListing,
   }) {
     return itemListing(id, input, output, craftingDuration);
@@ -248,8 +249,8 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(int id, ItemContainer input, ItemDefinitionId output,
-            int craftingDuration)?
+    TResult Function(CraftingRecipeDefinitionId id, ItemContainer input,
+            ItemDefinitionId output, int craftingDuration)?
         itemListing,
   }) {
     return itemListing?.call(id, input, output, craftingDuration);
@@ -258,8 +259,8 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int id, ItemContainer input, ItemDefinitionId output,
-            int craftingDuration)?
+    TResult Function(CraftingRecipeDefinitionId id, ItemContainer input,
+            ItemDefinitionId output, int craftingDuration)?
         itemListing,
     required TResult orElse(),
   }) {
@@ -307,7 +308,7 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
 
 abstract class ItemCraftingRecipe implements CraftingRecipe {
   const factory ItemCraftingRecipe(
-      {required final int id,
+      {required final CraftingRecipeDefinitionId id,
       required final ItemContainer input,
       required final ItemDefinitionId output,
       required final int craftingDuration}) = _$ItemCraftingRecipe;
@@ -316,7 +317,8 @@ abstract class ItemCraftingRecipe implements CraftingRecipe {
       _$ItemCraftingRecipe.fromJson;
 
   @override
-  int get id;
+  CraftingRecipeDefinitionId get id;
+
   @override
   ItemContainer get input;
   @override

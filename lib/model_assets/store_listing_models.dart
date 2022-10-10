@@ -39,14 +39,14 @@ final _storesListings = <Shop, Iterable<ShopListing>>{
     ),
     ShopListing.doodadListing(
       id: const ShopListingDefinitionId('13'),
-      cost: ItemContainer.single(Items.PLANK, 2),
+      cost: ItemContainer.single(Items.WOOD_PLANK, 2),
       doodadId: DoodadId.houseLevel1,
       consumable: false,
     ),
     ShopListing.doodadListing(
       id: const ShopListingDefinitionId('12'),
       cost: ItemContainer({
-        Items.PLANK: 2,
+        Items.WOOD_PLANK: 2,
         Items.CREDIT: 5,
       }),
       doodadId: DoodadId.ironDigger,
@@ -55,7 +55,7 @@ final _storesListings = <Shop, Iterable<ShopListing>>{
     ShopListing.doodadListing(
       id: const ShopListingDefinitionId('14'),
       cost: ItemContainer({
-        Items.PLANK: 4,
+        Items.WOOD_PLANK: 4,
         Items.CREDIT: 5,
       }),
       doodadId: DoodadId.ironSmelter,

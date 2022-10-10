@@ -10,6 +10,7 @@ import 'package:mining_game/quests/townsfolk_definition.dart';
 
 import '../model_assets/townsfold_models.dart';
 import 'item_definition.dart';
+import 'item_keys.dart';
 
 class ItemDirectory {
   static final BuiltMap<ItemDefinitionId, ItemDefinition> items =
@@ -21,7 +22,8 @@ class ItemDirectory {
   static final BuiltMap<QuestDefinitionId, QuestDefinition> allQuests = {
     for (final quest in questsModels) quest.id: quest,
   }.build();
-  static final BuiltMap<int, CraftingRecipe> allRecipes = {
+  static final BuiltMap<CraftingRecipeDefinitionId, CraftingRecipe> allRecipes =
+      {
     for (final i in craftingModels) i.id: i,
   }.build();
 
@@ -30,5 +32,6 @@ class ItemDirectory {
     for (final i in townsfolkModels) i.id: i,
   }.build();
 
-  static ItemDefinition getItem(ItemDefinitionId id) => items[id]!;
+  static ItemDefinition getItem(ItemDefinitionId id) =>
+      items[id] ?? Items.UNKNOWN_ITEM.definition;
 }

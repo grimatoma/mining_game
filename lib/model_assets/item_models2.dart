@@ -96,7 +96,7 @@ final itemModels = [
           ImageDefinition('all/resources_sprite_page.png', row: 0, column: 0),
       maxStackSize: 100),
   const ItemDefinition.resourceDefinition(
-      id: Items.PLANK,
+      id: Items.WOOD_PLANK,
       name: 'Plank',
       description: 'Processed wood',
       image:

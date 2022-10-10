@@ -3,6 +3,13 @@ import 'package:mining_game/item_management/item_keys.dart';
 
 final itemModels = [
   const ItemDefinition.resourceDefinition(
+    id: Items.UNKNOWN_ITEM,
+    name: 'Unknown Item',
+    description: 'Item type not found',
+    image: ImageDefinition('assets/images/placeholder.png'),
+    maxStackSize: 100,
+  ),
+  const ItemDefinition.resourceDefinition(
     id: Items.ROCK,
     name: 'Black Rock',
     namePlural: 'Black rocks',
@@ -98,7 +105,7 @@ final itemModels = [
     maxStackSize: 100,
   ),
   const ItemDefinition.resourceDefinition(
-    id: Items.PLANK,
+    id: Items.WOOD_PLANK,
     name: 'Plank',
     description: 'Processed wood',
     image: ImageDefinition('assets/images/1Icons/plank.png'),

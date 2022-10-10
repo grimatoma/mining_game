@@ -96,7 +96,7 @@ final _lumber = [
       ticksRequired: 15,
       ticksName: 'Cutting',
       consumedMaterials: ItemContainer.single(Items.WOOD, 2),
-      itemsProduced: ItemContainer.single(Items.PLANK)),
+      itemsProduced: ItemContainer.single(Items.WOOD_PLANK)),
 ];
 final _fishing = [
   RegenerativeHarvestableDoodadDefinition(

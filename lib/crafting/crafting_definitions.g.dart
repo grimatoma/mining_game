@@ -8,7 +8,8 @@ part of 'crafting_definitions.dart';
 
 _$ItemCraftingRecipe _$$ItemCraftingRecipeFromJson(Map<String, dynamic> json) =>
     _$ItemCraftingRecipe(
-      id: json['id'] as int,
+      id: CraftingRecipeDefinitionId.fromJson(
+          json['id'] as Map<String, dynamic>),
       input: ItemContainer.fromJson(json['input'] as Map<String, dynamic>),
       output: ItemDefinitionId.fromJson(json['output'] as Map<String, dynamic>),
       craftingDuration: json['craftingDuration'] as int,
@@ -17,7 +18,7 @@ _$ItemCraftingRecipe _$$ItemCraftingRecipeFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ItemCraftingRecipeToJson(
         _$ItemCraftingRecipe instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': instance.id.toJson(),
       'input': instance.input.toJson(),
       'output': instance.output.toJson(),
       'craftingDuration': instance.craftingDuration,
