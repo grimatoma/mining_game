@@ -2,31 +2,28 @@ import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
 
 final itemModels = [
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.UNKNOWN_ITEM,
     name: 'Unknown Item',
     description: 'Item type not found',
     image: ImageDefinition('assets/images/placeholder.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.ROCK,
     name: 'Black Rock',
     namePlural: 'Black rocks',
     description: 'Often found in dark caves',
     image: ImageDefinition('assets/images/placeholder.png'),
-    maxStackSize: 100,
   ),
-  ItemDefinition.resourceDefinition(
+  ItemDefinition.resource(
     id: Items.FOOD,
     name: 'Food',
     namePlural: 'Food',
     description: 'Test food object',
     image: const ImageDefinition('assets/images/all/foodTest1.png'),
-    maxStackSize: 1000,
     sellPrice: Items.CREDIT.createSingleContainer(2),
   ),
-  const ItemDefinition.swordDefinition(
+  const ItemDefinition.sword(
     id: Items.SWORD,
     name: 'Sword',
     namePlural: 'Swords',
@@ -34,84 +31,75 @@ final itemModels = [
     image: ImageDefinition('assets/images/placeholder.png'),
     attributes: {WeaponAttributes.SHARP: 10.0},
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.IRON_ORE,
     name: 'Iron ore',
     namePlural: 'Iron ore',
     description: 'Can be mined',
     image: ImageDefinition('assets/images/all/ironOre.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.IRON_BAR,
     name: 'Iron bar',
     namePlural: 'Iron bars',
     description: 'A smelted form of iron ready to be used for crafting.',
     image: ImageDefinition('assets/images/minerals/iron.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.COPPER_ORE,
     name: 'Copper ore',
     namePlural: 'Copper ore',
     description: 'Can be mined',
     image: ImageDefinition('assets/images/minerals/copper.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
-    id: Items.COPPER,
-    name: 'Copper',
-    namePlural: 'Copper',
+  const ItemDefinition.resource(
+    id: Items.COPPER_BAR,
+    name: 'Copper bar',
+    namePlural: 'Copper bar',
     description: 'Can be mined',
     image: ImageDefinition('assets/images/minerals/copper.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.SHARP_ROCK,
     name: 'Sharp rock',
     namePlural: 'Sharp rocks',
     description: 'A useless rock',
     image: ImageDefinition('assets/images/minerals/copper.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.SMALL_ROCK,
     name: 'Small rock',
     namePlural: 'Small rocks',
     description: 'A useless rock',
     image: ImageDefinition('assets/images/minerals/copper.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.drillDefinition(
+  const ItemDefinition.drill(
     id: Items.TEST_DRILL,
     name: 'Test drill',
     description: 'I do extra damage',
     image: ImageDefinition('assets/images/placeholder.png'),
     damage: 4,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.CREDIT,
     name: 'Credit',
     namePlural: 'Credits',
     description: 'A form of currency.',
     image: ImageDefinition('assets/images/money.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.WOOD,
     name: 'Wood',
     description: 'Unprocessed wood',
     image: ImageDefinition('assets/images/1Icons/wood.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.resourceDefinition(
+  const ItemDefinition.resource(
     id: Items.WOOD_PLANK,
-    name: 'Plank',
+    name: 'Wood plank',
     description: 'Processed wood',
     image: ImageDefinition('assets/images/1Icons/plank.png'),
-    maxStackSize: 100,
   ),
-  const ItemDefinition.minerDefinition(
+  const ItemDefinition.miner(
     id: Items.MINER1,
     name: 'Junk miner',
     description:
@@ -123,7 +111,7 @@ final itemModels = [
     fuelConsumption: 5,
     image: ImageDefinition('assets/images/drills/1.jpg'),
   ),
-  const ItemDefinition.minerDefinition(
+  const ItemDefinition.miner(
     id: Items.MINER2,
     name: 'Basic miner',
     description: 'Generic off the shelf miner',
@@ -134,7 +122,7 @@ final itemModels = [
     fuelConsumption: 5,
     image: ImageDefinition('assets/images/drills/2.jpg'),
   ),
-  const ItemDefinition.minerDefinition(
+  const ItemDefinition.miner(
     id: Items.MINER3,
     name: 'Test miner 3',
     description: 'This is the third miner',
@@ -145,7 +133,7 @@ final itemModels = [
     fuelConsumption: 5,
     image: ImageDefinition('assets/images/drills/3.png'),
   ),
-  const ItemDefinition.minerDefinition(
+  const ItemDefinition.miner(
     id: Items.MINER4,
     name: 'Test miner 4',
     description: 'This is the fourth miner',
@@ -156,7 +144,7 @@ final itemModels = [
     fuelConsumption: 5,
     image: ImageDefinition('assets/images/drills/4.jpg'),
   ),
-  const ItemDefinition.minerDefinition(
+  const ItemDefinition.miner(
     id: Items.MINER5,
     name: 'Test miner 5',
     description: 'This is the 5th miner',
@@ -166,5 +154,88 @@ final itemModels = [
     baseHopperSize: 50,
     fuelConsumption: 5,
     image: ImageDefinition('assets/images/drills/5.png'),
+  ),
+  const ItemDefinition.general(
+    id: Items.WOOD_STICK,
+    name: 'Wood stick',
+    namePlural: 'Wood sticks',
+    description: 'A stick of wood.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.general(
+    id: Items.TWINE,
+    name: 'Twine',
+    description: 'It\'s like rope... but worse.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.general(
+    id: Items.ROPE,
+    name: 'Rope',
+    description:
+        'You can use this amazing thing to hold things together. That is assuming that you know how to tie knots. Can be used to make things.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.tool(
+    id: Items.CRAFTING_TABLE,
+    name: 'Crafting table',
+    namePlural: 'Crafting tables',
+    description: 'A table used to craft basic items.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.tool(
+    id: Items.AXE_WOOD,
+    name: 'Wood axe',
+    namePlural: 'Wood axes',
+    description: 'Used for chopping wood.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.tool(
+    id: Items.AXE_STONE,
+    name: 'Stone axe',
+    namePlural: 'Stone axes',
+    description: 'Used for chopping wood.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.tool(
+    id: Items.AXE_IRON,
+    name: 'Iron axe',
+    namePlural: 'Iron axes',
+    description: 'Used for chopping wood.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.tool(
+    id: Items.AXE_BRONZE,
+    name: 'Bronze axe',
+    namePlural: 'Bronze axes',
+    description: 'Used for chopping wood.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.resource(
+    id: Items.COAL,
+    name: 'Coal',
+    description: 'A resource that can be burned to produce heat.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.resource(
+    id: Items.STONE,
+    name: 'Stone',
+    namePlural: 'Stones',
+    description: 'A stone. Can be used for crafting',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.resource(
+    id: Items.GEMSTONE_UNKNOWN,
+    name: 'Unknown gemstone',
+    namePlural: 'Unknown gemstones',
+    description:
+        'It looks shiny and expensive but if you can\'t tell what gem is it.',
+    image: ImageDefinition('assets/images/placeholder.png'),
+  ),
+  const ItemDefinition.general(
+    id: Items.PLANT_FIBERS,
+    name: 'Plant fiber',
+    namePlural: 'Plant fibers',
+    description: 'A fiber of a plant can be used to make twine.',
+    image: ImageDefinition('assets/images/placeholder.png'),
   ),
 ];

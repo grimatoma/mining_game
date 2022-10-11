@@ -66,8 +66,8 @@ class ItemShopListingWidget extends ConsumerWidget {
             ListingWidget.buildRowTitle('STACKABLE ITEM HERE'),
           ])
         else
-          ...definition.maybeMap(minerDefinition: (id) {
-            definition as MinerDefinition;
+          ...definition.maybeMap(miner: (id) {
+            definition as MinerItemDefinition;
             return [
               TableRow(children: [
                 ListingWidget.buildRowTitle('Base damage'),

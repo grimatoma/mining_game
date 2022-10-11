@@ -33,32 +33,56 @@ extension ItemDefinitionIdActions on ItemDefinitionId {
 class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
   const ItemDefinition._();
 
-  @Implements<Resource>()
   @Implements<Stackable>()
-  @Implements<ShowInWallet>()
   @Implements<CanHavePluralName>()
   @Implements<CanSell>()
-  const factory ItemDefinition.resourceDefinition({
+  const factory ItemDefinition.general({
     required ItemDefinitionId id,
     required String name,
     String? namePlural,
     required String description,
     required ImageDefinition image,
-    required int maxStackSize,
+    // required int maxStackSize,
     ItemContainer? sellPrice,
-  }) = ResourceDefinition;
+  }) = GeneralItemDefinition;
 
-  const factory ItemDefinition.drillDefinition({
+  @Implements<Resource>()
+  @Implements<Stackable>()
+  @Implements<ShowInWallet>()
+  @Implements<CanHavePluralName>()
+  @Implements<CanSell>()
+  const factory ItemDefinition.resource({
+    required ItemDefinitionId id,
+    required String name,
+    String? namePlural,
+    required String description,
+    required ImageDefinition image,
+    // required int maxStackSize,
+    ItemContainer? sellPrice,
+  }) = ResourceItemDefinition;
+
+  const factory ItemDefinition.drill({
     required ItemDefinitionId id,
     required String name,
     required String description,
     required ImageDefinition image,
     required int damage,
-  }) = DrillDefinition;
+  }) = DrillItemDefinition;
 
   @Implements<CanHavePluralName>()
   @Implements<CanSell>()
-  const factory ItemDefinition.swordDefinition({
+  const factory ItemDefinition.tool({
+    required ItemDefinitionId id,
+    required String name,
+    String? namePlural,
+    required String description,
+    required ImageDefinition image,
+    ItemContainer? sellPrice,
+  }) = ToolItemDefinition;
+
+  @Implements<CanHavePluralName>()
+  @Implements<CanSell>()
+  const factory ItemDefinition.sword({
     required ItemDefinitionId id,
     required String name,
     String? namePlural,
@@ -66,9 +90,9 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required ImageDefinition image,
     required Map<WeaponAttributes, double> attributes,
     ItemContainer? sellPrice,
-  }) = SwordDefinition;
+  }) = SwordItemDefinition;
 
-  const factory ItemDefinition.minerDefinition({
+  const factory ItemDefinition.miner({
     required ItemDefinitionId id,
     required String name,
     required String description,
@@ -79,7 +103,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required int baseHopperSize,
     required int fuelConsumption,
     required ImageDefinition image,
-  }) = MinerDefinition;
+  }) = MinerItemDefinition;
 
   String get imagePath => image.path;
 

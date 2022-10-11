@@ -6,35 +6,61 @@ part of 'item_definition.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ResourceDefinition _$$ResourceDefinitionFromJson(Map<String, dynamic> json) =>
-    _$ResourceDefinition(
+_$GeneralItemDefinition _$$GeneralItemDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$GeneralItemDefinition(
       id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
       image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
-      maxStackSize: json['maxStackSize'] as int,
       sellPrice: json['sellPrice'] == null
           ? null
           : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ResourceDefinitionToJson(
-        _$ResourceDefinition instance) =>
+Map<String, dynamic> _$$GeneralItemDefinitionToJson(
+        _$GeneralItemDefinition instance) =>
     <String, dynamic>{
       'id': instance.id.toJson(),
       'name': instance.name,
       'namePlural': instance.namePlural,
       'description': instance.description,
       'image': instance.image.toJson(),
-      'maxStackSize': instance.maxStackSize,
       'sellPrice': instance.sellPrice?.toJson(),
       'runtimeType': instance.$type,
     };
 
-_$DrillDefinition _$$DrillDefinitionFromJson(Map<String, dynamic> json) =>
-    _$DrillDefinition(
+_$ResourceItemDefinition _$$ResourceItemDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$ResourceItemDefinition(
+      id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
+      name: json['name'] as String,
+      namePlural: json['namePlural'] as String?,
+      description: json['description'] as String,
+      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      sellPrice: json['sellPrice'] == null
+          ? null
+          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$ResourceItemDefinitionToJson(
+        _$ResourceItemDefinition instance) =>
+    <String, dynamic>{
+      'id': instance.id.toJson(),
+      'name': instance.name,
+      'namePlural': instance.namePlural,
+      'description': instance.description,
+      'image': instance.image.toJson(),
+      'sellPrice': instance.sellPrice?.toJson(),
+      'runtimeType': instance.$type,
+    };
+
+_$DrillItemDefinition _$$DrillItemDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$DrillItemDefinition(
       id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
@@ -43,7 +69,8 @@ _$DrillDefinition _$$DrillDefinitionFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$DrillDefinitionToJson(_$DrillDefinition instance) =>
+Map<String, dynamic> _$$DrillItemDefinitionToJson(
+        _$DrillItemDefinition instance) =>
     <String, dynamic>{
       'id': instance.id.toJson(),
       'name': instance.name,
@@ -53,8 +80,34 @@ Map<String, dynamic> _$$DrillDefinitionToJson(_$DrillDefinition instance) =>
       'runtimeType': instance.$type,
     };
 
-_$SwordDefinition _$$SwordDefinitionFromJson(Map<String, dynamic> json) =>
-    _$SwordDefinition(
+_$ToolItemDefinition _$$ToolItemDefinitionFromJson(Map<String, dynamic> json) =>
+    _$ToolItemDefinition(
+      id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
+      name: json['name'] as String,
+      namePlural: json['namePlural'] as String?,
+      description: json['description'] as String,
+      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      sellPrice: json['sellPrice'] == null
+          ? null
+          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$ToolItemDefinitionToJson(
+        _$ToolItemDefinition instance) =>
+    <String, dynamic>{
+      'id': instance.id.toJson(),
+      'name': instance.name,
+      'namePlural': instance.namePlural,
+      'description': instance.description,
+      'image': instance.image.toJson(),
+      'sellPrice': instance.sellPrice?.toJson(),
+      'runtimeType': instance.$type,
+    };
+
+_$SwordItemDefinition _$$SwordItemDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$SwordItemDefinition(
       id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
@@ -70,7 +123,8 @@ _$SwordDefinition _$$SwordDefinitionFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$SwordDefinitionToJson(_$SwordDefinition instance) =>
+Map<String, dynamic> _$$SwordItemDefinitionToJson(
+        _$SwordItemDefinition instance) =>
     <String, dynamic>{
       'id': instance.id.toJson(),
       'name': instance.name,
@@ -89,8 +143,9 @@ const _$WeaponAttributesEnumMap = {
   WeaponAttributes.FLAMING: 'FLAMING',
 };
 
-_$MinerDefinition _$$MinerDefinitionFromJson(Map<String, dynamic> json) =>
-    _$MinerDefinition(
+_$MinerItemDefinition _$$MinerItemDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$MinerItemDefinition(
       id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
@@ -103,7 +158,8 @@ _$MinerDefinition _$$MinerDefinitionFromJson(Map<String, dynamic> json) =>
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$MinerDefinitionToJson(_$MinerDefinition instance) =>
+Map<String, dynamic> _$$MinerItemDefinitionToJson(
+        _$MinerItemDefinition instance) =>
     <String, dynamic>{
       'id': instance.id.toJson(),
       'name': instance.name,

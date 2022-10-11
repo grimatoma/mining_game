@@ -21,7 +21,6 @@ CraftingRecipe _$CraftingRecipeFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CraftingRecipe {
   CraftingRecipeDefinitionId get id => throw _privateConstructorUsedError;
-
   ItemContainer get input => throw _privateConstructorUsedError;
   ItemDefinitionId get output => throw _privateConstructorUsedError;
   int get craftingDuration => throw _privateConstructorUsedError;
@@ -318,7 +317,6 @@ abstract class ItemCraftingRecipe implements CraftingRecipe {
 
   @override
   CraftingRecipeDefinitionId get id;
-
   @override
   ItemContainer get input;
   @override

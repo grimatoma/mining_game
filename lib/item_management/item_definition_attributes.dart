@@ -28,7 +28,7 @@ abstract class CanHavePluralName {
 }
 
 abstract class Stackable {
-  int get maxStackSize;
+  // int get maxStackSize;
 }
 
 enum WeaponAttributes {
