@@ -3,7 +3,7 @@ description: A WIP incremental managing mining game about digging.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -31,7 +31,7 @@ dependencies:
     sdk: flutter
   path:
   json_annotation: ^4.4.0
-  
+
   flutter_hooks: ^0.18.0
   hooks_riverpod: ^2.0.0-dev.0
 
@@ -78,7 +78,6 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.1
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -116,6 +115,7 @@ flutter:
     - assets/images/tiles/13-Icons/smithy.png
     - assets/images/all/
     - assets/images/1Portraits/
+    - assets/images/2022/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
