@@ -50,12 +50,12 @@ mixin _$DefinitionId {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id)? item,
-    TResult Function(String id)? townsfolk,
-    TResult Function(String id)? quest,
-    TResult Function(String id)? shop,
-    TResult Function(String id)? craftingRecipe,
-    TResult Function(String id)? doodad,
+    TResult? Function(String id)? item,
+    TResult? Function(String id)? townsfolk,
+    TResult? Function(String id)? quest,
+    TResult? Function(String id)? shop,
+    TResult? Function(String id)? craftingRecipe,
+    TResult? Function(String id)? doodad,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,12 +81,12 @@ mixin _$DefinitionId {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId value)? item,
-    TResult Function(TownsfolkDefinitionId value)? townsfolk,
-    TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopListingDefinitionId value)? shop,
-    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
-    TResult Function(DoodadDefinitionId value)? doodad,
+    TResult? Function(ItemDefinitionId value)? item,
+    TResult? Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult? Function(QuestDefinitionId value)? quest,
+    TResult? Function(ShopListingDefinitionId value)? shop,
+    TResult? Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult? Function(DoodadDefinitionId value)? doodad,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -110,28 +110,32 @@ mixin _$DefinitionId {
 abstract class $DefinitionIdCopyWith<$Res> {
   factory $DefinitionIdCopyWith(
           DefinitionId value, $Res Function(DefinitionId) then) =
-      _$DefinitionIdCopyWithImpl<$Res>;
+      _$DefinitionIdCopyWithImpl<$Res, DefinitionId>;
+  @useResult
   $Res call({String id});
 }
 
 /// @nodoc
-class _$DefinitionIdCopyWithImpl<$Res> implements $DefinitionIdCopyWith<$Res> {
+class _$DefinitionIdCopyWithImpl<$Res, $Val extends DefinitionId>
+    implements $DefinitionIdCopyWith<$Res> {
   _$DefinitionIdCopyWithImpl(this._value, this._then);
 
-  final DefinitionId _value;
   // ignore: unused_field
-  final $Res Function(DefinitionId) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -142,26 +146,25 @@ abstract class _$$ItemDefinitionIdCopyWith<$Res>
           _$ItemDefinitionId value, $Res Function(_$ItemDefinitionId) then) =
       __$$ItemDefinitionIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id});
 }
 
 /// @nodoc
 class __$$ItemDefinitionIdCopyWithImpl<$Res>
-    extends _$DefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res, _$ItemDefinitionId>
     implements _$$ItemDefinitionIdCopyWith<$Res> {
   __$$ItemDefinitionIdCopyWithImpl(
       _$ItemDefinitionId _value, $Res Function(_$ItemDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$ItemDefinitionId));
+      : super(_value, _then);
 
-  @override
-  _$ItemDefinitionId get _value => super._value as _$ItemDefinitionId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_$ItemDefinitionId(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
@@ -190,16 +193,16 @@ class _$ItemDefinitionId extends ItemDefinitionId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ItemDefinitionId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ItemDefinitionIdCopyWith<_$ItemDefinitionId> get copyWith =>
       __$$ItemDefinitionIdCopyWithImpl<_$ItemDefinitionId>(this, _$identity);
 
@@ -219,12 +222,12 @@ class _$ItemDefinitionId extends ItemDefinitionId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id)? item,
-    TResult Function(String id)? townsfolk,
-    TResult Function(String id)? quest,
-    TResult Function(String id)? shop,
-    TResult Function(String id)? craftingRecipe,
-    TResult Function(String id)? doodad,
+    TResult? Function(String id)? item,
+    TResult? Function(String id)? townsfolk,
+    TResult? Function(String id)? quest,
+    TResult? Function(String id)? shop,
+    TResult? Function(String id)? craftingRecipe,
+    TResult? Function(String id)? doodad,
   }) {
     return item?.call(id);
   }
@@ -262,12 +265,12 @@ class _$ItemDefinitionId extends ItemDefinitionId {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId value)? item,
-    TResult Function(TownsfolkDefinitionId value)? townsfolk,
-    TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopListingDefinitionId value)? shop,
-    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
-    TResult Function(DoodadDefinitionId value)? doodad,
+    TResult? Function(ItemDefinitionId value)? item,
+    TResult? Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult? Function(QuestDefinitionId value)? quest,
+    TResult? Function(ShopListingDefinitionId value)? shop,
+    TResult? Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult? Function(DoodadDefinitionId value)? doodad,
   }) {
     return item?.call(this);
   }
@@ -319,26 +322,25 @@ abstract class _$$TownsfolkDefinitionIdCopyWith<$Res>
           $Res Function(_$TownsfolkDefinitionId) then) =
       __$$TownsfolkDefinitionIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id});
 }
 
 /// @nodoc
 class __$$TownsfolkDefinitionIdCopyWithImpl<$Res>
-    extends _$DefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res, _$TownsfolkDefinitionId>
     implements _$$TownsfolkDefinitionIdCopyWith<$Res> {
   __$$TownsfolkDefinitionIdCopyWithImpl(_$TownsfolkDefinitionId _value,
       $Res Function(_$TownsfolkDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$TownsfolkDefinitionId));
+      : super(_value, _then);
 
-  @override
-  _$TownsfolkDefinitionId get _value => super._value as _$TownsfolkDefinitionId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_$TownsfolkDefinitionId(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
@@ -367,16 +369,16 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$TownsfolkDefinitionId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$TownsfolkDefinitionIdCopyWith<_$TownsfolkDefinitionId> get copyWith =>
       __$$TownsfolkDefinitionIdCopyWithImpl<_$TownsfolkDefinitionId>(
           this, _$identity);
@@ -397,12 +399,12 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id)? item,
-    TResult Function(String id)? townsfolk,
-    TResult Function(String id)? quest,
-    TResult Function(String id)? shop,
-    TResult Function(String id)? craftingRecipe,
-    TResult Function(String id)? doodad,
+    TResult? Function(String id)? item,
+    TResult? Function(String id)? townsfolk,
+    TResult? Function(String id)? quest,
+    TResult? Function(String id)? shop,
+    TResult? Function(String id)? craftingRecipe,
+    TResult? Function(String id)? doodad,
   }) {
     return townsfolk?.call(id);
   }
@@ -440,12 +442,12 @@ class _$TownsfolkDefinitionId extends TownsfolkDefinitionId {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId value)? item,
-    TResult Function(TownsfolkDefinitionId value)? townsfolk,
-    TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopListingDefinitionId value)? shop,
-    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
-    TResult Function(DoodadDefinitionId value)? doodad,
+    TResult? Function(ItemDefinitionId value)? item,
+    TResult? Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult? Function(QuestDefinitionId value)? quest,
+    TResult? Function(ShopListingDefinitionId value)? shop,
+    TResult? Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult? Function(DoodadDefinitionId value)? doodad,
   }) {
     return townsfolk?.call(this);
   }
@@ -498,26 +500,25 @@ abstract class _$$QuestDefinitionIdCopyWith<$Res>
           _$QuestDefinitionId value, $Res Function(_$QuestDefinitionId) then) =
       __$$QuestDefinitionIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id});
 }
 
 /// @nodoc
 class __$$QuestDefinitionIdCopyWithImpl<$Res>
-    extends _$DefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res, _$QuestDefinitionId>
     implements _$$QuestDefinitionIdCopyWith<$Res> {
   __$$QuestDefinitionIdCopyWithImpl(
       _$QuestDefinitionId _value, $Res Function(_$QuestDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$QuestDefinitionId));
+      : super(_value, _then);
 
-  @override
-  _$QuestDefinitionId get _value => super._value as _$QuestDefinitionId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_$QuestDefinitionId(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
@@ -546,16 +547,16 @@ class _$QuestDefinitionId extends QuestDefinitionId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$QuestDefinitionId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$QuestDefinitionIdCopyWith<_$QuestDefinitionId> get copyWith =>
       __$$QuestDefinitionIdCopyWithImpl<_$QuestDefinitionId>(this, _$identity);
 
@@ -575,12 +576,12 @@ class _$QuestDefinitionId extends QuestDefinitionId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id)? item,
-    TResult Function(String id)? townsfolk,
-    TResult Function(String id)? quest,
-    TResult Function(String id)? shop,
-    TResult Function(String id)? craftingRecipe,
-    TResult Function(String id)? doodad,
+    TResult? Function(String id)? item,
+    TResult? Function(String id)? townsfolk,
+    TResult? Function(String id)? quest,
+    TResult? Function(String id)? shop,
+    TResult? Function(String id)? craftingRecipe,
+    TResult? Function(String id)? doodad,
   }) {
     return quest?.call(id);
   }
@@ -618,12 +619,12 @@ class _$QuestDefinitionId extends QuestDefinitionId {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId value)? item,
-    TResult Function(TownsfolkDefinitionId value)? townsfolk,
-    TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopListingDefinitionId value)? shop,
-    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
-    TResult Function(DoodadDefinitionId value)? doodad,
+    TResult? Function(ItemDefinitionId value)? item,
+    TResult? Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult? Function(QuestDefinitionId value)? quest,
+    TResult? Function(ShopListingDefinitionId value)? shop,
+    TResult? Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult? Function(DoodadDefinitionId value)? doodad,
   }) {
     return quest?.call(this);
   }
@@ -675,27 +676,25 @@ abstract class _$$ShopListingDefinitionIdCopyWith<$Res>
           $Res Function(_$ShopListingDefinitionId) then) =
       __$$ShopListingDefinitionIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id});
 }
 
 /// @nodoc
 class __$$ShopListingDefinitionIdCopyWithImpl<$Res>
-    extends _$DefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res, _$ShopListingDefinitionId>
     implements _$$ShopListingDefinitionIdCopyWith<$Res> {
   __$$ShopListingDefinitionIdCopyWithImpl(_$ShopListingDefinitionId _value,
       $Res Function(_$ShopListingDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$ShopListingDefinitionId));
+      : super(_value, _then);
 
-  @override
-  _$ShopListingDefinitionId get _value =>
-      super._value as _$ShopListingDefinitionId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_$ShopListingDefinitionId(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
@@ -724,16 +723,16 @@ class _$ShopListingDefinitionId extends ShopListingDefinitionId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ShopListingDefinitionId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ShopListingDefinitionIdCopyWith<_$ShopListingDefinitionId> get copyWith =>
       __$$ShopListingDefinitionIdCopyWithImpl<_$ShopListingDefinitionId>(
           this, _$identity);
@@ -754,12 +753,12 @@ class _$ShopListingDefinitionId extends ShopListingDefinitionId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id)? item,
-    TResult Function(String id)? townsfolk,
-    TResult Function(String id)? quest,
-    TResult Function(String id)? shop,
-    TResult Function(String id)? craftingRecipe,
-    TResult Function(String id)? doodad,
+    TResult? Function(String id)? item,
+    TResult? Function(String id)? townsfolk,
+    TResult? Function(String id)? quest,
+    TResult? Function(String id)? shop,
+    TResult? Function(String id)? craftingRecipe,
+    TResult? Function(String id)? doodad,
   }) {
     return shop?.call(id);
   }
@@ -797,12 +796,12 @@ class _$ShopListingDefinitionId extends ShopListingDefinitionId {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId value)? item,
-    TResult Function(TownsfolkDefinitionId value)? townsfolk,
-    TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopListingDefinitionId value)? shop,
-    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
-    TResult Function(DoodadDefinitionId value)? doodad,
+    TResult? Function(ItemDefinitionId value)? item,
+    TResult? Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult? Function(QuestDefinitionId value)? quest,
+    TResult? Function(ShopListingDefinitionId value)? shop,
+    TResult? Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult? Function(DoodadDefinitionId value)? doodad,
   }) {
     return shop?.call(this);
   }
@@ -856,28 +855,26 @@ abstract class _$$CraftingRecipeDefinitionIdCopyWith<$Res>
           $Res Function(_$CraftingRecipeDefinitionId) then) =
       __$$CraftingRecipeDefinitionIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id});
 }
 
 /// @nodoc
 class __$$CraftingRecipeDefinitionIdCopyWithImpl<$Res>
-    extends _$DefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res, _$CraftingRecipeDefinitionId>
     implements _$$CraftingRecipeDefinitionIdCopyWith<$Res> {
   __$$CraftingRecipeDefinitionIdCopyWithImpl(
       _$CraftingRecipeDefinitionId _value,
       $Res Function(_$CraftingRecipeDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$CraftingRecipeDefinitionId));
+      : super(_value, _then);
 
-  @override
-  _$CraftingRecipeDefinitionId get _value =>
-      super._value as _$CraftingRecipeDefinitionId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_$CraftingRecipeDefinitionId(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
@@ -906,16 +903,16 @@ class _$CraftingRecipeDefinitionId extends CraftingRecipeDefinitionId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CraftingRecipeDefinitionId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$CraftingRecipeDefinitionIdCopyWith<_$CraftingRecipeDefinitionId>
       get copyWith => __$$CraftingRecipeDefinitionIdCopyWithImpl<
           _$CraftingRecipeDefinitionId>(this, _$identity);
@@ -936,12 +933,12 @@ class _$CraftingRecipeDefinitionId extends CraftingRecipeDefinitionId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id)? item,
-    TResult Function(String id)? townsfolk,
-    TResult Function(String id)? quest,
-    TResult Function(String id)? shop,
-    TResult Function(String id)? craftingRecipe,
-    TResult Function(String id)? doodad,
+    TResult? Function(String id)? item,
+    TResult? Function(String id)? townsfolk,
+    TResult? Function(String id)? quest,
+    TResult? Function(String id)? shop,
+    TResult? Function(String id)? craftingRecipe,
+    TResult? Function(String id)? doodad,
   }) {
     return craftingRecipe?.call(id);
   }
@@ -979,12 +976,12 @@ class _$CraftingRecipeDefinitionId extends CraftingRecipeDefinitionId {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId value)? item,
-    TResult Function(TownsfolkDefinitionId value)? townsfolk,
-    TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopListingDefinitionId value)? shop,
-    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
-    TResult Function(DoodadDefinitionId value)? doodad,
+    TResult? Function(ItemDefinitionId value)? item,
+    TResult? Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult? Function(QuestDefinitionId value)? quest,
+    TResult? Function(ShopListingDefinitionId value)? shop,
+    TResult? Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult? Function(DoodadDefinitionId value)? doodad,
   }) {
     return craftingRecipe?.call(this);
   }
@@ -1037,26 +1034,25 @@ abstract class _$$DoodadDefinitionIdCopyWith<$Res>
           $Res Function(_$DoodadDefinitionId) then) =
       __$$DoodadDefinitionIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String id});
 }
 
 /// @nodoc
 class __$$DoodadDefinitionIdCopyWithImpl<$Res>
-    extends _$DefinitionIdCopyWithImpl<$Res>
+    extends _$DefinitionIdCopyWithImpl<$Res, _$DoodadDefinitionId>
     implements _$$DoodadDefinitionIdCopyWith<$Res> {
   __$$DoodadDefinitionIdCopyWithImpl(
       _$DoodadDefinitionId _value, $Res Function(_$DoodadDefinitionId) _then)
-      : super(_value, (v) => _then(v as _$DoodadDefinitionId));
+      : super(_value, _then);
 
-  @override
-  _$DoodadDefinitionId get _value => super._value as _$DoodadDefinitionId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
+    Object? id = null,
   }) {
     return _then(_$DoodadDefinitionId(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1085,16 +1081,16 @@ class _$DoodadDefinitionId extends DoodadDefinitionId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DoodadDefinitionId &&
-            const DeepCollectionEquality().equals(other.id, id));
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(id));
+  int get hashCode => Object.hash(runtimeType, id);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$DoodadDefinitionIdCopyWith<_$DoodadDefinitionId> get copyWith =>
       __$$DoodadDefinitionIdCopyWithImpl<_$DoodadDefinitionId>(
           this, _$identity);
@@ -1115,12 +1111,12 @@ class _$DoodadDefinitionId extends DoodadDefinitionId {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String id)? item,
-    TResult Function(String id)? townsfolk,
-    TResult Function(String id)? quest,
-    TResult Function(String id)? shop,
-    TResult Function(String id)? craftingRecipe,
-    TResult Function(String id)? doodad,
+    TResult? Function(String id)? item,
+    TResult? Function(String id)? townsfolk,
+    TResult? Function(String id)? quest,
+    TResult? Function(String id)? shop,
+    TResult? Function(String id)? craftingRecipe,
+    TResult? Function(String id)? doodad,
   }) {
     return doodad?.call(id);
   }
@@ -1158,12 +1154,12 @@ class _$DoodadDefinitionId extends DoodadDefinitionId {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemDefinitionId value)? item,
-    TResult Function(TownsfolkDefinitionId value)? townsfolk,
-    TResult Function(QuestDefinitionId value)? quest,
-    TResult Function(ShopListingDefinitionId value)? shop,
-    TResult Function(CraftingRecipeDefinitionId value)? craftingRecipe,
-    TResult Function(DoodadDefinitionId value)? doodad,
+    TResult? Function(ItemDefinitionId value)? item,
+    TResult? Function(TownsfolkDefinitionId value)? townsfolk,
+    TResult? Function(QuestDefinitionId value)? quest,
+    TResult? Function(ShopListingDefinitionId value)? shop,
+    TResult? Function(CraftingRecipeDefinitionId value)? craftingRecipe,
+    TResult? Function(DoodadDefinitionId value)? doodad,
   }) {
     return doodad?.call(this);
   }
@@ -1223,39 +1219,42 @@ mixin _$TownsfolkDefinition {
 abstract class $TownsfolkDefinitionCopyWith<$Res> {
   factory $TownsfolkDefinitionCopyWith(
           TownsfolkDefinition value, $Res Function(TownsfolkDefinition) then) =
-      _$TownsfolkDefinitionCopyWithImpl<$Res>;
+      _$TownsfolkDefinitionCopyWithImpl<$Res, TownsfolkDefinition>;
+  @useResult
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
 
 /// @nodoc
-class _$TownsfolkDefinitionCopyWithImpl<$Res>
+class _$TownsfolkDefinitionCopyWithImpl<$Res, $Val extends TownsfolkDefinition>
     implements $TownsfolkDefinitionCopyWith<$Res> {
   _$TownsfolkDefinitionCopyWithImpl(this._value, this._then);
 
-  final TownsfolkDefinition _value;
   // ignore: unused_field
-  final $Res Function(TownsfolkDefinition) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? image = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? image = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as TownsfolkDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -1266,36 +1265,35 @@ abstract class _$$_TownsfolkDefinitionCopyWith<$Res>
           $Res Function(_$_TownsfolkDefinition) then) =
       __$$_TownsfolkDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({TownsfolkDefinitionId id, String name, String image});
 }
 
 /// @nodoc
 class __$$_TownsfolkDefinitionCopyWithImpl<$Res>
-    extends _$TownsfolkDefinitionCopyWithImpl<$Res>
+    extends _$TownsfolkDefinitionCopyWithImpl<$Res, _$_TownsfolkDefinition>
     implements _$$_TownsfolkDefinitionCopyWith<$Res> {
   __$$_TownsfolkDefinitionCopyWithImpl(_$_TownsfolkDefinition _value,
       $Res Function(_$_TownsfolkDefinition) _then)
-      : super(_value, (v) => _then(v as _$_TownsfolkDefinition));
+      : super(_value, _then);
 
-  @override
-  _$_TownsfolkDefinition get _value => super._value as _$_TownsfolkDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? image = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? image = null,
   }) {
     return _then(_$_TownsfolkDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as TownsfolkDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
@@ -1326,20 +1324,17 @@ class _$_TownsfolkDefinition implements _TownsfolkDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TownsfolkDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.image, image));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(image));
+  int get hashCode => Object.hash(runtimeType, id, name, image);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_TownsfolkDefinitionCopyWith<_$_TownsfolkDefinition> get copyWith =>
       __$$_TownsfolkDefinitionCopyWithImpl<_$_TownsfolkDefinition>(
           this, _$identity);

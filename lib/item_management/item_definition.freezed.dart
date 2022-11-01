@@ -49,7 +49,7 @@ mixin _$ItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         general,
     required TResult Function(
             ItemDefinitionId id,
@@ -57,7 +57,7 @@ mixin _$ItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         resource,
     required TResult Function(ItemDefinitionId id, String name,
             String description, ImageDefinition image, int damage)
@@ -68,7 +68,7 @@ mixin _$ItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         tool,
     required TResult Function(
             ItemDefinitionId id,
@@ -77,7 +77,7 @@ mixin _$ItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         sword,
     required TResult Function(
             ItemDefinitionId id,
@@ -94,43 +94,28 @@ mixin _$ItemDefinition {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
-    TResult Function(ItemDefinitionId id, String name, String description,
+    TResult? Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String? namePlural,
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String description,
@@ -145,32 +130,17 @@ mixin _$ItemDefinition {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
     TResult Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
     TResult Function(
             ItemDefinitionId id,
@@ -179,7 +149,7 @@ mixin _$ItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
     TResult Function(
             ItemDefinitionId id,
@@ -207,12 +177,12 @@ mixin _$ItemDefinition {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GeneralItemDefinition value)? general,
-    TResult Function(ResourceItemDefinition value)? resource,
-    TResult Function(DrillItemDefinition value)? drill,
-    TResult Function(ToolItemDefinition value)? tool,
-    TResult Function(SwordItemDefinition value)? sword,
-    TResult Function(MinerItemDefinition value)? miner,
+    TResult? Function(GeneralItemDefinition value)? general,
+    TResult? Function(ResourceItemDefinition value)? resource,
+    TResult? Function(DrillItemDefinition value)? drill,
+    TResult? Function(ToolItemDefinition value)? tool,
+    TResult? Function(SwordItemDefinition value)? sword,
+    TResult? Function(MinerItemDefinition value)? miner,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -236,7 +206,8 @@ mixin _$ItemDefinition {
 abstract class $ItemDefinitionCopyWith<$Res> {
   factory $ItemDefinitionCopyWith(
           ItemDefinition value, $Res Function(ItemDefinition) then) =
-      _$ItemDefinitionCopyWithImpl<$Res>;
+      _$ItemDefinitionCopyWithImpl<$Res, ItemDefinition>;
+  @useResult
   $Res call(
       {ItemDefinitionId id,
       String name,
@@ -247,45 +218,48 @@ abstract class $ItemDefinitionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ItemDefinitionCopyWithImpl<$Res>
+class _$ItemDefinitionCopyWithImpl<$Res, $Val extends ItemDefinition>
     implements $ItemDefinitionCopyWith<$Res> {
   _$ItemDefinitionCopyWithImpl(this._value, this._then);
 
-  final ItemDefinition _value;
   // ignore: unused_field
-  final $Res Function(ItemDefinition) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? image = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? image = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDefinition,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ImageDefinitionCopyWith<$Res> get image {
     return $ImageDefinitionCopyWith<$Res>(_value.image, (value) {
-      return _then(_value.copyWith(image: value));
+      return _then(_value.copyWith(image: value) as $Val);
     });
   }
 }
@@ -297,76 +271,63 @@ abstract class _$$GeneralItemDefinitionCopyWith<$Res>
           $Res Function(_$GeneralItemDefinition) then) =
       __$$GeneralItemDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ItemDefinitionId id,
       String name,
       String? namePlural,
       String description,
       ImageDefinition image,
-      ItemContainer? sellPrice});
+      int? sellPrice});
 
   @override
   $ImageDefinitionCopyWith<$Res> get image;
-  $ItemContainerCopyWith<$Res>? get sellPrice;
 }
 
 /// @nodoc
 class __$$GeneralItemDefinitionCopyWithImpl<$Res>
-    extends _$ItemDefinitionCopyWithImpl<$Res>
+    extends _$ItemDefinitionCopyWithImpl<$Res, _$GeneralItemDefinition>
     implements _$$GeneralItemDefinitionCopyWith<$Res> {
   __$$GeneralItemDefinitionCopyWithImpl(_$GeneralItemDefinition _value,
       $Res Function(_$GeneralItemDefinition) _then)
-      : super(_value, (v) => _then(v as _$GeneralItemDefinition));
+      : super(_value, _then);
 
-  @override
-  _$GeneralItemDefinition get _value => super._value as _$GeneralItemDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? namePlural = freezed,
-    Object? description = freezed,
-    Object? image = freezed,
+    Object? description = null,
+    Object? image = null,
     Object? sellPrice = freezed,
   }) {
     return _then(_$GeneralItemDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      namePlural: namePlural == freezed
+      namePlural: freezed == namePlural
           ? _value.namePlural
           : namePlural // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDefinition,
-      sellPrice: sellPrice == freezed
+      sellPrice: freezed == sellPrice
           ? _value.sellPrice
           : sellPrice // ignore: cast_nullable_to_non_nullable
-              as ItemContainer?,
+              as int?,
     ));
-  }
-
-  @override
-  $ItemContainerCopyWith<$Res>? get sellPrice {
-    if (_value.sellPrice == null) {
-      return null;
-    }
-
-    return $ItemContainerCopyWith<$Res>(_value.sellPrice!, (value) {
-      return _then(_value.copyWith(sellPrice: value));
-    });
   }
 }
 
@@ -399,7 +360,7 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
   final ImageDefinition image;
 // required int maxStackSize,
   @override
-  final ItemContainer? sellPrice;
+  final int? sellPrice;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -414,29 +375,25 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GeneralItemDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.namePlural, namePlural) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.sellPrice, sellPrice));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.namePlural, namePlural) ||
+                other.namePlural == namePlural) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.sellPrice, sellPrice) ||
+                other.sellPrice == sellPrice));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(namePlural),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(sellPrice));
+      runtimeType, id, name, namePlural, description, image, sellPrice);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$GeneralItemDefinitionCopyWith<_$GeneralItemDefinition> get copyWith =>
       __$$GeneralItemDefinitionCopyWithImpl<_$GeneralItemDefinition>(
           this, _$identity);
@@ -450,7 +407,7 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         general,
     required TResult Function(
             ItemDefinitionId id,
@@ -458,7 +415,7 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         resource,
     required TResult Function(ItemDefinitionId id, String name,
             String description, ImageDefinition image, int damage)
@@ -469,7 +426,7 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         tool,
     required TResult Function(
             ItemDefinitionId id,
@@ -478,7 +435,7 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         sword,
     required TResult Function(
             ItemDefinitionId id,
@@ -498,43 +455,28 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
-    TResult Function(ItemDefinitionId id, String name, String description,
+    TResult? Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String? namePlural,
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String description,
@@ -552,32 +494,17 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
     TResult Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
     TResult Function(
             ItemDefinitionId id,
@@ -586,7 +513,7 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
     TResult Function(
             ItemDefinitionId id,
@@ -623,12 +550,12 @@ class _$GeneralItemDefinition extends GeneralItemDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GeneralItemDefinition value)? general,
-    TResult Function(ResourceItemDefinition value)? resource,
-    TResult Function(DrillItemDefinition value)? drill,
-    TResult Function(ToolItemDefinition value)? tool,
-    TResult Function(SwordItemDefinition value)? sword,
-    TResult Function(MinerItemDefinition value)? miner,
+    TResult? Function(GeneralItemDefinition value)? general,
+    TResult? Function(ResourceItemDefinition value)? resource,
+    TResult? Function(DrillItemDefinition value)? drill,
+    TResult? Function(ToolItemDefinition value)? tool,
+    TResult? Function(SwordItemDefinition value)? sword,
+    TResult? Function(MinerItemDefinition value)? miner,
   }) {
     return general?.call(this);
   }
@@ -666,7 +593,7 @@ abstract class GeneralItemDefinition extends ItemDefinition
       final String? namePlural,
       required final String description,
       required final ImageDefinition image,
-      final ItemContainer? sellPrice}) = _$GeneralItemDefinition;
+      final int? sellPrice}) = _$GeneralItemDefinition;
   const GeneralItemDefinition._() : super._();
 
   factory GeneralItemDefinition.fromJson(Map<String, dynamic> json) =
@@ -681,7 +608,7 @@ abstract class GeneralItemDefinition extends ItemDefinition
   String get description;
   @override
   ImageDefinition get image; // required int maxStackSize,
-  ItemContainer? get sellPrice;
+  int? get sellPrice;
   @override
   @JsonKey(ignore: true)
   _$$GeneralItemDefinitionCopyWith<_$GeneralItemDefinition> get copyWith =>
@@ -695,77 +622,63 @@ abstract class _$$ResourceItemDefinitionCopyWith<$Res>
           $Res Function(_$ResourceItemDefinition) then) =
       __$$ResourceItemDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ItemDefinitionId id,
       String name,
       String? namePlural,
       String description,
       ImageDefinition image,
-      ItemContainer? sellPrice});
+      int? sellPrice});
 
   @override
   $ImageDefinitionCopyWith<$Res> get image;
-  $ItemContainerCopyWith<$Res>? get sellPrice;
 }
 
 /// @nodoc
 class __$$ResourceItemDefinitionCopyWithImpl<$Res>
-    extends _$ItemDefinitionCopyWithImpl<$Res>
+    extends _$ItemDefinitionCopyWithImpl<$Res, _$ResourceItemDefinition>
     implements _$$ResourceItemDefinitionCopyWith<$Res> {
   __$$ResourceItemDefinitionCopyWithImpl(_$ResourceItemDefinition _value,
       $Res Function(_$ResourceItemDefinition) _then)
-      : super(_value, (v) => _then(v as _$ResourceItemDefinition));
+      : super(_value, _then);
 
-  @override
-  _$ResourceItemDefinition get _value =>
-      super._value as _$ResourceItemDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? namePlural = freezed,
-    Object? description = freezed,
-    Object? image = freezed,
+    Object? description = null,
+    Object? image = null,
     Object? sellPrice = freezed,
   }) {
     return _then(_$ResourceItemDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      namePlural: namePlural == freezed
+      namePlural: freezed == namePlural
           ? _value.namePlural
           : namePlural // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDefinition,
-      sellPrice: sellPrice == freezed
+      sellPrice: freezed == sellPrice
           ? _value.sellPrice
           : sellPrice // ignore: cast_nullable_to_non_nullable
-              as ItemContainer?,
+              as int?,
     ));
-  }
-
-  @override
-  $ItemContainerCopyWith<$Res>? get sellPrice {
-    if (_value.sellPrice == null) {
-      return null;
-    }
-
-    return $ItemContainerCopyWith<$Res>(_value.sellPrice!, (value) {
-      return _then(_value.copyWith(sellPrice: value));
-    });
   }
 }
 
@@ -798,7 +711,7 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
   final ImageDefinition image;
 // required int maxStackSize,
   @override
-  final ItemContainer? sellPrice;
+  final int? sellPrice;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -813,29 +726,25 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ResourceItemDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.namePlural, namePlural) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.sellPrice, sellPrice));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.namePlural, namePlural) ||
+                other.namePlural == namePlural) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.sellPrice, sellPrice) ||
+                other.sellPrice == sellPrice));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(namePlural),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(sellPrice));
+      runtimeType, id, name, namePlural, description, image, sellPrice);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ResourceItemDefinitionCopyWith<_$ResourceItemDefinition> get copyWith =>
       __$$ResourceItemDefinitionCopyWithImpl<_$ResourceItemDefinition>(
           this, _$identity);
@@ -849,7 +758,7 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         general,
     required TResult Function(
             ItemDefinitionId id,
@@ -857,7 +766,7 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         resource,
     required TResult Function(ItemDefinitionId id, String name,
             String description, ImageDefinition image, int damage)
@@ -868,7 +777,7 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         tool,
     required TResult Function(
             ItemDefinitionId id,
@@ -877,7 +786,7 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         sword,
     required TResult Function(
             ItemDefinitionId id,
@@ -897,43 +806,28 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
-    TResult Function(ItemDefinitionId id, String name, String description,
+    TResult? Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String? namePlural,
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String description,
@@ -951,32 +845,17 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
     TResult Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
     TResult Function(
             ItemDefinitionId id,
@@ -985,7 +864,7 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
     TResult Function(
             ItemDefinitionId id,
@@ -1022,12 +901,12 @@ class _$ResourceItemDefinition extends ResourceItemDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GeneralItemDefinition value)? general,
-    TResult Function(ResourceItemDefinition value)? resource,
-    TResult Function(DrillItemDefinition value)? drill,
-    TResult Function(ToolItemDefinition value)? tool,
-    TResult Function(SwordItemDefinition value)? sword,
-    TResult Function(MinerItemDefinition value)? miner,
+    TResult? Function(GeneralItemDefinition value)? general,
+    TResult? Function(ResourceItemDefinition value)? resource,
+    TResult? Function(DrillItemDefinition value)? drill,
+    TResult? Function(ToolItemDefinition value)? tool,
+    TResult? Function(SwordItemDefinition value)? sword,
+    TResult? Function(MinerItemDefinition value)? miner,
   }) {
     return resource?.call(this);
   }
@@ -1065,7 +944,7 @@ abstract class ResourceItemDefinition extends ItemDefinition
       final String? namePlural,
       required final String description,
       required final ImageDefinition image,
-      final ItemContainer? sellPrice}) = _$ResourceItemDefinition;
+      final int? sellPrice}) = _$ResourceItemDefinition;
   const ResourceItemDefinition._() : super._();
 
   factory ResourceItemDefinition.fromJson(Map<String, dynamic> json) =
@@ -1080,7 +959,7 @@ abstract class ResourceItemDefinition extends ItemDefinition
   String get description;
   @override
   ImageDefinition get image; // required int maxStackSize,
-  ItemContainer? get sellPrice;
+  int? get sellPrice;
   @override
   @JsonKey(ignore: true)
   _$$ResourceItemDefinitionCopyWith<_$ResourceItemDefinition> get copyWith =>
@@ -1094,6 +973,7 @@ abstract class _$$DrillItemDefinitionCopyWith<$Res>
           $Res Function(_$DrillItemDefinition) then) =
       __$$DrillItemDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ItemDefinitionId id,
       String name,
@@ -1107,41 +987,39 @@ abstract class _$$DrillItemDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$DrillItemDefinitionCopyWithImpl<$Res>
-    extends _$ItemDefinitionCopyWithImpl<$Res>
+    extends _$ItemDefinitionCopyWithImpl<$Res, _$DrillItemDefinition>
     implements _$$DrillItemDefinitionCopyWith<$Res> {
   __$$DrillItemDefinitionCopyWithImpl(
       _$DrillItemDefinition _value, $Res Function(_$DrillItemDefinition) _then)
-      : super(_value, (v) => _then(v as _$DrillItemDefinition));
+      : super(_value, _then);
 
-  @override
-  _$DrillItemDefinition get _value => super._value as _$DrillItemDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? image = freezed,
-    Object? damage = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? image = null,
+    Object? damage = null,
   }) {
     return _then(_$DrillItemDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDefinition,
-      damage: damage == freezed
+      damage: null == damage
           ? _value.damage
           : damage // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1189,26 +1067,22 @@ class _$DrillItemDefinition extends DrillItemDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DrillItemDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.damage, damage));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.damage, damage) || other.damage == damage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(damage));
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, description, image, damage);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$DrillItemDefinitionCopyWith<_$DrillItemDefinition> get copyWith =>
       __$$DrillItemDefinitionCopyWithImpl<_$DrillItemDefinition>(
           this, _$identity);
@@ -1222,7 +1096,7 @@ class _$DrillItemDefinition extends DrillItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         general,
     required TResult Function(
             ItemDefinitionId id,
@@ -1230,7 +1104,7 @@ class _$DrillItemDefinition extends DrillItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         resource,
     required TResult Function(ItemDefinitionId id, String name,
             String description, ImageDefinition image, int damage)
@@ -1241,7 +1115,7 @@ class _$DrillItemDefinition extends DrillItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         tool,
     required TResult Function(
             ItemDefinitionId id,
@@ -1250,7 +1124,7 @@ class _$DrillItemDefinition extends DrillItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         sword,
     required TResult Function(
             ItemDefinitionId id,
@@ -1270,43 +1144,28 @@ class _$DrillItemDefinition extends DrillItemDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
-    TResult Function(ItemDefinitionId id, String name, String description,
+    TResult? Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String? namePlural,
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String description,
@@ -1324,32 +1183,17 @@ class _$DrillItemDefinition extends DrillItemDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
     TResult Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
     TResult Function(
             ItemDefinitionId id,
@@ -1358,7 +1202,7 @@ class _$DrillItemDefinition extends DrillItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
     TResult Function(
             ItemDefinitionId id,
@@ -1395,12 +1239,12 @@ class _$DrillItemDefinition extends DrillItemDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GeneralItemDefinition value)? general,
-    TResult Function(ResourceItemDefinition value)? resource,
-    TResult Function(DrillItemDefinition value)? drill,
-    TResult Function(ToolItemDefinition value)? tool,
-    TResult Function(SwordItemDefinition value)? sword,
-    TResult Function(MinerItemDefinition value)? miner,
+    TResult? Function(GeneralItemDefinition value)? general,
+    TResult? Function(ResourceItemDefinition value)? resource,
+    TResult? Function(DrillItemDefinition value)? drill,
+    TResult? Function(ToolItemDefinition value)? tool,
+    TResult? Function(SwordItemDefinition value)? sword,
+    TResult? Function(MinerItemDefinition value)? miner,
   }) {
     return drill?.call(this);
   }
@@ -1464,76 +1308,63 @@ abstract class _$$ToolItemDefinitionCopyWith<$Res>
           $Res Function(_$ToolItemDefinition) then) =
       __$$ToolItemDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ItemDefinitionId id,
       String name,
       String? namePlural,
       String description,
       ImageDefinition image,
-      ItemContainer? sellPrice});
+      int? sellPrice});
 
   @override
   $ImageDefinitionCopyWith<$Res> get image;
-  $ItemContainerCopyWith<$Res>? get sellPrice;
 }
 
 /// @nodoc
 class __$$ToolItemDefinitionCopyWithImpl<$Res>
-    extends _$ItemDefinitionCopyWithImpl<$Res>
+    extends _$ItemDefinitionCopyWithImpl<$Res, _$ToolItemDefinition>
     implements _$$ToolItemDefinitionCopyWith<$Res> {
   __$$ToolItemDefinitionCopyWithImpl(
       _$ToolItemDefinition _value, $Res Function(_$ToolItemDefinition) _then)
-      : super(_value, (v) => _then(v as _$ToolItemDefinition));
+      : super(_value, _then);
 
-  @override
-  _$ToolItemDefinition get _value => super._value as _$ToolItemDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? namePlural = freezed,
-    Object? description = freezed,
-    Object? image = freezed,
+    Object? description = null,
+    Object? image = null,
     Object? sellPrice = freezed,
   }) {
     return _then(_$ToolItemDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      namePlural: namePlural == freezed
+      namePlural: freezed == namePlural
           ? _value.namePlural
           : namePlural // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDefinition,
-      sellPrice: sellPrice == freezed
+      sellPrice: freezed == sellPrice
           ? _value.sellPrice
           : sellPrice // ignore: cast_nullable_to_non_nullable
-              as ItemContainer?,
+              as int?,
     ));
-  }
-
-  @override
-  $ItemContainerCopyWith<$Res>? get sellPrice {
-    if (_value.sellPrice == null) {
-      return null;
-    }
-
-    return $ItemContainerCopyWith<$Res>(_value.sellPrice!, (value) {
-      return _then(_value.copyWith(sellPrice: value));
-    });
   }
 }
 
@@ -1565,7 +1396,7 @@ class _$ToolItemDefinition extends ToolItemDefinition {
   @override
   final ImageDefinition image;
   @override
-  final ItemContainer? sellPrice;
+  final int? sellPrice;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -1580,29 +1411,25 @@ class _$ToolItemDefinition extends ToolItemDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ToolItemDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.namePlural, namePlural) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
-            const DeepCollectionEquality().equals(other.sellPrice, sellPrice));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.namePlural, namePlural) ||
+                other.namePlural == namePlural) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.image, image) || other.image == image) &&
+            (identical(other.sellPrice, sellPrice) ||
+                other.sellPrice == sellPrice));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(namePlural),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(image),
-      const DeepCollectionEquality().hash(sellPrice));
+      runtimeType, id, name, namePlural, description, image, sellPrice);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ToolItemDefinitionCopyWith<_$ToolItemDefinition> get copyWith =>
       __$$ToolItemDefinitionCopyWithImpl<_$ToolItemDefinition>(
           this, _$identity);
@@ -1616,7 +1443,7 @@ class _$ToolItemDefinition extends ToolItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         general,
     required TResult Function(
             ItemDefinitionId id,
@@ -1624,7 +1451,7 @@ class _$ToolItemDefinition extends ToolItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         resource,
     required TResult Function(ItemDefinitionId id, String name,
             String description, ImageDefinition image, int damage)
@@ -1635,7 +1462,7 @@ class _$ToolItemDefinition extends ToolItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         tool,
     required TResult Function(
             ItemDefinitionId id,
@@ -1644,7 +1471,7 @@ class _$ToolItemDefinition extends ToolItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         sword,
     required TResult Function(
             ItemDefinitionId id,
@@ -1664,43 +1491,28 @@ class _$ToolItemDefinition extends ToolItemDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
-    TResult Function(ItemDefinitionId id, String name, String description,
+    TResult? Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String? namePlural,
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String description,
@@ -1718,32 +1530,17 @@ class _$ToolItemDefinition extends ToolItemDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
     TResult Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
     TResult Function(
             ItemDefinitionId id,
@@ -1752,7 +1549,7 @@ class _$ToolItemDefinition extends ToolItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
     TResult Function(
             ItemDefinitionId id,
@@ -1789,12 +1586,12 @@ class _$ToolItemDefinition extends ToolItemDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GeneralItemDefinition value)? general,
-    TResult Function(ResourceItemDefinition value)? resource,
-    TResult Function(DrillItemDefinition value)? drill,
-    TResult Function(ToolItemDefinition value)? tool,
-    TResult Function(SwordItemDefinition value)? sword,
-    TResult Function(MinerItemDefinition value)? miner,
+    TResult? Function(GeneralItemDefinition value)? general,
+    TResult? Function(ResourceItemDefinition value)? resource,
+    TResult? Function(DrillItemDefinition value)? drill,
+    TResult? Function(ToolItemDefinition value)? tool,
+    TResult? Function(SwordItemDefinition value)? sword,
+    TResult? Function(MinerItemDefinition value)? miner,
   }) {
     return tool?.call(this);
   }
@@ -1832,7 +1629,7 @@ abstract class ToolItemDefinition extends ItemDefinition
       final String? namePlural,
       required final String description,
       required final ImageDefinition image,
-      final ItemContainer? sellPrice}) = _$ToolItemDefinition;
+      final int? sellPrice}) = _$ToolItemDefinition;
   const ToolItemDefinition._() : super._();
 
   factory ToolItemDefinition.fromJson(Map<String, dynamic> json) =
@@ -1847,7 +1644,7 @@ abstract class ToolItemDefinition extends ItemDefinition
   String get description;
   @override
   ImageDefinition get image;
-  ItemContainer? get sellPrice;
+  int? get sellPrice;
   @override
   @JsonKey(ignore: true)
   _$$ToolItemDefinitionCopyWith<_$ToolItemDefinition> get copyWith =>
@@ -1861,6 +1658,7 @@ abstract class _$$SwordItemDefinitionCopyWith<$Res>
           $Res Function(_$SwordItemDefinition) then) =
       __$$SwordItemDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ItemDefinitionId id,
       String name,
@@ -1868,75 +1666,61 @@ abstract class _$$SwordItemDefinitionCopyWith<$Res>
       String description,
       ImageDefinition image,
       Map<WeaponAttributes, double> attributes,
-      ItemContainer? sellPrice});
+      int? sellPrice});
 
   @override
   $ImageDefinitionCopyWith<$Res> get image;
-  $ItemContainerCopyWith<$Res>? get sellPrice;
 }
 
 /// @nodoc
 class __$$SwordItemDefinitionCopyWithImpl<$Res>
-    extends _$ItemDefinitionCopyWithImpl<$Res>
+    extends _$ItemDefinitionCopyWithImpl<$Res, _$SwordItemDefinition>
     implements _$$SwordItemDefinitionCopyWith<$Res> {
   __$$SwordItemDefinitionCopyWithImpl(
       _$SwordItemDefinition _value, $Res Function(_$SwordItemDefinition) _then)
-      : super(_value, (v) => _then(v as _$SwordItemDefinition));
+      : super(_value, _then);
 
-  @override
-  _$SwordItemDefinition get _value => super._value as _$SwordItemDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
+    Object? id = null,
+    Object? name = null,
     Object? namePlural = freezed,
-    Object? description = freezed,
-    Object? image = freezed,
-    Object? attributes = freezed,
+    Object? description = null,
+    Object? image = null,
+    Object? attributes = null,
     Object? sellPrice = freezed,
   }) {
     return _then(_$SwordItemDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      namePlural: namePlural == freezed
+      namePlural: freezed == namePlural
           ? _value.namePlural
           : namePlural // ignore: cast_nullable_to_non_nullable
               as String?,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDefinition,
-      attributes: attributes == freezed
+      attributes: null == attributes
           ? _value._attributes
           : attributes // ignore: cast_nullable_to_non_nullable
               as Map<WeaponAttributes, double>,
-      sellPrice: sellPrice == freezed
+      sellPrice: freezed == sellPrice
           ? _value.sellPrice
           : sellPrice // ignore: cast_nullable_to_non_nullable
-              as ItemContainer?,
+              as int?,
     ));
-  }
-
-  @override
-  $ItemContainerCopyWith<$Res>? get sellPrice {
-    if (_value.sellPrice == null) {
-      return null;
-    }
-
-    return $ItemContainerCopyWith<$Res>(_value.sellPrice!, (value) {
-      return _then(_value.copyWith(sellPrice: value));
-    });
   }
 }
 
@@ -1977,7 +1761,7 @@ class _$SwordItemDefinition extends SwordItemDefinition {
   }
 
   @override
-  final ItemContainer? sellPrice;
+  final int? sellPrice;
 
   @JsonKey(name: 'runtimeType')
   final String $type;
@@ -1992,32 +1776,34 @@ class _$SwordItemDefinition extends SwordItemDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SwordItemDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.namePlural, namePlural) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.image, image) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.namePlural, namePlural) ||
+                other.namePlural == namePlural) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.image, image) || other.image == image) &&
             const DeepCollectionEquality()
                 .equals(other._attributes, _attributes) &&
-            const DeepCollectionEquality().equals(other.sellPrice, sellPrice));
+            (identical(other.sellPrice, sellPrice) ||
+                other.sellPrice == sellPrice));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(namePlural),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(image),
+      id,
+      name,
+      namePlural,
+      description,
+      image,
       const DeepCollectionEquality().hash(_attributes),
-      const DeepCollectionEquality().hash(sellPrice));
+      sellPrice);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SwordItemDefinitionCopyWith<_$SwordItemDefinition> get copyWith =>
       __$$SwordItemDefinitionCopyWithImpl<_$SwordItemDefinition>(
           this, _$identity);
@@ -2031,7 +1817,7 @@ class _$SwordItemDefinition extends SwordItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         general,
     required TResult Function(
             ItemDefinitionId id,
@@ -2039,7 +1825,7 @@ class _$SwordItemDefinition extends SwordItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         resource,
     required TResult Function(ItemDefinitionId id, String name,
             String description, ImageDefinition image, int damage)
@@ -2050,7 +1836,7 @@ class _$SwordItemDefinition extends SwordItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         tool,
     required TResult Function(
             ItemDefinitionId id,
@@ -2059,7 +1845,7 @@ class _$SwordItemDefinition extends SwordItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         sword,
     required TResult Function(
             ItemDefinitionId id,
@@ -2080,43 +1866,28 @@ class _$SwordItemDefinition extends SwordItemDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
-    TResult Function(ItemDefinitionId id, String name, String description,
+    TResult? Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String? namePlural,
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String description,
@@ -2135,32 +1906,17 @@ class _$SwordItemDefinition extends SwordItemDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
     TResult Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
     TResult Function(
             ItemDefinitionId id,
@@ -2169,7 +1925,7 @@ class _$SwordItemDefinition extends SwordItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
     TResult Function(
             ItemDefinitionId id,
@@ -2207,12 +1963,12 @@ class _$SwordItemDefinition extends SwordItemDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GeneralItemDefinition value)? general,
-    TResult Function(ResourceItemDefinition value)? resource,
-    TResult Function(DrillItemDefinition value)? drill,
-    TResult Function(ToolItemDefinition value)? tool,
-    TResult Function(SwordItemDefinition value)? sword,
-    TResult Function(MinerItemDefinition value)? miner,
+    TResult? Function(GeneralItemDefinition value)? general,
+    TResult? Function(ResourceItemDefinition value)? resource,
+    TResult? Function(DrillItemDefinition value)? drill,
+    TResult? Function(ToolItemDefinition value)? tool,
+    TResult? Function(SwordItemDefinition value)? sword,
+    TResult? Function(MinerItemDefinition value)? miner,
   }) {
     return sword?.call(this);
   }
@@ -2251,7 +2007,7 @@ abstract class SwordItemDefinition extends ItemDefinition
       required final String description,
       required final ImageDefinition image,
       required final Map<WeaponAttributes, double> attributes,
-      final ItemContainer? sellPrice}) = _$SwordItemDefinition;
+      final int? sellPrice}) = _$SwordItemDefinition;
   const SwordItemDefinition._() : super._();
 
   factory SwordItemDefinition.fromJson(Map<String, dynamic> json) =
@@ -2267,7 +2023,7 @@ abstract class SwordItemDefinition extends ItemDefinition
   @override
   ImageDefinition get image;
   Map<WeaponAttributes, double> get attributes;
-  ItemContainer? get sellPrice;
+  int? get sellPrice;
   @override
   @JsonKey(ignore: true)
   _$$SwordItemDefinitionCopyWith<_$SwordItemDefinition> get copyWith =>
@@ -2281,6 +2037,7 @@ abstract class _$$MinerItemDefinitionCopyWith<$Res>
           $Res Function(_$MinerItemDefinition) then) =
       __$$MinerItemDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ItemDefinitionId id,
       String name,
@@ -2298,61 +2055,59 @@ abstract class _$$MinerItemDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$MinerItemDefinitionCopyWithImpl<$Res>
-    extends _$ItemDefinitionCopyWithImpl<$Res>
+    extends _$ItemDefinitionCopyWithImpl<$Res, _$MinerItemDefinition>
     implements _$$MinerItemDefinitionCopyWith<$Res> {
   __$$MinerItemDefinitionCopyWithImpl(
       _$MinerItemDefinition _value, $Res Function(_$MinerItemDefinition) _then)
-      : super(_value, (v) => _then(v as _$MinerItemDefinition));
+      : super(_value, _then);
 
-  @override
-  _$MinerItemDefinition get _value => super._value as _$MinerItemDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? radius = freezed,
-    Object? depth = freezed,
-    Object? baseDamage = freezed,
-    Object? baseHopperSize = freezed,
-    Object? fuelConsumption = freezed,
-    Object? image = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? radius = null,
+    Object? depth = null,
+    Object? baseDamage = null,
+    Object? baseHopperSize = null,
+    Object? fuelConsumption = null,
+    Object? image = null,
   }) {
     return _then(_$MinerItemDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      radius: radius == freezed
+      radius: null == radius
           ? _value.radius
           : radius // ignore: cast_nullable_to_non_nullable
               as int,
-      depth: depth == freezed
+      depth: null == depth
           ? _value.depth
           : depth // ignore: cast_nullable_to_non_nullable
               as int,
-      baseDamage: baseDamage == freezed
+      baseDamage: null == baseDamage
           ? _value.baseDamage
           : baseDamage // ignore: cast_nullable_to_non_nullable
               as int,
-      baseHopperSize: baseHopperSize == freezed
+      baseHopperSize: null == baseHopperSize
           ? _value.baseHopperSize
           : baseHopperSize // ignore: cast_nullable_to_non_nullable
               as int,
-      fuelConsumption: fuelConsumption == freezed
+      fuelConsumption: null == fuelConsumption
           ? _value.fuelConsumption
           : fuelConsumption // ignore: cast_nullable_to_non_nullable
               as int,
-      image: image == freezed
+      image: null == image
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as ImageDefinition,
@@ -2413,37 +2168,29 @@ class _$MinerItemDefinition extends MinerItemDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MinerItemDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality().equals(other.radius, radius) &&
-            const DeepCollectionEquality().equals(other.depth, depth) &&
-            const DeepCollectionEquality()
-                .equals(other.baseDamage, baseDamage) &&
-            const DeepCollectionEquality()
-                .equals(other.baseHopperSize, baseHopperSize) &&
-            const DeepCollectionEquality()
-                .equals(other.fuelConsumption, fuelConsumption) &&
-            const DeepCollectionEquality().equals(other.image, image));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.radius, radius) || other.radius == radius) &&
+            (identical(other.depth, depth) || other.depth == depth) &&
+            (identical(other.baseDamage, baseDamage) ||
+                other.baseDamage == baseDamage) &&
+            (identical(other.baseHopperSize, baseHopperSize) ||
+                other.baseHopperSize == baseHopperSize) &&
+            (identical(other.fuelConsumption, fuelConsumption) ||
+                other.fuelConsumption == fuelConsumption) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(radius),
-      const DeepCollectionEquality().hash(depth),
-      const DeepCollectionEquality().hash(baseDamage),
-      const DeepCollectionEquality().hash(baseHopperSize),
-      const DeepCollectionEquality().hash(fuelConsumption),
-      const DeepCollectionEquality().hash(image));
+  int get hashCode => Object.hash(runtimeType, id, name, description, radius,
+      depth, baseDamage, baseHopperSize, fuelConsumption, image);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$MinerItemDefinitionCopyWith<_$MinerItemDefinition> get copyWith =>
       __$$MinerItemDefinitionCopyWithImpl<_$MinerItemDefinition>(
           this, _$identity);
@@ -2457,7 +2204,7 @@ class _$MinerItemDefinition extends MinerItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         general,
     required TResult Function(
             ItemDefinitionId id,
@@ -2465,7 +2212,7 @@ class _$MinerItemDefinition extends MinerItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         resource,
     required TResult Function(ItemDefinitionId id, String name,
             String description, ImageDefinition image, int damage)
@@ -2476,7 +2223,7 @@ class _$MinerItemDefinition extends MinerItemDefinition {
             String? namePlural,
             String description,
             ImageDefinition image,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         tool,
     required TResult Function(
             ItemDefinitionId id,
@@ -2485,7 +2232,7 @@ class _$MinerItemDefinition extends MinerItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)
+            int? sellPrice)
         sword,
     required TResult Function(
             ItemDefinitionId id,
@@ -2506,43 +2253,28 @@ class _$MinerItemDefinition extends MinerItemDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
-    TResult Function(ItemDefinitionId id, String name, String description,
+    TResult? Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult? Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String? namePlural,
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
-    TResult Function(
+    TResult? Function(
             ItemDefinitionId id,
             String name,
             String description,
@@ -2561,32 +2293,17 @@ class _$MinerItemDefinition extends MinerItemDefinition {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         general,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         resource,
     TResult Function(ItemDefinitionId id, String name, String description,
             ImageDefinition image, int damage)?
         drill,
-    TResult Function(
-            ItemDefinitionId id,
-            String name,
-            String? namePlural,
-            String description,
-            ImageDefinition image,
-            ItemContainer? sellPrice)?
+    TResult Function(ItemDefinitionId id, String name, String? namePlural,
+            String description, ImageDefinition image, int? sellPrice)?
         tool,
     TResult Function(
             ItemDefinitionId id,
@@ -2595,7 +2312,7 @@ class _$MinerItemDefinition extends MinerItemDefinition {
             String description,
             ImageDefinition image,
             Map<WeaponAttributes, double> attributes,
-            ItemContainer? sellPrice)?
+            int? sellPrice)?
         sword,
     TResult Function(
             ItemDefinitionId id,
@@ -2633,12 +2350,12 @@ class _$MinerItemDefinition extends MinerItemDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(GeneralItemDefinition value)? general,
-    TResult Function(ResourceItemDefinition value)? resource,
-    TResult Function(DrillItemDefinition value)? drill,
-    TResult Function(ToolItemDefinition value)? tool,
-    TResult Function(SwordItemDefinition value)? sword,
-    TResult Function(MinerItemDefinition value)? miner,
+    TResult? Function(GeneralItemDefinition value)? general,
+    TResult? Function(ResourceItemDefinition value)? resource,
+    TResult? Function(DrillItemDefinition value)? drill,
+    TResult? Function(ToolItemDefinition value)? tool,
+    TResult? Function(SwordItemDefinition value)? sword,
+    TResult? Function(MinerItemDefinition value)? miner,
   }) {
     return miner?.call(this);
   }
@@ -2723,39 +2440,42 @@ mixin _$ImageDefinition {
 abstract class $ImageDefinitionCopyWith<$Res> {
   factory $ImageDefinitionCopyWith(
           ImageDefinition value, $Res Function(ImageDefinition) then) =
-      _$ImageDefinitionCopyWithImpl<$Res>;
+      _$ImageDefinitionCopyWithImpl<$Res, ImageDefinition>;
+  @useResult
   $Res call({String path, int? row, int? column});
 }
 
 /// @nodoc
-class _$ImageDefinitionCopyWithImpl<$Res>
+class _$ImageDefinitionCopyWithImpl<$Res, $Val extends ImageDefinition>
     implements $ImageDefinitionCopyWith<$Res> {
   _$ImageDefinitionCopyWithImpl(this._value, this._then);
 
-  final ImageDefinition _value;
   // ignore: unused_field
-  final $Res Function(ImageDefinition) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = freezed,
+    Object? path = null,
     Object? row = freezed,
     Object? column = freezed,
   }) {
     return _then(_value.copyWith(
-      path: path == freezed
+      path: null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      row: row == freezed
+      row: freezed == row
           ? _value.row
           : row // ignore: cast_nullable_to_non_nullable
               as int?,
-      column: column == freezed
+      column: freezed == column
           ? _value.column
           : column // ignore: cast_nullable_to_non_nullable
               as int?,
-    ));
+    ) as $Val);
   }
 }
 
@@ -2766,36 +2486,35 @@ abstract class _$$_ImageDefinitionCopyWith<$Res>
           _$_ImageDefinition value, $Res Function(_$_ImageDefinition) then) =
       __$$_ImageDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String path, int? row, int? column});
 }
 
 /// @nodoc
 class __$$_ImageDefinitionCopyWithImpl<$Res>
-    extends _$ImageDefinitionCopyWithImpl<$Res>
+    extends _$ImageDefinitionCopyWithImpl<$Res, _$_ImageDefinition>
     implements _$$_ImageDefinitionCopyWith<$Res> {
   __$$_ImageDefinitionCopyWithImpl(
       _$_ImageDefinition _value, $Res Function(_$_ImageDefinition) _then)
-      : super(_value, (v) => _then(v as _$_ImageDefinition));
+      : super(_value, _then);
 
-  @override
-  _$_ImageDefinition get _value => super._value as _$_ImageDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? path = freezed,
+    Object? path = null,
     Object? row = freezed,
     Object? column = freezed,
   }) {
     return _then(_$_ImageDefinition(
-      path == freezed
+      null == path
           ? _value.path
           : path // ignore: cast_nullable_to_non_nullable
               as String,
-      row: row == freezed
+      row: freezed == row
           ? _value.row
           : row // ignore: cast_nullable_to_non_nullable
               as int?,
-      column: column == freezed
+      column: freezed == column
           ? _value.column
           : column // ignore: cast_nullable_to_non_nullable
               as int?,
@@ -2828,21 +2547,18 @@ class _$_ImageDefinition extends _ImageDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ImageDefinition &&
-            const DeepCollectionEquality().equals(other.path, path) &&
-            const DeepCollectionEquality().equals(other.row, row) &&
-            const DeepCollectionEquality().equals(other.column, column));
+            (identical(other.path, path) || other.path == path) &&
+            (identical(other.row, row) || other.row == row) &&
+            (identical(other.column, column) || other.column == column));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(path),
-      const DeepCollectionEquality().hash(row),
-      const DeepCollectionEquality().hash(column));
+  int get hashCode => Object.hash(runtimeType, path, row, column);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ImageDefinitionCopyWith<_$_ImageDefinition> get copyWith =>
       __$$_ImageDefinitionCopyWithImpl<_$_ImageDefinition>(this, _$identity);
 

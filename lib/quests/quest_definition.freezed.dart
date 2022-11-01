@@ -33,45 +33,50 @@ mixin _$QuestReward {
 abstract class $QuestRewardCopyWith<$Res> {
   factory $QuestRewardCopyWith(
           QuestReward value, $Res Function(QuestReward) then) =
-      _$QuestRewardCopyWithImpl<$Res>;
+      _$QuestRewardCopyWithImpl<$Res, QuestReward>;
+  @useResult
   $Res call({Set<Feature>? features, ItemContainer? items});
 
   $ItemContainerCopyWith<$Res>? get items;
 }
 
 /// @nodoc
-class _$QuestRewardCopyWithImpl<$Res> implements $QuestRewardCopyWith<$Res> {
+class _$QuestRewardCopyWithImpl<$Res, $Val extends QuestReward>
+    implements $QuestRewardCopyWith<$Res> {
   _$QuestRewardCopyWithImpl(this._value, this._then);
 
-  final QuestReward _value;
   // ignore: unused_field
-  final $Res Function(QuestReward) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? features = freezed,
     Object? items = freezed,
   }) {
     return _then(_value.copyWith(
-      features: features == freezed
+      features: freezed == features
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
               as Set<Feature>?,
-      items: items == freezed
+      items: freezed == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as ItemContainer?,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res>? get items {
     if (_value.items == null) {
       return null;
     }
 
     return $ItemContainerCopyWith<$Res>(_value.items!, (value) {
-      return _then(_value.copyWith(items: value));
+      return _then(_value.copyWith(items: value) as $Val);
     });
   }
 }
@@ -83,6 +88,7 @@ abstract class _$$_QuestRewardCopyWith<$Res>
           _$_QuestReward value, $Res Function(_$_QuestReward) then) =
       __$$_QuestRewardCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({Set<Feature>? features, ItemContainer? items});
 
   @override
@@ -90,26 +96,25 @@ abstract class _$$_QuestRewardCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_QuestRewardCopyWithImpl<$Res> extends _$QuestRewardCopyWithImpl<$Res>
+class __$$_QuestRewardCopyWithImpl<$Res>
+    extends _$QuestRewardCopyWithImpl<$Res, _$_QuestReward>
     implements _$$_QuestRewardCopyWith<$Res> {
   __$$_QuestRewardCopyWithImpl(
       _$_QuestReward _value, $Res Function(_$_QuestReward) _then)
-      : super(_value, (v) => _then(v as _$_QuestReward));
+      : super(_value, _then);
 
-  @override
-  _$_QuestReward get _value => super._value as _$_QuestReward;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? features = freezed,
     Object? items = freezed,
   }) {
     return _then(_$_QuestReward(
-      features: features == freezed
+      features: freezed == features
           ? _value._features
           : features // ignore: cast_nullable_to_non_nullable
               as Set<Feature>?,
-      items: items == freezed
+      items: freezed == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as ItemContainer?,
@@ -149,18 +154,17 @@ class _$_QuestReward implements _QuestReward {
         (other.runtimeType == runtimeType &&
             other is _$_QuestReward &&
             const DeepCollectionEquality().equals(other._features, _features) &&
-            const DeepCollectionEquality().equals(other.items, items));
+            (identical(other.items, items) || other.items == items));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_features),
-      const DeepCollectionEquality().hash(items));
+      runtimeType, const DeepCollectionEquality().hash(_features), items);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QuestRewardCopyWith<_$_QuestReward> get copyWith =>
       __$$_QuestRewardCopyWithImpl<_$_QuestReward>(this, _$identity);
 
@@ -215,7 +219,8 @@ mixin _$QuestDefinition {
 abstract class $QuestDefinitionCopyWith<$Res> {
   factory $QuestDefinitionCopyWith(
           QuestDefinition value, $Res Function(QuestDefinition) then) =
-      _$QuestDefinitionCopyWithImpl<$Res>;
+      _$QuestDefinitionCopyWithImpl<$Res, QuestDefinition>;
+  @useResult
   $Res call(
       {QuestDefinitionId id,
       String name,
@@ -231,74 +236,79 @@ abstract class $QuestDefinitionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QuestDefinitionCopyWithImpl<$Res>
+class _$QuestDefinitionCopyWithImpl<$Res, $Val extends QuestDefinition>
     implements $QuestDefinitionCopyWith<$Res> {
   _$QuestDefinitionCopyWithImpl(this._value, this._then);
 
-  final QuestDefinition _value;
   // ignore: unused_field
-  final $Res Function(QuestDefinition) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
     Object? questGiver = freezed,
-    Object? enabledRequirement = freezed,
-    Object? completeRequirement = freezed,
-    Object? reward = freezed,
+    Object? enabledRequirement = null,
+    Object? completeRequirement = null,
+    Object? reward = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as QuestDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      questGiver: questGiver == freezed
+      questGiver: freezed == questGiver
           ? _value.questGiver
           : questGiver // ignore: cast_nullable_to_non_nullable
               as TownsfolkDefinitionId?,
-      enabledRequirement: enabledRequirement == freezed
+      enabledRequirement: null == enabledRequirement
           ? _value.enabledRequirement
           : enabledRequirement // ignore: cast_nullable_to_non_nullable
               as Requirement,
-      completeRequirement: completeRequirement == freezed
+      completeRequirement: null == completeRequirement
           ? _value.completeRequirement
           : completeRequirement // ignore: cast_nullable_to_non_nullable
               as Requirement,
-      reward: reward == freezed
+      reward: null == reward
           ? _value.reward
           : reward // ignore: cast_nullable_to_non_nullable
               as QuestReward,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RequirementCopyWith<$Res> get enabledRequirement {
     return $RequirementCopyWith<$Res>(_value.enabledRequirement, (value) {
-      return _then(_value.copyWith(enabledRequirement: value));
+      return _then(_value.copyWith(enabledRequirement: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $RequirementCopyWith<$Res> get completeRequirement {
     return $RequirementCopyWith<$Res>(_value.completeRequirement, (value) {
-      return _then(_value.copyWith(completeRequirement: value));
+      return _then(_value.copyWith(completeRequirement: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $QuestRewardCopyWith<$Res> get reward {
     return $QuestRewardCopyWith<$Res>(_value.reward, (value) {
-      return _then(_value.copyWith(reward: value));
+      return _then(_value.copyWith(reward: value) as $Val);
     });
   }
 }
@@ -310,6 +320,7 @@ abstract class _$$_QuestDefinitionCopyWith<$Res>
           _$_QuestDefinition value, $Res Function(_$_QuestDefinition) then) =
       __$$_QuestDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {QuestDefinitionId id,
       String name,
@@ -329,51 +340,49 @@ abstract class _$$_QuestDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$_QuestDefinitionCopyWithImpl<$Res>
-    extends _$QuestDefinitionCopyWithImpl<$Res>
+    extends _$QuestDefinitionCopyWithImpl<$Res, _$_QuestDefinition>
     implements _$$_QuestDefinitionCopyWith<$Res> {
   __$$_QuestDefinitionCopyWithImpl(
       _$_QuestDefinition _value, $Res Function(_$_QuestDefinition) _then)
-      : super(_value, (v) => _then(v as _$_QuestDefinition));
+      : super(_value, _then);
 
-  @override
-  _$_QuestDefinition get _value => super._value as _$_QuestDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
     Object? questGiver = freezed,
-    Object? enabledRequirement = freezed,
-    Object? completeRequirement = freezed,
-    Object? reward = freezed,
+    Object? enabledRequirement = null,
+    Object? completeRequirement = null,
+    Object? reward = null,
   }) {
     return _then(_$_QuestDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as QuestDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      questGiver: questGiver == freezed
+      questGiver: freezed == questGiver
           ? _value.questGiver
           : questGiver // ignore: cast_nullable_to_non_nullable
               as TownsfolkDefinitionId?,
-      enabledRequirement: enabledRequirement == freezed
+      enabledRequirement: null == enabledRequirement
           ? _value.enabledRequirement
           : enabledRequirement // ignore: cast_nullable_to_non_nullable
               as Requirement,
-      completeRequirement: completeRequirement == freezed
+      completeRequirement: null == completeRequirement
           ? _value.completeRequirement
           : completeRequirement // ignore: cast_nullable_to_non_nullable
               as Requirement,
-      reward: reward == freezed
+      reward: null == reward
           ? _value.reward
           : reward // ignore: cast_nullable_to_non_nullable
               as QuestReward,
@@ -422,33 +431,27 @@ class _$_QuestDefinition implements _QuestDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QuestDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.questGiver, questGiver) &&
-            const DeepCollectionEquality()
-                .equals(other.enabledRequirement, enabledRequirement) &&
-            const DeepCollectionEquality()
-                .equals(other.completeRequirement, completeRequirement) &&
-            const DeepCollectionEquality().equals(other.reward, reward));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.questGiver, questGiver) ||
+                other.questGiver == questGiver) &&
+            (identical(other.enabledRequirement, enabledRequirement) ||
+                other.enabledRequirement == enabledRequirement) &&
+            (identical(other.completeRequirement, completeRequirement) ||
+                other.completeRequirement == completeRequirement) &&
+            (identical(other.reward, reward) || other.reward == reward));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(questGiver),
-      const DeepCollectionEquality().hash(enabledRequirement),
-      const DeepCollectionEquality().hash(completeRequirement),
-      const DeepCollectionEquality().hash(reward));
+  int get hashCode => Object.hash(runtimeType, id, name, description,
+      questGiver, enabledRequirement, completeRequirement, reward);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QuestDefinitionCopyWith<_$_QuestDefinition> get copyWith =>
       __$$_QuestDefinitionCopyWithImpl<_$_QuestDefinition>(this, _$identity);
 
@@ -509,7 +512,8 @@ mixin _$QuestStatus {
 abstract class $QuestStatusCopyWith<$Res> {
   factory $QuestStatusCopyWith(
           QuestStatus value, $Res Function(QuestStatus) then) =
-      _$QuestStatusCopyWithImpl<$Res>;
+      _$QuestStatusCopyWithImpl<$Res, QuestStatus>;
+  @useResult
   $Res call(
       {QuestDefinition definition,
       bool requirementsMet,
@@ -521,51 +525,56 @@ abstract class $QuestStatusCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$QuestStatusCopyWithImpl<$Res> implements $QuestStatusCopyWith<$Res> {
+class _$QuestStatusCopyWithImpl<$Res, $Val extends QuestStatus>
+    implements $QuestStatusCopyWith<$Res> {
   _$QuestStatusCopyWithImpl(this._value, this._then);
 
-  final QuestStatus _value;
   // ignore: unused_field
-  final $Res Function(QuestStatus) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? definition = freezed,
-    Object? requirementsMet = freezed,
-    Object? hasRequiredFeatures = freezed,
-    Object? itemsProgress = freezed,
+    Object? definition = null,
+    Object? requirementsMet = null,
+    Object? hasRequiredFeatures = null,
+    Object? itemsProgress = null,
   }) {
     return _then(_value.copyWith(
-      definition: definition == freezed
+      definition: null == definition
           ? _value.definition
           : definition // ignore: cast_nullable_to_non_nullable
               as QuestDefinition,
-      requirementsMet: requirementsMet == freezed
+      requirementsMet: null == requirementsMet
           ? _value.requirementsMet
           : requirementsMet // ignore: cast_nullable_to_non_nullable
               as bool,
-      hasRequiredFeatures: hasRequiredFeatures == freezed
+      hasRequiredFeatures: null == hasRequiredFeatures
           ? _value.hasRequiredFeatures
           : hasRequiredFeatures // ignore: cast_nullable_to_non_nullable
               as bool,
-      itemsProgress: itemsProgress == freezed
+      itemsProgress: null == itemsProgress
           ? _value.itemsProgress
           : itemsProgress // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $QuestDefinitionCopyWith<$Res> get definition {
     return $QuestDefinitionCopyWith<$Res>(_value.definition, (value) {
-      return _then(_value.copyWith(definition: value));
+      return _then(_value.copyWith(definition: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get itemsProgress {
     return $ItemContainerCopyWith<$Res>(_value.itemsProgress, (value) {
-      return _then(_value.copyWith(itemsProgress: value));
+      return _then(_value.copyWith(itemsProgress: value) as $Val);
     });
   }
 }
@@ -577,6 +586,7 @@ abstract class _$$_QuestStatusCopyWith<$Res>
           _$_QuestStatus value, $Res Function(_$_QuestStatus) then) =
       __$$_QuestStatusCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {QuestDefinition definition,
       bool requirementsMet,
@@ -590,36 +600,35 @@ abstract class _$$_QuestStatusCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_QuestStatusCopyWithImpl<$Res> extends _$QuestStatusCopyWithImpl<$Res>
+class __$$_QuestStatusCopyWithImpl<$Res>
+    extends _$QuestStatusCopyWithImpl<$Res, _$_QuestStatus>
     implements _$$_QuestStatusCopyWith<$Res> {
   __$$_QuestStatusCopyWithImpl(
       _$_QuestStatus _value, $Res Function(_$_QuestStatus) _then)
-      : super(_value, (v) => _then(v as _$_QuestStatus));
+      : super(_value, _then);
 
-  @override
-  _$_QuestStatus get _value => super._value as _$_QuestStatus;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? definition = freezed,
-    Object? requirementsMet = freezed,
-    Object? hasRequiredFeatures = freezed,
-    Object? itemsProgress = freezed,
+    Object? definition = null,
+    Object? requirementsMet = null,
+    Object? hasRequiredFeatures = null,
+    Object? itemsProgress = null,
   }) {
     return _then(_$_QuestStatus(
-      definition: definition == freezed
+      definition: null == definition
           ? _value.definition
           : definition // ignore: cast_nullable_to_non_nullable
               as QuestDefinition,
-      requirementsMet: requirementsMet == freezed
+      requirementsMet: null == requirementsMet
           ? _value.requirementsMet
           : requirementsMet // ignore: cast_nullable_to_non_nullable
               as bool,
-      hasRequiredFeatures: hasRequiredFeatures == freezed
+      hasRequiredFeatures: null == hasRequiredFeatures
           ? _value.hasRequiredFeatures
           : hasRequiredFeatures // ignore: cast_nullable_to_non_nullable
               as bool,
-      itemsProgress: itemsProgress == freezed
+      itemsProgress: null == itemsProgress
           ? _value.itemsProgress
           : itemsProgress // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
@@ -655,26 +664,23 @@ class _$_QuestStatus implements _QuestStatus {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_QuestStatus &&
-            const DeepCollectionEquality()
-                .equals(other.definition, definition) &&
-            const DeepCollectionEquality()
-                .equals(other.requirementsMet, requirementsMet) &&
-            const DeepCollectionEquality()
-                .equals(other.hasRequiredFeatures, hasRequiredFeatures) &&
-            const DeepCollectionEquality()
-                .equals(other.itemsProgress, itemsProgress));
+            (identical(other.definition, definition) ||
+                other.definition == definition) &&
+            (identical(other.requirementsMet, requirementsMet) ||
+                other.requirementsMet == requirementsMet) &&
+            (identical(other.hasRequiredFeatures, hasRequiredFeatures) ||
+                other.hasRequiredFeatures == hasRequiredFeatures) &&
+            (identical(other.itemsProgress, itemsProgress) ||
+                other.itemsProgress == itemsProgress));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(definition),
-      const DeepCollectionEquality().hash(requirementsMet),
-      const DeepCollectionEquality().hash(hasRequiredFeatures),
-      const DeepCollectionEquality().hash(itemsProgress));
+  int get hashCode => Object.hash(runtimeType, definition, requirementsMet,
+      hasRequiredFeatures, itemsProgress);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_QuestStatusCopyWith<_$_QuestStatus> get copyWith =>
       __$$_QuestStatusCopyWithImpl<_$_QuestStatus>(this, _$identity);
 }

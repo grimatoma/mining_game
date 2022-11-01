@@ -32,28 +32,32 @@ mixin _$GarageState {
 abstract class $GarageStateCopyWith<$Res> {
   factory $GarageStateCopyWith(
           GarageState value, $Res Function(GarageState) then) =
-      _$GarageStateCopyWithImpl<$Res>;
+      _$GarageStateCopyWithImpl<$Res, GarageState>;
+  @useResult
   $Res call({BuiltMap<int, SlotState> slots});
 }
 
 /// @nodoc
-class _$GarageStateCopyWithImpl<$Res> implements $GarageStateCopyWith<$Res> {
+class _$GarageStateCopyWithImpl<$Res, $Val extends GarageState>
+    implements $GarageStateCopyWith<$Res> {
   _$GarageStateCopyWithImpl(this._value, this._then);
 
-  final GarageState _value;
   // ignore: unused_field
-  final $Res Function(GarageState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? slots = freezed,
+    Object? slots = null,
   }) {
     return _then(_value.copyWith(
-      slots: slots == freezed
+      slots: null == slots
           ? _value.slots
           : slots // ignore: cast_nullable_to_non_nullable
               as BuiltMap<int, SlotState>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -64,25 +68,25 @@ abstract class _$$_GarageStateCopyWith<$Res>
           _$_GarageState value, $Res Function(_$_GarageState) then) =
       __$$_GarageStateCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({BuiltMap<int, SlotState> slots});
 }
 
 /// @nodoc
-class __$$_GarageStateCopyWithImpl<$Res> extends _$GarageStateCopyWithImpl<$Res>
+class __$$_GarageStateCopyWithImpl<$Res>
+    extends _$GarageStateCopyWithImpl<$Res, _$_GarageState>
     implements _$$_GarageStateCopyWith<$Res> {
   __$$_GarageStateCopyWithImpl(
       _$_GarageState _value, $Res Function(_$_GarageState) _then)
-      : super(_value, (v) => _then(v as _$_GarageState));
+      : super(_value, _then);
 
-  @override
-  _$_GarageState get _value => super._value as _$_GarageState;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? slots = freezed,
+    Object? slots = null,
   }) {
     return _then(_$_GarageState(
-      slots == freezed
+      null == slots
           ? _value.slots
           : slots // ignore: cast_nullable_to_non_nullable
               as BuiltMap<int, SlotState>,
@@ -111,16 +115,16 @@ class _$_GarageState extends _GarageState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_GarageState &&
-            const DeepCollectionEquality().equals(other.slots, slots));
+            (identical(other.slots, slots) || other.slots == slots));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(slots));
+  int get hashCode => Object.hash(runtimeType, slots);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_GarageStateCopyWith<_$_GarageState> get copyWith =>
       __$$_GarageStateCopyWithImpl<_$_GarageState>(this, _$identity);
 
@@ -175,9 +179,9 @@ mixin _$SlotState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId minerId, int index)? withMiner,
-    TResult Function(int index)? locked,
-    TResult Function(int index)? empty,
+    TResult? Function(ItemInstanceId minerId, int index)? withMiner,
+    TResult? Function(int index)? locked,
+    TResult? Function(int index)? empty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -197,9 +201,9 @@ mixin _$SlotState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SlotWithMiner value)? withMiner,
-    TResult Function(LockedSlot value)? locked,
-    TResult Function(EmptySlot value)? empty,
+    TResult? Function(SlotWithMiner value)? withMiner,
+    TResult? Function(LockedSlot value)? locked,
+    TResult? Function(EmptySlot value)? empty,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -219,28 +223,32 @@ mixin _$SlotState {
 /// @nodoc
 abstract class $SlotStateCopyWith<$Res> {
   factory $SlotStateCopyWith(SlotState value, $Res Function(SlotState) then) =
-      _$SlotStateCopyWithImpl<$Res>;
+      _$SlotStateCopyWithImpl<$Res, SlotState>;
+  @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class _$SlotStateCopyWithImpl<$Res> implements $SlotStateCopyWith<$Res> {
+class _$SlotStateCopyWithImpl<$Res, $Val extends SlotState>
+    implements $SlotStateCopyWith<$Res> {
   _$SlotStateCopyWithImpl(this._value, this._then);
 
-  final SlotState _value;
   // ignore: unused_field
-  final $Res Function(SlotState) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = freezed,
+    Object? index = null,
   }) {
     return _then(_value.copyWith(
-      index: index == freezed
+      index: null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -251,32 +259,32 @@ abstract class _$$SlotWithMinerCopyWith<$Res>
           _$SlotWithMiner value, $Res Function(_$SlotWithMiner) then) =
       __$$SlotWithMinerCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({ItemInstanceId minerId, int index});
 
   $ItemInstanceIdCopyWith<$Res> get minerId;
 }
 
 /// @nodoc
-class __$$SlotWithMinerCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
+class __$$SlotWithMinerCopyWithImpl<$Res>
+    extends _$SlotStateCopyWithImpl<$Res, _$SlotWithMiner>
     implements _$$SlotWithMinerCopyWith<$Res> {
   __$$SlotWithMinerCopyWithImpl(
       _$SlotWithMiner _value, $Res Function(_$SlotWithMiner) _then)
-      : super(_value, (v) => _then(v as _$SlotWithMiner));
+      : super(_value, _then);
 
-  @override
-  _$SlotWithMiner get _value => super._value as _$SlotWithMiner;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? minerId = freezed,
-    Object? index = freezed,
+    Object? minerId = null,
+    Object? index = null,
   }) {
     return _then(_$SlotWithMiner(
-      minerId: minerId == freezed
+      minerId: null == minerId
           ? _value.minerId
           : minerId // ignore: cast_nullable_to_non_nullable
               as ItemInstanceId,
-      index: index == freezed
+      index: null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
@@ -284,6 +292,7 @@ class __$$SlotWithMinerCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemInstanceIdCopyWith<$Res> get minerId {
     return $ItemInstanceIdCopyWith<$Res>(_value.minerId, (value) {
       return _then(_value.copyWith(minerId: value));
@@ -319,19 +328,17 @@ class _$SlotWithMiner implements SlotWithMiner {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SlotWithMiner &&
-            const DeepCollectionEquality().equals(other.minerId, minerId) &&
-            const DeepCollectionEquality().equals(other.index, index));
+            (identical(other.minerId, minerId) || other.minerId == minerId) &&
+            (identical(other.index, index) || other.index == index));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(minerId),
-      const DeepCollectionEquality().hash(index));
+  int get hashCode => Object.hash(runtimeType, minerId, index);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$SlotWithMinerCopyWith<_$SlotWithMiner> get copyWith =>
       __$$SlotWithMinerCopyWithImpl<_$SlotWithMiner>(this, _$identity);
 
@@ -348,9 +355,9 @@ class _$SlotWithMiner implements SlotWithMiner {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId minerId, int index)? withMiner,
-    TResult Function(int index)? locked,
-    TResult Function(int index)? empty,
+    TResult? Function(ItemInstanceId minerId, int index)? withMiner,
+    TResult? Function(int index)? locked,
+    TResult? Function(int index)? empty,
   }) {
     return withMiner?.call(minerId, index);
   }
@@ -382,9 +389,9 @@ class _$SlotWithMiner implements SlotWithMiner {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SlotWithMiner value)? withMiner,
-    TResult Function(LockedSlot value)? locked,
-    TResult Function(EmptySlot value)? empty,
+    TResult? Function(SlotWithMiner value)? withMiner,
+    TResult? Function(LockedSlot value)? locked,
+    TResult? Function(EmptySlot value)? empty,
   }) {
     return withMiner?.call(this);
   }
@@ -434,25 +441,25 @@ abstract class _$$LockedSlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
           _$LockedSlot value, $Res Function(_$LockedSlot) then) =
       __$$LockedSlotCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$LockedSlotCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
+class __$$LockedSlotCopyWithImpl<$Res>
+    extends _$SlotStateCopyWithImpl<$Res, _$LockedSlot>
     implements _$$LockedSlotCopyWith<$Res> {
   __$$LockedSlotCopyWithImpl(
       _$LockedSlot _value, $Res Function(_$LockedSlot) _then)
-      : super(_value, (v) => _then(v as _$LockedSlot));
+      : super(_value, _then);
 
-  @override
-  _$LockedSlot get _value => super._value as _$LockedSlot;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = freezed,
+    Object? index = null,
   }) {
     return _then(_$LockedSlot(
-      index: index == freezed
+      index: null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
@@ -485,16 +492,16 @@ class _$LockedSlot implements LockedSlot {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LockedSlot &&
-            const DeepCollectionEquality().equals(other.index, index));
+            (identical(other.index, index) || other.index == index));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(index));
+  int get hashCode => Object.hash(runtimeType, index);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$LockedSlotCopyWith<_$LockedSlot> get copyWith =>
       __$$LockedSlotCopyWithImpl<_$LockedSlot>(this, _$identity);
 
@@ -511,9 +518,9 @@ class _$LockedSlot implements LockedSlot {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId minerId, int index)? withMiner,
-    TResult Function(int index)? locked,
-    TResult Function(int index)? empty,
+    TResult? Function(ItemInstanceId minerId, int index)? withMiner,
+    TResult? Function(int index)? locked,
+    TResult? Function(int index)? empty,
   }) {
     return locked?.call(index);
   }
@@ -545,9 +552,9 @@ class _$LockedSlot implements LockedSlot {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SlotWithMiner value)? withMiner,
-    TResult Function(LockedSlot value)? locked,
-    TResult Function(EmptySlot value)? empty,
+    TResult? Function(SlotWithMiner value)? withMiner,
+    TResult? Function(LockedSlot value)? locked,
+    TResult? Function(EmptySlot value)? empty,
   }) {
     return locked?.call(this);
   }
@@ -594,25 +601,25 @@ abstract class _$$EmptySlotCopyWith<$Res> implements $SlotStateCopyWith<$Res> {
           _$EmptySlot value, $Res Function(_$EmptySlot) then) =
       __$$EmptySlotCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int index});
 }
 
 /// @nodoc
-class __$$EmptySlotCopyWithImpl<$Res> extends _$SlotStateCopyWithImpl<$Res>
+class __$$EmptySlotCopyWithImpl<$Res>
+    extends _$SlotStateCopyWithImpl<$Res, _$EmptySlot>
     implements _$$EmptySlotCopyWith<$Res> {
   __$$EmptySlotCopyWithImpl(
       _$EmptySlot _value, $Res Function(_$EmptySlot) _then)
-      : super(_value, (v) => _then(v as _$EmptySlot));
+      : super(_value, _then);
 
-  @override
-  _$EmptySlot get _value => super._value as _$EmptySlot;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = freezed,
+    Object? index = null,
   }) {
     return _then(_$EmptySlot(
-      index: index == freezed
+      index: null == index
           ? _value.index
           : index // ignore: cast_nullable_to_non_nullable
               as int,
@@ -645,16 +652,16 @@ class _$EmptySlot implements EmptySlot {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EmptySlot &&
-            const DeepCollectionEquality().equals(other.index, index));
+            (identical(other.index, index) || other.index == index));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(index));
+  int get hashCode => Object.hash(runtimeType, index);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$EmptySlotCopyWith<_$EmptySlot> get copyWith =>
       __$$EmptySlotCopyWithImpl<_$EmptySlot>(this, _$identity);
 
@@ -671,9 +678,9 @@ class _$EmptySlot implements EmptySlot {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ItemInstanceId minerId, int index)? withMiner,
-    TResult Function(int index)? locked,
-    TResult Function(int index)? empty,
+    TResult? Function(ItemInstanceId minerId, int index)? withMiner,
+    TResult? Function(int index)? locked,
+    TResult? Function(int index)? empty,
   }) {
     return empty?.call(index);
   }
@@ -705,9 +712,9 @@ class _$EmptySlot implements EmptySlot {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(SlotWithMiner value)? withMiner,
-    TResult Function(LockedSlot value)? locked,
-    TResult Function(EmptySlot value)? empty,
+    TResult? Function(SlotWithMiner value)? withMiner,
+    TResult? Function(LockedSlot value)? locked,
+    TResult? Function(EmptySlot value)? empty,
   }) {
     return empty?.call(this);
   }

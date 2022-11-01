@@ -26,28 +26,32 @@ mixin _$LootTable {
 /// @nodoc
 abstract class $LootTableCopyWith<$Res> {
   factory $LootTableCopyWith(LootTable value, $Res Function(LootTable) then) =
-      _$LootTableCopyWithImpl<$Res>;
+      _$LootTableCopyWithImpl<$Res, LootTable>;
+  @useResult
   $Res call({List<ItemProbability> items});
 }
 
 /// @nodoc
-class _$LootTableCopyWithImpl<$Res> implements $LootTableCopyWith<$Res> {
+class _$LootTableCopyWithImpl<$Res, $Val extends LootTable>
+    implements $LootTableCopyWith<$Res> {
   _$LootTableCopyWithImpl(this._value, this._then);
 
-  final LootTable _value;
   // ignore: unused_field
-  final $Res Function(LootTable) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = freezed,
+    Object? items = null,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed
+      items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<ItemProbability>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -57,25 +61,25 @@ abstract class _$$_LootTableCopyWith<$Res> implements $LootTableCopyWith<$Res> {
           _$_LootTable value, $Res Function(_$_LootTable) then) =
       __$$_LootTableCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({List<ItemProbability> items});
 }
 
 /// @nodoc
-class __$$_LootTableCopyWithImpl<$Res> extends _$LootTableCopyWithImpl<$Res>
+class __$$_LootTableCopyWithImpl<$Res>
+    extends _$LootTableCopyWithImpl<$Res, _$_LootTable>
     implements _$$_LootTableCopyWith<$Res> {
   __$$_LootTableCopyWithImpl(
       _$_LootTable _value, $Res Function(_$_LootTable) _then)
-      : super(_value, (v) => _then(v as _$_LootTable));
+      : super(_value, _then);
 
-  @override
-  _$_LootTable get _value => super._value as _$_LootTable;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = freezed,
+    Object? items = null,
   }) {
     return _then(_$_LootTable(
-      items == freezed
+      null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<ItemProbability>,
@@ -116,6 +120,7 @@ class _$_LootTable extends _LootTable {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_LootTableCopyWith<_$_LootTable> get copyWith =>
       __$$_LootTableCopyWithImpl<_$_LootTable>(this, _$identity);
 }
@@ -153,44 +158,47 @@ mixin _$ItemProbability {
 abstract class $ItemProbabilityCopyWith<$Res> {
   factory $ItemProbabilityCopyWith(
           ItemProbability value, $Res Function(ItemProbability) then) =
-      _$ItemProbabilityCopyWithImpl<$Res>;
+      _$ItemProbabilityCopyWithImpl<$Res, ItemProbability>;
+  @useResult
   $Res call({ItemDefinitionId id, int weight, int min, int max});
 }
 
 /// @nodoc
-class _$ItemProbabilityCopyWithImpl<$Res>
+class _$ItemProbabilityCopyWithImpl<$Res, $Val extends ItemProbability>
     implements $ItemProbabilityCopyWith<$Res> {
   _$ItemProbabilityCopyWithImpl(this._value, this._then);
 
-  final ItemProbability _value;
   // ignore: unused_field
-  final $Res Function(ItemProbability) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? weight = freezed,
-    Object? min = freezed,
-    Object? max = freezed,
+    Object? id = null,
+    Object? weight = null,
+    Object? min = null,
+    Object? max = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      weight: weight == freezed
+      weight: null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as int,
-      min: min == freezed
+      min: null == min
           ? _value.min
           : min // ignore: cast_nullable_to_non_nullable
               as int,
-      max: max == freezed
+      max: null == max
           ? _value.max
           : max // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -201,41 +209,40 @@ abstract class _$$_ItemProbabilityCopyWith<$Res>
           _$_ItemProbability value, $Res Function(_$_ItemProbability) then) =
       __$$_ItemProbabilityCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({ItemDefinitionId id, int weight, int min, int max});
 }
 
 /// @nodoc
 class __$$_ItemProbabilityCopyWithImpl<$Res>
-    extends _$ItemProbabilityCopyWithImpl<$Res>
+    extends _$ItemProbabilityCopyWithImpl<$Res, _$_ItemProbability>
     implements _$$_ItemProbabilityCopyWith<$Res> {
   __$$_ItemProbabilityCopyWithImpl(
       _$_ItemProbability _value, $Res Function(_$_ItemProbability) _then)
-      : super(_value, (v) => _then(v as _$_ItemProbability));
+      : super(_value, _then);
 
-  @override
-  _$_ItemProbability get _value => super._value as _$_ItemProbability;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? weight = freezed,
-    Object? min = freezed,
-    Object? max = freezed,
+    Object? id = null,
+    Object? weight = null,
+    Object? min = null,
+    Object? max = null,
   }) {
     return _then(_$_ItemProbability(
-      id == freezed
+      null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      weight == freezed
+      null == weight
           ? _value.weight
           : weight // ignore: cast_nullable_to_non_nullable
               as int,
-      min: min == freezed
+      min: null == min
           ? _value.min
           : min // ignore: cast_nullable_to_non_nullable
               as int,
-      max: max == freezed
+      max: null == max
           ? _value.max
           : max // ignore: cast_nullable_to_non_nullable
               as int,
@@ -272,23 +279,19 @@ class _$_ItemProbability implements _ItemProbability {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ItemProbability &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.weight, weight) &&
-            const DeepCollectionEquality().equals(other.min, min) &&
-            const DeepCollectionEquality().equals(other.max, max));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.weight, weight) || other.weight == weight) &&
+            (identical(other.min, min) || other.min == min) &&
+            (identical(other.max, max) || other.max == max));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(weight),
-      const DeepCollectionEquality().hash(min),
-      const DeepCollectionEquality().hash(max));
+  int get hashCode => Object.hash(runtimeType, id, weight, min, max);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ItemProbabilityCopyWith<_$_ItemProbability> get copyWith =>
       __$$_ItemProbabilityCopyWithImpl<_$_ItemProbability>(this, _$identity);
 

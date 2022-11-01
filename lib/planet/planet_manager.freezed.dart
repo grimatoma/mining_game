@@ -31,33 +31,37 @@ mixin _$Hexagon {
 /// @nodoc
 abstract class $HexagonCopyWith<$Res> {
   factory $HexagonCopyWith(Hexagon value, $Res Function(Hexagon) then) =
-      _$HexagonCopyWithImpl<$Res>;
+      _$HexagonCopyWithImpl<$Res, Hexagon>;
+  @useResult
   $Res call({int q, int r});
 }
 
 /// @nodoc
-class _$HexagonCopyWithImpl<$Res> implements $HexagonCopyWith<$Res> {
+class _$HexagonCopyWithImpl<$Res, $Val extends Hexagon>
+    implements $HexagonCopyWith<$Res> {
   _$HexagonCopyWithImpl(this._value, this._then);
 
-  final Hexagon _value;
   // ignore: unused_field
-  final $Res Function(Hexagon) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? q = freezed,
-    Object? r = freezed,
+    Object? q = null,
+    Object? r = null,
   }) {
     return _then(_value.copyWith(
-      q: q == freezed
+      q: null == q
           ? _value.q
           : q // ignore: cast_nullable_to_non_nullable
               as int,
-      r: r == freezed
+      r: null == r
           ? _value.r
           : r // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -67,29 +71,29 @@ abstract class _$$_HexagonCopyWith<$Res> implements $HexagonCopyWith<$Res> {
           _$_Hexagon value, $Res Function(_$_Hexagon) then) =
       __$$_HexagonCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int q, int r});
 }
 
 /// @nodoc
-class __$$_HexagonCopyWithImpl<$Res> extends _$HexagonCopyWithImpl<$Res>
+class __$$_HexagonCopyWithImpl<$Res>
+    extends _$HexagonCopyWithImpl<$Res, _$_Hexagon>
     implements _$$_HexagonCopyWith<$Res> {
   __$$_HexagonCopyWithImpl(_$_Hexagon _value, $Res Function(_$_Hexagon) _then)
-      : super(_value, (v) => _then(v as _$_Hexagon));
+      : super(_value, _then);
 
-  @override
-  _$_Hexagon get _value => super._value as _$_Hexagon;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? q = freezed,
-    Object? r = freezed,
+    Object? q = null,
+    Object? r = null,
   }) {
     return _then(_$_Hexagon(
-      q == freezed
+      null == q
           ? _value.q
           : q // ignore: cast_nullable_to_non_nullable
               as int,
-      r == freezed
+      null == r
           ? _value.r
           : r // ignore: cast_nullable_to_non_nullable
               as int,
@@ -115,19 +119,17 @@ class _$_Hexagon extends _Hexagon {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Hexagon &&
-            const DeepCollectionEquality().equals(other.q, q) &&
-            const DeepCollectionEquality().equals(other.r, r));
+            (identical(other.q, q) || other.q == q) &&
+            (identical(other.r, r) || other.r == r));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(q),
-      const DeepCollectionEquality().hash(r));
+  int get hashCode => Object.hash(runtimeType, q, r);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_HexagonCopyWith<_$_Hexagon> get copyWith =>
       __$$_HexagonCopyWithImpl<_$_Hexagon>(this, _$identity);
 

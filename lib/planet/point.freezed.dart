@@ -37,38 +37,42 @@ mixin _$PlanetPoint {
 abstract class $PlanetPointCopyWith<$Res> {
   factory $PlanetPointCopyWith(
           PlanetPoint value, $Res Function(PlanetPoint) then) =
-      _$PlanetPointCopyWithImpl<$Res>;
+      _$PlanetPointCopyWithImpl<$Res, PlanetPoint>;
+  @useResult
   $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
 
 /// @nodoc
-class _$PlanetPointCopyWithImpl<$Res> implements $PlanetPointCopyWith<$Res> {
+class _$PlanetPointCopyWithImpl<$Res, $Val extends PlanetPoint>
+    implements $PlanetPointCopyWith<$Res> {
   _$PlanetPointCopyWithImpl(this._value, this._then);
 
-  final PlanetPoint _value;
   // ignore: unused_field
-  final $Res Function(PlanetPoint) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
-    Object? z = freezed,
+    Object? x = null,
+    Object? y = null,
+    Object? z = null,
   }) {
     return _then(_value.copyWith(
-      x: x == freezed
+      x: null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int,
-      y: y == freezed
+      y: null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int,
-      z: z == freezed
+      z: null == z
           ? _value.z
           : z // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 }
 
@@ -79,35 +83,35 @@ abstract class _$$_PlanetPointCopyWith<$Res>
           _$_PlanetPoint value, $Res Function(_$_PlanetPoint) then) =
       __$$_PlanetPointCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({@HiveField(0) int x, @HiveField(1) int y, @HiveField(2) int z});
 }
 
 /// @nodoc
-class __$$_PlanetPointCopyWithImpl<$Res> extends _$PlanetPointCopyWithImpl<$Res>
+class __$$_PlanetPointCopyWithImpl<$Res>
+    extends _$PlanetPointCopyWithImpl<$Res, _$_PlanetPoint>
     implements _$$_PlanetPointCopyWith<$Res> {
   __$$_PlanetPointCopyWithImpl(
       _$_PlanetPoint _value, $Res Function(_$_PlanetPoint) _then)
-      : super(_value, (v) => _then(v as _$_PlanetPoint));
+      : super(_value, _then);
 
-  @override
-  _$_PlanetPoint get _value => super._value as _$_PlanetPoint;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? x = freezed,
-    Object? y = freezed,
-    Object? z = freezed,
+    Object? x = null,
+    Object? y = null,
+    Object? z = null,
   }) {
     return _then(_$_PlanetPoint(
-      x == freezed
+      null == x
           ? _value.x
           : x // ignore: cast_nullable_to_non_nullable
               as int,
-      y == freezed
+      null == y
           ? _value.y
           : y // ignore: cast_nullable_to_non_nullable
               as int,
-      z == freezed
+      null == z
           ? _value.z
           : z // ignore: cast_nullable_to_non_nullable
               as int,
@@ -141,21 +145,18 @@ class _$_PlanetPoint extends _PlanetPoint {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PlanetPoint &&
-            const DeepCollectionEquality().equals(other.x, x) &&
-            const DeepCollectionEquality().equals(other.y, y) &&
-            const DeepCollectionEquality().equals(other.z, z));
+            (identical(other.x, x) || other.x == x) &&
+            (identical(other.y, y) || other.y == y) &&
+            (identical(other.z, z) || other.z == z));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(x),
-      const DeepCollectionEquality().hash(y),
-      const DeepCollectionEquality().hash(z));
+  int get hashCode => Object.hash(runtimeType, x, y, z);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PlanetPointCopyWith<_$_PlanetPoint> get copyWith =>
       __$$_PlanetPointCopyWithImpl<_$_PlanetPoint>(this, _$identity);
 

@@ -372,7 +372,7 @@ class SimpleStateProvider<T> implements ReadOnlySimpleStateProvider<T> {
     }
   }
 
-  AlwaysAliveProviderBase<StateController<T>> get notifier =>
+  AlwaysAliveRefreshable<StateController<T>> get notifier =>
       stateProvider.notifier;
 
   @override

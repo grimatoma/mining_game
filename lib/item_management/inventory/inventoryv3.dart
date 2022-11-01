@@ -30,6 +30,8 @@ class Inventory with _$Inventory {
   bool canRemove(ItemContainer otherItems) {
     return items.canSubtract(otherItems);
   }
+
+  int itemCount(ItemDefinitionId key) => this[key];
 }
 
 class InventoryStateProvider extends StateNotifier<Inventory> {

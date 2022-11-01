@@ -33,30 +33,33 @@ mixin _$ItemContainer {
 abstract class $ItemContainerCopyWith<$Res> {
   factory $ItemContainerCopyWith(
           ItemContainer value, $Res Function(ItemContainer) then) =
-      _$ItemContainerCopyWithImpl<$Res>;
+      _$ItemContainerCopyWithImpl<$Res, ItemContainer>;
+  @useResult
   $Res call(
       {@ItemDefinitionIdKeyedMapConverter() Map<ItemDefinitionId, int> items});
 }
 
 /// @nodoc
-class _$ItemContainerCopyWithImpl<$Res>
+class _$ItemContainerCopyWithImpl<$Res, $Val extends ItemContainer>
     implements $ItemContainerCopyWith<$Res> {
   _$ItemContainerCopyWithImpl(this._value, this._then);
 
-  final ItemContainer _value;
   // ignore: unused_field
-  final $Res Function(ItemContainer) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = freezed,
+    Object? items = null,
   }) {
     return _then(_value.copyWith(
-      items: items == freezed
+      items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as Map<ItemDefinitionId, int>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -67,27 +70,26 @@ abstract class _$$_ItemContainerCopyWith<$Res>
           _$_ItemContainer value, $Res Function(_$_ItemContainer) then) =
       __$$_ItemContainerCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@ItemDefinitionIdKeyedMapConverter() Map<ItemDefinitionId, int> items});
 }
 
 /// @nodoc
 class __$$_ItemContainerCopyWithImpl<$Res>
-    extends _$ItemContainerCopyWithImpl<$Res>
+    extends _$ItemContainerCopyWithImpl<$Res, _$_ItemContainer>
     implements _$$_ItemContainerCopyWith<$Res> {
   __$$_ItemContainerCopyWithImpl(
       _$_ItemContainer _value, $Res Function(_$_ItemContainer) _then)
-      : super(_value, (v) => _then(v as _$_ItemContainer));
+      : super(_value, _then);
 
-  @override
-  _$_ItemContainer get _value => super._value as _$_ItemContainer;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = freezed,
+    Object? items = null,
   }) {
     return _then(_$_ItemContainer(
-      items == freezed
+      null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as Map<ItemDefinitionId, int>,
@@ -135,6 +137,7 @@ class _$_ItemContainer extends _ItemContainer {
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ItemContainerCopyWith<_$_ItemContainer> get copyWith =>
       __$$_ItemContainerCopyWithImpl<_$_ItemContainer>(this, _$identity);
 
@@ -184,7 +187,8 @@ mixin _$Requirement {
 abstract class $RequirementCopyWith<$Res> {
   factory $RequirementCopyWith(
           Requirement value, $Res Function(Requirement) then) =
-      _$RequirementCopyWithImpl<$Res>;
+      _$RequirementCopyWithImpl<$Res, Requirement>;
+  @useResult
   $Res call(
       {ItemContainer itemCost,
       Set<Feature> features,
@@ -195,46 +199,51 @@ abstract class $RequirementCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$RequirementCopyWithImpl<$Res> implements $RequirementCopyWith<$Res> {
+class _$RequirementCopyWithImpl<$Res, $Val extends Requirement>
+    implements $RequirementCopyWith<$Res> {
   _$RequirementCopyWithImpl(this._value, this._then);
 
-  final Requirement _value;
   // ignore: unused_field
-  final $Res Function(Requirement) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? itemCost = freezed,
-    Object? features = freezed,
-    Object? itemsOwned = freezed,
+    Object? itemCost = null,
+    Object? features = null,
+    Object? itemsOwned = null,
   }) {
     return _then(_value.copyWith(
-      itemCost: itemCost == freezed
+      itemCost: null == itemCost
           ? _value.itemCost
           : itemCost // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      features: features == freezed
+      features: null == features
           ? _value.features
           : features // ignore: cast_nullable_to_non_nullable
               as Set<Feature>,
-      itemsOwned: itemsOwned == freezed
+      itemsOwned: null == itemsOwned
           ? _value.itemsOwned
           : itemsOwned // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get itemCost {
     return $ItemContainerCopyWith<$Res>(_value.itemCost, (value) {
-      return _then(_value.copyWith(itemCost: value));
+      return _then(_value.copyWith(itemCost: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get itemsOwned {
     return $ItemContainerCopyWith<$Res>(_value.itemsOwned, (value) {
-      return _then(_value.copyWith(itemsOwned: value));
+      return _then(_value.copyWith(itemsOwned: value) as $Val);
     });
   }
 }
@@ -246,6 +255,7 @@ abstract class _$$_RequirementCopyWith<$Res>
           _$_Requirement value, $Res Function(_$_Requirement) then) =
       __$$_RequirementCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ItemContainer itemCost,
       Set<Feature> features,
@@ -258,31 +268,30 @@ abstract class _$$_RequirementCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RequirementCopyWithImpl<$Res> extends _$RequirementCopyWithImpl<$Res>
+class __$$_RequirementCopyWithImpl<$Res>
+    extends _$RequirementCopyWithImpl<$Res, _$_Requirement>
     implements _$$_RequirementCopyWith<$Res> {
   __$$_RequirementCopyWithImpl(
       _$_Requirement _value, $Res Function(_$_Requirement) _then)
-      : super(_value, (v) => _then(v as _$_Requirement));
+      : super(_value, _then);
 
-  @override
-  _$_Requirement get _value => super._value as _$_Requirement;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? itemCost = freezed,
-    Object? features = freezed,
-    Object? itemsOwned = freezed,
+    Object? itemCost = null,
+    Object? features = null,
+    Object? itemsOwned = null,
   }) {
     return _then(_$_Requirement(
-      itemCost: itemCost == freezed
+      itemCost: null == itemCost
           ? _value.itemCost
           : itemCost // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      features: features == freezed
+      features: null == features
           ? _value._features
           : features // ignore: cast_nullable_to_non_nullable
               as Set<Feature>,
-      itemsOwned: itemsOwned == freezed
+      itemsOwned: null == itemsOwned
           ? _value.itemsOwned
           : itemsOwned // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
@@ -328,22 +337,21 @@ class _$_Requirement extends _Requirement {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Requirement &&
-            const DeepCollectionEquality().equals(other.itemCost, itemCost) &&
+            (identical(other.itemCost, itemCost) ||
+                other.itemCost == itemCost) &&
             const DeepCollectionEquality().equals(other._features, _features) &&
-            const DeepCollectionEquality()
-                .equals(other.itemsOwned, itemsOwned));
+            (identical(other.itemsOwned, itemsOwned) ||
+                other.itemsOwned == itemsOwned));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(itemCost),
-      const DeepCollectionEquality().hash(_features),
-      const DeepCollectionEquality().hash(itemsOwned));
+  int get hashCode => Object.hash(runtimeType, itemCost,
+      const DeepCollectionEquality().hash(_features), itemsOwned);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_RequirementCopyWith<_$_Requirement> get copyWith =>
       __$$_RequirementCopyWithImpl<_$_Requirement>(this, _$identity);
 

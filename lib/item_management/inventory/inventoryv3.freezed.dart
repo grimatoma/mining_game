@@ -32,41 +32,46 @@ mixin _$Inventory {
 /// @nodoc
 abstract class $InventoryCopyWith<$Res> {
   factory $InventoryCopyWith(Inventory value, $Res Function(Inventory) then) =
-      _$InventoryCopyWithImpl<$Res>;
+      _$InventoryCopyWithImpl<$Res, Inventory>;
+  @useResult
   $Res call({int maxItems, ItemContainer items});
 
   $ItemContainerCopyWith<$Res> get items;
 }
 
 /// @nodoc
-class _$InventoryCopyWithImpl<$Res> implements $InventoryCopyWith<$Res> {
+class _$InventoryCopyWithImpl<$Res, $Val extends Inventory>
+    implements $InventoryCopyWith<$Res> {
   _$InventoryCopyWithImpl(this._value, this._then);
 
-  final Inventory _value;
   // ignore: unused_field
-  final $Res Function(Inventory) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? maxItems = freezed,
-    Object? items = freezed,
+    Object? maxItems = null,
+    Object? items = null,
   }) {
     return _then(_value.copyWith(
-      maxItems: maxItems == freezed
+      maxItems: null == maxItems
           ? _value.maxItems
           : maxItems // ignore: cast_nullable_to_non_nullable
               as int,
-      items: items == freezed
+      items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get items {
     return $ItemContainerCopyWith<$Res>(_value.items, (value) {
-      return _then(_value.copyWith(items: value));
+      return _then(_value.copyWith(items: value) as $Val);
     });
   }
 }
@@ -77,6 +82,7 @@ abstract class _$$_InventoryCopyWith<$Res> implements $InventoryCopyWith<$Res> {
           _$_Inventory value, $Res Function(_$_Inventory) then) =
       __$$_InventoryCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({int maxItems, ItemContainer items});
 
   @override
@@ -84,26 +90,25 @@ abstract class _$$_InventoryCopyWith<$Res> implements $InventoryCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_InventoryCopyWithImpl<$Res> extends _$InventoryCopyWithImpl<$Res>
+class __$$_InventoryCopyWithImpl<$Res>
+    extends _$InventoryCopyWithImpl<$Res, _$_Inventory>
     implements _$$_InventoryCopyWith<$Res> {
   __$$_InventoryCopyWithImpl(
       _$_Inventory _value, $Res Function(_$_Inventory) _then)
-      : super(_value, (v) => _then(v as _$_Inventory));
+      : super(_value, _then);
 
-  @override
-  _$_Inventory get _value => super._value as _$_Inventory;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? maxItems = freezed,
-    Object? items = freezed,
+    Object? maxItems = null,
+    Object? items = null,
   }) {
     return _then(_$_Inventory(
-      maxItems == freezed
+      null == maxItems
           ? _value.maxItems
           : maxItems // ignore: cast_nullable_to_non_nullable
               as int,
-      items == freezed
+      null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
@@ -134,19 +139,18 @@ class _$_Inventory extends _Inventory {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Inventory &&
-            const DeepCollectionEquality().equals(other.maxItems, maxItems) &&
-            const DeepCollectionEquality().equals(other.items, items));
+            (identical(other.maxItems, maxItems) ||
+                other.maxItems == maxItems) &&
+            (identical(other.items, items) || other.items == items));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(maxItems),
-      const DeepCollectionEquality().hash(items));
+  int get hashCode => Object.hash(runtimeType, maxItems, items);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_InventoryCopyWith<_$_Inventory> get copyWith =>
       __$$_InventoryCopyWithImpl<_$_Inventory>(this, _$identity);
 

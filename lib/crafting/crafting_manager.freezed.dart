@@ -33,42 +33,46 @@ mixin _$CraftingSession {
 abstract class $CraftingSessionCopyWith<$Res> {
   factory $CraftingSessionCopyWith(
           CraftingSession value, $Res Function(CraftingSession) then) =
-      _$CraftingSessionCopyWithImpl<$Res>;
+      _$CraftingSessionCopyWithImpl<$Res, CraftingSession>;
+  @useResult
   $Res call({CraftingRecipe recipe, int remaining});
 
   $CraftingRecipeCopyWith<$Res> get recipe;
 }
 
 /// @nodoc
-class _$CraftingSessionCopyWithImpl<$Res>
+class _$CraftingSessionCopyWithImpl<$Res, $Val extends CraftingSession>
     implements $CraftingSessionCopyWith<$Res> {
   _$CraftingSessionCopyWithImpl(this._value, this._then);
 
-  final CraftingSession _value;
   // ignore: unused_field
-  final $Res Function(CraftingSession) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? recipe = freezed,
-    Object? remaining = freezed,
+    Object? recipe = null,
+    Object? remaining = null,
   }) {
     return _then(_value.copyWith(
-      recipe: recipe == freezed
+      recipe: null == recipe
           ? _value.recipe
           : recipe // ignore: cast_nullable_to_non_nullable
               as CraftingRecipe,
-      remaining: remaining == freezed
+      remaining: null == remaining
           ? _value.remaining
           : remaining // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $CraftingRecipeCopyWith<$Res> get recipe {
     return $CraftingRecipeCopyWith<$Res>(_value.recipe, (value) {
-      return _then(_value.copyWith(recipe: value));
+      return _then(_value.copyWith(recipe: value) as $Val);
     });
   }
 }
@@ -80,6 +84,7 @@ abstract class _$$_CraftingSessionCopyWith<$Res>
           _$_CraftingSession value, $Res Function(_$_CraftingSession) then) =
       __$$_CraftingSessionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({CraftingRecipe recipe, int remaining});
 
   @override
@@ -88,26 +93,24 @@ abstract class _$$_CraftingSessionCopyWith<$Res>
 
 /// @nodoc
 class __$$_CraftingSessionCopyWithImpl<$Res>
-    extends _$CraftingSessionCopyWithImpl<$Res>
+    extends _$CraftingSessionCopyWithImpl<$Res, _$_CraftingSession>
     implements _$$_CraftingSessionCopyWith<$Res> {
   __$$_CraftingSessionCopyWithImpl(
       _$_CraftingSession _value, $Res Function(_$_CraftingSession) _then)
-      : super(_value, (v) => _then(v as _$_CraftingSession));
+      : super(_value, _then);
 
-  @override
-  _$_CraftingSession get _value => super._value as _$_CraftingSession;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? recipe = freezed,
-    Object? remaining = freezed,
+    Object? recipe = null,
+    Object? remaining = null,
   }) {
     return _then(_$_CraftingSession(
-      recipe: recipe == freezed
+      recipe: null == recipe
           ? _value.recipe
           : recipe // ignore: cast_nullable_to_non_nullable
               as CraftingRecipe,
-      remaining: remaining == freezed
+      remaining: null == remaining
           ? _value.remaining
           : remaining // ignore: cast_nullable_to_non_nullable
               as int,
@@ -138,19 +141,18 @@ class _$_CraftingSession implements _CraftingSession {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CraftingSession &&
-            const DeepCollectionEquality().equals(other.recipe, recipe) &&
-            const DeepCollectionEquality().equals(other.remaining, remaining));
+            (identical(other.recipe, recipe) || other.recipe == recipe) &&
+            (identical(other.remaining, remaining) ||
+                other.remaining == remaining));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(recipe),
-      const DeepCollectionEquality().hash(remaining));
+  int get hashCode => Object.hash(runtimeType, recipe, remaining);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_CraftingSessionCopyWith<_$_CraftingSession> get copyWith =>
       __$$_CraftingSessionCopyWithImpl<_$_CraftingSession>(this, _$identity);
 

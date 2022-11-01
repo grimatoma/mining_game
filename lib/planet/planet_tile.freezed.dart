@@ -34,7 +34,8 @@ mixin _$PlanetTile {
 abstract class $PlanetTileCopyWith<$Res> {
   factory $PlanetTileCopyWith(
           PlanetTile value, $Res Function(PlanetTile) then) =
-      _$PlanetTileCopyWithImpl<$Res>;
+      _$PlanetTileCopyWithImpl<$Res, PlanetTile>;
+  @useResult
   $Res call(
       {@HiveField(0) PlanetPoint point,
       @HiveField(1) ItemContainer resources,
@@ -46,51 +47,56 @@ abstract class $PlanetTileCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$PlanetTileCopyWithImpl<$Res> implements $PlanetTileCopyWith<$Res> {
+class _$PlanetTileCopyWithImpl<$Res, $Val extends PlanetTile>
+    implements $PlanetTileCopyWith<$Res> {
   _$PlanetTileCopyWithImpl(this._value, this._then);
 
-  final PlanetTile _value;
   // ignore: unused_field
-  final $Res Function(PlanetTile) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? point = freezed,
-    Object? resources = freezed,
-    Object? visible = freezed,
-    Object? tileType = freezed,
+    Object? point = null,
+    Object? resources = null,
+    Object? visible = null,
+    Object? tileType = null,
   }) {
     return _then(_value.copyWith(
-      point: point == freezed
+      point: null == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
               as PlanetPoint,
-      resources: resources == freezed
+      resources: null == resources
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      visible: visible == freezed
+      visible: null == visible
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
-      tileType: tileType == freezed
+      tileType: null == tileType
           ? _value.tileType
           : tileType // ignore: cast_nullable_to_non_nullable
               as TileType,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $PlanetPointCopyWith<$Res> get point {
     return $PlanetPointCopyWith<$Res>(_value.point, (value) {
-      return _then(_value.copyWith(point: value));
+      return _then(_value.copyWith(point: value) as $Val);
     });
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get resources {
     return $ItemContainerCopyWith<$Res>(_value.resources, (value) {
-      return _then(_value.copyWith(resources: value));
+      return _then(_value.copyWith(resources: value) as $Val);
     });
   }
 }
@@ -102,6 +108,7 @@ abstract class _$$_PlanetTileCopyWith<$Res>
           _$_PlanetTile value, $Res Function(_$_PlanetTile) then) =
       __$$_PlanetTileCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {@HiveField(0) PlanetPoint point,
       @HiveField(1) ItemContainer resources,
@@ -115,36 +122,35 @@ abstract class _$$_PlanetTileCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_PlanetTileCopyWithImpl<$Res> extends _$PlanetTileCopyWithImpl<$Res>
+class __$$_PlanetTileCopyWithImpl<$Res>
+    extends _$PlanetTileCopyWithImpl<$Res, _$_PlanetTile>
     implements _$$_PlanetTileCopyWith<$Res> {
   __$$_PlanetTileCopyWithImpl(
       _$_PlanetTile _value, $Res Function(_$_PlanetTile) _then)
-      : super(_value, (v) => _then(v as _$_PlanetTile));
+      : super(_value, _then);
 
-  @override
-  _$_PlanetTile get _value => super._value as _$_PlanetTile;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? point = freezed,
-    Object? resources = freezed,
-    Object? visible = freezed,
-    Object? tileType = freezed,
+    Object? point = null,
+    Object? resources = null,
+    Object? visible = null,
+    Object? tileType = null,
   }) {
     return _then(_$_PlanetTile(
-      point: point == freezed
+      point: null == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
               as PlanetPoint,
-      resources: resources == freezed
+      resources: null == resources
           ? _value.resources
           : resources // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      visible: visible == freezed
+      visible: null == visible
           ? _value.visible
           : visible // ignore: cast_nullable_to_non_nullable
               as bool,
-      tileType: tileType == freezed
+      tileType: null == tileType
           ? _value.tileType
           : tileType // ignore: cast_nullable_to_non_nullable
               as TileType,
@@ -187,22 +193,21 @@ class _$_PlanetTile extends _PlanetTile {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_PlanetTile &&
-            const DeepCollectionEquality().equals(other.point, point) &&
-            const DeepCollectionEquality().equals(other.resources, resources) &&
-            const DeepCollectionEquality().equals(other.visible, visible) &&
-            const DeepCollectionEquality().equals(other.tileType, tileType));
+            (identical(other.point, point) || other.point == point) &&
+            (identical(other.resources, resources) ||
+                other.resources == resources) &&
+            (identical(other.visible, visible) || other.visible == visible) &&
+            (identical(other.tileType, tileType) ||
+                other.tileType == tileType));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(point),
-      const DeepCollectionEquality().hash(resources),
-      const DeepCollectionEquality().hash(visible),
-      const DeepCollectionEquality().hash(tileType));
+  int get hashCode =>
+      Object.hash(runtimeType, point, resources, visible, tileType);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_PlanetTileCopyWith<_$_PlanetTile> get copyWith =>
       __$$_PlanetTileCopyWithImpl<_$_PlanetTile>(this, _$identity);
 }

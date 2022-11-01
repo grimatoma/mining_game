@@ -17,6 +17,16 @@ final craftingModels = [
       output: Items.IRON_BAR,
       craftingDuration: 6),
   ItemCraftingRecipe(
+      id: const CraftingRecipeDefinitionId('10'),
+      input: ItemContainer.single(Items.COPPER_ORE, 2),
+      output: Items.COPPER_BAR,
+      craftingDuration: 6),
+  ItemCraftingRecipe(
+      id: const CraftingRecipeDefinitionId('11'),
+      input: ItemContainer({Items.COPPER_BAR: 1, Items.IRON_ORE: 1}),
+      output: Items.BRONZE_BAR,
+      craftingDuration: 6),
+  ItemCraftingRecipe(
       id: const CraftingRecipeDefinitionId('3'),
       input: ItemContainer({
         Items.IRON_BAR: 4,

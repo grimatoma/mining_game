@@ -43,7 +43,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String description,
     required ImageDefinition image,
     // required int maxStackSize,
-    ItemContainer? sellPrice,
+    int? sellPrice,
   }) = GeneralItemDefinition;
 
   @Implements<Resource>()
@@ -58,7 +58,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String description,
     required ImageDefinition image,
     // required int maxStackSize,
-    ItemContainer? sellPrice,
+    int? sellPrice,
   }) = ResourceItemDefinition;
 
   const factory ItemDefinition.drill({
@@ -77,7 +77,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     String? namePlural,
     required String description,
     required ImageDefinition image,
-    ItemContainer? sellPrice,
+    int? sellPrice,
   }) = ToolItemDefinition;
 
   @Implements<CanHavePluralName>()
@@ -89,7 +89,7 @@ class ItemDefinition extends BaseItemDefinition with _$ItemDefinition {
     required String description,
     required ImageDefinition image,
     required Map<WeaponAttributes, double> attributes,
-    ItemContainer? sellPrice,
+    int? sellPrice,
   }) = SwordItemDefinition;
 
   const factory ItemDefinition.miner({

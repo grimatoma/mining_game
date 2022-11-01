@@ -20,7 +20,8 @@ abstract class Resource {}
 
 /// An item is not sellable if it does not have a price.
 abstract class CanSell {
-  ItemContainer? get sellPrice;
+  // ItemContainer? get sellPrice;
+  int? get sellPrice;
 }
 
 abstract class CanHavePluralName {

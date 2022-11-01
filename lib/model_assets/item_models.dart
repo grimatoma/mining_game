@@ -1,5 +1,6 @@
 import 'package:mining_game/item_management/item_definition.dart';
 import 'package:mining_game/item_management/item_keys.dart';
+import 'package:mining_game/item_management/requirement.dart';
 
 final itemModels = [
   const ItemDefinition.resource(
@@ -14,14 +15,15 @@ final itemModels = [
     namePlural: 'Black rocks',
     description: 'Often found in dark caves',
     image: ImageDefinition('assets/images/minerals/coal.png'),
+    sellPrice: 1,
   ),
-  ItemDefinition.resource(
+  const ItemDefinition.resource(
     id: Items.FOOD,
     name: 'Food',
     namePlural: 'Food',
     description: 'Test food object',
-    image: const ImageDefinition('assets/images/all/foodTest1.png'),
-    sellPrice: Items.CREDIT.createSingleContainer(2),
+    image: ImageDefinition('assets/images/all/foodTest1.png'),
+    sellPrice: 2,
   ),
   const ItemDefinition.sword(
     id: Items.SWORD,
@@ -30,6 +32,7 @@ final itemModels = [
     description: 'Point stick',
     image: ImageDefinition('assets/images/placeholder.png'),
     attributes: {WeaponAttributes.SHARP: 10.0},
+    sellPrice: 25,
   ),
   const ItemDefinition.resource(
     id: Items.IRON_ORE,
@@ -37,6 +40,7 @@ final itemModels = [
     namePlural: 'Iron ore',
     description: 'Can be mined',
     image: ImageDefinition('assets/images/minerals/iron_ore.png'),
+    sellPrice: 2,
   ),
   const ItemDefinition.resource(
     id: Items.IRON_BAR,
@@ -44,6 +48,7 @@ final itemModels = [
     namePlural: 'Iron bars',
     description: 'A smelted form of iron ready to be used for crafting.',
     image: ImageDefinition('assets/images/minerals/iron_bar.png'),
+    sellPrice: 5,
   ),
   const ItemDefinition.resource(
     id: Items.COPPER_ORE,
@@ -51,6 +56,7 @@ final itemModels = [
     namePlural: 'Copper ore',
     description: 'Can be mined',
     image: ImageDefinition('assets/images/minerals/copper_ore.png'),
+    sellPrice: 3,
   ),
   const ItemDefinition.resource(
     id: Items.COPPER_BAR,
@@ -58,6 +64,7 @@ final itemModels = [
     namePlural: 'Copper bar',
     description: 'Can be mined',
     image: ImageDefinition('assets/images/minerals/copper_bar.png'),
+    sellPrice: 6,
   ),
   const ItemDefinition.resource(
     id: Items.SHARP_ROCK,
@@ -188,6 +195,7 @@ final itemModels = [
     namePlural: 'Wood axes',
     description: 'Used for chopping wood.',
     image: ImageDefinition('assets/images/2022/wood_axe.png'),
+    sellPrice: 10,
   ),
   const ItemDefinition.tool(
     id: Items.AXE_STONE,
@@ -195,6 +203,7 @@ final itemModels = [
     namePlural: 'Stone axes',
     description: 'Used for chopping wood.',
     image: ImageDefinition('assets/images/2022/pick_axe_1.png'),
+    sellPrice: 20,
   ),
   const ItemDefinition.tool(
     id: Items.AXE_IRON,
@@ -202,6 +211,7 @@ final itemModels = [
     namePlural: 'Iron axes',
     description: 'Used for chopping wood.',
     image: ImageDefinition('assets/images/2022/iron_axe.png'),
+    sellPrice: 30,
   ),
   const ItemDefinition.tool(
     id: Items.AXE_BRONZE,
@@ -209,6 +219,7 @@ final itemModels = [
     namePlural: 'Bronze axes',
     description: 'Used for chopping wood.',
     image: ImageDefinition('assets/images/2022/steel_axe.png'),
+    sellPrice: 40,
   ),
   const ItemDefinition.resource(
     id: Items.COAL,

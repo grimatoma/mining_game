@@ -53,17 +53,17 @@ mixin _$ShopListing {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             ItemDefinitionId item, bool consumable, int quantity)?
         itemListing,
-    TResult Function(
+    TResult? Function(
             ShopListingDefinitionId id,
             ItemContainer cost,
             DoodadDefinitionId doodadId,
             Set<Feature>? requiredFeatures,
             bool consumable)?
         doodadListing,
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             Feature feature, Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) =>
@@ -95,9 +95,9 @@ mixin _$ShopListing {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemShopListing value)? itemListing,
-    TResult Function(DoodadShopListing value)? doodadListing,
-    TResult Function(FeatureShopListing value)? featureListing,
+    TResult? Function(ItemShopListing value)? itemListing,
+    TResult? Function(DoodadShopListing value)? doodadListing,
+    TResult? Function(FeatureShopListing value)? featureListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -118,46 +118,51 @@ mixin _$ShopListing {
 abstract class $ShopListingCopyWith<$Res> {
   factory $ShopListingCopyWith(
           ShopListing value, $Res Function(ShopListing) then) =
-      _$ShopListingCopyWithImpl<$Res>;
+      _$ShopListingCopyWithImpl<$Res, ShopListing>;
+  @useResult
   $Res call({ShopListingDefinitionId id, ItemContainer cost, bool consumable});
 
   $ItemContainerCopyWith<$Res> get cost;
 }
 
 /// @nodoc
-class _$ShopListingCopyWithImpl<$Res> implements $ShopListingCopyWith<$Res> {
+class _$ShopListingCopyWithImpl<$Res, $Val extends ShopListing>
+    implements $ShopListingCopyWith<$Res> {
   _$ShopListingCopyWithImpl(this._value, this._then);
 
-  final ShopListing _value;
   // ignore: unused_field
-  final $Res Function(ShopListing) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? cost = freezed,
-    Object? consumable = freezed,
+    Object? id = null,
+    Object? cost = null,
+    Object? consumable = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ShopListingDefinitionId,
-      cost: cost == freezed
+      cost: null == cost
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      consumable: consumable == freezed
+      consumable: null == consumable
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
               as bool,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get cost {
     return $ItemContainerCopyWith<$Res>(_value.cost, (value) {
-      return _then(_value.copyWith(cost: value));
+      return _then(_value.copyWith(cost: value) as $Val);
     });
   }
 }
@@ -169,6 +174,7 @@ abstract class _$$ItemShopListingCopyWith<$Res>
           _$ItemShopListing value, $Res Function(_$ItemShopListing) then) =
       __$$ItemShopListingCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ShopListingDefinitionId id,
       ItemContainer cost,
@@ -182,41 +188,39 @@ abstract class _$$ItemShopListingCopyWith<$Res>
 
 /// @nodoc
 class __$$ItemShopListingCopyWithImpl<$Res>
-    extends _$ShopListingCopyWithImpl<$Res>
+    extends _$ShopListingCopyWithImpl<$Res, _$ItemShopListing>
     implements _$$ItemShopListingCopyWith<$Res> {
   __$$ItemShopListingCopyWithImpl(
       _$ItemShopListing _value, $Res Function(_$ItemShopListing) _then)
-      : super(_value, (v) => _then(v as _$ItemShopListing));
+      : super(_value, _then);
 
-  @override
-  _$ItemShopListing get _value => super._value as _$ItemShopListing;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? cost = freezed,
-    Object? item = freezed,
-    Object? consumable = freezed,
-    Object? quantity = freezed,
+    Object? id = null,
+    Object? cost = null,
+    Object? item = null,
+    Object? consumable = null,
+    Object? quantity = null,
   }) {
     return _then(_$ItemShopListing(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ShopListingDefinitionId,
-      cost: cost == freezed
+      cost: null == cost
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      item: item == freezed
+      item: null == item
           ? _value.item
           : item // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      consumable: consumable == freezed
+      consumable: null == consumable
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
               as bool,
-      quantity: quantity == freezed
+      quantity: null == quantity
           ? _value.quantity
           : quantity // ignore: cast_nullable_to_non_nullable
               as int,
@@ -265,26 +269,23 @@ class _$ItemShopListing implements ItemShopListing {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ItemShopListing &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.cost, cost) &&
-            const DeepCollectionEquality().equals(other.item, item) &&
-            const DeepCollectionEquality()
-                .equals(other.consumable, consumable) &&
-            const DeepCollectionEquality().equals(other.quantity, quantity));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.cost, cost) || other.cost == cost) &&
+            (identical(other.item, item) || other.item == item) &&
+            (identical(other.consumable, consumable) ||
+                other.consumable == consumable) &&
+            (identical(other.quantity, quantity) ||
+                other.quantity == quantity));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(cost),
-      const DeepCollectionEquality().hash(item),
-      const DeepCollectionEquality().hash(consumable),
-      const DeepCollectionEquality().hash(quantity));
+  int get hashCode =>
+      Object.hash(runtimeType, id, cost, item, consumable, quantity);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ItemShopListingCopyWith<_$ItemShopListing> get copyWith =>
       __$$ItemShopListingCopyWithImpl<_$ItemShopListing>(this, _$identity);
 
@@ -311,17 +312,17 @@ class _$ItemShopListing implements ItemShopListing {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             ItemDefinitionId item, bool consumable, int quantity)?
         itemListing,
-    TResult Function(
+    TResult? Function(
             ShopListingDefinitionId id,
             ItemContainer cost,
             DoodadDefinitionId doodadId,
             Set<Feature>? requiredFeatures,
             bool consumable)?
         doodadListing,
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             Feature feature, Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) {
@@ -365,9 +366,9 @@ class _$ItemShopListing implements ItemShopListing {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemShopListing value)? itemListing,
-    TResult Function(DoodadShopListing value)? doodadListing,
-    TResult Function(FeatureShopListing value)? featureListing,
+    TResult? Function(ItemShopListing value)? itemListing,
+    TResult? Function(DoodadShopListing value)? doodadListing,
+    TResult? Function(FeatureShopListing value)? featureListing,
   }) {
     return itemListing?.call(this);
   }
@@ -426,6 +427,7 @@ abstract class _$$DoodadShopListingCopyWith<$Res>
           _$DoodadShopListing value, $Res Function(_$DoodadShopListing) then) =
       __$$DoodadShopListingCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ShopListingDefinitionId id,
       ItemContainer cost,
@@ -439,41 +441,39 @@ abstract class _$$DoodadShopListingCopyWith<$Res>
 
 /// @nodoc
 class __$$DoodadShopListingCopyWithImpl<$Res>
-    extends _$ShopListingCopyWithImpl<$Res>
+    extends _$ShopListingCopyWithImpl<$Res, _$DoodadShopListing>
     implements _$$DoodadShopListingCopyWith<$Res> {
   __$$DoodadShopListingCopyWithImpl(
       _$DoodadShopListing _value, $Res Function(_$DoodadShopListing) _then)
-      : super(_value, (v) => _then(v as _$DoodadShopListing));
+      : super(_value, _then);
 
-  @override
-  _$DoodadShopListing get _value => super._value as _$DoodadShopListing;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? cost = freezed,
-    Object? doodadId = freezed,
+    Object? id = null,
+    Object? cost = null,
+    Object? doodadId = null,
     Object? requiredFeatures = freezed,
-    Object? consumable = freezed,
+    Object? consumable = null,
   }) {
     return _then(_$DoodadShopListing(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ShopListingDefinitionId,
-      cost: cost == freezed
+      cost: null == cost
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      doodadId: doodadId == freezed
+      doodadId: null == doodadId
           ? _value.doodadId
           : doodadId // ignore: cast_nullable_to_non_nullable
               as DoodadDefinitionId,
-      requiredFeatures: requiredFeatures == freezed
+      requiredFeatures: freezed == requiredFeatures
           ? _value._requiredFeatures
           : requiredFeatures // ignore: cast_nullable_to_non_nullable
               as Set<Feature>?,
-      consumable: consumable == freezed
+      consumable: null == consumable
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -529,27 +529,24 @@ class _$DoodadShopListing implements DoodadShopListing {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DoodadShopListing &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.cost, cost) &&
-            const DeepCollectionEquality().equals(other.doodadId, doodadId) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.cost, cost) || other.cost == cost) &&
+            (identical(other.doodadId, doodadId) ||
+                other.doodadId == doodadId) &&
             const DeepCollectionEquality()
                 .equals(other._requiredFeatures, _requiredFeatures) &&
-            const DeepCollectionEquality()
-                .equals(other.consumable, consumable));
+            (identical(other.consumable, consumable) ||
+                other.consumable == consumable));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(cost),
-      const DeepCollectionEquality().hash(doodadId),
-      const DeepCollectionEquality().hash(_requiredFeatures),
-      const DeepCollectionEquality().hash(consumable));
+  int get hashCode => Object.hash(runtimeType, id, cost, doodadId,
+      const DeepCollectionEquality().hash(_requiredFeatures), consumable);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$DoodadShopListingCopyWith<_$DoodadShopListing> get copyWith =>
       __$$DoodadShopListingCopyWithImpl<_$DoodadShopListing>(this, _$identity);
 
@@ -576,17 +573,17 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             ItemDefinitionId item, bool consumable, int quantity)?
         itemListing,
-    TResult Function(
+    TResult? Function(
             ShopListingDefinitionId id,
             ItemContainer cost,
             DoodadDefinitionId doodadId,
             Set<Feature>? requiredFeatures,
             bool consumable)?
         doodadListing,
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             Feature feature, Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) {
@@ -631,9 +628,9 @@ class _$DoodadShopListing implements DoodadShopListing {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemShopListing value)? itemListing,
-    TResult Function(DoodadShopListing value)? doodadListing,
-    TResult Function(FeatureShopListing value)? featureListing,
+    TResult? Function(ItemShopListing value)? itemListing,
+    TResult? Function(DoodadShopListing value)? doodadListing,
+    TResult? Function(FeatureShopListing value)? featureListing,
   }) {
     return doodadListing?.call(this);
   }
@@ -692,6 +689,7 @@ abstract class _$$FeatureShopListingCopyWith<$Res>
           $Res Function(_$FeatureShopListing) then) =
       __$$FeatureShopListingCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {ShopListingDefinitionId id,
       ItemContainer cost,
@@ -705,41 +703,39 @@ abstract class _$$FeatureShopListingCopyWith<$Res>
 
 /// @nodoc
 class __$$FeatureShopListingCopyWithImpl<$Res>
-    extends _$ShopListingCopyWithImpl<$Res>
+    extends _$ShopListingCopyWithImpl<$Res, _$FeatureShopListing>
     implements _$$FeatureShopListingCopyWith<$Res> {
   __$$FeatureShopListingCopyWithImpl(
       _$FeatureShopListing _value, $Res Function(_$FeatureShopListing) _then)
-      : super(_value, (v) => _then(v as _$FeatureShopListing));
+      : super(_value, _then);
 
-  @override
-  _$FeatureShopListing get _value => super._value as _$FeatureShopListing;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? cost = freezed,
-    Object? feature = freezed,
+    Object? id = null,
+    Object? cost = null,
+    Object? feature = null,
     Object? requiredFeatures = freezed,
-    Object? consumable = freezed,
+    Object? consumable = null,
   }) {
     return _then(_$FeatureShopListing(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as ShopListingDefinitionId,
-      cost: cost == freezed
+      cost: null == cost
           ? _value.cost
           : cost // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      feature: feature == freezed
+      feature: null == feature
           ? _value.feature
           : feature // ignore: cast_nullable_to_non_nullable
               as Feature,
-      requiredFeatures: requiredFeatures == freezed
+      requiredFeatures: freezed == requiredFeatures
           ? _value._requiredFeatures
           : requiredFeatures // ignore: cast_nullable_to_non_nullable
               as Set<Feature>?,
-      consumable: consumable == freezed
+      consumable: null == consumable
           ? _value.consumable
           : consumable // ignore: cast_nullable_to_non_nullable
               as bool,
@@ -795,27 +791,23 @@ class _$FeatureShopListing implements FeatureShopListing {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$FeatureShopListing &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.cost, cost) &&
-            const DeepCollectionEquality().equals(other.feature, feature) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.cost, cost) || other.cost == cost) &&
+            (identical(other.feature, feature) || other.feature == feature) &&
             const DeepCollectionEquality()
                 .equals(other._requiredFeatures, _requiredFeatures) &&
-            const DeepCollectionEquality()
-                .equals(other.consumable, consumable));
+            (identical(other.consumable, consumable) ||
+                other.consumable == consumable));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(cost),
-      const DeepCollectionEquality().hash(feature),
-      const DeepCollectionEquality().hash(_requiredFeatures),
-      const DeepCollectionEquality().hash(consumable));
+  int get hashCode => Object.hash(runtimeType, id, cost, feature,
+      const DeepCollectionEquality().hash(_requiredFeatures), consumable);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$FeatureShopListingCopyWith<_$FeatureShopListing> get copyWith =>
       __$$FeatureShopListingCopyWithImpl<_$FeatureShopListing>(
           this, _$identity);
@@ -843,17 +835,17 @@ class _$FeatureShopListing implements FeatureShopListing {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             ItemDefinitionId item, bool consumable, int quantity)?
         itemListing,
-    TResult Function(
+    TResult? Function(
             ShopListingDefinitionId id,
             ItemContainer cost,
             DoodadDefinitionId doodadId,
             Set<Feature>? requiredFeatures,
             bool consumable)?
         doodadListing,
-    TResult Function(ShopListingDefinitionId id, ItemContainer cost,
+    TResult? Function(ShopListingDefinitionId id, ItemContainer cost,
             Feature feature, Set<Feature>? requiredFeatures, bool consumable)?
         featureListing,
   }) {
@@ -898,9 +890,9 @@ class _$FeatureShopListing implements FeatureShopListing {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemShopListing value)? itemListing,
-    TResult Function(DoodadShopListing value)? doodadListing,
-    TResult Function(FeatureShopListing value)? featureListing,
+    TResult? Function(ItemShopListing value)? itemListing,
+    TResult? Function(DoodadShopListing value)? doodadListing,
+    TResult? Function(FeatureShopListing value)? featureListing,
   }) {
     return featureListing?.call(this);
   }

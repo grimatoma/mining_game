@@ -33,7 +33,7 @@ mixin _$CraftingRecipe {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(CraftingRecipeDefinitionId id, ItemContainer input,
+    TResult? Function(CraftingRecipeDefinitionId id, ItemContainer input,
             ItemDefinitionId output, int craftingDuration)?
         itemListing,
   }) =>
@@ -53,7 +53,7 @@ mixin _$CraftingRecipe {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemCraftingRecipe value)? itemListing,
+    TResult? Function(ItemCraftingRecipe value)? itemListing,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -72,7 +72,8 @@ mixin _$CraftingRecipe {
 abstract class $CraftingRecipeCopyWith<$Res> {
   factory $CraftingRecipeCopyWith(
           CraftingRecipe value, $Res Function(CraftingRecipe) then) =
-      _$CraftingRecipeCopyWithImpl<$Res>;
+      _$CraftingRecipeCopyWithImpl<$Res, CraftingRecipe>;
+  @useResult
   $Res call(
       {CraftingRecipeDefinitionId id,
       ItemContainer input,
@@ -83,45 +84,48 @@ abstract class $CraftingRecipeCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CraftingRecipeCopyWithImpl<$Res>
+class _$CraftingRecipeCopyWithImpl<$Res, $Val extends CraftingRecipe>
     implements $CraftingRecipeCopyWith<$Res> {
   _$CraftingRecipeCopyWithImpl(this._value, this._then);
 
-  final CraftingRecipe _value;
   // ignore: unused_field
-  final $Res Function(CraftingRecipe) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? input = freezed,
-    Object? output = freezed,
-    Object? craftingDuration = freezed,
+    Object? id = null,
+    Object? input = null,
+    Object? output = null,
+    Object? craftingDuration = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as CraftingRecipeDefinitionId,
-      input: input == freezed
+      input: null == input
           ? _value.input
           : input // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      output: output == freezed
+      output: null == output
           ? _value.output
           : output // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      craftingDuration: craftingDuration == freezed
+      craftingDuration: null == craftingDuration
           ? _value.craftingDuration
           : craftingDuration // ignore: cast_nullable_to_non_nullable
               as int,
-    ));
+    ) as $Val);
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get input {
     return $ItemContainerCopyWith<$Res>(_value.input, (value) {
-      return _then(_value.copyWith(input: value));
+      return _then(_value.copyWith(input: value) as $Val);
     });
   }
 }
@@ -133,6 +137,7 @@ abstract class _$$ItemCraftingRecipeCopyWith<$Res>
           $Res Function(_$ItemCraftingRecipe) then) =
       __$$ItemCraftingRecipeCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {CraftingRecipeDefinitionId id,
       ItemContainer input,
@@ -145,36 +150,34 @@ abstract class _$$ItemCraftingRecipeCopyWith<$Res>
 
 /// @nodoc
 class __$$ItemCraftingRecipeCopyWithImpl<$Res>
-    extends _$CraftingRecipeCopyWithImpl<$Res>
+    extends _$CraftingRecipeCopyWithImpl<$Res, _$ItemCraftingRecipe>
     implements _$$ItemCraftingRecipeCopyWith<$Res> {
   __$$ItemCraftingRecipeCopyWithImpl(
       _$ItemCraftingRecipe _value, $Res Function(_$ItemCraftingRecipe) _then)
-      : super(_value, (v) => _then(v as _$ItemCraftingRecipe));
+      : super(_value, _then);
 
-  @override
-  _$ItemCraftingRecipe get _value => super._value as _$ItemCraftingRecipe;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? input = freezed,
-    Object? output = freezed,
-    Object? craftingDuration = freezed,
+    Object? id = null,
+    Object? input = null,
+    Object? output = null,
+    Object? craftingDuration = null,
   }) {
     return _then(_$ItemCraftingRecipe(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as CraftingRecipeDefinitionId,
-      input: input == freezed
+      input: null == input
           ? _value.input
           : input // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      output: output == freezed
+      output: null == output
           ? _value.output
           : output // ignore: cast_nullable_to_non_nullable
               as ItemDefinitionId,
-      craftingDuration: craftingDuration == freezed
+      craftingDuration: null == craftingDuration
           ? _value.craftingDuration
           : craftingDuration // ignore: cast_nullable_to_non_nullable
               as int,
@@ -213,24 +216,21 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ItemCraftingRecipe &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.input, input) &&
-            const DeepCollectionEquality().equals(other.output, output) &&
-            const DeepCollectionEquality()
-                .equals(other.craftingDuration, craftingDuration));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.input, input) || other.input == input) &&
+            (identical(other.output, output) || other.output == output) &&
+            (identical(other.craftingDuration, craftingDuration) ||
+                other.craftingDuration == craftingDuration));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(input),
-      const DeepCollectionEquality().hash(output),
-      const DeepCollectionEquality().hash(craftingDuration));
+  int get hashCode =>
+      Object.hash(runtimeType, id, input, output, craftingDuration);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$ItemCraftingRecipeCopyWith<_$ItemCraftingRecipe> get copyWith =>
       __$$ItemCraftingRecipeCopyWithImpl<_$ItemCraftingRecipe>(
           this, _$identity);
@@ -248,7 +248,7 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(CraftingRecipeDefinitionId id, ItemContainer input,
+    TResult? Function(CraftingRecipeDefinitionId id, ItemContainer input,
             ItemDefinitionId output, int craftingDuration)?
         itemListing,
   }) {
@@ -280,7 +280,7 @@ class _$ItemCraftingRecipe implements ItemCraftingRecipe {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(ItemCraftingRecipe value)? itemListing,
+    TResult? Function(ItemCraftingRecipe value)? itemListing,
   }) {
     return itemListing?.call(this);
   }

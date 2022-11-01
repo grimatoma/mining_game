@@ -14,9 +14,7 @@ _$GeneralItemDefinition _$$GeneralItemDefinitionFromJson(
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
       image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
-      sellPrice: json['sellPrice'] == null
-          ? null
-          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
+      sellPrice: json['sellPrice'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
@@ -28,7 +26,7 @@ Map<String, dynamic> _$$GeneralItemDefinitionToJson(
       'namePlural': instance.namePlural,
       'description': instance.description,
       'image': instance.image.toJson(),
-      'sellPrice': instance.sellPrice?.toJson(),
+      'sellPrice': instance.sellPrice,
       'runtimeType': instance.$type,
     };
 
@@ -40,9 +38,7 @@ _$ResourceItemDefinition _$$ResourceItemDefinitionFromJson(
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
       image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
-      sellPrice: json['sellPrice'] == null
-          ? null
-          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
+      sellPrice: json['sellPrice'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
@@ -54,7 +50,7 @@ Map<String, dynamic> _$$ResourceItemDefinitionToJson(
       'namePlural': instance.namePlural,
       'description': instance.description,
       'image': instance.image.toJson(),
-      'sellPrice': instance.sellPrice?.toJson(),
+      'sellPrice': instance.sellPrice,
       'runtimeType': instance.$type,
     };
 
@@ -87,9 +83,7 @@ _$ToolItemDefinition _$$ToolItemDefinitionFromJson(Map<String, dynamic> json) =>
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
       image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
-      sellPrice: json['sellPrice'] == null
-          ? null
-          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
+      sellPrice: json['sellPrice'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
@@ -101,7 +95,7 @@ Map<String, dynamic> _$$ToolItemDefinitionToJson(
       'namePlural': instance.namePlural,
       'description': instance.description,
       'image': instance.image.toJson(),
-      'sellPrice': instance.sellPrice?.toJson(),
+      'sellPrice': instance.sellPrice,
       'runtimeType': instance.$type,
     };
 
@@ -117,9 +111,7 @@ _$SwordItemDefinition _$$SwordItemDefinitionFromJson(
         (k, e) => MapEntry(
             $enumDecode(_$WeaponAttributesEnumMap, k), (e as num).toDouble()),
       ),
-      sellPrice: json['sellPrice'] == null
-          ? null
-          : ItemContainer.fromJson(json['sellPrice'] as Map<String, dynamic>),
+      sellPrice: json['sellPrice'] as int?,
       $type: json['runtimeType'] as String?,
     );
 
@@ -133,7 +125,7 @@ Map<String, dynamic> _$$SwordItemDefinitionToJson(
       'image': instance.image.toJson(),
       'attributes': instance.attributes
           .map((k, e) => MapEntry(_$WeaponAttributesEnumMap[k]!, e)),
-      'sellPrice': instance.sellPrice?.toJson(),
+      'sellPrice': instance.sellPrice,
       'runtimeType': instance.$type,
     };
 

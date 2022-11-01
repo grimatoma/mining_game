@@ -32,29 +32,32 @@ mixin _$ItemInstanceId {
 abstract class $ItemInstanceIdCopyWith<$Res> {
   factory $ItemInstanceIdCopyWith(
           ItemInstanceId value, $Res Function(ItemInstanceId) then) =
-      _$ItemInstanceIdCopyWithImpl<$Res>;
+      _$ItemInstanceIdCopyWithImpl<$Res, ItemInstanceId>;
+  @useResult
   $Res call({String guid});
 }
 
 /// @nodoc
-class _$ItemInstanceIdCopyWithImpl<$Res>
+class _$ItemInstanceIdCopyWithImpl<$Res, $Val extends ItemInstanceId>
     implements $ItemInstanceIdCopyWith<$Res> {
   _$ItemInstanceIdCopyWithImpl(this._value, this._then);
 
-  final ItemInstanceId _value;
   // ignore: unused_field
-  final $Res Function(ItemInstanceId) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? guid = freezed,
+    Object? guid = null,
   }) {
     return _then(_value.copyWith(
-      guid: guid == freezed
+      guid: null == guid
           ? _value.guid
           : guid // ignore: cast_nullable_to_non_nullable
               as String,
-    ));
+    ) as $Val);
   }
 }
 
@@ -65,26 +68,25 @@ abstract class _$$_ItemInstanceIdCopyWith<$Res>
           _$_ItemInstanceId value, $Res Function(_$_ItemInstanceId) then) =
       __$$_ItemInstanceIdCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call({String guid});
 }
 
 /// @nodoc
 class __$$_ItemInstanceIdCopyWithImpl<$Res>
-    extends _$ItemInstanceIdCopyWithImpl<$Res>
+    extends _$ItemInstanceIdCopyWithImpl<$Res, _$_ItemInstanceId>
     implements _$$_ItemInstanceIdCopyWith<$Res> {
   __$$_ItemInstanceIdCopyWithImpl(
       _$_ItemInstanceId _value, $Res Function(_$_ItemInstanceId) _then)
-      : super(_value, (v) => _then(v as _$_ItemInstanceId));
+      : super(_value, _then);
 
-  @override
-  _$_ItemInstanceId get _value => super._value as _$_ItemInstanceId;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? guid = freezed,
+    Object? guid = null,
   }) {
     return _then(_$_ItemInstanceId(
-      guid == freezed
+      null == guid
           ? _value.guid
           : guid // ignore: cast_nullable_to_non_nullable
               as String,
@@ -113,16 +115,16 @@ class _$_ItemInstanceId implements _ItemInstanceId {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ItemInstanceId &&
-            const DeepCollectionEquality().equals(other.guid, guid));
+            (identical(other.guid, guid) || other.guid == guid));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(guid));
+  int get hashCode => Object.hash(runtimeType, guid);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$_ItemInstanceIdCopyWith<_$_ItemInstanceId> get copyWith =>
       __$$_ItemInstanceIdCopyWithImpl<_$_ItemInstanceId>(this, _$identity);
 

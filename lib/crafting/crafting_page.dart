@@ -84,7 +84,10 @@ class CraftRowWidget extends ConsumerWidget {
                   itemDefinition.name,
                   style: textStyleTitle,
                 ),
-                RequirementRenderer(requirement: _recipe.input.toRequirement),
+                RequirementRenderer(
+                  requirement: _recipe.input.toRequirement,
+                  showInventoryCountForItems: true,
+                ),
               ],
             ),
           ],
@@ -101,6 +104,21 @@ class CraftRowWidget extends ConsumerWidget {
   }
 }
 
+final allCraftingTimeRemaining = StateProvider<String>((ref) {
+  final queue = ref.watch(craftingQueueProvider);
+  final session = ref.watch(craftingSessionProvider);
+  return _allCraftingTimePrettyString(queue.fold<int>(
+          0,
+          (previousValue, element) =>
+              previousValue + element.craftingDuration) +
+      (session?.remaining ?? 0));
+});
+String _allCraftingTimePrettyString(int seconds) {
+  final minutes = seconds ~/ 60;
+  final remainingSeconds = seconds % 60;
+  return '$minutes min $remainingSeconds sec';
+}
+
 class CraftingQueueWidget extends HookConsumerWidget {
   const CraftingQueueWidget({
     Key? key,
@@ -114,7 +132,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
       child: Column(
         children: [
           Text(
-            'Crafting queue ($queueSize)',
+            'Crafting queue ($queueSize items,  ${ref.watch(allCraftingTimeRemaining)})',
             style: textStyleTitle,
           ),
           Expanded(

@@ -3,10 +3,12 @@ part of 'item_definition.dart';
 class RequirementRenderer extends ConsumerWidget {
   final Requirement requirement;
   final bool checkInventoryForItems;
+  final bool showInventoryCountForItems;
 
   const RequirementRenderer(
       {required this.requirement,
       this.checkInventoryForItems = false,
+      this.showInventoryCountForItems = false,
       Key? key})
       : super(key: key);
 
@@ -19,15 +21,19 @@ class RequirementRenderer extends ConsumerWidget {
     return Column(
       children: [
         for (final item in requirement.itemCost.entries)
-          _buildItem(item, min(0, missingItems[item.key])),
+          _buildItem(item, min(0, missingItems[item.key]), ref),
       ],
     );
   }
 
-  Widget _buildItem(MapEntry<ItemDefinitionId, int> entry, int missing) {
+  Widget _buildItem(
+      MapEntry<ItemDefinitionId, int> entry, int missing, WidgetRef ref) {
     final definition = entry.key.definition;
     final itemWidget = ItemRenderer(
       definition: definition,
+      countPrefix: showInventoryCountForItems
+          ? '${ref.watch(inventoryProvider).items[definition.id]}/'
+          : '',
       count: entry.value,
       suffixText: missing == 0 ? '' : '($missing)',
       linkedToDetailPage: false,
@@ -48,12 +54,14 @@ class ItemRenderer extends StatelessWidget {
   final bool showItemName;
   final bool linkedToDetailPage;
   final bool hasItemHero;
+  final String countPrefix;
   late final _heroTag = Random().nextInt(99999999).toString();
 
   ItemRenderer(
       {Key? key,
       required this.definition,
       required this.count,
+      this.countPrefix = '',
       this.suffixText = '',
       this.showItemName = false,
       this.linkedToDetailPage = true,
@@ -85,7 +93,7 @@ class ItemRenderer extends StatelessWidget {
           ),
         if (!hasItemHero) heroContent,
         AutoSizeText(
-            ' $count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
+            ' $countPrefix$count${showItemName ? ' ${definition.name}' : ''}$suffixText'),
       ]),
     );
   }

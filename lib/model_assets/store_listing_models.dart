@@ -70,15 +70,19 @@ Iterable<ShopListing> getShopListings(Shop shop) =>
 
 final _mainNavStore = [
   ShopListing.itemListing(
-      id: const ShopListingDefinitionId('1'),
-      cost: ItemContainer.single(Items.IRON_ORE, 5),
-      item: Items.CREDIT,
-      quantity: 25),
+    id: const ShopListingDefinitionId('8'),
+    cost: ItemContainer.single(Items.IRON_ORE, 5),
+    item: Items.CREDIT,
+    quantity: 25,
+    consumable: false,
+  ),
   ShopListing.itemListing(
-      id: const ShopListingDefinitionId('2'),
-      cost: ItemContainer.single(Items.CREDIT, 1),
-      item: Items.ROCK,
-      quantity: 5),
+    id: const ShopListingDefinitionId('9'),
+    cost: ItemContainer.single(Items.CREDIT, 1),
+    item: Items.ROCK,
+    quantity: 5,
+    consumable: false,
+  ),
   ShopListing.itemListing(
       id: const ShopListingDefinitionId('3'),
       cost: ItemContainer.single(Items.CREDIT, 5),

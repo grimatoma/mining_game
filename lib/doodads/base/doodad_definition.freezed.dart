@@ -113,7 +113,7 @@ mixin _$DoodadDefinition {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -125,7 +125,7 @@ mixin _$DoodadDefinition {
             String ticksName,
             ItemContainer itemMined)?
         digger,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -142,7 +142,7 @@ mixin _$DoodadDefinition {
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -154,7 +154,7 @@ mixin _$DoodadDefinition {
             String ticksName,
             int range)?
         areaHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -167,7 +167,7 @@ mixin _$DoodadDefinition {
             ItemContainer consumedMaterials,
             ItemContainer itemsProduced)?
         materialProcessor,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -264,13 +264,13 @@ mixin _$DoodadDefinition {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(DiggerDoodadDefinition value)? digger,
-    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+    TResult? Function(DiggerDoodadDefinition value)? digger,
+    TResult? Function(RegenerativeHarvestableDoodadDefinition value)?
         regenerativeHarvestable,
-    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
-    TResult Function(MaterialProcessorDoodadDefinition value)?
+    TResult? Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult? Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
-    TResult Function(HouseDoodadDefinition value)? house,
+    TResult? Function(HouseDoodadDefinition value)? house,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -295,7 +295,8 @@ mixin _$DoodadDefinition {
 abstract class $DoodadDefinitionCopyWith<$Res> {
   factory $DoodadDefinitionCopyWith(
           DoodadDefinition value, $Res Function(DoodadDefinition) then) =
-      _$DoodadDefinitionCopyWithImpl<$Res>;
+      _$DoodadDefinitionCopyWithImpl<$Res, DoodadDefinition>;
+  @useResult
   $Res call(
       {DoodadDefinitionId id,
       String name,
@@ -307,54 +308,56 @@ abstract class $DoodadDefinitionCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DoodadDefinitionCopyWithImpl<$Res>
+class _$DoodadDefinitionCopyWithImpl<$Res, $Val extends DoodadDefinition>
     implements $DoodadDefinitionCopyWith<$Res> {
   _$DoodadDefinitionCopyWithImpl(this._value, this._then);
 
-  final DoodadDefinition _value;
   // ignore: unused_field
-  final $Res Function(DoodadDefinition) _then;
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
 
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? imageAsset = freezed,
-    Object? storeImageAsset = freezed,
-    Object? userCanBuild = freezed,
-    Object? supportedLocations = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? imageAsset = null,
+    Object? storeImageAsset = null,
+    Object? userCanBuild = null,
+    Object? supportedLocations = null,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as DoodadDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageAsset: imageAsset == freezed
+      imageAsset: null == imageAsset
           ? _value.imageAsset
           : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageAsset: storeImageAsset == freezed
+      storeImageAsset: null == storeImageAsset
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      userCanBuild: userCanBuild == freezed
+      userCanBuild: null == userCanBuild
           ? _value.userCanBuild
           : userCanBuild // ignore: cast_nullable_to_non_nullable
               as bool,
-      supportedLocations: supportedLocations == freezed
+      supportedLocations: null == supportedLocations
           ? _value.supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
-    ));
+    ) as $Val);
   }
 }
 
@@ -365,6 +368,7 @@ abstract class _$$DiggerDoodadDefinitionCopyWith<$Res>
           $Res Function(_$DiggerDoodadDefinition) then) =
       __$$DiggerDoodadDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DoodadDefinitionId id,
       String name,
@@ -382,67 +386,64 @@ abstract class _$$DiggerDoodadDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$DiggerDoodadDefinitionCopyWithImpl<$Res>
-    extends _$DoodadDefinitionCopyWithImpl<$Res>
+    extends _$DoodadDefinitionCopyWithImpl<$Res, _$DiggerDoodadDefinition>
     implements _$$DiggerDoodadDefinitionCopyWith<$Res> {
   __$$DiggerDoodadDefinitionCopyWithImpl(_$DiggerDoodadDefinition _value,
       $Res Function(_$DiggerDoodadDefinition) _then)
-      : super(_value, (v) => _then(v as _$DiggerDoodadDefinition));
+      : super(_value, _then);
 
-  @override
-  _$DiggerDoodadDefinition get _value =>
-      super._value as _$DiggerDoodadDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? imageAsset = freezed,
-    Object? storeImageAsset = freezed,
-    Object? userCanBuild = freezed,
-    Object? supportedLocations = freezed,
-    Object? ticksRequired = freezed,
-    Object? ticksName = freezed,
-    Object? itemMined = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? imageAsset = null,
+    Object? storeImageAsset = null,
+    Object? userCanBuild = null,
+    Object? supportedLocations = null,
+    Object? ticksRequired = null,
+    Object? ticksName = null,
+    Object? itemMined = null,
   }) {
     return _then(_$DiggerDoodadDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as DoodadDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageAsset: imageAsset == freezed
+      imageAsset: null == imageAsset
           ? _value.imageAsset
           : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageAsset: storeImageAsset == freezed
+      storeImageAsset: null == storeImageAsset
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      userCanBuild: userCanBuild == freezed
+      userCanBuild: null == userCanBuild
           ? _value.userCanBuild
           : userCanBuild // ignore: cast_nullable_to_non_nullable
               as bool,
-      supportedLocations: supportedLocations == freezed
+      supportedLocations: null == supportedLocations
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
-      ticksRequired: ticksRequired == freezed
+      ticksRequired: null == ticksRequired
           ? _value.ticksRequired
           : ticksRequired // ignore: cast_nullable_to_non_nullable
               as int,
-      ticksName: ticksName == freezed
+      ticksName: null == ticksName
           ? _value.ticksName
           : ticksName // ignore: cast_nullable_to_non_nullable
               as String,
-      itemMined: itemMined == freezed
+      itemMined: null == itemMined
           ? _value.itemMined
           : itemMined // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
@@ -450,6 +451,7 @@ class __$$DiggerDoodadDefinitionCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get itemMined {
     return $ItemContainerCopyWith<$Res>(_value.itemMined, (value) {
       return _then(_value.copyWith(itemMined: value));
@@ -519,41 +521,44 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DiggerDoodadDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.imageAsset, imageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.storeImageAsset, storeImageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.userCanBuild, userCanBuild) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageAsset, imageAsset) ||
+                other.imageAsset == imageAsset) &&
+            (identical(other.storeImageAsset, storeImageAsset) ||
+                other.storeImageAsset == storeImageAsset) &&
+            (identical(other.userCanBuild, userCanBuild) ||
+                other.userCanBuild == userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
-            const DeepCollectionEquality()
-                .equals(other.ticksRequired, ticksRequired) &&
-            const DeepCollectionEquality().equals(other.ticksName, ticksName) &&
-            const DeepCollectionEquality().equals(other.itemMined, itemMined));
+            (identical(other.ticksRequired, ticksRequired) ||
+                other.ticksRequired == ticksRequired) &&
+            (identical(other.ticksName, ticksName) ||
+                other.ticksName == ticksName) &&
+            (identical(other.itemMined, itemMined) ||
+                other.itemMined == itemMined));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(imageAsset),
-      const DeepCollectionEquality().hash(storeImageAsset),
-      const DeepCollectionEquality().hash(userCanBuild),
+      id,
+      name,
+      description,
+      imageAsset,
+      storeImageAsset,
+      userCanBuild,
       const DeepCollectionEquality().hash(_supportedLocations),
-      const DeepCollectionEquality().hash(ticksRequired),
-      const DeepCollectionEquality().hash(ticksName),
-      const DeepCollectionEquality().hash(itemMined));
+      ticksRequired,
+      ticksName,
+      itemMined);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$DiggerDoodadDefinitionCopyWith<_$DiggerDoodadDefinition> get copyWith =>
       __$$DiggerDoodadDefinitionCopyWithImpl<_$DiggerDoodadDefinition>(
           this, _$identity);
@@ -634,7 +639,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -646,7 +651,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String ticksName,
             ItemContainer itemMined)?
         digger,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -663,7 +668,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -675,7 +680,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             String ticksName,
             int range)?
         areaHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -688,7 +693,7 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
             ItemContainer consumedMaterials,
             ItemContainer itemsProduced)?
         materialProcessor,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -808,13 +813,13 @@ class _$DiggerDoodadDefinition extends DiggerDoodadDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(DiggerDoodadDefinition value)? digger,
-    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+    TResult? Function(DiggerDoodadDefinition value)? digger,
+    TResult? Function(RegenerativeHarvestableDoodadDefinition value)?
         regenerativeHarvestable,
-    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
-    TResult Function(MaterialProcessorDoodadDefinition value)?
+    TResult? Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult? Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
-    TResult Function(HouseDoodadDefinition value)? house,
+    TResult? Function(HouseDoodadDefinition value)? house,
   }) {
     return digger?.call(this);
   }
@@ -894,6 +899,7 @@ abstract class _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res>
           $Res Function(_$RegenerativeHarvestableDoodadDefinition) then) =
       __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DoodadDefinitionId id,
       String name,
@@ -916,94 +922,91 @@ abstract class _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
-    extends _$DoodadDefinitionCopyWithImpl<$Res>
+    extends _$DoodadDefinitionCopyWithImpl<$Res,
+        _$RegenerativeHarvestableDoodadDefinition>
     implements _$$RegenerativeHarvestableDoodadDefinitionCopyWith<$Res> {
   __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl(
       _$RegenerativeHarvestableDoodadDefinition _value,
       $Res Function(_$RegenerativeHarvestableDoodadDefinition) _then)
-      : super(_value,
-            (v) => _then(v as _$RegenerativeHarvestableDoodadDefinition));
+      : super(_value, _then);
 
-  @override
-  _$RegenerativeHarvestableDoodadDefinition get _value =>
-      super._value as _$RegenerativeHarvestableDoodadDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? imageAsset = freezed,
-    Object? storeImageAsset = freezed,
-    Object? userCanBuild = freezed,
-    Object? supportedLocations = freezed,
-    Object? ticksRequired = freezed,
-    Object? ticksName = freezed,
-    Object? resourceRequiredToHarvestOne = freezed,
-    Object? resourceMax = freezed,
-    Object? resourceIncreasePerTick = freezed,
-    Object? resourceGenerated = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? imageAsset = null,
+    Object? storeImageAsset = null,
+    Object? userCanBuild = null,
+    Object? supportedLocations = null,
+    Object? ticksRequired = null,
+    Object? ticksName = null,
+    Object? resourceRequiredToHarvestOne = null,
+    Object? resourceMax = null,
+    Object? resourceIncreasePerTick = null,
+    Object? resourceGenerated = null,
     Object? manualEffortToHarvest = freezed,
     Object? dynamicImageAssets = freezed,
   }) {
     return _then(_$RegenerativeHarvestableDoodadDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as DoodadDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageAsset: imageAsset == freezed
+      imageAsset: null == imageAsset
           ? _value.imageAsset
           : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageAsset: storeImageAsset == freezed
+      storeImageAsset: null == storeImageAsset
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      userCanBuild: userCanBuild == freezed
+      userCanBuild: null == userCanBuild
           ? _value.userCanBuild
           : userCanBuild // ignore: cast_nullable_to_non_nullable
               as bool,
-      supportedLocations: supportedLocations == freezed
+      supportedLocations: null == supportedLocations
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
-      ticksRequired: ticksRequired == freezed
+      ticksRequired: null == ticksRequired
           ? _value.ticksRequired
           : ticksRequired // ignore: cast_nullable_to_non_nullable
               as int,
-      ticksName: ticksName == freezed
+      ticksName: null == ticksName
           ? _value.ticksName
           : ticksName // ignore: cast_nullable_to_non_nullable
               as String,
-      resourceRequiredToHarvestOne: resourceRequiredToHarvestOne == freezed
+      resourceRequiredToHarvestOne: null == resourceRequiredToHarvestOne
           ? _value.resourceRequiredToHarvestOne
           : resourceRequiredToHarvestOne // ignore: cast_nullable_to_non_nullable
               as double,
-      resourceMax: resourceMax == freezed
+      resourceMax: null == resourceMax
           ? _value.resourceMax
           : resourceMax // ignore: cast_nullable_to_non_nullable
               as double,
-      resourceIncreasePerTick: resourceIncreasePerTick == freezed
+      resourceIncreasePerTick: null == resourceIncreasePerTick
           ? _value.resourceIncreasePerTick
           : resourceIncreasePerTick // ignore: cast_nullable_to_non_nullable
               as double,
-      resourceGenerated: resourceGenerated == freezed
+      resourceGenerated: null == resourceGenerated
           ? _value.resourceGenerated
           : resourceGenerated // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      manualEffortToHarvest: manualEffortToHarvest == freezed
+      manualEffortToHarvest: freezed == manualEffortToHarvest
           ? _value.manualEffortToHarvest
           : manualEffortToHarvest // ignore: cast_nullable_to_non_nullable
               as int?,
-      dynamicImageAssets: dynamicImageAssets == freezed
+      dynamicImageAssets: freezed == dynamicImageAssets
           ? _value._dynamicImageAssets
           : dynamicImageAssets // ignore: cast_nullable_to_non_nullable
               as Map<int, String>?,
@@ -1011,6 +1014,7 @@ class __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get resourceGenerated {
     return $ItemContainerCopyWith<$Res>(_value.resourceGenerated, (value) {
       return _then(_value.copyWith(resourceGenerated: value));
@@ -1104,32 +1108,35 @@ class _$RegenerativeHarvestableDoodadDefinition
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RegenerativeHarvestableDoodadDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.imageAsset, imageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.storeImageAsset, storeImageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.userCanBuild, userCanBuild) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageAsset, imageAsset) ||
+                other.imageAsset == imageAsset) &&
+            (identical(other.storeImageAsset, storeImageAsset) ||
+                other.storeImageAsset == storeImageAsset) &&
+            (identical(other.userCanBuild, userCanBuild) ||
+                other.userCanBuild == userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
-            const DeepCollectionEquality()
-                .equals(other.ticksRequired, ticksRequired) &&
-            const DeepCollectionEquality().equals(other.ticksName, ticksName) &&
-            const DeepCollectionEquality().equals(
-                other.resourceRequiredToHarvestOne,
-                resourceRequiredToHarvestOne) &&
-            const DeepCollectionEquality()
-                .equals(other.resourceMax, resourceMax) &&
-            const DeepCollectionEquality().equals(
-                other.resourceIncreasePerTick, resourceIncreasePerTick) &&
-            const DeepCollectionEquality()
-                .equals(other.resourceGenerated, resourceGenerated) &&
-            const DeepCollectionEquality()
-                .equals(other.manualEffortToHarvest, manualEffortToHarvest) &&
+            (identical(other.ticksRequired, ticksRequired) ||
+                other.ticksRequired == ticksRequired) &&
+            (identical(other.ticksName, ticksName) ||
+                other.ticksName == ticksName) &&
+            (identical(other.resourceRequiredToHarvestOne,
+                    resourceRequiredToHarvestOne) ||
+                other.resourceRequiredToHarvestOne ==
+                    resourceRequiredToHarvestOne) &&
+            (identical(other.resourceMax, resourceMax) ||
+                other.resourceMax == resourceMax) &&
+            (identical(
+                    other.resourceIncreasePerTick, resourceIncreasePerTick) ||
+                other.resourceIncreasePerTick == resourceIncreasePerTick) &&
+            (identical(other.resourceGenerated, resourceGenerated) ||
+                other.resourceGenerated == resourceGenerated) &&
+            (identical(other.manualEffortToHarvest, manualEffortToHarvest) ||
+                other.manualEffortToHarvest == manualEffortToHarvest) &&
             const DeepCollectionEquality()
                 .equals(other._dynamicImageAssets, _dynamicImageAssets));
   }
@@ -1138,24 +1145,25 @@ class _$RegenerativeHarvestableDoodadDefinition
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(imageAsset),
-      const DeepCollectionEquality().hash(storeImageAsset),
-      const DeepCollectionEquality().hash(userCanBuild),
+      id,
+      name,
+      description,
+      imageAsset,
+      storeImageAsset,
+      userCanBuild,
       const DeepCollectionEquality().hash(_supportedLocations),
-      const DeepCollectionEquality().hash(ticksRequired),
-      const DeepCollectionEquality().hash(ticksName),
-      const DeepCollectionEquality().hash(resourceRequiredToHarvestOne),
-      const DeepCollectionEquality().hash(resourceMax),
-      const DeepCollectionEquality().hash(resourceIncreasePerTick),
-      const DeepCollectionEquality().hash(resourceGenerated),
-      const DeepCollectionEquality().hash(manualEffortToHarvest),
+      ticksRequired,
+      ticksName,
+      resourceRequiredToHarvestOne,
+      resourceMax,
+      resourceIncreasePerTick,
+      resourceGenerated,
+      manualEffortToHarvest,
       const DeepCollectionEquality().hash(_dynamicImageAssets));
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$RegenerativeHarvestableDoodadDefinitionCopyWith<
           _$RegenerativeHarvestableDoodadDefinition>
       get copyWith => __$$RegenerativeHarvestableDoodadDefinitionCopyWithImpl<
@@ -1251,7 +1259,7 @@ class _$RegenerativeHarvestableDoodadDefinition
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1263,7 +1271,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String ticksName,
             ItemContainer itemMined)?
         digger,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1280,7 +1288,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1292,7 +1300,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             String ticksName,
             int range)?
         areaHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1305,7 +1313,7 @@ class _$RegenerativeHarvestableDoodadDefinition
             ItemContainer consumedMaterials,
             ItemContainer itemsProduced)?
         materialProcessor,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1444,13 +1452,13 @@ class _$RegenerativeHarvestableDoodadDefinition
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(DiggerDoodadDefinition value)? digger,
-    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+    TResult? Function(DiggerDoodadDefinition value)? digger,
+    TResult? Function(RegenerativeHarvestableDoodadDefinition value)?
         regenerativeHarvestable,
-    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
-    TResult Function(MaterialProcessorDoodadDefinition value)?
+    TResult? Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult? Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
-    TResult Function(HouseDoodadDefinition value)? house,
+    TResult? Function(HouseDoodadDefinition value)? house,
   }) {
     return regenerativeHarvestable?.call(this);
   }
@@ -1543,6 +1551,7 @@ abstract class _$$AreaHarvestableDoodadDefinitionCopyWith<$Res>
           $Res Function(_$AreaHarvestableDoodadDefinition) then) =
       __$$AreaHarvestableDoodadDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DoodadDefinitionId id,
       String name,
@@ -1558,68 +1567,66 @@ abstract class _$$AreaHarvestableDoodadDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$AreaHarvestableDoodadDefinitionCopyWithImpl<$Res>
-    extends _$DoodadDefinitionCopyWithImpl<$Res>
+    extends _$DoodadDefinitionCopyWithImpl<$Res,
+        _$AreaHarvestableDoodadDefinition>
     implements _$$AreaHarvestableDoodadDefinitionCopyWith<$Res> {
   __$$AreaHarvestableDoodadDefinitionCopyWithImpl(
       _$AreaHarvestableDoodadDefinition _value,
       $Res Function(_$AreaHarvestableDoodadDefinition) _then)
-      : super(_value, (v) => _then(v as _$AreaHarvestableDoodadDefinition));
+      : super(_value, _then);
 
-  @override
-  _$AreaHarvestableDoodadDefinition get _value =>
-      super._value as _$AreaHarvestableDoodadDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? imageAsset = freezed,
-    Object? storeImageAsset = freezed,
-    Object? userCanBuild = freezed,
-    Object? supportedLocations = freezed,
-    Object? ticksRequired = freezed,
-    Object? ticksName = freezed,
-    Object? range = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? imageAsset = null,
+    Object? storeImageAsset = null,
+    Object? userCanBuild = null,
+    Object? supportedLocations = null,
+    Object? ticksRequired = null,
+    Object? ticksName = null,
+    Object? range = null,
   }) {
     return _then(_$AreaHarvestableDoodadDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as DoodadDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageAsset: imageAsset == freezed
+      imageAsset: null == imageAsset
           ? _value.imageAsset
           : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageAsset: storeImageAsset == freezed
+      storeImageAsset: null == storeImageAsset
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      userCanBuild: userCanBuild == freezed
+      userCanBuild: null == userCanBuild
           ? _value.userCanBuild
           : userCanBuild // ignore: cast_nullable_to_non_nullable
               as bool,
-      supportedLocations: supportedLocations == freezed
+      supportedLocations: null == supportedLocations
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
-      ticksRequired: ticksRequired == freezed
+      ticksRequired: null == ticksRequired
           ? _value.ticksRequired
           : ticksRequired // ignore: cast_nullable_to_non_nullable
               as int,
-      ticksName: ticksName == freezed
+      ticksName: null == ticksName
           ? _value.ticksName
           : ticksName // ignore: cast_nullable_to_non_nullable
               as String,
-      range: range == freezed
+      range: null == range
           ? _value.range
           : range // ignore: cast_nullable_to_non_nullable
               as int,
@@ -1691,41 +1698,43 @@ class _$AreaHarvestableDoodadDefinition
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AreaHarvestableDoodadDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.imageAsset, imageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.storeImageAsset, storeImageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.userCanBuild, userCanBuild) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageAsset, imageAsset) ||
+                other.imageAsset == imageAsset) &&
+            (identical(other.storeImageAsset, storeImageAsset) ||
+                other.storeImageAsset == storeImageAsset) &&
+            (identical(other.userCanBuild, userCanBuild) ||
+                other.userCanBuild == userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
-            const DeepCollectionEquality()
-                .equals(other.ticksRequired, ticksRequired) &&
-            const DeepCollectionEquality().equals(other.ticksName, ticksName) &&
-            const DeepCollectionEquality().equals(other.range, range));
+            (identical(other.ticksRequired, ticksRequired) ||
+                other.ticksRequired == ticksRequired) &&
+            (identical(other.ticksName, ticksName) ||
+                other.ticksName == ticksName) &&
+            (identical(other.range, range) || other.range == range));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(imageAsset),
-      const DeepCollectionEquality().hash(storeImageAsset),
-      const DeepCollectionEquality().hash(userCanBuild),
+      id,
+      name,
+      description,
+      imageAsset,
+      storeImageAsset,
+      userCanBuild,
       const DeepCollectionEquality().hash(_supportedLocations),
-      const DeepCollectionEquality().hash(ticksRequired),
-      const DeepCollectionEquality().hash(ticksName),
-      const DeepCollectionEquality().hash(range));
+      ticksRequired,
+      ticksName,
+      range);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$AreaHarvestableDoodadDefinitionCopyWith<_$AreaHarvestableDoodadDefinition>
       get copyWith => __$$AreaHarvestableDoodadDefinitionCopyWithImpl<
           _$AreaHarvestableDoodadDefinition>(this, _$identity);
@@ -1806,7 +1815,7 @@ class _$AreaHarvestableDoodadDefinition
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1818,7 +1827,7 @@ class _$AreaHarvestableDoodadDefinition
             String ticksName,
             ItemContainer itemMined)?
         digger,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1835,7 +1844,7 @@ class _$AreaHarvestableDoodadDefinition
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1847,7 +1856,7 @@ class _$AreaHarvestableDoodadDefinition
             String ticksName,
             int range)?
         areaHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1860,7 +1869,7 @@ class _$AreaHarvestableDoodadDefinition
             ItemContainer consumedMaterials,
             ItemContainer itemsProduced)?
         materialProcessor,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -1980,13 +1989,13 @@ class _$AreaHarvestableDoodadDefinition
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(DiggerDoodadDefinition value)? digger,
-    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+    TResult? Function(DiggerDoodadDefinition value)? digger,
+    TResult? Function(RegenerativeHarvestableDoodadDefinition value)?
         regenerativeHarvestable,
-    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
-    TResult Function(MaterialProcessorDoodadDefinition value)?
+    TResult? Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult? Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
-    TResult Function(HouseDoodadDefinition value)? house,
+    TResult? Function(HouseDoodadDefinition value)? house,
   }) {
     return areaHarvestable?.call(this);
   }
@@ -2066,6 +2075,7 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
           $Res Function(_$MaterialProcessorDoodadDefinition) then) =
       __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DoodadDefinitionId id,
       String name,
@@ -2085,73 +2095,71 @@ abstract class _$$MaterialProcessorDoodadDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
-    extends _$DoodadDefinitionCopyWithImpl<$Res>
+    extends _$DoodadDefinitionCopyWithImpl<$Res,
+        _$MaterialProcessorDoodadDefinition>
     implements _$$MaterialProcessorDoodadDefinitionCopyWith<$Res> {
   __$$MaterialProcessorDoodadDefinitionCopyWithImpl(
       _$MaterialProcessorDoodadDefinition _value,
       $Res Function(_$MaterialProcessorDoodadDefinition) _then)
-      : super(_value, (v) => _then(v as _$MaterialProcessorDoodadDefinition));
+      : super(_value, _then);
 
-  @override
-  _$MaterialProcessorDoodadDefinition get _value =>
-      super._value as _$MaterialProcessorDoodadDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? imageAsset = freezed,
-    Object? storeImageAsset = freezed,
-    Object? userCanBuild = freezed,
-    Object? supportedLocations = freezed,
-    Object? ticksRequired = freezed,
-    Object? ticksName = freezed,
-    Object? consumedMaterials = freezed,
-    Object? itemsProduced = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? imageAsset = null,
+    Object? storeImageAsset = null,
+    Object? userCanBuild = null,
+    Object? supportedLocations = null,
+    Object? ticksRequired = null,
+    Object? ticksName = null,
+    Object? consumedMaterials = null,
+    Object? itemsProduced = null,
   }) {
     return _then(_$MaterialProcessorDoodadDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as DoodadDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageAsset: imageAsset == freezed
+      imageAsset: null == imageAsset
           ? _value.imageAsset
           : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageAsset: storeImageAsset == freezed
+      storeImageAsset: null == storeImageAsset
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      userCanBuild: userCanBuild == freezed
+      userCanBuild: null == userCanBuild
           ? _value.userCanBuild
           : userCanBuild // ignore: cast_nullable_to_non_nullable
               as bool,
-      supportedLocations: supportedLocations == freezed
+      supportedLocations: null == supportedLocations
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
-      ticksRequired: ticksRequired == freezed
+      ticksRequired: null == ticksRequired
           ? _value.ticksRequired
           : ticksRequired // ignore: cast_nullable_to_non_nullable
               as int,
-      ticksName: ticksName == freezed
+      ticksName: null == ticksName
           ? _value.ticksName
           : ticksName // ignore: cast_nullable_to_non_nullable
               as String,
-      consumedMaterials: consumedMaterials == freezed
+      consumedMaterials: null == consumedMaterials
           ? _value.consumedMaterials
           : consumedMaterials // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
-      itemsProduced: itemsProduced == freezed
+      itemsProduced: null == itemsProduced
           ? _value.itemsProduced
           : itemsProduced // ignore: cast_nullable_to_non_nullable
               as ItemContainer,
@@ -2159,6 +2167,7 @@ class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get consumedMaterials {
     return $ItemContainerCopyWith<$Res>(_value.consumedMaterials, (value) {
       return _then(_value.copyWith(consumedMaterials: value));
@@ -2166,6 +2175,7 @@ class __$$MaterialProcessorDoodadDefinitionCopyWithImpl<$Res>
   }
 
   @override
+  @pragma('vm:prefer-inline')
   $ItemContainerCopyWith<$Res> get itemsProduced {
     return $ItemContainerCopyWith<$Res>(_value.itemsProduced, (value) {
       return _then(_value.copyWith(itemsProduced: value));
@@ -2240,45 +2250,47 @@ class _$MaterialProcessorDoodadDefinition
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MaterialProcessorDoodadDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.imageAsset, imageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.storeImageAsset, storeImageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.userCanBuild, userCanBuild) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageAsset, imageAsset) ||
+                other.imageAsset == imageAsset) &&
+            (identical(other.storeImageAsset, storeImageAsset) ||
+                other.storeImageAsset == storeImageAsset) &&
+            (identical(other.userCanBuild, userCanBuild) ||
+                other.userCanBuild == userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
-            const DeepCollectionEquality()
-                .equals(other.ticksRequired, ticksRequired) &&
-            const DeepCollectionEquality().equals(other.ticksName, ticksName) &&
-            const DeepCollectionEquality()
-                .equals(other.consumedMaterials, consumedMaterials) &&
-            const DeepCollectionEquality()
-                .equals(other.itemsProduced, itemsProduced));
+            (identical(other.ticksRequired, ticksRequired) ||
+                other.ticksRequired == ticksRequired) &&
+            (identical(other.ticksName, ticksName) ||
+                other.ticksName == ticksName) &&
+            (identical(other.consumedMaterials, consumedMaterials) ||
+                other.consumedMaterials == consumedMaterials) &&
+            (identical(other.itemsProduced, itemsProduced) ||
+                other.itemsProduced == itemsProduced));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(imageAsset),
-      const DeepCollectionEquality().hash(storeImageAsset),
-      const DeepCollectionEquality().hash(userCanBuild),
+      id,
+      name,
+      description,
+      imageAsset,
+      storeImageAsset,
+      userCanBuild,
       const DeepCollectionEquality().hash(_supportedLocations),
-      const DeepCollectionEquality().hash(ticksRequired),
-      const DeepCollectionEquality().hash(ticksName),
-      const DeepCollectionEquality().hash(consumedMaterials),
-      const DeepCollectionEquality().hash(itemsProduced));
+      ticksRequired,
+      ticksName,
+      consumedMaterials,
+      itemsProduced);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$MaterialProcessorDoodadDefinitionCopyWith<
           _$MaterialProcessorDoodadDefinition>
       get copyWith => __$$MaterialProcessorDoodadDefinitionCopyWithImpl<
@@ -2370,7 +2382,7 @@ class _$MaterialProcessorDoodadDefinition
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2382,7 +2394,7 @@ class _$MaterialProcessorDoodadDefinition
             String ticksName,
             ItemContainer itemMined)?
         digger,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2399,7 +2411,7 @@ class _$MaterialProcessorDoodadDefinition
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2411,7 +2423,7 @@ class _$MaterialProcessorDoodadDefinition
             String ticksName,
             int range)?
         areaHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2424,7 +2436,7 @@ class _$MaterialProcessorDoodadDefinition
             ItemContainer consumedMaterials,
             ItemContainer itemsProduced)?
         materialProcessor,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2555,13 +2567,13 @@ class _$MaterialProcessorDoodadDefinition
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(DiggerDoodadDefinition value)? digger,
-    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+    TResult? Function(DiggerDoodadDefinition value)? digger,
+    TResult? Function(RegenerativeHarvestableDoodadDefinition value)?
         regenerativeHarvestable,
-    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
-    TResult Function(MaterialProcessorDoodadDefinition value)?
+    TResult? Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult? Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
-    TResult Function(HouseDoodadDefinition value)? house,
+    TResult? Function(HouseDoodadDefinition value)? house,
   }) {
     return materialProcessor?.call(this);
   }
@@ -2644,6 +2656,7 @@ abstract class _$$HouseDoodadDefinitionCopyWith<$Res>
           $Res Function(_$HouseDoodadDefinition) then) =
       __$$HouseDoodadDefinitionCopyWithImpl<$Res>;
   @override
+  @useResult
   $Res call(
       {DoodadDefinitionId id,
       String name,
@@ -2658,61 +2671,59 @@ abstract class _$$HouseDoodadDefinitionCopyWith<$Res>
 
 /// @nodoc
 class __$$HouseDoodadDefinitionCopyWithImpl<$Res>
-    extends _$DoodadDefinitionCopyWithImpl<$Res>
+    extends _$DoodadDefinitionCopyWithImpl<$Res, _$HouseDoodadDefinition>
     implements _$$HouseDoodadDefinitionCopyWith<$Res> {
   __$$HouseDoodadDefinitionCopyWithImpl(_$HouseDoodadDefinition _value,
       $Res Function(_$HouseDoodadDefinition) _then)
-      : super(_value, (v) => _then(v as _$HouseDoodadDefinition));
+      : super(_value, _then);
 
-  @override
-  _$HouseDoodadDefinition get _value => super._value as _$HouseDoodadDefinition;
-
+  @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = freezed,
-    Object? name = freezed,
-    Object? description = freezed,
-    Object? imageAsset = freezed,
-    Object? storeImageAsset = freezed,
-    Object? userCanBuild = freezed,
-    Object? supportedLocations = freezed,
-    Object? populationLimit = freezed,
-    Object? peopleType = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? description = null,
+    Object? imageAsset = null,
+    Object? storeImageAsset = null,
+    Object? userCanBuild = null,
+    Object? supportedLocations = null,
+    Object? populationLimit = null,
+    Object? peopleType = null,
   }) {
     return _then(_$HouseDoodadDefinition(
-      id: id == freezed
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as DoodadDefinitionId,
-      name: name == freezed
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      description: description == freezed
+      description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      imageAsset: imageAsset == freezed
+      imageAsset: null == imageAsset
           ? _value.imageAsset
           : imageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      storeImageAsset: storeImageAsset == freezed
+      storeImageAsset: null == storeImageAsset
           ? _value.storeImageAsset
           : storeImageAsset // ignore: cast_nullable_to_non_nullable
               as String,
-      userCanBuild: userCanBuild == freezed
+      userCanBuild: null == userCanBuild
           ? _value.userCanBuild
           : userCanBuild // ignore: cast_nullable_to_non_nullable
               as bool,
-      supportedLocations: supportedLocations == freezed
+      supportedLocations: null == supportedLocations
           ? _value._supportedLocations
           : supportedLocations // ignore: cast_nullable_to_non_nullable
               as Set<TileType>,
-      populationLimit: populationLimit == freezed
+      populationLimit: null == populationLimit
           ? _value.populationLimit
           : populationLimit // ignore: cast_nullable_to_non_nullable
               as int,
-      peopleType: peopleType == freezed
+      peopleType: null == peopleType
           ? _value.peopleType
           : peopleType // ignore: cast_nullable_to_non_nullable
               as PersonType,
@@ -2779,40 +2790,41 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HouseDoodadDefinition &&
-            const DeepCollectionEquality().equals(other.id, id) &&
-            const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality()
-                .equals(other.description, description) &&
-            const DeepCollectionEquality()
-                .equals(other.imageAsset, imageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.storeImageAsset, storeImageAsset) &&
-            const DeepCollectionEquality()
-                .equals(other.userCanBuild, userCanBuild) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.imageAsset, imageAsset) ||
+                other.imageAsset == imageAsset) &&
+            (identical(other.storeImageAsset, storeImageAsset) ||
+                other.storeImageAsset == storeImageAsset) &&
+            (identical(other.userCanBuild, userCanBuild) ||
+                other.userCanBuild == userCanBuild) &&
             const DeepCollectionEquality()
                 .equals(other._supportedLocations, _supportedLocations) &&
-            const DeepCollectionEquality()
-                .equals(other.populationLimit, populationLimit) &&
-            const DeepCollectionEquality()
-                .equals(other.peopleType, peopleType));
+            (identical(other.populationLimit, populationLimit) ||
+                other.populationLimit == populationLimit) &&
+            (identical(other.peopleType, peopleType) ||
+                other.peopleType == peopleType));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(id),
-      const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(description),
-      const DeepCollectionEquality().hash(imageAsset),
-      const DeepCollectionEquality().hash(storeImageAsset),
-      const DeepCollectionEquality().hash(userCanBuild),
+      id,
+      name,
+      description,
+      imageAsset,
+      storeImageAsset,
+      userCanBuild,
       const DeepCollectionEquality().hash(_supportedLocations),
-      const DeepCollectionEquality().hash(populationLimit),
-      const DeepCollectionEquality().hash(peopleType));
+      populationLimit,
+      peopleType);
 
   @JsonKey(ignore: true)
   @override
+  @pragma('vm:prefer-inline')
   _$$HouseDoodadDefinitionCopyWith<_$HouseDoodadDefinition> get copyWith =>
       __$$HouseDoodadDefinitionCopyWithImpl<_$HouseDoodadDefinition>(
           this, _$identity);
@@ -2893,7 +2905,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2905,7 +2917,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             String ticksName,
             ItemContainer itemMined)?
         digger,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2922,7 +2934,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             int? manualEffortToHarvest,
             Map<int, String>? dynamicImageAssets)?
         regenerativeHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2934,7 +2946,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             String ticksName,
             int range)?
         areaHarvestable,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -2947,7 +2959,7 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
             ItemContainer consumedMaterials,
             ItemContainer itemsProduced)?
         materialProcessor,
-    TResult Function(
+    TResult? Function(
             DoodadDefinitionId id,
             String name,
             String description,
@@ -3058,13 +3070,13 @@ class _$HouseDoodadDefinition extends HouseDoodadDefinition {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult Function(DiggerDoodadDefinition value)? digger,
-    TResult Function(RegenerativeHarvestableDoodadDefinition value)?
+    TResult? Function(DiggerDoodadDefinition value)? digger,
+    TResult? Function(RegenerativeHarvestableDoodadDefinition value)?
         regenerativeHarvestable,
-    TResult Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
-    TResult Function(MaterialProcessorDoodadDefinition value)?
+    TResult? Function(AreaHarvestableDoodadDefinition value)? areaHarvestable,
+    TResult? Function(MaterialProcessorDoodadDefinition value)?
         materialProcessor,
-    TResult Function(HouseDoodadDefinition value)? house,
+    TResult? Function(HouseDoodadDefinition value)? house,
   }) {
     return house?.call(this);
   }
