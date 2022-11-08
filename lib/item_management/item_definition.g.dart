@@ -13,7 +13,7 @@ _$GeneralItemDefinition _$$GeneralItemDefinitionFromJson(
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
-      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      image: SpriteDefinition.fromJson(json['image'] as Map<String, dynamic>),
       sellPrice: json['sellPrice'] as int?,
       $type: json['runtimeType'] as String?,
     );
@@ -37,7 +37,7 @@ _$ResourceItemDefinition _$$ResourceItemDefinitionFromJson(
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
-      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      image: SpriteDefinition.fromJson(json['image'] as Map<String, dynamic>),
       sellPrice: json['sellPrice'] as int?,
       $type: json['runtimeType'] as String?,
     );
@@ -60,7 +60,7 @@ _$DrillItemDefinition _$$DrillItemDefinitionFromJson(
       id: ItemDefinitionId.fromJson(json['id'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
-      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      image: SpriteDefinition.fromJson(json['image'] as Map<String, dynamic>),
       damage: json['damage'] as int,
       $type: json['runtimeType'] as String?,
     );
@@ -82,7 +82,7 @@ _$ToolItemDefinition _$$ToolItemDefinitionFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
-      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      image: SpriteDefinition.fromJson(json['image'] as Map<String, dynamic>),
       sellPrice: json['sellPrice'] as int?,
       $type: json['runtimeType'] as String?,
     );
@@ -106,7 +106,7 @@ _$SwordItemDefinition _$$SwordItemDefinitionFromJson(
       name: json['name'] as String,
       namePlural: json['namePlural'] as String?,
       description: json['description'] as String,
-      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      image: SpriteDefinition.fromJson(json['image'] as Map<String, dynamic>),
       attributes: (json['attributes'] as Map<String, dynamic>).map(
         (k, e) => MapEntry(
             $enumDecode(_$WeaponAttributesEnumMap, k), (e as num).toDouble()),
@@ -146,7 +146,7 @@ _$MinerItemDefinition _$$MinerItemDefinitionFromJson(
       baseDamage: json['baseDamage'] as int,
       baseHopperSize: json['baseHopperSize'] as int,
       fuelConsumption: json['fuelConsumption'] as int,
-      image: ImageDefinition.fromJson(json['image'] as Map<String, dynamic>),
+      image: SpriteDefinition.fromJson(json['image'] as Map<String, dynamic>),
       $type: json['runtimeType'] as String?,
     );
 
@@ -165,16 +165,52 @@ Map<String, dynamic> _$$MinerItemDefinitionToJson(
       'runtimeType': instance.$type,
     };
 
-_$_ImageDefinition _$$_ImageDefinitionFromJson(Map<String, dynamic> json) =>
-    _$_ImageDefinition(
+_$_SpriteDefinition _$$_SpriteDefinitionFromJson(Map<String, dynamic> json) =>
+    _$_SpriteDefinition(
       json['path'] as String,
-      row: json['row'] as int?,
-      column: json['column'] as int?,
+      $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$_ImageDefinitionToJson(_$_ImageDefinition instance) =>
+Map<String, dynamic> _$$_SpriteDefinitionToJson(_$_SpriteDefinition instance) =>
     <String, dynamic>{
       'path': instance.path,
-      'row': instance.row,
-      'column': instance.column,
+      'runtimeType': instance.$type,
+    };
+
+_$SheetSpriteDefinition _$$SheetSpriteDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$SheetSpriteDefinition(
+      SpriteSheetDefinition.fromJson(json['sheet'] as Map<String, dynamic>),
+      columnIndex: json['columnIndex'] as int,
+      rowIndex: json['rowIndex'] as int,
+      length: json['length'] as int? ?? 1,
+      height: json['height'] as int? ?? 1,
+      $type: json['runtimeType'] as String?,
+    );
+
+Map<String, dynamic> _$$SheetSpriteDefinitionToJson(
+        _$SheetSpriteDefinition instance) =>
+    <String, dynamic>{
+      'sheet': instance.sheet.toJson(),
+      'columnIndex': instance.columnIndex,
+      'rowIndex': instance.rowIndex,
+      'length': instance.length,
+      'height': instance.height,
+      'runtimeType': instance.$type,
+    };
+
+_$_SpriteSheetDefinition _$$_SpriteSheetDefinitionFromJson(
+        Map<String, dynamic> json) =>
+    _$_SpriteSheetDefinition(
+      json['path'] as String,
+      columnsNumber: json['columnsNumber'] as int,
+      rowsNumber: json['rowsNumber'] as int,
+    );
+
+Map<String, dynamic> _$$_SpriteSheetDefinitionToJson(
+        _$_SpriteSheetDefinition instance) =>
+    <String, dynamic>{
+      'path': instance.path,
+      'columnsNumber': instance.columnsNumber,
+      'rowsNumber': instance.rowsNumber,
     };

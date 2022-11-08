@@ -43,8 +43,7 @@ class _ItemDetailPageWidgetState extends ConsumerState<ItemDetailPageWidget> {
           StatusBarWidget(dontNavigateForItemId: itemId),
           Hero(
             tag: widget.heroTag ?? 'N/A',
-            child: Image.asset(
-              item.imagePath,
+            child: item.widget(
               width: 256,
               fit: BoxFit.fitWidth,
             ),
@@ -53,6 +52,8 @@ class _ItemDetailPageWidgetState extends ConsumerState<ItemDetailPageWidget> {
           Text('Owned: $ownedCount'),
           if (item is CanSell)
             Text('Sell Price: ${(item as CanSell).sellPrice}'),
+          Text(
+              'You can buy this many items: ${ref.watch(inventoryProvider).items[itemId]}'),
           if (item is CanSell && (item as CanSell).sellPrice != null)
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -58,7 +58,7 @@ class ItemShopListingWidget extends ConsumerWidget {
     final definition = ItemDirectory.getItem(listing.item);
 
     return ListingWidget(
-      imagePath: definition.imagePath,
+      // imagePath: definition.imagePath,
       listingTitle: definition.name,
       listingDetails: Table(children: [
         if (definition is Stackable)
@@ -96,13 +96,13 @@ class ItemShopListingWidget extends ConsumerWidget {
 }
 
 class ListingWidget extends ConsumerWidget {
-  final String imagePath;
+  final String imagePath = 'assets/images/placeholder.png';
   final String listingTitle;
   final Widget listingDetails;
   final Widget actionButton;
 
   const ListingWidget({
-    this.imagePath = 'assets/images/placeholder.png',
+    String imagePath = 'assets/images/placeholder.png',
     required this.listingTitle,
     required this.listingDetails,
     required this.actionButton,

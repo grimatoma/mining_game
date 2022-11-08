@@ -9,7 +9,7 @@ abstract class BaseItemDefinition {
 
   String get description;
 
-  ImageDefinition get image;
+  SpriteDefinition get image;
 }
 
 abstract class ShowInWallet {}

@@ -70,8 +70,7 @@ class ItemRenderer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final heroContent = Image.asset(
-      definition.imagePath,
+    final heroContent = definition.widget(
       width: 24,
     );
     return GestureDetector(

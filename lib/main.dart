@@ -1,6 +1,7 @@
 import 'dart:io' show Platform;
 
 import 'package:built_collection/built_collection.dart';
+import 'package:flame/flame.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ import 'widgets/inventory_page.dart';
 import 'widgets/planet_page.dart';
 import 'widgets/store_page.dart';
 
-late final Map<String, SpriteSheet> spriteSheets;
+late final Map<String, Sprite> spriteSheets;
 
 void main() async {
   await Hive.initFlutter();
@@ -57,7 +58,7 @@ void main() async {
     }
   }
 
-  runApp(const ProviderScope(child: MiningGameWidget()));
+  runApp(const ProviderScope(child: MiningGameMainWidgetWithLoading()));
 }
 
 final navIndexProvider = StateProvider<int>((ref) => 0);
@@ -91,6 +92,40 @@ class MinerNavigationRail extends ConsumerWidget {
 }
 
 const smallScreenMaxSize = 640;
+
+class MiningGameMainWidgetWithLoading extends ConsumerStatefulWidget {
+  const MiningGameMainWidgetWithLoading({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  ConsumerState createState() => _MiningGameMainWidgetWithLoadingState();
+}
+
+final spriteSheetProvider = FutureProvider.autoDispose<SpriteSheet>(
+    (ref) async => SpriteSheet.fromColumnsAndRows(
+        image: await Flame.images.load('all/resources.png'),
+        columns: 11,
+        rows: 11));
+
+class _MiningGameMainWidgetWithLoadingState
+    extends ConsumerState<MiningGameMainWidgetWithLoading> {
+  final Future<void> loading = () async {
+    print('init!');
+    final image = await Flame.images.load('all/resources.png');
+
+    spriteSheets = {'resources.png': Sprite(image)};
+  }.call();
+
+  @override
+  Widget build(BuildContext context) {
+    final loading = ref.watch(spriteSheetProvider);
+    return loading.when(
+        data: (data) => const MiningGameWidget(),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Text(error.toString()));
+  }
+}
 
 class MiningGameWidget extends HookConsumerWidget {
   const MiningGameWidget({Key? key}) : super(key: key);

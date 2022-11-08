@@ -71,11 +71,7 @@ class CraftRowWidget extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(4.0),
-              child: Image.asset(
-                itemDefinition.imagePath,
-                fit: BoxFit.fill,
-                height: 64,
-              ),
+              child: itemDefinition.widget(),
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -113,6 +109,7 @@ final allCraftingTimeRemaining = StateProvider<String>((ref) {
               previousValue + element.craftingDuration) +
       (session?.remaining ?? 0));
 });
+
 String _allCraftingTimePrettyString(int seconds) {
   final minutes = seconds ~/ 60;
   final remainingSeconds = seconds % 60;
@@ -155,7 +152,6 @@ class CraftingQueueWidget extends HookConsumerWidget {
   Widget session(WidgetRef ref) {
     final session = ref.watch(craftingSessionProvider);
     if (session != null) {
-      final itemDefinition = session.recipe.output.definition;
       return Container(
           color: Colors.green[100],
           width: 100,
@@ -174,8 +170,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        Image.asset(
-                          itemDefinition.imagePath,
+                        session.recipe.output.definition.widget(
                           fit: BoxFit.fill,
                         ),
                         // Align(
@@ -250,8 +245,7 @@ class CraftingQueueWidget extends HookConsumerWidget {
                                 Flexible(
                                   child: Padding(
                                     padding: const EdgeInsets.all(4.0),
-                                    child: Image.asset(
-                                      definition.imagePath,
+                                    child: definition.widget(
                                       fit: BoxFit.fitWidth,
                                     ),
                                   ),

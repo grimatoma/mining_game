@@ -131,7 +131,7 @@ class ItemRenderWidget extends ConsumerWidget {
                         fit: BoxFit.fill,
                         child: Hero(
                           tag: _heroTag,
-                          child: itemDefinition.imageWidget,
+                          child: itemDefinition.widget(),
                         ),
                       ),
                     ),

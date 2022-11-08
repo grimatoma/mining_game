@@ -1,20 +1,23 @@
 import 'package:mining_game/item_management/item_definition.dart';
-import 'package:mining_game/item_management/item_keys.dart';
-import 'package:mining_game/item_management/requirement.dart';
+
+import '../item_management/item_keys.dart';
+
+const resourceSheetSprite = SpriteSheetDefinition('all/resources.png',
+    columnsNumber: 17, rowsNumber: 15);
 
 final itemModels = [
   const ItemDefinition.resource(
     id: Items.UNKNOWN_ITEM,
     name: 'Unknown Item',
     description: 'Item type not found',
-    image: ImageDefinition('assets/images/placeholder.png'),
+    image: SpriteDefinition('placeholder.png'),
   ),
   const ItemDefinition.resource(
     id: Items.ROCK,
     name: 'Black Rock',
     namePlural: 'Black rocks',
     description: 'Often found in dark caves',
-    image: ImageDefinition('assets/images/minerals/coal.png'),
+    image: SpriteDefinition('minerals/coal.png'),
     sellPrice: 1,
   ),
   const ItemDefinition.resource(
@@ -22,7 +25,7 @@ final itemModels = [
     name: 'Food',
     namePlural: 'Food',
     description: 'Test food object',
-    image: ImageDefinition('assets/images/all/foodTest1.png'),
+    image: SpriteDefinition('all/foodTest1.png'),
     sellPrice: 2,
   ),
   const ItemDefinition.sword(
@@ -30,7 +33,7 @@ final itemModels = [
     name: 'Sword',
     namePlural: 'Swords',
     description: 'Point stick',
-    image: ImageDefinition('assets/images/placeholder.png'),
+    image: SpriteDefinition('placeholder.png'),
     attributes: {WeaponAttributes.SHARP: 10.0},
     sellPrice: 25,
   ),
@@ -39,7 +42,7 @@ final itemModels = [
     name: 'Iron ore',
     namePlural: 'Iron ore',
     description: 'Can be mined',
-    image: ImageDefinition('assets/images/minerals/iron_ore.png'),
+    image: SpriteDefinition('minerals/iron_ore.png'),
     sellPrice: 2,
   ),
   const ItemDefinition.resource(
@@ -47,7 +50,7 @@ final itemModels = [
     name: 'Iron bar',
     namePlural: 'Iron bars',
     description: 'A smelted form of iron ready to be used for crafting.',
-    image: ImageDefinition('assets/images/minerals/iron_bar.png'),
+    image: SpriteDefinition('minerals/iron_bar.png'),
     sellPrice: 5,
   ),
   const ItemDefinition.resource(
@@ -55,7 +58,7 @@ final itemModels = [
     name: 'Copper ore',
     namePlural: 'Copper ore',
     description: 'Can be mined',
-    image: ImageDefinition('assets/images/minerals/copper_ore.png'),
+    image: SpriteDefinition('minerals/copper_ore.png'),
     sellPrice: 3,
   ),
   const ItemDefinition.resource(
@@ -63,7 +66,7 @@ final itemModels = [
     name: 'Copper bar',
     namePlural: 'Copper bar',
     description: 'Can be mined',
-    image: ImageDefinition('assets/images/minerals/copper_bar.png'),
+    image: SpriteDefinition('minerals/copper_bar.png'),
     sellPrice: 6,
   ),
   const ItemDefinition.resource(
@@ -71,20 +74,20 @@ final itemModels = [
     name: 'Sharp rock',
     namePlural: 'Sharp rocks',
     description: 'A useless rock',
-    image: ImageDefinition('assets/images/minerals/rock_sharp.png'),
+    image: SpriteDefinition('minerals/rock_sharp.png'),
   ),
   const ItemDefinition.resource(
     id: Items.SMALL_ROCK,
     name: 'Small rock',
     namePlural: 'Small rocks',
     description: 'A useless rock',
-    image: ImageDefinition('assets/images/minerals/rock.png'),
+    image: SpriteDefinition('minerals/rock.png'),
   ),
   const ItemDefinition.drill(
     id: Items.TEST_DRILL,
     name: 'Test drill',
     description: 'I do extra damage',
-    image: ImageDefinition('assets/images/placeholder.png'),
+    image: SpriteDefinition('placeholder.png'),
     damage: 4,
   ),
   const ItemDefinition.resource(
@@ -92,19 +95,19 @@ final itemModels = [
     name: 'Credit',
     namePlural: 'Credits',
     description: 'A form of currency.',
-    image: ImageDefinition('assets/images/money.png'),
+    image: SpriteDefinition('money.png'),
   ),
   const ItemDefinition.resource(
     id: Items.WOOD,
     name: 'Wood',
     description: 'Unprocessed wood',
-    image: ImageDefinition('assets/images/1Icons/wood.png'),
+    image: SpriteDefinition('1Icons/wood.png'),
   ),
   const ItemDefinition.resource(
     id: Items.WOOD_PLANK,
     name: 'Wood plank',
     description: 'Processed wood',
-    image: ImageDefinition('assets/images/1Icons/plank.png'),
+    image: SpriteDefinition('1Icons/plank.png'),
   ),
   const ItemDefinition.miner(
     id: Items.MINER1,
@@ -116,7 +119,7 @@ final itemModels = [
     baseDamage: 1,
     baseHopperSize: 50,
     fuelConsumption: 5,
-    image: ImageDefinition('assets/images/drills/1.jpg'),
+    image: SpriteDefinition('drills/1.jpg'),
   ),
   const ItemDefinition.miner(
     id: Items.MINER2,
@@ -127,7 +130,7 @@ final itemModels = [
     baseDamage: 2,
     baseHopperSize: 150,
     fuelConsumption: 5,
-    image: ImageDefinition('assets/images/drills/2.jpg'),
+    image: SpriteDefinition('drills/2.jpg'),
   ),
   const ItemDefinition.miner(
     id: Items.MINER3,
@@ -138,7 +141,7 @@ final itemModels = [
     baseDamage: 1,
     baseHopperSize: 50,
     fuelConsumption: 5,
-    image: ImageDefinition('assets/images/drills/3.png'),
+    image: SpriteDefinition('drills/3.png'),
   ),
   const ItemDefinition.miner(
     id: Items.MINER4,
@@ -149,7 +152,7 @@ final itemModels = [
     baseDamage: 1,
     baseHopperSize: 50,
     fuelConsumption: 5,
-    image: ImageDefinition('assets/images/drills/4.jpg'),
+    image: SpriteDefinition('drills/4.jpg'),
   ),
   const ItemDefinition.miner(
     id: Items.MINER5,
@@ -160,41 +163,41 @@ final itemModels = [
     baseDamage: 1,
     baseHopperSize: 50,
     fuelConsumption: 5,
-    image: ImageDefinition('assets/images/drills/5.png'),
+    image: SpriteDefinition('drills/5.png'),
   ),
   const ItemDefinition.general(
     id: Items.WOOD_STICK,
     name: 'Wood stick',
     namePlural: 'Wood sticks',
     description: 'A stick of wood.',
-    image: ImageDefinition('assets/images/2022/plant_fiber2.png'),
+    image: SpriteDefinition('2022/plant_fiber2.png'),
   ),
   const ItemDefinition.general(
     id: Items.TWINE,
     name: 'Twine',
     description: 'It\'s like rope... but worse.',
-    image: ImageDefinition('assets/images/2022/twine.png'),
+    image: SpriteDefinition('2022/twine.png'),
   ),
   const ItemDefinition.general(
     id: Items.ROPE,
     name: 'Rope',
     description:
         'You can use this amazing thing to hold things together. That is assuming that you know how to tie knots. Can be used to make things.',
-    image: ImageDefinition('assets/images/2022/rope.png'),
+    image: SpriteDefinition('2022/rope.png'),
   ),
   const ItemDefinition.tool(
     id: Items.CRAFTING_TABLE,
     name: 'Crafting table',
     namePlural: 'Crafting tables',
     description: 'A table used to craft basic items.',
-    image: ImageDefinition('assets/images/2022/crafting_table.png'),
+    image: SpriteDefinition('2022/crafting_table.png'),
   ),
   const ItemDefinition.tool(
     id: Items.AXE_WOOD,
     name: 'Wood axe',
     namePlural: 'Wood axes',
     description: 'Used for chopping wood.',
-    image: ImageDefinition('assets/images/2022/wood_axe.png'),
+    image: SpriteDefinition('2022/wood_axe.png'),
     sellPrice: 10,
   ),
   const ItemDefinition.tool(
@@ -202,7 +205,7 @@ final itemModels = [
     name: 'Stone axe',
     namePlural: 'Stone axes',
     description: 'Used for chopping wood.',
-    image: ImageDefinition('assets/images/2022/pick_axe_1.png'),
+    image: SpriteDefinition('2022/pick_axe_1.png'),
     sellPrice: 20,
   ),
   const ItemDefinition.tool(
@@ -210,7 +213,7 @@ final itemModels = [
     name: 'Iron axe',
     namePlural: 'Iron axes',
     description: 'Used for chopping wood.',
-    image: ImageDefinition('assets/images/2022/iron_axe.png'),
+    image: SpriteDefinition('2022/iron_axe.png'),
     sellPrice: 30,
   ),
   const ItemDefinition.tool(
@@ -218,21 +221,23 @@ final itemModels = [
     name: 'Bronze axe',
     namePlural: 'Bronze axes',
     description: 'Used for chopping wood.',
-    image: ImageDefinition('assets/images/2022/steel_axe.png'),
+    image: SpriteDefinition('2022/steel_axe.png'),
     sellPrice: 40,
   ),
   const ItemDefinition.resource(
     id: Items.COAL,
     name: 'Coal',
     description: 'A resource that can be burned to produce heat.',
-    image: ImageDefinition('assets/images/minerals/coal.png'),
+    image: SpriteDefinition.fromSheet(resourceSheetSprite,
+        rowIndex: 1, columnIndex: 2),
+    // image: SpriteDefinition('minerals/coal.png'),
   ),
   const ItemDefinition.resource(
     id: Items.STONE,
     name: 'Stone',
     namePlural: 'Stones',
     description: 'A stone. Can be used for crafting',
-    image: ImageDefinition('assets/images/minerals/rock.png'),
+    image: SpriteDefinition('minerals/rock.png'),
   ),
   const ItemDefinition.resource(
     id: Items.GEMSTONE_UNKNOWN,
@@ -240,13 +245,13 @@ final itemModels = [
     namePlural: 'Unknown gemstones',
     description:
         'It looks shiny and expensive but if you can\'t tell what gem is it.',
-    image: ImageDefinition('assets/images/minerals/unknown_gemstone.png'),
+    image: SpriteDefinition('minerals/unknown_gemstone.png'),
   ),
   const ItemDefinition.general(
     id: Items.PLANT_FIBERS,
     name: 'Plant fiber',
     namePlural: 'Plant fibers',
     description: 'A fiber of a plant can be used to make twine.',
-    image: ImageDefinition('assets/images/2022/plant_fiber.png'),
+    image: SpriteDefinition('2022/plant_fiber.png'),
   ),
 ];
